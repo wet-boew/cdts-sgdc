@@ -1,0 +1,36 @@
+{
+  "name": "sgdc-cdts",
+  "version": "1.0.0",
+  "description": "The main goal of this release is to change the present CDTS into a system that builds and tests with each commit (I think) and a way to deploy the artifacts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm-run-all clean --parallel gc* copy --sequential cleanup",
+    "copy": "node ./scripts/copy.js",
+    "clean": "node ./scripts/clean.js",
+    "cleanup": "node ./scripts/cleanup.js",
+    "gcweb-en": "node ./scripts/build-gcweb-en.js",
+    "gcweb-fr": "node ./scripts/build-gcweb-fr.js",
+    "gcintranet-en": "node ./scripts/build-gcintranet-en.js",
+    "gcintranet-fr": "node ./scripts/build-gcintranet-fr.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/shawnthompson/sgdc-cdts.git"
+  },
+  "author": "ESDC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/shawnthompson/sgdc-cdts/issues"
+  },
+  "homepage": "https://gitlab.com/shawnthompson/sgdc-cdts#readme",
+  "dependencies": {
+    "gcweb": "github:wet-boew/themes-cdn#GCWeb",
+    "wet-boew": "github:wet-boew/wet-boew-cdn#v4.0-dist"
+  },
+  "devDependencies": {
+    "fs-extra": "^8.1.0",
+    "npm-run-all": "^4.1.5",
+    "soynode": "2.0.1"
+  }
+}
