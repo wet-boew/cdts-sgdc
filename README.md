@@ -1,5 +1,7 @@
 # Centrally Deployed Templates Solution (CDTS) version 1.0.0 DevOps with CI/CD
 
+The purpose of the CDTS is essentially to deliver the presentation layer of the Canada.ca theme or Intranet.canada.ca theme to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.
+
 This project is to change the present CDTS into a system that builds and tests with each commit and a way to deploy the artifacts to servers.
 
 The _soy_ files are compiled with [soynode](https://github.com/Medium/soynode).

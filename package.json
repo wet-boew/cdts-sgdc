@@ -1,7 +1,7 @@
 {
-  "name": "sgdc-cdts",
+  "name": "cdts-sgdc",
   "version": "1.0.0",
-  "description": "The main goal of this release is to change the present CDTS into a system that builds and tests with each commit (I think) and a way to deploy the artifacts.",
+  "description": "The purpose of the CDTS is essentially to deliver the presentation layer of the Canada.ca theme or Intranet.canada.ca theme to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/shawnthompson/sgdc-cdts.git"
+    "url": "git+ssh://git@github.com/wet-boew/cdts-sgdc.git"
   },
-  "author": "ESDC",
-  "license": "ISC",
+  "author": "ESDC-EDSC",
+  "license": "OGLC",
   "bugs": {
-    "url": "https://gitlab.com/shawnthompson/sgdc-cdts/issues"
+    "url": "https://github.com/wet-boew/cdts-sgdc/issues"
   },
-  "homepage": "https://gitlab.com/shawnthompson/sgdc-cdts#readme",
+  "homepage": "https://github.com/wet-boew/cdts-sgdc#README",
   "dependencies": {
     "gcweb": "github:wet-boew/themes-cdn#GCWeb",
     "wet-boew": "github:wet-boew/wet-boew-cdn#v4.0-dist"
