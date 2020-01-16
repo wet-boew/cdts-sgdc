@@ -50,10 +50,10 @@ This command will:
 
 #### To Do:
 
-* Use **node** to minify / uglify files, try [https://www.npmjs.com/package/uglify-js](uglify-js)
-* Setup git [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for sample pages
-* Use a CI to tests source code
-* Use CI to deploy `dist` folder to servers.
+* Use **node** to minify / uglify files, try [https://www.npmjs.com/package/uglify-js](uglify-js), added issue [#6](https://github.com/wet-boew/cdts-sgdc/issues/6)
+* Setup git [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for sample pages, added issue [#7](https://github.com/wet-boew/cdts-sgdc/issues/7)
+* Use a CI to tests source code, added issue [#8](https://github.com/wet-boew/cdts-sgdc/issues/8)
+* Use CI to deploy `dist` folder to servers, added issue [#9](https://github.com/wet-boew/cdts-sgdc/issues/9)
 
 #### NPM scripts breakdown
 
