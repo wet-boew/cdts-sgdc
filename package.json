@@ -4,7 +4,6 @@
   "description": "The purpose of the CDTS is essentially to deliver the presentation layer of the Canada.ca theme or Intranet.canada.ca theme to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm-run-all clean --parallel gc* copy --sequential cleanup",
     "copy": "node ./scripts/copy.js",
     "clean": "node ./scripts/clean.js",
