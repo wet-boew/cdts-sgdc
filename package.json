@@ -12,8 +12,9 @@
     "gcweb-fr": "node ./scripts/build-gcweb-fr.js",
     "gcintranet-en": "node ./scripts/build-gcintranet-en.js",
     "gcintranet-fr": "node ./scripts/build-gcintranet-fr.js",
-    "gh-pages" : "node ./scripts/gh-pages.js"
-  },
+    "deploy" : "node ./scripts/deploy.js",
+    "travis_script": "npm run build"
+},
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/wet-boew/cdts-sgdc.git"
