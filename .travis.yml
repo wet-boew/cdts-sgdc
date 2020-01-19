@@ -18,3 +18,4 @@ deploy:
   fqdn: master
   email: $GIT_AUTHOR_EMAIL
   name: $GIT_AUTHOR_NAME
+  skip_cleanup: true
