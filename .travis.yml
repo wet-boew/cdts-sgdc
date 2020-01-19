@@ -15,7 +15,7 @@ deploy:
   github_token: $GH_TOKEN
   local_dir: ./dist/
   repo: wet-boew/cdts-sgdc-cdn
-  fqdn: master
   email: $GIT_AUTHOR_EMAIL
   name: $GIT_AUTHOR_NAME
   skip_cleanup: true
+  target_branch: 1.0.0-pre-alpha
