@@ -12,9 +12,9 @@
     "gcweb-fr": "node ./scripts/build-gcweb-fr.js",
     "gcintranet-en": "node ./scripts/build-gcintranet-en.js",
     "gcintranet-fr": "node ./scripts/build-gcintranet-fr.js",
-    "deploy" : "node ./scripts/deploy.js",
+    "deploy": "node ./scripts/deploy.js",
     "travis_script": "npm run build"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/wet-boew/cdts-sgdc.git"
@@ -31,6 +31,10 @@
   },
   "devDependencies": {
     "fs-extra": "^8.1.0",
+    "grunt": "^1.0.4",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "load-grunt-tasks": "^5.1.0",
     "gh-pages": "^2.2.0",
     "npm-run-all": "^4.1.5",
     "soynode": "2.0.1"
