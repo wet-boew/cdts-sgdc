@@ -22,14 +22,7 @@ To work with this project you will need node.js and npm installed. This project 
 
 ### Security
 
-#### Verifying commits
-
-This project will need you to use GPG to verify commits. Please read [About commit signature verification](https://help.github.com/en/github/authenticating-to-github/about-commit-signature-verification).
-
-#### Two Factor Authentication (2FA)
-
-All members to this project will need to have 2FA enabled to merge any code into the repository. Read more about [Securing your account with two-factor authentication (2FA)](https://help.github.com/en/github/authenticating-to-github/securing-your-account-with-two-factor-authentication-2fa) on the Github site. 
-
+Please see [SECURITY.md](SECURITY.md) for more information.
 
 #### Install dependencies
 Clone this repository to a local directory. On the command line move to the cloned directory ( this directory should contain the package.json file) and run : `$ npm install`.
