@@ -20,7 +20,7 @@
     "url": "git+ssh://git@github.com/wet-boew/cdts-sgdc.git"
   },
   "author": "ESDC-EDSC",
-  "license": "OGLC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wet-boew/cdts-sgdc/issues"
   },
