@@ -23,22 +23,22 @@ module.exports = (grunt) ->
 	)
 
 	@registerTask(
-		"soycompile"
-		"Compiles the soy to JS"
-		[
-			"soycompile:gcwebEn"
-		]
-	)
-
-	@registerTask(
 		"build"
 		"Run full build."
 		[
 			"clean:dist"
-            "soycompile"
+			"soycompile"
 			"assets"
 			"css"
 			"js"
+		]
+	)
+
+	@registerTask(
+		"soycompile"
+		"Compiles the soy to JS"
+		[
+			"soycompile:gcwebEn"
 		]
 	)
 
@@ -142,19 +142,19 @@ module.exports = (grunt) ->
 
 		deployBranch: "v1.0.0-dist"
 
-        # Compile Soy
-        soycompile:
+		# Compile Soy
+		soycompile:
 			gcwebEn:
 				expand: true,
 				src: [
-                    "./_src/soy/gcweb/en/gcweb-en.soy"
-                    "./_src/soy/gcweb/en/gcweb-appPage-en.soy"
-                    ]
+					"./_src/soy/gcweb/en/gcweb-en.soy"
+					"./_src/soy/gcweb/en/gcweb-appPage-en.soy"
+					]
 				dest: "./dist/test"
-                options:
-                    jarPath: "_src/jar"
+				options:
+					jarPath: "_src/jar"
 
-        # Clean
+		# Clean
 		clean:
 			dist: ["dist"]
 
@@ -162,45 +162,45 @@ module.exports = (grunt) ->
 			options:
 				banner: "<%= banner %>"
 
-            gcwebEn:
-                options:
-                    stripBanners: false
-                src: [
-                    "tmp/_src/soy/en/gcweb-en.js"
-                    "tmp/_src/soy/en/gcweb-appPage-en.js"
-                    "tmp/_src/soy/bilingual/gcweb-serverPage.js"
-                ]
-                dest: "<%= coreDist %>/js/gcweb-en.js"
+			gcwebEn:
+				options:
+					stripBanners: false
+				src: [
+					"tmp/_src/soy/en/gcweb-en.js"
+					"tmp/_src/soy/en/gcweb-appPage-en.js"
+					"tmp/_src/soy/bilingual/gcweb-serverPage.js"
+				]
+				dest: "<%= coreDist %>/js/gcweb-en.js"
 
-            gcwebFr:
-                options:
-                    stripBanners: false
-                src: [
-                    "tmp/_src/soy/fr/gcweb-fr.js"
-                    "tmp/_src/soy/fr/gcweb-appPage-fr.js"
-                    "tmp/_src/soy/bilingual/gcweb-serverPage.js"
-                ]
-                dest: "<%= coreDist %>/js/gcweb-fr.js"
+			gcwebFr:
+				options:
+					stripBanners: false
+				src: [
+					"tmp/_src/soy/fr/gcweb-fr.js"
+					"tmp/_src/soy/fr/gcweb-appPage-fr.js"
+					"tmp/_src/soy/bilingual/gcweb-serverPage.js"
+				]
+				dest: "<%= coreDist %>/js/gcweb-fr.js"
 
-            gcintranetEn:
-                options:
-                    stripBanners: false
-                src: [
-                    "tmp/_src/soy/en/gcintranet-en.js"
-                    "tmp/_src/soy/en/gcintranet-appPage-en.js"
-                    "tmp/_src/soy/bilingual/gcintranet-serverPage.js"
-                ]
-                dest: "<%= coreDist %>/js/gcintranet-en.js"
+			gcintranetEn:
+				options:
+					stripBanners: false
+				src: [
+					"tmp/_src/soy/en/gcintranet-en.js"
+					"tmp/_src/soy/en/gcintranet-appPage-en.js"
+					"tmp/_src/soy/bilingual/gcintranet-serverPage.js"
+				]
+				dest: "<%= coreDist %>/js/gcintranet-en.js"
 
-            gcintranetFr:
-                options:
-                    stripBanners: false
-                src: [
-                    "tmp/_src/soy/fr/gcintranet-fr.js"
-                    "tmp/_src/soy/fr/gcintranet-appPage-fr.js"
-                    "tmp/_src/soy/bilingual/gcintranet-serverPage.js"
-                ]
-                dest: "<%= coreDist %>/js/gcintranet-fr.js"
+			gcintranetFr:
+				options:
+					stripBanners: false
+				src: [
+					"tmp/_src/soy/fr/gcintranet-fr.js"
+					"tmp/_src/soy/fr/gcintranet-appPage-fr.js"
+					"tmp/_src/soy/bilingual/gcintranet-serverPage.js"
+				]
+				dest: "<%= coreDist %>/js/gcintranet-fr.js"
 
 		# Minify
 		uglify:
