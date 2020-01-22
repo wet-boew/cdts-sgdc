@@ -7,7 +7,7 @@ The purpose of the CDTS is essentially to deliver the presentation layer of the 
 
 This project is to change the present CDTS into a system that builds and tests with each commit and a way to deploy the artifacts to servers.
 
-The _soy_ files are compiled with [soynode](https://github.com/Medium/soynode).
+The _soy_ files are compiled with [grunt-soy-compile](https://www.npmjs.com/package/grunt-soy-compile).
 
 ## Working with this repository
 
@@ -20,7 +20,7 @@ To work with this project you will need node.js and npm installed. This project 
 * java version "1.8.0_201"
 * Java(TM) SE Runtime Environment (build 1.8.0_201-b26)
 
-**For ESDC employees** behind *proxy.prv* if you haven't worked in git before you need to create a file with the code from [proxy-config.bat](proxy-config.bat) and run it, before cloning. 
+**For ESDC employees** Please read [ESDC Proxy Scripts](https://github.com/esdc-devcop/ESDC-Development-Setup/blob/master/proxy-scripts.md) if it's your first time connecting to github from your work computer. 
 
 ### Security
 
@@ -32,7 +32,7 @@ This command will read the package.json and install the npm dependencies to the 
 
 #### Builds
 
-This project uses the [nodeJS](https://nodejs.org/en/) and [npm](https://nodejs.org/en/) modules to build and minify the final JavaScript modules.
+This project uses the [nodeJS](https://nodejs.org/en/) and [npm](https://nodejs.org/en/) modules to get the dependencies needed, build, minify and deploy the final JavaScript modules.
 
 #### Development
 To create a development build of the modules on the command line move to the cloned directory and run: `$ npm run build`
@@ -40,56 +40,49 @@ To create a development build of the modules on the command line move to the clo
 This command will:
 
 1. Empty the `dist` and `tmp` folder
-2. Compile the soy files with [soynode](https://github.com/Medium/soynode)
-3. Cop and rename the compiled `js` files into the `dist` with [fs-extra](https://www.npmjs.com/package/fs-extra)
+2. Compile the soy files using [grunt-soy-compile](https://www.npmjs.com/package/grunt-soy-compile) into the `tmp` folder
+3. Copy and rename and concat the compiled `js` files into the `dist`
 4. Copy the `gcweb` and `wet-boew` files from the `node_modules` folder in the `dist` 
-5. Copy all the other assets (JS, CSS, HTML) files from the `_src` in the `dist`
+5. Copy all the other assets (JS, CSS, HTML) files from the `_src` in the `dist/cdts` folder
 6. Delete the `tmp` folder
 
 #### To Do:
 
-* Use **node** to minify / uglify files, try [https://www.npmjs.com/package/uglify-js](uglify-js), added issue [#6](https://github.com/wet-boew/cdts-sgdc/issues/6)
 * Setup git [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for sample pages, added issue [#7](https://github.com/wet-boew/cdts-sgdc/issues/7)
 * Use a CI to tests source code, added issue [#8](https://github.com/wet-boew/cdts-sgdc/issues/8)
 * Use CI to deploy `dist` folder to servers, added issue [#9](https://github.com/wet-boew/cdts-sgdc/issues/9)
 
-#### NPM scripts breakdown
+#### Related repositories
 
-##### "build": "npm-run-all clean --parallel gc* copy --sequential cleanup"
+##### [cdts-sgdc-cdn](https://github.com/wet-boew/cdts-sgdc-cdn)
 
-Builds the full ./dist. 
+Used to host the `dist` folder to be able to pull to different servers. [Travis.CI](https://travis-ci.org/wet-boew/cdts-sgdc) is used to build and then deploy to these secondary repositories within the coffee scripts. Will create a branch with the curent version number. And tags for releases. 
 
-##### "copy": "node ./scripts/copy.js"
+##### [cdts-sgdc-dist](https://github.com/wet-boew/cdts-sgdc-dist)
 
-Used to copy all the dependant files to ./dist
+Not sure what this is for but WET has it. Might get rid of it, might keep it. WET uses to host all their working files.
 
-##### "clean": "node ./scripts/clean.js"
+#### Grunt tasks scripts breakdown
 
-Empty the folders to before the full build. To make sure there's no conflicts or anything cached
+##### default: `npx grunt`
 
-##### "cleanup": "node ./scripts/cleanup.js"
+Default task that runs the core unminified `build`
 
-Deleted the tmp folder created by a build
+##### dist: `npx grunt dist`
 
-##### "gcweb-en": "node ./scripts/build-gcweb-en.js"
+Produces the production files, which is `build` + `minify`
 
-Compiles the English soy files for GCWeb 
+##### build: `npx grunt build`
 
-##### "gcweb-fr": "node ./scripts/build-gcweb-fr.js"
+Run full build.
 
-Compiles the French soy files for GCWeb 
+##### minify: `npx grunt minify`
 
-##### "gcintranet-en": "node ./scripts/build-gcintranet-en.js"
+Minify built files.
 
-Compiles the English soy files for GCIntranet 
+##### deploy: `npx grunt deploy`
 
-##### "gcintranet-fr": "node ./scripts/build-gcintranet-fr.js"
-
-Compiles the French soy files for GCIntranet 
-
-##### "getwet": "node ./scripts/getwet.js"
-
-Pulls the wet-boew files needed
+Build and deploy artifacts to cdts-sgdc-cdn (Only works on Travis-ci.org)
 
 ## Nice to have
 
