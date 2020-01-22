@@ -1,6 +1,5 @@
 path = require("path")
 fs = require("fs")
-soycompile = require("grunt-soy-compile")
 
 module.exports = (grunt) ->
 
@@ -10,6 +9,17 @@ module.exports = (grunt) ->
 		"Default task that runs the core unminified build"
 		[
 			"build"
+		]
+	)
+	@registerTask(
+		"test"
+		"Default task that runs the core unminified build"
+		[
+			"clean"
+			"soycompile"
+			"concat"
+			"copy"
+			"minify"
 		]
 	)
 
@@ -26,19 +36,11 @@ module.exports = (grunt) ->
 		"build"
 		"Run full build."
 		[
-			"clean:dist"
+			"clean"
 			"soycompile"
-			"assets"
-			"css"
-			"js"
-		]
-	)
-
-	@registerTask(
-		"soycompile"
-		"Compiles the soy to JS"
-		[
-			"soycompile:gcwebEn"
+			"concat"
+			"copy"
+			"clean:tmp"
 		]
 	)
 
@@ -46,8 +48,8 @@ module.exports = (grunt) ->
 		"minify"
 		"Minify built files."
 		[
-			"js-min"
-			"css-min"
+			"uglify"
+			"cssmin"
 		]
 	)
 
@@ -97,30 +99,15 @@ module.exports = (grunt) ->
 		]
 	)
 
-	@registerTask(
-		"assets-min"
-		"INTERNAL: Process non-CSS/JS assets to dist"
-		[
-			"copy:assets_min"
-		]
-	)
-
-	@registerTask(
-		"assets"
-		"INTERNAL: Process non-CSS/JS assets to dist"
-		[
-			"copy:themeAssets"
-			"copy:bootstrap"
-		]
-	)
-
 	@util.linefeed = "\n"
 	# Project configuration.
 	@initConfig
 
 		# Metadata.
 		pkg: @file.readJSON "package.json"
-		coreDist: "dist/cdts-sgdc"
+		coreDist: "dist"
+		# Temporary folder for compiled soy files
+		coreTmp: "tmp"
 		banner: "/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE\n" +
 				" * v<%= pkg.version %> - " + "<%= grunt.template.today('yyyy-mm-dd') %>\n *\n */"
 
@@ -142,6 +129,11 @@ module.exports = (grunt) ->
 
 		deployBranch: "v1.0.0-dist"
 
+		# Clean
+		clean:
+			dist: ["dist"]
+			tmp: ["tmp"]
+
 		# Compile Soy
 		soycompile:
 
@@ -151,17 +143,26 @@ module.exports = (grunt) ->
 					"./_src/soy/gcweb/en/gcweb-en.soy"
 					"./_src/soy/gcweb/en/gcweb-appPage-en.soy"
 					]
-				dest: "./dist/test"
+				dest: "<%= coreTmp %>"
 				options:
 					jarPath: "_src/jar"
 
 			gcwebFr:
 				expand: true,
 				src: [
-					"./_src/soy/gcweb/en/gcweb-en.soy"
-					"./_src/soy/gcweb/en/gcweb-appPage-en.soy"
+					"./_src/soy/gcweb/fr/gcweb-fr.soy"
+					"./_src/soy/gcweb/fr/gcweb-appPage-fr.soy"
 					]
-				dest: "./dist/test"
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
+
+			gcwebBi:
+				expand: true,
+				src: [
+					"./_src/soy/gcweb/bilingual/gcweb-serverPage.soy"
+					]
+				dest: "<%= coreTmp %>"
 				options:
 					jarPath: "_src/jar"
 
@@ -170,7 +171,7 @@ module.exports = (grunt) ->
 				src: [
 					"./_src/soy/gcintranet/en/gcintranet-en.soy"
 					]
-				dest: "./dist/test"
+				dest: "<%= coreTmp %>"
 				options:
 					jarPath: "_src/jar"
 
@@ -179,13 +180,18 @@ module.exports = (grunt) ->
 				src: [
 					"./_src/soy/gcintranet/fr/gcintranet-fr.soy"
 					]
-				dest: "./dist/test"
+				dest: "<%= coreTmp %>"
 				options:
 					jarPath: "_src/jar"
 
-		# Clean
-		clean:
-			dist: ["dist"]
+			gcintranetBi:
+				expand: true,
+				src: [
+					"./_src/soy/gcintranet/bilingual/gcintranet-serverPage.soy"
+					]
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
 
 		concat:
 			options:
@@ -195,41 +201,39 @@ module.exports = (grunt) ->
 				options:
 					stripBanners: false
 				src: [
-					"tmp/_src/soy/en/gcweb-en.js"
-					"tmp/_src/soy/en/gcweb-appPage-en.js"
-					"tmp/_src/soy/bilingual/gcweb-serverPage.js"
+					"<%= coreTmp %>/_src/soy/gcweb/en/gcweb-en.js"
+					"<%= coreTmp %>/_src/soy/gcweb/en/gcweb-appPage-en.js"
+					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
 				]
-				dest: "<%= coreDist %>/js/gcweb-en.js"
+				dest: "<%= coreDist %>/gcweb-en.js"
 
 			gcwebFr:
 				options:
 					stripBanners: false
 				src: [
-					"tmp/_src/soy/fr/gcweb-fr.js"
-					"tmp/_src/soy/fr/gcweb-appPage-fr.js"
-					"tmp/_src/soy/bilingual/gcweb-serverPage.js"
+					"<%= coreTmp %>/_src/soy/gcweb/fr/gcweb-fr.js"
+					"<%= coreTmp %>/_src/soy/gcweb/fr/gcweb-appPage-fr.js"
+					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
 				]
-				dest: "<%= coreDist %>/js/gcweb-fr.js"
+				dest: "<%= coreDist %>/gcweb-fr.js"
 
 			gcintranetEn:
 				options:
 					stripBanners: false
 				src: [
-					"tmp/_src/soy/en/gcintranet-en.js"
-					"tmp/_src/soy/en/gcintranet-appPage-en.js"
-					"tmp/_src/soy/bilingual/gcintranet-serverPage.js"
+					"<%= coreTmp %>/_src/soy/gcintranet/en/gcintranet-en.js"
+					"<%= coreTmp %>/_src/soy/gcintranet/bilingual/gcintranet-serverPage.js"
 				]
-				dest: "<%= coreDist %>/js/gcintranet-en.js"
+				dest: "<%= coreDist %>/gcintranet-en.js"
 
 			gcintranetFr:
 				options:
 					stripBanners: false
 				src: [
-					"tmp/_src/soy/fr/gcintranet-fr.js"
-					"tmp/_src/soy/fr/gcintranet-appPage-fr.js"
-					"tmp/_src/soy/bilingual/gcintranet-serverPage.js"
+					"<%= coreTmp %>/_src/soy/gcintranet/fr/gcintranet-fr.js"
+					"<%= coreTmp %>/_src/soy/gcintranet/bilingual/gcintranet-serverPage.js"
 				]
-				dest: "<%= coreDist %>/js/gcintranet-fr.js"
+				dest: "<%= coreDist %>/gcintranet-fr.js"
 
 		# Minify
 		uglify:
@@ -239,12 +243,13 @@ module.exports = (grunt) ->
 
 			core:
 				options:
-					beautify:
-						quote_keys: true
+					# beautify:
+					# 	quote_keys: true
 					sourceMap: true
 				cwd: "<%= coreDist %>"
 				src: [
 					"./*.js"
+					"./js/*.js"
 					"!*.min.js"
 				]
 				dest: "<%= coreDist %>"
@@ -257,46 +262,34 @@ module.exports = (grunt) ->
 			dist:
 				options:
 					banner: ""
+					sourceMap: true
 				expand: true
 				src: [
-					"<%= coreDist %>/**/*.css"
-					"<%= themeDist %>/**/*.css"
-					"!**/ie8*.css"
+					"<%= coreDist %>/css/*.css"
 					"!**/*.min.css"
 				]
 				ext: ".min.css"
 
 		copy:
-			bootstrap:
-				cwd: "node_modules/bootstrap-sass/assets/fonts/bootstrap"
-				src: "*.*"
-				dest: "<%= coreDist %>/fonts"
-				expand: true
-				flatten: true
-
-			js:
+			assets:
 				files: [
-					cwd: "src/polyfills"
-					src: "**/*.js"
-					dest: "<%= coreDist %>/js/polyfills"
+					cwd: "_src"
+					src: [
+						"ajax/**/*.*"
+						"css/**/*.*"
+						"js/**/*.*"
+						"html/**/*.*"
+					]
+					dest: "<%= coreDist %>/"
 					expand: true
-					flatten: true
 				,
 					cwd: "node_modules"
 					src: [
-						"code-prettify/src/*.js"
-						"datatables/media/js/jquery.dataTables.js"
-						"jquery-validation/dist/jquery.validate.js"
-						"jquery-validation/dist/additional-methods.js"
-						"magnific-popup/dist/jquery.magnific-popup.js"
-						"proj4/dist/proj4.js"
-						"unorm/lib/unorm.js"
+						"wet-boew/**/*.*"
+						"gcweb/**/*.*"
 					]
-					dest: "<%= coreDist %>/js/deps"
-					rename: (dest, src) ->
-						return dest + "/" + src.replace ".debug", ""
+					dest: "<%= coreDist %>/"
 					expand: true
-					flatten: true
 				]
 
 			deploy:
@@ -317,12 +310,6 @@ module.exports = (grunt) ->
 						expand: true
 					}
 
-					{
-						src: "*.txt"
-						dest: "<%= themeDist %>"
-						expand: true
-					}
-
 					#Backwards compatibility.
 					#TODO: Remove in v4.1
 					{
@@ -333,33 +320,12 @@ module.exports = (grunt) ->
 						dest: "dist"
 						expand: true
 					}
-
-					{
-						cwd: "<%= themeDist %>"
-						src: [
-							"**/*.*"
-						]
-						dest: "dist"
-
-						expand: true
-					}
 				]
-
-				#Backwards compatibility.
-				#TODO: Remove in v4.1
-				options:
-					noProcess: [
-						'**/*.{png,gif,jpg,ico,ttf,eot,otf,woff,svg,swf}'
-					]
-					process: (content, filepath) ->
-						if filepath.match /\.css/
-							return content.replace /\.\.\/\.\.\/wet-boew\/(assets|fonts)/g, '../$1'
-						content
 
 		"gh-pages":
 			options:
-				clone: "wet-boew-dist"
-				base: "dist"
+				clone: "cdts-sgdc-dist"
+				base: "<%= coreDist %>"
 
 			travis:
 				options:
@@ -377,7 +343,7 @@ module.exports = (grunt) ->
 				options:
 					repo: process.env.CDN_REPO
 					branch: "<%= deployBranch %>"
-					clone: "wet-boew-cdn"
+					clone: "cdts-sgdc-cdn"
 					base: "<%= coreDist %>"
 					message: "<%= cdnDeployMessage %>"
 					tag: ((
@@ -391,86 +357,3 @@ module.exports = (grunt) ->
 
 	require( "time-grunt" )( grunt )
 	@
-
-
-
-
-
-
-
-
-
-
-
-
-# //The "wrapper" function
-# module.exports = function(grunt) {  
-# 	//Project and task configuration
-# 	grunt.initConfig({
-# 		pkg: grunt.file.readJSON('package.json'),
-# 		soycompile: {
-# 			GcwebEn: {
-# 				expand: true,
-# 				src: ["./_src/soy/gcweb/en/gcweb-en.soy", "./_src/soy/gcweb/en/gcweb-appPage-en.soy"],
-# 				dest: "./dist/test",
-# 				options: {
-# 					jarPath: "_src/jar"
-# 				}
-# 			},
-# 			GcwebFr: {
-# 				expand: true,
-# 				src: ["./_src/soy/gcweb/fr/*.soy"],
-# 				dest: "./dist/test",
-# 				options: {
-# 					jarPath: "_src/jar"
-# 				}
-# 			},
-# 			GcwebBi: {
-# 				expand: true,
-# 				src: ["./_src/soy/gcweb/bilingual/*.soy"],
-# 				dest: "./dist/test",
-# 				options: {
-# 					jarPath: "_src/jar"
-# 				}
-# 			},
-# 			GcintranetEn: {
-# 				expand: true,
-# 				src: ["./_src/soy/gcintranet/en/*.soy"],
-# 				dest: "./dist/test",
-# 				options: {
-# 					jarPath: "_src/jar"
-# 				}
-# 			},
-# 			GcintranetFr: {
-# 				expand: true,
-# 				src: ["./_src/soy/gcintranet/fr/*.soy"],
-# 				dest: "./dist/test",
-# 				options: {
-# 					jarPath: "_src/jar"
-# 				}
-# 			},
-# 			GcintranetBi: {
-# 				expand: true,
-# 				src: ["./_src/soy/gcintranet/bilingual/*.soy"],
-# 				dest: "./dist/test",
-# 				options: {
-# 					jarPath: "_src/jar"
-# 				}
-# 			}
-# 		},
-# 		uglify: {
-# 			my_target:{
-# 				files: {
-# 					'dist/cdts/js/cdtscustom.min.js' : ['_src/js/cdtscustom.js'],
-# 					'dist/cdts/js/exitScript.min.js' : ['_src/js/exitScript.js']
-# 				}
-# 			}
-# 		}
-
-# 	});
-# 	//Loading Grunt plugins and tasks
-# 	require('load-grunt-tasks')(grunt);
-# 	//Custom tasks
-# 	grunt.registerTask('default', ["uglify", "soycompile"]);
-# };
-
