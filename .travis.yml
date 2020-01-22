@@ -1,6 +1,14 @@
 language: generic
 dist: trusty
+sudo: required
+
+env:
+  global:
+    - TRAVIS_COMMIT_MSG="$(git log --format=%B --no-merges -n 1)"
+
 before_install:
+  - echo "machine github.com login $GH_TOKEN" >> ~/.netrc
+  - shopt -s expand_aliases
   - nvm install 12.14.0
   - nvm use 12.14.0
 
@@ -10,12 +18,5 @@ install:
 scripts:
   - npm run-script travis_script
 
-deploy:
-  provider: pages
-  github_token: $GH_TOKEN
-  local_dir: ./dist/
-  repo: wet-boew/cdts-sgdc-cdn
-  email: $GIT_AUTHOR_EMAIL
-  name: $GIT_AUTHOR_NAME
-  skip_cleanup: true
-  target_branch: 1.0.0-pre-alpha
+after_success:
+  - npm run-script travis_after_success

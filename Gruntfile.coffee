@@ -54,48 +54,23 @@ module.exports = (grunt) ->
 	)
 
 	@registerTask(
+		"deploy"
+		"Build and deploy artifacts to cdts-sgdc-dist"
+		->
+			if process.env.TRAVIS_PULL_REQUEST is "false" and process.env.DIST_REPO isnt `undefined` and ( process.env.TRAVIS_TAG isnt "" or process.env.TRAVIS_BRANCH is "master" )
+				grunt.task.run [
+					"copy:deploy"
+					"gh-pages:travis"
+					"gh-pages:travis_cdn"
+				]
+	)
+
+	@registerTask(
 		"server"
 		"Run the Connect web server for local repo"
 		[
 			"connect:server"
 			"watch"
-		]
-	)
-
-	#Internal task groups
-	@registerTask(
-		"js"
-		"INTERNAL: Copies all third party JS to the dist folder"
-		[
-			"copy:js"
-			"concat:core"
-		]
-	)
-
-	@registerTask(
-		"js-min"
-		"INTERNAL: Minify the built Javascript files"
-		[
-			"uglify:core"
-		]
-	)
-
-	@registerTask(
-		"css"
-		"INTERNAL: Compiles Sass and copies third party CSS to the dist folder"
-		[
-			"sass"
-			"postcss"
-			"csslint:unmin"
-			"usebanner:css"
-		]
-	)
-
-	@registerTask(
-		"css-min"
-		"INTERNAL: Minify the CSS files"
-		[
-			"cssmin:dist"
 		]
 	)
 

@@ -4,16 +4,9 @@
   "description": "The purpose of the CDTS is essentially to deliver the presentation layer of the Canada.ca theme or Intranet.canada.ca theme to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.",
   "main": "index.js",
   "scripts": {
-    "build": "npm-run-all clean --parallel gc* copy --sequential cleanup",
-    "copy": "node ./scripts/copy.js",
-    "clean": "node ./scripts/clean.js",
-    "cleanup": "node ./scripts/cleanup.js",
-    "gcweb-en": "node ./scripts/build-gcweb-en.js",
-    "gcweb-fr": "node ./scripts/build-gcweb-fr.js",
-    "gcintranet-en": "node ./scripts/build-gcintranet-en.js",
-    "gcintranet-fr": "node ./scripts/build-gcintranet-fr.js",
-    "deploy": "node ./scripts/deploy.js",
-    "travis_script": "npm run build"
+    "build": "npx grunt",
+    "travis_script": "grunt dist",
+    "travis_after_success": "grunt deploy"
   },
   "repository": {
     "type": "git",
