@@ -17,6 +17,8 @@ To work with this project you will need node.js and npm installed. This project 
 
 * node.js v12.14.0
 * npm 6.13.4
+* java version "1.8.0_201"
+* Java(TM) SE Runtime Environment (build 1.8.0_201-b26)
 
 **For ESDC employees** behind *proxy.prv* if you haven't worked in git before you need to create a file with the code from [proxy-config.bat](proxy-config.bat) and run it, before cloning. 
 
