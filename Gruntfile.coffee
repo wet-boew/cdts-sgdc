@@ -11,26 +11,6 @@ module.exports = (grunt) ->
 			"build"
 		]
 	)
-	@registerTask(
-		"test"
-		"Default task that runs the core unminified build"
-		[
-			"clean"
-			"soycompile"
-			"concat"
-			"copy"
-			"minify"
-		]
-	)
-
-	@registerTask(
-		"dist"
-		"Produces the production files"
-		[
-			"build"
-			"minify"
-		]
-	)
 
 	@registerTask(
 		"build"
@@ -41,6 +21,15 @@ module.exports = (grunt) ->
 			"concat"
 			"copy"
 			"clean:tmp"
+		]
+	)
+
+	@registerTask(
+		"dist"
+		"Produces the production files"
+		[
+			"build"
+			"minify"
 		]
 	)
 
@@ -337,7 +326,7 @@ module.exports = (grunt) ->
 			travis_cdn:
 				options:
 					repo: process.env.CDN_REPO
-					branch: "<%= deployBranch %>"
+					branch: "pkgOriginal.version"
 					clone: "cdts-sgdc-cdn"
 					base: "<%= coreDist %>"
 					message: "<%= cdnDeployMessage %>"
