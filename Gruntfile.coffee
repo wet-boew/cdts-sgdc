@@ -58,6 +58,25 @@ module.exports = (grunt) ->
 		"Build and deploy artifacts to cdts-sgdc-dist"
 		->
 			if process.env.TRAVIS_PULL_REQUEST is "false" and process.env.DIST_REPO isnt `undefined` and ( process.env.TRAVIS_TAG isnt "" or process.env.TRAVIS_BRANCH is "master" )
+				pkgOriginal = grunt.file.readJSON("package.json");
+				addToRepo = "cdts-sgdc-cdn";
+				writeTo = "dist/cdts-sgdc/package.json";
+				pkg = {
+					name: "cdts-sgdc",
+					version: pkgOriginal.version,
+					description: pkgOriginal.name.toLowerCase() + " theme"
+					repository: {
+						type: "git",
+						url: "git+https://github.com/wet-boew/" + addToRepo + ".git"
+					},
+					author: "wet-boew-bot",
+					license: "MIT",
+					bugs: {
+						url: "https://github.com/wet-boew/" + pkgOriginal.name.toLowerCase() + "/issues"
+					},
+					homepage: "https://github.com/wet-boew/" + addToRepo + "#readme"
+				};
+				grunt.file.write(writeTo, JSON.stringify(pkg, null, 2));
 				grunt.task.run [
 					"copy:deploy"
 					"gh-pages:travis"
@@ -240,7 +259,7 @@ module.exports = (grunt) ->
 					sourceMap: true
 				expand: true
 				src: [
-					"<%= coreDist %>/css/*.css"
+					"<%= coreDist %>/cdts/css/*.css"
 					"!**/*.min.css"
 				]
 				ext: ".min.css"
@@ -255,7 +274,7 @@ module.exports = (grunt) ->
 						"js/**/*.*"
 						"html/**/*.*"
 					]
-					dest: "<%= coreDist %>/"
+					dest: "<%= coreDist %>/cdts/"
 					expand: true
 				,
 					cwd: "node_modules"
@@ -312,6 +331,7 @@ module.exports = (grunt) ->
 					))
 				src: [
 					"**/*.*"
+					"!package.json"
 				]
 
 			travis_cdn:
@@ -326,6 +346,7 @@ module.exports = (grunt) ->
 					))
 				src: [
 					"**/*.*"
+					"!package.json"
 				]
 
 	require( "load-grunt-tasks" )( grunt, requireResolution: true )
