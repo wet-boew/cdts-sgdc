@@ -144,11 +144,40 @@ module.exports = (grunt) ->
 
 		# Compile Soy
 		soycompile:
+
 			gcwebEn:
 				expand: true,
 				src: [
 					"./_src/soy/gcweb/en/gcweb-en.soy"
 					"./_src/soy/gcweb/en/gcweb-appPage-en.soy"
+					]
+				dest: "./dist/test"
+				options:
+					jarPath: "_src/jar"
+
+			gcwebFr:
+				expand: true,
+				src: [
+					"./_src/soy/gcweb/en/gcweb-en.soy"
+					"./_src/soy/gcweb/en/gcweb-appPage-en.soy"
+					]
+				dest: "./dist/test"
+				options:
+					jarPath: "_src/jar"
+
+			gcintranetEn:
+				expand: true,
+				src: [
+					"./_src/soy/gcintranet/en/gcintranet-en.soy"
+					]
+				dest: "./dist/test"
+				options:
+					jarPath: "_src/jar"
+
+			gcintranetFr:
+				expand: true,
+				src: [
+					"./_src/soy/gcintranet/fr/gcintranet-fr.soy"
 					]
 				dest: "./dist/test"
 				options:
