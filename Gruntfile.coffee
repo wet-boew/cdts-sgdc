@@ -326,7 +326,7 @@ module.exports = (grunt) ->
 			travis_cdn:
 				options:
 					repo: process.env.CDN_REPO
-					branch: "pkgOriginal.version"
+					branch: "<%= pkg.version %>"
 					clone: "cdts-sgdc-cdn"
 					base: "<%= coreDist %>"
 					message: "<%= cdnDeployMessage %>"
