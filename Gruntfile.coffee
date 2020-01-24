@@ -262,8 +262,16 @@ module.exports = (grunt) ->
 						"css/**/*.*"
 						"js/**/*.*"
 						"html/**/*.*"
+						"!js/soyutils.js"
 					]
 					dest: "<%= coreDist %>/cdts/"
+					expand: true
+				,
+					cwd: "_src/js"
+					src: [
+						"soyutils.js"
+					]
+					dest: "<%= coreDist %>"
 					expand: true
 				,
 					cwd: "node_modules"

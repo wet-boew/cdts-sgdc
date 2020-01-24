@@ -42,6 +42,13 @@
 {call applicationPage.appFooter data="all" /}
 {/template}
 
+/**
+ * This is the set path to the root to where the assest (JS, CSS, Images, etc...) are.
+ * From the page level and not the level of the compiled JS. NEEDS TO BE FIXED!
+*/
+{template .environment}
+../../
+{/template}
 
 /**
  * This is all of the references to be made before existing page content.
@@ -77,19 +84,19 @@
 		{/if}
 
 		<!--[if gte IE 9 | !IE ]><!-->
-		<link href='./gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
+		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-		<link rel="stylesheet" href='./gcweb/css/theme.min.css'>
-		<link rel="stylesheet" href='./cdts/css/cdtsfixes.css'>
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/theme.min.css'>
+		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsfixes.css'>
 		{if $isApplication == true}
-		<link rel="stylesheet" href='./cdts/css/cdtsapps.css'>
+		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsapps.css'>
 		{/if}
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<link href='./gcweb/assets/favicon.ico' rel="shortcut icon" />
-		<link rel="stylesheet" href='./gcweb/css/ie8-theme.min.css' />
+		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="shortcut icon" />
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/ie8-theme.min.css' />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src='./wet-boew/js/ie8-wet-boew.min.js'></script>
+		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew.min.js'></script>
 		<![endif]-->
 		<!--[if lte IE 9]><![endif]-->
 {/template}
@@ -135,9 +142,9 @@
 				{/if}
 				<div class="row">
 					<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
-						{if $siteMenu != false}<a href="https://www.canada.ca/en.html" property="url">{/if}<img src='./gcweb/assets/sig-blk-en.svg' alt="" property="logo" /><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>{if $siteMenu != false}</a>{/if}
+						{if $siteMenu != false}<a href="https://www.canada.ca/en.html" property="url">{/if}<img src='{call .environment data="all" /}gcweb/assets/sig-blk-en.svg' alt="" property="logo" /><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>{if $siteMenu != false}</a>{/if}
 						<meta property="areaServed" typeOf="Country" content="Canada" />
-						<link property="logo" href='./gcweb/assets/wmms-blk.svg' />
+						<link property="logo" href='{call .environment data="all" /}gcweb/assets/wmms-blk.svg' />
 					</div>
 					{if $search != false}
 					<section id="wb-srch" class="col-lg-8 text-right">
@@ -388,7 +395,7 @@
 							<a href="#wb-cont">Top of Page <span class="glyphicon glyphicon-chevron-up"></span></a>
 						</div>
 						<div class="col-xs-6 col-md-2 text-right">
-							<img src='./gcweb/assets/wmms-blk.svg' alt="Symbol of the Government of Canada" />
+							<img src='{call .environment data="all" /}gcweb/assets/wmms-blk.svg' alt="Symbol of the Government of Canada" />
 						</div>
 					</div>
 				</div>
@@ -411,15 +418,15 @@
  */
 {template .refFooter}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<script src='{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}./wet-boew/js/{/if}jquery/2.2.4/jquery.min.js'></script>
-		<script src='./wet-boew/js/wet-boew.min.js'></script>
+		<script src='{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}wet-boew/js/{/if}jquery/2.2.4/jquery.min.js'></script>
+		<script src='{call .environment data="all" /}wet-boew/js/wet-boew.min.js'></script>
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<script src='./wet-boew/js/ie8-wet-boew2.min.js'></script>
+		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js'></script>
 		<![endif]-->
-		<script src='./gcweb/js/theme.min.js'></script>
+		<script src='{call .environment data="all" /}gcweb/js/theme.min.js'></script>
 		{if $exitScript == true}
-		<script src='./cdts/js/exitScript.js'></script>
+		<script src='{call .environment data="all" /}cdts/js/exitScript.js'></script>
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Secure exit notice</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
@@ -454,7 +461,7 @@
 		</section>
 		{/if}
 		{if $isApplication == true}
-		<script src='./cdts/js/cdtscustom.js'></script>
+		<script src='{call .environment data="all" /}cdts/js/cdtscustom.js'></script>
 		{/if}
 		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
 {/template}
@@ -464,16 +471,16 @@
  */
 {template .splashTop}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<link href='./gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
-		<link rel="stylesheet" href='./gcweb/css/theme.min.css'>
+		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/theme.min.css'>
 		<!--<![endif]-->
-		<link rel="stylesheet" href='./gcweb/css/messages.min.css'>
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/messages.min.css'>
 		<!--[if lt IE 9]>
-		<link href='./gcweb/assets/favicon.ico' rel="shortcut icon" />
-		<link rel="stylesheet" href='./gcweb/css/messages-ie.min.css' />
-		<link rel="stylesheet" href='./gcweb/css/ie8-theme.min.css' />
+		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="shortcut icon" />
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/messages-ie.min.css' />
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/ie8-theme.min.css' />
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src='./wet-boew/js/ie8-wet-boew.min.js'></script>
+		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew.min.js'></script>
 		<![endif]-->
 		<!--[if lte IE 9]><![endif]-->
 {/template}
@@ -491,7 +498,7 @@
  */
 {template .splash}
 		<div id="bg">
-			<img src='./gcweb/img/splash/sp-bg-2.jpg' alt="">
+			<img src='{call .environment data="all" /}gcweb/img/splash/sp-bg-2.jpg' alt="">
 		</div>
 		<main>
 			<div class="sp-hb">
@@ -499,7 +506,7 @@
 					<h1 property="name" class="wb-inv">Canada.ca</h1>
 					<div class="row">
 						<div class="col-xs-11 col-md-8">
-							<img src='./gcweb/assets/sig-spl.svg' alt="Government of Canada / Gouvernement du Canada" />
+							<img src='{call .environment data="all" /}gcweb/assets/sig-spl.svg' alt="Government of Canada / Gouvernement du Canada" />
 						</div>
 					</div>
 					<div class="row cdts-splash">
@@ -544,20 +551,20 @@
 							<a href="{$termsEng}" class="sp-lk">Terms & conditions</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="{$termsFra}" class="sp-lk" lang="fr">Avis</a>
 						</div>
 						<div class="col-xs-5 col-md-4 text-right mrgn-bttm-md">
-							<img src='./gcweb/assets/wmms-spl.svg' width="127" alt="Symbol of the Government of Canada / Symbole du gouvernement du Canada" />
+							<img src='{call .environment data="all" /}gcweb/assets/wmms-spl.svg' width="127" alt="Symbol of the Government of Canada / Symbole du gouvernement du Canada" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 		<!--[if gte IE 9 | !IE ]><!-->
-		<script src="{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs{else}./wet-boew/js/{/if}jquery/2.2.4/jquery.min.js"></script>
-		<script src='./wet-boew/js/wet-boew.min.js'></script>
+		<script src="{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs{else}{call .environment data="all" /}wet-boew/js/{/if}jquery/2.2.4/jquery.min.js"></script>
+		<script src='{call .environment data="all" /}wet-boew/js/wet-boew.min.js'></script>
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<script src='./wet-boew/js/ie8-wet-boew2.min.js'></script>
+		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js'></script>
 		<![endif]-->
-		<script src='./gcweb/js/theme.min.js'></script>
+		<script src='{call .environment data="all" /}gcweb/js/theme.min.js'></script>
 		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
-		<link rel="stylesheet" href='./cdts/css/cdtsfixes.css'>
+		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsfixes.css'>
 {/template}
