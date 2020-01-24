@@ -50,10 +50,10 @@
 				{/if}
 				<div class="row">
 					<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
-						<img src='./gcweb/assets/sig-blk-en.svg' alt="" property="logo" />
+						<img src='{call wet.builder.environment data="all" /}gcweb/assets/sig-blk-en.svg' alt="" property="logo" />
 						<span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>
 						<meta property="areaServed" typeOf="Country" content="Canada" />
-						<link property="logo" href='./gcweb/assets/wmms-blk.svg' />
+						<link property="logo" href='{call wet.builder.environment data="all" /}gcweb/assets/wmms-blk.svg' />
 					</div>
 					{if isNonnull($customSearch)}
 					{foreach $item in $customSearch}
@@ -306,7 +306,7 @@
 							<a href="#wb-cont">Top of Page <span class="glyphicon glyphicon-chevron-up"></span></a>
 						</div>
 						<div class="col-xs-6 col-md-3 col-lg-2 text-right">
-							<img src='./gcweb/assets/wmms-blk.svg' alt="Symbol of the Government of Canada" />
+							<img src='{call wet.builder.environment data="all" /}gcweb/assets/wmms-blk.svg' alt="Symbol of the Government of Canada" />
 						</div>
 					</div>
 				</div>
