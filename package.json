@@ -6,7 +6,8 @@
   "scripts": {
     "build": "grunt",
     "travis_script": "grunt dist",
-    "travis_after_success": "grunt deploy"
+    "travis_after_success": "grunt deploy",
+    "deploy_release" : "release.sh"
   },
   "repository": {
     "type": "git",

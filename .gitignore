@@ -9,6 +9,7 @@
 
 # Compiled project folder
 dist/
+releases/
 
 # temporary folder
 tmp/
