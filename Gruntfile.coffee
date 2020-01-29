@@ -70,6 +70,7 @@ module.exports = (grunt) ->
 					"copy:deploy"
 					"gh-pages:travis"
 					"gh-pages:travis_cdn"
+					"gh-pages:release"
 				]
 	)
 
@@ -89,6 +90,7 @@ module.exports = (grunt) ->
 		# Metadata.
 		pkg: @file.readJSON "package.json"
 		coreDist: "dist"
+		coreTag: "<%= pkg.version %>"
 		# Temporary folder for compiled soy files
 		coreTmp: "tmp"
 		banner: "/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE\n" +
@@ -314,6 +316,18 @@ module.exports = (grunt) ->
 					}
 				]
 
+			release:
+				files: [
+					{
+						cwd: "<%= coreDist %>"
+						src: [
+							"**/*.*"
+						]
+						dest: "releases/<%= coreTag %>"
+						expand: true
+					}
+				]
+
 		"gh-pages":
 			options:
 				clone: "cdts-sgdc-dist"
@@ -330,6 +344,19 @@ module.exports = (grunt) ->
 				src: [
 					"**/*.*"
 					"!package.json"
+				]
+
+			release:
+				options:
+					repo: "https://github.com/wet-boew/cdts-sgdc-releases.git"
+					branch: "master"
+					base: "releases"
+					message: "<%= distDeployMessage %>"
+					tag: ((
+						if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else false
+					))
+				src: [
+					"**/*.*"
 				]
 
 			travis_cdn:
