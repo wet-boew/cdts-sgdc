@@ -290,6 +290,7 @@ module.exports = (grunt) ->
 							"*.txt"
 							"*.html"
 							"README.md"
+							"release.sh"
 						]
 						dest: "dist"
 						expand: true

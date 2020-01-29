@@ -19,5 +19,4 @@ scripts:
   - npm run-script travis_script
 
 after_success:
-  - npm run-script deploy_release
   - npm run-script travis_after_success
