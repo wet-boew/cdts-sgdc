@@ -90,7 +90,7 @@ module.exports = (grunt) ->
 		# Metadata.
 		pkg: @file.readJSON "package.json"
 		coreDist: "dist"
-		coreTag: "<%= pkg.version %>"
+		coreTag: "<%= pkg.version %>-development"
 		# Temporary folder for compiled soy files
 		coreTmp: "tmp"
 		banner: "/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE\n" +
