@@ -90,6 +90,7 @@ module.exports = (grunt) ->
 		# Metadata.
 		pkg: @file.readJSON "package.json"
 		coreDist: "dist"
+		coreTag: "<%= pkg.version %>"
 		# Temporary folder for compiled soy files
 		coreTmp: "tmp"
 		banner: "/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE\n" +
@@ -322,7 +323,7 @@ module.exports = (grunt) ->
 						src: [
 							"**/*.*"
 						]
-						dest: "releases/" + process.env.TRAVIS_TAG
+						dest: "releases/" + (( if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else "<%= coreTag %>" ))
 						expand: true
 					}
 				]
