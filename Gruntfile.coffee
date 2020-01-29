@@ -292,7 +292,6 @@ module.exports = (grunt) ->
 							"*.txt"
 							"*.html"
 							"README.md"
-							"release.sh"
 						]
 						dest: "dist"
 						expand: true
@@ -354,9 +353,6 @@ module.exports = (grunt) ->
 					clone: "cdts-sgdc-releases"
 					add: true
 					message: "<%= distDeployMessage %>"
-					tag: ((
-						if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else false
-					))
 				src: [
 					"**/*.*"
 				]
