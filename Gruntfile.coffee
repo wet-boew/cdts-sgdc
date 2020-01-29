@@ -351,6 +351,7 @@ module.exports = (grunt) ->
 					repo: "https://github.com/wet-boew/cdts-sgdc-releases.git"
 					branch: "master"
 					base: "releases"
+					clone: "cdts-sgdc-releases"
 					message: "<%= distDeployMessage %>"
 					tag: ((
 						if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else false
