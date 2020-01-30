@@ -19,7 +19,8 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-                "isApplication" : true
+                "isApplication" : true,
+				"cdnPath" : "../../"
 			}));
 		</script>
 	</head>
@@ -34,6 +35,7 @@
 			defTop.outerHTML = wet.builder.appTop({
 				"lngLinks": [{"lang": "en",	"href": "index.html", "text": "English"}],
 				"appName": [{"text": "Solution de gabarits à déploiement centralisé (SGDC)", "href": "https://cenw-wscoe.github.io/sgdc-cdts/docs/index-fr.html"}],
+				"cdnPath" : "../../"
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -65,12 +67,14 @@
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.footer({
+				"cdnPath" : "../../"
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-                "isApplication" : true
+                "isApplication" : true,
+				"cdnPath" : "../../"
 			}));
 		</script>
 	</body>
