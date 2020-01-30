@@ -19,6 +19,7 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
+				"cdnPath" : "../../"
 			}));
 		</script>
 	</head>
@@ -31,7 +32,8 @@
 		<script>
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.top({
-				"lngLinks": [{"lang": "en",	"href": "gcweb-en.html", "text": "English"}]
+				"lngLinks": [{"lang": "en",	"href": "gcweb-en.html", "text": "English"}],
+				"cdnPath" : "../../"
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -63,11 +65,13 @@
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.footer({
+				"cdnPath" : "../../"
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
+				"cdnPath" : "../../"
 			}));
 		</script>
 	</body>

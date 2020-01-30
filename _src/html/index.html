@@ -19,7 +19,8 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-                "isApplication" : true
+                "isApplication" : true,
+				"cdnPath" : "../../"
 			}));
 		</script>
 	</head>
@@ -33,7 +34,8 @@
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.appTop({
 				"lngLinks": [{"lang": "fr",	"href": "index-fr.html", "text": "Français"}],
-				"appName": [{"text": "Centrally Deployed Templates Solution (CDTS)", "href": "https://cenw-wscoe.github.io/sgdc-cdts/docs/index-en.html"}]
+				"appName": [{"text": "Centrally Deployed Templates Solution (CDTS)", "href": "https://cenw-wscoe.github.io/sgdc-cdts/docs/index-en.html"}],
+				"cdnPath" : "../../"
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -65,12 +67,14 @@
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.footer({
+				"cdnPath" : "../../"
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-                "isApplication" : true
+                "isApplication" : true,
+				"cdnPath" : "../../"
 			}));
 		</script>
 	</body>

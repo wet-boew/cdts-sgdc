@@ -45,9 +45,14 @@
 /**
  * This is the set path to the root to where the assest (JS, CSS, Images, etc...) are.
  * From the page level and not the level of the compiled JS. NEEDS TO BE FIXED!
+ * @param cdnEnv Used to switch between esdc envrionments and Akamai implementations.
+ * @param cdnPath used to set working path to assets. 
 */
 {template .environment}
-  ../../
+{if $cdnEnv=='esdcqat' or $cdnEnv=='esdcprod' or $cdnEnv=='esdcnonprod'}/cdts/
+{elseif isNonnull($cdnPath)}{$cdnPath}
+{else}/etc/designs/canada/cdts/
+{/if}
 {/template}
 
 /**
