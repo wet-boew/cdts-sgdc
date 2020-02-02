@@ -90,7 +90,6 @@ module.exports = (grunt) ->
 		# Metadata.
 		pkg: @file.readJSON "package.json"
 		coreDist: "dist"
-		coreTag: "<%= pkg.version %>-development"
 		# Temporary folder for compiled soy files
 		coreTmp: "tmp"
 		banner: "/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE\n" +
@@ -111,8 +110,6 @@ module.exports = (grunt) ->
 			else
 				"<%= travisBuildMessage %>"
 		)) + "<%= commitMessage %>"
-
-		deployBranch: "v1.0.0-dist"
 
 		# Clean
 		clean:
@@ -322,7 +319,7 @@ module.exports = (grunt) ->
 						src: [
 							"**/*.*"
 						]
-						dest: "releases/" + (( if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else "<%= coreTag %>" ))
+						dest: "releases/" + (( if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else "<%= pkg.version %>" ))
 						expand: true
 					}
 				]
@@ -335,7 +332,7 @@ module.exports = (grunt) ->
 			travis:
 				options:
 					repo: process.env.DIST_REPO
-					branch: "<%= deployBranch %>"
+					branch: "<%= pkg.version %>"
 					message: "<%= distDeployMessage %>"
 					tag: ((
 						if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else false
