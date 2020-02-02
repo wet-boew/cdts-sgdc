@@ -1,6 +1,6 @@
 {
   "name": "cdts-sgdc",
-  "version": "1.0.0",
+  "version": "1.0.0-beta-b",
   "description": "The purpose of the CDTS is essentially to deliver the presentation layer of the Canada.ca theme or Intranet.canada.ca theme to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/wet-boew/cdts-sgdc#README",
   "dependencies": {
-    "gcweb": "github:wet-boew/themes-cdn#GCWeb",
+    "gcweb": "github:wet-boew/themes-cdn#v6.0-gcweb",
     "wet-boew": "github:wet-boew/wet-boew-cdn#v4.0-dist"
   },
   "devDependencies": {
