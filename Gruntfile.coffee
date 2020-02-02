@@ -343,6 +343,13 @@ module.exports = (grunt) ->
 						dest: "releases/" + (( if process.env.TRAVIS_TAG then "run" else "latest" ))
 						expand: true
 					}
+					{
+						src: [
+							"README.md"
+						]
+						dest: "releases"
+						expand: true
+					}
 				]
 
 		"gh-pages":
