@@ -62,6 +62,10 @@ Used to host the `dist` folder to be able to pull to different servers. [Travis.
 
 Not sure what this is for but WET has it. Might get rid of it, might keep it. WET uses to host all their working files.
 
+##### [cdts-sgdc-releases](https://github.com/wet-boew/cdts-sgdc-releases)
+
+Holds all the releases so that servers can pull from this repository onto the CDNs.
+
 #### Grunt tasks scripts breakdown
 
 ##### default: `npx grunt`
