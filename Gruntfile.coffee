@@ -19,8 +19,17 @@ module.exports = (grunt) ->
 			"clean"
 			"soycompile"
 			"concat"
-			"copy"
+			"copy-dist"
 			"clean:tmp"
+		]
+	)
+
+	@registerTask(
+		"copy-dist"
+		"Produces the production files"
+		[
+			"copy:assets"
+			"copy:deploy"
 		]
 	)
 
@@ -68,6 +77,7 @@ module.exports = (grunt) ->
 				grunt.file.write(writeTo, JSON.stringify(pkg, null, 2));
 				grunt.task.run [
 					"copy:deploy"
+					"copy:release"
 					"gh-pages:travis"
 					"gh-pages:travis_cdn"
 					"gh-pages:release"
@@ -314,12 +324,23 @@ module.exports = (grunt) ->
 
 			release:
 				files: [
+					# If there's a release tag, create release folder, if not deploy into latest folder
 					{
 						cwd: "<%= coreDist %>"
 						src: [
 							"**/*.*"
 						]
-						dest: "releases/" + (( if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else "<%= pkg.version %>" ))
+						dest: "releases/" + (( if process.env.TRAVIS_TAG then process.env.TRAVIS_TAG else "latest" ))
+						expand: true
+					}
+
+					# If there's a release tag, deploy to the run folder, if not deploy into latest folder
+					{
+						cwd: "<%= coreDist %>"
+						src: [
+							"**/*.*"
+						]
+						dest: "releases/" + (( if process.env.TRAVIS_TAG then "run" else "latest" ))
 						expand: true
 					}
 				]
