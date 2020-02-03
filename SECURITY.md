@@ -2,6 +2,8 @@
 
 # Security
 
+**Do not post any security issues on the public repository!** Security vulnerabilities must be reported by email to ...
+
 ## Verifying commits
 
 This project will need you to use GPG to verify commits. Please read [About commit signature verification](https://help.github.com/en/github/authenticating-to-github/about-commit-signature-verification).
