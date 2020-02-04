@@ -1,13 +1,11 @@
-# Centrally Deployed Templates Solution (CDTS) version 1.0.0 DevOps with CI/CD
+# Centrally Deployed Templates Solution (CDTS)
 
 [![Build Status](https://secure.travis-ci.org/wet-boew/cdts-sgdc.svg?branch=master)](https://travis-ci.org/wet-boew/cdts-sgdc)
 [![devDependency Status](https://david-dm.org/wet-boew/cdts-sgdc/dev-status.svg)](https://david-dm.org/wet-boew/cdts-sgdc#info=devDependencies)
 
-The purpose of the CDTS is essentially to deliver the presentation layer of the Canada.ca theme or Intranet.canada.ca theme to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.
+The purpose of the [Centrally Deployed Templates Solution (CDTS)](https://github.com/cenw-wscoe/sgdc-cdts) is essentially to deliver the presentation layer of the `Canada.ca` or `intranet.canada.ca` themes to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.
 
-This project is to change the present CDTS into a system that builds and tests with each commit and a way to deploy the artifacts to servers.
-
-The _soy_ files are compiled with [grunt-soy-compile](https://www.npmjs.com/package/grunt-soy-compile).
+Please visit [our documentation](https://cenw-wscoe.github.io/sgdc-cdts/docs/index-en.html) for more information about the project.
 
 ## Working with this repository
 
@@ -31,6 +29,8 @@ Clone this repository to a local directory. On the command line move to the clon
 This command will read the package.json and install the npm dependencies to the *node_modules* directory.
 
 #### Builds
+
+The _soy_ files are compiled with [grunt-soy-compile](https://www.npmjs.com/package/grunt-soy-compile).
 
 This project uses the [nodeJS](https://nodejs.org/en/) and [npm](https://nodejs.org/en/) modules to get the dependencies needed, build, minify and deploy the final JavaScript modules.
 
