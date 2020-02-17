@@ -67,7 +67,7 @@ module.exports = (grunt) ->
 						type: "git",
 						url: "git+https://github.com/opc-cpvp/" + addToRepo + ".git"
 					},
-					author: "wet-boew-bot",
+					author: "opc-buildbot",
 					license: "MIT",
 					bugs: {
 						url: "https://github.com/opc-cpvp/" + pkgOriginal.name.toLowerCase() + "/issues"
@@ -102,11 +102,11 @@ module.exports = (grunt) ->
 		coreDist: "dist"
 		# Temporary folder for compiled soy files
 		coreTmp: "tmp"
-		banner: "/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE\n" +
+		banner: "/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n * github.com/opc-cpvp/cdts-sgdc/blob/master/LICENSE\n" +
 				" * v<%= pkg.version %> - " + "<%= grunt.template.today('yyyy-mm-dd') %>\n *\n */"
 
 		# Commit Messages
-		commitMessage: " Commit wet-boew/cdts-sgdc#" + process.env.TRAVIS_COMMIT
+		commitMessage: " Commit opc-cpvp/cdts-sgdc#" + process.env.TRAVIS_COMMIT
 		travisBuildMessage: "Travis build " + process.env.TRAVIS_BUILD_NUMBER
 		distDeployMessage: ((
 			if process.env.TRAVIS_TAG
@@ -380,7 +380,7 @@ module.exports = (grunt) ->
 
 			release:
 				options:
-					repo: "https://github.com/wet-boew/cdts-sgdc-releases.git"
+					repo: "https://github.com/opc-cpvp/cdts-sgdc-releases.git"
 					branch: "master"
 					base: "releases"
 					clone: "cdts-sgdc-releases"
