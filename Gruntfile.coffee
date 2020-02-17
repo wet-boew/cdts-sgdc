@@ -65,14 +65,14 @@ module.exports = (grunt) ->
 					description: pkgOriginal.name.toLowerCase() + " theme"
 					repository: {
 						type: "git",
-						url: "git+https://github.com/wet-boew/" + addToRepo + ".git"
+						url: "git+https://github.com/opc-cpvp/" + addToRepo + ".git"
 					},
 					author: "wet-boew-bot",
 					license: "MIT",
 					bugs: {
-						url: "https://github.com/wet-boew/" + pkgOriginal.name.toLowerCase() + "/issues"
+						url: "https://github.com/opc-cpvp/" + pkgOriginal.name.toLowerCase() + "/issues"
 					},
-					homepage: "https://github.com/wet-boew/" + addToRepo + "#readme"
+					homepage: "https://github.com/opc-cpvp/" + addToRepo + "#readme"
 				};
 				grunt.file.write(writeTo, JSON.stringify(pkg, null, 2));
 				grunt.task.run [
