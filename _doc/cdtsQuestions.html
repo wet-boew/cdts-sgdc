@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Centrally Deployed Templates Solution (CDTS) - Questionnaire</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Centrally Deployed Templates Solution (CDTS) - Questionnaire">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_30/cdts/compiled/soyutils.js"></script>
+		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_30/cdts/compiled/wet-en.js"></script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"appName": [{"text": "Application name", "href": "#"}],
+				"lngLinks": [{"lang": "fr",	"href": "apptop_all-fr.shtml", "text": "Français"}],
+				"cdnEnv": "esdcprod",
+				"breadcrumbs": [{"title": "Centrally Deployed Templates Solution (CDTS)", "href": "#"}]
+			});
+		</script>
+		<main property="mainContentOfPage" class="container">
+		<h1 property="name" id="wb-cont">Centrally Deployed Templates Solution (CDTS) - Questionnaire</h1>
+
+		<p class="alert alert-warning" role="alert">All fields are required <strong>except</strong> for the feedback</p>
+
+        <div class="wb-frmvld">
+			<form action="#" method="get" id="validation-example">
+            <fieldset>
+                <legend class="required"><span class="field-name">Are you using the CDTS?</span> <strong class="required">(required)</strong></legend>
+                <div class="radio">
+                        <label for="usingYes"><input type="radio" name="status" value="1" id="usingYes" required="required" />Yes</label>
+                    </div>
+                <div class="radio">
+                    <label for="usingNo"><input type="radio" name="status" value="1" id="usingNo" />No</label>
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                <label class="required" for="appName"><span class="field-name">What is your application name?</span> <strong class="required">(required)</strong></label>
+                <input class="form-control" id="appName" type="text" required="required" />
+            </div>
+  
+			
+			<div class="form-group">
+				<label class="required" for="department"><span class="field-name">What department?</span> <strong class="required">(required)</strong></label>
+				<input class="form-control" type="text" id="department" required="required" />
+			</div>
+			<fieldset>
+				<legend class="required"><span class="field-name">Are you using the latest version of CDTS?</span> <strong class="required">(required)</strong></legend>
+				<div class="radio">
+						<label for="latestYes"><input type="radio" name="status" value="1" id="latestYes" required="required" />Yes</label>
+					</div>
+				<div class="radio">
+					<label for="latestNo"><input type="radio" name="status" value="1" id="latestNo" />No</label>
+				</div>
+			</fieldset>
+			<div class="form-group">
+				<label class="required" for="version"><span class="field-name">If not, what version are you using?</span> <strong class="required">(required)</strong></label>
+				<input class="form-control" type="text" id="version" required="required" />
+			</div>
+			<div class="form-group">
+				<label class="required" for="languages"><span class="field-name">What language is your application using (Static (HTML), .NET, JAVA, PHP, etc)?</span> <strong class="required">(required)</strong></label>
+				<input class="form-control" type="text" id="languages" required="required" />
+			</div>
+			<fieldset>
+				<legend class="required"><span class="field-name">Are you registered on GCPedia?</span> <strong class="required">(required)</strong></legend>
+				<div class="radio">
+						<label for="registeredYes"><input type="radio" name="status" value="1" id="registeredYes" required="required" />Yes</label>
+					</div>
+				<div class="radio">
+					<label for="registeredNo"><input type="radio" name="status" value="1" id="registeredNo" />No</label>
+				</div>
+			</fieldset>
+
+			<div class="form-group">
+				<label class="required" for="email"><span class="field-name">Provide a contact email for your web asset?</span> <strong class="required">(required)</strong></label>
+				<input class="form-control" type="email" id="email" required="required" />
+			</div>
+			<div class="form-group">
+				<label for="feedback">Feedback on CDTS?</label>
+				<textarea class="form-control" name="feedback" id="feedback" cols="30" rows="10"></textarea>
+			</div>
+			<input type="submit" value="Submit" class="btn btn-primary" /> <input type="reset" value="Reset" class="btn btn-default" />
+			</form>
+	   </div>
+	   
+	   <noscript>
+		<p>This form cannot be submitted without JavaScript.</p>
+	</noscript>
+
+            <div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_30/cdts/static/preFooter-en.html -->
+				<!--#include virtual="/app/cls/WET/gcweb/v4_0_30/cdts/static/preFooter-en.html" -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2019-03-08"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "esdcprod",
+				"showFeatures": false
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>
