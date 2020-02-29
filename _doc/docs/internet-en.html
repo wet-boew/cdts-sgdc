@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Internet - Centrally Deployed Templates Solution (CDTS)</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Centrally Deployed Templates Solution (CDTS)">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/soyutils.js"></script>
+		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/wet-en.js"></script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"breadcrumbs": [{"title": "Home", "href": "./index-en.html"}],
+				"appName": [{"text": "Centrally Deployed Templates Solution (CDTS)", "href": "./index-en.html"}],
+				"lngLinks": [{"lang": "fr", "href": "internet-fr.html", "text": "Français"}],
+				"menuPath": "../ajax/cdtsMenu-en.html"
+			});
+		</script>
+		<main role="main" property="mainContentOfPage" class="container wb-prettify all-pre">
+<h1 property="name" id="wb-cont">Internet</h1>
+<p data-json-replace="../ajax/data.json#/sloganEn">Slogan</p>
+<div class="alert alert-info">
+	<p data-json-replace="../ajax/data.json#/noteEn">Note</p>
+</div>
+<div class="row">
+	<div class="col-md-4 pull-right">
+		<section class="panel panel-default mrgn-tp-lg">
+			<header class="panel-heading">
+				<h2 class="panel-title"><span id="CDTS_implementation">CDTS implementation</span></h2>
+			</header>
+			<div class="panel-body">
+				<section>
+					<h3 class="h5 mrgn-tp-0">Default templates</h3>
+					<ul>
+						<li><a href="#CDTS_page_template">CDTS page template</a></li>
+						<li><a href="#Section_.3Chead.3E_references">Section <code>&lt;head&gt;</code> references</a></li>
+						<li><a href="#Section_top_references">Section top references</a></li>
+						<li><a href="#Section_pre-footer_references">Section pre-footer references</a></li>
+						<li><a href="#Section_footer_references">Section footer references</a></li>
+						<li><a href="#Section_footer_file_references">Section footer file references</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3 class="h5">Splash page template</h3>
+					<ul>
+						<li><a href="#Splash_page_references">Splash page references</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3 class="h5">Transactional page template</h3>
+					<ul>
+						<li><a href="#Transactional_page_references">Transactional page references</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3 class="h5">Section menu template</h3>
+					<ul>
+						<li><a href="#Section_menu_references">Section menu references</a></li>
+					</ul>
+				</section>
+				<section>
+					<h3 class="h5">Application templates</h3>
+					<ul>
+						<li><a href="#Section_appTop_references">Section appTop references</a></li>
+						<li><a href="#Section_appFooter_references">Section appFooter references</a></li>
+					</ul>
+				</section>
+			</div>
+		</section>
+	</div>
+	<section class="col-md-8">
+		<h2 id="Implementing_the_GCWeb_theme_using_the_CDTS_framework_in_your_application">Implementing the GCWeb theme using the CDTS framework in your application</h2>
+		<p>Welcome to the GCWeb implementation guide, you will find below instructions on how to implement the GCWeb theme using the CDTS. You will also be presented with different scenarios depending on your particular implementation requirements. Please read the following sections carefully before getting started!</p>
+		<p>If you will be developing your web asset in .NET or JAVA then you can have a look at our <a href="./templates-en.html">sample templates</a> as you follow this guide. Much of the work for implementing the CDTS into the templates has already been done.</p>
+		<section>
+			<h3 id="Version_or_run_variants">Version or run variants</h3>
+			<p>At several points in the implementation page you will be presented with two options for "version" or "run variants.</p>
+			<ul>
+				<li>The "version" variant means you will NOT automatically receive any new WET updates. You must implement a "version" in your web asset and add a mechanism to keep this updated as you do your testing for each new WET version. We suggest you use your web.config to store your version variable. At ESDC updating the web.config file in production is much easier than doing a full release. It allows web assets to stay up to date quicker by simply updating the web.config file when the web asset has been tested and confirmed to work with the new WET version. Examples are provided in our <a href="./templates-en.html">.NET and JAVA samples projects</a>.</li>
+				<li>The "run" variant means that you will automatically receive all new WET releases with no intervertion on your part using the "run" version.</li>
+			</ul>
+			<p>Please note that whichever decision you make you will ALWAYS receive updates to the GCWeb theme related to the mega menu. Any common changes to the header/footer will be automatically pushed to your web asset. You need to have implemented the latest or two previous versions of the CDTS to obtain updates.</p>
+		</section>
+		<section>
+			<h3 id="Application_templates">Application templates</h3>
+			<p>Will you need a custom header/footer? Keep in mind this is different than removing or adding certain elements that are allowed as per the <a href="https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/canada-content-information-architecture-specification.html">C&amp;IA specifications document</a>. Any element that can be implemented using the C&amp;IA specifications document does not require a custom header/footer and is available in the default version of the CDTS. Currently it is advisable to not implement a custom header/footer unless you have permission to do so from your department, TBS or Principal Publisher. If you have permission to do so then follow the instructions for the "Application templates" in the "CDTS implementation" menu.</p>
+		</section>
+	</section>
+</div>
+<section>
+	<h2 id="What_will_the_CDTS_manage_and_how_it_will_affect_my_web_asset">What will the CDTS manage and how it will affect my web asset</h2>
+	<p>The CDTS is meant to remove the presentation layer from your web asset and instead have it rendered from a central location. Wait I need to change things! The CDTS allows for all customizations that are available in the <a href="https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/canada-content-information-architecture-specification.html">C&amp;IA specifications document</a>. For example you can still control the language toggle and search through CDTS variables, these are explained in each section below. The CDTS will manage:</p>
+	<ul>
+		<li>GCWeb / WET files (CSS, JS and other applicable files)</li>
+		<li>GCWeb Site icon</li>
+		<li>GCWeb header (menu, images, links, search, etc...)</li>
+		<li>Pre-content space (for global wide announcements)</li>
+		<li>Post-content space (for global wide announcements)</li>
+		<li>GCWeb footer (menu, links, images, etc...)</li>
+	</ul>
+</section>
+<section>
+	<h2 id="Version_variant_information">Version variant information</h2>
+	<p>If you decide to implement the "version" variant please note that you must implement a way to keep this version number updated through a web.config file or database. Examples are provided in our <a href="./templates-en.html">.NET and JAVA samples projects</a>. We also suggest you keep the version number as a different variable than the CDTS URLs in case it changes in the future. Reasons to use the "version" variant include:</p>
+	<ul>
+		<li>It allows the deployment of the latest files to be done without impacting the application and/or the files that it uses.</li>
+		<li>It allows the application to select the version of the files under the parent folder for the theme they have tested and are comfortable to use.</li>
+	</ul>
+	<p>As you will see below in the guide the various sections/templates of your page will contain a path to the CDTS files and the theme you have choosen. Having these paths and URLs in your configuration file will allow you to consume the version of the files from the CDTS you have approved. A sample CDTS URL would like this in your application:</p>
+	<ul>
+		<li>[CDTS reference URL]/[theme]/[WET version]/filename-[language].extension</li>
+	</ul>
+	<p>Currently with CDTS v4.0.30 the URL in english for GCWeb would be:</p>
+	<ul>
+		<li><a href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_30/cdts/compiled/wet-en.js">https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_30/cdts/compiled/wet-en.js</a></li>
+	</ul>
+	<p>The "CDTS reference URL", "theme", "WET version" and "language" must be the configurable options in your web asset. As indicated above we suggest using your web.config file, XML config file or database to store these variables. Make sure your web asset uses your new configurable file path.</p>
+	<p><strong class="text-uppercase">Important Note #1</strong>: When upgrading your web asset to a higher version we suggest that you also update your backup static files to obtain new versions. Otherwise make sure that your backup static files can be updated separately from your main WET CDTS version. It’s acceptable if your main WET CDTS points to v4_0_30 but your backup static files still point to v4_0_29. If you can keep both updated it is highly recommended to do so but not mandatory. Your backup files can fall behind until you perform a full release, we will notify you if your static files need to be updated. It will be indicated in the email you will receive announcing a new version.</p>
+	<p><strong class="text-uppercase">Important Note #2</strong>: The CDTS only updates the latest CDTS version as well as the two previous versions. If you are on an older version of the CDTS you will not receive updates. The purpose of the CDTS is to easily allow you to stay up to date so follow the instructions in this guide carefully. If you fall behind you are negating the main advantage of the CDTS!</p>
+</section>
+<section>
+	<h2 id="CDTS_implementation_instructions">CDTS implementation instructions</h2>
+	<section>
+		<h3 id="CDTS_page_template">CDTS page template</h3>
+		<p>In the following section you will find the basic template look that will be used in your web asset. The page is comprised of five sections and four of those will use fall-back static files in case JavaScript is disabled. When JavaScript loads the CDTS will replace the fall-back static files. The sections in your page are:</p>
+		<ul>
+			<li>Section <code>&lt;head&gt;</code> for file references</li>
+			<li>Top section of your page</li>
+			<li>Pre-footer section</li>
+			<li>Footer section</li>
+			<li>Footer file references</li>
+		</ul>
+		<img class="img-responsive mrgn-bttm-md" alt="" src="../img/Cdts-page-template.png">
+		<p>All fall-back static files can be found on our main GCPedia page. Whenever you must go through a release cycle you must always grab the latest fall-back static files. These ensure that a basic template is available for users who have Javascript disabled.</p>
+		<p>For all templates and sections the following JavaScript variable is optional:</p>
+		<ul>
+			<li><span class="text-uppercase">Optional</span> - cdnEnv – Use this variable to specify which environment you are currently using.
+				<pre>"cdnEnv": "prod"</pre>
+			</li>
+		</ul>
+		<p><strong>Employees at ESDC</strong> may use the following variables:</p>
+		<ul>
+			<li>https://cdn-canada.services.gc.qat
+				<pre>"cdnEnv": "esdcqat"</pre>
+			</li>
+			<li>https://s2tst-cdn-canada.sade-edap.prv
+				<pre>"cdnEnv": "esdcnonprod"</pre>
+			</li>
+			<li>https://ssl-templates.services.gc.ca
+				<pre>"cdnEnv": "esdcprod"</pre>
+			</li>
+		</ul>
+		<p>Employees at ESDC may contact the WS CoE to obtain other variables that can be used for internal development.</p>
+		<p>For all the code below please update in your own code:</p>
+		<ul>
+			<li>(theme) – Insert the correct theme you are using, either gcweb or gcintranet</li>
+			<li>(version) – Insert the version you will be using (ex: v4_0_30) or use rn for the run variant</li>
+			<li>(language) – Insert the correct language (language user is browsing in) you will be using (en or fr)</li>
+			<li>Add / edit / update the references to the JavaScript variables</li>
+		</ul>
+	</section>
+	<section>
+		<h3 id="Section_.3Chead.3E_references">Section <code>&lt;head&gt;</code> references</h3>
+		<p>In the <code>&lt;head&gt;</code> section of your page you will need to perform three changes.</p>
+		<ol>
+			<li>The first change will be to include the three references to the new GCT files that will perform all the work.</li>
+			<li>The second change will be to create the <code>&lt;noscript&gt;</code> section which will make your page look good if JavaScript is disabled. You will need to load a fall-back static file in the <code>&lt;noscript&gt;</code> section.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the <code>&lt;head&gt;</code> section. The following JavaScript variables can be used in this section:</li>
+		</ol>
+		<ul>
+			<li><strong>Removed in v4.0.31</strong> - <span class="text-uppercase">Optional</span> - jqueryEnv – Use this variable to specify which environment you want to pull the jQuery files from. By default they are loaded locally from the WET build. Otherwise use the following to load from Google CDN:
+				<pre>"jqueryEnv": "external"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> - isApplication – Use this variable to include web application specific CSS file.
+				<pre>"isApplication": true</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> - webAnalytics – Use this variable to include Adobe Analytics (AA).
+				<ul>
+					<li><span class="text-uppercase">Mandatory</span> - environment – Use this value to state if the AA running is either <em>staging</em> or <em>production</em>.</li>
+					<li><span class="text-uppercase">Mandatory</span> - version – Use this value to state which version of AA your application / site uses. Presently only versions 1 or 2 are available.</li>
+					<li><span class="text-uppercase">Note</span> - You will also need to add a <code>webAnalytics</code> variable in the <a href="#Section_footer_file_references">Section footer file references</a>.</li>
+				</ul>
+				<pre>webAnalytics" : [{
+	"environment" : "staging", // OR "production"
+	"version" : 1 // OR 2
+}]"</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;!-- Load closure template scripts --&gt;
+&lt;script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/compiled/soyutils.js"&gt;&lt;/script&gt;
+&lt;script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/compiled/wet-en.js"&gt;&lt;/script&gt;
+&lt;noscript&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/refTop.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/refTop.html" --&gt;
+&lt;/noscript&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	document.write(wet.builder.refTop({
+		"webAnalytics" : [{
+			"environment" : "staging",
+			"version" : 1
+		}]
+	}));
+&lt;/script&gt;</pre>
+		<p><strong class="text-uppercase">Note</strong>: Don’t forget to always include in the <code>&lt;noscript&gt;</code> section with the fall-back static file otherwise your page will not degrade gracefully when JavaScript is disabled.</p>
+	</section>
+	<section>
+		<h3 id="Section_top_references">Section top references</h3>
+		<p>In the top section of your page you will need to perform three changes.</p>
+		<ol>
+			<li>The first one will be to add a new <code>&lt;div&gt;</code> to wrap the entire top content with an ID of “def-top”. This <code>&lt;div&gt;</code> will start at the top of your page all the way down to the opening <code>&lt;main&gt;</code> element.</li>
+			<li>The second change will be to include the reference to the fall-back static file in the new <code>&lt;div&gt;</code> you have created.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the top section to replace the new <code>&lt;div&gt;</code> content once the template is ready. The following JavaScript variables can be used in this section:</li>
+		</ol>
+		<ul>
+			<li><span class="text-uppercase">Optional</span> - lngLinks – Use this variable to specify where the language toggle link will go. Although this is optional it is usually mandatory to provide the language toggle link.
+				<pre>"lngLinks": [{
+	"lang": "fr",
+	"href": "content-fr.html",
+	"text": "Français"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – breadcrumbs – Use this variable to specify the breadcrumbs in your page. Note that if no breadcrumbs are specified the template will insert a link to the home page of the Canada.ca website.
+				<pre>"breadcrumbs": [{
+	"title": "Home",
+	"href": "https://www.canada.ca/en/index.html"
+},{
+	"title": "CDTS",
+	"acronym": "Centrally Deployed Templates Solution",
+	"href": "https://www.canada.ca/en/index.html"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – showPreContent – This will be used by Principal Publisher to insert content into the pre content space of your page. By default this is ALWAYS shown on all pages. You will need authorization from the Principal Publisher to not include this content in your web asset. If you receive such authorization then you can insert the following code.
+				<pre>"showPreContent": false</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="def-top"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/top-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/top-en.html" --&gt;
+&lt;/div&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var defTop = document.getElementById("def-top");
+	defTop.outerHTML = wet.builder.top({
+		"lngLinks": [{
+			"lang": "fr",
+			"href": "content-fr.html",
+			"text": "Français"
+		}]
+	});
+&lt;/script&gt;</pre>
+		<p><strong class="text-uppercase">Note</strong>: Don’t forget the <code>&lt;div&gt;</code> that is wrapped around your fall-back static file is named “def-top” otherwise your page will not display correctly.</p>
+	</section>
+	<section>
+		<h3 id="Section_pre-footer_references">Section pre-footer references</h3>
+		<p>In the pre-footer section of your page you will need to perform three changes.</p>
+		<ol>
+			<li>The first one will be to add a new <code>&lt;div&gt;</code> to wrap all the pre-footer content with an ID of “def-prefooter”. This <code>&lt;div&gt;</code> will start directly below the last element in your content. It is important that you DON’T close your <code>&lt;/main&gt;</code> element yet!</li>
+			<li>The second change will be to include the reference to the fall-back static file in the new <code>&lt;div&gt;</code> you have created.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the pre-footer section to replace the new <code>&lt;div&gt;</code> content once the template is ready. The following JavaScript variables can be used in this section:</li>
+		</ol>
+		<ul>
+			<li><span class="text-uppercase">Optional</span> – showPostContent – This will be used by the Principal Publisher to insert content into the post content space of your page. By default this is ALWAYS shown on all pages. You will need authorization from the Principal Publisher to not include this content in your web asset. If you receive such authorization then you can insert the following code.
+				<pre>"showPostContent": false</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – showShare – Use this variable to specify the share button of your page.
+				<pre>"showShare": false</pre>
+				<pre>"showShare": ["email", "facebook", "linkedin", "twitter"]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – showFeedback – Use this variable to specify the “Report a problem or mistake on this page” button of your page. By default this button is shown with the default Canada.ca URL. You can customize the URL or simply hide the button.
+				<pre>"showFeedback": false</pre>
+				<pre>"showFeedback": "Custom URL here"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – screenIdentifier – Use this variable to specify the screen identifier of the web application.
+				<pre>"screenIdentifier": "0123456789"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – dateModified – Use this variable to specify the date modified of your page. If you prefer to use the version identifier technique, use the variable below. Note that you must use one option or the other.
+				<pre>"dateModified": "2015-10-09"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – verisonIdentifier – Use this variable to specify the version of the web application instead of dateModified.
+				<pre>"versionIdentifier": "0123456789"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – pagedetails – Use this variable to remove the <code>&lt;div class="pagedetails"&gt;</code> when using the server message page template.
+				<pre>"pagedetails": false</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="def-preFooter"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/preFooter-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/preFooter-en.html" --&gt;
+&lt;/div&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var defPreFooter = document.getElementById("def-preFooter");
+	defPreFooter.outerHTML = wet.builder.preFooter({
+		"dateModified": "2017-06-05"
+	});
+&lt;/script&gt;</pre>
+		<p><strong class="text-uppercase">Note</strong>: Don’t forget the <code>&lt;div&gt;</code> that is wrapped around your fall-back static file is named “def-preFooter” otherwise your page will not display correctly. Also it’s important that you close the <code>&lt;main&gt;</code> element after the pre-footer as shown in the sample code above.</p>
+	</section>
+	<section>
+		<h3 id="Section_footer_references">Section footer references</h3>
+		<p>In the footer section of your page you will need to perform three changes.</p>
+		<ol>
+			<li>The first one will be to add a new <code>&lt;div&gt;</code> to wrap all the footer content with an ID of “def-footer”. This <code>&lt;div&gt;</code> will start immediately after your <code>&lt;/main&gt;</code> element has been closed.</li>
+			<li>The second change will be to include the reference to the fall-back static file in the new <code>&lt;div&gt;</code> you have created.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the footer section to replace the new <code>&lt;div&gt;</code> content once the template is ready. The following JavaScript variables can be used in this section:</li>
+		</ol>
+		<ul>
+			<li><span class="text-uppercase">Optional</span> – contactLinks – This will be used to customize the contact us link located in the footer of the page.
+				<pre>"contactLinks": [{
+	"href": "#"
+}]</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="def-footer"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/app/cls/WET/gcweb/v4_0_29/cdts/static/footer-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_29/cdts/static/footer-en.html" --&gt;
+&lt;/div&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var defFooter = document.getElementById("def-footer");
+	defFooter.outerHTML = wet.builder.footer({
+	});
+&lt;/script&gt;</pre>
+		<p><strong class="text-uppercase">Note</strong>: Don’t forget the <code>&lt;div&gt;</code> that is wrapped around your fall-back static file is named “def-footer” otherwise your page will not display correctly.</p>
+	</section>
+	<section>
+		<h3 id="Section_footer_file_references">Section footer file references</h3>
+		<p>The following JavaScript variables can be used in this section:</p>
+		<h4>Exit script</h4>
+		<ul>
+			<li><span class="text-uppercase">Optional</span> – exitScript – Use this variable if you want to warn the users they are leaving a secured session.
+				<pre>"exitScript": true</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – exitURL – Specify the URL where the users will be redirected to leave their secured session.
+				<pre>"exitURL": "#"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – exitMsg – Specify the message the users will get before being redirected and leaving their secured session.
+				<pre>"exitMsg": "You are about to leave a secure site, do you wish to continue?"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – cancelMsg – Specify the text for the button (Cancel) the users will get if they want to close the exitMsg window.
+				<pre>"cancelMsg": "cancel"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – yesMsg– Specify the text for the button (Yes) the users will get if they want to close the exitMsg window.
+				<pre>"yesMsg": "yes"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – exitDomains – Specify the additional domains that should not be checked for secure exit.
+				<pre>"exitDomains": "#"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – displayModal – Use this variable if you want to skip the modal dialog to confirm the exit notice. Keep in mind this will not display the exit notice to the user.
+				<pre>"displayModal": false</pre>
+			</li>
+		</ul>
+		<h4>Other variables</h4>
+		<ul>
+			<li><span class="text-uppercase">Optional</span> - jqueryEnv – Use this variable to specify which environment you want to pull the jQuery files from. By default they are loaded locally from the WET build. Otherwise use the following to load from Google CDN:
+				<pre>"jqueryEnv": external</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> - Use this variable when you are using the webAnalytics in the <code>head</code> section. Default is <em>false</em>, no need to mark <em>false</em> if you are <strong>not</strong> using Adobe Analytics.
+				<pre>"webAnalytics": true</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	document.write(wet.builder.refFooter({
+		"webAnalytics": true
+	}));
+&lt;/script&gt;</pre>
+	</section>
+	<section>
+		<h3 id="Splash_page_references">Splash page references</h3>
+		<p>In the <code>&lt;head&gt;</code> section of the splash page you will need to perform three changes.</p>
+		<ol>
+			<li>The first change will be to include the two references to the new GCT files that will perform all the work.</li>
+			<li>The second change will be to create the <code>&lt;noscript&gt;</code> section which will make your page look good if JavaScript is disabled. You will need to load a fall-back static file in the <code>&lt;noscript&gt;</code> section.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the <code>&lt;head&gt;</code> section.</li>
+		</ol>
+		<p>Sample:</p>
+		<pre>&lt;!-- Load closure template scripts --&gt;
+&lt;script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/compiled/soyutils.js"&gt;&lt;/script&gt;
+&lt;script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/compiled/wet-en.js"&gt;&lt;/script&gt;
+&lt;noscript&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/splashTop.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/splashTop.html" --&gt;
+&lt;/noscript&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	document.write(wet.builder.splashTop({
+	}));
+&lt;/script&gt;</pre>
+		<p><strong class="text-uppercase">Note</strong>: Don’t forget to always include in the <code>&lt;noscript&gt;</code> section with the fall-back static file otherwise your page will not degrade gracefully when JavaScript is disabled.</p>
+		<ul>
+			<li>Please note that for the Canada.ca theme, there is only one splash page with English first, so make sure to use the wet-en.js file.</li>
+		</ul>
+		<p>In the <code>&lt;body&gt;</code> section of your page you will need to perform three changes.</p>
+		<ol>
+			<li>The first one will be to add a new <code>&lt;div&gt;</code> to wrap all the content with an ID of “splashContent”. This <code>&lt;div&gt;</code> will start immediately after your <code>&lt;body&gt;</code> element has been opened.</li>
+			<li>The second change will be to include the reference to the fall-back static file in the new <code>&lt;div&gt;</code> you have created.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the body section to replace the new <code>&lt;div&gt;</code> content once the template is ready. The following JavaScript variables can be used in this section:</li>
+		</ol>
+		<ul>
+			<li><span class="text-uppercase">Mandatory</span> – indexEng – This variable indicates what the URL for the home page in English is.
+				<pre>"indexEng": "https://www.canada.ca/en/index.html"</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – indexFra – This variable indicates what the URL for the home page in French is.
+				<pre>"indexFra": "https://www.canada.ca/fr/index.html"</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – termsEng – This variable indicates what the URL for the terms and conditions page in English is.
+				<pre>"termsEng": "https://www.canada.ca/en/transparency/terms.html"</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – termsFra – This variable indicates what the URL for the terms and conditions page in French is.
+				<pre>"termsFra": "https://www.canada.ca/fr/transparence/avis.html"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – nameEng – This variable is used to brand the splash page with the web asset’s name (in English). If not used, the default “Government of Canada” will appear.
+				<pre>"nameEng": "My web asset"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – nameFra – This variable is used to brand the splash page with the web asset’s name (in French). If not used, the default “Gouvernement du Canada” will appear.
+				<pre>"nameFra": "Mon actif Web"</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="splashContent"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/splash.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/splash.html" --&gt;
+	&lt;!-- Write closure template --&gt;
+	&lt;script&gt;
+		var contentSplash = document.getElementById("splashContent");
+		contentSplash.innerHTML = wet.builder.splash({
+			"indexEng": "https://www.canada.ca/en/index.html",
+			"indexFra": "https://www.canada.ca/fr/index.html",
+			"termsEng": "https://www.canada.ca/en/transparency/terms.html",
+			"termsFra": "https://www.canada.ca/fr/transparence/avis.html",
+			"nameEng": "My web asset",
+			"nameFra": "Mon actif web"
+		});
+	&lt;/script&gt;
+&lt;/div&gt;</pre>
+	</section>
+	<section>
+		<h3 id="Transactional_page_references">Transactional page references</h3>
+		<p>Transactional pages are to be used under specific scenarios as detailed in section 6.5 of the <a href="https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/canada-content-information-architecture-specification.html">C&amp;IA specifications document</a>. Extract:</p>
+		<ul>
+			<li><em>Users are engaged in a transactional process where allowing them to navigate away from the current page would interrupt the intended flow and result in errors, loss of data or accidental termination of the session</em></li>
+		</ul>
+		<p>If you web asset meets those requirements then you can apply the following steps:</p>
+		<p>The <a href="#Section_.3Chead.3E_references">Section <code>&lt;head&gt;</code> references</a> don't change.</p>
+		<p>The <a href="#Section_top_references">Section top references</a> are the same except for the following modifications:</p>
+		<ul>
+			<li><span class="text-uppercase">Mandatory</span> – search – This variable is used to hide the search.
+				<pre>"search": false</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – siteMenu – This variable is used to hide the site menu.
+				<pre>"siteMenu": false</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – breadcrumbs – Note that in a transactional scenario, the breadcrumbs are replaced with a link to exit the transaction that directs users to a safe point where they can abandon the current transaction and restart it should they wish.
+				<pre>"breadcrumbs": [{
+	"title": "Exit secure transaction",
+	"href": "https://www.canada.ca/en/index.html"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – showPreContent – This variable is used to hide the content inserted into the pre content space of your page.
+				<pre>"showPreContent": false</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="def-top"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/transactTop-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/transactTop-en.html" --&gt;
+&lt;/div&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var defTop = document.getElementById("def-top");
+	defTop.outerHTML = wet.builder.top({
+		"lngLinks": [{
+			"lang": "fr",
+			"href": "transactional-fr.html",
+			"text": "Français"
+		}],
+		"search": false,
+		"siteMenu": false,
+		"showPreContent": false
+	});
+&lt;/script&gt;</pre>
+		<p>The <a href="#Section_pre-footer_references">Section pre-footer references</a> are the same except for the following modifications:</p>
+		<ul>
+			<li><span class="text-uppercase">Mandatory</span> – showPostContent – This variable is used to hide the content inserted into the post content space of your page.
+				<pre>"showPostContent": false</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – showFeedback – This variable is used to hide the “Report a problem or mistake on this page” button.
+				<pre>"showFeedback": false</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – showShare – This variable is used to hide the “Share this page” button.
+				<pre>"showShare": false</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="def-preFooter"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/preFooter-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/preFooter-en.html" --&gt;
+&lt;/div&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var defPreFooter = document.getElementById("def-preFooter");
+	defPreFooter.outerHTML = wet.builder.preFooter({
+		"dateModified": "2017-06-05",
+		"showPostContent": false,
+		"showFeedback": false,
+		"showShare": false
+	});
+&lt;/script&gt;</pre>
+		<p>The <a href="#Section_footer_references">Section footer references</a> are the same except for the following modifications:</p>
+		<ul>
+			<li><span class="text-uppercase">Mandatory</span> – showFooter – This variable is used to hide the content inside the footer.
+				<pre>"showFooter": false</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – contactLinks – This variable will override the default contact link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom contact us link. You can also add an optional variable to have the link open in a new window with <code>"newWindow": true</code>.
+				<pre>"contactLinks": [{
+	"href": "#",
+	"newWindow": true
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – termsLink – This variable will override the “Terms &amp; conditions” link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom link. You can also add an optional variable to have the link open in a new window with <code>"newWindow": true</code>.
+				<pre>"termsLink": [{
+	"href": "https://www.canada.ca/en/transparency/terms.html",
+	"newWindow": true
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – privacyLink – This variable will override the “Privacy” link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom link. You can also add an optional variable to have the link open in a new window with <code>"newWindow": true</code>.
+				<pre>"privacyLink": [{
+	"href": "https://www.canada.ca/en/transparency/privacy.html",
+	"newWindow": true
+}]</pre>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="def-footer"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/transactFooter-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/transactFooter-en.html" --&gt;
+&lt;/div&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var defFooter = document.getElementById("def-footer");
+	defFooter.outerHTML = wet.builder.footer({
+		"showFooter": false,
+		"showFeatures": false
+	});
+&lt;/script&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	document.write(wet.builder.refFooter({
+	}));
+&lt;/script&gt;</pre>
+		<p>The <a href="#Section_footer_file_references">Section footer file references</a> don't change.</p>
+	</section>
+	<section>
+		<h3 id="Section_menu_references">Section menu references</h3>
+		<p>If you plan on using the section menu on some of your pages, follow these steps:</p>
+		<p>The <a href="#Section_.3Chead.3E_references">Section <code>&lt;head&gt;</code> references</a> don't change.</p>
+		<p>The <a href="#Section_top_references">Section top references</a> are the same except for the following modifications:</p>
+		<ul>
+			<li><span class="text-uppercase">Mandatory</span> – topSecMenu – Variable used to add the bypass block
+				<pre>"topSecMenu": true</pre>
+			</li>
+			<li>Add two unclosed <code>&lt;div&gt;</code> after the GCT code above and immediately before the opening <code>&lt;main&gt;</code> element.
+				<ul>
+					<li>The first <code>&lt;div&gt;</code> must have a class named “container”</li>
+					<li>The second <code>&lt;div&gt;</code> must have a class named “row”</li>
+				</ul>
+			</li>
+		</ul>
+		<p>Sample:</p>
+		<pre>&lt;div id="def-top"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/top-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/top-en.html" --&gt;
+&lt;/div&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var defTop = document.getElementById("def-top");
+	defTop.outerHTML = wet.builder.top({
+		"topSecMenu": true,
+		"lngLinks": [{
+			"lang": "fr",
+			"href": "sectionmenu-fr.html",
+			"text": "Français"
+		}]
+	});
+&lt;/script&gt;</pre>
+		<p>The <a href="#Section_pre-footer_references">Section pre-footer references</a> don't change.</p>
+		<p>Immediately after the closing <code>&lt;main&gt;</code> element, you will need to perform 4 changes.</p>
+		<ol>
+			<li>The first one will be to add a new <code>&lt;nav&gt;</code> element to wrap the entire section menu(s). This <code>&lt;nav&gt;</code> will start at the bottom of your page immediately after the closing <code>&lt;main&gt;</code> element.</li>
+			<li>The second change will be to include the reference to the fall-back static file in the new <code>&lt;nav&gt;</code> you have created.</li>
+			<li>The third change will be to add the actual GCT code to perform the write of the template in the nav section to replace the new <code>&lt;nav&gt;</code> content once the template is ready. The following JavaScript variables can be used in the list below.</li>
+			<li>The last change will be to close the two <code>&lt;div&gt;</code> you previously opened.</li>
+		</ol>
+		<ul>
+			<li><span class="text-uppercase">Mandatory</span> – sectionName – This variable will be used to display the heading(s) of the section menu(s).
+				<pre>"sectionName": "Section name"</pre>
+			</li>
+			<li><span class="text-uppercase">Mandatory</span> – menuLinks – This variable will be used to display the links in the menu.
+				<pre>"menuLinks": [{
+	"href": "#",
+	"text": "Link 1"
+}</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – subLinks – This variable will be used to display the sub-links in the menu. You can also add <code>"newWindow": true</code> if you want the link to open in a new window.
+				<pre>"subLinks": [{
+	"subhref": "#",
+	"subtext": "Link 1",
+	"newWindow": true
+}]</pre>
+			</li>
+		</ul>
+		<p><strong>Please note that although it’s possible to have multiple secondary menus, only one menu should be used.</strong></p>
+		<p>Sample:</p>
+		<pre>&lt;nav class="wb-sec col-md-3 col-md-pull-9" typeof="SiteNavigationElement" id="wb-sec" role="navigation"&gt;
+	&lt;!-- Write closure fall-back static file --&gt;
+	&lt;!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/secMenu-en.html --&gt;
+	&lt;!--#include virtual="/app/cls/WET/gcweb/v4_0_28/cdts/static/secMenu-en.html" --&gt;
+&lt;/nav&gt;
+&lt;!-- Write closure template --&gt;
+&lt;script&gt;
+	var secondarymenu = document.getElementById("wb-sec");
+	secondarymenu.innerHTML = wet.builder.secmenu({
+		"sections": [{
+			"sectionName": "[Topic - Local navigation]",
+			"menuLinks": [{
+				"href": "#",
+				"text": "Link 1",
+				"subLinks": [{
+					"subhref": "#11a",
+					"subtext": "Link 1.1 a)"
+				}, {
+					"subhref": "#11b",
+					"subtext": "Link 1.1 b)"
+				}, {
+					"subhref": "#11c",
+					"subtext": "Opens in a new window",
+					"newWindow": true
+				}, {
+					"subhref": "#11d",
+					"subtext": "Link 1.1 d)"
+				}]
+			}, {
+				"href": "#",
+				"text": "Link 2"
+			}, {
+				"href": "#",
+				"text": "Opens in a new window",
+				"newWindow": true
+			}, {
+				"href": "#",
+				"text": "Link 4"
+			}]
+		},{
+			"sectionName": "Opens in a new window",
+			"sectionLink": "#",
+			"newWindow": true,
+			"menuLinks": [{
+				"href": "#",
+				"text": "Link 1"
+			}, {
+				"href": "#",
+				"text": "Link 2"
+			}, {
+				"href": "#",
+				"text": "Link 3"
+			}, {
+				"href": "#",
+				"text": "Link 4"
+			}]
+		},{
+			// Rinse and repeat
+			"sectionName": "Section name 3",
+			"menuLinks": [{
+				"href": "#",
+				"text": "Link 1"
+			}, {
+				"href": "#",
+				"text": "Link 2"
+			}, {
+				"href": "#",
+				"text": "Link 3"
+			}, {
+				"href": "#",
+				"text": "Link 4"
+			}]
+		},{
+			// Rinse and repeat
+			"sectionName": "Section name ... 27",
+			"menuLinks": [{
+				"href": "#",
+				"text": "Link 1"
+			}, {
+				"href": "#",
+				"text": "Link 2"
+			}, {
+				"href": "#",
+				"text": "Link 3"
+			}, {
+				"href": "#",
+				"text": "Link 4"
+			}]
+		}]
+	});
+&lt;/script&gt;</pre>
+		<p>The <a href="#Section_footer_references">Section footer references</a> don't change.</p>
+		<p>The <a href="#Section_footer_file_references">Section footer file references</a> don't change.</p>
+	</section>
+	<section>
+		<h3 id="Section_appTop_references">Section appTop references</h3>
+		<p>So you want a custom header? Before proceeding please ensure you have permission from your department, TBS or Principal Publisher before proceeding. The changes below <strong>DO NOT</strong> follow the <a href="https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/canada-content-information-architecture-specification.html">C&amp;IA specifications document</a>. Still want to continue? Sounds good, follow these steps:</p>
+		<p>You first need to make sure you are using <code>isApplication</code> in <code>wet.builder.refTop</code>. This will ensure you are pulling in the <code>cdtsapps.css</code> file that will properly style the web application elements.</p>
+		<p>You will then replace the <a href="#Section_top_references">Section top references</a> with the following:</p>
+		<ol>
+			<li>The first one will be to add a new <code>&lt;div&gt;</code> to wrap the entire top content with an ID of “def-top”. This <code>&lt;div&gt;</code> will start at the top of your page all the way down to the opening <code>&lt;main&gt;</code> element.</li>
+			<li>The second change will be to include the reference to the fall-back static file in the new <code>&lt;div&gt;</code> you have created. <strong>IMPORTANT</strong>: The appTop-(language).html file contains instructions, please carefully review the comments to ensure you have the proper look when JavaScript is disabled.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the top section to replace the new <code>&lt;div&gt;</code> content once the template is ready. The following JavaScript variables can be used in this section:</li>
+		</ol>
+		<ul>
+			<li><span class="text-uppercase">Mandatory</span> - appName – Use this variable to specify the application name and URL.
+				<pre>"appName": [{
+	"text": "Application name",
+	"href": "#"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> - appSettings – Use this variable to specify the URL for the "Account settings" button.
+				<pre>"appSettings": [{
+	"href": "#"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> - signIn – Use this variable to add a button for the sign in and specify the URL.
+				<pre>"signIn": [{
+	"href": "#"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> - signOut – Use this variable to add a button for the sign out and specify the URL.
+				<pre>"signOut": [{
+	"href": "#"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> - lngLinks – Use this variable to specify where the language toggle link will go.
+				<pre>"lngLinks": [{
+	"lang": "fr",
+	"href": "content-fr.html",
+	"text": "Français"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – customSearch – This variable is used to display a custom search. You need to <a href="./contact-en.html">contact the CDTS team</a> to enable this option.
+				<pre>"customSearch": "customSearch"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – menuPath – This variable is used to display a custom menu. Although you don't need to we suggest you <a href="./contact-en.html">contact the CDTS team</a> to enable this option. If you have done this before then simply provide the URL to your valid menu file to enable this option. You can copy the format in the sample custom menu file provided below in our sample.
+				<pre>"menuPath": "https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/(version)/cdts/ajax/appmenu-en.html"</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – menuLinks – This variable will be used to create a top navigation menu, it will override the menuPath variable if provided. You can also create submenu items.
+				<pre>"menuLinks": [{
+	"href": "#",
+	"text": "Link 1"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – breadcrumbs – Use this variable to specify the breadcrumbs in your page. Note that if no breadcrumbs are specified the application template will <strong>NOT</strong> insert a default link.
+				<pre>"breadcrumbs": [{
+	"title": "Home",
+	"href": "https://www.canada.ca/en/index.html"
+},{
+	"title": "CDTS",
+	"acronym": "Centrally Deployed Templates Solution",
+	"href": "https://www.canada.ca/en/index.html"
+}]</pre>
+			</li>
+			<li><span class="text-uppercase">Optional</span> – showPreContent – This will be used by Principal Publisher to insert content into the pre content space of your page. By default this is ALWAYS shown on all pages. You will need authorization from the Principal Publisher to not include this content in your web asset. If you receive such authorization then you can insert the following code.
+				<pre>"showPreContent": false</pre>
+			</li>
+		</ul>
+		<p>We have not provided sample code images for the application templates as there are too many options. Instead please see our <a href="https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_30/cdts/appTop/apptop-en.shtml">application template sample pages</a> that we keep updated. It has all the different scenarios listed above.</p>
+		<p><strong class="text-uppercase">Note</strong>: Don’t forget the <code>&lt;div&gt;</code> that is wrapped around your fall-back static file is named “def-top” otherwise your page will not display correctly. Also note that when using the application templates you will use <code>wet.builder.appTop</code> instead of <code>wet.builder.top</code> in your JavaScript code.</p>
+	</section>
+	<section>
+		<h3 id="Section_appFooter_references">Section appFooter references</h3>
+		<p>So you want a custom footer? Before proceeding please ensure you have permission from your department, TBS or Principal Publisher before proceeding. The changes below <strong>DO NOT</strong> follow the <a href="https://www.canada.ca/en/treasury-board-secretariat/services/government-communications/canada-content-information-architecture-specification.html">C&amp;IA specifications document</a>. Still want to continue? Sounds good, follow these steps:</p>
+		<p>You will replace the <a href="#Section_footer_references">Section footer references</a> with the following:</p>
+		<ol>
+			<li>The first one will be to add a new <code>&lt;div&gt;</code> to wrap all the footer content with an ID of “def-footer”. This <code>&lt;div&gt;</code> will start immediately after your <code>&lt;/main&gt;</code> element has been closed.</li>
+			<li>The second change will be to include the reference to the fall-back static file in the new <code>&lt;div&gt;</code> you have created. <strong>IMPORTANT</strong>: The appFooter-(language).html file contains instructions, please carefully review the comments to ensure you have the proper look when JavaScript is disabled.</li>
+			<li>The last change will be to add the actual GCT code to perform the write of the template in the footer section to replace the new <code>&lt;div&gt;</code> content once the template is ready. The following JavaScript variables can be used in this section:</li>
+		</ol>
+		<ul>
+			<li><span class="text-uppercase">Optional</span> – footerSections – This variable will create a custom set of columns for your footer links. See sample URL below for an example.
+				<pre>"footerSections": [{
+	"href": "#",
+	"text": "Link 1"
+},{
+	"href": "#",
+	"text": "Link 2"
+}]</pre>
+			</li>
+		</ul>
+		<section>
+			<h4 id="v4.0.28">v4.0.28</h4>
+			<ul>
+				<li><span class="text-uppercase">Optional</span> – contactLink – This variable will override the default contact link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom contact us link.
+					<pre>"contactLink": "https://www.canada.ca/en/contact.html"</pre>
+				</li>
+				<li><span class="text-uppercase">Optional</span> – termsLink – This variable will override the “Terms &amp; conditions” link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom link.
+					<pre>"termsLink": "https://www.canada.ca/en/transparency/terms.html"</pre>
+				</li>
+				<li><span class="text-uppercase">Optional</span> – privacyLink – This variable will override the “Privacy” link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom link.
+					<pre>"privacyLink": "https://www.canada.ca/en/transparency/privacy.html"</pre>
+				</li>
+			</ul>
+		</section>
+		<section>
+			<h4 id="v4.0.29.2B">v4.0.29+</h4>
+			<ul>
+				<li><span class="text-uppercase">Optional</span> – contactLink – This variable will override the default contact link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom contact us link. You can also add an optional variable to have the link open in a new window with <code>"newWindow": true</code>.
+					<pre>"contactLink": [{
+	"href": "https://www.canada.ca/en/contact.html",
+	"newWindow": true
+}]</pre>
+				</li>
+				<li><span class="text-uppercase">Optional</span> – termsLink – This variable will override the “Terms &amp; conditions” link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom link. You can also add an optional variable to have the link open in a new window with <code>"newWindow": true</code>.
+					<pre>"termsLink": [{
+	"href": "https://www.canada.ca/en/transparency/terms.html",
+	"newWindow": true
+}]</pre>
+				</li>
+				<li><span class="text-uppercase">Optional</span> – privacyLink – This variable will override the “Privacy” link located in the footer section of your page. If no variable is specified then the default link will be displayed. Otherwise you can use the following code to include your custom link. You can also add an optional variable to have the link open in a new window with <code>"newWindow": true</code>.
+					<pre>"privacyLink": [{
+	"href": "https://www.canada.ca/en/transparency/privacy.html",
+	"newWindow": true
+}]</pre>
+				</li>
+			</ul>
+			<p><strong>IMPORTANT</strong>: You can only use one variable for the footer appearance. If you don't provide <code>footerSections</code> then the default footer from the <a href="#Transactional_page_references">transactional template</a> will be displayed.</p>
+			<p>We have not provided sample code images for the application templates as there are too many options. Instead please see our <a href="https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_30/cdts/appTop/apptop-en.shtml">application template sample pages</a> that we keep updated. It has all the different scenarios listed above.</p>
+			<p><strong class="text-uppercase">Note</strong>: Don’t forget the <code>&lt;div&gt;</code> that is wrapped around your fall-back static file is named “def-footer” otherwise your page will not display correctly. Also note that when using the application templates you will use <code>wet.builder.appFooter</code> instead of <code>wet.builder.footer</code> in your JavaScript code.</p>
+		</section>
+	</section>
+</section>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/preFooter-en.html -->
+				</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2019-11-01",
+					"showShare": false,
+					"showFeedback": false
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"contactLink": "./contact-en.html"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>

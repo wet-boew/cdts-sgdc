@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Journal des modifications - Solution de gabarits à déploiement centralisé (SGDC)</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Solution de gabarits à déploiement centralisé (SGDC)">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/soyutils.js"></script>
+		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/wet-fr.js"></script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"breadcrumbs": [{"title": "Accueil", "href": "./index-fr.html"}],
+				"appName": [{"text": "Solution de gabarits à déploiement centralisé (SGDC)", "href": "./index-fr.html"}],
+				"lngLinks": [{"lang": "fr", "href": "changelog-en.html", "text": "English"}],
+				"menuPath": "../ajax/cdtsMenu-fr.html"
+			});
+		</script>
+		<main role="main" property="mainContentOfPage" class="container">
+<h1 property="name" id="wb-cont">Journal des modifications</h1>
+<p data-json-replace="../ajax/data.json#/sloganFr">Slogan</p>
+<div class="alert alert-info">
+	<p data-json-replace="../ajax/data.json#/noteFr">Note</p>
+</div>
+<div lang="en">
+<p><strong>Needs translation</strong></p>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>The format is based on <a href="https://keepachangelog.com/">Keep a Changelog</a> and this project adheres to <a href="https://semver.org/">Semantic Versioning</a>. Some small modifications made so that we can easily copy/paste to GCPedia.</p>
+<section>
+	<h2 id="Announcements">Announcements</h2>
+	<ul>
+		<li>If you previously implemented the application templates you will NOT be able to upgrade without updating your code. A mandatory update of the backup static files will also be required. Please see GCPedia for updated code and static files. * RL</li>
+		<li>In both themes the /rn/ version is now a copy of the /app/ version. This reduces development time and ensures greater consistency between both versions. * RL</li>
+		<li>All /rn/ static files (GCintranet and GCweb) must be updated before WET v4.1.0. * RL</li>
+		<li>All GCWeb implementations on ssl-templates.services.gc.ca will stop working shortly, make sure you are using the Akamai URLs. * RL</li>
+		<li>Akamai servers for CDTS are now serving up static HTML files, please make sure to grab files from Akamai and not ssl-templates.services.gc.ca. * RL</li>
+		<li>In v4.0.24 – v4.0.25 the HTML for the top menu in the application templates has changed (GCIntranet only), since we’re not aware of anyone except ESDC EI ORT web asset using the application templates on the GCIntranet theme we’ve updated this automatically. If you were impacted don’t forget that you need to let the ESDC WS CoE team know you are using it so we can warn you ahead of time of any changes to the application templates. * RL</li>
+	</ul>
+</section>
+<section>
+	<h2 id=".5BUnreleased.5D">[Unreleased]</h2>
+	<section>
+		<h3 id="Changed">Changed</h3>
+		<ul>
+			<li>Web application templates for GCWeb have been updated with PP / TBS approved templates. An automatic upgrade is NOT possible to v4.0.26! A mandatory update of your code and backup static files will be required. Please see GCPedia for updated code and static files. * RL</li>
+			<li>In the GCWeb application templates, the application name was there twice when in print. Fixed in v4.0.23, 4.0.24, 4.0.25. * NR</li>
+			<li>Template.js file was re-added (along with all v4.0.26dev /css/ and /js/ folders) to fix an issue in v4.0.25 * NR</li>
+			<li>Fixed a font issue in v4.0.23. The path was corrected. * NR</li>
+			<li>All login buttons are removed in print preview in both themes, last 3 versions. * NR</li>
+			<li>Added spaces to fix the search button and the inline footer navigation. Both themes. * NR</li>
+			<li>Screen Identifier is now in a <code>&lt;dl&gt;</code>. Both themes. * NR</li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h2 id=".5B4.0.25.5D_.2A_2017-06-14">[4.0.25] * 2017-06-14</h2>
+	<section>
+		<h3 id="Changed_2">Changed</h3>
+		<ul>
+			<li>Added "appUrl" and "intranetTitle" variables in wet.builder.appTop for new GCIntranet application templates. * RL</li>
+			<li>The SOY files on GCIntranet have been updated with a new ESDC only internal server for CDTS assets. * RL</li>
+			<li>The plugins-(language).js files will be deprecated in v4.1.0 of the CDTS. If you are impacted by this change please contact the CDTS team. * RL</li>
+			<li>The plugins-(language).js files are still there, but I removed everything in them to avoid creating a 404 * NR</li>
+			<li>Local sitemenu-(language).html are updated to reflect the latest changes * NR</li>
+			<li>Exit script updated to prompt message on internal links with on them * RL</li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h2 id=".5B4.0.24.2.5D_.2A_2017-03-23">[4.0.24.2] * 2017-03-23</h2>
+	<section>
+		<h3 id="Changed_3">Changed</h3>
+		<ul>
+			<li>Bug with WET video player media controls, changed files ie8-wet-boew2.js (line 7068) / ie8-wet-boew2.min.js, wet-boew.js (line 7626) / wet-boew.min.js. This can be reverted when Akamai begins serving up HTML files in AEM v1.19. * RL</li>
+			<li>GCIntranet: Fixed missing ID for label in search. * RL</li>
+		</ul>
+	</section>
+	<section>
+		<h2 id=".5B4.0.24.5D_.2A_2017-03-15">[4.0.24] * 2017-03-15</h2>
+		<section>
+			<h3 id="Added">Added</h3>
+			<ul>
+				<li>New application templates (appTop/appFooter) are now available for both GCWeb and GCIntranet. Please ensure you have permission to use these. Details are available on the implementation guide pages. * RL</li>
+			</ul>
+		</section>
+		<section>
+			<h3 id="Changed_4">Changed</h3>
+			<ul>
+				<li>Transactional layout in both themes: removed the menu and search in mobile. * NR</li>
+				<li>Print preview: removed section menu from both themes. * NR</li>
+				<li>Copied GCWeb/GCIntranet v4.0.23 SOY to /rn/. * RL</li>
+				<li>Transactional scenario: "Contact us" in footer changed to "Contact information". * RL</li>
+			</ul>
+		</section>
+	</section>
+	<section>
+		<h2 id=".5B4.0.23.5D_.2A_2016-12-21">[4.0.23] * 2016-12-21</h2>
+		<section>
+			<h3 id="Added_2">Added</h3>
+			<ul>
+				<li>Added displayModal in GCWeb to skip modal dialog and go straight to exitURL * RL</li>
+				<li>Updated exitScript.js for new displayModal variable * RL</li>
+				<li>Updated exitScript.js to ignore links with target="_blank" * RL</li>
+				<li>GCIntranet theme and subthemes updated in app/run for intranetTitle variable * RL</li>
+				<li>In /app/ for GCintranet added js/compiled with copy from cdts/compiled to support .NET/JAVA template updates * RL</li>
+				<li>Added samples for screenidentifier-(lang).shtml in samples folder * RL</li>
+				<li>GCIntranet: GCdirectory in the GCintranet red bar (includes a new directory_icon.png in /cdts/) * NR</li>
+				<li>GCWeb &amp; GCIntranet: new variable for the section menu permits target _blank * NR</li>
+				<li>Data integrity added to jquery pulls from Google</li>
+				<li>GCIntranet: New 'labour' subTheme added to soy files</li>
+			</ul>
+		</section>
+		<section>
+			<h3 id="Changed_5">Changed</h3>
+			<ul>
+				<li>Changed SOY files in GCWeb app/run to remove inline styles for screen identifier and CSS class (screenIdent) * RL</li>
+				<li>cdtsfixes.css updated in app/run to add class "screenIdent" for screen identifier * RL</li>
+				<li>Updated cdtsfixes.css for the URL print issue, removed the Chrome print in landscape plus other fluff CSS from EC * RL</li>
+				<li>GCIntranet: placeholder in search (soy) and removed italic from placeholder in cdtsfixes.css * NR</li>
+				<li>GCWeb: there was a 404 in IE8. Fixed the path from /wet-boew/js/ to /js/ * NR</li>
+				<li>GCWeb: mega menu links updated as per Principal Publisher's request. Changes reflected in static files top-en.html and secMenuTop-en.html and their French counterparts * NR</li>
+				<li>GCWeb: "Feedback" link in mini-footer (inline) was removed as per the new C&amp;IA doc (<a href="https://github.com/wet-boew/GCWeb/issues/1206">https://github.com/wet-boew/GCWeb/issues/1206</a>) * NR</li>
+			</ul>
+		</section>
+	</section>
+</section>
+<section>
+	<h2 id=".5B4.0.22_.2A_4.0.23_.2A_rn.5D_.2A_2016-12-13">[4.0.22 * 4.0.23 * rn] * 2016-12-13</h2>
+	<section>
+		<h3 id="Changed_6">Changed</h3>
+		<ul>
+			<li>GCWeb: "Feedback" link in mini-footer (inline) was removed as per the new C&amp;IA doc (<a href="https://github.com/wet-boew/GCWeb/issues/1206">https://github.com/wet-boew/GCWeb/issues/1206</a>) * NR</li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h2 id=".5B4.0.21_.2A_4.0.22_.2A_rn.5D_.2A_2016-12-02">[4.0.21 * 4.0.22 * rn] * 2016-12-02</h2>
+	<section>
+		<h3 id="Changed_7">Changed</h3>
+		<ul>
+			<li>GCWeb: mega menu links updated as per Principal Publisher's request. Changes reflected in static files top-en.html and secMenuTop-en.html and their French counterparts * NR</li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h2 id="2016-11-17">2016-11-17</h2>
+	<section>
+		<h3 id="Added_3">Added</h3>
+		<ul>
+			<li>GCWeb &amp; GCIntranet: new variable for the section menu permits target _blank</li>
+		</ul>
+	</section>
+	<section>
+		<h3 id="Changed_8">Changed</h3>
+		<ul>
+			<li>GCWeb: Link in the footer to GC News changed</li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h2 id="2016-11-01">2016-11-01</h2>
+	<section>
+		<h3 id="Added_4">Added</h3>
+		<ul>
+			<li>GCIntranet: GCdirectory in the GCintranet red bar (includes a new directory_icon.png in /cdts/)</li>
+		</ul>
+	</section>
+	<section>
+		<h3 id="Changed_9">Changed</h3>
+		<ul>
+			<li>GCIntranet: placeholder in search (soy) and removed italic from placeholder in cdtsfixes.css</li>
+			<li>GCWeb: there was a 404 in IE8. Fixed the path from /wet-boew/js/ to /js/</li>
+		</ul>
+	</section>
+</section>
+<section>
+	<h2 id=".5B4.0.22.5D_.2A_2015-12-03">[4.0.22] * 2015-12-03</h2>
+	<section>
+		<h3 id="Added_5">Added</h3>
+		<ul>
+			<li>Support for Canada.ca in SOY files for GCWeb</li>
+			<li>Add variable jqueryEnv: external to SOY files</li>
+			<li>Modified CSS in cdtsfixes.css for Github issue 7643 in wet-boew</li>
+		</ul>
+		<section>
+			<h3 id="Changed_10">Changed</h3>
+			<ul>
+				<li>Modified SOY files to pull from Canada.ca instead of ssl-templates.gc.ca</li>
+				<li>cdnEnv variable switched to Canada.ca for all variables except (esdcprod, esdcqat, esdcnonprod)</li>
+			</ul>
+		</section>
+	</section>
+</section>
+</div>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/preFooter-fr.html -->
+				</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2019-03-14",
+					"showShare": false,
+					"showFeedback": false
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"contactLink": "./contact-fr.html"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>

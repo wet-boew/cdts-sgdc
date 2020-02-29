@@ -1,0 +1,29 @@
+{
+    "sections" : [{
+        "refTop" : [{
+            "title" : "Section head for file references",
+            "description" : "",
+            "id" : "section-refTop"
+        }],
+        "top" : [{
+            "title" : "Top section of your page",
+            "description" : "",
+            "id" : ""
+        }],
+        "preFooter" : [{
+            "title" : "Pre-footer section",
+            "description" : "",
+            "id" : ""
+        }],
+        "footer" : [{
+            "title" : "Footer section",
+            "description" : "",
+            "id" : ""
+        }],
+        "refFooter" : [{
+            "title" : "Footer file references",
+            "description" : "",
+            "id" : ""
+        }]
+    }]
+}

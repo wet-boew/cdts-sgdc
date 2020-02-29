@@ -1,0 +1,22 @@
+{
+  "name": "cdts-sgdc",
+  "version": "1.0.0",
+  "description": "Solution de gabarits à déploiement centralisé (SGDC) / Centrally Deployed Templates Solution (CDTS)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cenw-wscoe/sgdc-cdts.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cenw-wscoe/sgdc-cdts/issues"
+  },
+  "homepage": "https://github.com/cenw-wscoe/sgdc-cdts#readme"
+}
