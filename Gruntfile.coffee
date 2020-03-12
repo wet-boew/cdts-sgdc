@@ -380,7 +380,7 @@ module.exports = (grunt) ->
 
 			release:
 				options:
-					repo: "https://github.com/wet-boew/cdts-sgdc-releases.git"
+					repo: "https://github.com/StdGit/cdts-sgdc-releases.git"
 					branch: "master"
 					base: "releases"
 					clone: "cdts-sgdc-releases"
