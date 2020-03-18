@@ -158,6 +158,35 @@ module.exports = (grunt) ->
 				options:
 					jarPath: "_src/jar"
 
+			gcwebopcEn:
+				expand: true,
+				src: [
+					"./_src/soy/gcwebopc/en/gcwebopc-en.soy"
+					"./_src/soy/gcwebopc/en/gcwebopc-appPage-en.soy"
+					]
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
+
+			gcwebopcFr:
+				expand: true,
+				src: [
+					"./_src/soy/gcwebopc/fr/gcwebopc-fr.soy"
+					"./_src/soy/gcwebopc/fr/gcwebopc-appPage-fr.soy"
+					]
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
+
+			gcwebopcBi:
+				expand: true,
+				src: [
+					"./_src/soy/gcwebopc/bilingual/gcwebopc-serverPage.soy"
+					]
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
+
 			gcintranetEn:
 				expand: true,
 				src: [
@@ -208,6 +237,26 @@ module.exports = (grunt) ->
 					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
 				]
 				dest: "<%= coreDist %>/gcweb-fr.js"
+
+			gcwebopcEn:
+				options:
+					stripBanners: false
+				src: [
+					"<%= coreTmp %>/_src/soy/gcwebopc/en/gcwebopc-en.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/en/gcwebopc-appPage-en.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/bilingual/gcwebopc-serverPage.js"
+				]
+				dest: "<%= coreDist %>/gcwebopc-en.js"
+
+			gcwebopcFr:
+				options:
+					stripBanners: false
+				src: [
+					"<%= coreTmp %>/_src/soy/gcwebopc/fr/gcwebopc-fr.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/fr/gcwebopc-appPage-fr.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/bilingual/gcwebopc-serverPage.js"
+				]
+				dest: "<%= coreDist %>/gcwebopc-fr.js"
 
 			gcintranetEn:
 				options:
