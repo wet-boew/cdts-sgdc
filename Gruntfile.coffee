@@ -311,6 +311,62 @@ module.exports = (grunt) ->
 				]
 				ext: ".min.css"
 
+		connect:
+			options:
+				port: 8000
+
+			server:
+				options:
+					base: "dist"
+
+		watch:
+			gruntfile:
+				files: "Gruntfile.coffee"
+				tasks: [
+					"dist"
+				]
+			css:
+				files: [
+					"_src/css/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+					"cssmin"
+				]
+			js:
+				files: [
+					"_src/js/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+					"uglify"
+				]
+			soy:
+				files: "_src/**/*.soy"
+				tasks: [
+					"soycompile"
+					"concat"
+					"uglify"
+					"clean:tmp"
+				]
+			assets:
+				files: [
+					"_src/ajax/**/*.*"
+					"_src/html/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+				]
+			deploy:
+				files: [
+					"*.txt"
+					"*.html"
+					"README.md"
+				]
+				tasks: [
+					"copy:deploy"
+				]
+
 		copy:
 			assets:
 				files: [
