@@ -320,6 +320,8 @@ module.exports = (grunt) ->
 					base: "dist"
 
 		watch:
+			options:
+				livereload: true
 			gruntfile:
 				files: "Gruntfile.coffee"
 				tasks: [
@@ -341,11 +343,108 @@ module.exports = (grunt) ->
 					"copy:assets"
 					"uglify"
 				]
-			soy:
-				files: "_src/**/*.soy"
+			gcwebEn:
+				files: [
+					"_src/soy/gcweb/en/*.soy"
+				]
 				tasks: [
-					"soycompile"
-					"concat"
+					"soycompile:gcwebEn"
+					"soycompile:gcwebBi"
+					"concat:gcwebEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebFr:
+				files: [
+					"_src/soy/gcweb/fr/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebFr"
+					"soycompile:gcwebBi"
+					"concat:gcwebFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebBi:
+				files: [
+					"_src/soy/gcweb/bilingual/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebEn"
+					"soycompile:gcwebFr"
+					"soycompile:gcwebBi"
+					"concat:gcwebEn"
+					"concat:gcwebFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebopcEn:
+				files: [
+					"_src/soy/gcwebopc/en/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebopcEn"
+					"soycompile:gcwebopcBi"
+					"concat:gcwebopcEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebopcFr:
+				files: [
+					"_src/gcwebopc/fr/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebopcFr"
+					"soycompile:gcwebopcBi"
+					"concat:gcwebopcFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebopcBi:
+				files: [
+					"_src/soy/gcwebopc/bilingual/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebopcEn"
+					"soycompile:gcwebopcFr"
+					"soycompile:gcwebopcBi"
+					"concat:gcwebopcEn"
+					"concat:gcwebopcFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetEn:
+				files: [
+					"_src/soy/gcintranet/en/*.soy"
+				]
+				tasks: [
+					"soycompile:gcintranetEn"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetFr:
+				files: [
+					"_src/soy/gcintranet/fr/*.soy"
+				]
+				tasks: [
+					"soycompile:gcintranetFr"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetBi:
+				files: [
+					"_src/soy/gcintranet/bilingual/*.soy"
+				]
+				tasks: [
+					"soycompile:gcintranetEn"
+					"soycompile:gcintranetFr"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetEn"
+					"concat:gcintranetFr"
 					"uglify"
 					"clean:tmp"
 				]
