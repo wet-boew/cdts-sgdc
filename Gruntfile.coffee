@@ -1,3 +1,4 @@
+compression = require("compression")
 path = require("path")
 fs = require("fs")
 
@@ -318,6 +319,12 @@ module.exports = (grunt) ->
 			server:
 				options:
 					base: "dist"
+					middleware: (connect, options, middlewares) ->
+						middlewares.unshift(compression(
+							filter: (req, res) ->
+								/json|text|javascript|dart|image\/svg\+xml|application\/x-font-ttf|application\/vnd\.ms-opentype|application\/vnd\.ms-fontobject/.test(res.getHeader('Content-Type'))
+						))
+						middlewares
 
 		watch:
 			options:
