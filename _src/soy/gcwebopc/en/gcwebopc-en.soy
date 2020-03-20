@@ -128,7 +128,7 @@
 				<div class="row">
 					<div class="brand col-xs-8 col-sm-9 col-md-5">
 						{if $siteMenu != false}<a href="https://priv.gc.ca/en/" property="url">{/if}
-							<img class="visible-print-block" src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-en.png" alt="">							
+							<img class="visible-print-block" src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-en.png" alt="">
 							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-wht-en.svg" class="hidden-print" alt="OPC Logo"/>
 							<span class="wb-inv">Office of the Privacy Commissioner of Canada</span>
 						{if $siteMenu != false}</a>{/if}
@@ -153,7 +153,7 @@
 					{if $search != false}
 					<section id="wb-srch" class="col-xs-7 text-right visible-md visible-lg" aria-labelledby="search-section">
 						<h2 id="search-section">Search</h2>
-						<form action="/en/search" class="form-inline" enctype="multipart/form-data" method="post" name="cse-search-box" role="search">
+						<form action="https://priv.gc.ca/en/search" class="form-inline" enctype="multipart/form-data" method="post" name="cse-search-box" role="search">
 							<div class="form-group">
 								<label for="wb-srch-q" class="wb-inv">Search website</label>
 								<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="t" type="search" value="" size="27" maxlength="150" placeholder="Search priv.gc.ca" />
@@ -173,17 +173,17 @@
         	</div>
 
 			{if $siteMenu != false}
-			<nav id="wb-sm" data-ajax-replace="{call .environment data="all" /}ajax/sitemenu-en" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="topics-menu-section">
+			<nav id="wb-sm" data-ajax-replace="https://priv.gc.ca/ajax/sitemenu-en" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="topics-menu-section">
 				<div class="container nvbar">
 					<h2 id="topics-menu-section">Topics menu</h2>
 					<div class="row">
 						<ul class="list-inline menu">
-							<li><a href="{call .environment data="all" /}en/for-individuals/" class="item">For individuals</a></li>
-							<li><a href="/en/for-businesses/" class="item">For businesses</a></li>
-							<li><a href="/en/for-federal-institutions/" class="item">For federal institutions</a></li>
-							<li><a href="/en/report-a-concern/" class="item">Report a concern</a></li>
-							<li><a href="/en/opc-actions-and-decisions/" class="item">OPC actions and decisions</a></li>
-							<li><a href="/en/about-the-opc/" class="item">About the OPC</a></li>
+							<li><a href="https://priv.gc.ca/en/for-individuals/" class="item">For individuals</a></li>
+							<li><a href="https://priv.gc.ca/en/for-businesses/" class="item">For businesses</a></li>
+							<li><a href="https://priv.gc.ca/en/for-federal-institutions/" class="item">For federal institutions</a></li>
+							<li><a href="https://priv.gc.ca/en/report-a-concern/" class="item">Report a concern</a></li>
+							<li><a href="https://priv.gc.ca/en/opc-actions-and-decisions/" class="item">OPC actions and decisions</a></li>
+							<li><a href="https://priv.gc.ca/en/about-the-opc/" class="item">About the OPC</a></li>
 						</ul>
 					</div>
 				</div>
@@ -202,7 +202,7 @@
 							<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
 							{/foreach}
 							{else}
-							<li><a href="/en/">Home</a></li>
+							<li><a href="https://priv.gc.ca/en/">Home</a></li>
 							{/if}
 						</ol>
 					</div>
@@ -249,7 +249,7 @@
 													<span class="prefix">Error&nbsp;1:&nbsp;</span>No selection was made. You must choose at least 1 answer.
 												</span>
 											</strong>
-											<form action="/en/for-individuals/" enctype="multipart/form-data" id="reportAProblemForm" method="post">
+											<form action="https://priv.gc.ca/en/for-individuals/" enctype="multipart/form-data" id="reportAProblemForm" method="post">
 												<input id="ProblemContentId" name="ProblemContentId" type="hidden" value="" />
 												<input name="__RequestVerificationToken" type="hidden" value="" />
 												<fieldset id="reportAProblemInputs">
@@ -287,7 +287,7 @@
 														<ul>
 															<li>
 																<small>
-																	<strong>You will not receive a reply.</strong> For enquiries, please <a href="/en/contact-the-opc/">contact the Office of the Privacy Commissioner</a>.
+																	<strong>You will not receive a reply.</strong> For enquiries, please <a href="https://priv.gc.ca/en/contact-the-opc/">contact the Office of the Privacy Commissioner</a>.
 																</small>
 															</li>
 															<li>
@@ -297,7 +297,7 @@
 															</li>
 															<li>
 																<small>
-																	<strong>For more information about this tool</strong>, please refer to our <a href="/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">terms and conditions of use</a>.
+																	<strong>For more information about this tool</strong>, please refer to our <a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">terms and conditions of use</a>.
 																</small>
 															</li>
 														</ul>
@@ -390,11 +390,11 @@
 							<h3 id="about-opc-section">About the OPC</h3>
 							<p>The Privacy Commissioner of Canada is an Agent of Parliament whose mission is to protect and promote privacy rights.</p>
 							<ul class="list-unstyled">
-								<li><a href="/en/about-the-opc/who-we-are/">Who we are</a></li>
-								<li><a href="/en/about-the-opc/what-we-do/">What we do</a></li>
-								<li><a href="/en/about-the-opc/opc-operational-reports/">OPC operational reports</a></li>
-								<li><a href="/en/about-the-opc/publications/">Publications</a></li>
-								<li><a href="/en/about-the-opc/working-at-the-opc/">Working at the OPC</a></li>
+								<li><a href="https://priv.gc.ca/en/about-the-opc/who-we-are/">Who we are</a></li>
+								<li><a href="https://priv.gc.ca/en/about-the-opc/what-we-do/">What we do</a></li>
+								<li><a href="https://priv.gc.ca/en/about-the-opc/opc-operational-reports/">OPC operational reports</a></li>
+								<li><a href="https://priv.gc.ca/en/about-the-opc/publications/">Publications</a></li>
+								<li><a href="https://priv.gc.ca/en/about-the-opc/working-at-the-opc/">Working at the OPC</a></li>
 							</ul>
 						</section>
 					</div>
@@ -403,9 +403,9 @@
 							<h3 id="opc-news-section">OPC news</h3>
 							<p>Get updates about the OPC’s announcements and activities, as well as the events in which we participate.</p>
 							<ul class="list-unstyled">
-								<li><a href="/en/opc-news/news-and-announcements/">News and announcements</a></li>
-								<li><a href="/en/opc-news/privacy-events/">Privacy events</a></li>
-								<li><a href="/en/opc-news/speeches/">Speeches</a></li>
+								<li><a href="https://priv.gc.ca/en/opc-news/news-and-announcements/">News and announcements</a></li>
+								<li><a href="https://priv.gc.ca/en/opc-news/privacy-events/">Privacy events</a></li>
+								<li><a href="https://priv.gc.ca/en/opc-news/speeches/">Speeches</a></li>
 							</ul>
 						</section>
 					</div>
@@ -413,12 +413,12 @@
 						<section aria-labelledby="respect-section">
 							<h3 id="respect-section">Your privacy</h3>
 							<p><strong>We respect your privacy</strong></p>
-							<p>Read our <a href="/en/privacy-and-transparency-at-the-opc/pp/">Privacy policy</a> and <a href="/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">Terms and conditions of use</a> to find out more about your privacy and rights when using the <a href="/">priv.gc.ca</a> website or contacting the Office of the Privacy Commissioner of Canada.</p>
+							<p>Read our <a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/pp/">Privacy policy</a> and <a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">Terms and conditions of use</a> to find out more about your privacy and rights when using the <a href="https://priv.gc.ca/">priv.gc.ca</a> website or contacting the Office of the Privacy Commissioner of Canada.</p>
 						</section>
 						<section aria-labelledby="transparency-section">
 							<h3 id="transparency-section">Transparency</h3>
 							<ul class="list-unstyled">
-								<li><a href="/en/privacy-and-transparency-at-the-opc/proactive-disclosure/">Proactive disclosure</a></li>
+								<li><a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/proactive-disclosure/">Proactive disclosure</a></li>
 							</ul>
 						</section>
 					</div>
@@ -435,15 +435,15 @@
 									{/foreach}
 								</ul>
 							{else}
-								<a href="/en/contact-the-opc/" role="button" class="btn btn-default active">Contact the OPC</a>
+								<a href="https://priv.gc.ca/en/contact-the-opc/" role="button" class="btn btn-default active">Contact the OPC</a>
 							{/if}
 						</section>
 						<section aria-labelledby="stay-connected-section">
 							<h3 id="stay-connected-section">Stay connected</h3>
 							<ul class="list-unstyled">
-								<li><span class="fa fa-comments"></span> <a href="/en/blog">OPC Blog</a></li>
+								<li><span class="fa fa-comments"></span> <a href="https://priv.gc.ca/en/blog">OPC Blog</a></li>
 								<li><span class="fa fa-linkedin-square"></span> <a href="https://www.linkedin.com/company/office-of-the-privacy-commissioner-of-canada">OPC LinkedIn</a></li>
-								<li><span class="fa fa-rss-square"></span> <a href="/en/rss-feeds/">OPC RSS feeds</a></li>
+								<li><span class="fa fa-rss-square"></span> <a href="https://priv.gc.ca/en/rss-feeds/">OPC RSS feeds</a></li>
 								<li><span class="fa fa-twitter"></span> <a href="https://twitter.com/PrivacyPrivee">OPC Twitter</a></li>
 								<li><span class="fa fa-youtube"></span> <a href="https://www.youtube.com/user/PrivacyComm">OPC YouTube channel</a></li>
 							</ul>
@@ -459,31 +459,31 @@
 				{if isNonnull($contactLinks)}
 					{foreach $link in $contactLinks}
 						{if isFirst($link)}
-							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/contact-the-opc/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 						{/if}
 					{/foreach}
 				{else}
-					<li><a href="https://www.canada.ca/en/contact.html">Contact information</a></li>
+					<li><a href="https://priv.gc.ca/en/contact-the-opc/">Contact information</a></li>
 				{/if}
 
 				{if isNonnull($termsLink)}
 					{foreach $link in $termsLink}
 						{if isFirst($link)}
-							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/terms.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 						{/if}
 					{/foreach}
 				{else}
-					<li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
+					<li><a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">Terms and conditions</a></li>
 				{/if}
 
 				{if isNonnull($privacyLink)}
 					{foreach $link in $privacyLink}
 						{if isFirst($link)}
-							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/privacy.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/pp/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 						{/if}
 					{/foreach}
 				{else}
-					<li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
+					<li><a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/pp/">Privacy</a></li>
 				{/if}
 				</ul>
 			</nav>
