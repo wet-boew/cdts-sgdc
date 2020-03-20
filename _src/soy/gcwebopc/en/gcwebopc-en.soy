@@ -127,13 +127,11 @@
 
 				<div class="row">
 					<div class="brand col-xs-8 col-sm-9 col-md-5">
-						<a href="/en">
+						{if $siteMenu != false}<a href="https://priv.gc.ca/en/" property="url">{/if}
 							<img class="visible-print-block" src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-en.png" alt="">
-							{if $siteMenu != false}<a href="https://priv.gc.ca/en/" property="url">{/if}
 							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-wht-en.svg" class="hidden-print" alt="OPC Logo"/>
-							<span class="wb-inv">Office of the Privacy Commissioner of Canada</span>
-							{if $siteMenu != false}</a>{/if}
-						</a>
+							<span class="wb-inv">Office of the Privacy Commissioner of Canada</span>						
+						{if $siteMenu != false}</a>{/if}
 					</div>
 
 					<section class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn" aria-labelledby="search-menu-section">
