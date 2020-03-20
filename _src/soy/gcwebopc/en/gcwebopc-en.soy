@@ -173,7 +173,7 @@
         	</div>
 
 			{if $siteMenu != false}
-			<nav id="wb-sm" data-ajax-replace="{call .environment data="all" /}ajax/sitemenu-en" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="topics-menu-section">
+			<nav id="wb-sm" data-ajax-replace="https://priv.gc.ca/ajax/sitemenu-en" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="topics-menu-section">
 				<div class="container nvbar">
 					<h2 id="topics-menu-section">Topics menu</h2>
 					<div class="row">
@@ -459,31 +459,31 @@
 				{if isNonnull($contactLinks)}
 					{foreach $link in $contactLinks}
 						{if isFirst($link)}
-							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/contact-the-opc/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 						{/if}
 					{/foreach}
 				{else}
-					<li><a href="https://www.canada.ca/en/contact.html">Contact information</a></li>
+					<li><a href="https://priv.gc.ca/en/contact-the-opc/">Contact information</a></li>
 				{/if}
 
 				{if isNonnull($termsLink)}
 					{foreach $link in $termsLink}
 						{if isFirst($link)}
-							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/terms.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 						{/if}
 					{/foreach}
 				{else}
-					<li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
+					<li><a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">Terms and conditions</a></li>
 				{/if}
 
 				{if isNonnull($privacyLink)}
 					{foreach $link in $privacyLink}
 						{if isFirst($link)}
-							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/privacy.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/pp/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 						{/if}
 					{/foreach}
 				{else}
-					<li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
+					<li><a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/pp/">Privacy</a></li>
 				{/if}
 				</ul>
 			</nav>
