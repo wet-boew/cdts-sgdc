@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Subresource Integrity (SRI) for CDTS - Solution de gabarits à déploiement centralisé (SGDC)</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Solution de gabarits à déploiement centralisé (SGDC)">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/soyutils.js"></script>
+		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/wet-fr.js"></script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"breadcrumbs": [{"title": "Accueil", "href": "./index-fr.html"}],
+				"appName": [{"text": "Solution de gabarits à déploiement centralisé (SGDC)", "href": "./index-fr.html"}],
+				"lngLinks": [{"lang": "fr", "href": "sri-en.html", "text": "English"}],
+				"menuPath": "../ajax/cdtsMenu-fr.html"
+			});
+		</script>
+		<main role="main" property="mainContentOfPage" class="container">
+<h1 property="name" id="wb-cont" lang="en">Subresource Integrity (SRI) for CDTS</h1>
+<p data-json-replace="../ajax/data.json#/sloganFr">Slogan</p>
+<div class="alert alert-info">
+	<p data-json-replace="../ajax/data.json#/noteFr">Note</p>
+</div>
+<div lang="en">
+<p><strong>Needs translation</strong></p>
+<p>Subresource integrity is achieved by attaching integrity attribute to HTML elements which downloads external resources(link, img, script, track, iframe, video, audio, a etc). This attribute to a value which is combination of resource hash value, hashing algorithm and MIME type of the file.</p>
+<p>The purpose of this page is to list the SRI values for the jQuery CDTS presentation layer files. The CDTS has included the SRI for the jQuery JS files starting in v4.0.23 of the WET/CDTS.</p>
+<p>Not sure what SRI is? <a href="https://www.troyhunt.com/protecting-your-embedded-content-with-subresource-integrity-sri/">Read this article</a>!</p>
+<section>
+	<h2>SRI values for jQuery files</h2>
+	<ul>
+		<li>jQuery 1.11.1 - <code>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" integrity="sha256-VAvG3sHdS5LqTT+5A/aeq/bZGa/Uj04xKxY8KM/w9EE= sha384-UM1JrZIpBwVf5jj9dTKVvGiiZPZTLVoq4sfdvIe9SBumsvCuv6AHDNtEiIb5h1kU sha512-nhY06wKras39lb9lRO76J4397CH1XpRSLfLJSftTeo3+q2vP7PaebILH9TqH+GRpnOhfAGjuYMVmVTOZJ+682w==" crossorigin="anonymous"&gt;&lt;script&gt;</code></li>
+		<li>jQuery 2.1.4 - <code>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha256-ImQvICV38LovIsvla2zykaCTdEh1Z801Y+DSop91wMU= sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx sha512-AFwxAkWdvxRd9qhYYp1qbeRZj6/iTNmJ2GFwcxsMOzwwTaRwz2a/2TX225Ebcj3whXte1WGQb38cXE5j7ZQw3g==" crossorigin="anonymous"&gt;&lt;script&gt;</code></li>
+	</ul>
+	<p>Please note that the same hash applies when we call our files from Canada.ca.</p>
+</section>
+<section>
+	<h2>Need help?</h2>
+	<p>The WS CoE is responsible for managing the CDTS, please email our generic inbox at <a href="mailto:NC-SGDC-CDTS-GD@hrsdc-rhdcc.gc.ca">NC-SGDC-CDTS-GD@hrsdc-rhdcc.gc.ca</a> if you have any questions!</p>
+</section>
+</div>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_28/cdts/static/preFooter-fr.html -->
+				</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2019-03-11",
+					"showShare": false,
+					"showFeedback": false
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"contactLink": "./contact-fr.html"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>
