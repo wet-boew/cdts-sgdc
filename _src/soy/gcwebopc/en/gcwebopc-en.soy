@@ -46,7 +46,7 @@
  * This is the set path to the root to where the assest (JS, CSS, Images, etc...) are.
  * From the page level and not the level of the compiled JS. NEEDS TO BE FIXED!
  * @param cdnEnv Used to switch between esdc envrionments and Akamai implementations.
- * @param cdnPath used to set working path to assets. 
+ * @param cdnPath used to set working path to assets.
 */
 {template .environment}
 {if $cdnEnv=='esdcqat' or $cdnEnv=='esdcprod' or $cdnEnv=='esdcnonprod'}/cdts/
@@ -61,49 +61,26 @@
  * @param? isApplication Used to determine if this will use the application templates (true/false).
  */
 {template .refTop}
-
-		<script>
-		dataLayer = [];
-		</script>
-
-		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){lb}w[l]=w[l]||[];w[l].push({lb}'gtm.start':
-		new Date().getTime(),event:'gtm.js'{rb});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		{rb})(window,document,'script','dataLayer','GTM-5DBPCQJ');</script>
-		<!-- End Google Tag Manager -->
-
-		{if isNonnull($webAnalytics)}
-		<!-- Adobe Analytics -->
-			<script src="//assets.adobedtm.com/
-				{foreach $aa in $webAnalytics}caacec67651710193d2331efef325107c23a0145/satelliteLib-
-					{if $aa.version == 1}
-						92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24
-					{elseif $aa.version == 2}
-						c2082deaf69c358c641c5eb20f94b615dd606662
-					{/if}
-					{if $aa.environment == 'staging'}-staging{/if}
-				{/foreach}
-			.js"></script>
-		{/if}
-
+		{if isNonnull($webAnalytics)}{/if}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/theme.min.css'>
+		<link href="{call .environment data="all" /}gcweb-opc/assets/favicon.ico" rel="icon" type="image/x-icon" />
+		<link rel="stylesheet" href="{call .environment data="all" /}gcweb-opc/css/theme.min.css" />
 		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsfixes.css'>
 		{if $isApplication == true}
 		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsapps.css'>
 		{/if}
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="shortcut icon" />
-		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/ie8-theme.min.css' />
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew.min.js'></script>
+			<link href="{call .environment data="all" /}gcweb-opc/assets/favicon.ico" rel="shortcut icon" />
+			<link rel="stylesheet" href="{call .environment data="all" /}gcweb-opc/css/ie8-theme.min.css" />
+			<script src="{call .environment data="all" /}wet-boew/js/jquery/1.11.1/jquery.min.js"></script>
+			<script src="{call .environment data="all" /}wet-boew/js/ie8-wet-boew.min.js"></script>
 		<![endif]-->
-		<!--[if lte IE 9]><![endif]-->
+		<!--[if lte IE 9]>
+		<![endif]-->
+		<noscript><link rel="stylesheet" href="{call .environment data="all" /}wet-boew/css/noscript.min.css" /></noscript>
+		<link rel="stylesheet" href="{call .environment data="all" /}css/opc-style.css" />
+		<link rel="stylesheet" href="{call .environment data="all" /}cms-css/feedback.css" />
 {/template}
 
 /**
@@ -116,106 +93,121 @@
  * @param? topSecMenu Set to true if you want to use the secondary navigation.
  */
 {template .top}
-
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DBPCQJ"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->
-
-		<nav>
+		<section aria-label="Skip to">
 			<ul id="wb-tphp">
-				<li class="wb-slc"><a class="wb-sl" href="#wb-cont">Skip to main content</a></li>
-				<li class="wb-slc visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info">Skip to "About government"</a></li>
+				<li class="wb-slc">
+					<a class="wb-sl" href="#wb-cont">Skip to main content</a>
+				</li>
+				<li class="wb-slc visible-sm visible-md visible-lg">
+					<a class="wb-sl" href="#wb-info">Skip to "About this site"</a>
+				</li>
 				{if $topSecMenu == true}
-				<li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec">Skip to section menu</a></li>
+				<li class="wb-slc visible-md visible-lg">
+					<a class="wb-sl" href="#wb-sec">Skip to section menu</a>
+				</li>
 				{/if}
 			</ul>
-		</nav>
-		<header>
+		</section>
+		<header role="banner">
 			<div id="wb-bnr" class="container">
 				{if isNonnull($lngLinks)}
-				<section id="wb-lng" class="text-right">
-					<h2 class="wb-inv">Language selection</h2>
-					<ul class="list-inline margin-bottom-none">
-						{foreach $link in $lngLinks}
-						//{if isFirst($link)}
-						<li><a hreflang="{$link.lang}" lang="{$link.lang}" href="{$link.href}">{$link.text}</a></li>
-						//{/if}
-						{/foreach}
-					</ul>
+				<section id="wb-lng" class="visible-md visible-lg text-right" aria-labelledby="lang-section">
+					<h2 id="lang-section" class="wb-inv">Language selection</h2>
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="list-inline margin-bottom-none">
+								{foreach $link in $lngLinks}
+								<li><a hreflang="{$link.lang}" lang="{$link.lang}" href="{$link.href}">{$link.text}</a></li>
+								{/foreach}
+							</ul>
+						</div>
+					</div>
 				</section>
 				{/if}
+
 				<div class="row">
-					<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
-						{if $siteMenu != false}<a href="https://www.canada.ca/en.html" property="url">{/if}<img src='{call .environment data="all" /}gcweb/assets/sig-blk-en.svg' alt="" property="logo" /><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>{if $siteMenu != false}</a>{/if}
-						<meta property="areaServed" typeOf="Country" content="Canada" />
-						<link property="logo" href='{call .environment data="all" /}gcweb/assets/wmms-blk.svg' />
+					<div class="brand col-xs-8 col-sm-9 col-md-5">
+						<a href="/en">
+							<img class="visible-print-block" src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-en.png" alt="">
+							{if $siteMenu != false}<a href="https://priv.gc.ca/en/" property="url">{/if}
+							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-wht-en.svg" class="hidden-print" alt="OPC Logo"/>
+							<span class="wb-inv">Office of the Privacy Commissioner of Canada</span>
+							{if $siteMenu != false}</a>{/if}
+						</a>
 					</div>
+
+					<section class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn" aria-labelledby="search-menu-section">
+						<h2 id="search-menu-section">Search and menus</h2>
+						<ul class="list-inline text-right chvrn">
+							<li>
+								<a href="#mb-pnl" title="Search and menus" aria-controls="mb-pnl" class="overlay-lnk" role="button">
+									<span class="glyphicon glyphicon-search">
+										<span class="glyphicon glyphicon-th-list">
+											<span class="wb-inv">Search and menus</span>
+										</span>
+									</span>
+								</a>
+							</li>
+						</ul>
+						<div id="mb-pnl"></div>
+					</section>
+
 					{if $search != false}
-					<section id="wb-srch" class="col-lg-8 text-right">
-						<h2>Search</h2>
-						<form action="https://www.canada.ca/en/sr.html" method="get" name="cse-search-box" role="search" class="form-inline">
+					<section id="wb-srch" class="col-xs-7 text-right visible-md visible-lg" aria-labelledby="search-section">
+						<h2 id="search-section">Search</h2>
+						<form action="/en/search" class="form-inline" enctype="multipart/form-data" method="post" name="cse-search-box" role="search">
 							<div class="form-group">
-								<label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
-								<input name="cdn" value="canada" type="hidden">
-								<input name="st" value="s" type="hidden">
-								<input name="num" value="10" type="hidden">
-								<input name="langs" value="en" type="hidden">
-								<input name="st1rt" value="1" type="hidden">
-								<input name="s5bm3ts21rch" value="x" type="hidden">
-								<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Search Canada.ca">
-								<input type="hidden" name="_charset_" value="UTF-8">
+								<label for="wb-srch-q" class="wb-inv">Search website</label>
+								<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="t" type="search" value="" size="27" maxlength="150" placeholder="Search priv.gc.ca" />
 								<datalist id="wb-srch-q-ac">
+									<!--[if lte IE 9]><select><![endif]-->
+									<!--[if lte IE 9]></select><![endif]-->
 								</datalist>
 							</div>
 							<div class="form-group submit">
 								<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Search</span></button>
 							</div>
+							<input name='ufprt' type='hidden' value='FA9E9C90CBEC92DB4B7B8682502BEFB950B53DE80236602CAE04A6F2DEB49BAB9910BABD1FDF3DB45157B92AB4BC56EC2A6F0F9B73F33F1861E98CB7085A35D879163CB4A9EF37932297B282EB3AE4DA706D29B280ACF4C982435C30C187B3A659BF45C3C73F49876CF62B693423973EFC001049D317307E25184C9CE9BE107A' />
 						</form>
 					</section>
 					{/if}
 				</div>
-			</div>
+        	</div>
+
 			{if $siteMenu != false}
-			<nav class="gcweb-menu" typeof="SiteNavigationElement">
-				<div class="container">
-					<h2 class="wb-inv">Menu</h2>
-					<button type="button" aria-haspopup="true" aria-expanded="false"><span class="wb-inv">Main </span>Menu <span class="expicon glyphicon glyphicon-chevron-down"></span></button>
-					<ul role="menu" aria-orientation="vertical" data-ajax-replace="//www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-en.html">
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/jobs.html">Jobs and the workplace</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/immigration-citizenship.html">Immigration and citizenship</a></li>
-						<li role="presentation"><a role="menuitem" href="https://travel.gc.ca/">Travel and tourism</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/business.html">Business and industry</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/benefits.html">Benefits</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/health.html">Health</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/taxes.html">Taxes</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/environment.html">Environment and natural resources</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/defence.html">National security and defence</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/culture.html">Culture, history and sport</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/policing.html">Policing, justice and emergencies</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/transport.html">Transport and infrastructure</a></li>
-						<li role="presentation"><a role="menuitem" href="http://international.gc.ca/world-monde/index.aspx?lang=eng">Canada and the world</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/finance.html">Money and finances</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/en/services/science.html">Science and innovation</a></li>
-					</ul>
+			<nav id="wb-sm" data-ajax-replace="{call .environment data="all" /}ajax/sitemenu-en" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="topics-menu-section">
+				<div class="container nvbar">
+					<h2 id="topics-menu-section">Topics menu</h2>
+					<div class="row">
+						<ul class="list-inline menu">
+							<li><a href="{call .environment data="all" /}en/for-individuals/" class="item">For individuals</a></li>
+							<li><a href="/en/for-businesses/" class="item">For businesses</a></li>
+							<li><a href="/en/for-federal-institutions/" class="item">For federal institutions</a></li>
+							<li><a href="/en/report-a-concern/" class="item">Report a concern</a></li>
+							<li><a href="/en/opc-actions-and-decisions/" class="item">OPC actions and decisions</a></li>
+							<li><a href="/en/about-the-opc/" class="item">About the OPC</a></li>
+						</ul>
+					</div>
 				</div>
 			</nav>
 			{else}
 			<div class="transactBar"></div>
 			{/if}
 			{if $breadcrumbs != false}
-			<nav id="wb-bc" property="breadcrumb">
-				<h2>You are here:</h2>
+			<nav id="wb-bc" property="breadcrumb" aria-labelledby="you-are-here">
+				<h2 id="you-are-here">You are here:</h2>
 				<div class="container">
-					<ol class="breadcrumb">
-						{if isNonnull($breadcrumbs)}
-						{foreach $item in $breadcrumbs}
-						<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
-						{/foreach}
-						{else}
-						<li><a href="https://www.canada.ca/en.html">Home</a></li>
-						{/if}
-					</ol>
+					<div class="row">
+						<ol class="breadcrumb">
+							{if isNonnull($breadcrumbs)}
+							{foreach $item in $breadcrumbs}
+							<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
+							{/foreach}
+							{else}
+							<li><a href="/en/">Home</a></li>
+							{/if}
+						</ol>
+					</div>
 				</div>
 			</nav>
 			{/if}
@@ -239,44 +231,117 @@
 		{if $showPostContent != false}
 		{/if}
 		{if $pagedetails != false}
-			<div class="pagedetails{if isNonnull($isContainer)} container{/if}">
-				{if $showFeedback != false or $showShare != false}
-					<div class="row">
-						{if $showFeedback != false}
-							{if isNonnull($showFeedback) and $showFeedback != true }
-								<div class="col-sm-6 col-md-5 col-lg-4">
-									<a href="{$showFeedback}" class="btn btn-default btn-center">Report a problem on this page</a>
+		<div class="pagedetails{if isNonnull($isContainer)} container{/if}">
+			{if $showFeedback != false or $showShare != false}
+			<div class="row mrgn-tp-sm">
+				{if $showFeedback != false}
+					{if isNonnull($showFeedback) and $showFeedback != true }
+						<div class="col-sm-6 col-md-5 col-lg-5">
+							<a href="{$showFeedback}" class="btn btn-default btn-center">Report a problem on this page</a>
+						</div>
+					{else}
+						<div class="col-sm-6 col-md-5 col-lg-5" id="reportAProblem">
+							<details class="brdr-0" aria-labelledby="problemSection">
+								<summary class="btn btn-default" id="problemSection">Report a problem or mistake on this page</summary>
+								<div class="well row">
+									<div>
+										<div id="wb-auto-3">
+											<strong class="error" id="validationSummary2" role="alert" aria-atomic="true">
+												<span class="label label-danger">
+													<span class="prefix">Error&nbsp;1:&nbsp;</span>No selection was made. You must choose at least 1 answer.
+												</span>
+											</strong>
+											<form action="/en/for-individuals/" enctype="multipart/form-data" id="reportAProblemForm" method="post">
+												<input id="ProblemContentId" name="ProblemContentId" type="hidden" value="" />
+												<input name="__RequestVerificationToken" type="hidden" value="" />
+												<fieldset id="reportAProblemInputs">
+													<legend class="required"><span class="field-name">Please select all that apply </span><span class="redspan"><strong>(required)</strong></span>:</legend>
+													<div class="checkbox">
+														<label for="PageHasBrokenLink">
+															<input id="PageHasBrokenLink" name="PageHasBrokenLink" type="checkbox" value="true" />
+															<input name="PageHasBrokenLink" type="hidden" value="false" /> There are broken links.
+														</label>
+													</div>
+													<div class="checkbox">
+														<label for="PageHasSpellingOrGrammarMistakes">
+															<input id="PageHasSpellingOrGrammarMistakes" name="PageHasSpellingOrGrammarMistakes" type="checkbox" value="true" />
+															<input name="PageHasSpellingOrGrammarMistakes" type="hidden" value="false" /> The page has spelling or grammar mistakes.
+														</label>
+													</div>
+													<div class="checkbox">
+														<label for="InfoIsOutdated2">
+															<input id="InfoIsOutdated2" name="InfoIsOutdated2" type="checkbox" value="true" />
+															<input name="InfoIsOutdated2" type="hidden" value="false" /> The information is wrong or outdated.
+														</label>
+													</div>
+													<div class="checkbox">
+														<label for="OtherReason3"><input id="OtherReason3" name="OtherReason3" type="checkbox" value="true" />
+														<input name="OtherReason3" type="hidden" value="false" /> Other</label>
+														<div class="form-group" id="otherReasonComments3">
+															<label for="Comments3">Please specify (maximum of 750 characters):</label>
+															<textarea name="Comments" class="form-control" id="Comments3" maxlength="750" rows="2" cols="20"></textarea>
+														</div>
+													</div>
+												</fieldset>
+												<div id="noteAndSubmit2">
+													<div class="alert alert-info">
+														<h2 class="h5">Note</h2>
+														<ul>
+															<li>
+																<small>
+																	<strong>You will not receive a reply.</strong> For enquiries, please <a href="/en/contact-the-opc/">contact the Office of the Privacy Commissioner</a>.
+																</small>
+															</li>
+															<li>
+																<small>
+																	<strong>Do not include any personal information,</strong> such as your name, social insurance number (SIN), home or business address or any case or files numbers.
+																</small>
+															</li>
+															<li>
+																<small>
+																	<strong>For more information about this tool</strong>, please refer to our <a href="/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">terms and conditions of use</a>.
+																</small>
+															</li>
+														</ul>
+													</div>
+													<div>
+														<input type="submit" class="btn btn-primary" value="Submit" aria-controls="wb-auto-3" id="btnSubmitProblem" />
+													</div>
+												</div>
+												<input name='ufprt' type='hidden' value='' />
+											</form>
+										</div>
+										<div id="reportAProblemSubmissionResults"></div>
+									</div>
 								</div>
-							{else}
-								<div class="col-sm-6 col-md-5 col-lg-4">
-									<a href="https://www.canada.ca/en/report-problem.html" class="btn btn-default btn-center">Report a problem on this page</a>
-								</div>
-							{/if}
-						{/if}
-						{if $showShare != false}
-							{if isNonnull($showShare)}
-								<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-5{/if}" data-wb-share='{lb}"filter": [{foreach $item in $showShare}"{$item}"{if not isLast($item)}, {/if}{/foreach}], "lnkClass": "btn btn-default btn-block"{rb}'></div>
-							{else}
-								<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-5{/if}" data-wb-share='{lb}"lnkClass": "btn btn-default btn-block"{rb}'></div>
-							{/if}
-						{/if}
-					</div>
+							</details>
+						</div>
+					{/if}
 				{/if}
-				<dl id="wb-dtmd">
-					{if isNonnull($screenIdentifier)}
-						<dt>Screen Identifier:&#32;</dt>
-						<dd property="identifier">{$screenIdentifier}</dd>
+				{if $showShare != false}
+					{if isNonnull($showShare)}
+						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"filter": [{foreach $item in $showShare}"{$item}"{if not isLast($item)}, {/if}{/foreach}], "lnkClass": "btn btn-default btn-block"{rb}'></div>
+					{else}
+						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"lnkClass": "btn btn-default btn-block"{rb}'></div>
 					{/if}
-					{if isNonnull($dateModified)}
-						<dt>Date modified:&#32;</dt>
-						<dd><time property="dateModified">{$dateModified}</time></dd>
-					{/if}
-					{if isNonnull($versionIdentifier)}
-						<dt>Version:&#32;</dt>
-						<dd property="version">{$versionIdentifier}</dd>
-					{/if}
-				</dl>
+				{/if}
 			</div>
+			{/if}
+			<dl id="wb-dtmd">
+				{if isNonnull($screenIdentifier)}
+					<dt>Screen Identifier:&#32;</dt>
+					<dd property="identifier">{$screenIdentifier}</dd>
+				{/if}
+				{if isNonnull($dateModified)}
+					<dt>Date modified:&#32;</dt>
+					<dd><time property="dateModified">{$dateModified}</time></dd>
+				{/if}
+				{if isNonnull($versionIdentifier)}
+					<dt>Version:&#32;</dt>
+					<dd property="version">{$versionIdentifier}</dd>
+				{/if}
+			</dl>
+		</div>
 		{/if}
 {/template}
 
@@ -319,88 +384,122 @@
 {template .footer}
 		<footer id="wb-info">
 			{if $showFooter != false}
-			<div class="landscape">
-				<nav class="container wb-navcurr">
-					<h2 class="wb-inv">About government</h2>
-					<ul class="list-unstyled colcount-sm-2 colcount-md-3">
-					{if isNonnull($contactLinks)}
-						{foreach $link in $contactLinks}
-							{if isFirst($link)}
-								<li><a href="{$link.href}">Contact us</a></li>
-							{/if}
-						{/foreach}
-					{else}
-						<li><a href="https://www.canada.ca/en/contact.html">Contact us</a></li>
-					{/if}
-						<li><a href="https://www.canada.ca/en/government/dept.html">Departments and agencies</a></li>
-						<li><a href="https://www.canada.ca/en/government/publicservice.html">Public service and military</a></li>
-						<li><a href="https://www.canada.ca/en/news.html">News</a></li>
-						<li><a href="https://www.canada.ca/en/government/system/laws.html">Treaties, laws and regulations</a></li>
-						<li><a href="https://www.canada.ca/en/transparency/reporting.html">Government-wide reporting</a></li>
-						<li><a href="http://pm.gc.ca/eng">Prime Minister</a></li>
-						<li><a href="https://www.canada.ca/en/government/system.html">How government works</a></li>
-						<li><a href="http://open.canada.ca/en/">Open government</a></li>
-					</ul>
-				</nav>
-			</div>
-			<div class="brand">
-				<div class="container">
-					<div class="row">
-						<nav class="col-md-9 col-lg-10 ftr-urlt-lnk">
-							<h2 class="wb-inv">About this site</h2>
-							<ul>
-								<li><a href="https://www.canada.ca/en/social.html">Social media</a></li>
-								<li><a href="https://www.canada.ca/en/mobile.html">Mobile applications</a></li>
-								<li><a href="https://www1.canada.ca/en/newsite.html">About Canada.ca</a></li>
-								<li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
-								<li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
+        	<nav class="container visible-sm visible-md visible-lg wb-navcurr" aria-labelledby="footer-links">
+				<h2 class="wb-inv" id="footer-links">About this site</h2>
+				<div class="row">
+					<div class="col-md-3">
+						<section aria-labelledby="about-opc-section">
+							<h3 id="about-opc-section">About the OPC</h3>
+							<p>The Privacy Commissioner of Canada is an Agent of Parliament whose mission is to protect and promote privacy rights.</p>
+							<ul class="list-unstyled">
+								<li><a href="/en/about-the-opc/who-we-are/">Who we are</a></li>
+								<li><a href="/en/about-the-opc/what-we-do/">What we do</a></li>
+								<li><a href="/en/about-the-opc/opc-operational-reports/">OPC operational reports</a></li>
+								<li><a href="/en/about-the-opc/publications/">Publications</a></li>
+								<li><a href="/en/about-the-opc/working-at-the-opc/">Working at the OPC</a></li>
 							</ul>
-						</nav>
+						</section>
+					</div>
+					<div class="col-md-3">
+						<section aria-labelledby="opc-news-section">
+							<h3 id="opc-news-section">OPC news</h3>
+							<p>Get updates about the OPC’s announcements and activities, as well as the events in which we participate.</p>
+							<ul class="list-unstyled">
+								<li><a href="/en/opc-news/news-and-announcements/">News and announcements</a></li>
+								<li><a href="/en/opc-news/privacy-events/">Privacy events</a></li>
+								<li><a href="/en/opc-news/speeches/">Speeches</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="col-md-3">
+						<section aria-labelledby="respect-section">
+							<h3 id="respect-section">Your privacy</h3>
+							<p><strong>We respect your privacy</strong></p>
+							<p>Read our <a href="/en/privacy-and-transparency-at-the-opc/pp/">Privacy policy</a> and <a href="/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">Terms and conditions of use</a> to find out more about your privacy and rights when using the <a href="/">priv.gc.ca</a> website or contacting the Office of the Privacy Commissioner of Canada.</p>
+						</section>
+						<section aria-labelledby="transparency-section">
+							<h3 id="transparency-section">Transparency</h3>
+							<ul class="list-unstyled">
+								<li><a href="/en/privacy-and-transparency-at-the-opc/proactive-disclosure/">Proactive disclosure</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="col-md-3">
+						<section aria-labelledby="contact-us-section">
+							<h3 id="contact-us-section">Contact us</h3>
+							<p>If you have a question, concerns about your privacy or want to file a complaint against an organization, we are here to help.</p>
+							{if isNonnull($contactLinks)}
+								<ul class="list-unstyled colcount-sm-2 colcount-md-3">
+									{foreach $link in $contactLinks}
+										{if isFirst($link)}
+											<li><a href="{$link.href}">Contact us</a></li>
+										{/if}
+									{/foreach}
+								</ul>
+							{else}
+								<a href="/en/contact-the-opc/" role="button" class="btn btn-default active">Contact the OPC</a>
+							{/if}
+						</section>
+						<section aria-labelledby="stay-connected-section">
+							<h3 id="stay-connected-section">Stay connected</h3>
+							<ul class="list-unstyled">
+								<li><span class="fa fa-comments"></span> <a href="/en/blog">OPC Blog</a></li>
+								<li><span class="fa fa-linkedin-square"></span> <a href="https://www.linkedin.com/company/office-of-the-privacy-commissioner-of-canada">OPC LinkedIn</a></li>
+								<li><span class="fa fa-rss-square"></span> <a href="/en/rss-feeds/">OPC RSS feeds</a></li>
+								<li><span class="fa fa-twitter"></span> <a href="https://twitter.com/PrivacyPrivee">OPC Twitter</a></li>
+								<li><span class="fa fa-youtube"></span> <a href="https://www.youtube.com/user/PrivacyComm">OPC YouTube channel</a></li>
+							</ul>
+						</section>
+					</div>
+				</div>
+			</nav>
 			{else}
 			<div id="transactFooter" class="landscape"></div>
+			<nav class="container visible-sm visible-md visible-lg wb-navcurr ftr-urlt-lnk">
+				<h2 class="wb-inv">About this site</h2>
+				<ul>
+				{if isNonnull($contactLinks)}
+					{foreach $link in $contactLinks}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://www.canada.ca/en/contact.html">Contact information</a></li>
+				{/if}
+
+				{if isNonnull($termsLink)}
+					{foreach $link in $termsLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/terms.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
+				{/if}
+
+				{if isNonnull($privacyLink)}
+					{foreach $link in $privacyLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/privacy.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
+				{/if}
+				</ul>
+			</nav>
+			{/if}
+
 			<div class="brand">
 				<div class="container">
-					<div class="row">
-						<nav class="col-md-9 col-lg-10 ftr-urlt-lnk">
-							<h2 class="wb-inv">About this site</h2>
-							<ul>
-							{if isNonnull($contactLinks)}
-								{foreach $link in $contactLinks}
-									{if isFirst($link)}
-										<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
-									{/if}
-								{/foreach}
-							{else}
-								<li><a href="https://www.canada.ca/en/contact.html">Contact information</a></li>
-							{/if}
-
-							{if isNonnull($termsLink)}
-								{foreach $link in $termsLink}
-									{if isFirst($link)}
-										<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/terms.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
-									{/if}
-								{/foreach}
-							{else}
-								<li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
-							{/if}
-
-							{if isNonnull($privacyLink)}
-								{foreach $link in $privacyLink}
-									{if isFirst($link)}
-										<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/privacy.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
-									{/if}
-								{/foreach}
-							{else}
-								<li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
-							{/if}
-							</ul>
-						</nav>
-			{/if}
-						<div class="col-xs-6 visible-sm visible-xs tofpg">
-							<a href="#wb-cont">Top of Page <span class="glyphicon glyphicon-chevron-up"></span></a>
+					<div class="row ">
+						<div class="col-md-6">
+							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-en.svg" alt="OPC Logo" />
+							<span class="wb-inv">Office of Privacy Commissioner of Canada</span>
 						</div>
-						<div class="col-xs-6 col-md-2 text-right">
-							<img src='{call .environment data="all" /}gcweb/assets/wmms-blk.svg' alt="Symbol of the Government of Canada" />
+						<div class="col-md-6 tofpg text-right">
+							<a href="#wb-cont">Top of Page <span class="fa fa-arrow-circle-up"></span></a>
 						</div>
 					</div>
 				</div>
@@ -423,13 +522,14 @@
  */
 {template .refFooter}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<script src='{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}wet-boew/js/{/if}jquery/2.2.4/jquery.min.js'></script>
-		<script src='{call .environment data="all" /}wet-boew/js/wet-boew.min.js'></script>
+		<script src="{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}wet-boew/js/{/if}jquery/2.2.4/jquery.min.js"></script>
+		<script src="{call .environment data="all" /}wet-boew/js/wet-boew.min.js"></script>
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js'></script>
+			<script src="{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js"></script>
 		<![endif]-->
-		<script src='{call .environment data="all" /}gcweb/js/theme.min.js'></script>
+		<script src="{call .environment data="all" /}gcweb-opc/js/theme.min.js"></script>
+		<script src="{call .environment data="all" /}cms-scripts/feedback.js"></script>
 		{if $exitScript == true}
 		<script src='{call .environment data="all" /}cdts/js/exitScript.js'></script>
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
@@ -468,7 +568,7 @@
 		{if $isApplication == true}
 		<script src='{call .environment data="all" /}cdts/js/cdtscustom.js'></script>
 		{/if}
-		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
+		{if isNonnull($webAnalytics)}{/if}
 {/template}
 
 /**
