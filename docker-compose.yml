@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  cdts:
+    image: ${DOCKER_REGISTRY}cdts
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app
+    # entrypoint:
+    #   - npm
+    #   - install
+volumes:
+  node_modules:

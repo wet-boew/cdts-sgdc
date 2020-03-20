@@ -1,3 +1,4 @@
+compression = require("compression")
 path = require("path")
 fs = require("fs")
 
@@ -158,6 +159,35 @@ module.exports = (grunt) ->
 				options:
 					jarPath: "_src/jar"
 
+			gcwebopcEn:
+				expand: true,
+				src: [
+					"./_src/soy/gcwebopc/en/gcwebopc-en.soy"
+					"./_src/soy/gcwebopc/en/gcwebopc-appPage-en.soy"
+					]
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
+
+			gcwebopcFr:
+				expand: true,
+				src: [
+					"./_src/soy/gcwebopc/fr/gcwebopc-fr.soy"
+					"./_src/soy/gcwebopc/fr/gcwebopc-appPage-fr.soy"
+					]
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
+
+			gcwebopcBi:
+				expand: true,
+				src: [
+					"./_src/soy/gcwebopc/bilingual/gcwebopc-serverPage.soy"
+					]
+				dest: "<%= coreTmp %>"
+				options:
+					jarPath: "_src/jar"
+
 			gcintranetEn:
 				expand: true,
 				src: [
@@ -208,6 +238,26 @@ module.exports = (grunt) ->
 					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
 				]
 				dest: "<%= coreDist %>/gcweb-fr.js"
+
+			gcwebopcEn:
+				options:
+					stripBanners: false
+				src: [
+					"<%= coreTmp %>/_src/soy/gcwebopc/en/gcwebopc-en.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/en/gcwebopc-appPage-en.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/bilingual/gcwebopc-serverPage.js"
+				]
+				dest: "<%= coreDist %>/gcwebopc-en.js"
+
+			gcwebopcFr:
+				options:
+					stripBanners: false
+				src: [
+					"<%= coreTmp %>/_src/soy/gcwebopc/fr/gcwebopc-fr.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/fr/gcwebopc-appPage-fr.js"
+					"<%= coreTmp %>/_src/soy/gcwebopc/bilingual/gcwebopc-serverPage.js"
+				]
+				dest: "<%= coreDist %>/gcwebopc-fr.js"
 
 			gcintranetEn:
 				options:
@@ -261,6 +311,167 @@ module.exports = (grunt) ->
 					"!**/*.min.css"
 				]
 				ext: ".min.css"
+
+		connect:
+			options:
+				port: 8000
+
+			server:
+				options:
+					base: "dist"
+					middleware: (connect, options, middlewares) ->
+						middlewares.unshift(compression(
+							filter: (req, res) ->
+								/json|text|javascript|dart|image\/svg\+xml|application\/x-font-ttf|application\/vnd\.ms-opentype|application\/vnd\.ms-fontobject/.test(res.getHeader('Content-Type'))
+						))
+						middlewares
+
+		watch:
+			options:
+				livereload: true
+			gruntfile:
+				files: "Gruntfile.coffee"
+				tasks: [
+					"dist"
+				]
+			css:
+				files: [
+					"_src/css/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+					"cssmin"
+				]
+			js:
+				files: [
+					"_src/js/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+					"uglify"
+				]
+			gcwebEn:
+				files: [
+					"_src/soy/gcweb/en/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebEn"
+					"soycompile:gcwebBi"
+					"concat:gcwebEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebFr:
+				files: [
+					"_src/soy/gcweb/fr/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebFr"
+					"soycompile:gcwebBi"
+					"concat:gcwebFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebBi:
+				files: [
+					"_src/soy/gcweb/bilingual/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebEn"
+					"soycompile:gcwebFr"
+					"soycompile:gcwebBi"
+					"concat:gcwebEn"
+					"concat:gcwebFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebopcEn:
+				files: [
+					"_src/soy/gcwebopc/en/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebopcEn"
+					"soycompile:gcwebopcBi"
+					"concat:gcwebopcEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebopcFr:
+				files: [
+					"_src/gcwebopc/fr/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebopcFr"
+					"soycompile:gcwebopcBi"
+					"concat:gcwebopcFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebopcBi:
+				files: [
+					"_src/soy/gcwebopc/bilingual/*.soy"
+				]
+				tasks: [
+					"soycompile:gcwebopcEn"
+					"soycompile:gcwebopcFr"
+					"soycompile:gcwebopcBi"
+					"concat:gcwebopcEn"
+					"concat:gcwebopcFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetEn:
+				files: [
+					"_src/soy/gcintranet/en/*.soy"
+				]
+				tasks: [
+					"soycompile:gcintranetEn"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetFr:
+				files: [
+					"_src/soy/gcintranet/fr/*.soy"
+				]
+				tasks: [
+					"soycompile:gcintranetFr"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetBi:
+				files: [
+					"_src/soy/gcintranet/bilingual/*.soy"
+				]
+				tasks: [
+					"soycompile:gcintranetEn"
+					"soycompile:gcintranetFr"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetEn"
+					"concat:gcintranetFr"
+					"uglify"
+					"clean:tmp"
+				]
+			assets:
+				files: [
+					"_src/ajax/**/*.*"
+					"_src/html/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+				]
+			deploy:
+				files: [
+					"*.txt"
+					"*.html"
+					"README.md"
+				]
+				tasks: [
+					"copy:deploy"
+				]
 
 		copy:
 			assets:

@@ -1,0 +1,14 @@
+# Node JS
+node_modules
+
+# Git
+.git
+.gitignore
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# WET-BOEW
+dist

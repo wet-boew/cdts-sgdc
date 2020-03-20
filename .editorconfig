@@ -10,9 +10,12 @@ insert_final_newline = true
 indent_style = tab
 indent_size = 4
 
-[{.*,*.json,*.md}]
+[{.*,*.json,*.md,*.yml}]
 indent_style = space
 indent_size = 2
+
+[entrypoint.sh]
+end_of_line = lf
 
 [site/includes/sitemenureplace.hbs]
 insert_final_newline = false
