@@ -454,46 +454,43 @@
 			{else}
 			<div id="transactFooter" class="landscape"></div>
 			<nav class="container visible-sm visible-md visible-lg wb-navcurr ftr-urlt-lnk">
-								<h2 class="wb-inv">À propos du site</h2>
-								<ul>
-								{if isNonnull($contactLinks)}
-									{foreach $link in $contactLinks}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Coordonnées{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/">Coordonnées</a></li>
-								{/if}
+				<h2 class="wb-inv">À propos du site</h2>
+				<ul>
+				{if isNonnull($contactLinks)}
+					{foreach $link in $contactLinks}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Coordonnées{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/">Coordonnées</a></li>
+				{/if}
 
-								{if isNonnull($termsLink)}
-									{foreach $link in $termsLink}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Avis{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/">Avis</a></li>
-								{/if}
+				{if isNonnull($termsLink)}
+					{foreach $link in $termsLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Avis{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/">Avis</a></li>
+				{/if}
 
-								{if isNonnull($privacyLink)}
-									{foreach $link in $privacyLink}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/pp/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Confidentialité{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/pp/">Confidentialité</a></li>
-								{/if}
-								</ul>
-							</nav>
+				{if isNonnull($privacyLink)}
+					{foreach $link in $privacyLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/pp/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Confidentialité{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/pp/">Confidentialité</a></li>
 				{/if}
 				</ul>
 			</nav>
 			{/if}
 
 			<div class="brand">
-				<div class="container">				
+				<div class="container">
 					<div class="row ">
 						<div class="col-md-6">
 							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-fr.svg" alt="Logo du Commissariat" />
