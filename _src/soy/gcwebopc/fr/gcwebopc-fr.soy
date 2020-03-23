@@ -124,16 +124,14 @@
 					</div>
 				</section>
 				{/if}
+
 				<div class="row">
 					<div class="brand col-xs-8 col-sm-9 col-md-5">
-						<a href="/fr">
-							<img class="visible-print-block" src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-fr.png" alt="">
 						{if $siteMenu != false}<a href="https://priv.gc.ca/fr/" property="url">{/if}
-				
-						<img src="{call .environment data="all" /}gcweb-opc/assets/opc-wht-fr.svg" class="hidden-print" alt="OPC Logo"/>
+							<img class="visible-print-block" src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-fr.png" alt="">
+							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-wht-fr.svg" class="hidden-print" alt="OPC Logo"/>
 							<span class="wb-inv">Commissariat à la protection de la vie privée du Canada</span>
-							{if $siteMenu != false}</a>{/if}
-						</a>
+						{if $siteMenu != false}</a>{/if}
 					</div>
 
 					<section class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn" aria-labelledby="search-menu-section">
@@ -172,20 +170,22 @@
 					</section>
 					{/if}
 				</div>
-			</div>
+		</div>
+
 			{if $siteMenu != false}
 			<nav id="wb-sm" data-ajax-replace="{call .environment data="all" /}ajax/sitemenu-fr" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="topics-menu-section">
 				<div class="container nvbar">
 					<h2 id="topics-menu-section">Menu des sujets</h2>
 					<div class="row">
-					<ul class="list-inline menu">
-						<li><a href="https://priv.gc.ca/fr/pour-les-individus/" class="item">Pour les individus</a></li>
-			                        <li><a href="https://priv.gc.ca/fr/pour-les-entreprises/" class="item">Pour les entreprises</a></li>
-			                        <li><a href="https://priv.gc.ca/fr/pour-les-institutions/" class="item">Pour les institutions fédérales</a></li>
-			                        <li><a href="https://priv.gc.ca/fr/signaler-un-probleme/" class="item">Signaler un problème</a></li>
-			                        <li><a href="https://priv.gc.ca/fr/mesures-et-decisions-prises-par-le-commissariat/" class="item">Mesures et décisions prises par le Commissariat</a></li>
-			                        <li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat/" class="item">À propos du Commissariat</a></li>
-					</ul>
+						<ul class="list-inline menu">
+							<li><a href="https://priv.gc.ca/fr/pour-les-individus/" class="item">Pour les individus</a></li>
+				                        <li><a href="https://priv.gc.ca/fr/pour-les-entreprises/" class="item">Pour les entreprises</a></li>
+				                        <li><a href="https://priv.gc.ca/fr/pour-les-institutions/" class="item">Pour les institutions fédérales</a></li>
+				                        <li><a href="https://priv.gc.ca/fr/signaler-un-probleme/" class="item">Signaler un problème</a></li>
+				                        <li><a href="https://priv.gc.ca/fr/mesures-et-decisions-prises-par-le-commissariat/" class="item">Mesures et décisions prises par le Commissariat</a></li>
+				                        <li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat/" class="item">À propos du Commissariat</a></li>
+						</ul>
+					</div>
 				</div>
 			</nav>
 			{else}
@@ -196,15 +196,15 @@
 				<h2 id="you-are-here">Vous êtes ici :</h2>
 				<div class="container">
 					<div class="row">
-					<ol class="breadcrumb">
-						{if isNonnull($breadcrumbs)}
-						{foreach $item in $breadcrumbs}
-						<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
-						{/foreach}
-						{else}
-						<li><a href="https://priv.gc.ca/fr/">Accueil</a></li>
-						{/if}
-					</ol>
+						<ol class="breadcrumb">
+							{if isNonnull($breadcrumbs)}
+							{foreach $item in $breadcrumbs}
+							<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
+							{/foreach}
+							{else}
+							<li><a href="https://priv.gc.ca/fr/">Accueil</a></li>
+							{/if}
+						</ol>
 					</div>
 				</div>
 			</nav>
@@ -224,20 +224,20 @@
  * @param? screenIdentifier Used to identify screens for users that need help
  * @param? pagedetails Used to determine if the pagedetails div will be displayed
  * @param? isContainer Used to add the container class to the pageDetails section when using the homepage look
-*/
+ */
 {template .preFooter}
-			{if $showPostContent != false}
-			{/if}
-			{if $pagedetails != false}
-				<div class="pagedetails{if isNonnull($isContainer)} container{/if}">
-					{if $showFeedback != false or $showShare != false}
+		{if $showPostContent != false}
+		{/if}
+		{if $pagedetails != false}
+		<div class="pagedetails{if isNonnull($isContainer)} container{/if}">
+			{if $showFeedback != false or $showShare != false}
 			<div class="row mrgn-tp-sm">
-							{if $showFeedback != false}
-								{if isNonnull($showFeedback) and $showFeedback != true }
+				{if $showFeedback != false}
+					{if isNonnull($showFeedback) and $showFeedback != true }
 						<div class="col-sm-6 col-md-5 col-lg-5">
-										<a href="{$showFeedback}" class="btn btn-default btn-center">Signaler un problème sur cette page</a>
-									</div>
-								{else}
+							<a href="{$showFeedback}" class="btn btn-default btn-center">Signaler un problème sur cette page</a>
+						</div>
+					{else}
 						<div class="col-sm-6 col-md-5 col-lg-5" id="reportAProblem">
 							<details class="brdr-0" aria-labelledby="problemSection">
 								<summary class="btn btn-default" id="problemSection">Signaler un problème sur cette page</summary>
@@ -313,34 +313,34 @@
 									</div>
 								</div>
 							</details>
-									</div>
-								{/if}
-							{/if}
-							{if $showShare != false}
-								{if isNonnull($showShare)}
-						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"filter": [{foreach $item in $showShare}"{$item}"{if not isLast($item)}, {/if}{/foreach}], "lnkClass": "btn btn-default btn-block"{rb}'></div>
-								{else}
-						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"lnkClass": "btn btn-default btn-block"{rb}'></div>
-								{/if}
-							{/if}
 						</div>
 					{/if}
-					<dl id="wb-dtmd">
-						{if isNonnull($screenIdentifier)}
-							<dt>Identificateur d'écran&#160;:&#32;</dt>
-							<dd property="identifier">{$screenIdentifier}</dd>
-						{/if}
-						{if isNonnull($dateModified)}
-							<dt>Date de modification&#160;:&#32;</dt>
-							<dd><time property="dateModified">{$dateModified}</time></dd>
-						{/if}
-						{if isNonnull($versionIdentifier)}
-							<dt>Version&#160;:&#32;</dt>
-							<dd property="version">{$versionIdentifier}</dd>
-						{/if}
-					</dl>
-				</div>
+				{/if}
+				{if $showShare != false}
+					{if isNonnull($showShare)}
+						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"filter": [{foreach $item in $showShare}"{$item}"{if not isLast($item)}, {/if}{/foreach}], "lnkClass": "btn btn-default btn-block"{rb}'></div>
+					{else}
+						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"lnkClass": "btn btn-default btn-block"{rb}'></div>
+					{/if}
+				{/if}
+			</div>
 			{/if}
+			<dl id="wb-dtmd">
+				{if isNonnull($screenIdentifier)}
+					<dt>Identificateur d'écran&#160;:&#32;</dt>
+					<dd property="identifier">{$screenIdentifier}</dd>
+				{/if}
+				{if isNonnull($dateModified)}
+					<dt>Date de modification&#160;:&#32;</dt>
+					<dd><time property="dateModified">{$dateModified}</time></dd>
+				{/if}
+				{if isNonnull($versionIdentifier)}
+					<dt>Version&#160;:&#32;</dt>
+					<dd property="version">{$versionIdentifier}</dd>
+				{/if}
+			</dl>
+		</div>
+		{/if}
 {/template}
 
 /**
@@ -426,17 +426,17 @@
 						<section aria-labelledby="contact-us-section">
 							<h3 id="contact-us-section">Pour communiquer avec nous</h3>
 							<p>Vous voulez nous poser une question, nous faire part d’une préoccupation ou déposer une plainte contre une organisation? Nous pouvons vous aider.</p>
-					{if isNonnull($contactLinks)}
+							{if isNonnull($contactLinks)}
 								<ul class="list-unstyled colcount-sm-2 colcount-md-3">
-						{foreach $link in $contactLinks}
-							{if isFirst($link)}
-								<li><a href="{$link.href}">Contactez-nous</a></li>
-							{/if}
-						{/foreach}
+									{foreach $link in $contactLinks}
+										{if isFirst($link)}
+											<li><a href="{$link.href}">Contactez-nous</a></li>
+										{/if}
+									{/foreach}
 								</ul>
-					{else}
+							{else}
 								<a href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/" role="button" class="btn btn-default active">Communiquer avec le Commissariat</a>
-					{/if}
+							{/if}
 						</section>
 						<section aria-labelledby="stay-connected-section">
 							<h3 id="stay-connected-section">Restez branchés</h3>
@@ -446,50 +446,49 @@
 								<li><span class="fa fa-rss-square"></span> <a href="https://priv.gc.ca/fr/fils-rss-du-commissariat/">Fils RSS du Commissariat</a></li>
 								<li><span class="fa fa-twitter"></span> <a href="https://twitter.com/PrivacyPrivee">Twitter du Commissariat</a></li>
 								<li><span class="fa fa-youtube"></span> <a href="https://www.youtube.com/user/PrivacyComm">Chaîne YouTube du Commissariat</a></li>
-
-					</ul>
+							</ul>
 						</section>
-			</div>
+					</div>
 				</div>
-							</nav>
-				{else}
-				<div id="transactFooter" class="landscape"></div>
-			
+			</nav>
+			{else}
+			<div id="transactFooter" class="landscape"></div>
 			<nav class="container visible-sm visible-md visible-lg wb-navcurr ftr-urlt-lnk">
-								<h2 class="wb-inv">À propos du site</h2>
-								<ul>
-								{if isNonnull($contactLinks)}
-									{foreach $link in $contactLinks}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Coordonnées{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://www.canada.ca/fr/contact.html">Coordonnées</a></li>
-								{/if}
-
-								{if isNonnull($termsLink)}
-									{foreach $link in $termsLink}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/transparence/avis.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Avis{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://www.canada.ca/fr/transparence/avis.html">Avis</a></li>
-								{/if}
-
-								{if isNonnull($privacyLink)}
-									{foreach $link in $privacyLink}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/transparence/confidentialite.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Confidentialité{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://www.canada.ca/fr/transparence/confidentialite.html">Confidentialité</a></li>
-								{/if}
-								</ul>
-							</nav>
+				<h2 class="wb-inv">À propos du site</h2>
+				<ul>
+				{if isNonnull($contactLinks)}
+					{foreach $link in $contactLinks}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Coordonnées{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://www.canada.ca/fr/contact.html">Coordonnées</a></li>
 				{/if}
+
+				{if isNonnull($termsLink)}
+					{foreach $link in $termsLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/transparence/avis.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Avis{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://www.canada.ca/fr/transparence/avis.html">Avis</a></li>
+				{/if}
+
+				{if isNonnull($privacyLink)}
+					{foreach $link in $privacyLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/transparence/confidentialite.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Confidentialité{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://www.canada.ca/fr/transparence/confidentialite.html">Confidentialité</a></li>
+				{/if}
+				</ul>
+			</nav>
+			{/if}
+
 			<div class="brand">
 				<div class="container">
 					<div class="row ">
