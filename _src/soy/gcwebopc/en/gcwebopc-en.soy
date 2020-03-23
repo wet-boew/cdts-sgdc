@@ -574,18 +574,19 @@
  */
 {template .splashTop}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
-		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/theme.min.css'>
+		<link href='{call .environment data="all" /}gcweb-opc/assets/favicon.ico' rel="icon" type="image/x-icon">
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb-opc/css/theme.min.css'>
 		<!--<![endif]-->
-		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/messages.min.css'>
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb-opc/css/messages.min.css'>
 		<!--[if lt IE 9]>
-		<link href='{call .environment data="all" /}gcweb/assets/favicon.ico' rel="shortcut icon" />
-		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/messages-ie.min.css' />
-		<link rel="stylesheet" href='{call .environment data="all" /}gcweb/css/ie8-theme.min.css' />
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<link href='{call .environment data="all" /}gcweb-opc/assets/favicon.ico' rel="shortcut icon" />
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb-opc/css/messages-ie.min.css' />
+		<link rel="stylesheet" href='{call .environment data="all" /}gcweb-opc/css/ie8-theme.min.css' />
+		<script src="{call .environment data="all" /}wet-boew/js/jquery/1.11.1/jquery.min.js"></script>
 		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew.min.js'></script>
 		<![endif]-->
 		<!--[if lte IE 9]><![endif]-->
+		<noscript><link rel="stylesheet" href="{call .environment data="all" /}wet-boew/css/noscript.min.css" /></noscript>
 {/template}
 
 /**
@@ -601,61 +602,42 @@
  */
 {template .splash}
 		<div id="bg">
-			<img src='{call .environment data="all" /}gcweb/img/splash/sp-bg-2.jpg' alt="">
 		</div>
 		<main>
 			<div class="sp-hb">
 				<div class="sp-bx col-xs-12">
-					<h1 property="name" class="wb-inv">Canada.ca</h1>
+					<h1 property="name" class="wb-inv">Office of the Privacy Commissioner</h1>
 					<div class="row">
-						<div class="col-xs-11 col-md-8">
-							<img src='{call .environment data="all" /}gcweb/assets/sig-spl.svg' alt="Government of Canada / Gouvernement du Canada" />
+						<div class="col-md-12">
+							<img src="{call .environment data="all" /}/gcweb-opc/assets/opc-blk-fr.svg" alt="Commissariat à la protection de la vie privée du Canada / Office of the Privacy Commissioner" />
 						</div>
 					</div>
-					<div class="row cdts-splash">
-						<section class="col-xs-6 text-right" lang="en">
-							{if isNonnull($nameEng)}
-								<h2>{$nameEng}</h2>
-							{else}
-								<h2 class="wb-inv">Government of Canada</h2>
-							{/if}
-						</section>
-						<section class="col-xs-6" lang="fr">
+					<div class="row">
+						<section class="col-xs-6 text-right" lang="fr">
 							{if isNonnull($nameFra)}
 								<h2>{$nameFra}</h2>
 							{else}
-								<h2 class="wb-inv">Gouvernement du Canada</h2>
+								<h2 class="wb-inv">Commissariat à la protection de la vie privée du Canada</h2>							
 							{/if}
+							<p><a href="{$indexFra}" class="btn btn-primary" lang="fr">Français</a></p>
+						</section>
+						<section class="col-xs-6" lang="en">
+							{if isNonnull($nameEng)}
+								<h2>{$nameEng}</h2>
+							{else}
+								<h2 class="wb-inv">Office of the Privacy Commissioner</h2>
+							{/if}
+							<p><a href="{$indexEng}" class="btn btn-primary" lang="en">English</a></p>
 						</section>
 					</div>
-					<row class="text-center">
-						{let $lang: navigator.language /}
-						<ul class="list-inline lst-spcd">
-							<li>
-								{if $lang == 'en-CA'}
-									<a href="{$indexEng}" class="btn btn-primary" lang="en">English</a>
-								{else}
-									<a href="{$indexEng}" class="btn btn-default" lang="en">English</a>
-								{/if}
-								</li>
-							<li>
-								{if $lang == 'fr-CA'}
-									<a href="{$indexFra}" class="btn btn-primary" lang="fr">Français</a>
-								{else}
-									<a href="{$indexFra}" class="btn btn-default" lang="fr">Français</a>
-								{/if}
-							</li>
-						</ul>
-					</row>
+
 				</div>
 				<div class="sp-bx-bt col-xs-12">
 					<div class="row">
-						<div class="col-xs-7 col-md-8">
-							<a href="{$termsEng}" class="sp-lk">Terms & conditions</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="{$termsFra}" class="sp-lk" lang="fr">Avis</a>
+						<div class="col-xs-12 col-md-12">
+							<a href="{$termsFra}" class="sp-lk" lang="fr">Conditions d'utilisation</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="{$termsEng}" class="sp-lk">Terms & conditions</a>  
 						</div>
-						<div class="col-xs-5 col-md-4 text-right mrgn-bttm-md">
-							<img src='{call .environment data="all" /}gcweb/assets/wmms-spl.svg' width="127" alt="Symbol of the Government of Canada / Symbole du gouvernement du Canada" />
-						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -667,7 +649,7 @@
 		<!--[if lt IE 9]>
 		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js'></script>
 		<![endif]-->
-		<script src='{call .environment data="all" /}gcweb/js/theme.min.js'></script>
+		<script src='{call .environment data="all" /}gcweb-opc/js/theme.min.js'></script>
 		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
 		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsfixes.css'>
 {/template}
