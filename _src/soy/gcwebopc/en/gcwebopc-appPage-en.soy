@@ -16,19 +16,6 @@
  * @param? showPreContent Used to determine if the precontent space will be displayed.
  */
 {template .appTop}
-
-		<script>
-		dataLayer = [];
-		</script>
-
-		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){lb}w[l]=w[l]||[];w[l].push({lb}'gtm.start':
-		new Date().getTime(),event:'gtm.js'{rb});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		{rb})(window,document,'script','dataLayer','GTM-5DBPCQJ');</script>
-		<!-- End Google Tag Manager -->
-
 		<ul id="wb-tphp">
 			<li class="wb-slc"><a class="wb-sl" href="#wb-cont">Skip to main content</a></li>
 			<li class="wb-slc visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info">Skip to "{if $topCusMenu == true}Related links{else}About this Web application{/if}"</a></li>
@@ -50,10 +37,11 @@
 				{/if}
 				<div class="row">
 					<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
-						<img src='{call wet.builder.environment data="all" /}gcweb/assets/sig-blk-en.svg' alt="" property="logo" />
-						<span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>
+						<img class="visible-print-block" src="{call wet.builder.environment data="all" /}gcweb-opc/assets/opc-blk-en.png" alt="">
+						<img src="{call wet.builder.environment data="all" /}gcweb-opc/assets/opc-wht-en.svg" class="hidden-print" alt="OPC Logo"/>
+						<span class="wb-inv">Office of the Privacy Commissioner of Canada</span>
 						<meta property="areaServed" typeOf="Country" content="Canada" />
-						<link property="logo" href='{call wet.builder.environment data="all" /}gcweb/assets/wmms-blk.svg' />
+						<link property="logo" href='{call wet.builder.environment data="all" /}gcweb-opc/assets/wmms-blk.svg' />
 					</div>
 					{if isNonnull($customSearch)}
 					{foreach $item in $customSearch}
@@ -162,6 +150,7 @@
 					{/if}
 				</nav>
 				{/if}
+
 				{if (isNonnull($appSettings)) or (isNonnull($signOut)) or (isNonnull($signIn))}
 				<nav>
 					<h2 class="wb-inv">Account menu</h2>
@@ -190,7 +179,7 @@
 				</nav>
 				{/if}
 			</div>
-			
+
 			{if isNonnull($menuLinks)}
 			<nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
 				<div class="pnl-strt container nvbar">
@@ -253,7 +242,7 @@
 		<footer id="wb-info">
 			{if isNonnull($footerSections)}
 			<div class="landscape">
-				<nav class="container wb-navcurr">
+				<nav class="container visible-sm visible-md visible-lg wb-navcurr" aria-labelledby="footer-links">
 					<h2 class="wb-inv">Related links</h2>
 					<ul class="list-unstyled colcount-sm-2 colcount-md-3">
 						{foreach $link in $footerSections}
@@ -263,50 +252,51 @@
 				</nav>
 			</div>
 			{/if}
+			<nav class="container visible-sm visible-md visible-lg wb-navcurr ftr-urlt-lnk">
+				<h2 class="wb-inv">About this Web application</h2>
+				<ul>
+
+				{if isNonnull($contactLink)}
+					{foreach $link in $contactLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/contact-the-opc/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/en/contact-the-opc/">Contact information</a></li>
+				{/if}
+
+				{if isNonnull($termsLink)}
+					{foreach $link in $termsLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/terms-and-conditions-of-use/">Terms and conditions</a></li>
+				{/if}
+
+				{if isNonnull($privacyLink)}
+					{foreach $link in $privacyLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/pp/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/en/privacy-and-transparency-at-the-opc/pp/">Privacy</a></li>
+				{/if}
+
+				</ul>
+			</nav>
 			<div class="brand">
 				<div class="container">
-					<div class="row">
-						<nav class="col-md-10 ftr-urlt-lnk">
-							<h2 class="wb-inv">About this Web application</h2>
-							<ul>
-
-							{if isNonnull($contactLink)}
-								{foreach $link in $contactLink}
-									{if isFirst($link)}
-										<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Contact information{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
-									{/if}
-								{/foreach}
-							{else}
-								<li><a href="https://www.canada.ca/en/contact.html">Contact information</a></li>
-							{/if}
-
-							{if isNonnull($termsLink)}
-								{foreach $link in $termsLink}
-									{if isFirst($link)}
-										<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/terms.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Terms and conditions{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
-									{/if}
-								{/foreach}
-							{else}
-								<li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
-							{/if}
-
-							{if isNonnull($privacyLink)}
-								{foreach $link in $privacyLink}
-									{if isFirst($link)}
-										<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/en/transparency/privacy.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Privacy{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
-									{/if}
-								{/foreach}
-							{else}
-								<li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
-							{/if}
-
-							</ul>
-						</nav>
-						<div class="col-xs-6 visible-sm visible-xs tofpg">
-							<a href="#wb-cont">Top of Page <span class="glyphicon glyphicon-chevron-up"></span></a>
+					<div class="row ">
+						<div class="col-md-6">
+							<img src="{call wet.builder.environment data="all" /}gcweb-opc/assets/opc-blk-en.svg" alt="OPC Logo" />
+							<span class="wb-inv">Office of Privacy Commissioner of Canada</span>
 						</div>
-						<div class="col-xs-6 col-md-3 col-lg-2 text-right">
-							<img src='{call wet.builder.environment data="all" /}gcweb/assets/wmms-blk.svg' alt="Symbol of the Government of Canada" />
+						<div class="col-md-6 tofpg text-right">
+							<a href="#wb-cont">Top of Page <span class="fa fa-arrow-circle-up"></span></a>
 						</div>
 					</div>
 				</div>

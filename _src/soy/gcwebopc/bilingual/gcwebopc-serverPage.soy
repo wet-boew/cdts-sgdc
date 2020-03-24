@@ -5,31 +5,30 @@
  */
 {template .serverRefTop}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<link href='{call wet.builder.environment data="all" /}gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
-		<link rel="stylesheet" href='{call wet.builder.environment data="all" /}gcweb/css/theme.min.css'>
-		<link rel="stylesheet" href='{call wet.builder.environment data="all" /}cdts/css/cdtsfixes.css'>
+		<link href="{call wet.builder.environment data="all" /}gcweb-opc/assets/favicon.ico" rel="icon" type="image/x-icon">
+		<link rel="stylesheet" href="{call wet.builder.environment data="all" /}gcweb-opc/css/theme-srv.min.css">
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<link href='{call wet.builder.environment data="all" /}gcweb/assets/favicon.ico' rel="shortcut icon" />
-		<link rel="stylesheet" href='{call wet.builder.environment data="all" /}gcweb/css/ie8-theme-srv.min.css' />
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src='{call wet.builder.environment data="all" /}wet-boew/js/ie8-wet-boew.min.js'></script>
+		<link href="{call wet.builder.environment data="all" /}gcweb-opc/assets/favicon.ico" rel="shortcut icon" />
+		<link rel="stylesheet" href="{call wet.builder.environment data="all" /}gcweb-opc/css/ie8-theme-srv.min.css" />
+		<script src="{call wet.builder.environment data="all" /}wet-boew/js/jquery/1.12.4/jquery.min.js"></script>
+		<script src="{call wet.builder.environment data="all" /}wet-boew/js/ie8-wet-boew.min.js"></script>
 		<![endif]-->
+		<noscript><link rel="stylesheet" href="{call wet.builder.environment data="all" /}wet-boew/css/noscript.min.css" /></noscript>
 {/template}
 
 /**
  * This is all of the references to be made before existing page content.
  */
 {template .serverTop}
-	<header>
-		<div id="wb-bnr" class="container">
-			<div class="row">
-				<div class="brand col-xs-8 col-sm-9 col-md-6"> <a href="https://canada.ca">
-					<img src='{call wet.builder.environment data="all" /}gcweb/assets/sig-blk-en.svg' alt="" />
-					<span class="wb-inv"> Government of Canada / Gouvernement du Canada</span></a> </div>
-			</div>
-		</div>
-	</header>
+	<header role="banner" id="wb-bnr" class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <img id="opc-sig" src="{call wet.builder.environment data="all" /}gcweb-opc/assets/opc-blk-fr.svg" class="hidden-print" alt="Commissariat à la protection de la vie privée du Canada / Office of the Privacy Commissioner"/>
+                <span class="wb-inv">Commissariat à la protection de la vie privée du Canada / Office of the Privacy Commissioner of Canada</span>
+            </div>
+        </div>
+    </header>
 {/template}
 
 /**
@@ -38,14 +37,17 @@
 {template .serverBottom}
 	<footer id="wb-info">
 		<div class="brand">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-6 visible-sm visible-xs tofpg"> <a href="#wb-cont">Top of page / <span lang="fr">Haut de la page</span> <span class="glyphicon glyphicon-chevron-up"></span></a> </div>
-					<div class="col-xs-6 col-md-12 text-right">
-						<img src='{call wet.builder.environment data="all" /}gcweb/assets/wmms-blk.svg' alt="Symbol of the Government of Canada / Symbole du gouvernement du Canada" />
+				<div class="container">
+					<div class="row ">
+						<div class="col-md-6">
+							<img src="{call wet.builder.environment data="all" /}gcweb-opc/assets/opc-blk-en.svg" alt="OPC Logo" />
+							<span class="wb-inv">Office of Privacy Commissioner of Canada</span>
+						</div>
+						<div class="col-md-6 tofpg text-right">
+							<a href="#wb-cont">Top of Page <span class="fa fa-arrow-circle-up"></span></a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 	</footer>
 {/template}

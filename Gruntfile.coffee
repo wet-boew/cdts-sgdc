@@ -100,7 +100,7 @@ module.exports = (grunt) ->
 
 		# Metadata.
 		pkg: @file.readJSON "package.json"
-		jquery: @file.readJSON "node_modules/jquery/bower.json"
+		jquery: @file.readJSON "node_modules/jquery/package.json"
 		coreDist: "dist"
 		# Temporary folder for compiled soy files
 		coreTmp: "tmp"
@@ -399,7 +399,7 @@ module.exports = (grunt) ->
 				]
 			gcwebopcFr:
 				files: [
-					"_src/gcwebopc/fr/*.soy"
+					"_src/soy/gcwebopc/fr/*.soy"
 				]
 				tasks: [
 					"soycompile:gcwebopcFr"
