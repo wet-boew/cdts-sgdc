@@ -46,7 +46,7 @@
  * This is the set path to the root to where the assest (JS, CSS, Images, etc...) are.
  * From the page level and not the level of the compiled JS. NEEDS TO BE FIXED!
  * @param cdnEnv Used to switch between esdc envrionments and Akamai implementations.
- * @param cdnPath used to set working path to assets. 
+ * @param cdnPath used to set working path to assets.
 */
 {template .environment}
 {if $cdnEnv=='esdcqat' or $cdnEnv=='esdcprod' or $cdnEnv=='esdcnonprod'}/cdts/
@@ -61,49 +61,26 @@
  * @param? isApplication Used to determine if this will use the application templates (true/false).
  */
 {template .refTop}
-
-		<script>
-		dataLayer = [];
-		</script>
-
-		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){lb}w[l]=w[l]||[];w[l].push({lb}'gtm.start':
-		new Date().getTime(),event:'gtm.js'{rb});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		{rb})(window,document,'script','dataLayer','GTM-5DBPCQJ');</script>
-		<!-- End Google Tag Manager -->
-
-		{if isNonnull($webAnalytics)}
-		<!-- Adobe Analytics -->
-			<script src="//gcweb/assets.adobedtm.com/
-				{foreach $aa in $webAnalytics}caacec67651710193d2331efef325107c23a0145/satelliteLib-
-					{if $aa.version == 1}
-						92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24
-					{elseif $aa.version == 2}
-						c2082deaf69c358c641c5eb20f94b615dd606662
-					{/if}
-					{if $aa.environment == 'staging'}-staging{/if}
-				{/foreach}
-			.js"></script>
-		{/if}
-
+		{if isNonnull($webAnalytics)}{/if}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<link href='{call .environment data="all" /}/gcweb/assets/favicon.ico' rel="icon" type="image/x-icon">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-		<link rel="stylesheet" href='{call .environment data="all" /}/gcweb/css/theme.min.css'>
-		<link rel="stylesheet" href='{call .environment data="all" /}/cdts/css/cdtsfixes.css'>
+		<link href="{call .environment data="all" /}gcweb-opc/assets/favicon.ico" rel="icon" type="image/x-icon" />
+		<link rel="stylesheet" href="{call .environment data="all" /}gcweb-opc/css/theme.min.css" />
+		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsfixes.css'>
 		{if $isApplication == true}
-		<link rel="stylesheet" href='{call .environment data="all" /}/cdts/css/cdtsapps.css'>
+		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsapps.css'>
 		{/if}
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<link href='{call .environment data="all" /}/gcweb/assets/favicon.ico' rel="shortcut icon" />
-		<link rel="stylesheet" href='{call .environment data="all" /}/gcweb/css/ie8-theme.min.css' />
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew.min.js'></script>
+		<link href="{call .environment data="all" /}gcweb-opc/assets/favicon.ico" rel="shortcut icon" />
+		<link rel="stylesheet" href="{call .environment data="all" /}gcweb-opc/css/ie8-theme.min.css" />
+		<script src="{call .environment data="all" /}wet-boew/js/jquery/1.11.1/jquery.min.js"></script>
+		<script src="{call .environment data="all" /}wet-boew/js/ie8-wet-boew.min.js"></script>
 		<![endif]-->
-		<!--[if lte IE 9]><![endif]-->
+		<!--[if lte IE 9]>
+		<![endif]-->
+		<noscript><link rel="stylesheet" href="{call .environment data="all" /}wet-boew/css/noscript.min.css" /></noscript>
+		<link rel="stylesheet" href="{call .environment data="all" /}css/opc-style.css" />
+		<link rel="stylesheet" href="{call .environment data="all" /}cms-css/feedback.css" />
 {/template}
 
 /**
@@ -116,106 +93,119 @@
  * @param? topSecMenu Set to true if you want to use the secondary navigation.
  */
 {template .top}
-
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DBPCQJ"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->
-
-		<nav>
+		<section aria-label="Skip to">
 			<ul id="wb-tphp">
-				<li class="wb-slc"><a class="wb-sl" href="#wb-cont">Passer au contenu principal</a></li>
-				<li class="wb-slc visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info">Passer à «&#160;Au sujet du gouvernement&#160;»</a></li>
+				<li class="wb-slc">
+					<a class="wb-sl" href="#wb-cont">Passer au contenu principal</a>
+				</li>
+				<li class="wb-slc visible-sm visible-md visible-lg">
+					<a class="wb-sl" href="#wb-info">Passer à «&#160;À propos de ce site&#160;»</a>
+				</li>
 				{if $topSecMenu == true}
-				<li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec">Passer au menu de la section</a></li>
+				<li class="wb-slc visible-md visible-lg">
+					<a class="wb-sl" href="#wb-sec">Passer au menu de la section</a>
+				</li>
 				{/if}
 			</ul>
-		</nav>
-		<header>
+		</section>
+		<header role="banner">
 			<div id="wb-bnr" class="container">
 				{if isNonnull($lngLinks)}
-				<section id="wb-lng" class="text-right">
-					<h2 class="wb-inv">Sélection de la langue</h2>
+				<section id="wb-lng" class="visible-md visible-lg text-right" aria-labelledby="lang-section">
+					<h2 id="lang-section" class="wb-inv">Sélection de la langue</h2>
+					<div class="row">
+						<div class="col-md-12">
 							<ul class="list-inline margin-bottom-none">
 								{foreach $link in $lngLinks}
-									//{if isFirst($link)}
-										<li><a hreflang="{$link.lang}" lang="{$link.lang}" href="{$link.href}">{$link.text}</a></li>
-									//{/if}
+								<li><a hreflang="{$link.lang}" lang="{$link.lang}" href="{$link.href}">{$link.text}</a></li>
 								{/foreach}
 							</ul>
+						</div>
+					</div>
 				</section>
 				{/if}
+
 				<div class="row">
-					<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
-						{if $siteMenu != false}<a href="https://www.canada.ca/fr.html" property="url">{/if}<img src='{call .environment data="all" /}gcweb/assets/sig-blk-fr.svg' alt="" property="logo" /><span class="wb-inv" property="name"> Gouvernement du Canada / <span lang="en">Government of Canada</span></span>{if $siteMenu != false}</a>{/if}
-						<meta property="areaServed" typeOf="Country" content="Canada" />
-						<link property="logo" href='{call .environment data="all" /}/gcweb/assets/wmms-blk.svg' />
+					<div class="brand col-xs-8 col-sm-9 col-md-5">
+						{if $siteMenu != false}<a href="https://priv.gc.ca/fr/" property="url">{/if}
+							<img class="visible-print-block" src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-fr.png" alt="">
+							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-wht-fr.svg" class="hidden-print" alt="OPC Logo"/>
+							<span class="wb-inv">Commissariat à la protection de la vie privée du Canada</span>
+						{if $siteMenu != false}</a>{/if}
 					</div>
+
+					<section class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn" aria-labelledby="search-menu-section">
+						<h2 id="search-menu-section">Recherche et menus</h2>
+						<ul class="list-inline text-right chvrn">
+							<li>
+								<a href="#mb-pnl" title="Recherche et menus" aria-controls="mb-pnl" class="overlay-lnk" role="button">
+									<span class="glyphicon glyphicon-search">
+										<span class="glyphicon glyphicon-th-list">
+											<span class="wb-inv">Recherche et menus</span>
+										</span>
+									</span>
+								</a>
+							</li>
+						</ul>
+						<div id="mb-pnl"></div>
+					</section>
+
 					{if $search != false}
-					<section id="wb-srch" class="col-lg-8 text-right">
-						<h2>Recherche</h2>
-						<form action="https://www.canada.ca/fr/sr.html" method="get" name="cse-search-box" role="search" class="form-inline">
+					<section id="wb-srch" class="col-xs-7 text-right visible-md visible-lg" aria-labelledby="search-section">
+						<h2 id="search-section">Recherche</h2>
+						<form action="https://priv.gc.ca/fr/recherche" class="form-inline" enctype="multipart/form-data" method="post" name="cse-search-box" role="search">
 							<div class="form-group">
-								<label for="wb-srch-q" class="wb-inv">Rechercher dans Canada.ca</label>
-								<input name="cdn" value="canada" type="hidden">
-								<input name="st" value="s" type="hidden">
-								<input name="num" value="10" type="hidden">
-								<input name="langs" value="fr" type="hidden">
-								<input name="st1rt" value="1" type="hidden">
-								<input name="s5bm3ts21rch" value="x" type="hidden">
-								<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Rechercher dans Canada.ca">
-								<input type="hidden" name="_charset_" value="UTF-8">
+								<label for="wb-srch-q" class="wb-inv">Recherchez le site Web</label>
+								<input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="t" type="search" value="" size="27" maxlength="150" placeholder="Rechercher dans priv.gc.ca" />
 								<datalist id="wb-srch-q-ac">
+									<!--[if lte IE 9]><select><![endif]-->
+									<!--[if lte IE 9]></select><![endif]-->
 								</datalist>
 							</div>
 							<div class="form-group submit">
 								<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Recherche</span></button>
 							</div>
+							<input name='ufprt' type='hidden' value='FA9E9C90CBEC92DB4B7B8682502BEFB950B53DE80236602CAE04A6F2DEB49BAB9910BABD1FDF3DB45157B92AB4BC56EC2A6F0F9B73F33F1861E98CB7085A35D879163CB4A9EF37932297B282EB3AE4DA706D29B280ACF4C982435C30C187B3A659BF45C3C73F49876CF62B693423973EFC001049D317307E25184C9CE9BE107A' />
 						</form>
 					</section>
 					{/if}
 				</div>
-			</div>
+		</div>
+
 			{if $siteMenu != false}
-			<nav class="gcweb-menu" typeof="SiteNavigationElement">
-				<div class="container">
-					<h2 class="wb-inv">Menu</h2>
-					<button type="button" aria-haspopup="true" aria-expanded="false">Menu<span class="wb-inv"> principal</span> <span class="expicon glyphicon glyphicon-chevron-down"></span></button>
-					<ul role="menu" aria-orientation="vertical" data-ajax-replace="//www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-fr.html">
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/emplois.html">Emplois et milieu de travail</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/immigration-citoyennete.html">Immigration et citoyenneté</a></li>
-						<li role="presentation"><a role="menuitem" href="https://voyage.gc.ca/">Voyage et tourisme</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/entreprises.html">Entreprises et industrie</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/prestations.html">Prestations</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/sante.html">Santé</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/impots.html">Impôts</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/environnement.html">Environnement et ressources naturelles</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/defense.html">Sécurité nationale et défense</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/culture.html">Culture, histoire et sport</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/police.html">Services de police, justice et urgences</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/transport.html">Transport et infrastructure</a></li>
-						<li role="presentation"><a role="menuitem" href="http://international.gc.ca/world-monde/index.aspx?lang=fra">Canada et le monde</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/finance.html">Argent et finances</a></li>
-						<li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/science.html">Science et innovation</a></li>
-					</ul>
+			<nav id="wb-sm" data-ajax-replace="https://priv.gc.ca/ajax/sitemenu-fr" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="topics-menu-section">
+				<div class="container nvbar">
+					<h2 id="topics-menu-section">Menu des sujets</h2>
+					<div class="row">
+						<ul class="list-inline menu">
+							<li><a href="https://priv.gc.ca/fr/pour-les-individus/" class="item">Pour les individus</a></li>
+							<li><a href="https://priv.gc.ca/fr/pour-les-entreprises/" class="item">Pour les entreprises</a></li>
+							<li><a href="https://priv.gc.ca/fr/pour-les-institutions/" class="item">Pour les institutions fédérales</a></li>
+							<li><a href="https://priv.gc.ca/fr/signaler-un-probleme/" class="item">Signaler un problème</a></li>
+							<li><a href="https://priv.gc.ca/fr/mesures-et-decisions-prises-par-le-commissariat/" class="item">Mesures et décisions prises par le Commissariat</a></li>
+							<li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat/" class="item">À propos du Commissariat</a></li>
+						</ul>
+					</div>
 				</div>
 			</nav>
 			{else}
 			<div class="transactBar"></div>
 			{/if}
 			{if $breadcrumbs != false}
-			<nav id="wb-bc" property="breadcrumb">
-				<h2>Vous êtes ici :</h2>
+			<nav id="wb-bc" property="breadcrumb" aria-labelledby="you-are-here">
+				<h2 id="you-are-here">Vous êtes ici :</h2>
 				<div class="container">
-					<ol class="breadcrumb">
-						{if isNonnull($breadcrumbs)}
-						{foreach $item in $breadcrumbs}
-						<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</acronym>{/if}</li>
-						{/foreach}
-						{else}
-						<li><a href="https://www.canada.ca/fr.html">Accueil</a></li>
-						{/if}
-					</ol>
+					<div class="row">
+						<ol class="breadcrumb">
+							{if isNonnull($breadcrumbs)}
+							{foreach $item in $breadcrumbs}
+							<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
+							{/foreach}
+							{else}
+							<li><a href="https://priv.gc.ca/fr/">Accueil</a></li>
+							{/if}
+						</ol>
+					</div>
 				</div>
 			</nav>
 			{/if}
@@ -234,50 +224,123 @@
  * @param? screenIdentifier Used to identify screens for users that need help
  * @param? pagedetails Used to determine if the pagedetails div will be displayed
  * @param? isContainer Used to add the container class to the pageDetails section when using the homepage look
-*/
+ */
 {template .preFooter}
-			{if $showPostContent != false}
-			{/if}
-			{if $pagedetails != false}
-				<div class="pagedetails{if isNonnull($isContainer)} container{/if}">
-					{if $showFeedback != false or $showShare != false}
-						<div class="row">
-							{if $showFeedback != false}
-								{if isNonnull($showFeedback) and $showFeedback != true }
-									<div class="col-sm-6 col-md-5 col-lg-4">
-										<a href="{$showFeedback}" class="btn btn-default btn-center">Signaler un problème sur cette page</a>
+		{if $showPostContent != false}
+		{/if}
+		{if $pagedetails != false}
+		<div class="pagedetails{if isNonnull($isContainer)} container{/if}">
+			{if $showFeedback != false or $showShare != false}
+			<div class="row mrgn-tp-sm">
+				{if $showFeedback != false}
+					{if isNonnull($showFeedback) and $showFeedback != true }
+						<div class="col-sm-6 col-md-5 col-lg-5">
+							<a href="{$showFeedback}" class="btn btn-default btn-center">Signaler un problème sur cette page</a>
+						</div>
+					{else}
+						<div class="col-sm-6 col-md-5 col-lg-5" id="reportAProblem">
+							<details class="brdr-0" aria-labelledby="problemSection">
+								<summary class="btn btn-default" id="problemSection">Signaler un problème sur cette page</summary>
+								<div class="well row">
+									<div>
+										<div id="wb-auto-3">
+											<strong class="error" id="validationSummary2" role="alert" aria-atomic="true">
+												<span class="label label-danger">
+													<span class="prefix">Erreur&nbsp;1:&nbsp;</span>Aucune sélection n’a été faite. Vous devez choisir au moins une réponse.
+												</span>
+											</strong>
+											<form action="https://priv.gc.ca/fr/pour-les-individus/" enctype="multipart/form-data" id="reportAProblemForm" method="post">
+												<input id="ProblemContentId" name="ProblemContentId" type="hidden" value="" />
+												<input name="__RequestVerificationToken" type="hidden" value="" />
+												<fieldset id="reportAProblemInputs">
+													<legend class="required"><span class="field-name">Veuillez cocher toutes les réponses pertinentes </span><span class="redspan"><strong>(obligatoire)</strong> </span>:</legend>
+													<div class="checkbox">
+														<label for="PageHasBrokenLink">
+															<input id="PageHasBrokenLink" name="PageHasBrokenLink" type="checkbox" value="true" />
+															<input name="PageHasBrokenLink" type="hidden" value="false" /> Il y a des hyperliens brisés.
+														</label>
+													</div>
+													<div class="checkbox">
+														<label for="PageHasSpellingOrGrammarMistakes">
+															<input id="PageHasSpellingOrGrammarMistakes" name="PageHasSpellingOrGrammarMistakes" type="checkbox" value="true" />
+															<input name="PageHasSpellingOrGrammarMistakes" type="hidden" value="false" /> Il y a des erreurs d’orthographe ou de grammaire.
+														</label>
+													</div>
+													<div class="checkbox">
+														<label for="InfoIsOutdated2">
+															<input id="InfoIsOutdated2" name="InfoIsOutdated2" type="checkbox" value="true" />
+															<input name="InfoIsOutdated2" type="hidden" value="false" /> L’information est erronée ou n’est plus à jour.
+														</label>
+													</div>
+													<div class="checkbox">
+														<label for="OtherReason3"><input id="OtherReason3" name="OtherReason3" type="checkbox" value="true" />
+														<input name="OtherReason3" type="hidden" value="false" /> Autre</label>
+														<div class="form-group" id="otherReasonComments3">
+															<label for="Comments3">Veuillez préciser (maximum de 750 caractères) :</label>
+															<textarea name="Comments" class="form-control" id="Comments3" maxlength="750" rows="2" cols="20"></textarea>
+														</div>
+													</div>
+												</fieldset>
+												<div id="noteAndSubmit2">
+													<div class="alert alert-info">
+														<h2 class="h5">Note</h2>
+														<ul>
+															<li>
+																<small>
+																	<strong>Vous ne recevrez pas de réponse.</strong> Pour toute question, veuillez <a href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/">communiquer avec le Commissariat à la protection de la vie privée</a>.
+																</small>
+															</li>
+															<li>
+																<small>
+																	<strong>N’inscrivez aucun renseignement personnel,</strong> comme votre nom, numéro d'assurance sociale (NAS), votre adresse au domicile ou au travail, ou encore les numéros de cas ou de dossiers.
+																</small>
+															</li>
+															<li>
+																<small>
+																	<strong>Pour plus d’information au sujet de cette fonctionnalité</strong>, veuillez consulter nos <a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/">conditions d’utilisation</a>.
+																</small>
+															</li>
+														</ul>
+													</div>
+													<div>
+														<input type="submit" class="btn btn-primary" value="Soumettre" aria-controls="wb-auto-3" id="btnSubmitProblem" />
+													</div>
+												</div>
+												<input name='ufprt' type='hidden' value='' />
+											</form>
+										</div>
+										<div id="reportAProblemSubmissionResults"></div>
 									</div>
-								{else}
-									<div class="col-sm-6 col-md-5 col-lg-4">
-										<a href="https://www.canada.ca/fr/signaler-probleme.html" class="btn btn-default btn-center">Signaler un problème sur cette page</a>
-									</div>
-								{/if}
-							{/if}
-							{if $showShare != false}
-								{if isNonnull($showShare)}
-									<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-5{/if}" data-wb-share='{lb}"filter": [{foreach $item in $showShare}"{$item}"{if not isLast($item)}, {/if}{/foreach}], "lnkClass": "btn btn-default btn-block"{rb}'></div>
-								{else}
-									<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-5{/if}" data-wb-share='{lb}"lnkClass": "btn btn-default btn-block"{rb}'></div>
-								{/if}
-							{/if}
+								</div>
+							</details>
 						</div>
 					{/if}
-					<dl id="wb-dtmd">
-						{if isNonnull($screenIdentifier)}
-							<dt>Identificateur d'écran&#160;:&#32;</dt>
-							<dd property="identifier">{$screenIdentifier}</dd>
-						{/if}
-						{if isNonnull($dateModified)}
-							<dt>Date de modification&#160;:&#32;</dt>
-							<dd><time property="dateModified">{$dateModified}</time></dd>
-						{/if}
-						{if isNonnull($versionIdentifier)}
-							<dt>Version&#160;:&#32;</dt>
-							<dd property="version">{$versionIdentifier}</dd>
-						{/if}
-					</dl>
-				</div>
+				{/if}
+				{if $showShare != false}
+					{if isNonnull($showShare)}
+						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"filter": [{foreach $item in $showShare}"{$item}"{if not isLast($item)}, {/if}{/foreach}], "lnkClass": "btn btn-default btn-block"{rb}'></div>
+					{else}
+						<div class="wb-share col-sm-4 col-md-3 col-sm-offset-{if $showFeedback != false}2{else}8{/if} col-md-offset-{if $showFeedback != false}4{else}9{/if}{if $showFeedback != false} col-lg-offset-4{/if}" data-wb-share='{lb}"lnkClass": "btn btn-default btn-block"{rb}'></div>
+					{/if}
+				{/if}
+			</div>
 			{/if}
+			<dl id="wb-dtmd">
+				{if isNonnull($screenIdentifier)}
+					<dt>Identificateur d'écran&#160;:&#32;</dt>
+					<dd property="identifier">{$screenIdentifier}</dd>
+				{/if}
+				{if isNonnull($dateModified)}
+					<dt>Date de modification&#160;:&#32;</dt>
+					<dd><time property="dateModified">{$dateModified}</time></dd>
+				{/if}
+				{if isNonnull($versionIdentifier)}
+					<dt>Version&#160;:&#32;</dt>
+					<dd property="version">{$versionIdentifier}</dd>
+				{/if}
+			</dl>
+		</div>
+		{/if}
 {/template}
 
 /**
@@ -319,92 +382,126 @@
 {template .footer}
 		<footer id="wb-info">
 			{if $showFooter != false}
-			<div class="landscape">
-				<nav class="container wb-navcurr">
-					<h2 class="wb-inv">Au sujet du gouvernement</h2>
-					<ul class="list-unstyled colcount-sm-2 colcount-md-3">
-					{if isNonnull($contactLinks)}
-						{foreach $link in $contactLinks}
-							{if isFirst($link)}
-							<li><a href="{$link.href}">Contactez-nous</a></li>
-							{/if}
-						{/foreach}
-					{else}
-						<li><a href="https://www.canada.ca/fr/contact.html">Contactez-nous</a></li>
-					{/if}
-						<li><a href="https://www.canada.ca/fr/gouvernement/min.html">Ministères et organismes</a></li>
-						<li><a href="https://www.canada.ca/fr/gouvernement/fonctionpublique.html">Fonction publique et force militaire</a></li>
-						<li><a href="https://www.canada.ca/fr/nouvelles.html">Nouvelles</a></li>
-						<li><a href="https://www.canada.ca/fr/gouvernement/systeme/lois.html">Traités, lois et règlements</a></li>
-						<li><a href="https://www.canada.ca/fr/transparence/rapports.html">Rapports à l'échelle du gouvernement</a></li>
-						<li><a href="http://pm.gc.ca/fra">Premier ministre</a></li>
-						<li><a href="https://www.canada.ca/fr/gouvernement/systeme.html">Comment le gouvernement fonctionne</a></li>
-						<li><a href="http://ouvert.canada.ca/">Gouvernement ouvert</a></li>
-					</ul>
-				</nav>
-			</div>
-				<div class="brand">
-					<div class="container">
-						<div class="row">
-							<nav class="col-md-9 col-lg-10 ftr-urlt-lnk">
-								<h2 class="wb-inv">À propos du site</h2>
-								<ul>
-									<li><a href="https://www.canada.ca/fr/sociaux.html">Médias sociaux</a></li>
-									<li><a href="https://www.canada.ca/fr/mobile.html">Applications mobiles</a></li>
-									<li><a href="https://www1.canada.ca/fr/nouveausite.html">À propos de Canada.ca</a></li>
-									<li><a href="https://www.canada.ca/fr/transparence/avis.html">Avis</a></li>
-									<li><a href="https://www.canada.ca/fr/transparence/confidentialite.html">Confidentialité</a></li>
-								</ul>
-							</nav>
-				{else}
-				<div id="transactFooter" class="landscape"></div>
-				<div class="brand">
-					<div class="container">
-						<div class="row">
-							<nav class="col-md-9 col-lg-10 ftr-urlt-lnk">
-								<h2 class="wb-inv">À propos du site</h2>
-								<ul>
-								{if isNonnull($contactLinks)}
+        	<nav class="container visible-sm visible-md visible-lg wb-navcurr" aria-labelledby="footer-links">
+				<h2 class="wb-inv" id="footer-links">À propos du site</h2>
+				<div class="row">
+					<div class="col-md-3">
+						<section aria-labelledby="about-opc-section">
+							<h3 id="about-opc-section">À propos du Commissariat</h3>
+							<p>Le commissaire à la protection de la vie privée du Canada est un agent du Parlement qui a pour mission de protéger et de promouvoir le droit à la vie privée.</p>
+							<ul class="list-unstyled">
+								<li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat/qui-nous-sommes/">Qui nous sommes</a></li>
+                            					<li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat/ce-que-nous-faisons/">Ce que nous faisons</a></li>
+								<li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat/rapports-operationnels-du-commissariat/">Rapports sur les activités du Commissariat</a></li>
+								<li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat//publications/">Publications</a></li>
+								<li><a href="https://priv.gc.ca/fr/a-propos-du-commissariat/travailler-au-commissariat">Travailler au Commissariat</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="col-md-3">
+						<section aria-labelledby="opc-news-section">
+							<h3 id="opc-news-section">Nouvelles du Commissariat</h3>
+							<p>Soyez informés des annonces et des activités du Commissariat à la protection de la vie privée du Canada de même que des événements auxquels il participe.</p>
+							<ul class="list-unstyled">
+								<li><a href="https://priv.gc.ca/fr/nouvelles-du-commissariat/nouvelles-et-annonces">Nouvelles et annonces</a></li>
+                            					<li><a href="https://priv.gc.ca/fr/nouvelles-du-commissariat/evenements-lies-a-la-protection-de-la-vie-privee/">Événements liés à la protection de la vie privée</a></li>
+                            					<li><a href="https://priv.gc.ca/fr/nouvelles-du-commissariat/allocutions/">Allocutions</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="col-md-3">
+						<section aria-labelledby="respect-section">
+							<h3 id="respect-section">Votre vie privée</h3>
+							<p><strong>Nous respectons votre vie privée.</strong></p>
+							<p>Lisez notre <a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/pp/">Politique sur la protection des renseignements personnels</a> et nos <a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/">Conditions d’utilisation</a> pour en savoir plus sur la protection de vos renseignements personnels et votre droit à la vie privée lorsque vous naviguez sur le site Web <a href="https://priv.gc.ca/">priv.gc.ca</a> ou que vous communiquez avec le Commissariat à la protection de la vie privée du Canada.</p>
+						</section>
+						<section aria-labelledby="transparency-section">
+							<h3 id="transparency-section">Transparence</h3>
+							<ul class="list-unstyled">
+								<li><a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/divulgation-proactive/">Divulgation proactive</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="col-md-3">
+						<section aria-labelledby="contact-us-section">
+							<h3 id="contact-us-section">Pour communiquer avec nous</h3>
+							<p>Vous voulez nous poser une question, nous faire part d’une préoccupation ou déposer une plainte contre une organisation? Nous pouvons vous aider.</p>
+							{if isNonnull($contactLinks)}
+								<ul class="list-unstyled colcount-sm-2 colcount-md-3">
 									{foreach $link in $contactLinks}
 										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/contact.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Coordonnées{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+											<li><a href="{$link.href}">Contactez-nous</a></li>
 										{/if}
 									{/foreach}
-								{else}
-									<li><a href="https://www.canada.ca/fr/contact.html">Coordonnées</a></li>
-								{/if}
-
-								{if isNonnull($termsLink)}
-									{foreach $link in $termsLink}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/transparence/avis.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Avis{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://www.canada.ca/fr/transparence/avis.html">Avis</a></li>
-								{/if}
-
-								{if isNonnull($privacyLink)}
-									{foreach $link in $privacyLink}
-										{if isFirst($link)}
-											<li><a {if $link.href} href="{$link.href}"{else} href="https://www.canada.ca/fr/transparence/confidentialite.html"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Confidentialité{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
-										{/if}
-									{/foreach}
-								{else}
-									<li><a href="https://www.canada.ca/fr/transparence/confidentialite.html">Confidentialité</a></li>
-								{/if}
 								</ul>
-							</nav>
+							{else}
+								<a href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/" role="button" class="btn btn-default active">Communiquer avec le Commissariat</a>
+							{/if}
+						</section>
+						<section aria-labelledby="stay-connected-section">
+							<h3 id="stay-connected-section">Restez branchés</h3>
+							<ul class="list-unstyled">
+								<li><span class="fa fa-comments"></span> <a href="https://priv.gc.ca/fr/blogue">Blogue du Commissariat</a></li>
+								<li><span class="fa fa-linkedin-square"></span> <a href="https://www.linkedin.com/company/office-of-the-privacy-commissioner-of-canada">LinkedIn du Commissariat</a></li>
+								<li><span class="fa fa-rss-square"></span> <a href="https://priv.gc.ca/fr/fils-rss-du-commissariat/">Fils RSS du Commissariat</a></li>
+								<li><span class="fa fa-twitter"></span> <a href="https://twitter.com/PrivacyPrivee">Twitter du Commissariat</a></li>
+								<li><span class="fa fa-youtube"></span> <a href="https://www.youtube.com/user/PrivacyComm">Chaîne YouTube du Commissariat</a></li>
+							</ul>
+						</section>
+					</div>
+				</div>
+			</nav>
+			{else}
+			<div id="transactFooter" class="landscape"></div>
+			<nav class="container visible-sm visible-md visible-lg wb-navcurr ftr-urlt-lnk">
+				<h2 class="wb-inv">À propos du site</h2>
+				<ul>
+				{if isNonnull($contactLinks)}
+					{foreach $link in $contactLinks}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Coordonnées{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/fr/communiquer-avec-le-commissariat/">Coordonnées</a></li>
 				{/if}
-							<div class="col-xs-6 visible-sm visible-xs tofpg">
-								<a href="#wb-cont">Haut de la page <span class="glyphicon glyphicon-chevron-up"></span></a>
-							</div>
-							<div class="col-xs-6 col-md-2 text-right">
-								<img src='{call .environment data="all" /}gcweb/assets/wmms-blk.svg' alt="Symbole du gouvernement du Canada" />
-							</div>
+
+				{if isNonnull($termsLink)}
+					{foreach $link in $termsLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Avis{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/conditions-d-utilisation/">Avis</a></li>
+				{/if}
+
+				{if isNonnull($privacyLink)}
+					{foreach $link in $privacyLink}
+						{if isFirst($link)}
+							<li><a {if $link.href} href="{$link.href}"{else} href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/pp/"{/if}{if $link.newWindow} target="_blank"  rel="noopener"{/if}>Confidentialité{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a></li>
+						{/if}
+					{/foreach}
+				{else}
+					<li><a href="https://priv.gc.ca/fr/protection-de-la-vie-privee-et-transparence-au-commissariat/pp/">Confidentialité</a></li>
+				{/if}
+				</ul>
+			</nav>
+			{/if}
+
+			<div class="brand">
+				<div class="container">
+					<div class="row ">
+						<div class="col-md-6">
+							<img src="{call .environment data="all" /}gcweb-opc/assets/opc-blk-fr.svg" alt="Logo du Commissariat" />
+							<span class="wb-inv">Commissariat à la protection de la vie privée du Canada</span>
+						</div>
+						<div class="col-md-6 tofpg text-right">
+							<a href="#wb-cont">Haut de la page <span class="fa fa-arrow-circle-up"></span></a>
 						</div>
 					</div>
 				</div>
+			</div>
 		</footer>
 {/template}
 
@@ -424,13 +521,15 @@
 {template .refFooter}
 		<!--[if gte IE 9 | !IE ]><!-->
 		<script src="{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}wet-boew/js/{/if}jquery/2.2.4/jquery.min.js"></script>
-		<script src='{call .environment data="all" /}wet-boew/js/wet-boew.min.js'></script>
+		<script src="{call .environment data="all" /}wet-boew/js/wet-boew.min.js"></script>
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js'></script>
+		<script src="{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js"></script>
 		<![endif]-->
-		<script src='{call .environment data="all" /}gcweb/js/theme.min.js'></script>
+		<script src="{call .environment data="all" /}gcweb-opc/js/theme.min.js"></script>
+		<script src="{call .environment data="all" /}cms-scripts/feedback.js"></script>
 		{if $exitScript == true}
+		<script src='{call .environment data="all" /}cdts/js/exitScript.js'></script>
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Avis de sortie sécurisée</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
@@ -467,5 +566,5 @@
 		{if $isApplication == true}
 		<script src='{call .environment data="all" /}cdts/js/cdtscustom.js'></script>
 		{/if}
-		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
+		{if isNonnull($webAnalytics)}{/if}
 {/template}

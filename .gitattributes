@@ -14,6 +14,7 @@
 *.properties  text
 *.rb      text
 *.yml     text
+*.sh      text
 
 
 # Images should be treated as binary
