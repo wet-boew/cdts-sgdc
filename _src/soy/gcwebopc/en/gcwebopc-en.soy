@@ -617,7 +617,7 @@
 							{if isNonnull($nameFra)}
 								<h2>{$nameFra}</h2>
 							{else}
-								<h2 class="wb-inv">Commissariat à la protection de la vie privée du Canada</h2>							
+								<h2 class="wb-inv">Commissariat à la protection de la vie privée du Canada</h2>
 							{/if}
 							<p><a href="{$indexFra}" class="btn btn-primary" lang="fr">Français</a></p>
 						</section>
@@ -635,9 +635,8 @@
 				<div class="sp-bx-bt col-xs-12">
 					<div class="row">
 						<div class="col-xs-12 col-md-12">
-							<a href="{$termsFra}" class="sp-lk" lang="fr">Conditions d'utilisation</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="{$termsEng}" class="sp-lk">Terms & conditions</a>  
+							<a href="{$termsFra}" class="sp-lk" lang="fr">Conditions d'utilisation</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="{$termsEng}" class="sp-lk">Terms & conditions</a>
 						</div>
-					
 					</div>
 				</div>
 			</div>
@@ -650,6 +649,6 @@
 		<script src='{call .environment data="all" /}wet-boew/js/ie8-wet-boew2.min.js'></script>
 		<![endif]-->
 		<script src='{call .environment data="all" /}gcweb-opc/js/theme.min.js'></script>
-		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
 		<link rel="stylesheet" href='{call .environment data="all" /}cdts/css/cdtsfixes.css'>
+		{if isNonnull($webAnalytics)}{/if}
 {/template}
