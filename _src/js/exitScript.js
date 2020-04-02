@@ -1,18 +1,13 @@
 function clickA() {
+	
 	$(document.body).on("click", "a", function(ev) {
-
+		
 	// Test there is no "target=_blank/target attribute"
 		if (!this.hasAttribute("target")) {
 			exitWarning(ev, this.href);
 		}
-
 	})
 }
-// Close lightbox if targetBlank set to true 
-$(document).on("click", ".popup-modal-close[target=_blank]", function(event) {
-	$.magnificPopup.close();
-
-});
 
 function exitWarning(ev, h) {
 	var

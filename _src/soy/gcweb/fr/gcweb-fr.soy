@@ -455,7 +455,7 @@
 							Annuler
 						{/if}
 					</button></li>
-					<li>{if $targetBlank == true} <a class="btn btn-default popup-modal-close pull-right" target="_blank" href="{$exitURL}"> {else} <a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">{/if}
+					<li>{if $targetBlank == true} <a class="btn btn-default popup-modal-dismiss pull-right" target="_blank" href="{$exitURL}"> {else} <a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">{/if}
 						{if isNonnull($yesMsg) and length($yesMsg) > 0}
 							{$yesMsg}
 						{else}
