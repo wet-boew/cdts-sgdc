@@ -71,7 +71,15 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"cdnPath" : "../../"
+				"cdnPath" : "../../",
+				 "exitScript": true,
+                "displayModal": true,
+				"targetBlank": true,
+                "exitURL": "http://www.google.ca",
+                "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
+                "cancelMsg": "Nope",
+                "yesMsg": "Sure",
+                "exitDomains": "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
 			}));
 		</script>
 	</body>
