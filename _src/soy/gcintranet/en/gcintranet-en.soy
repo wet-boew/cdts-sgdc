@@ -1024,6 +1024,7 @@
 /**
  * This is all of the references to be made before existing page content.
  * @param? exitScript If set to true, loads a script that alerts users they are leaving a secure site.
+ * @param? targetBlank If set to true, tells the browser to open a new window.
  * @param? displayModal If set to true will display modal otherwise skip to exitURL.
  * @param? exitURL The URL where the users are redirected if they continue.
  * @param? exitMsg The message to display to the user.
@@ -1057,22 +1058,22 @@
 							You are about to leave a secure site, do you wish to continue?
 						{/if}
 					</p>
-					<ul class="list-inline text-center">
-						<li><a class="btn btn-primary popup-modal-dismiss pull-left" id="eCancel" href="javascript:void(0)" type="button">
+						<ul class="list-inline text-center">
+						<li><button class="btn btn-primary popup-modal-dismiss pull-left" id="eCancel">
 							{if isNonnull($cancelMsg) and length($cancelMsg) > 0}
 								{$cancelMsg}
 							{else}
 								Cancel
 							{/if}
-						</a></li>
-						<li><a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">
+						</button></li>
+						<li>{if $targetBlank == true} <a class="btn btn-default popup-modal-dismiss pull-right" target="_blank" href="{$exitURL}"> {else} <a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">{/if}
 							{if isNonnull($yesMsg) and length($yesMsg) > 0}
 								{$yesMsg}
 							{else}
 								Yes
 							{/if}
 						</a></li>
-					</ul>
+					</ul>			
 				</div>
 			</section>
 		{/if}

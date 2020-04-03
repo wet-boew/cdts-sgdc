@@ -411,6 +411,7 @@
 /**
  * This is all of the references to be made before existing page content.
  * @param? exitScript If set to true, loads a script that alerts users they are leaving a secure site.
+ * @param? targetBlank If set to true, tells the browser to open a new window.
  * @param? displayModal If set to true will display modal otherwise skip to exitURL.
  * @param? exitURL The URL where the users are redirected if they continue.
  * @param? exitMsg The message to display to the user.
@@ -431,6 +432,7 @@
 		<![endif]-->
 		<script src='{call .environment data="all" /}gcweb/js/theme.min.js'></script>
 		{if $exitScript == true}
+		<script src='{call .environment data="all" /}cdts/js/exitScript.js'></script>
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Avis de sortie sécurisée</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
@@ -446,14 +448,14 @@
 					{/if}
 				</p>
 				<ul class="list-inline text-center">
-					<li><a class="btn btn-primary popup-modal-dismiss pull-left" id="eCancel" href="javascript:void(0)" type="button">
+					<li><button class="btn btn-primary popup-modal-dismiss pull-left" id="eCancel">
 						{if isNonnull($cancelMsg) and length($cancelMsg) > 0}
 							{$cancelMsg}
 						{else}
 							Annuler
 						{/if}
-					</a></li>
-					<li><a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">
+					</button></li>
+					<li>{if $targetBlank == true} <a class="btn btn-default popup-modal-dismiss pull-right" target="_blank" href="{$exitURL}"> {else} <a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">{/if}
 						{if isNonnull($yesMsg) and length($yesMsg) > 0}
 							{$yesMsg}
 						{else}
