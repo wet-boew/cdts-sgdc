@@ -1,7 +1,12 @@
 function clickA() {
-    $(document.body).on("click", "a", function (ev) {        
-        exitWarning(ev, this.href);
-    })
+    
+	$(document.body).on("click", "a", function(ev) {
+		
+	// Test there is no "target=_blank/target attribute"
+		if (!this.hasAttribute("target")) {
+			exitWarning(ev, this.href);
+		}
+	})
 }
 
 function exitWarning(ev, h) {
