@@ -100,7 +100,6 @@ module.exports = (grunt) ->
 
 		# Metadata.
 		pkg: @file.readJSON "package.json"
-		jquery: @file.readJSON "node_modules/jquery/package.json"
 		coreDist: "dist"
 		# Temporary folder for compiled soy files
 		coreTmp: "tmp"
@@ -507,15 +506,9 @@ module.exports = (grunt) ->
 					src: [
 						"wet-boew/**/*.*"
 						"gcweb/**/*.*"
+						"gcweb-opc/**/*.*"
 					]
 					dest: "<%= coreDist %>/"
-					expand: true
-				,
-					cwd: "node_modules/jquery/dist"
-					src: [
-						"*.*"
-					]
-					dest: "<%= coreDist %>/wet-boew/js/jquery/<%= jquery.version %>"
 					expand: true
 				]
 

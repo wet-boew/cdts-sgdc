@@ -20,8 +20,8 @@
   "homepage": "https://github.com/wet-boew/cdts-sgdc#README",
   "dependencies": {
     "gcweb": "github:wet-boew/themes-cdn#v6.0-gcweb",
-    "wet-boew": "github:wet-boew/wet-boew-cdn#v4.0-dist",
-    "jquery": "github:jquery/jquery#1.12.4"
+    "gcweb-opc": "github:opc-cpvp/themes-cdn#v4.0.26-gcweb-opc",
+    "wet-boew": "github:wet-boew/wet-boew-cdn#v4.0-dist"
   },
   "devDependencies": {
     "grunt": "^1.0.4",
