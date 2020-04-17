@@ -129,36 +129,6 @@ module.exports = (grunt) ->
 
 		# Compile Soy
 		soycompile:
-
-			gcwebEn:
-				expand: true,
-				src: [
-					"./_src/soy/gcweb/en/gcweb-en.soy"
-					"./_src/soy/gcweb/en/gcweb-appPage-en.soy"
-					]
-				dest: "<%= coreTmp %>"
-				options:
-					jarPath: "_src/jar"
-
-			gcwebFr:
-				expand: true,
-				src: [
-					"./_src/soy/gcweb/fr/gcweb-fr.soy"
-					"./_src/soy/gcweb/fr/gcweb-appPage-fr.soy"
-					]
-				dest: "<%= coreTmp %>"
-				options:
-					jarPath: "_src/jar"
-
-			gcwebBi:
-				expand: true,
-				src: [
-					"./_src/soy/gcweb/bilingual/gcweb-serverPage.soy"
-					]
-				dest: "<%= coreTmp %>"
-				options:
-					jarPath: "_src/jar"
-
 			gcwebopcEn:
 				expand: true,
 				src: [
@@ -188,56 +158,9 @@ module.exports = (grunt) ->
 				options:
 					jarPath: "_src/jar"
 
-			gcintranetEn:
-				expand: true,
-				src: [
-					"./_src/soy/gcintranet/en/gcintranet-en.soy"
-					]
-				dest: "<%= coreTmp %>"
-				options:
-					jarPath: "_src/jar"
-
-			gcintranetFr:
-				expand: true,
-				src: [
-					"./_src/soy/gcintranet/fr/gcintranet-fr.soy"
-					]
-				dest: "<%= coreTmp %>"
-				options:
-					jarPath: "_src/jar"
-
-			gcintranetBi:
-				expand: true,
-				src: [
-					"./_src/soy/gcintranet/bilingual/gcintranet-serverPage.soy"
-					]
-				dest: "<%= coreTmp %>"
-				options:
-					jarPath: "_src/jar"
-
 		concat:
 			options:
 				banner: "<%= banner %>"
-
-			gcwebEn:
-				options:
-					stripBanners: false
-				src: [
-					"<%= coreTmp %>/_src/soy/gcweb/en/gcweb-en.js"
-					"<%= coreTmp %>/_src/soy/gcweb/en/gcweb-appPage-en.js"
-					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
-				]
-				dest: "<%= coreDist %>/gcweb-en.js"
-
-			gcwebFr:
-				options:
-					stripBanners: false
-				src: [
-					"<%= coreTmp %>/_src/soy/gcweb/fr/gcweb-fr.js"
-					"<%= coreTmp %>/_src/soy/gcweb/fr/gcweb-appPage-fr.js"
-					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
-				]
-				dest: "<%= coreDist %>/gcweb-fr.js"
 
 			gcwebopcEn:
 				options:
@@ -258,24 +181,6 @@ module.exports = (grunt) ->
 					"<%= coreTmp %>/_src/soy/gcwebopc/bilingual/gcwebopc-serverPage.js"
 				]
 				dest: "<%= coreDist %>/gcwebopc-fr.js"
-
-			gcintranetEn:
-				options:
-					stripBanners: false
-				src: [
-					"<%= coreTmp %>/_src/soy/gcintranet/en/gcintranet-en.js"
-					"<%= coreTmp %>/_src/soy/gcintranet/bilingual/gcintranet-serverPage.js"
-				]
-				dest: "<%= coreDist %>/gcintranet-en.js"
-
-			gcintranetFr:
-				options:
-					stripBanners: false
-				src: [
-					"<%= coreTmp %>/_src/soy/gcintranet/fr/gcintranet-fr.js"
-					"<%= coreTmp %>/_src/soy/gcintranet/bilingual/gcintranet-serverPage.js"
-				]
-				dest: "<%= coreDist %>/gcintranet-fr.js"
 
 		# Minify
 		uglify:
@@ -350,41 +255,6 @@ module.exports = (grunt) ->
 					"copy:assets"
 					"uglify"
 				]
-			gcwebEn:
-				files: [
-					"_src/soy/gcweb/en/*.soy"
-				]
-				tasks: [
-					"soycompile:gcwebEn"
-					"soycompile:gcwebBi"
-					"concat:gcwebEn"
-					"uglify"
-					"clean:tmp"
-				]
-			gcwebFr:
-				files: [
-					"_src/soy/gcweb/fr/*.soy"
-				]
-				tasks: [
-					"soycompile:gcwebFr"
-					"soycompile:gcwebBi"
-					"concat:gcwebFr"
-					"uglify"
-					"clean:tmp"
-				]
-			gcwebBi:
-				files: [
-					"_src/soy/gcweb/bilingual/*.soy"
-				]
-				tasks: [
-					"soycompile:gcwebEn"
-					"soycompile:gcwebFr"
-					"soycompile:gcwebBi"
-					"concat:gcwebEn"
-					"concat:gcwebFr"
-					"uglify"
-					"clean:tmp"
-				]
 			gcwebopcEn:
 				files: [
 					"_src/soy/gcwebopc/en/*.soy"
@@ -417,41 +287,6 @@ module.exports = (grunt) ->
 					"soycompile:gcwebopcBi"
 					"concat:gcwebopcEn"
 					"concat:gcwebopcFr"
-					"uglify"
-					"clean:tmp"
-				]
-			gcintranetEn:
-				files: [
-					"_src/soy/gcintranet/en/*.soy"
-				]
-				tasks: [
-					"soycompile:gcintranetEn"
-					"soycompile:gcintranetBi"
-					"concat:gcintranetEn"
-					"uglify"
-					"clean:tmp"
-				]
-			gcintranetFr:
-				files: [
-					"_src/soy/gcintranet/fr/*.soy"
-				]
-				tasks: [
-					"soycompile:gcintranetFr"
-					"soycompile:gcintranetBi"
-					"concat:gcintranetFr"
-					"uglify"
-					"clean:tmp"
-				]
-			gcintranetBi:
-				files: [
-					"_src/soy/gcintranet/bilingual/*.soy"
-				]
-				tasks: [
-					"soycompile:gcintranetEn"
-					"soycompile:gcintranetFr"
-					"soycompile:gcintranetBi"
-					"concat:gcintranetEn"
-					"concat:gcintranetFr"
 					"uglify"
 					"clean:tmp"
 				]
@@ -505,7 +340,6 @@ module.exports = (grunt) ->
 					cwd: "node_modules"
 					src: [
 						"wet-boew/**/*.*"
-						"gcweb/**/*.*"
 						"gcweb-opc/**/*.*"
 					]
 					dest: "<%= coreDist %>/"
