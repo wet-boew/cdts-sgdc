@@ -1,3 +1,4 @@
+compression = require("compression")
 path = require("path")
 fs = require("fs")
 
@@ -261,6 +262,132 @@ module.exports = (grunt) ->
 					"!**/*.min.css"
 				]
 				ext: ".min.css"
+
+		connect:
+			options:
+				port: 8000
+
+			server:
+				options:
+					base: "dist"
+					middleware: (connect, options, middlewares) ->
+						middlewares.unshift(compression(
+							filter: (req, res) ->
+								/json|text|javascript|dart|image\/svg\+xml|application\/x-font-ttf|application\/vnd\.ms-opentype|application\/vnd\.ms-fontobject/.test(res.getHeader('Content-Type'))
+						))
+						middlewares
+
+		watch:
+			options:
+				livereload: true
+			gruntfile:
+				files: "Gruntfile.coffee"
+				tasks: [
+					"dist"
+				]
+			css:
+				files: [
+					"_src/css/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+					"cssmin"
+				]
+			js:
+				files: [
+					"_src/js/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+					"uglify"
+				]
+			gcintranetEn:
+				files: [
+					"_src/soy/gcintranet/en/*.*"
+				]
+				tasks: [
+					"soycompile:gcintranetEn"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetFr:
+				files: [
+					"_src/soy/gcintranet/fr/*.*"
+				]
+				tasks: [
+					"soycompile:gcintranetFr"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcintranetBi:
+				files: [
+					"_src/soy/gcintranet/bilingual/*.*"
+				]
+				tasks: [
+					"soycompile:gcintranetEn"
+					"soycompile:gcintranetFr"
+					"soycompile:gcintranetBi"
+					"concat:gcintranetEn"
+					"concat:gcintranetFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebEn:
+				files: [
+					"_src/soy/gcweb/en/*.*"
+				]
+				tasks: [
+					"soycompile:gcwebEn"
+					"soycompile:gcwebBi"
+					"concat:gcwebEn"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebFr:
+				files: [
+					"_src/soy/gcweb/fr/*.*"
+				]
+				tasks: [
+					"soycompile:gcwebFr"
+					"soycompile:gcwebBi"
+					"concat:gcwebFr"
+					"uglify"
+					"clean:tmp"
+				]
+			gcwebBi:
+				files: [
+					"_src/soy/gcweb/bilingual/*.*"
+				]
+				tasks: [
+					"soycompile:gcwebEn"
+					"soycompile:gcwebFr"
+					"soycompile:gcwebBi"
+					"concat:gcwebEn"
+					"concat:gcwebFr"
+					"uglify"
+					"clean:tmp"
+				]
+			assets:
+				files: [
+					"_src/ajax/**/*.*"
+					"_src/html/**/*.*"
+				]
+				tasks: [
+					"copy:assets"
+				]
+			deploy:
+				files: [
+					"*.txt"
+					"*.html"
+					"README.md"
+				]
+				tasks: [
+					"copy:deploy"
+				]
 
 		copy:
 			assets:
