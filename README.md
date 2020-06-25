@@ -3,6 +3,8 @@
 [![Build Status](https://secure.travis-ci.org/wet-boew/cdts-sgdc.svg?branch=master)](https://travis-ci.org/wet-boew/cdts-sgdc)
 [![devDependency Status](https://david-dm.org/wet-boew/cdts-sgdc/dev-status.svg)](https://david-dm.org/wet-boew/cdts-sgdc#info=devDependencies)
 
+[Français](https://github.com/wet-boew/cdts-sgdc#Français)
+
 The purpose of the Centrally Deployed Templates Solution (CDTS) is essentially to deliver the presentation layer of the `Canada.ca` or `intranet.canada.ca` themes to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.
 
 Please visit [our documentation](https://cenw-wscoe.github.io/sgdc-cdts/docs/index-en.html) for more information about the project.
@@ -108,3 +110,7 @@ Looking at maybe one of these:
 Unless otherwise noted, the source code of this project is covered under Crown Copyright, Government of Canada, and is distributed under the [MIT License](https://github.com/wet-boew/cdts-sgdc/blob/master/LICENSE).
 
 The Canada wordmark and related graphics associated with this distribution are protected under trademark law and copyright law. No permission is granted to use them outside the parameters of the Government of Canada's corporate identity program. For more information, see Federal identity requirements.
+
+## Français
+
+Vous pouvez nous aider à traduire cette page.
