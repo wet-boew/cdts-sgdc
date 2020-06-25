@@ -3,7 +3,7 @@
 [![Build Status](https://secure.travis-ci.org/wet-boew/cdts-sgdc.svg?branch=master)](https://travis-ci.org/wet-boew/cdts-sgdc)
 [![devDependency Status](https://david-dm.org/wet-boew/cdts-sgdc/dev-status.svg)](https://david-dm.org/wet-boew/cdts-sgdc#info=devDependencies)
 
-The purpose of the [Centrally Deployed Templates Solution (CDTS)](https://github.com/wet-boew/cdts-sgdc) is essentially to deliver the presentation layer of the `Canada.ca` or `intranet.canada.ca` themes to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.
+The purpose of the Centrally Deployed Templates Solution (CDTS) is essentially to deliver the presentation layer of the `Canada.ca` or `intranet.canada.ca` themes to web assets. It decouples the presentation layer from the business logic of a static website or web application and allows rapid updates across multiple networks.
 
 Please visit [our documentation](https://cenw-wscoe.github.io/sgdc-cdts/docs/index-en.html) for more information about the project.
 
