@@ -200,19 +200,19 @@
 							{foreach $link in $menuLinks}
 							{if isNonnull($link.subLinks)}
 							<li>
-								<a href="#{$link.id}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a>
+								<a href="#{$link.id}" class="item" role="menuitem"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a>
 								<ul class="sm list-unstyled" id="{$link.id}" role="menu">
 									{foreach $sublink in $link.subLinks}
 										{if isLast($sublink)}
-									<li class="slflnk"><a href="{$sublink.subhref}"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+									<li class="slflnk"><a href="{$sublink.subhref}" role="menuitem"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 										{else}
-									<li><a href="{$sublink.subhref}"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+									<li><a href="{$sublink.subhref}" role="menuitem"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 										{/if}
 									{/foreach}
 								</ul>
 							</li>
 							{else}
-							<li><a href="{$link.href}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+							<li><a href="{$link.href}" class="item" role="menuitem"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 							{/if}
 							{/foreach}
 						</ul>
