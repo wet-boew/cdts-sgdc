@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>Canada.ca</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<meta name="description" content="">
+		<meta name="description" lang="fr" content="">
+		<meta name="dcterms.creator" content="Government of Canada, Service Canada, Citizen Service Branch, Integrated Channel Management, Web Strategies and Product Management">
+		<meta name="dcterms.creator" lang="fr" content="Government of Canada, Service Canada, Citizen Service Branch, Integrated Channel Management, Web Strategies and Product Management">
+		<meta name="dcterms.title" content="Canada.ca">
+		<meta name="dcterms.title" lang="fr" content="Canada.ca">
+		<meta name="dcterms.issued" title="W3CDTF" content="2013-12-13">
+		<meta name="dcterms.modified" title="W3CDTF" content="">
+		<meta name="dcterms.subject" title="scheme" content="Government of Canada, services">
+		<meta name="dcterms.subject" lang="fr" title="scheme" content="Gouvernement du Canada, services">
+		<meta name="dcterms.language" title="ISO639-2" content="eng">
+		<meta name="dcterms.language" lang="fr" title="ISO639-2" content="fra">
+		<meta name="robots" content="noindex, follow">
+		<!-- Load closure template scripts -->
+		<script src="https://ssl-templates.services.gc.ca/app/cls/wet/gcweb/v4_0_32/cdts/compiled/soyutils.js"></script>
+		<script src="https://ssl-templates.services.gc.ca/app/cls/wet/gcweb/v4_0_32/cdts/compiled/wet-en.js"></script>
+		<script>
+			function getURLParameter(e){return decodeURIComponent((new RegExp("[?|&]"+e+"=([^&;]+?)(&|#|;|$)").exec(location.search)||[null,""])[1].replace(/\+/g,"%20"))||null}cdnEnvVar=getURLParameter("cdnEnv"),cdnEnvVar||(cdnEnvVar="esdcprod");
+		</script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/splashTop.html -->
+			<!--#include virtual="/app/cls/WET/gcweb/v4_0_32/cdts/static/splashTop.html" -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.splashTop({
+				cdnEnv: cdnEnvVar
+			}));
+		</script>
+	</head>
+	<body class="splash" vocab="http://schema.org/" typeof="WebPage">
+		<div id="splashContent">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/splash.html -->
+			<!--#include virtual="/app/cls/WET/gcweb/v4_0_32/cdts/static/splash.html" -->
+			<!-- Write closure template -->
+			<script>
+				var contentSplash = document.getElementById("splashContent");
+				contentSplash.innerHTML = wet.builder.splash({
+					cdnEnv: cdnEnvVar,
+					indexEng: "http://www.canada.ca/en/index.html",
+					indexFra: "http://www.canada.ca/fr/index.html",
+					termsEng: "http://www.canada.ca/en/transparency/terms.html",
+					termsFra: "http://www.canada.ca/fr/transparence/avis.html",
+					nameEng: "My web asset",
+					nameFra: "Mon actif web"
+				});
+			</script>
+		</div>
+	</body>
+</html>
