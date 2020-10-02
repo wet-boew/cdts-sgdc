@@ -1,0 +1,114 @@
+		<ul id="wb-tphp">
+			<li class="wb-slc"><a class="wb-sl" href="#wb-cont">Passer au contenu principal</a></li>
+			<li class="wb-slc visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info">Passer à «&#160;À propos de ce site&#160;»</a></li>
+			<!-- Si vous avez un menu de section 
+			<li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec">Passer au menu de la section</a></li>
+			-->
+		</ul>
+		<header role="banner">
+			<div id="wb-bnr">
+				<div id="app-brand">
+					<div class="container">
+						<div class="row">
+							<section class="col-lg-2 col-md-6 col-sm-9 col-xs-8">
+								<div class="app-name">
+									<a href="https://intranet.canada.ca/index-fra.asp"><span><span class="bold-gc">GC</span>intranet</span></a>
+								</div>
+							</section>
+							<section id="wb-gctools" class="col-lg-6 visible-lg">
+								<div class="pull-left tool-link">
+									<a href="https://gcconnex.gc.ca/splash/">
+									<span class="bold-gc">GC</span>connex</a>
+								</div>
+								<div class="pull-left tool-link">
+									<a href="http://www.gcpedia.gc.ca/wiki/?setlang=fr">
+									<span class="bold-gc">GC</span>pédia</a>
+								</div>
+								<div class="pull-left tool-link">
+									<a href="http://gcdirectory-gcannuaire.gc.ca/fr/GCA/?pgid=002">
+									<span class="bold-gc">GC</span>annuaire</a>
+								</div>
+								<div class="pull-left tool-link">
+									<a href="https://gccollab.ca/splash/">
+									<span class="bold-gc">GC</span>collab</a>
+								</div>
+							</section>
+							<section id="wb-lng" class="col-lg-1 col-md-2 hidden-sm hidden-xs text-right">
+								<h2 class="wb-inv">Sélection de la langue</h2>
+								<div class="row">
+									<div class="col-md-12">
+										<ul class="list-inline margin-bottom-none gcbarlng">
+											<li><a lang="en" href="#">English</a></li>
+										</ul>
+									</div>
+								</div>
+							</section>
+							<!-- Retirez toute la <section> si vous voulez retirer le champ de recherche -->
+							<section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs">
+								<h2>Recherche</h2>
+								<form action="https://intranet.canada.ca/search-recherche/query-recherche-fra.aspx" method="get" name="cse-search-box" role="search" class="form-inline">
+									<div class="form-group">
+										<label for="wb-srch-q" class="wb-inv">Recherche dans le site Web</label>
+										<input class="wb-srch-q form-control pull-right" id="wb-srch-q" name="q"  value="" size="21" maxlength="150" placeholder="Rechercher GCintranet">
+										<input type="hidden" name="a" value="s" />
+										<input type="hidden" name="s" value="1" />
+										<input type="hidden" name="chk2" value="True" />
+									</div>
+									<div class="form-group submit">
+										<button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Recherche</span></button>
+									</div>
+								</form>
+							</section>
+							<section class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" id="wb-glb-mn">
+								<!-- Ajustez le <h2>, title et <span> ci-bas selon si vous utilisez un champ de recherche et/ou un menu -->
+								<h2>Recherche et menus</h2>
+								<ul class="list-inline text-right chvrn">
+									<li><a href="#mb-pnl" title="Recherche et menus" aria-controls="mb-pnl" class="overlay-lnk" role="button"><!-- Retirez le <span> qui suit si vous n'utilisez pas de champ de recherche --><span class="glyphicon glyphicon-search"><span class="glyphicon glyphicon-th-list"><span class="wb-inv">Recherche et menus</span></span><!-- Retirez le </span> qui suit si vous n'utilisez pas de champ de recherche --></span></a></li>
+								</ul>
+								<div id="mb-pnl"></div>
+							</section>
+						</div>
+						<div id="tools-sm" class="row visible-md">
+							<section id="tool-container-sm" class="col-md-12 col-sm-12">
+								<div class="pull-left tool-link"><a href="https://gcconnex.gc.ca"><span class="bold-gc">GC</span>connex</a></div>
+								<div class="pull-left tool-link"><a href="http://www.gcpedia.gc.ca/wiki/?setlang=fr"><span class="bold-gc">GC</span>pédia</a></div>
+								<div class="pull-left tool-link"><a href="http://gcdirectory-gcannuaire.gc.ca/fr/GCA/?pgid=002"><span class="bold-gc">GC</span>annuaire</a></div>
+								<div class="pull-left tool-link"><a href="https://gccollab.ca/splash/"><span class="bold-gc">GC</span>collab</a></div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="gcappbanner">
+				<div class="container">
+					<div class="row gc-intra-br">
+						<!-- Changez la classe à "col-md-10" si vous avez un bouton de connexion/déconnexion -->
+						<div id="wb-sttl" class="col-md-12">
+							<!-- Si vous êtes sur une page sécurisée, ajoutez le <i> -->
+							<!-- Entrez le nom de votre application ci-bas -->
+							<a href="#"><span><!--<i class="glyphicon glyphicon-lock mrgn-rght-md"></i>-->[Nom de l'application]</span></a>
+						</div>
+						<!-- Si vous utilisez le bouton de connexion/déconnexion 
+						<div class="text-right col-md-2">
+							<div class="row">
+								<p><a href="#" class="btn btn-default btn-signoff"><i class="glyphicon glyphicon-off mrgn-rght-md"></i>Connexion</a></p>
+								<p><a href="#" class="btn btn-default btn-signoff"><i class="glyphicon glyphicon-off mrgn-rght-md"></i>Déconnexion</a></p>
+							</div>
+						</div>
+						-->
+					</div>
+				</div>
+			</div>
+			<!-- Retirez tout le <nav> si vous voulez désactiver le fil d'Ariane -->
+			<nav role="navigation" id="wb-bc" property="breadcrumb">
+				<h2>Vous êtes ici :</h2>
+				<div class="container">
+					<div class="row">
+						<ol class="breadcrumb">
+							<!-- Insérer votre fil d'Ariane ici -->
+							<li><a href="https://www.canada.ca/fr.html">Accueil</a></li>
+						</ol>
+					</div>
+				</div>
+			</nav>
+		</header>		
