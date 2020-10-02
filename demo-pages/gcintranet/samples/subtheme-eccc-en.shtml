@@ -1,0 +1,182 @@
+<!--#include file="_environment.shtml" -->
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>ECCC intranet theme template</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<!--#if expr = "$vrSrvr = localhost" -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<!--#else -->
+		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/soyutils.js"></script>
+		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/wet-en.js"></script>
+		<!--#endif-->
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/refTop.html -->
+			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/refTop.html" --><!--#endif-->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->",
+				"subTheme": "eccc"
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/top-en.html -->
+			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/top-en.html" --><!--#endif-->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->",
+				"subTheme" : "eccc",
+				"GCToolsModal" : true,
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "subtheme-eccc-fr.shtml",
+					"text": "Français"
+				}],
+				"intranetTitle": [{
+					"href": "http://intranet.ec.gc.ca/default.asp?lang=En",
+					"text": " Intranet",
+					"boldText" : "ECCC"
+				}],
+				"customSearch": [{
+                    "action" : "http://intranet.ec.gc.ca/default.asp?lang=en&amp;n=F7CAD023-1",
+                    "placeholder" : "Search ECCC intranet", 
+                    "method" : "get",
+                    "hiddenInput" : [{
+                        "name" : "lang",
+						"id" : "lang",
+                        "value" : "en"
+                    }, {
+                        "name" : "n",
+						"id" : "n",
+                        "value" : "F7CAD023-1"
+                    }, {
+                        "name" : "xsl",
+						"id" : "xsl",
+                        "value" : "idolsearchguirenderer,result"
+                    }, {
+                        "name" : "xml",
+						"id" : "xml",
+                        "value" : "F7CAD023-E332-4264-9BE3-0D07260E64CC"
+                    }, {
+                        "name" : "searchoffset",
+						"id" : "searchoffset",
+                        "value" : "1"
+                    }, {
+                        "name" : "searchfunction",
+						"id" : "searchfunction",
+                        "value" : "basicsearch"
+                    }, {
+                        "name" : "language",
+						"id" : "language",
+                        "value" : "en"
+                    }]
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" class="container">
+			<h1 property="name" id="wb-cont">ECCC intranet theme template</h1>
+			<section>
+					<h2 class="wb-prettify all-pre"><em>var defTop</em> "top" <code>script</code> element</h2>
+<pre class="prettyprint"><code>var defTop = document.getElementById("def-top");
+defTop.outerHTML = wet.builder.top({
+    "cdnEnv": "esdcprod",
+    "subTheme" : "eccc",
+    "GCToolsModal" : true,
+    "lngLinks": [{
+        "lang": "fr",
+        "href": "subtheme-eccc-fr.shtm",
+        "text": "Français"
+    }],
+    "intranetTitle": [{
+        "href": "http://intranet.ec.gc.ca/default.asp?lang=En",
+        "text": " Intranet",
+        "boldText" : "ECCC"
+    }],
+    "customSearch": [{
+        "action" : "http://intranet.ec.gc.ca/default.asp?lang=en&amp;n=F7CAD023-1",
+        "placeholder" : "Search ECCC intranet", 
+        "method" : "get",
+        "hiddenInput" : [{
+            "name" : "lang",
+            "id" : "lang",
+            "value" : "en"
+        }, {
+            "name" : "n",
+            "id" : "n",
+            "value" : "F7CAD023-1"
+        }, {
+            "name" : "xsl",
+            "id" : "xsl",
+            "value" : "idolsearchguirenderer,result"
+        }, {
+            "name" : "xml",
+            "id" : "xml",
+            "value" : "F7CAD023-E332-4264-9BE3-0D07260E64CC"
+        }, {
+            "name" : "searchoffset",
+            "id" : "searchoffset",
+            "value" : "1"
+        }, {
+            "name" : "searchfunction",
+            "id" : "searchfunction",
+            "value" : "basicsearch"
+        }, {
+            "name" : "language",
+            "id" : "language",
+            "value" : "en"
+        }]
+    }]
+});</code></pre>
+			</section>
+
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/preFooter-en.html -->
+				<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/preFooter-en.html" --><!--#endif-->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->",
+					"dateModified": "2019-07-31"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/footer-en.html -->
+			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/footer-en.html" --><!--#endif-->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
+			}));
+		</script>
+	</body>
+</html>

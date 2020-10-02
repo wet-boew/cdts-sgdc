@@ -1,0 +1,107 @@
+<!--#include file="_environment.shtml" -->
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Page de contenu - Canada.ca</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<!--#if expr = "$vrSrvr = localhost" -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<!--#else -->
+		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/soyutils.js"></script>
+		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/wet-fr.js"></script>
+		<!--#endif-->
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/refTop.html -->
+			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/refTop.html" --><!--#endif-->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/appTop-fr.html -->
+			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/appTop-fr.html" --><!--#endif-->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->",
+				"appName": [{
+					"text": "Nom de l'application"
+				}],
+				"lngLinks": [{
+					"lang": "en",
+					"href": "apptop_custommenu_loop-en.shtml",
+					"text": "English"
+				}],
+				"menuLinks" : [{
+					"id" : "#lien1",
+					"text" : "Lien 1",
+					"subLinks" : [{
+						"subhref" : "https://canada.ca/lien1.html",
+						"subtext" : "Sous-lien 1"
+					},{
+						"subhref" : "https://canada.ca/lien2.html",
+						"subtext" : "Sous-lien 2"
+					}]
+				},{
+					"href" : "https://canada.ca/lien3.html",
+					"text" : "Lien 2"
+				},{
+					"href" : "https://canada.ca/lien4.html",
+					"text" : "Lien 3"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" class="container">
+			<div data-ajax-replace="../ajax/securesamples-fr.html"></div>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/preFooter-fr.html -->
+				<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/preFooter-fr.html" --><!--#endif-->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->",
+					"dateModified": "2019-07-31"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/footer-fr.html -->
+			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/footer-fr.html" --><!--#endif-->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->",
+				"showFeatures": false
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
+			}));
+		</script>
+	</body>
+</html>
