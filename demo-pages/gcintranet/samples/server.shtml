@@ -11,22 +11,15 @@
 		<meta name="robots" content="noindex, nofollow, noarchive">
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
-		<!--#if expr = "$vrSrvr = localhost" -->
 		<script src="../compiled/soyutils.js"></script>
 		<script src="../compiled/wet-en.js"></script>
-		<!--#else -->
-		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/soyutils.js"></script>
-		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/wet-en.js"></script>
-		<!--#endif-->
 		<noscript>
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/etc/designs/canada/cdts/gcintranet/v4_0_32/cdts/static/serverRefTop.html -->
-			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/serverRefTop.html" --><!--#endif-->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.serverRefTop({
-				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
 			}));
 		</script>
 	</head>
@@ -34,13 +27,11 @@
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/etc/designs/canada/cdts/gcintranet/v4_0_32/cdts/static/serverTop.html -->
-			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/serverTop.html" --><!--#endif-->
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.serverTop({
-				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
 			});
 		</script>
 		<main property="mainContentOfPage" class="container">
@@ -131,19 +122,16 @@
 		<div id="def-footer">
             <!-- Write closure fall-back static file -->
             <!-- /ROOT/etc/designs/canada/cdts/gcintranet/v4_0_32/cdts/static/serverBottom.html -->
-            <!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/serverBottom.html" --><!--#endif-->
         </div>
         <!-- Write closure template -->
         <script>
             var defFooter = document.getElementById("def-footer");
             defFooter.outerHTML = wet.builder.serverBottom({
-                "cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
             });
         </script>
         <!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
 			}));
 		</script>
 	</body>
