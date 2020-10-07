@@ -11,25 +11,15 @@
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
-		<!--#if expr = "$vrSrvr = localhost" -->
 		<script src="../compiled/soyutils.js"></script>
 		<script src="../compiled/wet-fr.js"></script>
-		<!--#elif expr="$vrSrvr = canada" -->
-		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/compiled/soyutils.js"></script>
-		<script src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/compiled/wet-fr.js"></script>
-		<!--#else -->
-		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_32/cdts/compiled/soyutils.js"></script>
-		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_32/cdts/compiled/wet-fr.js"></script>
-		<!--#endif-->
 		<noscript>
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/refTop.html -->
-			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcweb/v4_0_32/cdts/static/refTop.html" --><!--#endif-->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-				<!--#if expr = "$vrSrvr != canada" -->"cdnEnv": "<!--#echo encoding="none" var="vrSrvr"-->",<!--#endif-->
 				"isApplication": true
 			}));
 		</script>
@@ -38,13 +28,11 @@
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appTop-fr.html -->
-			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcweb/v4_0_32/cdts/static/appTop-fr.html" --><!--#endif-->
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.appTop({
-				<!--#if expr = "$vrSrvr != canada" -->"cdnEnv": "<!--#echo encoding="none" var="vrSrvr"-->",<!--#endif-->
 				"appName": [{"text": "Nom de l'application", "href": "#"}],
 				"lngLinks": [{"lang": "en",	"href": "apptop_breadcrumbs-en.shtml", "text": "English"}],
 				"breadcrumbs": [{
@@ -63,13 +51,11 @@
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
 				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/preFooter-fr.html -->
-				<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcweb/v4_0_32/cdts/static/preFooter-fr.html" --><!--#endif-->
 			</div>
 			<!-- Write closure template -->
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
-					<!--#if expr = "$vrSrvr != canada" -->"cdnEnv": "<!--#echo encoding="none" var="vrSrvr"-->",<!--#endif-->
 					"dateModified": "2019-07-31"
 				});
 			</script>
@@ -77,20 +63,17 @@
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appFooter-fr.html -->
-			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcweb/v4_0_32/cdts/static/appFooter-fr.html" --><!--#endif-->
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.appFooter({
-				<!--#if expr = "$vrSrvr != canada" -->"cdnEnv": "<!--#echo encoding="none" var="vrSrvr"-->",<!--#endif-->
 				"showFeatures": false
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				<!--#if expr = "$vrSrvr != canada" -->"cdnEnv": "<!--#echo encoding="none" var="vrSrvr"-->",<!--#endif-->
 				"isApplication": true
 			}));
 		</script>

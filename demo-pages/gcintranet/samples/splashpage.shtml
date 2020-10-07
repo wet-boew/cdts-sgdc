@@ -21,22 +21,15 @@
 		<meta name="dcterms.language" lang="fr" title="ISO639-2" content="fra">
 		<meta name="robots" content="noindex, follow">
 		<!-- Load closure template scripts -->
-		<!--#if expr = "$vrSrvr = localhost" -->
 		<script src="../compiled/soyutils.js"></script>
 		<script src="../compiled/wet-en.js"></script>
-		<!--#else -->
-		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/soyutils.js"></script>
-		<script src="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_32/cdts/compiled/wet-en.js"></script>
-		<!--#endif-->
 		<noscript>
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/splashTop.html -->
-			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/splashTop.html" --><!--#endif-->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.splashTop({
-				"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->"
 			}));
 		</script>
 	</head>
@@ -44,12 +37,10 @@
 		<div id="splashContent">
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/splash.html -->
-			<!--#if expr = "${HTTP_HOST} != localhost" --><!--#include virtual="/app/cls/WET/gcintranet/v4_0_32/cdts/static/splash.html" --><!--#endif-->
 			<!-- Write closure template -->
 			<script>
 				var contentSplash = document.getElementById("splashContent");
 				contentSplash.innerHTML = wet.builder.splash({
-					"cdnEnv": "<!--#if expr = "$vrSrvr = canada" -->prod<!--#else--><!--#echo encoding="none" var="vrSrvr"--><!--#endif-->",
 					"indexEng": "http://intranet.canada.ca/index-eng.asp",
 					"indexFra": "http://intranet.canada.ca/index-fra.asp",
 					"termsEng": "http://intranet.canada.ca/terms-avis-eng.asp",
