@@ -1,0 +1,179 @@
+/********** CDTS fixes file **********/
+/********** Follow the correct format and link to Github issue for info **********/
+
+
+/********** AJOUTÉ PAR Stéphane Ducharme LE 2019/08/13 **********/
+/********** Date modified/Screen identifier/Version **********/
+/* Pour ajuster le splashpage */
+
+.cdts-splash {
+	font-size: .5em;
+}
+
+@media (min-width: 768) {
+	.cdts-splash {
+		font-size: .6em;
+	} 
+}
+
+@media (min-width: 992) {
+	.cdts-splash {
+		font-size: .7em;
+	} 
+}
+
+@media (min-width: 1200px) {
+	.cdts-splash {
+		font-size: .8em;
+	} 
+}
+
+/********** AJOUTÉ PAR Stéphane Ducharme LE 2019/02/14 **********/
+/********** Date modified/Screen identifier/Version **********/
+/* Pour ajuster le search */
+
+body {
+	font-family: Helvetica,Arial,sans-serif;
+	font-size: 16px;
+}
+
+/********** AJOUTÉ PAR NICK LE 2017/08/31 **********/
+/********** Date modified/Screen identifier/Version **********/
+#wb-dtmd dt, #wb-dtmd dd{
+	float: left
+}
+#wb-dtmd dt{
+	clear: both
+}
+#wb-dtmd dd{
+	margin-left: 5px
+}
+
+/***** SECONDARY NAVIGATION FIX *****/
+/********** Added as per Shawn Thompson, temporary fix **********/
+	#wb-sec h3 {font-size: 1.1em;padding: 15px; }
+	#wb-sec h3 a {
+	font-size: 1em;
+	margin: -15px; }
+
+/***** SECONDARY NAVIGATION FIX - WHITE HOVER *****/
+#wb-sec .list-group .list-group .list-group .wb-navcurr.list-group-item {
+background-color: #335075;
+}
+
+/********** AJOUTÉ PAR ROCH LE 2016/10/12 **********/
+/********** Fixes #7675 (https://github.com/wet-boew/wet-boew/issues/7675) **********/
+/********** Remove for WET v4.0.23 after fix confirmed **********/
+.label-error {
+    white-space: normal;
+	color: #000;
+}
+
+/********** AJOUTÉ PAR NICK LE 2016/12/06 **********/
+/********** Print - remove the intranet bar **********/
+/********** No opened issues yet **********/
+@media print{
+	#app-brand{
+		display:none;
+	}
+}
+
+/********** AJOUTÉ PAR NICK LE 2016/12/19 **********/
+/********** 'esdc' and 'labour' subThemes require a larger dark blue arrow. long intranetTitle also **********/
+.app-name-lg{
+	max-width: 450px;
+}
+/* this is the arrow */
+.app-name-lg:before{
+	left: 450px;
+}
+/********** AJOUTÉ PAR NICK LE 2016/12/22 **********/
+/********** Fixes #1204 (https://github.com/wet-boew/GCWeb/issues/1204) **********/
+/********** Remove for WET v4.0.24 after fix confirmed **********/
+@media print{
+	#wb-sec{
+		display: none !important;
+	}
+}
+
+/********** AJOUTÉ PAR NICK LE 2017/02/21 - [UPDATED 2017/06/06] **********/
+/********** Fixes the "broken arrow" in mobile for 'esdc' and 'labour' subThemes **********/
+@media only screen and (max-width : 697px){
+	.app-name-lg::before{
+		left: 300px;
+	}
+	.app-name-lg{
+		max-width: 300px;
+	}
+}
+@media only screen and (max-width : 471px){
+	.app-name-lg::before{
+		display:none;
+	}
+	.app-name-lg{
+		max-width: 300px;
+	}
+}
+
+#gctoolsSection{
+	padding-top:10px;
+}
+
+/***** **** *** ** * | THIS IS THE CSS FOR THE NEW APP TOP 2017-06-01 | * ** *** **** *****/
+/***** **** *** ** * | ADDED BY ROCH								  | * ** *** **** *****/
+/***** **** *** ** * |												  | * ** *** **** *****/
+/***** **** *** ** * |												  | * ** *** **** *****/
+/***** **** *** ** * |						START					  | * ** *** **** *****/
+#wb-sttl span {
+	color: #fff;
+	font-size: 30.4px;
+	text-shadow: 1px 1px 1px #333;
+}
+
+.gc-intra-br .btn, .gc-app-br .btn {
+	margin-top : 10px;
+	margin-right: 10px;
+}
+
+/* Sign out button - BLUE */
+.gc-app .btn-signoff.btn-default, .gc-app-br .btn-default {
+	color: #335075;
+}
+/* Sign out button - RED */
+.gc-intra .btn-signoff.btn-default, .gc-intra-br .btn-default{
+	color: #7f1322;
+}
+/* Sign out button (hover) - BLUE */
+.gc-app .btn-signoff.btn-default:hover, .gc-app-br .btn-signoff.btn-default:hover{
+	color: #243850;
+}
+/* Sign out button (hover) - RED */
+.gc-intra .btn-signoff.btn-default:hover, .gc-intra-br .btn-signoff.btn-default:hover{
+	color: #7f1322;
+}
+/* Fix to the Search button */
+#wb-srch .submit {
+	float: right;
+}
+#wb-srch-sub {
+	height: 25px;
+	margin-left: 0;
+}
+[dir=rtl] #wb-srch.submit {
+	float: left;
+}
+[dir=rtl] #wb-srch-sub {
+	margin-left: 0;
+	margin-right: 5px;
+}
+
+/* Removes the close button in the footer of the app menu brought in by WET */
+
+#app-brand #mb-pnl .modal-footer {
+	display: none !important;
+}
+
+/* Removes the pointer on the word mark bottom right of footer */
+#wb-info .brand img, #wb-info .brand object {
+	cursor: auto;
+}

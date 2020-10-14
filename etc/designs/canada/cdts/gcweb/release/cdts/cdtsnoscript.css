@@ -1,0 +1,11 @@
+/********** CDTS noscript file **********/
+/********** Follow the correct format and link to Github issue for info **********/
+
+/********** MODIFIÉ PAR NICK LE 2017/08/29 **********/
+/*Secure application templates: Custom CSS (noscript)*/
+@media screen and (max-width: 767px){
+	/*Mobile app bar + search overlay - Hide them.*/
+	.app-list-main, #app-srch-mb{
+		display: none !important;
+	}
+}
