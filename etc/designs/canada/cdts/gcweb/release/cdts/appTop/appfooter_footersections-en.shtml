@@ -1,0 +1,102 @@
+<!--#include file="_environment.shtml" -->
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Content page - Canada.ca</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/gcweb-en.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appTop-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"appName": [{"text": "Application name", "href": "#"}],
+				"lngLinks": [{"lang": "fr",	"href": "appfooter_footersections-fr.shtml", "text": "Français"}],
+				"topCusMenu": true
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<div data-ajax-replace="../ajax/securesamples.html"></div>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2019-07-31"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appFooter-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"footerSections": [{
+					"href": "#",
+					"text": "Portal footer link 1"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 2"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 3",
+					"newWindow": true
+				}, {
+					"href": "#",
+					"text": "Portal footer link 4"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 5"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 6"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 7"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 8"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 9"
+				}],
+				"showFeatures": false
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>

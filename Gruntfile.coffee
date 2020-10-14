@@ -132,58 +132,58 @@ module.exports = (grunt) ->
 			gcwebEn:
 				expand: true,
 				src: [
-					"./_src/soy/gcweb/en/gcweb-en.soy"
-					"./_src/soy/gcweb/en/gcweb-appPage-en.soy"
+					"./etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-en.soy"
+					"./etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-appPage-en.soy"
 					]
 				dest: "<%= coreTmp %>"
 				options:
-					jarPath: "_src/jar"
+					jarPath: "etc/designs/canada/cdts/gcweb/release/jar"
 
 			gcwebFr:
 				expand: true,
 				src: [
-					"./_src/soy/gcweb/fr/gcweb-fr.soy"
-					"./_src/soy/gcweb/fr/gcweb-appPage-fr.soy"
+					"./etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-fr.soy"
+					"./etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-appPage-fr.soy"
 					]
 				dest: "<%= coreTmp %>"
 				options:
-					jarPath: "_src/jar"
+					jarPath: "etc/designs/canada/cdts/gcweb/release/jar"
 
 			gcwebBi:
 				expand: true,
 				src: [
-					"./_src/soy/gcweb/bilingual/gcweb-serverPage.soy"
+					"./etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-serverPage.soy"
 					]
 				dest: "<%= coreTmp %>"
 				options:
-					jarPath: "_src/jar"
+					jarPath: "etc/designs/canada/cdts/gcweb/release/jar"
 
 			gcintranetEn:
 				expand: true,
 				src: [
-					"./_src/soy/gcintranet/en/gcintranet-en.soy"
+					"./etc/designs/canada/cdts/gcintranet/release/cdts/uncompiled/gcintranet-en.soy"
 					]
 				dest: "<%= coreTmp %>"
 				options:
-					jarPath: "_src/jar"
+					jarPath: "etc/designs/canada/cdts/gcweb/release/jar"
 
 			gcintranetFr:
 				expand: true,
 				src: [
-					"./_src/soy/gcintranet/fr/gcintranet-fr.soy"
+					"./etc/designs/canada/cdts/gcintranet/release/cdts/uncompiled/gcintranet-fr.soy"
 					]
 				dest: "<%= coreTmp %>"
 				options:
-					jarPath: "_src/jar"
+					jarPath: "etc/designs/canada/cdts/gcweb/release/jar"
 
 			gcintranetBi:
 				expand: true,
 				src: [
-					"./_src/soy/gcintranet/bilingual/gcintranet-serverPage.soy"
+					"./etc/designs/canada/cdts/gcintranet/release/cdts/uncompiled/gcintranet-serverPage.soy"
 					]
 				dest: "<%= coreTmp %>"
 				options:
-					jarPath: "_src/jar"
+					jarPath: "etc/designs/canada/cdts/gcweb/release/jar"
 
 		concat:
 			options:
@@ -193,9 +193,9 @@ module.exports = (grunt) ->
 				options:
 					stripBanners: false
 				src: [
-					"<%= coreTmp %>/_src/soy/gcweb/en/gcweb-en.js"
-					"<%= coreTmp %>/_src/soy/gcweb/en/gcweb-appPage-en.js"
-					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-en.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-appPage-en.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-serverPage.js"
 				]
 				dest: "<%= coreDist %>/gcweb-en.js"
 
@@ -203,9 +203,9 @@ module.exports = (grunt) ->
 				options:
 					stripBanners: false
 				src: [
-					"<%= coreTmp %>/_src/soy/gcweb/fr/gcweb-fr.js"
-					"<%= coreTmp %>/_src/soy/gcweb/fr/gcweb-appPage-fr.js"
-					"<%= coreTmp %>/_src/soy/gcweb/bilingual/gcweb-serverPage.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-fr.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-appPage-fr.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcweb/release/cdts/uncompiled/gcweb-serverPage.js"
 				]
 				dest: "<%= coreDist %>/gcweb-fr.js"
 
@@ -213,8 +213,8 @@ module.exports = (grunt) ->
 				options:
 					stripBanners: false
 				src: [
-					"<%= coreTmp %>/_src/soy/gcintranet/en/gcintranet-en.js"
-					"<%= coreTmp %>/_src/soy/gcintranet/bilingual/gcintranet-serverPage.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcintranet/release/cdts/uncompiled/gcintranet-en.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcintranet/release/cdts/uncompiled/gcintranet-serverPage.js"
 				]
 				dest: "<%= coreDist %>/gcintranet-en.js"
 
@@ -222,8 +222,8 @@ module.exports = (grunt) ->
 				options:
 					stripBanners: false
 				src: [
-					"<%= coreTmp %>/_src/soy/gcintranet/fr/gcintranet-fr.js"
-					"<%= coreTmp %>/_src/soy/gcintranet/bilingual/gcintranet-serverPage.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcintranet/release/cdts/uncompiled/gcintranet-fr.js"
+					"<%= coreTmp %>/etc/designs/canada/cdts/gcintranet/release/cdts/uncompiled/gcintranet-serverPage.js"
 				]
 				dest: "<%= coreDist %>/gcintranet-fr.js"
 
@@ -265,7 +265,7 @@ module.exports = (grunt) ->
 		copy:
 			assets:
 				files: [
-					cwd: "_src"
+					cwd: "etc/designs/canada/cdts/gcweb/release"
 					src: [
 						"ajax/**/*.*"
 						"css/**/*.*"
@@ -277,14 +277,14 @@ module.exports = (grunt) ->
 					dest: "<%= coreDist %>/cdts/"
 					expand: true
 				,
-					cwd: "_src/js"
+					cwd: "etc/designs/canada/cdts/gcweb/release/js"
 					src: [
 						"soyutils.js"
 					]
 					dest: "<%= coreDist %>"
 					expand: true
 				,
-					cwd: "_src/html"
+					cwd: "etc/designs/canada/cdts/gcweb/release/html"
 					src: [
 						"index*.html"
 					]
@@ -298,6 +298,36 @@ module.exports = (grunt) ->
 					]
 					dest: "<%= coreDist %>/"
 					expand: true
+				,
+					cwd: "<%= coreDist %>"
+					src: [
+						"gcweb-en.js"
+						"gcweb-fr.js"
+					]
+					dest: "etc/designs/canada/cdts/gcweb/release/cdts/compiled"
+					expand: true
+				,
+					cwd: "etc/designs/canada/cdts/gcweb/release/js"
+					src: [
+						"soyutils.js"
+					]
+					dest: "etc/designs/canada/cdts/gcweb/release/cdts/compiled"
+					expand: true
+				,
+					cwd: "etc/designs/canada/cdts/gcweb/release/js"
+					src: [
+						"soyutils.js"
+					]
+					dest: "etc/designs/canada/cdts/gcintranet/release/cdts/compiled"
+					expand: true
+				,
+					cwd: "<%= coreDist %>"
+					src: [
+						"gcintranet-en.js"
+						"gcintranet-fr.js"
+					]
+					dest: "etc/designs/canada/cdts/gcintranet/release/cdts/compiled"
+					expand: true					
 				]
 
 			deploy:

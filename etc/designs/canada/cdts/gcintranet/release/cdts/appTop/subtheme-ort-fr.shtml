@@ -1,0 +1,156 @@
+<!--#include file="_environment.shtml" -->
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-fr.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Gabarit application ORT</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/gcintranet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"subTheme": "esdc"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/top-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"subTheme" : "esdc",
+				"GCToolsModal" : true,
+                "appName": [{
+					"text": "Outil de référence en ligne de l’AE",
+                    "href" : "http://orl.prv/fr/site/home/home.html"
+				}],
+                "menuPath" : "../ajax/ort-menu-fr.html",
+				"lngLinks": [{
+					"lang": "en",
+					"href": "subtheme-ort-en.shtml",
+					"text": "English"
+				}],
+				"intranetTitle": [{
+					"href": "http://esdc.prv/fr/index.shtml",
+					"text": " IntraWeb",
+					"boldText" : "EDSC/SC",
+					"acronym": "Emploi et Développement social Canada / Service Canada"
+				}],
+                "customSearch": [{
+                    "action" : "http://orl.prv/cgi-bin/?k=fr", // Mandatory
+					"id" : "gcwu-srch", // Optional
+                    "placeholder" : "Recherchez dans l'ORL AE", // Optional
+                    "method" : "get", // Mandatory "get" or "post"
+                    "hiddenInput" : [{
+                        "name" : "k",
+                        "value" : "fr"
+                    }, {
+                        "name" : "l",
+                        "value" : "fra"
+                    }, {
+                        "name" : "chk2",
+                        "value" : "True"
+                    }, {
+                        "name" : "n",
+                        "value" : "MatchALL"
+                    }, {
+                        "name" : "r",
+                        "value" : "ORT_FILTER_SITE:01SEC_ORT"
+                    }]
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" class="container">
+			<h1 property="name" id="wb-cont">Gabarit application ORT</h1>
+			<section>
+				<h2 class="wb-prettify all-pre"><em>var defTop</em> "appTop" <code>script</code> élément</h2>
+<pre class="prettyprint"><code>var defTop = document.getElementById("def-top");
+defTop.outerHTML = wet.builder.appTop({
+    "cdnEnv": "esdcprod",
+    "subTheme" : "esdc",
+    "GCToolsModal" : true,
+    "appName": [{
+        "text": "Outil de référence en ligne de l’AE",
+        "href" : "http://orl.prv/fr/site/home/home.html"
+    }],
+    "menuPath" : "../ajax/ort-menu-fr.html",
+    "lngLinks": [{
+        "lang": "en",
+        "href": "subtheme-ort-en.shtml",
+        "text": "English"
+    }],
+    "intranetTitle": [{
+        "href": "http://esdc.prv/fr/index.shtml",
+        "text": " IntraWeb",
+        "boldText" : "EDSC/SC",
+        "acronym": "Emploi et Développement social Canada / Service Canada"
+}],
+    "customSearch": [{
+        "action" : "http://orl.prv/cgi-bin/?k=fr", // Mandatory
+        "id" : "gcwu-srch", // Optional
+        "placeholder" : "Recherchez dans l'ORL AE", // Optional
+        "method" : "get", // Mandatory "get" or "post"
+        "hiddenInput" : [{
+            "name" : "k",
+            "value" : "fr"
+        }, {
+            "name" : "l",
+            "value" : "fra"
+        }, {
+            "name" : "chk2",
+            "value" : "True"
+        }, {
+            "name" : "n",
+            "value" : "MatchALL"
+        }, {
+            "name" : "r",
+            "value" : "ORT_FILTER_SITE:01SEC_ORT"
+        }]
+    }]
+});</code></pre>
+			</section>
+
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2019-07-31"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- /ROOT/app/cls/WET/gcintranet/v4_0_32/cdts/static/footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+			}));
+		</script>
+	</body>
+</html>

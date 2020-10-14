@@ -1,0 +1,367 @@
+/***** **** *** ** * | THIS IS THE CSS FOR THE NEW APP TOP 2017-08-29 | * ** *** **** *****/
+/***** **** *** ** * |												  | * ** *** **** *****/			
+/***** **** *** ** * |												  | * ** *** **** *****/
+/***** **** *** ** * |												  | * ** *** **** *****/
+/***** **** *** ** * |						START					  | * ** *** **** *****/
+
+/*Secure application templates: Custom CSS*/
+
+/*All views*/
+.app-name {
+	font-weight: bold;
+	line-height: 1.1;
+}
+
+/*All screen views*/
+@media screen {
+	/*Menu bar*/
+	#wb-sm {
+		background: #E1E4E7;
+		border-bottom: 1px solid #D3D4D8;
+		border-top: 1px solid #D3D4D8;
+	}
+
+	/*Menu bar - Disable text shadows and prevent the bar's list from displaying as a table (to prevent list items from scaling across the bar's full width).*/
+	#wb-sm .menu {
+		display: block;
+		text-shadow: none;
+	}
+
+	/*Menu bar - links*/
+	#wb-sm .menu > li > a {
+		color: #335075;
+		font-weight: bold;
+		padding-bottom: calc(1em - 1px);
+		padding-top: calc(1em - 1px);
+	}
+
+	/*Menu bar - list items*/
+	#wb-sm .menu > li, #wb-sm .menu > li:last-child {
+		border-color: #D3D4D8;
+	}
+
+	/*Menu bar dropdown - background colour*/
+	#wb-sm .sm.open {
+		background: #C9CFD4;
+	}
+
+	/*Menu bar dropdown - "More" link background colour*/
+	#wb-sm .sm.open .slflnk a {
+		background: #B1B9C0;
+	}
+
+	/*Menu bar - NavCurrent link text colour*/
+	#wb-sm .menu > li > .active, #wb-sm .menu > li > .selected, #wb-sm .menu > li > .wb-navcurr	{
+		color: #335075 !important;
+	}
+
+	/*Menu bar + dropdown - link background highlight colour*/
+	#wb-sm .menu > li a:focus, #wb-sm .menu > li a:hover, #wb-sm .menu .active, #wb-sm .menu .selected, #wb-sm .menu .wb-navcurr, #wb-sm .sm.open li a:hover, #wb-sm .sm.open li a:focus, #wb-sm .sm.open li a:active, #wb-sm .sm.open li summary:hover, #wb-sm .sm.open li summary:focus, #wb-sm .sm.open li summary:active {
+		background: #EEEFF1 !important;
+	}
+
+	/*Menu bar dropdown - link text highlight colour*/
+	#wb-sm .sm.open li a:active, #wb-sm .sm.open li a:focus, #wb-sm .sm.open li a:hover, #wb-sm .sm.open li summary:active, #wb-sm .sm.open li summary:focus, #wb-sm .sm.open li summary:hover, #wb-sm .sm.open .active, #wb-sm .sm.open .selected, #wb-sm .sm.open .wb-navcurr {
+		color: #444 !important;
+	}
+
+	/*App bar*/
+	.app-bar {
+		background: #38414d;
+		margin-top: 5px;
+	}
+
+	/*App bar - app name link*/
+	.app-name, .app-name:visited {
+		display: inline-block;
+		text-decoration: none;
+	}
+
+	.app-name, .app-name:visited, .app-name:focus, .app-name:hover {
+		color: #FFF;
+	}
+
+	.app-name:active, .app-name:focus, .app-name:hover {
+		text-decoration: underline;
+	}
+
+	/*Mobile app bar - account menu - links*/
+	.app-list-account .btn, .app-list-account .btn:visited {
+		background-color: #FFF;
+		color: #335075;
+	}
+
+	.app-list-account .btn:not([href]), .app-list-account .btn.active, .app-list-account .btn.focus, .app-list-account .btn:active, .app-list-account .btn:focus, .app-list-account .btn:hover {
+		background-color: #E1E4E7;
+	}
+
+	.app-list-account .btn:not([href]) {
+		-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+		box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+		cursor: not-allowed;
+	}
+
+	/* Style FIP img instead of a element like GCWeb templates */
+	header .brand img {
+		position: relative;
+		text-decoration: none;
+	}
+
+	header .brand img {
+		display: block;
+		height: auto;
+		padding-bottom: 0;
+		width: auto;
+	}
+	}
+
+/*Extra-small view and under (screen only)*/
+@media screen and (max-width: 767px) {
+
+	/*App bar - app name link*/
+	.app-name {
+		font-size: 18px;
+		margin: 5px 0 6px;
+		padding: 5px;
+	}
+
+	/*Mobile app bar*/
+	.app-bar-mb {
+		background: #E1E4E7;
+		padding-top: 5px;
+	}
+
+	/*Mobile app bar - main + account menus*/
+	.app-list-main, .app-list-account {
+		margin: 0;
+	}
+
+	.app-list-main li, .app-list-account li {
+		margin-bottom: 5px;
+	}
+
+	/*Mobile app bar - main menu + mobile search overlay - Hide in basic HTML (wbdisable) mode.*/
+	.wb-disable .app-list-main, .wb-disable #app-srch-mb {
+		display: none !important;
+	}
+
+	/*Mobile app bar - main menu*/
+	.app-list-main li {
+		float: left;
+		margin-right: 5px;
+	}
+
+	.app-list-main .btn, .app-list-account .btn {
+		min-height: 30px;
+		padding: 3px 6px 2px;
+	}
+
+	.app-list-main .btn, .app-list-main .btn:visited {
+		background-color: #335075;
+		color: #FFF;
+	}
+
+	.app-list-main .active, .app-list-main .active:visited, .app-list-main .btn:active, .app-list-main .btn:focus, .app-list-main .btn:hover {
+		background-color: #243850;
+		color: #FFF;
+	}
+
+	/*Mobile app bar - main menu - Hide a heading whose content is used as the mobile menu overlay's title.*/
+	.app-list-main h2 {
+		display: none;
+	}
+
+	/*Mobile app bar - account menu*/
+	/*Float the account menu to allow it to initially collapse with both of its items on the same line if the viewport width gets too limited.*/
+	.app-list-account {
+		float: left;
+	}
+
+	.app-list-account li {
+		float: left;
+		margin-right: 5px;
+	}
+
+	.app-list-account li:last-child {
+		margin-right: 0;
+	}
+
+	#wb-glb-mn {
+		float: left !important;
+		margin-top: 0px;
+	}
+
+	/*Mobile menu overlay - Hide search box/language toggle link.*/
+	.srch-pnl, .lng-ofr {
+		display: none;
+	}
+
+	/*Mobile menu overlay - Prevent an overly large space from appearing above the first list in the mobile menu's overlay.*/
+	#mb-pnl .sm-pnl {
+		padding-top: 0;
+	}
+
+	/*Mobile search overlay*/
+	#app-srch-mb {
+		background: transparent;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		margin-top: calc(1.4375em + 7px);
+		padding-top: 5px;
+		position: absolute;
+		top: auto;
+	}
+
+	#app-srch-mb .modal-header {
+		background: transparent;
+		border-bottom: 0;
+		color: #FFF;
+		padding: 0;
+	}
+
+	#app-srch-mb .modal-header::before {
+		border-bottom: 5px solid #243850;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		content: "";
+		left: calc(46px + 2.6em);
+		position: absolute;
+		top: 0;
+	}
+
+	#app-srch-mb .modal-title, #app-srch-mb .modal-body {
+		background: #243850;
+	}
+
+	#app-srch-mb .modal-title {
+		padding: 15px 15px 0;
+	}
+
+	#app-srch-mb .modal-body {
+		padding-top: 5px;
+	}
+
+	#app-srch-mb #wb-srch-sub {
+		border: 0;
+		margin-left: 0;
+	}
+
+	#app-srch-mb .mfp-close {
+		padding-right: 15px;
+		top: 5px;
+		width: 59px;
+	}
+}
+
+/* Small view and under (screen only) custom GCWeb theme */
+@media screen and (max-width: 991px) {
+
+	/* add 10px margin-top to FIP because it doesn't have an a element, like the GCWeb template */
+	header .brand img {
+		margin-top: 10px;
+	}
+}
+
+/*Medium view and under (screen only)*/
+@media screen and (max-width: 1199px) {
+	/*Menu bar - Restore the last list item's right border.*/
+	#wb-sm .menu > li:last-child {
+		border-right: 1px solid #D3D4D8;
+	}
+
+	/*Menu bar - Disable right border on the far right edge of the bar.*/
+	#wb-sm .menu {
+		border-right: 0;
+	}
+}
+
+/*Extra-small view and over (screen only)*/
+@media screen and (min-width: 480px) {
+
+	/*Mobile app bar - main menu*/
+	.app-list-account {
+		text-align: right;
+	}
+
+	.app-list-account li {
+		display: inline-block;
+	}
+}
+
+/*Small view and over (screen only)*/
+@media screen and (min-width: 768px) {
+
+	/*App bar*/
+	.app-bar .row {
+		display: table;
+		table-layout: fixed;
+		width: calc(100% + 30px);
+	}
+
+	.app-bar .row > section, .app-bar .row > nav {
+		display: table-cell;
+		float: none;
+		vertical-align: middle;
+	}
+
+	/*App bar - app name link*/
+	.app-name {
+		font-size: 28px;
+		margin-bottom: 6px;
+		margin-top: 8px;
+		padding: 5px;
+	}
+
+	/*Mobile app bar - main menu*/
+	.app-list-account {
+		margin-bottom: 0;
+		margin-top: 9px;
+	}
+
+	.app-list-account li {
+		margin-bottom: 9px;
+		margin-left: calc(9px - 0.2815em);
+	}
+
+	.app-list-account li:first-child {
+		margin-left: 0;
+	}
+}
+
+/*Extra-extra-small view (screen only)*/
+@media screen and (max-width: 479px) {
+
+	/*Mobile menu overlay - Maximise the mobile menu's width to prevent it from shifting when opening/closing details elements.
+	  Note: Once GCWeb 4.0.27 is out, check if this fix is built-into it. If it is, remove this CSS selector.*/
+	#mb-pnl {
+		min-width: 90%;
+	}
+}
+
+/*Extra-small view (screen only)*/
+@media screen and (min-width: 480px) and (max-width: 767px) {
+
+	/*Top area - language toggle link*/
+	#wb-lng {
+		padding-left: 0;
+	}
+}
+
+/*Small view (screen-only)*/
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	/*Desktop search box + menu bar - Restore medium view and up's search box/menu bar.*/
+	#wb-srch, #wb-sm {
+		display: block !important;
+	}
+
+}
+
+/*Print view*/
+@media print {
+	/*App bar - app name link*/
+	.app-name {
+		font-size: 34px;
+	}
+}
+
+/***** **** *** ** * | END OF THE CSS FOR THE NEW APP TOP 2017-08-29 | * ** *** **** *****/
