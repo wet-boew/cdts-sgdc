@@ -46,21 +46,22 @@
 				<ul class="lst-spcd">
 					<li>
 						This link <a href="http://csszengarden.com/219">http://csszengarden.com/219</a> 
-						will display a warning because his hostname (csszengarden.com) is different from yours.
-						You'll be redirect to the <code>exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.shtml</code>.
+						has a hostname (csszengarden.com) different from yours.
+						You'll be redirect to <code>exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.shtml</code>.
 					</li>
 					<li>
 						This link <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com target="_blank"</a> 
 						will open in another windows because of the target_blank attribute.
-						You won't have a warning and you won't be redirect to the <code>exiturl-en.shtml</code>.
+						You won't be redirect to <code>exiturl-en.shtml</code>.
 					</li>
 					<li>
-						This link <a href="breadcrumbs-en.shtml"> breadcrumbs-en.shtml </a> 
-						won't display a warning because it has the same hostname as yours.
+						This link <a href="breadcrumbs-en.shtml"> breadcrumbs-en.shtml </a> has the same hostname as yours.
+						You won't be redirect to <code>exiturl-en.shtml</code>.
 					</li>
 					<li>
 						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a> 
-						won't display a warning because his hostname (developer.mozilla.org) is in the exception list <code>exitDomains</code>.
+						has his hostname (developer.mozilla.org) in the exception list <code>exitDomains</code>.
+						You won't be redirect to <code>exiturl-en.shtml</code>.
 					</li>
 				</ul>
 				<section>
@@ -197,7 +198,7 @@
 		<script>
 			document.write(wet.builder.refFooter({
 				"exitScript": true,
-				"displayModal" : true,
+				"displayModal" : true, // This parameter will be always false even if you set it to true
 				"exitURL": "exiturl-en.shtml",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				"cancelMsg": "Nope",

@@ -42,6 +42,7 @@
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<h1 property="name" id="wb-cont">Content page</h1>
 			<p>You just got redirected here using our exit link script. You could decode the <code>targeUrl</code> parameter to access your original destination.</p>
+			<p>You could also continue automatically to your original destination by using <code>window.location.replace</code>. See the source of this page</p>7
 			<div id="originalDestination"></div>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
@@ -74,6 +75,8 @@
 			function retrieveTargetUrl() {
 			  var dec = decodeURIComponent(location.search.substr(11));
 			  var res = 'Your original destination was: <a href="' + dec + '">' + dec + '</a>';
+			//Remove the following comment and unnecessary code to go to the original page
+			//window.location.replace(dec)
 			  document.getElementById("originalDestination").innerHTML = res;
 			}
 		</script>
