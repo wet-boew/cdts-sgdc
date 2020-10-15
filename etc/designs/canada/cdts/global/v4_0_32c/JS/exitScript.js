@@ -14,13 +14,13 @@ function exitWarning(ev, h) {
     e = o.getAttribute("data-token").toLowerCase(),
     d = o.getAttribute("data-token-domains").toLowerCase(),
     dm = (o.getAttribute("data-token-modal").toLowerCase()=='true');
-    el = document.querySelector("a.popup-modal-close[target]");
-	fu = encodeURI(e + "?targetUrl=") + encodeURIComponent(h) + "&targetBlank=true";
+    // el = document.querySelector("a.popup-modal-close[target]");
+	// fu = encodeURI(e + "?targetUrl=") + encodeURIComponent(h) + "&targetBlank=true";
     
-    // Close lightbox
-	if (el) {
-      el.setAttribute('href', fu);
-    }
+    // // Close lightbox
+	// if (el) {
+    //   el.setAttribute('href', fu);
+    // }
     
     // Same Hosts or Exception Domains
     if ((hh == hu) || (d.replace(/ /g, "").split(",").indexOf(hh) > -1))
