@@ -15,7 +15,7 @@
 		<script src="../compiled/gcweb-en.js"></script>
 		<noscript>
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/refTop.html -->
+			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/refTop.html -->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
@@ -26,7 +26,7 @@
 	<body vocab="http://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/top-en.html -->
+			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/top-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -52,7 +52,7 @@
 					<li>
 						This link <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com target="_blank"</a> 
 						will open in another windows because of the target_blank attribute.
-						You won't have a warning and you won't be redirect to the <code>exiturl-en.shtml</code>.
+						You won't have a warning and you won't be redirect to the <code>exiturl-en.shtml</code>.						
 					</li>
 					<li>
 						This link <a href="breadcrumbs-en.shtml"> breadcrumbs-en.shtml </a> 
@@ -62,7 +62,7 @@
 						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a> 
 						won't display a warning because his hostname (developer.mozilla.org) is in the exception list <code>exitDomains</code>.
 					</li>
-				</ul>
+				</ul>					
 				<section>
 					<h3>Heading&#32;3&#32;(<code>h3</code>)</h3>
 					<section>
@@ -173,7 +173,7 @@
 			</blockquote>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
-				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/preFooter-en.html -->
+				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/preFooter-en.html -->
 			</div>
 			<!-- Write closure template -->
 			<script>
@@ -185,7 +185,7 @@
 		</main>
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/footer-en.html -->
+			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/footer-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -196,7 +196,7 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"exitScript": true,
+				"exitScript": false,
 				"displayModal" : true,
 				"exitURL": "exiturl-en.shtml",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",

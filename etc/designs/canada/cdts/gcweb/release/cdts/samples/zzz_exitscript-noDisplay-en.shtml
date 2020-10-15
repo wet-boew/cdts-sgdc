@@ -15,7 +15,7 @@
 		<script src="../compiled/gcweb-en.js"></script>
 		<noscript>
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/refTop.html -->
+			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/refTop.html -->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
@@ -26,7 +26,7 @@
 	<body vocab="http://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/top-en.html -->
+			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/top-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -52,7 +52,7 @@
 					<li>
 						This link <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com target="_blank"</a> 
 						will open in another windows because of the target_blank attribute.
-						You won't have a warning and you won't be redirect to the <code>exiturl-en.shtml</code>.
+						You won't have a warning and you won't be redirect to the <code>exiturl-en.shtml</code>.						
 					</li>
 					<li>
 						This link <a href="breadcrumbs-en.shtml"> breadcrumbs-en.shtml </a> 
@@ -63,6 +63,35 @@
 						won't display a warning because his hostname (developer.mozilla.org) is in the exception list <code>exitDomains</code>.
 					</li>
 				</ul>
+
+				<section>
+					<h2>Examples</h2>
+					<form method="get" action="#">
+					<div class="form-group">
+					<label for="startdate">Start date<span class="datepicker-format"> (<abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span></label>
+					<input class="form-control" type="date" id="startdate" name="startdate" min="2020-03-27" max="2020-05-07">
+					</div>
+					<div class="form-group">
+					<label for="enddate">End date<span class="datepicker-format"> (<abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span></label>
+					<input class="form-control" type="date" id="enddate" name="enddate" min="2020-03-27" max="2020-05-07">
+					</div>
+					<div>
+					<input class="btn btn-primary" type="submit" value="Submit">
+					</div>
+					</form>
+					<details class="mrgn-tp-md">
+					<summary>View code</summary>
+					<pre><code>&lt;div class="form-group"&gt;
+					  &lt;label for="startdate"&gt;Start date&lt;span class="datepicker-format"&gt; (&lt;abbr title="Four digits year, dash, two digits month, dash, two digits day"&gt;YYYY-MM-DD&lt;/abbr&gt;)&lt;/span&gt;&lt;/label&gt;
+					  &lt;input class="form-control" type="date" id="startdate" name="startdate" min="2013-03-27" max="2013-05-07" /&gt;
+					&lt;/div&gt;
+					&lt;div class="form-group"&gt;
+					  &lt;label for="enddate"&gt;End date&lt;span class="datepicker-format"&gt; (&lt;abbr title="Four digits year, dash, two digits month, dash, two digits day"&gt;YYYY-MM-DD&lt;/abbr&gt;)&lt;/span&gt;&lt;/label&gt;
+					  &lt;input class="form-control" type="date" id="enddate" name="enddate" min="2013-03-27" max="2016-05-07" /&gt;
+					&lt;/div&gt;</code></pre>
+					</details>
+					</section>
+					
 				<section>
 					<h3>Heading&#32;3&#32;(<code>h3</code>)</h3>
 					<section>
@@ -173,7 +202,7 @@
 			</blockquote>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
-				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/preFooter-en.html -->
+				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/preFooter-en.html -->
 			</div>
 			<!-- Write closure template -->
 			<script>
@@ -185,7 +214,7 @@
 		</main>
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/footer-en.html -->
+			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32c/cdts/static/footer-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -197,7 +226,7 @@
 		<script>
 			document.write(wet.builder.refFooter({
 				"exitScript": true,
-				"displayModal" : true,
+				"displayModal" : false,
 				"exitURL": "exiturl-en.shtml",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				"cancelMsg": "Nope",

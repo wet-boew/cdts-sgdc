@@ -45,8 +45,13 @@
 				<h2>Quitter un site sécurisé</h2>
 				<ul class="lst-spcd">
 					<li>
-						Ce lien <a href="http://www.alloprof.qc.ca/">http://www.alloprof.qc.ca/</a> affichera un avertissement puisque son nom de domaine (www.alloprof.qc.ca) est différent du vôtre.
+						Ce lien <a href="http://www.alloprof.qc.ca">http://www.alloprof.qc.ca</a> affichera un avertissement puisque son nom de domaine (www.alloprof.qc.ca) est différent du vôtre.
 						Et il vous redigera sur la page <code>exiturl-fr.shtml</code> car le paramètre <code>exitURL</code> contient la valeur <code>exiturl-fr.shtml</code>.
+					</li>
+					<li>
+						Ce lien <a href="https://lepanierbleu.ca" target="_blank">https://lepanierbleu.ca target="_blank"</a> 
+						ouvrira dans une autre fenêtre à cause de l'attribut target_blank.
+						Vous n'aurez pas d'avertissement et vous ne serez pas rediriger sur la page <code>exiturl-fr.shtml</code>.
 					</li>
 					<li>
 						Ce lien <a href="breadcrumbs-fr.shtml">breadcrumbs-fr.shtml</a> n'affichera pas un avertissement car son nom de domaine est le même que le vôtre.
