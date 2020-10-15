@@ -50,6 +50,12 @@
 						You'll be redirect to the <code>exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.shtml</code>.
 					</li>
 					<li>
+						This link <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com</a> 
+						will display a warning because his hostname (www.w3schools.com) is different from yours.
+						You'll be redirect to the <code>exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.shtml</code>. 
+						Also it will open in an another window because target="_blank". <strong>This feature is in development</strong>
+					</li>
+					<li>
 						This link <a href="breadcrumbs-en.shtml"> breadcrumbs-en.shtml </a> 
 						won't display a warning because it has the same hostname as yours.
 					</li>
@@ -192,6 +198,7 @@
 		<script>
 			document.write(wet.builder.refFooter({
 				"exitScript": true,
+				//"targetBlank": true,
 				"displayModal" : true,
 				"exitURL": "exiturl-en.shtml",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
