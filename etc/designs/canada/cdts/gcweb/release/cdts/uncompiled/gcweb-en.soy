@@ -456,13 +456,13 @@
 					{/if}
 				</p>
 				<ul class="list-inline text-center">
-					<li><a class="btn btn-primary popup-modal-dismiss pull-left" id="eCancel" href="javascript:void(0)" type="button">
+					<li><button class="btn btn-primary popup-modal-dismiss pull-left" id="eCancel">
 						{if isNonnull($cancelMsg) and length($cancelMsg) > 0}
 							{$cancelMsg}
 						{else}
 							Cancel
 						{/if}
-					</a></li>
+					</button></li>
 					<li><a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">
 						{if isNonnull($yesMsg) and length($yesMsg) > 0}
 							{$yesMsg}
