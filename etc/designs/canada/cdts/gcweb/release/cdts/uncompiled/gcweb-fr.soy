@@ -77,15 +77,24 @@
 		{if isNonnull($webAnalytics)}
 		<!-- Adobe Analytics -->
 			<script src="//gcweb/assets.adobedtm.com/
-				{foreach $aa in $webAnalytics}caacec67651710193d2331efef325107c23a0145/satelliteLib-
-					{if $aa.version == 1}
-						92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24
-					{elseif $aa.version == 2}
-						c2082deaf69c358c641c5eb20f94b615dd606662
-					{/if}
-					{if $aa.environment == 'staging'}-staging{/if}
+				{foreach $aa in $webAnalytics}
+					{if isNonnull($aa.custom)}
+						{$aa.custom}
+					{elseif $aa.version == 1 or $aa.version == 2}
+						caacec67651710193d2331efef325107c23a0145/satelliteLib-
+						{switch $aa.version}
+							{case 1}
+								92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24
+							{case 2}
+								c2082deaf69c358c641c5eb20f94b615dd606662
+							{default}
+						{/switch}
+						{if $aa.environment == 'staging'}-staging{/if}
+						.js
+					{/if}					
 				{/foreach}
-			.js"></script>
+				">
+			</script>
 		{/if}
 
 		<!--[if gte IE 9 | !IE ]><!-->
@@ -213,7 +222,7 @@
 						<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</acronym>{/if}</li>
 						{/foreach}
 						{else}
-						<li><a href="https://www.canada.ca/fr.html">Accueil</a></li>
+						<li><a href="https://www.canada.ca/fr.html">Canada.ca</a></li>
 						{/if}
 					</ol>
 				</div>
