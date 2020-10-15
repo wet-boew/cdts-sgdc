@@ -15,7 +15,7 @@
 		<script src="../compiled/gcweb-en.js"></script>
 		<noscript>
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/refTop.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/refTop.html -->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
@@ -27,7 +27,7 @@
 	<body vocab="http://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appTop-en.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/appTop-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -73,7 +73,7 @@
 			</section>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
-				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/preFooter-en.html -->
+				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/preFooter-en.html -->
 			</div>
 			<!-- Write closure template -->
 			<script>
@@ -85,7 +85,7 @@
 		</main>
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appFooter-en.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/appFooter-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -99,7 +99,7 @@
 			document.write(wet.builder.refFooter({
 				"exitScript": true,
 				"displayModal" : true,
-				"exitURL": "refFooter_exiturl-en.shtml",
+				"exitURL": "https://www.newzealand.com",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				"cancelMsg": "Nope",
 				"yesMsg" : "Sure",
