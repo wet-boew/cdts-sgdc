@@ -23,8 +23,15 @@
 		<script>
 			document.write(wet.builder.refTop({
                 "webAnalytics" : [{
-					"environment" : "staging",
-					"version" : 1
+					// * version 1 or 2
+					//"environment" : "staging",
+					//"version" : 1,
+					//"version" : 2,
+
+					// * version 3 custom staging
+					"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+					// * version 3 custom production
+					//"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
 				}]
 			}));
 		</script>
@@ -58,10 +65,22 @@
 }));</code></pre>
                 <p>Using Adobe Analytics <em>version</em> <strong>2</strong> on <strong>production</strong> <em>environment</em>.</p>
 <pre class="prettyprint"><code>document.write(wet.builder.refTop({
-    "webAnalytics" : [{
-        "environment" : "production",
-        "version" : 2
-    }]
+	"webAnalytics" : [{
+		"environment" : "production",
+		"version" : 2
+	}]
+}));</code></pre>
+				<p>Using Adobe Analytics <em>version</em> <strong>3</strong> on <strong>staging</strong> <em>environment</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+	}]
+}));</code></pre>
+				<p>Using Adobe Analytics <em>version</em> <strong>3</strong> on <strong>production</strong> <em>environment</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
+	}]
 }));</code></pre>
             </section>
             
