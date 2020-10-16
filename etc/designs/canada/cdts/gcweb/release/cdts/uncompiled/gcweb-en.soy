@@ -440,8 +440,8 @@
 		<script src='{call .environment data="all" /}gcweb/release/js/theme.min.js'></script>
 		{if $exitScript == true}
 		<script src='{call .environment data="all" /}gcweb/release/js/exitScript.js'></script>
-		<script>{$displayModal}</script>
-		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="false">clickA();</script>
+		<script data-id="exitScript" data-name="sgdc-cdts.exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
+        <a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" href="#sExitModal" tabindex="-1">Secure exit notice</a>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Secure exit notice</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
 			<header class="modal-header">
@@ -456,14 +456,14 @@
 					{/if}
 				</p>
 				<ul class="list-inline text-center">
-					<li><button class="btn btn-primary popup-modal-dismiss pull-left" id="eCancel">
+					<li><button class="btn btn-primary pull-left popup-modal-dismiss" id="eCancel">
 						{if isNonnull($cancelMsg) and length($cancelMsg) > 0}
 							{$cancelMsg}
 						{else}
 							Cancel
 						{/if}
 					</button></li>
-					<li><a class="btn btn-default popup-modal pull-right" id="eOK" href="javascript:void(0)" type="button">
+					<li><a class="btn btn-default pull-right popup-modal-dismiss" id="eOK" href="exitscript-en.shtml#javascript:void(0)" type="button">
 						{if isNonnull($yesMsg) and length($yesMsg) > 0}
 							{$yesMsg}
 						{else}

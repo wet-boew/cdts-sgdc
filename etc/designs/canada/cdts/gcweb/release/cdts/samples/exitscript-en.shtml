@@ -198,7 +198,7 @@
 		<script>
 			document.write(wet.builder.refFooter({
 				"exitScript": true,
-				"displayModal" : true, // This parameter will be always false even if you set it to true
+				"displayModal" : true,
 				"exitURL": "exiturl-en.shtml",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				"cancelMsg": "Nope",
