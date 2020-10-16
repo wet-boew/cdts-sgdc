@@ -385,7 +385,7 @@ applicationPage.appTop = function(opt_data, opt_ignored) {
     var itemListLen313 = itemList313.length;
     for (var itemIndex313 = 0; itemIndex313 < itemListLen313; itemIndex313++) {
       var itemData313 = itemList313[itemIndex313];
-      output += '<li>' + ((itemData313.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData313.acronym) + '">' : '') + ((itemData313.href != null) ? '<a href="' + soy.$$escapeHtml(itemData313.href) + '">' : '') + soy.$$escapeHtml(itemData313.title) + ((itemData313.href != null) ? '</a>' : '') + ((itemData313.acronym != null) ? '</abbr>' : '') + '</li>';
+      output += '<li>' + ((itemData313.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData313.acronym) + '">' : '') + ((itemData313.href != null) ? '<a href="' + soy.$$escapeHtml(itemData313.href) + '">' : '') + ((itemIndex313 == 0) ? (itemData313.href == 'http://www.canada.ca' || itemData313.href == 'http://www.canada.ca/' || itemData313.href == 'http://www.canada.ca/fr.html' || itemData313.href == 'https://www.canada.ca' || itemData313.href == 'https://www.canada.ca/' || itemData313.href == 'https://www.canada.ca/fr.html') ? 'Canada.ca' : ' ' + soy.$$escapeHtml(itemData313.title) : ' ' + soy.$$escapeHtml(itemData313.title)) + ((itemData313.href != null) ? '</a>' : '') + ((itemData313.acronym != null) ? '</abbr>' : '') + '</li>';
     }
     output += '</ol></div></div></nav>';
   }
@@ -399,41 +399,41 @@ applicationPage.appFooter = function(opt_data, opt_ignored) {
   var output = '\t\t<footer id="wb-info">';
   if (opt_data.footerSections != null) {
     output += '<div class="landscape"><nav class="container wb-navcurr"><h2 class="wb-inv">Liens connexes</h2><ul class="list-unstyled colcount-sm-2 colcount-md-3">';
-    var linkList343 = opt_data.footerSections;
-    var linkListLen343 = linkList343.length;
-    for (var linkIndex343 = 0; linkIndex343 < linkListLen343; linkIndex343++) {
-      var linkData343 = linkList343[linkIndex343];
-      output += '<li><a href="' + soy.$$escapeHtml(linkData343.href) + '"' + ((linkData343.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(linkData343.text) + ((linkData343.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>';
+    var linkList353 = opt_data.footerSections;
+    var linkListLen353 = linkList353.length;
+    for (var linkIndex353 = 0; linkIndex353 < linkListLen353; linkIndex353++) {
+      var linkData353 = linkList353[linkIndex353];
+      output += '<li><a href="' + soy.$$escapeHtml(linkData353.href) + '"' + ((linkData353.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(linkData353.text) + ((linkData353.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>';
     }
     output += '</ul></nav></div>';
   }
   output += '<div class="brand"><div class="container"><div class="row"><nav class="col-md-10 ftr-urlt-lnk"><h2 class="wb-inv">À propos de cette application Web</h2><ul>';
   if (opt_data.contactLink != null) {
-    var linkList361 = opt_data.contactLink;
-    var linkListLen361 = linkList361.length;
-    for (var linkIndex361 = 0; linkIndex361 < linkListLen361; linkIndex361++) {
-      var linkData361 = linkList361[linkIndex361];
-      output += (linkIndex361 == 0) ? '<li><a ' + ((linkData361.href) ? ' href="' + soy.$$escapeHtml(linkData361.href) + '"' : ' href="https://www.canada.ca/fr/contact.html"') + ((linkData361.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Coordonnées' + ((linkData361.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
+    var linkList371 = opt_data.contactLink;
+    var linkListLen371 = linkList371.length;
+    for (var linkIndex371 = 0; linkIndex371 < linkListLen371; linkIndex371++) {
+      var linkData371 = linkList371[linkIndex371];
+      output += (linkIndex371 == 0) ? '<li><a ' + ((linkData371.href) ? ' href="' + soy.$$escapeHtml(linkData371.href) + '"' : ' href="https://www.canada.ca/fr/contact.html"') + ((linkData371.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Coordonnées' + ((linkData371.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
     }
   } else {
     output += '<li><a href="https://www.canada.ca/fr/contact.html">Coordonnées</a></li>';
   }
   if (opt_data.termsLink != null) {
-    var linkList385 = opt_data.termsLink;
-    var linkListLen385 = linkList385.length;
-    for (var linkIndex385 = 0; linkIndex385 < linkListLen385; linkIndex385++) {
-      var linkData385 = linkList385[linkIndex385];
-      output += (linkIndex385 == 0) ? '<li><a ' + ((linkData385.href) ? ' href="' + soy.$$escapeHtml(linkData385.href) + '"' : ' href="https://www.canada.ca/fr/transparence/avis.html"') + ((linkData385.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Avis' + ((linkData385.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
+    var linkList395 = opt_data.termsLink;
+    var linkListLen395 = linkList395.length;
+    for (var linkIndex395 = 0; linkIndex395 < linkListLen395; linkIndex395++) {
+      var linkData395 = linkList395[linkIndex395];
+      output += (linkIndex395 == 0) ? '<li><a ' + ((linkData395.href) ? ' href="' + soy.$$escapeHtml(linkData395.href) + '"' : ' href="https://www.canada.ca/fr/transparence/avis.html"') + ((linkData395.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Avis' + ((linkData395.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
     }
   } else {
     output += '<li><a href="https://www.canada.ca/fr/transparence/avis.html">Avis</a></li>';
   }
   if (opt_data.privacyLink != null) {
-    var linkList409 = opt_data.privacyLink;
-    var linkListLen409 = linkList409.length;
-    for (var linkIndex409 = 0; linkIndex409 < linkListLen409; linkIndex409++) {
-      var linkData409 = linkList409[linkIndex409];
-      output += (linkIndex409 == 0) ? '<li><a ' + ((linkData409.href) ? ' href="' + soy.$$escapeHtml(linkData409.href) + '"' : ' href="https://www.canada.ca/fr/transparence/confidentialite.html"') + ((linkData409.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Confidentialité' + ((linkData409.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
+    var linkList419 = opt_data.privacyLink;
+    var linkListLen419 = linkList419.length;
+    for (var linkIndex419 = 0; linkIndex419 < linkListLen419; linkIndex419++) {
+      var linkData419 = linkList419[linkIndex419];
+      output += (linkIndex419 == 0) ? '<li><a ' + ((linkData419.href) ? ' href="' + soy.$$escapeHtml(linkData419.href) + '"' : ' href="https://www.canada.ca/fr/transparence/confidentialite.html"') + ((linkData419.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Confidentialité' + ((linkData419.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
     }
   } else {
     output += '<li><a href="https://www.canada.ca/fr/transparence/confidentialite.html">Confidentialité</a></li>';

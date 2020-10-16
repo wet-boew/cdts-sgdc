@@ -230,7 +230,17 @@
 					<div class="row">
 						<ol class="breadcrumb">
 							{foreach $item in $breadcrumbs}
-							<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
+							<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+							{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+							{if isFirst($item)}
+							{if $item.href == 'http://www.canada.ca' or $item.href == 'http://www.canada.ca/' or $item.href == 'http://www.canada.ca/en.html' or $item.href == 'https://www.canada.ca' or $item.href == 'https://www.canada.ca/' or $item.href == 'https://www.canada.ca/en.html'}Canada.ca
+							{else} {$item.title}
+							{/if}
+							{else} {$item.title}
+							{/if}	
+			
+							{if isNonnull($item.href)}</a>{/if}
+							{if isNonnull($item.acronym)}</abbr>{/if}</li>
 							{/foreach}
 						</ol>
 					</div>
