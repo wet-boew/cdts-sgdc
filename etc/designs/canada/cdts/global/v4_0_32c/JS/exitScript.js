@@ -1,7 +1,22 @@
-function clickA() {
+function clickA() {   
+
+    //polyfill for startsWith
+    if (!String.prototype.startsWith) {
+        String.prototype.startsWith = function(searchString, position){
+          position = position || 0;
+          return this.substr(position, searchString.length) === searchString;
+      };
+    }
+
     $(document.body).on("click", "a", function (ev) {
-        if (!this.hasAttribute("target")) {
-            exitWarning(ev, this.href);
+        var hashttp = this.href.startsWith("http://");
+        var hashttps = this.href.startsWith("https://");
+        var hasslash = this.href.startsWith("//");
+
+        if (hashttp == true || hashttps == true || hasslash == true){
+           if (!this.hasAttribute("target")) {
+                exitWarning(ev, this.href);
+           }
         }
     })
 }
