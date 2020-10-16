@@ -1,23 +1,6 @@
-function clickA() {   
-
-    //polyfill for startsWith
-    if (!String.prototype.startsWith) {
-        String.prototype.startsWith = function(searchString, position){
-          position = position || 0;
-          return this.substr(position, searchString.length) === searchString;
-      };
-    }
-
-    $(document.body).on("click", "a", function (ev) {
-        var hashttp = this.href.startsWith("http://");
-        var hashttps = this.href.startsWith("https://");
-        var hasslash = this.href.startsWith("//");
-
-        if (hashttp == true || hashttps == true || hasslash == true){
-           if (!this.hasAttribute("target")) {
-                exitWarning(ev, this.href);
-           }
-        }
+function clickA() {
+    $(document.body).on("click", "a", function (ev) {        
+        exitWarning(ev, this.href);
     })
 }
 
@@ -26,16 +9,9 @@ function exitWarning(ev, h) {
     hh = getHost(h),
     hu = getHost(document.URL),
     o = document.querySelector('script[data-id="exitScript"]'),
-    e = o.getAttribute("data-token"),
+    e = o.getAttribute("data-token").toLowerCase(),
     d = o.getAttribute("data-token-domains").toLowerCase(),
     dm = (o.getAttribute("data-token-modal").toLowerCase()=='true');
-    // el = document.querySelector("a.popup-modal-close[target]");
-	// fu = encodeURI(e + "?targetUrl=") + encodeURIComponent(h) + "&targetBlank=true";
-    
-    // // Close lightbox
-	// if (el) {
-    //   el.setAttribute('href', fu);
-    // }
     
     // Same Hosts or Exception Domains
     if ((hh == hu) || (d.replace(/ /g, "").split(",").indexOf(hh) > -1))
