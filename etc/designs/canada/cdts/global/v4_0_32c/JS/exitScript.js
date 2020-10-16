@@ -26,7 +26,7 @@ function exitWarning(ev, h) {
     hh = getHost(h),
     hu = getHost(document.URL),
     o = document.querySelector('script[data-id="exitScript"]'),
-    e = o.getAttribute("data-token").toLowerCase(),
+    e = o.getAttribute("data-token"),
     d = o.getAttribute("data-token-domains").toLowerCase(),
     dm = (o.getAttribute("data-token-modal").toLowerCase()=='true');
     // el = document.querySelector("a.popup-modal-close[target]");
