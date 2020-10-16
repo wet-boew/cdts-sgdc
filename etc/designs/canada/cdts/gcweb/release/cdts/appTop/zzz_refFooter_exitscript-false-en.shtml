@@ -34,7 +34,7 @@
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.appTop({
 				"appName": [{"text": "Application name", "href": "#"}],
-				"lngLinks": [{"lang": "fr",	"href": "refFooter_exitscript-fr.shtml", "text": "Français"}],
+				"lngLinks": [{"lang": "fr",	"href": "reffooter_exitscript-fr.shtml", "text": "Français"}],
 				"breadcrumbs": [{
 					"title": "My application",
 					"href": "http://open.canada.ca/en/apps?_ga=2.158588857.2050402716.1501624806-1491110290.1492697601"
@@ -54,12 +54,12 @@
 						<li>
 							This link <a href="http://csszengarden.com/219">http://csszengarden.com/219</a> 
 							will display a warning because his hostname (csszengarden.com) is different from yours.
-							You'll be redirect to the <code>refFooter_exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>refFooter_exiturl-en.shtml</code>.
+							You'll be redirect to the <code>reffooter_exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>reffooter_exiturl-en.shtml</code>.
 						</li>
 						<li>
 							This link <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com target="_blank"</a> 
 							will open in another windows because of the target_blank attribute.
-							You won't have a warning and you won't be redirect to the <code>refFooter_exiturl-en.shtml</code>. 							
+							You won't have a warning and you won't be redirect to the <code>reffooter_exiturl-en.shtml</code>. 							
 						</li>
 						<li>
 							This link <a href="apptop_breadcrumbs-en.shtml"> apptop_breadcrumbs-en.shtml </a> 
@@ -99,7 +99,7 @@
 			document.write(wet.builder.refFooter({
 				"exitScript": false,
 				"displayModal" : true,
-				"exitURL": "refFooter_exiturl-en.shtml",
+				"exitURL": "reffooter_exiturl-en.shtml",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				"cancelMsg": "Nope",
 				"yesMsg" : "Sure",

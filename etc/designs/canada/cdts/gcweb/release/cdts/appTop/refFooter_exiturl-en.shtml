@@ -34,7 +34,7 @@
 			defTop.outerHTML = wet.builder.top({
 				"lngLinks": [{
 					"lang": "fr",
-					"href": "refFooter_exiturl-fr.shtml"+decodeURIComponent(location.search),
+					"href": "reffooter_exiturl-fr.shtml"+decodeURIComponent(location.search),
 					"text": "Français"
 				}]
 			});

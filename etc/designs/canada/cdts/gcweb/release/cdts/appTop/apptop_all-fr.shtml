@@ -84,7 +84,7 @@
 				<ul class="lst-spcd">
 					<li>
 						Ce lien <a href="http://www.alloprof.qc.ca/">http://www.alloprof.qc.ca/</a> affichera un avertissement puisque son nom de domaine (www.alloprof.qc.ca) est différent du vôtre.
-						Et il vous redigera sur la page <code>refFooter_exiturl-fr.shtml</code> car le paramètre <code>refFooter_exitURL</code> contient la valeur <code>exiturl-fr.shtml</code>.
+						Et il vous redigera sur la page <code>reffooter_exiturl-fr.shtml</code> car le paramètre <code>reffooter_exitURL</code> contient la valeur <code>exiturl-fr.shtml</code>.
 					</li>
 					<li>
 						Ce lien <a href="apptop_breadcrumbs-fr.shtml">apptop_breadcrumbs-fr.shtml</a> n'affichera pas un avertissement car son nom de domaine est le même que le vôtre.
@@ -122,7 +122,7 @@
 			document.write(wet.builder.refFooter({
 				"exitScript": true,
 				"displayModal" : true,
-				"exitURL": "refFooter_exiturl-fr.shtml",
+				"exitURL": "reffooter_exiturl-fr.shtml",
 				"exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?",
 				"cancelMsg": "Arrêter",
 				"yesMsg" : "Continuer",
