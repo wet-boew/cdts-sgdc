@@ -93,7 +93,7 @@
 						Ce lien <a href="https://developer.mozilla.org/fr/docs/Apprendre/a11y">https://developer.mozilla.org/fr/docs/Apprendre/a11y</a> n'affichera pas un avertissement car son nom de domaine (developer.mozilla.org) est dans la liste d'exception <code>exitDomains</code>.
 					</li>
 				</ul>
-			<section>
+			</section>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
 				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/preFooter-fr.html -->
