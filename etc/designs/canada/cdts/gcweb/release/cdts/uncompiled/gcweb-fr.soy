@@ -214,20 +214,19 @@
 			{/if}
 			{if $breadcrumbs != false}
 			<nav id="wb-bc" property="breadcrumb">
-				<h2>Vous êtes ici :</h2>
-				<div class="container">
-					<ol class="breadcrumb">
-						{if isNonnull($breadcrumbs)}
-						{foreach $item in $breadcrumbs}
-						<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</acronym>{/if}</li>
-						{/foreach}
-						{else}
-						<li><a href="https://www.canada.ca/fr.html">Canada.ca</a></li>
-						{/if}
-					</ol>
-				</div>
-			</nav>
-			{/if}
+                <h2>Vous êtes ici :</h2>
+                <div class="container">
+                    <ol class="breadcrumb">
+					<li><a href="https://www.canada.ca/en.html">Canada.ca</a></li>
+                        {if isNonnull($breadcrumbs)}
+                        {foreach $item in $breadcrumbs}
+                        <li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
+                        {/foreach}       
+                        {/if}
+                    </ol>
+                </div>
+            </nav>
+            {/if}
 		</header>
 		{if $showPreContent != false}
 		{/if}
@@ -440,7 +439,7 @@
 		<![endif]-->
 		<script src='{call .environment data="all" /}gcweb/release/js/theme.min.js'></script>
 		{if $exitScript == true}
-		{$displayModal} = 0;
+		<script>{$displayModal} = 0;</script>
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="false">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Avis de sortie sécurisée</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
