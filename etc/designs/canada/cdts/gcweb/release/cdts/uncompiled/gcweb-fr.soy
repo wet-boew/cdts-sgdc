@@ -439,7 +439,7 @@
 		<![endif]-->
 		<script src='{call .environment data="all" /}gcweb/release/js/theme.min.js'></script>
 		{if $exitScript == true}
-		<script>{$displayModal} = 0;</script>
+		<script>{$displayModal}</script>
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="false">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Avis de sortie sécurisée</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
