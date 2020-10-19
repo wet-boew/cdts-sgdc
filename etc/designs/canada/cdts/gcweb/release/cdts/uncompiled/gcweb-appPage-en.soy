@@ -127,126 +127,208 @@
 			</div>
 			{if (isNonnull($customSearch)) or (isNonnull($menuPath)) or (isNonnull($menuLinks)) or ($topSecMenu == true) or (isNonnull($appSettings)) or (isNonnull($signOut)) or (isNonnull($signIn))}
 			<div class="app-bar-mb container visible-xs-block hidden-print">
-				{if (isNonnull($menuPath)) or (isNonnull($menuLinks)) or ($topSecMenu == true) or (isNonnull($customSearch))}
-				<nav>
-					<h2 class="wb-inv">{if (isNonnull($menuPath)) or (isNonnull($menuLinks)) or ($topSecMenu == true)}Menu{if isNonnull($customSearch)} and search{/if}{else}Search{/if}</h2>
-					<ul class="app-list-main list-unstyled">
-						{if (isNonnull($menuPath)) or (isNonnull($menuLinks)) or ($topSecMenu == true)}<li class="wb-mb-links" id="wb-glb-mn"><a href="#mb-pnl" aria-controls="mb-pnl" class="btn overlay-lnk" role="button">Menu</a><h2>Menu</h2></li>{/if}
-						{if isNonnull($customSearch)}<li><a href="#app-srch-mb" title="Search" aria-controls="app-srch-mb" class="btn overlay-lnk" role="button"><span class="glyphicon-search glyphicon" aria-hidden="true"></span><span class="wb-inv">Search</span></a></li>{/if}
-					</ul>
-					<div id="mb-pnl"></div>
-					{if isNonnull($customSearch)}
-					{foreach $item in $customSearch}
-					{if isFirst($item)}
-					<section id="app-srch-mb" class="wb-overlay modal-content overlay-def wb-bar-t">
-						<div class="modal-header">
-							<h3 class="modal-title">Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}</h3>
-						</div>
-						<div class="modal-body">
-							<form action="{$item.action}" method="{$item.method}" name="cse-search-box" role="search" class="form-inline">
-								<div class="input-group">
-									<label for="{if isNonnull($item.id)}app-{$item.id}{else}app-srch-q-mb{/if}" class="wb-inv">Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}</label>
-									<input placeholder="Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}" id="{if isNonnull($item.id)}app-{$item.id}{else}app-srch-q-mb{/if}" class="app-srch-q-mb form-control" name="q" type="search" value="" size="27" maxlength="150">
-								{if isNonnull($item.hiddenInput)}
-								{foreach $input in $item.hiddenInput}
-									<input type="hidden" name="{$input.name}" value="{$input.value}" />
-								{/foreach}
+					{if (isNonnull($menuPath)) or (isNonnull($menuLinks)) or ($topSecMenu == true) or (isNonnull($customSearch))}
+					<nav>
+						<h2 class="wb-inv">{if (isNonnull($menuPath)) or (isNonnull($menuLinks)) or ($topSecMenu == true)}Menu{if isNonnull($customSearch)} and search{/if}{else}Search{/if}</h2>
+						<ul class="app-list-main list-unstyled">
+							{if (isNonnull($menuPath)) or (isNonnull($menuLinks)) or ($topSecMenu == true)}<li class="wb-mb-links" id="wb-glb-mn"><a href="#mb-pnl" aria-controls="mb-pnl" class="btn overlay-lnk" role="button">Menu</a><h2>Menu</h2></li>{/if}
+							{if isNonnull($customSearch)}<li><a href="#app-srch-mb" title="Search" aria-controls="app-srch-mb" class="btn overlay-lnk" role="button"><span class="glyphicon-search glyphicon" aria-hidden="true"></span><span class="wb-inv">Search</span></a></li>{/if}
+						</ul>
+						<div id="mb-pnl"></div>
+						{if isNonnull($customSearch)}
+						{foreach $item in $customSearch}
+						{if isFirst($item)}
+						<section id="app-srch-mb" class="wb-overlay modal-content overlay-def wb-bar-t">
+							<div class="modal-header">
+								<h3 class="modal-title">Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}</h3>
+							</div>
+							<div class="modal-body">
+								<form action="{$item.action}" method="{$item.method}" name="cse-search-box" role="search" class="form-inline">
+									<div class="input-group">
+										<label for="{if isNonnull($item.id)}app-{$item.id}{else}app-srch-q-mb{/if}" class="wb-inv">Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}</label>
+										<input placeholder="Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}" id="{if isNonnull($item.id)}app-{$item.id}{else}app-srch-q-mb{/if}" class="app-srch-q-mb form-control" name="q" type="search" value="" size="27" maxlength="150">
+									{if isNonnull($item.hiddenInput)}
+									{foreach $input in $item.hiddenInput}
+										<input type="hidden" name="{$input.name}" value="{$input.value}" />
+									{/foreach}
+									{/if}
+										<span class="input-group-btn"><button type="submit" id="app-srch-sub-mb" class="btn btn-primary btn-small" name="app-srch-sub-mb"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}</span></button></span>
+									</div>
+								</form>
+							</div>
+						</section>
+						{/if}
+						{/foreach}
+						{/if}
+						</nav>
+					{/if}
+					{if (isNonnull($appSettings)) or (isNonnull($signOut)) or (isNonnull($signIn))}
+					<nav>
+						<h2 class="wb-inv">Account menu</h2>
+						<ul class="app-list-account list-unstyled">
+							{if isNonnull($appSettings)}
+								{foreach $item in $appSettings}
+								{if isFirst($item)}
+							<li><a href="{$item.href}" class="btn"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Account settings</a></li>&#32;
 								{/if}
-									<span class="input-group-btn"><button type="submit" id="app-srch-sub-mb" class="btn btn-primary btn-small" name="app-srch-sub-mb"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Search{if isNonnull($item.placeholder)} {$item.placeholder}{/if}</span></button></span>
-								</div>
-							</form>
-						</div>
-					</section>
-					{/if}
-					{/foreach}
-					{/if}
-				</nav>
-				{/if}
-				{if (isNonnull($appSettings)) or (isNonnull($signOut)) or (isNonnull($signIn))}
-				<nav>
-					<h2 class="wb-inv">Account menu</h2>
-					<ul class="app-list-account list-unstyled">
-						{if isNonnull($appSettings)}
-							{foreach $item in $appSettings}
-							{if isFirst($item)}
-						<li><a href="{$item.href}" class="btn"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Account settings</a></li>&#32;
-							{/if}
-							{/foreach}
+								{/foreach}
 						{/if}
-						{if isNonnull($signOut)}
-							{foreach $item in $signOut}
-							{if isFirst($item)}
-						<li><a href="{$item.href}" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sign out</a></li>
+							{if isNonnull($signOut)}
+								{foreach $item in $signOut}
+								{if isFirst($item)}
+							<li><a href="{$item.href}" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sign out</a></li>
+								{/if}
+								{/foreach}
+							{elseif isNonnull($signIn)}
+								{foreach $item in $signIn}
+								{if isFirst($item)}
+							<li><a href="{$item.href}" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sign in</a></li>
+								{/if}
+								{/foreach}
 							{/if}
-							{/foreach}
-						{elseif isNonnull($signIn)}
-							{foreach $item in $signIn}
-							{if isFirst($item)}
-						<li><a href="{$item.href}" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sign in</a></li>
-							{/if}
-							{/foreach}
-						{/if}
-					</ul>
-				</nav>
-				{/if}
-			</div>
+							</ul>
+					</nav>
+					{/if}
+				</div>
 			
 			{if isNonnull($menuLinks)}
-			<nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
-				<div class="pnl-strt container nvbar">
-					<h2 class="wb-inv">Main navigation menu</h2>
-					<div class="row">
-						<ul class="list-inline menu" role="menubar">
-							{foreach $link in $menuLinks}
-							{if isNonnull($link.subLinks)}
-							<li>
-								<a href="#{$link.id}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a>
-								<ul class="sm list-unstyled" id="{$link.id}" role="menu">
-									{foreach $sublink in $link.subLinks}
-										{if isLast($sublink)}
-									<li class="slflnk"><a href="{$sublink.subhref}"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+					<nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
+						<div class="pnl-strt container nvbar">
+							<h2 class="wb-inv">Main navigation menu</h2>
+							<div class="row">
+								<ul class="list-inline menu" role="menubar">
+									{foreach $link in $menuLinks}
+										{if isNonnull($link.subLinks)}
+											<li>
+												<a href="#{$link.id}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a>
+												<ul class="sm list-unstyled" id="{$link.id}" role="menu">
+													{foreach $sublink in $link.subLinks}
+														{if isLast($sublink)}
+															<li class="slflnk"><a href="{$sublink.subhref}"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+														{else}
+															<li><a href="{$sublink.subhref}"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+														{/if}
+													{/foreach}
+												</ul>
+											</li>
 										{else}
-									<li><a href="{$sublink.subhref}"{if $sublink.newWindow==true} target="_blank"  rel="noopener"{/if}>{$sublink.subtext}{if $sublink.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
+										<li><a href="{$link.href}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
 										{/if}
 									{/foreach}
 								</ul>
-							</li>
-							{else}
-							<li><a href="{$link.href}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> This link will open in a new window</span>{/if}</a></li>
-							{/if}
-							{/foreach}
-						</ul>
+							</div>
+						</div>
+					</nav>
+				{elseif isNonnull($menuPath)}
+					<nav id="wb-sm" data-ajax-replace="{$menuPath}" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement"></nav>
+				{/if}
+			{/if}
+			{if $breadcrumbs != false}
+				<nav id="wb-bc" property="breadcrumb">
+					<h2>You are here:</h2>
+					<div class="container">
+						<div class="row"> //This is not in wet-en.soy
+							<ol class="breadcrumb">
+								{if isNonnull($breadcrumbs)}
+									{foreach $item in $breadcrumbs}
+										{if isFirst($item)}										
+											//zuc11-2
+											{if $item.title == 'Canada.ca' or $item.title == 'canada.ca'}
+												<li>
+													<abbr title="Canada.ca">
+														<a href="https://www.canada.ca/en.html">Canada.ca</a>
+													</abbr>
+												</li>
+											{else} //$item.title !='Canada.ca' - Ponting on a variants
+												//Todo: We should find a better way to do that it's soy v2 syntax...
+												//Todo: Add a "toLowerCase" function (Remember closure isn't a JS Librairy)
+												//Todo: https://github.com/wet-boew/cdts-sgdc/issues/166
+																							
+												{if $item.href == 'https://www.canada.ca' or
+													$item.href == 'http://www.canada.ca' or 
+													$item.href == 'https://www.canada.ca/' or 
+													$item.href == 'http://www.canada.ca/' or 
+													$item.href == 'https://www.canada.ca/en.html' or 
+													$item.href == 'http://www.canada.ca/en.html' or 
+													$item.href == 'https://www.canada.ca/en.html/' or 
+													$item.href == 'http://www.canada.ca/en.html/' or 
+													$item.href == 'https://www.canada.ca/fr.html' or 
+													$item.href == 'http://www.canada.ca/fr.html' or 
+													$item.href == 'https://www.canada.ca/fr.html/' or 
+													$item.href == 'http://www.canada.ca/fr.html/' or 
+													$item.href == 'https://www.canada.ca/index.html' or 
+													$item.href == 'http://www.canada.ca/index.html' or 
+													$item.href == 'https://www.canada.ca/index.html/' or 
+													$item.href == 'http://www.canada.ca/index.html/' or 
+													$item.href == 'https://www.canada.ca/en/index.html' or 
+													$item.href == 'http://www.canada.ca/en/index.html' or 
+													$item.href == 'https://www.canada.ca/en/index.html/' or 
+													$item.href == 'http://www.canada.ca/en/index.html/' or 
+													$item.href == 'https://www.canada.ca/fr/index.html' or 
+													$item.href == 'http://www.canada.ca/fr/index.html' or 
+													$item.href == 'https://www.canada.ca/fr/index.html/' or 
+													$item.href == 'http://www.canada.ca/fr/index.html/' or 
+													$item.href == 'https://www.canada.ca/home.html' or 
+													$item.href == 'http://www.canada.ca/home.html' or 
+													$item.href == 'https://www.canada.ca/home.html/' or 
+													$item.href == 'http://www.canada.ca/home.html/' or
+													$item.href == 'https://www.canada.ca/accueil.html' or 
+													$item.href == 'http://www.canada.ca/accueil.html' or 
+													$item.href == 'https://www.canada.ca/accueil.html/' or 
+													$item.href == 'http://www.canada.ca/accueil.html/'
+												}
+													//zuc21
+													// For Backward compatibility we keep the old tags (In html title contains the full description)
+													<li>
+													{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+													{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+													Canada.ca
+													{if isNonnull($item.href)}</a>{/if}
+													{if isNonnull($item.acronym)}</abbr>{/if}
+													</li>
+
+												{else} //$item.href doesn't point on Canada.ca variants - Adding Canada.ca
+													//zuc22
+													<li>
+														<abbr title="Canada.ca">
+															<a href="https://www.canada.ca/en.html">Canada.ca</a>
+														</abbr>
+													</li>
+													<li>
+													{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+													{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+													{if isNonnull($item.title)}{$item.title}{/if}
+													{if isNonnull($item.href)}</a>{/if}
+													{if isNonnull($item.acronym)}</abbr>{/if}
+													</li>
+												{/if}
+											{/if} //$item.title =='Canada.ca'
+										{else} //Not first item
+										//zuc31-2-3
+											<li>
+											{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+											{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+											{if isNonnull($item.title)}{$item.title}{/if}
+											{if isNonnull($item.href)}</a>{/if}
+											{if isNonnull($item.acronym)}</abbr>{/if}
+											</li>
+										{/if}
+									{/foreach}
+								{else} //$Breadcrumbs is undefined
+								//zuc41-2 //apptop doesn't display breadcrumbs
+									// <li>
+									// 	<abbr title="Canada.ca">
+									// 		<a href="https://www.canada.ca/en.html">Canada.ca</a>
+									// 	</abbr>
+									// </li>
+								{/if}
+							</ol>
+						</div> //class Row
 					</div>
-				</div>
-			</nav>
-			{elseif isNonnull($menuPath)}
-			<nav id="wb-sm" data-ajax-replace="{$menuPath}" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement"></nav>
-			{/if}
-			{/if}
-			{if isNonnull($breadcrumbs)}
-			<nav id="wb-bc" property="breadcrumb">
-				<h2>You are here:</h2>
-				<div class="container">
-					<div class="row">
-						<ol class="breadcrumb">
-							{foreach $item in $breadcrumbs}
-							<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
-							{if isNonnull($item.href)}<a href="{$item.href}">{/if}
-							{if isFirst($item)}
-							{if $item.href == 'http://www.canada.ca' or $item.href == 'http://www.canada.ca/' or $item.href == 'http://www.canada.ca/en.html' or $item.href == 'https://www.canada.ca' or $item.href == 'https://www.canada.ca/' or $item.href == 'https://www.canada.ca/en.html'}Canada.ca
-							{else} {$item.title}
-							{/if}
-							{else} {$item.title}
-							{/if}	
-			
-							{if isNonnull($item.href)}</a>{/if}
-							{if isNonnull($item.acronym)}</abbr>{/if}</li>
-							{/foreach}
-						</ol>
-					</div>
-				</div>
-			</nav>
-			{/if}
+				</nav>
+			{/if} //$breadcrumbs != false
+			//zuc5
+
 		</header>
 		{if $showPreContent != false}
 		{/if}
