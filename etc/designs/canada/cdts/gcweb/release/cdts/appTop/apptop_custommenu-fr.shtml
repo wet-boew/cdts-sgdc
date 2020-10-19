@@ -34,7 +34,7 @@
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.appTop({
 				"appName": [{"text": "Nom de l'application", "href": "#"}],
-				"lngLinks": [{"lang": "en", "href": "apptop_custommenu-fr.shtml", "text": "English"}],
+				"lngLinks": [{"lang": "en", "href": "apptop_custommenu-en.shtml", "text": "English"}],
 				"menuPath": "../ajax/appmenu-fr.html"
 			});
 		</script>
