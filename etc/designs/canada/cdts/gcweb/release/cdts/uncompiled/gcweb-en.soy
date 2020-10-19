@@ -214,19 +214,108 @@
 			{/if}
 			{if $breadcrumbs != false}
 			<nav id="wb-bc" property="breadcrumb">
-				<h2>You are here:</h2>
-				<div class="container">
-					<ol class="breadcrumb">
-						<li><a href="https://www.canada.ca/en.html">Canada.ca</a></li>
-						{if isNonnull($breadcrumbs)}
-						{foreach $item in $breadcrumbs}
-						<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
-						{/foreach}
-						{/if}
-					</ol>
-				</div>
-			</nav>
-			{/if}
+					<h2>You are here:</h2>
+					<div class="container">
+						<ol class="breadcrumb">
+							{if isNonnull($breadcrumbs)}
+								{foreach $item in $breadcrumbs}
+									{if isFirst($item)}										
+										//zuc11-2
+										{if $item.title == 'Canada.ca' or $item.title == 'canada.ca'}
+											<li>
+												<abbr title="Canada.ca">
+													<a href="https://www.canada.ca/en.html">Canada.ca</a>
+												</abbr>
+											</li>
+										{else} //$item.title !='Canada.ca' - Ponting on a variants
+											//Todo: We should find a better way to do that it's soy v2 syntax...
+											//Todo: Add a "toLowerCase" function (Remember closure isn't a JS Librairy)
+											//Todo: https://github.com/wet-boew/cdts-sgdc/issues/166
+																						
+											{if $item.href == 'https://www.canada.ca' or
+												$item.href == 'http://www.canada.ca' or 
+                                                $item.href == 'https://www.canada.ca/' or 
+                                                $item.href == 'http://www.canada.ca/' or 
+                                                $item.href == 'https://www.canada.ca/en.html' or 
+                                                $item.href == 'http://www.canada.ca/en.html' or 
+                                                $item.href == 'https://www.canada.ca/en.html/' or 
+                                                $item.href == 'http://www.canada.ca/en.html/' or 
+                                                $item.href == 'https://www.canada.ca/fr.html' or 
+                                                $item.href == 'http://www.canada.ca/fr.html' or 
+                                                $item.href == 'https://www.canada.ca/fr.html/' or 
+                                                $item.href == 'http://www.canada.ca/fr.html/' or 
+                                                $item.href == 'https://www.canada.ca/index.html' or 
+                                                $item.href == 'http://www.canada.ca/index.html' or 
+                                                $item.href == 'https://www.canada.ca/index.html/' or 
+                                                $item.href == 'http://www.canada.ca/index.html/' or 
+                                                $item.href == 'https://www.canada.ca/en/index.html' or 
+                                                $item.href == 'http://www.canada.ca/en/index.html' or 
+                                                $item.href == 'https://www.canada.ca/en/index.html/' or 
+                                                $item.href == 'http://www.canada.ca/en/index.html/' or 
+                                                $item.href == 'https://www.canada.ca/fr/index.html' or 
+                                                $item.href == 'http://www.canada.ca/fr/index.html' or 
+                                                $item.href == 'https://www.canada.ca/fr/index.html/' or 
+                                                $item.href == 'http://www.canada.ca/fr/index.html/' or 
+                                                $item.href == 'https://www.canada.ca/home.html' or 
+                                                $item.href == 'http://www.canada.ca/home.html' or 
+                                                $item.href == 'https://www.canada.ca/home.html/' or 
+                                                $item.href == 'http://www.canada.ca/home.html/' or
+                                                $item.href == 'https://www.canada.ca/accueil.html' or 
+                                                $item.href == 'http://www.canada.ca/accueil.html' or 
+                                                $item.href == 'https://www.canada.ca/accueil.html/' or 
+                                                $item.href == 'http://www.canada.ca/accueil.html/'
+											}
+												//zuc21
+												// For Backward compatibility we keep the old tags (In html title contains the full description)
+												<li>
+												{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+												{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+												Canada.ca
+												{if isNonnull($item.href)}</a>{/if}
+												{if isNonnull($item.acronym)}</abbr>{/if}
+												</li>
+
+											{else} //$item.href doesn't point on Canada.ca variants - Adding Canada.ca
+												//zuc22
+												<li>
+													<abbr title="Canada.ca">
+														<a href="https://www.canada.ca/en.html">Canada.ca</a>
+													</abbr>
+												</li>
+												<li>
+												{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+												{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+												{if isNonnull($item.title)}{$item.title}{/if}
+												{if isNonnull($item.href)}</a>{/if}
+												{if isNonnull($item.acronym)}</abbr>{/if}
+												</li>
+											{/if}
+										{/if} //$item.title =='Canada.ca'
+									{else} //Not first item
+									//zuc31-2-3
+										<li>
+										{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+										{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+										{if isNonnull($item.title)}{$item.title}{/if}
+										{if isNonnull($item.href)}</a>{/if}
+										{if isNonnull($item.acronym)}</abbr>{/if}
+										</li>
+									{/if}
+								{/foreach}
+							{else} //$Breadcrumbs is undefined
+							//zuc41-2
+								<li>
+									<abbr title="Canada.ca">
+										<a href="https://www.canada.ca/en.html">Canada.ca</a>
+									</abbr>
+								</li>
+							{/if}
+						</ol>
+					</div>
+				</nav>
+			{/if} //$breadcrumbs != false
+			//zuc5
+
 		</header>
 		{if $showPreContent != false}
 		{/if}
