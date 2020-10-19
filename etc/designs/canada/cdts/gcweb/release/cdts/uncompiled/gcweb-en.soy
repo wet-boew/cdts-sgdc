@@ -507,13 +507,13 @@
  */
 {template .refFooter}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<script src='{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}js/{/if}jquery/2.2.4/jquery.min.js'></script>
-		<script src='{call .environment data="all" /}js/wet-boew.min.js'></script>
+		<script src='{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}gcweb/release/js/{/if}jquery/2.2.4/jquery.min.js'></script>
+		<script src='{call .environment data="all" /}gcweb/release/js/wet-boew.min.js'></script>
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<script src='{call .environment data="all" /}js/ie8-wet-boew2.min.js'></script>
+		<script src='{call .environment data="all" /}gcweb/release/js/ie8-wet-boew2.min.js'></script>
 		<![endif]-->
-		<script src='{call .environment data="all" /}js/theme.min.js'></script>
+		<script src='{call .environment data="all" /}gcweb/release/js/theme.min.js'></script>
 		{if $exitScript == true}
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Secure exit notice</a>
@@ -549,7 +549,7 @@
 		</section>
 		{/if}
 		{if $isApplication == true}
-		<script src='{call .environment data="all" /}cdts/cdtscustom.js'></script>
+		<script src='{call .environment data="all" /}gcweb/release/cdts/cdtscustom.js'></script>
 		{/if}
 		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
 {/template}
