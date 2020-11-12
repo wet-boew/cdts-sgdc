@@ -200,7 +200,7 @@
 								{foreach $link in $menuLinks}
 								{if isNonnull($link.subLinks)}
 								<li>
-									<a href="{$link.id}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a>
+									<a href="#{$link.id}" class="item"{if $link.newWindow==true} target="_blank"  rel="noopener"{/if}>{$link.text}{if $link.newWindow==true}<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>{/if}</a>
 									<ul class="sm list-unstyled" id="{$link.id}" role="menu">
 										{foreach $sublink in $link.subLinks}
 											{if isLast($sublink)}
