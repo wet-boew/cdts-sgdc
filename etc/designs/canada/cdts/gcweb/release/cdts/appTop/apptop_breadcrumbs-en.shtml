@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>Content page - Canada.ca</title>
+		<title>apptop_breadcrumbs-en</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
@@ -34,16 +34,20 @@
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.appTop({
 				"appName": [{"text": "Application name", "href": "#"}],
-				"lngLinks": [{"lang": "fr",	"href": "apptop_breadcrumbs-fr.shtml", "text": "Français"}],
-				"breadcrumbs": [{
-					"title": "My application",
-					"href": "http://open.canada.ca/en/apps?_ga=2.158588857.2050402716.1501624806-1491110290.1492697601"
-				}, {
-					"title": "First section",
-					"href": "#"
-				}, {
-					"title": "Service A"
-				}]
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "apptop_breadcrumbs-fr.shtml",
+					"text": "Français"}],
+					"breadcrumbs": [{
+					// For backward compatibility we keep the old tags (In html title contains the full description)
+					"title": "My App abbreviation", 
+					"acronym": "My App long title",
+					"href": "https://open.canada.ca/en"
+					},{
+					"title": "My second page abbreviation",
+					"acronym": "My second page long title",
+					//"href": "https://open.canada.ca/en/apps"
+					}]
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
