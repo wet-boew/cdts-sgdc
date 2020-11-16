@@ -56,11 +56,11 @@
 						a un nom de domaine (www.alloprof.qc.ca) différent du vôtre.
 						Vous serez redirigé sur la page <code>reffooter_exiturl-fr.shtml</code> car le paramètre <code>exitURL</code> contient la valeur <code>refFooter_exiturl-fr.shtml</code>.
 					</li>
-					<li>
+					<!--<li>
 						Ce lien <a href="https://lepanierbleu.ca" target="_blank">https://lepanierbleu.ca target="_blank"</a> 
 						ouvrira dans une autre fenêtre à cause de l'attribut target_blank.
 						Vous ne serez pas redirigé sur la page <code>reffooter_exiturl-fr.shtml</code>.
-					</li>
+					</li>-->
 					<li>
 						Ce lien <a href="apptop_breadcrumbs-fr.shtml">apptop_breadcrumbs-fr.shtml</a> > a le même nom de domaine que le vôtre.
 						Vous ne serez pas redirigé sur la page <code>reffooter_exiturl-fr.shtml</code>.

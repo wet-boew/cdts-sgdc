@@ -49,11 +49,11 @@
 						has a hostname (csszengarden.com) different from yours.
 						You'll be redirect to <code>exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.shtml</code>.
 					</li>
-					<li>
+					<!--<li>
 						This link <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com target="_blank"</a> 
 						will open in another windows because of the target_blank attribute.
 						You won't be redirect to <code>exiturl-en.shtml</code>.
-					</li>
+					</li>-->
 					<li>
 						This link <a href="breadcrumbs-en.shtml"> breadcrumbs-en.shtml </a> has the same hostname as yours.
 						You won't be redirect to <code>exiturl-en.shtml</code>.

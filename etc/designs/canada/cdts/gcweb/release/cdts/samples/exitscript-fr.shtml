@@ -49,11 +49,11 @@
 						a un nom de domaine (www.alloprof.qc.ca) différent du vôtre.
 						Vous serez redirigé sur la page <code>exiturl-fr.shtml</code> car le paramètre <code>exitURL</code> contient la valeur <code>exiturl-fr.shtml</code>.
 					</li>
-					<li>
+					<!--<li>
 						Ce lien <a href="https://lepanierbleu.ca" target="_blank">https://lepanierbleu.ca target="_blank"</a> 
 						ouvrira dans une autre fenêtre à cause de l'attribut target_blank.
 						Vous ne serez pas redirigé sur la page <code>exiturl-fr.shtml</code>.
-					</li>
+					</li>-->
 					<li>
 						Ce lien <a href="breadcrumbs-fr.shtml">breadcrumbs-fr.shtml</a> a le même nom de domaine que le vôtre.
 						Vous ne serez pas redirigé sur la page <code>exiturl-fr.shtml</code>.	
