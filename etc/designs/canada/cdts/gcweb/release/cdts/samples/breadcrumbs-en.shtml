@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>Content page - Canada.ca</title>
+		<title>breadcrumbs-en</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
@@ -39,11 +39,11 @@
 				}],
 				"breadcrumbs": [{
 					"title": "Canada.ca",
+					"acronym": "Canada.ca",
 					"href": "http://www.canada.ca/en/index.html"
 				}, {
 					"title": "CDTS",
-					"acronym": "Centrally Deployed Templates Solution",
-					"href": "http://www.canada.ca/en/index.html"
+					"acronym": "Centrally Deployed Templates Solution"
 				}]
 			});
 		</script>
@@ -167,7 +167,7 @@
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
-					"dateModified": "2019-07-31"
+					"dateModified": "2020-09-11"
 				});
 			</script>
 		</main>
