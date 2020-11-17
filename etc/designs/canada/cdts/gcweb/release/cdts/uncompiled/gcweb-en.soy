@@ -62,13 +62,11 @@
  */
 {template .refTop}
 
-		<script>
-		dataLayer = [];
-		</script>
-
+		// See Datalayer https://developers.google.com/tag-manager/devguide
+		
 		{if isNonnull($webAnalytics)}
 		<!-- Adobe Analytics -->
-			<script src="//assets.adobedtm.com/
+			<script id="cdts_AnalyticsId" src="//assets.adobedtm.com/
 				{foreach $aa in $webAnalytics}
 					{if isNonnull($aa.custom)}
 						{$aa.custom}
@@ -145,7 +143,7 @@
 					<div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
 						{if $siteMenu != false}<a href="https://www.canada.ca/en.html" property="url">{/if}<img src='{call .environment data="all" /}gcweb/release/assets/sig-blk-en.svg' alt="" property="logo" /><span class="wb-inv" property="name"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span>{if $siteMenu != false}</a>{/if}
 						<meta property="areaServed" typeOf="Country" content="Canada" />
-						<link property="logo" href='{call .environment data="all" /}gcweb/release/assets/wmms-blk.svg' />
+						<link id="StdIssueWasHere1" property="logo" href='{call .environment data="all" /}gcweb/release/assets/wmms-blk.svg' />
 					</div>
 					{if $search != false}
 					<section id="wb-srch" class="col-lg-8 text-right">
@@ -483,7 +481,7 @@
 						<div class="col-xs-6 visible-sm visible-xs tofpg">
 							<a href="#wb-cont">Top of Page <span class="glyphicon glyphicon-chevron-up"></span></a>
 						</div>
-						<div class="col-xs-6 col-md-2 text-right">
+						<div id="StdIssueWasHere2" class="col-xs-6 col-md-2 text-right">
 							<img src='{call .environment data="all" /}gcweb/release/assets/wmms-blk.svg' alt="Symbol of the Government of Canada" />
 						</div>
 					</div>

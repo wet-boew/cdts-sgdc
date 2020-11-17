@@ -1,7 +1,7 @@
 /*!
  * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)
  * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE
- * v1.0.0-development - 2020-11-12
+ * v1.0.0-development - 2020-11-17
  *
  */// This file was automatically generated from gcweb-fr.soy.
 // Please don't edit this file by hand.
@@ -47,18 +47,18 @@ wet.builder.environment = function(opt_data, opt_ignored) {
 
 wet.builder.refTop = function(opt_data, opt_ignored) {
   opt_data = opt_data || {};
-  var output = '<script>dataLayer = [];<\/script>';
+  var output = '';
   if (opt_data.webAnalytics != null) {
-    output += '<!-- Adobe Analytics --><script src="//gcweb/assets.adobedtm.com/';
-    var aaList27 = opt_data.webAnalytics;
-    var aaListLen27 = aaList27.length;
-    for (var aaIndex27 = 0; aaIndex27 < aaListLen27; aaIndex27++) {
-      var aaData27 = aaList27[aaIndex27];
-      if (aaData27.custom != null) {
-        output += soy.$$escapeHtml(aaData27.custom);
-      } else if (aaData27.version == 1 || aaData27.version == 2) {
+    output += '<!-- Adobe Analytics --><script id="cdts_AnalyticsId" src="//assets.adobedtm.com/';
+    var aaList26 = opt_data.webAnalytics;
+    var aaListLen26 = aaList26.length;
+    for (var aaIndex26 = 0; aaIndex26 < aaListLen26; aaIndex26++) {
+      var aaData26 = aaList26[aaIndex26];
+      if (aaData26.custom != null) {
+        output += soy.$$escapeHtml(aaData26.custom);
+      } else if (aaData26.version == 1 || aaData26.version == 2) {
         output += 'caacec67651710193d2331efef325107c23a0145/satelliteLib-';
-        switch (aaData27.version) {
+        switch (aaData26.version) {
           case 1:
             output += '92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24';
             break;
@@ -67,7 +67,7 @@ wet.builder.refTop = function(opt_data, opt_ignored) {
             break;
           default:
         }
-        output += ((aaData27.environment == 'staging') ? '-staging' : '') + '.js';
+        output += ((aaData26.environment == 'staging') ? '-staging' : '') + '.js';
       }
     }
     output += '"><\/script>';
@@ -82,23 +82,23 @@ wet.builder.top = function(opt_data, opt_ignored) {
   var output = '<nav><ul id="wb-tphp"><li class="wb-slc"><a class="wb-sl" href="#wb-cont">Passer au contenu principal</a></li><li class="wb-slc visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info">Passer à «&#160;Au sujet du gouvernement&#160;»</a></li>' + ((opt_data.topSecMenu == true) ? '<li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec">Passer au menu de la section</a></li>' : '') + '</ul></nav><header><div id="wb-bnr" class="container">';
   if (opt_data.lngLinks != null) {
     output += '<section id="wb-lng" class="text-right"><h2 class="wb-inv">Sélection de la langue</h2><ul class="list-inline margin-bottom-none">';
-    var linkList73 = opt_data.lngLinks;
-    var linkListLen73 = linkList73.length;
-    for (var linkIndex73 = 0; linkIndex73 < linkListLen73; linkIndex73++) {
-      var linkData73 = linkList73[linkIndex73];
-      output += '<li><a hreflang="' + soy.$$escapeHtml(linkData73.lang) + '" lang="' + soy.$$escapeHtml(linkData73.lang) + '" href="' + soy.$$escapeHtml(linkData73.href) + '">' + soy.$$escapeHtml(linkData73.text) + '</a></li>';
+    var linkList72 = opt_data.lngLinks;
+    var linkListLen72 = linkList72.length;
+    for (var linkIndex72 = 0; linkIndex72 < linkListLen72; linkIndex72++) {
+      var linkData72 = linkList72[linkIndex72];
+      output += '<li><a hreflang="' + soy.$$escapeHtml(linkData72.lang) + '" lang="' + soy.$$escapeHtml(linkData72.lang) + '" href="' + soy.$$escapeHtml(linkData72.href) + '">' + soy.$$escapeHtml(linkData72.text) + '</a></li>';
     }
     output += '</ul></section>';
   }
-  output += '<div class="row"><div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">' + ((opt_data.siteMenu != false) ? '<a href="https://www.canada.ca/fr.html" property="url">' : '') + '<img src=\'' + wet.builder.environment(opt_data) + 'gcweb/release/assets/sig-blk-fr.svg\' alt="" property="logo" /><span class="wb-inv" property="name"> Gouvernement du Canada / <span lang="en">Government of Canada</span></span>' + ((opt_data.siteMenu != false) ? '</a>' : '') + '<meta property="areaServed" typeOf="Country" content="Canada" /><link property="logo" href=\'' + wet.builder.environment(opt_data) + '/gcweb/release/assets/wmms-blk.svg\' /></div>' + ((opt_data.search != false) ? '<section id="wb-srch" class="col-lg-8 text-right"><h2>Recherche</h2><form action="https://www.canada.ca/fr/sr.html" method="get" name="cse-search-box" role="search" class="form-inline"><div class="form-group"><label for="wb-srch-q" class="wb-inv">Rechercher dans Canada.ca</label><input name="cdn" value="canada" type="hidden"><input name="st" value="s" type="hidden"><input name="num" value="10" type="hidden"><input name="langs" value="fr" type="hidden"><input name="st1rt" value="1" type="hidden"><input name="s5bm3ts21rch" value="x" type="hidden"><input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Rechercher dans Canada.ca"><input type="hidden" name="_charset_" value="UTF-8"><datalist id="wb-srch-q-ac"></datalist></div><div class="form-group submit"><button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Recherche</span></button></div></form></section>' : '') + '</div></div>' + ((opt_data.siteMenu != false) ? '<nav class="gcweb-menu" typeof="SiteNavigationElement"><div class="container"><h2 class="wb-inv">Menu</h2><button type="button" aria-haspopup="true" aria-expanded="false">Menu<span class="wb-inv"> principal</span> <span class="expicon glyphicon glyphicon-chevron-down"></span></button><ul role="menu" aria-orientation="vertical" data-ajax-replace="//www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-fr.html"><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/emplois.html">Emplois et milieu de travail</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/immigration-citoyennete.html">Immigration et citoyenneté</a></li><li role="presentation"><a role="menuitem" href="https://voyage.gc.ca/">Voyage et tourisme</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/entreprises.html">Entreprises et industrie</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/prestations.html">Prestations</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/sante.html">Santé</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/impots.html">Impôts</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/environnement.html">Environnement et ressources naturelles</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/defense.html">Sécurité nationale et défense</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/culture.html">Culture, histoire et sport</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/police.html">Services de police, justice et urgences</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/transport.html">Transport et infrastructure</a></li><li role="presentation"><a role="menuitem" href="http://international.gc.ca/world-monde/index.aspx?lang=fra">Canada et le monde</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/finance.html">Argent et finances</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/science.html">Science et innovation</a></li></ul></div></nav>' : '<div class="transactBar"></div>');
+  output += '<div class="row"><div class="brand col-xs-5 col-md-4" property="publisher" typeof="GovernmentOrganization">' + ((opt_data.siteMenu != false) ? '<a href="https://www.canada.ca/fr.html" property="url">' : '') + '<img src=\'' + wet.builder.environment(opt_data) + 'gcweb/release/assets/sig-blk-fr.svg\' alt="" property="logo" /><span class="wb-inv" property="name"> Gouvernement du Canada / <span lang="en">Government of Canada</span></span>' + ((opt_data.siteMenu != false) ? '</a>' : '') + '<meta property="areaServed" typeOf="Country" content="Canada" /><link id="StdIssueWasHere1" property="logo" href=\'' + wet.builder.environment(opt_data) + '/gcweb/release/assets/wmms-blk.svg\' /></div>' + ((opt_data.search != false) ? '<section id="wb-srch" class="col-lg-8 text-right"><h2>Recherche</h2><form action="https://www.canada.ca/fr/sr.html" method="get" name="cse-search-box" role="search" class="form-inline"><div class="form-group"><label for="wb-srch-q" class="wb-inv">Rechercher dans Canada.ca</label><input name="cdn" value="canada" type="hidden"><input name="st" value="s" type="hidden"><input name="num" value="10" type="hidden"><input name="langs" value="fr" type="hidden"><input name="st1rt" value="1" type="hidden"><input name="s5bm3ts21rch" value="x" type="hidden"><input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Rechercher dans Canada.ca"><input type="hidden" name="_charset_" value="UTF-8"><datalist id="wb-srch-q-ac"></datalist></div><div class="form-group submit"><button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Recherche</span></button></div></form></section>' : '') + '</div></div>' + ((opt_data.siteMenu != false) ? '<nav class="gcweb-menu" typeof="SiteNavigationElement"><div class="container"><h2 class="wb-inv">Menu</h2><button type="button" aria-haspopup="true" aria-expanded="false">Menu<span class="wb-inv"> principal</span> <span class="expicon glyphicon glyphicon-chevron-down"></span></button><ul role="menu" aria-orientation="vertical" data-ajax-replace="//www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-fr.html"><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/emplois.html">Emplois et milieu de travail</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/immigration-citoyennete.html">Immigration et citoyenneté</a></li><li role="presentation"><a role="menuitem" href="https://voyage.gc.ca/">Voyage et tourisme</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/entreprises.html">Entreprises et industrie</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/prestations.html">Prestations</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/sante.html">Santé</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/impots.html">Impôts</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/environnement.html">Environnement et ressources naturelles</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/defense.html">Sécurité nationale et défense</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/culture.html">Culture, histoire et sport</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/police.html">Services de police, justice et urgences</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/transport.html">Transport et infrastructure</a></li><li role="presentation"><a role="menuitem" href="http://international.gc.ca/world-monde/index.aspx?lang=fra">Canada et le monde</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/finance.html">Argent et finances</a></li><li role="presentation"><a role="menuitem" href="https://www.canada.ca/fr/services/science.html">Science et innovation</a></li></ul></div></nav>' : '<div class="transactBar"></div>');
   if (opt_data.breadcrumbs != false) {
     output += '<nav id="wb-bc" property="breadcrumb"><h2>Vous êtes ici :</h2><div class="container"><ol class="breadcrumb">';
     if (opt_data.breadcrumbs != null) {
-      var itemList112 = opt_data.breadcrumbs;
-      var itemListLen112 = itemList112.length;
-      for (var itemIndex112 = 0; itemIndex112 < itemListLen112; itemIndex112++) {
-        var itemData112 = itemList112[itemIndex112];
-        output += (itemIndex112 == 0) ? (itemData112.title == 'Canada.ca' || itemData112.title == 'canada.ca') ? '<li><abbr title="Canada.ca"><a href="https://www.canada.ca/fr.html">Canada.ca</a></abbr></li>' : (itemData112.href == 'https://www.canada.ca' || itemData112.href == 'http://www.canada.ca' || itemData112.href == 'https://www.canada.ca/' || itemData112.href == 'http://www.canada.ca/' || itemData112.href == 'https://www.canada.ca/en.html' || itemData112.href == 'http://www.canada.ca/en.html' || itemData112.href == 'https://www.canada.ca/en.html/' || itemData112.href == 'http://www.canada.ca/en.html/' || itemData112.href == 'https://www.canada.ca/fr.html' || itemData112.href == 'http://www.canada.ca/fr.html' || itemData112.href == 'https://www.canada.ca/fr.html/' || itemData112.href == 'http://www.canada.ca/fr.html/' || itemData112.href == 'https://www.canada.ca/index.html' || itemData112.href == 'http://www.canada.ca/index.html' || itemData112.href == 'https://www.canada.ca/index.html/' || itemData112.href == 'http://www.canada.ca/index.html/' || itemData112.href == 'https://www.canada.ca/en/index.html' || itemData112.href == 'http://www.canada.ca/en/index.html' || itemData112.href == 'https://www.canada.ca/en/index.html/' || itemData112.href == 'http://www.canada.ca/en/index.html/' || itemData112.href == 'https://www.canada.ca/fr/index.html' || itemData112.href == 'http://www.canada.ca/fr/index.html' || itemData112.href == 'https://www.canada.ca/fr/index.html/' || itemData112.href == 'http://www.canada.ca/fr/index.html/' || itemData112.href == 'https://www.canada.ca/home.html' || itemData112.href == 'http://www.canada.ca/home.html' || itemData112.href == 'https://www.canada.ca/home.html/' || itemData112.href == 'http://www.canada.ca/home.html/' || itemData112.href == 'https://www.canada.ca/accueil.html' || itemData112.href == 'http://www.canada.ca/accueil.html' || itemData112.href == 'https://www.canada.ca/accueil.html/' || itemData112.href == 'http://www.canada.ca/accueil.html/') ? '<li>' + ((itemData112.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData112.acronym) + '">' : '') + ((itemData112.href != null) ? '<a href="' + soy.$$escapeHtml(itemData112.href) + '">' : '') + 'Canada.ca' + ((itemData112.href != null) ? '</a>' : '') + ((itemData112.acronym != null) ? '</abbr>' : '') + '</li>' : '<li><abbr title="Canada.ca"><a href="https://www.canada.ca/fr.html">Canada.ca</a></abbr></li><li>' + ((itemData112.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData112.acronym) + '">' : '') + ((itemData112.href != null) ? '<a href="' + soy.$$escapeHtml(itemData112.href) + '">' : '') + ((itemData112.title != null) ? soy.$$escapeHtml(itemData112.title) : '') + ((itemData112.href != null) ? '</a>' : '') + ((itemData112.acronym != null) ? '</abbr>' : '') + '</li>' : '<li>' + ((itemData112.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData112.acronym) + '">' : '') + ((itemData112.href != null) ? '<a href="' + soy.$$escapeHtml(itemData112.href) + '">' : '') + ((itemData112.title != null) ? soy.$$escapeHtml(itemData112.title) : '') + ((itemData112.href != null) ? '</a>' : '') + ((itemData112.acronym != null) ? '</abbr>' : '') + '</li>';
+      var itemList111 = opt_data.breadcrumbs;
+      var itemListLen111 = itemList111.length;
+      for (var itemIndex111 = 0; itemIndex111 < itemListLen111; itemIndex111++) {
+        var itemData111 = itemList111[itemIndex111];
+        output += (itemIndex111 == 0) ? (itemData111.title == 'Canada.ca' || itemData111.title == 'canada.ca') ? '<li><abbr title="Canada.ca"><a href="https://www.canada.ca/fr.html">Canada.ca</a></abbr></li>' : (itemData111.href == 'https://www.canada.ca' || itemData111.href == 'http://www.canada.ca' || itemData111.href == 'https://www.canada.ca/' || itemData111.href == 'http://www.canada.ca/' || itemData111.href == 'https://www.canada.ca/en.html' || itemData111.href == 'http://www.canada.ca/en.html' || itemData111.href == 'https://www.canada.ca/en.html/' || itemData111.href == 'http://www.canada.ca/en.html/' || itemData111.href == 'https://www.canada.ca/fr.html' || itemData111.href == 'http://www.canada.ca/fr.html' || itemData111.href == 'https://www.canada.ca/fr.html/' || itemData111.href == 'http://www.canada.ca/fr.html/' || itemData111.href == 'https://www.canada.ca/index.html' || itemData111.href == 'http://www.canada.ca/index.html' || itemData111.href == 'https://www.canada.ca/index.html/' || itemData111.href == 'http://www.canada.ca/index.html/' || itemData111.href == 'https://www.canada.ca/en/index.html' || itemData111.href == 'http://www.canada.ca/en/index.html' || itemData111.href == 'https://www.canada.ca/en/index.html/' || itemData111.href == 'http://www.canada.ca/en/index.html/' || itemData111.href == 'https://www.canada.ca/fr/index.html' || itemData111.href == 'http://www.canada.ca/fr/index.html' || itemData111.href == 'https://www.canada.ca/fr/index.html/' || itemData111.href == 'http://www.canada.ca/fr/index.html/' || itemData111.href == 'https://www.canada.ca/home.html' || itemData111.href == 'http://www.canada.ca/home.html' || itemData111.href == 'https://www.canada.ca/home.html/' || itemData111.href == 'http://www.canada.ca/home.html/' || itemData111.href == 'https://www.canada.ca/accueil.html' || itemData111.href == 'http://www.canada.ca/accueil.html' || itemData111.href == 'https://www.canada.ca/accueil.html/' || itemData111.href == 'http://www.canada.ca/accueil.html/') ? '<li>' + ((itemData111.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData111.acronym) + '">' : '') + ((itemData111.href != null) ? '<a href="' + soy.$$escapeHtml(itemData111.href) + '">' : '') + 'Canada.ca' + ((itemData111.href != null) ? '</a>' : '') + ((itemData111.acronym != null) ? '</abbr>' : '') + '</li>' : '<li><abbr title="Canada.ca"><a href="https://www.canada.ca/fr.html">Canada.ca</a></abbr></li><li>' + ((itemData111.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData111.acronym) + '">' : '') + ((itemData111.href != null) ? '<a href="' + soy.$$escapeHtml(itemData111.href) + '">' : '') + ((itemData111.title != null) ? soy.$$escapeHtml(itemData111.title) : '') + ((itemData111.href != null) ? '</a>' : '') + ((itemData111.acronym != null) ? '</abbr>' : '') + '</li>' : '<li>' + ((itemData111.acronym != null) ? '<abbr title="' + soy.$$escapeHtml(itemData111.acronym) + '">' : '') + ((itemData111.href != null) ? '<a href="' + soy.$$escapeHtml(itemData111.href) + '">' : '') + ((itemData111.title != null) ? soy.$$escapeHtml(itemData111.title) : '') + ((itemData111.href != null) ? '</a>' : '') + ((itemData111.acronym != null) ? '</abbr>' : '') + '</li>';
       }
     } else {
       output += '<li><abbr title="Canada.ca"><a href="https://www.canada.ca/fr.html">Canada.ca</a></abbr></li>';
@@ -120,11 +120,11 @@ wet.builder.preFooter = function(opt_data, opt_ignored) {
       if (opt_data.showShare != false) {
         if (opt_data.showShare != null) {
           output += '<div class="wb-share col-sm-4 col-md-3 col-sm-offset-' + ((opt_data.showFeedback != false) ? '2' : '8') + ' col-md-offset-' + ((opt_data.showFeedback != false) ? '4' : '9') + ((opt_data.showFeedback != false) ? ' col-lg-offset-5' : '') + '" data-wb-share=\'{"filter": [';
-          var itemList234 = opt_data.showShare;
-          var itemListLen234 = itemList234.length;
-          for (var itemIndex234 = 0; itemIndex234 < itemListLen234; itemIndex234++) {
-            var itemData234 = itemList234[itemIndex234];
-            output += '"' + soy.$$escapeHtml(itemData234) + '"' + ((! (itemIndex234 == itemListLen234 - 1)) ? ', ' : '');
+          var itemList233 = opt_data.showShare;
+          var itemListLen233 = itemList233.length;
+          for (var itemIndex233 = 0; itemIndex233 < itemListLen233; itemIndex233++) {
+            var itemData233 = itemList233[itemIndex233];
+            output += '"' + soy.$$escapeHtml(itemData233) + '"' + ((! (itemIndex233 == itemListLen233 - 1)) ? ', ' : '');
           }
           output += '], "lnkClass": "btn btn-default btn-block"}\'></div>';
         } else {
@@ -141,26 +141,26 @@ wet.builder.preFooter = function(opt_data, opt_ignored) {
 
 wet.builder.secmenu = function(opt_data, opt_ignored) {
   var output = '\t\t\t<h2 id="wb-sec-h" class="wb-inv">Menu de la section</h2>';
-  var sectionList280 = opt_data.sections;
-  var sectionListLen280 = sectionList280.length;
-  for (var sectionIndex280 = 0; sectionIndex280 < sectionListLen280; sectionIndex280++) {
-    var sectionData280 = sectionList280[sectionIndex280];
-    output += '<section class="list-group menu list-unstyled"><h3>' + ((sectionData280.sectionLink != null) ? '<a href="' + soy.$$escapeHtml(sectionData280.sectionLink) + '"' + ((sectionData280.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' : '') + soy.$$escapeHtml(sectionData280.sectionName) + ((sectionData280.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + ((sectionData280.sectionLink != null) ? '</a>' : '') + '</h3><ul class="list-group menu list-unstyled">';
-    var linkList299 = sectionData280.menuLinks;
-    var linkListLen299 = linkList299.length;
-    for (var linkIndex299 = 0; linkIndex299 < linkListLen299; linkIndex299++) {
-      var linkData299 = linkList299[linkIndex299];
-      if (linkData299.subLinks != null) {
-        output += '<li><a href="' + soy.$$escapeHtml(linkData299.href) + '" class="list-group-item"' + ((linkData299.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(linkData299.text) + ((linkData299.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a><ul class="list-group menu list-unstyled">';
-        var sublinkList314 = linkData299.subLinks;
-        var sublinkListLen314 = sublinkList314.length;
-        for (var sublinkIndex314 = 0; sublinkIndex314 < sublinkListLen314; sublinkIndex314++) {
-          var sublinkData314 = sublinkList314[sublinkIndex314];
-          output += '<li><a href="' + soy.$$escapeHtml(sublinkData314.subhref) + '" class="list-group-item"' + ((sublinkData314.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(sublinkData314.subtext) + ((sublinkData314.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>';
+  var sectionList279 = opt_data.sections;
+  var sectionListLen279 = sectionList279.length;
+  for (var sectionIndex279 = 0; sectionIndex279 < sectionListLen279; sectionIndex279++) {
+    var sectionData279 = sectionList279[sectionIndex279];
+    output += '<section class="list-group menu list-unstyled"><h3>' + ((sectionData279.sectionLink != null) ? '<a href="' + soy.$$escapeHtml(sectionData279.sectionLink) + '"' + ((sectionData279.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' : '') + soy.$$escapeHtml(sectionData279.sectionName) + ((sectionData279.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + ((sectionData279.sectionLink != null) ? '</a>' : '') + '</h3><ul class="list-group menu list-unstyled">';
+    var linkList298 = sectionData279.menuLinks;
+    var linkListLen298 = linkList298.length;
+    for (var linkIndex298 = 0; linkIndex298 < linkListLen298; linkIndex298++) {
+      var linkData298 = linkList298[linkIndex298];
+      if (linkData298.subLinks != null) {
+        output += '<li><a href="' + soy.$$escapeHtml(linkData298.href) + '" class="list-group-item"' + ((linkData298.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(linkData298.text) + ((linkData298.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a><ul class="list-group menu list-unstyled">';
+        var sublinkList313 = linkData298.subLinks;
+        var sublinkListLen313 = sublinkList313.length;
+        for (var sublinkIndex313 = 0; sublinkIndex313 < sublinkListLen313; sublinkIndex313++) {
+          var sublinkData313 = sublinkList313[sublinkIndex313];
+          output += '<li><a href="' + soy.$$escapeHtml(sublinkData313.subhref) + '" class="list-group-item"' + ((sublinkData313.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(sublinkData313.subtext) + ((sublinkData313.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>';
         }
         output += '</ul></li>';
       } else {
-        output += '<li><a href="' + soy.$$escapeHtml(linkData299.href) + '" class="list-group-item"' + ((linkData299.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(linkData299.text) + ((linkData299.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>';
+        output += '<li><a href="' + soy.$$escapeHtml(linkData298.href) + '" class="list-group-item"' + ((linkData298.newWindow == true) ? ' target="_blank"  rel="noopener"' : '') + '>' + soy.$$escapeHtml(linkData298.text) + ((linkData298.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>';
       }
     }
     output += '</ul></section>';
@@ -175,11 +175,11 @@ wet.builder.footer = function(opt_data, opt_ignored) {
   if (opt_data.showFooter != false) {
     output += '<div class="landscape"><nav class="container wb-navcurr"><h2 class="wb-inv">Au sujet du gouvernement</h2><ul class="list-unstyled colcount-sm-2 colcount-md-3">';
     if (opt_data.contactLinks != null) {
-      var linkList352 = opt_data.contactLinks;
-      var linkListLen352 = linkList352.length;
-      for (var linkIndex352 = 0; linkIndex352 < linkListLen352; linkIndex352++) {
-        var linkData352 = linkList352[linkIndex352];
-        output += (linkIndex352 == 0) ? '<li><a href="' + soy.$$escapeHtml(linkData352.href) + '">Contactez-nous</a></li>' : '';
+      var linkList351 = opt_data.contactLinks;
+      var linkListLen351 = linkList351.length;
+      for (var linkIndex351 = 0; linkIndex351 < linkListLen351; linkIndex351++) {
+        var linkData351 = linkList351[linkIndex351];
+        output += (linkIndex351 == 0) ? '<li><a href="' + soy.$$escapeHtml(linkData351.href) + '">Contactez-nous</a></li>' : '';
       }
     } else {
       output += '<li><a href="https://www.canada.ca/fr/contact.html">Contactez-nous</a></li>';
@@ -188,38 +188,38 @@ wet.builder.footer = function(opt_data, opt_ignored) {
   } else {
     output += '<div id="transactFooter" class="landscape"></div><div class="brand"><div class="container"><div class="row"><nav class="col-md-9 col-lg-10 ftr-urlt-lnk"><h2 class="wb-inv">À propos du site</h2><ul>';
     if (opt_data.contactLinks != null) {
-      var linkList366 = opt_data.contactLinks;
-      var linkListLen366 = linkList366.length;
-      for (var linkIndex366 = 0; linkIndex366 < linkListLen366; linkIndex366++) {
-        var linkData366 = linkList366[linkIndex366];
-        output += (linkIndex366 == 0) ? '<li><a ' + ((linkData366.href) ? ' href="' + soy.$$escapeHtml(linkData366.href) + '"' : ' href="https://www.canada.ca/fr/contact.html"') + ((linkData366.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Coordonnées' + ((linkData366.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
+      var linkList365 = opt_data.contactLinks;
+      var linkListLen365 = linkList365.length;
+      for (var linkIndex365 = 0; linkIndex365 < linkListLen365; linkIndex365++) {
+        var linkData365 = linkList365[linkIndex365];
+        output += (linkIndex365 == 0) ? '<li><a ' + ((linkData365.href) ? ' href="' + soy.$$escapeHtml(linkData365.href) + '"' : ' href="https://www.canada.ca/fr/contact.html"') + ((linkData365.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Coordonnées' + ((linkData365.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
       }
     } else {
       output += '<li><a href="https://www.canada.ca/fr/contact.html">Coordonnées</a></li>';
     }
     if (opt_data.termsLink != null) {
-      var linkList390 = opt_data.termsLink;
-      var linkListLen390 = linkList390.length;
-      for (var linkIndex390 = 0; linkIndex390 < linkListLen390; linkIndex390++) {
-        var linkData390 = linkList390[linkIndex390];
-        output += (linkIndex390 == 0) ? '<li><a ' + ((linkData390.href) ? ' href="' + soy.$$escapeHtml(linkData390.href) + '"' : ' href="https://www.canada.ca/fr/transparence/avis.html"') + ((linkData390.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Avis' + ((linkData390.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
+      var linkList389 = opt_data.termsLink;
+      var linkListLen389 = linkList389.length;
+      for (var linkIndex389 = 0; linkIndex389 < linkListLen389; linkIndex389++) {
+        var linkData389 = linkList389[linkIndex389];
+        output += (linkIndex389 == 0) ? '<li><a ' + ((linkData389.href) ? ' href="' + soy.$$escapeHtml(linkData389.href) + '"' : ' href="https://www.canada.ca/fr/transparence/avis.html"') + ((linkData389.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Avis' + ((linkData389.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
       }
     } else {
       output += '<li><a href="https://www.canada.ca/fr/transparence/avis.html">Avis</a></li>';
     }
     if (opt_data.privacyLink != null) {
-      var linkList414 = opt_data.privacyLink;
-      var linkListLen414 = linkList414.length;
-      for (var linkIndex414 = 0; linkIndex414 < linkListLen414; linkIndex414++) {
-        var linkData414 = linkList414[linkIndex414];
-        output += (linkIndex414 == 0) ? '<li><a ' + ((linkData414.href) ? ' href="' + soy.$$escapeHtml(linkData414.href) + '"' : ' href="https://www.canada.ca/fr/transparence/confidentialite.html"') + ((linkData414.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Confidentialité' + ((linkData414.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
+      var linkList413 = opt_data.privacyLink;
+      var linkListLen413 = linkList413.length;
+      for (var linkIndex413 = 0; linkIndex413 < linkListLen413; linkIndex413++) {
+        var linkData413 = linkList413[linkIndex413];
+        output += (linkIndex413 == 0) ? '<li><a ' + ((linkData413.href) ? ' href="' + soy.$$escapeHtml(linkData413.href) + '"' : ' href="https://www.canada.ca/fr/transparence/confidentialite.html"') + ((linkData413.newWindow) ? ' target="_blank"  rel="noopener"' : '') + '>Confidentialité' + ((linkData413.newWindow == true) ? '<span class="wb-inv"> Ce lien ouvrira dans une nouvelle fenêtre</span>' : '') + '</a></li>' : '';
       }
     } else {
       output += '<li><a href="https://www.canada.ca/fr/transparence/confidentialite.html">Confidentialité</a></li>';
     }
     output += '</ul></nav>';
   }
-  output += '<div class="col-xs-6 visible-sm visible-xs tofpg"><a href="#wb-cont">Haut de la page <span class="glyphicon glyphicon-chevron-up"></span></a></div><div class="col-xs-6 col-md-2 text-right"><img src=\'' + wet.builder.environment(opt_data) + 'gcweb/release/assets/wmms-blk.svg\' alt="Symbole du gouvernement du Canada" /></div></div></div></div></footer>';
+  output += '<div class="col-xs-6 visible-sm visible-xs tofpg"><a href="#wb-cont">Haut de la page <span class="glyphicon glyphicon-chevron-up"></span></a></div><div class="col-xs-6 col-md-2 text-right"><img id="StdIssueWasHere2" src=\'' + wet.builder.environment(opt_data) + 'gcweb/release/assets/wmms-blk.svg\' alt="Symbole du gouvernement du Canada" /></div></div></div></div></footer>';
   return output;
 };
 
