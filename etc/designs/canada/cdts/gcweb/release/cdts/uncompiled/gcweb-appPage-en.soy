@@ -14,6 +14,7 @@
  * @param? menuLinks Loops of the menu sections - MSCA only
  * @param? breadcrumbs Used to set custom breadcrumbs.
  * @param? showPreContent Used to determine if the precontent space will be displayed.
+ * @param? isAtApplication Used to determine if the title will change depending of the href
  */
 {template .appTop}
 
@@ -269,23 +270,42 @@
 													$item.href == 'https://www.canada.ca/accueil.html/' or 
 													$item.href == 'http://www.canada.ca/accueil.html/'
 												}
-													//zuc21
-													// For Backward compatibility we keep the old tags (In html title contains the full description)
-													<li>
-													{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
-													{if isNonnull($item.href)}<a href="{$item.href}">{/if}
-													Canada.ca
-													{if isNonnull($item.href)}</a>{/if}
-													{if isNonnull($item.acronym)}</abbr>{/if}
-													</li>
+													{if $isAtApplication == true}
+														//zuc23
+														// For Backward compatibility we keep the old tags (In html title contains the full description)
+														<li>
+														{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+														{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+														{if isNonnull($item.title)}{$item.title}{/if}
+														{if isNonnull($item.href)}</a>{/if}
+														{if isNonnull($item.acronym)}</abbr>{/if}
+														</li>
+													{else}
+														//zuc21
+														// For Backward compatibility we keep the old tags (In html title contains the full description)
+														<li>
+														{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+														{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+														Canada.ca
+														{if isNonnull($item.href)}</a>{/if}
+														{if isNonnull($item.acronym)}</abbr>{/if}
+														</li>
+													{/if}
+
 
 												{else} //$item.href doesn't point on Canada.ca variants - Adding Canada.ca
-													//zuc22
-													<li>
-														<abbr title="Canada.ca">
-															<a href="https://www.canada.ca/en.html">Canada.ca</a>
-														</abbr>
-													</li>
+													{if $isAtApplication == true}
+														//zuc24
+														//Don't add Canada.ca
+													{else}
+														//zuc22
+														<li>
+															<abbr title="Canada.ca">
+																<a href="https://www.canada.ca/en.html">Canada.ca</a>
+															</abbr>
+														</li>
+													{/if}
+
 													<li>
 													{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
 													{if isNonnull($item.href)}<a href="{$item.href}">{/if}
