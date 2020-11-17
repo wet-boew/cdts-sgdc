@@ -34,7 +34,7 @@
 			defTop.outerHTML = wet.builder.top({
 				"lngLinks": [{
 					"lang": "en",
-					"href": "refFooter_exiturl-en.shtml"+decodeURIComponent(location.search),
+					"href": "reffooter_exiturl-en.shtml"+decodeURIComponent(location.search),
 					"text": "English"
 				}]
 			});
@@ -42,6 +42,7 @@
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<div data-ajax-replace="../ajax/securesamples-fr.html"></div>
 			<p>Vous avez été redirigé sur cette page en utilisant le script de sortie. Vous pouvez décoder le paramètre <code>targetUrl</code> pour accéder à votre destination originale</p>
+			<p>Vous pouvez aussi accéder automatiquement à votre destination originale en utilisant <code>window.location.replace</code>. Regardez le code source de cette page.</p>
 			<div id="originalDestination"></div>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
@@ -74,6 +75,8 @@
 			function retrieveTargetUrl() {
 				var dec = decodeURIComponent(location.search.substr(11));
 				var res = 'Votre destination originale était: <a href="' + dec + '">' + dec + '</a>';
+				//Remove the following comment and unnecessary code to go to the original page
+				//window.location.replace(dec)
 				document.getElementById("originalDestination").innerHTML = res;
 			}
 		</script>

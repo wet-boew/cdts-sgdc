@@ -62,30 +62,29 @@
  */
 {template .refTop}
 
-		<script>
-		dataLayer = [];
-		</script>
-
-		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){lb}w[l]=w[l]||[];w[l].push({lb}'gtm.start':
-		new Date().getTime(),event:'gtm.js'{rb});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		{rb})(window,document,'script','dataLayer','GTM-5DBPCQJ');</script>
-		<!-- End Google Tag Manager -->
-
+		// See Datalayer https://developers.google.com/tag-manager/devguide
+		
 		{if isNonnull($webAnalytics)}
 		<!-- Adobe Analytics -->
-			<script src="//assets.adobedtm.com/
-				{foreach $aa in $webAnalytics}caacec67651710193d2331efef325107c23a0145/satelliteLib-
-					{if $aa.version == 1}
-						92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24
-					{elseif $aa.version == 2}
-						c2082deaf69c358c641c5eb20f94b615dd606662
-					{/if}
-					{if $aa.environment == 'staging'}-staging{/if}
+			<script id="cdts_AnalyticsId" src="//assets.adobedtm.com/
+				{foreach $aa in $webAnalytics}
+					{if isNonnull($aa.custom)}
+						{$aa.custom}
+					{elseif $aa.version == 1 or $aa.version == 2}
+						caacec67651710193d2331efef325107c23a0145/satelliteLib-
+						{switch $aa.version}
+							{case 1}
+								92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24
+							{case 2}
+								c2082deaf69c358c641c5eb20f94b615dd606662
+							{default}
+						{/switch}
+						{if $aa.environment == 'staging'}-staging{/if}
+						.js
+					{/if}					
 				{/foreach}
-			.js"></script>
+					">
+				</script>
 		{/if}
 
 		<!--[if gte IE 9 | !IE ]><!-->
@@ -116,11 +115,6 @@
  * @param? topSecMenu Set to true if you want to use the secondary navigation.
  */
 {template .top}
-
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DBPCQJ"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->
 
 		<nav>
 			<ul id="wb-tphp">
@@ -205,20 +199,108 @@
 			{/if}
 			{if $breadcrumbs != false}
 			<nav id="wb-bc" property="breadcrumb">
-				<h2>You are here:</h2>
-				<div class="container">
-					<ol class="breadcrumb">
-						{if isNonnull($breadcrumbs)}
-						{foreach $item in $breadcrumbs}
-						<li>{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}{if isNonnull($item.href)}<a href="{$item.href}">{/if}{$item.title}{if isNonnull($item.href)}</a>{/if}{if isNonnull($item.acronym)}</abbr>{/if}</li>
-						{/foreach}
-						{else}
-						<li><a href="https://www.canada.ca/en.html">Home</a></li>
-						{/if}
-					</ol>
-				</div>
-			</nav>
-			{/if}
+					<h2>You are here:</h2>
+					<div class="container">
+						<ol class="breadcrumb">
+							{if isNonnull($breadcrumbs)}
+								{foreach $item in $breadcrumbs}
+									{if isFirst($item)}										
+										//zuc11-2
+										{if $item.title == 'Canada.ca' or $item.title == 'canada.ca'}
+											<li>
+												<abbr title="Canada.ca">
+													<a href="https://www.canada.ca/en.html">Canada.ca</a>
+												</abbr>
+											</li>
+										{else} //$item.title !='Canada.ca' - Ponting on a variants
+											//Todo: We should find a better way to do that it's soy v2 syntax...
+											//Todo: Add a "toLowerCase" function (Remember closure isn't a JS Librairy)
+											//Todo: https://github.com/wet-boew/cdts-sgdc/issues/166
+																						
+											{if $item.href == 'https://www.canada.ca' or
+												$item.href == 'http://www.canada.ca' or 
+                                                $item.href == 'https://www.canada.ca/' or 
+                                                $item.href == 'http://www.canada.ca/' or 
+                                                $item.href == 'https://www.canada.ca/en.html' or 
+                                                $item.href == 'http://www.canada.ca/en.html' or 
+                                                $item.href == 'https://www.canada.ca/en.html/' or 
+                                                $item.href == 'http://www.canada.ca/en.html/' or 
+                                                $item.href == 'https://www.canada.ca/fr.html' or 
+                                                $item.href == 'http://www.canada.ca/fr.html' or 
+                                                $item.href == 'https://www.canada.ca/fr.html/' or 
+                                                $item.href == 'http://www.canada.ca/fr.html/' or 
+                                                $item.href == 'https://www.canada.ca/index.html' or 
+                                                $item.href == 'http://www.canada.ca/index.html' or 
+                                                $item.href == 'https://www.canada.ca/index.html/' or 
+                                                $item.href == 'http://www.canada.ca/index.html/' or 
+                                                $item.href == 'https://www.canada.ca/en/index.html' or 
+                                                $item.href == 'http://www.canada.ca/en/index.html' or 
+                                                $item.href == 'https://www.canada.ca/en/index.html/' or 
+                                                $item.href == 'http://www.canada.ca/en/index.html/' or 
+                                                $item.href == 'https://www.canada.ca/fr/index.html' or 
+                                                $item.href == 'http://www.canada.ca/fr/index.html' or 
+                                                $item.href == 'https://www.canada.ca/fr/index.html/' or 
+                                                $item.href == 'http://www.canada.ca/fr/index.html/' or 
+                                                $item.href == 'https://www.canada.ca/home.html' or 
+                                                $item.href == 'http://www.canada.ca/home.html' or 
+                                                $item.href == 'https://www.canada.ca/home.html/' or 
+                                                $item.href == 'http://www.canada.ca/home.html/' or
+                                                $item.href == 'https://www.canada.ca/accueil.html' or 
+                                                $item.href == 'http://www.canada.ca/accueil.html' or 
+                                                $item.href == 'https://www.canada.ca/accueil.html/' or 
+                                                $item.href == 'http://www.canada.ca/accueil.html/'
+											}
+												//zuc21
+												// For Backward compatibility we keep the old tags (In html title contains the full description)
+												<li>
+												{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+												{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+												Canada.ca
+												{if isNonnull($item.href)}</a>{/if}
+												{if isNonnull($item.acronym)}</abbr>{/if}
+												</li>
+
+											{else} //$item.href doesn't point on Canada.ca variants - Adding Canada.ca
+												//zuc22
+												<li>
+													<abbr title="Canada.ca">
+														<a href="https://www.canada.ca/en.html">Canada.ca</a>
+													</abbr>
+												</li>
+												<li>
+												{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+												{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+												{if isNonnull($item.title)}{$item.title}{/if}
+												{if isNonnull($item.href)}</a>{/if}
+												{if isNonnull($item.acronym)}</abbr>{/if}
+												</li>
+											{/if}
+										{/if} //$item.title =='Canada.ca'
+									{else} //Not first item
+									//zuc31-2-3
+										<li>
+										{if isNonnull($item.acronym)}<abbr title="{$item.acronym}">{/if}
+										{if isNonnull($item.href)}<a href="{$item.href}">{/if}
+										{if isNonnull($item.title)}{$item.title}{/if}
+										{if isNonnull($item.href)}</a>{/if}
+										{if isNonnull($item.acronym)}</abbr>{/if}
+										</li>
+									{/if}
+								{/foreach}
+							{else} //$Breadcrumbs is undefined
+							//zuc41-2
+								<li>
+									<abbr title="Canada.ca">
+										<a href="https://www.canada.ca/en.html">Canada.ca</a>
+									</abbr>
+								</li>
+							{/if}
+						</ol>
+					</div>
+				</nav>
+			{/if} //$breadcrumbs != false
+			//zuc5
+
 		</header>
 		{if $showPreContent != false}
 		{/if}
@@ -351,7 +433,7 @@
 							<ul>
 								<li><a href="https://www.canada.ca/en/social.html">Social media</a></li>
 								<li><a href="https://www.canada.ca/en/mobile.html">Mobile applications</a></li>
-								<li><a href="https://www1.canada.ca/en/newsite.html">About Canada.ca</a></li>
+								<li><a href="https://www.canada.ca/en/newsite.html">About Canada.ca</a></li>
 								<li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
 								<li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
 							</ul>
@@ -431,7 +513,6 @@
 		<![endif]-->
 		<script src='{call .environment data="all" /}gcweb/release/js/theme.min.js'></script>
 		{if $exitScript == true}
-		<script src='{call .environment data="all" /}gcweb/release/js/exitScript.js'></script>
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Secure exit notice</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
@@ -466,7 +547,7 @@
 		</section>
 		{/if}
 		{if $isApplication == true}
-		<script src='{call .environment data="all" /}gcweb/release/js/cdtscustom.js'></script>
+		<script src='{call .environment data="all" /}gcweb/release/cdts/cdtscustom.js'></script>
 		{/if}
 		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
 {/template}

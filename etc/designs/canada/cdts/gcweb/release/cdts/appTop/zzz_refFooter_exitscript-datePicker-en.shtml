@@ -15,19 +15,20 @@
 		<script src="../compiled/gcweb-en.js"></script>
 		<noscript>
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/refTop.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/refTop.html -->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-				"isApplication": true
+				<!--#if expr = "$vrSrvr != canada" -->"cdnEnv": "<!--#echo encoding="none" var="vrSrvr"-->",<!--#endif-->
+			"isApplication": true
 			}));
 		</script>
 	</head>
 	<body vocab="http://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appTop-en.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/appTop-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -53,28 +54,54 @@
 					<ul class="lst-spcd">
 						<li>
 							This link <a href="http://csszengarden.com/219">http://csszengarden.com/219</a> 
-							has a hostname (csszengarden.com) different from yours.
+							will display a warning because his hostname (csszengarden.com) is different from yours.
 							You'll be redirect to the <code>reffooter_exiturl-en.shtml</code> page because the <code>exitURL</code> parameter contains the value <code>reffooter_exiturl-en.shtml</code>.
 						</li>
-						<!--<li>
+						<li>
 							This link <a href="https://www.w3schools.com" target="_blank">https://www.w3schools.com target="_blank"</a> 
 							will open in another windows because of the target_blank attribute.
-							You won't be redirect to <code>reffooter_exiturl-en.shtml</code>. 							
-						</li>-->
+							You won't have a warning and you won't be redirect to the <code>reffooter_exiturl-en.shtml</code>. 							
+						</li>
 						<li>
-							This link <a href="apptop_breadcrumbs-en.shtml"> apptop_breadcrumbs-en.shtml </a> has the same hostname as yours.
-							You won't be redirect to <code>f-en.shtml</code>.
+							This link <a href="apptop_breadcrumbs-en.shtml"> apptop_breadcrumbs-en.shtml </a> 
+							won't display a warning because it has the same hostname as yours.
 						</li>
 						<li>
 							This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a> 
-							has his hostname (developer.mozilla.org) in the exception list <code>exitDomains</code>.
-							You won't be redirect to <code>reffooter_exiturl-en.shtml</code>.
+							won't display a warning because his hostname (developer.mozilla.org) is in the exception list <code>exitDomains</code>.
 						</li>
 					</ul>
 			</section>
+			<section>
+				<h2>Examples</h2>
+				<form method="get" action="#">
+				<div class="form-group">
+				<label for="startdate">Start date<span class="datepicker-format"> (<abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span></label>
+				<input class="form-control" type="date" id="startdate" name="startdate" min="2020-03-27" max="2020-05-07">
+				</div>
+				<div class="form-group">
+				<label for="enddate">End date<span class="datepicker-format"> (<abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span></label>
+				<input class="form-control" type="date" id="enddate" name="enddate" min="2020-03-27" max="2020-05-07">
+				</div>
+				<div>
+				<input class="btn btn-primary" type="submit" value="Submit">
+				</div>
+				</form>
+				<details class="mrgn-tp-md">
+				<summary>View code</summary>
+				<pre><code>&lt;div class="form-group"&gt;
+				  &lt;label for="startdate"&gt;Start date&lt;span class="datepicker-format"&gt; (&lt;abbr title="Four digits year, dash, two digits month, dash, two digits day"&gt;YYYY-MM-DD&lt;/abbr&gt;)&lt;/span&gt;&lt;/label&gt;
+				  &lt;input class="form-control" type="date" id="startdate" name="startdate" min="2013-03-27" max="2013-05-07" /&gt;
+				&lt;/div&gt;
+				&lt;div class="form-group"&gt;
+				  &lt;label for="enddate"&gt;End date&lt;span class="datepicker-format"&gt; (&lt;abbr title="Four digits year, dash, two digits month, dash, two digits day"&gt;YYYY-MM-DD&lt;/abbr&gt;)&lt;/span&gt;&lt;/label&gt;
+				  &lt;input class="form-control" type="date" id="enddate" name="enddate" min="2013-03-27" max="2016-05-07" /&gt;
+				&lt;/div&gt;</code></pre>
+				</details>
+			</section>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
-				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/preFooter-en.html -->
+				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/preFooter-en.html -->
 			</div>
 			<!-- Write closure template -->
 			<script>
@@ -86,7 +113,7 @@
 		</main>
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appFooter-en.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/appFooter-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -99,7 +126,7 @@
 		<script>
 			document.write(wet.builder.refFooter({
 				"exitScript": true,
-				"displayModal" : true, // This parameter will be always false even if you set it to true
+				"displayModal" : true,
 				"exitURL": "reffooter_exiturl-en.shtml",
 				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				"cancelMsg": "Nope",

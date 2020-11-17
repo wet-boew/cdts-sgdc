@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>Page de contenu - Canada.ca</title>
+		<title>breadcrumbs-fr</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
@@ -39,11 +39,11 @@
 				}],
 				"breadcrumbs": [{
 					"title": "Accueil",
+					"acronym": "Canada.ca",
 					"href": "http://www.canada.ca/fr/index.html"
 				}, {
 					"title": "SGDC",
-					"acronym": "Solution de gabarits à déploiement centralisé",
-					"href": "http://www.canada.ca/fr/index.html"
+					"acronym": "Solution de gabarits à déploiement centralisé"
 				}]
 			});
 		</script>
@@ -167,7 +167,7 @@
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
-					"dateModified": "2019-07-31"
+					"dateModified": "2020-09-11"
 				});
 			</script>
 		</main>

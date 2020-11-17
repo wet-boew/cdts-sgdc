@@ -15,57 +15,37 @@
 		<script src="../compiled/gcweb-fr.js"></script>
 		<noscript>
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/refTop.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/refTop.html -->
 		</noscript>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-				"isApplication": true
+                "isApplication": true,
+				"webAnalytics" : [{
+							// * version 1 or 2
+							//"environment" : "staging",
+							//"version" : 1,
+							//"version" : 2,
+		
+							// * version 3 custom staging
+							"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+							// * version 3 custom production
+							//"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
+				}]
 			}));
 		</script>
 	</head>
 	<body vocab="http://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appTop-fr.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/appTop-fr.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defTop = document.getElementById("def-top");
 			defTop.outerHTML = wet.builder.appTop({
 				"appName": [{"text": "Nom de l'application", "href": "#"}],
-				"lngLinks": [{"lang": "en",	"href": "apptop_all-en.shtml", "text": "English"}],
-				"menuPath": "../ajax/appmenu-fr.html",
-				"appSettings": [{"href": "#"}],
-				"signOut": [{"href": "#"}],
-				"customSearch": [{
-					"action" : "https://www.canada.ca/fr/sr.html", // Mandatory
-					"placeholder" : "Canada.ca", // Optional
-					"id" : "wb-srch-q", // Optional
-					"method" : "get", // Mandatory "get" or "post"
-					"hiddenInput" : [{
-						"name" : "cdn",
-						"value" : "canada"
-					}, {
-						"name" : "st",
-						"value" : "s"
-					}, {
-						"name" : "num",
-						"value" : "10"
-					}, {
-						"name" : "langs",
-						"value" : "fr"
-					}, {
-						"name" : "st1rt",
-						"value" : "1"
-					}, {
-						"name" : "s5bm3ts21rch",
-						"value" : "x"
-					}, {
-						"name" : "_charset_",
-						"value" : "UTF-8"
-					}] // Optional
-				}],
+				"lngLinks": [{"lang": "en",	"href": "apptop_adobe-analytics-en.shtml", "text": "English"}],
 				"breadcrumbs": [{
 					"title": "Mon application",
 					"href": "http://ouvert.canada.ca/fr/apps?_ga=2.158588857.2050402716.1501624806-1491110290.1492697601"
@@ -80,23 +60,49 @@
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<div data-ajax-replace="../ajax/securesamples-fr.html"></div>
 			<section>
-				<h2>Quitter un site sécurisé</h2>
-				<ul class="lst-spcd">
-					<li>
-						Ce lien <a href="http://www.alloprof.qc.ca/">http://www.alloprof.qc.ca/</a> affichera un avertissement puisque son nom de domaine (www.alloprof.qc.ca) est différent du vôtre.
-						Et il vous redigera sur la page <code>reffooter_exiturl-fr.shtml</code> car le paramètre <code>reffooter_exitURL</code> contient la valeur <code>exiturl-fr.shtml</code>.
-					</li>
-					<li>
-						Ce lien <a href="apptop_breadcrumbs-fr.shtml">apptop_breadcrumbs-fr.shtml</a> n'affichera pas un avertissement car son nom de domaine est le même que le vôtre.
-					</li>
-					<li>
-						Ce lien <a href="https://developer.mozilla.org/fr/docs/Apprendre/a11y">https://developer.mozilla.org/fr/docs/Apprendre/a11y</a> n'affichera pas un avertissement car son nom de domaine (developer.mozilla.org) est dans la liste d'exception <code>exitDomains</code>.
-					</li>
-				</ul>
+                <h2 class="wb-prettify all-pre"><em>document.write</em> "refTop" élément <code>script</code></h2>
+                <p>Utiliser Adobe Analytics <em>version</em> <strong>1</strong> sur l'<em>environnement</em> <strong>staging</strong>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"isApplication": true,
+	"webAnalytics" : [{
+		"environment" : "staging",
+		"version" : 1
+	}]
+}));</code></pre>
+				<p>Utiliser Adobe Analytics <em>version</em> <strong>2</strong> sur l'<em>environnement</em> <strong>production</strong>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"isApplication": true,
+	"webAnalytics" : [{
+		"environment" : "production",
+		"version" : 2
+	}]
+}));</code></pre>
+				<p>Utiliser Adobe Analytics <em>version</em> <strong>3</strong> sur l'<strong>environnement</strong> <em>staging</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"isApplication": true,
+	"webAnalytics" : [{
+		"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+	}]
+}));</code></pre>
+				<p>Utiliser Adobe Analytics <em>version</em> <strong>3</strong> sur l'<strong>environnement</strong> <em>production</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"isApplication": true,
+	"webAnalytics" : [{
+		"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
+	}]
+}));</code></pre>
 			</section>
+				
+            <section>
+                <h2 class="wb-prettify all-pre"><em>document.write</em> "refFooter" élément <code>script</code></h2>
+<pre class="prettyprint"><code>document.write(wet.builder.refFooter({
+	"isApplication": true,
+	"webAnalytics" : true
+}));</code></pre>	
+            </section>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
-				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/preFooter-fr.html -->
+				<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/preFooter-fr.html -->
 			</div>
 			<!-- Write closure template -->
 			<script>
@@ -108,7 +114,7 @@
 		</main>
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
-			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32/cdts/static/appFooter-fr.html -->
+			<!-- /ROOT/app/cls/WET/gcweb/v4_0_32c/cdts/static/appFooter-fr.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
@@ -120,16 +126,8 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"exitScript": true,
-				"displayModal" : true,
-				"exitURL": "reffooter_exiturl-fr.shtml",
-				"exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?",
-				"cancelMsg": "Arrêter",
-				"yesMsg" : "Continuer",
-				"exitDomains" : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca",
-				//"jqueryEnv" : "external",
-				//"webAnalytics" :false,
-				"isApplication":true
+				"isApplication": true,
+				"webAnalytics" : true
 			}));
 		</script>
 	</body>

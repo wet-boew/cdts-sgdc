@@ -20,6 +20,17 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
+				"webAnalytics" : [{
+					// * version 1 or 2
+					//"environment" : "staging",
+					//"version" : 1,
+					//"version" : 2,
+
+					// * version 3 custom staging
+					"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+					// * version 3 custom production
+					//"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
+				}]	
 			}));
 		</script>
 	</head>
@@ -57,7 +68,20 @@
         "version" : 2
     }]
 }));</code></pre>
-            </section>
+<p>Utiliser Adobe Analytics <em>version</em> <strong>3</strong> sur l'<strong>environnement</strong> <em>staging</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+	}]
+}));</code></pre>
+				<p>Utiliser Adobe Analytics <em>version</em> <strong>3</strong> sur l'<strong>environnement</strong> <em>production</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
+	}]
+}));</code></pre>
+			</section>
+				
             <section>
                 <h2 class="wb-prettify all-pre"><em>document.write</em> "refFooter" élément <code>script</code></h2>
 <pre class="prettyprint"><code>document.write(wet.builder.refFooter({
