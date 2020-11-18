@@ -36,9 +36,9 @@
 */
 {template .environment}
 /**{@param cdnEnv}*/
-{if $cdnEnv=='qat' or $cdnEnv=='nonprod' or $cdnEnv=='esdcprod'}/cdn/
+{if $cdnEnv=='qat' or $cdnEnv=='nonprod' or $cdnEnv=='esdcprod'}../../
 {elseif isNonnull($cdnPath)}{$cdnPath}
-{else}/etc/designs/canada/cdts/
+{else}../../
 {/if}
 {/template}
 
@@ -48,23 +48,23 @@
  */
 {template .refTop}
 	<!--[if gte IE 9 | !IE ]><!-->
-	<link href='{call .environment data="all" /}gcintranet/release/assets/favicon.ico' rel="icon" type="image/x-icon">
-	<link rel="stylesheet" href='{call .environment data="all" /}gcintranet/release/css/theme.min.css'>
+	<link href='{call .environment data="all" /}assets/favicon.ico' rel="icon" type="image/x-icon">
+	<link rel="stylesheet" href='{call .environment data="all" /}css/theme.min.css'>
 	<!--<![endif]-->
 	<!--[if lt IE 9]>
-	<link href='{call .environment data="all" /}gcintranet/release/assets/favicon.ico' rel="shortcut icon" />
-	<link rel="stylesheet" href='{call .environment data="all" /}gcintranet/release/css/ie8-theme.min.css' />
+	<link href='{call .environment data="all" /}assets/favicon.ico' rel="shortcut icon" />
+	<link rel="stylesheet" href='{call .environment data="all" /}css/ie8-theme.min.css' />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src='{call .environment data="all" /}gcintranet/release/js/ie8-wet-boew.min.js'></script>
+	<script src='{call .environment data="all" /}js/ie8-wet-boew.min.js'></script>
 	<![endif]-->
 	<!--[if lte IE 9]><![endif]-->
-	<link rel="stylesheet" href='{call .environment data="all" /}gcintranet/release/css/gctheme.css'>
+	<link rel="stylesheet" href='{call .environment data="all" /}css/gctheme.css'>
 	{if ($subTheme == 'esdc') or ($subTheme == 'labour')}
-	<link rel="stylesheet" href='{call .environment data="all" /}gcintranet/release/css/esdc.css'>
+	<link rel="stylesheet" href='{call .environment data="all" /}css/esdc.css'>
 	{elseif $subTheme == 'eccc'}
-	<link rel="stylesheet" href='{call .environment data="all" /}gcintranet/release/css/eccc.css'>
+	<link rel="stylesheet" href='{call .environment data="all" /}css/eccc.css'>
 	{/if}
-	<link rel="stylesheet" href='{call .environment data="all" /}gcintranet/release/css/intranet.css'>
+	<link rel="stylesheet" href='{call .environment data="all" /}css/intranet.css'>
 {/template}
 
 /**
@@ -840,13 +840,13 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-12 col-md-8">
-							<a href="https://www.canada.ca/fr.html"><img src='{call .environment data="all" /}gcintranet/release/assets/sig-blk-fr.svg' alt="" /><span class="wb-inv">Gouvernement du Canada</span></a>
+							<a href="https://www.canada.ca/fr.html"><img src='{call .environment data="all" /}assets/sig-blk-fr.svg' alt="" /><span class="wb-inv">Gouvernement du Canada</span></a>
 						</div>
 						<div class="col-xs-6 visible-sm visible-xs tofpg">
 							<a href="#wb-cont">Haut de la page<span class="glyphicon glyphicon-chevron-up"></span></a>
 						</div>
 						<div class="col-xs-6 col-md-4 text-right">
-							<img src='{call .environment data="all" /}gcintranet/release/assets/wmms-blk.svg' alt="Symbole du Gouvernement du Canada" />
+							<img src='{call .environment data="all" /}assets/wmms-blk.svg' alt="Symbole du Gouvernement du Canada" />
 						</div>
 					</div>
 				</div>
@@ -1007,13 +1007,13 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-xs-12 col-md-8">
-							<a href="https://www.canada.ca/fr.html"><img src='{call .environment data="all" /}gcintranet/release/assets/sig-blk-fr.svg' alt="" /><span class="wb-inv">Gouvernement du Canada</span></a>
+							<a href="https://www.canada.ca/fr.html"><img src='{call .environment data="all" /}assets/sig-blk-fr.svg' alt="" /><span class="wb-inv">Gouvernement du Canada</span></a>
 						</div>
 						<div class="col-xs-6 visible-sm visible-xs tofpg">
 							<a href="#wb-cont">Haut de la page<span class="glyphicon glyphicon-chevron-up"></span></a>
 						</div>
 						<div class="col-xs-6 col-md-4 text-right">
-							<img src='{call .environment data="all" /}gcintranet/release/assets/wmms-blk.svg' alt="Symbole du Gouvernement du Canada" />
+							<img src='{call .environment data="all" /}assets/wmms-blk.svg' alt="Symbole du Gouvernement du Canada" />
 						</div>
 					</div>
 				</div>
@@ -1034,13 +1034,13 @@
  */
 {template .refFooter}
 		<!--[if gte IE 9 | !IE ]><!-->
-		<script src='{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}gcintranet/release/js/{/if}jquery/2.2.4/jquery.min.js'></script>
-		<script src='{call .environment data="all" /}gcintranet/release/js/wet-boew.min.js'></script>
+		<script src='{if $jqueryEnv=='external'}https://ajax.googleapis.com/ajax/libs/{else}{call .environment data="all" /}js/{/if}jquery/2.2.4/jquery.min.js'></script>
+		<script src='{call .environment data="all" /}js/wet-boew.min.js'></script>
 		<!--<![endif]-->
 		<!--[if lt IE 9]>
-		<script src='{call .environment data="all" /}gcintranet/release/js/ie8-wet-boew2.min.js'></script>
+		<script src='{call .environment data="all" /}js/ie8-wet-boew2.min.js'></script>
 		<![endif]-->
-		<script src='{call .environment data="all" /}gcintranet/release/js/theme.min.js'></script>
+		<script src='{call .environment data="all" /}js/theme.min.js'></script>
 		{if $exitScript == true}
 			<script src='{call .environment data="all" /}cdts/js/exitScript.js'></script>
 			<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
