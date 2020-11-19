@@ -490,15 +490,9 @@
 		</footer>
 {/template}
 
+//If using exitScript, include the following parameters: exitScript, displayModal, exitURL, exitMsg, cancelMsg, yesMsg, exitDomains
 /**
  * This is all of the references to be made before existing page content.
- * @param? exitScript If set to true, loads a script that alerts users they are leaving a secure site.
- * @param? displayModal If set to true will display modal otherwise skip to exitURL.
- * @param? exitURL The URL where the users are redirected if they continue.
- * @param? exitMsg The message to display to the user.
- * @param? cancelMsg Text for Cancel Button
- * @param? yesMsg Text for yes Button
- * @param? exitDomains Domains to not check for secure exit.
  * @param? jqueryEnv Used to determine location of jQuery files (local / external).
  * @param? webAnalytics Used to determine inclusion of current analytics code.
  * @param? isApplication Used to determine if this will use the application templates (true/false).
@@ -512,7 +506,7 @@
 		<script src='{call .environment data="all" /}js/ie8-wet-boew2.min.js'></script>
 		<![endif]-->
 		<script src='{call .environment data="all" /}js/theme.min.js'></script>
-		{if $exitScript == true}
+		/*{if $exitScript == true}
 		<script data-id="exitScript" data-token="{$exitURL}" data-token-domains="{$exitDomains}" data-token-modal="{$displayModal}">clickA();</script>
 		<a id="sExitModalLink" class="wb-lbx lbx-modal wb-inv" title="" href="#sExitModal" tabindex="-1">Avis de sortie sécurisée</a>
 		<section id="sExitModal" class="mfp-hide modal-dialog modal-content overlay-def">
@@ -545,9 +539,9 @@
 				</ul>
 			</div>
 		</section>
-		{/if}
+		{/if}*/
 		{if $isApplication == true}
-		<script src='{call .environment data="all" /}cdts/js/cdtscustom.js'></script>
+		<script src='{call .environment data="all" /}cdts/cdtscustom.js'></script>
 		{/if}
 		{if isNonnull($webAnalytics)}<script>_satellite.pageBottom();</script>{/if}
 {/template}
