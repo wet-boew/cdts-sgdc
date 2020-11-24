@@ -327,7 +327,7 @@ module.exports = (grunt) ->
 						"gcintranet-fr.js"
 					]
 					dest: "etc/designs/canada/cdts/gcintranet/release/cdts/compiled"
-					expand: true					
+					expand: true
 				]
 
 			deploy:
