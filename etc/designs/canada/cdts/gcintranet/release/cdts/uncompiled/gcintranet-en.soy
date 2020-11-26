@@ -29,9 +29,9 @@
 */
 {template .environment}
 /**{@param cdnEnv}*/
-{if $cdnEnv=='qat' or $cdnEnv=='nonprod' or $cdnEnv=='esdcprod'}../../
+{if $cdnEnv=='qat' or $cdnEnv=='nonprod' or $cdnEnv=='esdcprod'}/cdts/gcintranet/release/
 {elseif isNonnull($cdnPath)}{$cdnPath}
-{else}../../
+{else}/etc/designs/canada/cdts/gcintranet/release/
 {/if}
 {/template}
 

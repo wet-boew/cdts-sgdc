@@ -1,7 +1,7 @@
 /*!
  * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)
  * github.com/wet-boew/cdts-sgdc/blob/master/LICENSE
- * v1.0.0-development - 2020-11-19
+ * v1.0.0-development - 2020-11-26
  *
  */// This file was automatically generated from gcintranet-en.soy.
 // Please don't edit this file by hand.
@@ -26,7 +26,7 @@ wet.builder.serverRefBottom = function(opt_data, opt_ignored) {
 
 
 wet.builder.environment = function(opt_data, opt_ignored) {
-  return (opt_data.cdnEnv == 'qat' || opt_data.cdnEnv == 'nonprod' || opt_data.cdnEnv == 'esdcprod') ? '../../' : (opt_data.cdnPath != null) ? soy.$$escapeHtml(opt_data.cdnPath) : '../../';
+  return (opt_data.cdnEnv == 'qat' || opt_data.cdnEnv == 'nonprod' || opt_data.cdnEnv == 'esdcprod') ? '/cdts/gcintranet/release/' : (opt_data.cdnPath != null) ? soy.$$escapeHtml(opt_data.cdnPath) : '/etc/designs/canada/cdts/gcintranet/release/';
 };
 
 
