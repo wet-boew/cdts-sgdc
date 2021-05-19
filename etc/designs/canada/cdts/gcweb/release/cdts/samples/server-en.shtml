@@ -11,6 +11,8 @@
 		<meta name="robots" content="noindex, nofollow, noarchive">		
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/gcweb-en.js"></script>
 		<noscript>
 			<!-- Write closure fall-back static file -->
 			<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_32/cdts/static/refTop.html -->
@@ -58,7 +60,11 @@
                         <li><a href="https://canada.ca/en/contact.html">Contact us</a> and we'll help you out.</li> 
                     </ul> 
                 </div> 
-            </div>
+			</div>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- /ROOT/etc/designs/canada/cdts/gcweb/v4_0_39/cdts/static/preFooter-fr.html -->
+			</div>
 			<!-- Write closure template -->
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
