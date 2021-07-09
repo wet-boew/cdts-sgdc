@@ -20,7 +20,7 @@ To work with this project you will need node.js and npm installed. This project 
 * java version "1.8.0_201"
 * Java(TM) SE Runtime Environment (build 1.8.0_201-b26)
 
-**For ESDC employees** Please read [ESDC Proxy Scripts](https://github.com/esdc-devcop/ESDC-Development-Setup/blob/master/proxy-scripts.md) if it's your first time connecting to github from your work computer. 
+**For ESDC employees** Please read [ESDC Proxy Scripts](https://github.com/esdc-devcop/ESDC-Development-Setup#proxy-settings) if it's your first time connecting to github from your work computer. 
 
 ### Security
 
