@@ -1,0 +1,280 @@
+<%# **
+ * This is all of the html to be included before existing page content.
+ * @param? subTheme Used to identify the custom subTheme.
+ * @param? intranetTitle Used to identify the title of the intranet site.
+ * @param? appName Used to determine the name of the app.
+ * @param? lngLinks Links to pages in other languages.
+ * @param? secure Used to determine if the site is secured or not.
+ * @param? search Used to display search.
+ * @param? breadcrumbs Used to set custom breadcrumbs.
+ * @param? signOut Used to customize the link to sign out.
+ * @param? signIn Used to customize the link to sign in.
+ * @param? customSearch Used to control the custom searches.
+ * @param? menuPath Used to define the path to the menu that will be ajaxed in.
+ * @param? menuLinks Loops of the menu sections.
+ * @param? showPreContent Used to determine if the precontent space will be displayed.
+ * @param? topSecMenu Set to true if you want to use the secondary navigation.
+ * @param? GCToolsModal Used to turn the GCTools links into a modal.
+-%>
+<ul id="wb-tphp">
+    <li class="wb-slc"><a class="wb-sl" href="#wb-cont"><^- msg('Skip to main content') ^></a></li>
+    <li class="wb-slc visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info"><^- msg('Skip to "About this site"') ^></a></li>
+    <%_ if (pr.topSecMenu == true) { -%>
+        <li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec"><^- msg('Skip to section menu') ^></a></li>
+    <%_ } -%>
+</ul>
+<header role="banner">
+    <div id="wb-bnr">
+        <div id="app-brand">
+            <div class="container">
+                <div class="row">
+                    <section class="<%- (pr.intranetTitle != null || pr.subTheme != null)? 'col-lg-6 col-md-6': 'col-lg-2 col-md-3' %> col-sm-9 col-xs-8">
+                        <div class="app-name<%- (pr.intranetTitle != null)? ' app-name-lg': '' %>">
+                            <%_ if (pr.intranetTitle != null && pr.intranetTitle.length > 0) {
+                                const item=pr.intranetTitle[0]; -%>
+                                <a href="<%- (item.href != null)? item.href: '<^- msg('http://intranet.ec.gc.ca/default.asp?lang=En') ^>' %>">
+                                    <span>
+                                        <%_ if (item.acronym != null) { -%>
+                                            <%_ -%><abbr title="<%= item.acronym %>"><%_ -%>
+                                        <%_ } -%>
+                                        <%_ -%><span class="bold-gc"><%= (item.boldText != null)? item.boldText: '<^- msg('GC') ^>' %></span><%_ -%>
+                                        <%= (item.text != null)? item.text: '<^- msg('intranet') ^>' -%>
+                                        <%_ if (item.acronym != null) { -%>
+                                            <%_ -%></abbr><%_ -%>
+                                        <%_ } -%>
+                                    </span>
+                                </a>
+                            <%_ } else { -%>
+                                <a href="<^- msg('https://intranet.canada.ca/index-eng.asp') ^>"><span><^- msg('<span class="bold-gc">GC</span> intranet') ^></span></a>
+                            <%_ } -%>
+                        </div>
+                    </section>
+                    <%_ if (pr.GCToolsModal == true) { -%>
+                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right">
+                            <h2 class="wb-inv"><^- msg('GCTools links') ^></h2>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="list-inline margin-bottom-none gcbarlng">
+                                        <li><a class="wb-lbx" href="#gctools"><^- msg('<span class="bold-gc">GC</span>Tools') ^></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <section id="gctools" class="mfp-hide modal-dialog modal-content overlay-def">
+                                <header class="modal-header">
+                                    <h2 class="modal-title"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
+                                </header>
+                                <div class="modal-body">
+                                    <ul class="list-unstyled lst-spcd">
+                                        <li><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></li>
+                                        <li><a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></li>
+                                        <li><a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></li>
+                                        <li><a href="<^- msg('https://gccollab.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>collab') ^></a></li>
+                                        <li><a href="<^- msg('https://intranet.canada.ca/index-eng.asp') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>intranet') ^></a></li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </section>
+                    <%_ } else if (pr.intranetTitle == null) { /* (...== null) is intentional, not (...!= null) */-%>
+                        <section id="wb-gctools" class="col-lg-6 visible-lg">
+                            <div class="pull-left tool-link">
+                                <a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
+                                <^- msg('<span class="bold-gc">GC</span>connex') ^></a>
+                            </div>
+                            <div class="pull-left tool-link">
+                                <a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
+                                <^- msg('<span class="bold-gc">GC</span>pedia') ^></a>
+                            </div>
+                            <div class="pull-left tool-link">
+                                <a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
+                                <^- msg('<span class="bold-gc">GC</span>directory') ^></a>
+                            </div>
+                            <div class="pull-left tool-link">
+                                <a href="<^- msg('https://gccollab.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
+                                <^- msg('<span class="bold-gc">GC</span>collab') ^></a>
+                            </div>
+                        </section>
+                    <%_ } -%>
+                    <%_ if (pr.lngLinks != null) { -%>
+                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': 'lang-with-search'%>">
+                            <h2 class="wb-inv"><^- msg('Language selection') ^></h2>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="list-inline margin-bottom-none gcbarlng">
+                                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) { 
+                                            const link=pr.lngLinks[linkIndex];-%>
+                                            <li><a hreflang="<%= link.lang %>" lang="<%= link.lang %>" href="<%- link.href %>"><%= link.text %></a></li>
+                                        <%_ } -%>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    <%_ } -%>
+                    <%_ if (pr.search != false) { -%>
+                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md">
+                            <h2><^- msg('Search') ^></h2>
+                            <%_ if (pr.customSearch != null && pr.customSearch.length > 0) { 
+                                const item=pr.customSearch[0]; -%>
+                                <form action="<%- (item.action != null)? item.action: '<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>' %>" method="<%= (item.method != null)? item.method: 'get' %>" name="<%= (item.name != null)? item.name: 'cse-search-box'%>" role="search" class="form-inline">
+                                    <div class="form-group">
+                                        <label for="<%= (item.id != null)? item.id: 'wb-srch-q' %>" class="wb-inv"><%= item.placeholder != null? item.placeholder: '<^- msg('Search GCintranet') ^>' %></label>
+                                        <input type="text" class="wb-srch-q form-control pull-right" id="<%= (item.id != null)? item.id: 'wb-srch-q' %>" name="<%= (item.name != null)? item.name: 'q' %>"  value="" size="21" maxlength="150" placeholder="<%= item.placeholder != null? item.placeholder: '<^- msg('Search GCintranet') ^>' %>">
+                                        <%_ if (item.hiddenInput != null) { -%>
+                                            <%_ for (var inputIndex=0; inputIndex<item.hiddenInput.length; inputIndex++) {
+                                                const input=item.hiddenInput[inputIndex]; -%>
+                                                <input type="hidden" name="<%= input.name %>" value="<%= input.value %>">
+                                            <%_ } -%>
+                                        <%_ } else { -%>
+                                            <input type="hidden" name="a" value="s">
+                                            <input type="hidden" name="s" value="1">
+                                            <input type="hidden" name="chk2" value="True">
+                                        <%_ } -%>
+                                    </div>
+                                    <div class="form-group submit">&nbsp;
+                                        <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv"><^- msg('Search') ^></span></button>
+                                    </div>
+                                </form>
+                            <%_ } else { -%>
+                                <form action="<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>" method="get" name="cse-search-box" role="search" class="form-inline">
+                                    <div class="form-group">
+                                        <label for="wb-srch-q" class="wb-inv"><^- msg('Search GCintranet') ^></label>
+                                        <input type="text" class="wb-srch-q form-control pull-right" id="wb-srch-q" name="q"  value="" size="21" maxlength="150" placeholder="<^- msg('Search GCintranet') ^>">
+                                        <input type="hidden" name="a" value="s">
+                                        <input type="hidden" name="s" value="1">
+                                        <input type="hidden" name="chk2" value="True">
+                                    </div>
+                                    <div class="form-group submit">&nbsp;
+                                        <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv"><^- msg('Search') ^></span></button>
+                                    </div>
+                                </form>
+                            <%_ } -%>
+                        </section>
+                    <%_ } -%>
+                    <section id="wb-glb-mn" class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs">
+                        <%_ var pluralSuffix = (pr.topSecMenu != null)? 's': ''; -%>
+                        <h2><%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%></h2>
+                        <ul class="list-inline text-right chvrn">
+                            <li><a href="#mb-pnl" title="<%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%>" aria-controls="mb-pnl" class="overlay-lnk" role="button">
+                                <%_ if (pr.search != false) { -%><span class="glyphicon glyphicon-search"><%_ } -%>
+                                <span class="glyphicon glyphicon-th-list">
+                                    <span class="wb-inv"><%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%></span>
+                                </span>
+                                <%_ if (pr.search != false) { -%></span><%_ } -%>
+                            </a></li>
+                        </ul>
+                        <div id="mb-pnl"></div>
+                    </section>
+                </div>
+                <%_ if (pr.GCToolsModal != true) { -%>
+                    <div id="tools-sm" class="row<%- (pr.intranetTitle != null)? '': ' visible-md' %>">
+                        <section id="tool-container-sm" class="col-md-12 col-sm-12">
+                            <div class="pull-left tool-link"><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></div>
+                            <div class="pull-left tool-link"><a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></div>
+                            <div class="pull-left tool-link"><a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></div>
+                            <div class="pull-left tool-link"><a href="<^- msg('https://gccollab.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>collab') ^></a></div>
+                        </section>
+                    </div>
+                <%_ } -%>
+            </div>
+        </div>
+    </div>
+    <div id="gcappbanner">
+        <div class="container">
+            <div class="row gc-<%- (pr.subTheme)? 'app': 'intra'%>-br">
+                <%_ for (var appNameIndex=0; appNameIndex<pr.appName.length; appNameIndex++) {
+                    const item=pr.appName[appNameIndex]; -%>
+                    <div id="wb-sttl" class="col-md-1<%- (pr.signOut || pr.signIn)? '0': '2' %>">
+                        <%_ if (item.acronym != null) { -%>
+                            <%_ -%><abbr title="<%= item.acronym %>"><%_ -%>
+                        <%_ } -%>
+                        <%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%>
+                        <%_ -%><span><%_ -%>
+                            <%_ if (pr.secure == true) { -%><i class="glyphicon glyphicon-lock mrgn-rght-md"></i><%_ } -%>
+                            <%_ -%><%= item.text %><%_ -%>
+                        <%_ -%></span><%_ -%>
+                        <%_ if (item.href != null) { -%></a><%_ } -%>
+                        <%_ if (item.acronym != null) { -%></abbr><%_ } -%>
+                    </div>
+                <%_ } -%>
+                <%_ if (pr.signOut != null) { -%>
+                    <div class="text-right col-md-2">
+                        <div class="row">
+                            <%_ if (pr.signOut != null && pr.signOut.length > 0) {
+                                const button=pr.signOut[0]; -%>
+                                <p><a href="<%- button.href %>" id="cdts-signout-btn" class="btn btn-default btn-signoff"><i class="glyphicon glyphicon-off mrgn-rght-md"></i><^- msg('Sign out') ^></a></p>
+                            <%_ } -%>
+                        </div>
+                    </div>
+                <%_ } else if (pr.signIn != null) { -%>
+                    <div class="text-right col-md-2">
+                        <div class="row">
+                            <%_ if (pr.signIn != null && pr.signIn.length > 0) {
+                                const button=pr.signIn[0]; -%>
+                                <p><a href="<%- button.href %>" id="cdts-signin-btn" class="btn btn-default btn-signoff"><i class="glyphicon glyphicon-off mrgn-rght-md"></i><^- msg('Sign in') ^></a></p>
+                            <%_ } -%>
+                        </div>
+                    </div>
+                <%_ } -%>
+            </div>
+        </div>
+    </div>
+    <%_ if (pr.menuLinks != null) { -%>
+        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
+            <div class="pnl-strt container nvbar">
+                <h2 class="wb-inv"><^- msg('Main navigation menu') ^></h2>
+                <div class="row">
+                    <ul class="list-inline menu" role="menubar">
+                        <%_ for (var menuLinkIndex=0; menuLinkIndex<pr.menuLinks.length; menuLinkIndex++) {
+                            const link=pr.menuLinks[menuLinkIndex]; -%>
+                            <%_ if (link.subLinks != null) { -%>
+                                <li role="none">
+                                    <a href="#<%=link.id%>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a>
+                                    <ul class="sm list-unstyled" id="<%= link.id %>" role="menu">
+                                        <%_ for (var subLinkIndex=0; subLinkIndex<link.subLinks.length; subLinkIndex++) { 
+                                            const subLink=link.subLinks[subLinkIndex];-%>
+                                            <%_ if (subLinkIndex >= (link.subLinks.length-1)) {  /*if isLast($subLink)*/ -%>
+                                                <li class="slflnk" role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= subLink.subtext %><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                                            <%_ } else { -%>
+                                                <li role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= subLink.subtext %><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                                            <%_ } -%>
+                                        <%_ } -%>
+                                    </ul>
+                                </li>
+                            <%_ } else { -%>
+                                <li role="none"><a href="<%- link.href %>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                            <%_ } -%>
+                        <%_ } -%>
+                        <li class="hidden-md hidden-lg" role="none"><a href="#mnuTools" class="item"><^- msg('GCTools') ^></a>
+                            <ul class="sm list-unstyled" id="mnuTools" role="menu">
+                                <li role="none"><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></li>
+                                <li role="none"><a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></li>
+                                <li role="none"><a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></li>
+                                <li role="none"><a href="<^- msg('https://gccollab.ca/splash/') ^>"><^- msg('<span class="bold-gc">GC</span>collab') ^></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <%_ } else if (pr.menuPath != null) { -%>
+        <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement"></nav>
+    <%_ } else { -%>
+        <div id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('appmenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu hidden-sm hidden-xs"></div>
+    <%_ } -%>
+    <%_ if (pr.breadcrumbs != null) { -%>
+        <nav role="navigation" id="wb-bc" property="breadcrumb">
+            <h2><^- msg('You are here:') ^></h2>
+            <div class="container">
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
+                            const item=pr.breadcrumbs[breadcrumbIndex]; -%>
+                            <li><%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%><%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%><%= item.title %><%_ if (item.href != null) { -%></a><%_ } -%><%_ if (item.acronym != null) { -%></abbr><%_ } -%></li>
+                        <%_ } -%>
+                    </ol>
+                </div>
+            </div>
+        </nav>
+    <%_ } -%>
+</header>
+<%_ if (pr.showPreContent != false) { -%>
+<%_ } -%>

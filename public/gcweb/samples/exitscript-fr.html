@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>exitscript-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+		<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"lngLinks": [{
+					"lang": "en",
+					"href": "exitscript-en.html",
+					"text": "English"
+				}],
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Quitter un site sécurisé</h1>
+            <p>Dans certains scénarios (exemple: sites sécurisés), nous souhaitons informer l'utilisateur que le lien ou l'action qu'il vient d'effectuer va quitter le site / session sécurisé en cours et qu'il est possible que des données soient perdues. Le message permet à l'utilisateur d'annuler la redirection ou de poursuivre la redirection.</p>
+			<p>Lorsqu'elle est activée, cette fonction:</p>
+            <ul>
+                <li>afficher le message à l'utilisateur sous la forme d'une fenêtre modale</li>
+                <li>afficher le message fourni par votre application</li>
+                <li>permettre à votre application d'exécuter n'importe quel code de nettoyage (ex: fermer la session, déconnecter correctement l'utilisateur, etc.)</li>
+                <li>autorisez votre application à exclure tous les domaines du déclenchement de l'avertissement</li>
+            </ul>
+            <h2>Mise en oeuvre</h2>
+			<p>L'exitscript est ajouté dans la section <b>refFooter</b> de la page. Il y a quelques options de configuration à prendre en compte:</p>
+            <ul>
+                <li><code class="wb-prettify">exitScript</code>: Défini sur true pour activer la fonctionnalité ExitScript</li>
+                <li><code class="wb-prettify">displayModal</code>: Défini sur true pour afficher la boîte de dialogue modale avertissant que l'utilisateur est sur le point de quitter le site sécurisé. Sinon, passez directement à exitUrl.</li>
+                <li><code class="wb-prettify">msgBoxHeader</code>: Personnalisez le titre de la boîte de dialogue modale sinon un titre par défaut s'affichera</li>
+                <li><code class="wb-prettify">exitMsg</code>: Personnaliser le message de la boîte de dialogue modale</li>
+                <li><code class="wb-prettify">cancelMsg</code>: Personnalisez l'étiquette sur le bouton d'annulation</li>
+                <li><code class="wb-prettify">yesMsg</code>: Personnalisez l'étiquette sur le bouton Oui</li>
+                <li><code class="wb-prettify">exitDomains</code>: Une liste de domaines exemptés pour lesquels l'exitscript ne déclenchera pas</li>
+                <li><code class="wb-prettify">targetWarning</code>: Un avertissement à afficher à l'utilisateur que le lien s'ouvrira dans une nouvelle fenêtre. Cela ajoutera le exitMsg</li>
+                <li><code class="wb-prettify">displayModalForNewWindow</code>: S'il est défini sur true, n'affichera pas modal pour les liens qui s'ouvrent dans une nouvelle fenêtre</li>
+
+            </ul>
+            <pre>
+document.write(wet.builder.refFooter({
+...
+    "exitScript": true,
+    "displayModal": true,
+    "exitURL": "exiturl-en.html",
+    "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
+    "cancelMsg": "Nope",
+    "yesMsg" : "Sure",
+    "targetWarning": "Warning: This will open in another window!",
+    "exitDomains" : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+...
+}));
+            </pre>
+            <section>
+				<h2>Exemple</h2>
+				<ul class="lst-spcd">
+					<li>
+						Ce lien <a href="http://csszengarden.com/219">http://csszengarden.com/219</a> 
+						a un nom de domaine (csszengarden.com) différent du vôtre.
+						Vous serez redirigé sur la page <code>exiturl-en.html</code> Vous serez redirigé sur la page <code>exitURL</code> contient la valeur <code>exiturl-en.html</code>.
+					</li>
+					<li>
+						Ce lien <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a> 
+						s'ouvrira dans une autre fenêtre. Avec le paramètre targetWarning, vous pouvez définir un message qui avertira les utilisateurs que le lien s'ouvrira dans une autre fenêtre.
+						Ce message ajoutera le message d'affichage existant. 
+					</li>
+					<li>
+						Ce lien <a href="breadcrumbs-en.html"> breadcrumbs-en.
+							html </a> a le même nom de domaine que le vôtre.
+						Vous ne serez pas redirigé vers <code>exiturl-en.html</code>.
+					</li>
+					<li>
+						Ce lien <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a> 
+						a son nom d'hôte (developer.mozilla.org) dans la liste des exceptions <code>exitDomains</code>.
+						Vous ne serez pas redirigé vers <code>exiturl-en.html</code>.
+					</li>
+				</ul>					
+			</section>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2021-05-18",
+					"cdnEnv": "esdcprod"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod"				
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"exitScript": true,
+				"displayModal": true,
+				"exitURL": "exiturl-en.html",
+				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
+				"cancelMsg": "Nope",
+				"yesMsg" : "Sure",
+				"targetWarning": "Warning: This will open in another window!",
+				"exitDomains" : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca",
+				//"jqueryEnv" : "external",
+				//"webAnalytics" :false,
+				//"isApplication":true,
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

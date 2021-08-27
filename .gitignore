@@ -1,0 +1,17 @@
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ethumbs.db
+Thumbs.db
+*.tmp
+*.log
+.vscode/
+
+dist/
+tmp/
+node_modules/
+junit-results-*-report.xml
+

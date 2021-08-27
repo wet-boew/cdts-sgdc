@@ -1,0 +1,18 @@
+<%# **
+ * This is all of the references to be made before existing page content.
+ * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
+ * @param? jqueryEnv Used to determine location of jQuery files (local / external).
+-%>
+<!--[if gte IE 9 | !IE ]><!-->
+<link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
+<!--<![endif]-->
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/messages.min.css">
+<!--[if lt IE 9]>
+<link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="shortcut icon">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/messages-ie.min.css">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/ie8-theme.min.css">
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew.min.js"></script>
+<![endif]-->
+<!--[if lte IE 9]><![endif]-->

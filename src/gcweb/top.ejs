@@ -1,0 +1,184 @@
+<%# ** 
+ * This is all of the html to be included before existing page content.
+ * @param? search Used to display search.
+ * @param? siteMenu Used to display site menu.
+ * @param? lngLinks Links to pages in other languages.
+ * @param? customSearch Used for implementing a custom search
+ * @param? showPreContent Used to determine if the precontent space will be displayed.
+ * @param? breadcrumbs Used to set custom breadcrumbs.
+ * @param? topSecMenu Set to true if you want to use the secondary navigation.
+-%>
+<nav aria-label="<^- msg('Skip Links') ^>">
+    <ul id="wb-tphp">
+        <li class="wb-slc"><a class="wb-sl" href="#wb-cont"><^- msg('Skip to main content') ^></a></li>
+        <li class="wb-slc visible-xs visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info"><^- msg('Skip to "About government"') ^></a></li>
+        <%_ if (pr.topSecMenu == true) { -%>
+        <li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec"><^- msg('Skip to section menu') ^></a></li>
+        <%_ } -%>
+    </ul>
+</nav>
+<header>
+    <div id="wb-bnr" class="container">
+        <div class="row">
+            <%_ if (pr.lngLinks != null) { -%>
+                <section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
+                    <h2 class="wb-inv"><^- msg('Language selection') ^></h2>
+                    <ul class="list-inline mrgn-bttm-0">
+                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) { 
+                            const link=pr.lngLinks[linkIndex];-%>
+                        <li>
+                            <a hreflang="<%= link.lang %>" lang="<%= link.lang %>" href="<%- link.href %>">
+                            <span class="hidden-xs"><%= link.text %></span>
+                            <abbr title="<%= link.text %>" class="visible-xs h3 mrgn-tp-sm mrgn-bttm-0 text-uppercase"><%= link.lang %></abbr>
+                            </a>
+                        </li>
+                        <%_ } -%>
+                    </ul>
+                </section>
+            <%_ } -%>
+            <div class="brand col-xs-9 col-sm-5 col-md-4" property="publisher" typeof="GovernmentOrganization">
+                <%_ if (pr.siteMenu != false) { -%><a href="<^- msg('https://www.canada.ca/en.html') ^>" property="url"><%_ } -%><img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/<^- msg('sig-blk-en.svg') ^>" alt="<^- msg('Government of Canada') ^>" property="logo"><span class="wb-inv"> / <span lang="<^- msg('fr') ^>"><^- msg('Gouvernement du Canada') ^></span></span><%_ if (pr.siteMenu != false) { -%></a><%_ } -%>
+                <meta property="name" content="<^- msg('Government of Canada') ^>">
+                <meta property="areaServed" typeof="Country" content="Canada">
+                <link id="StdIssueWasHere1" property="logo" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-blk.svg">
+            </div>
+            <%_ if (pr.search != false) { -%>
+                <%_ if (pr.customSearch != null && pr.customSearch.length > 0) { 
+                    const item=pr.customSearch[0]; -%>
+                    <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4 visible-md visible-lg">
+                        <h2><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h2>
+                        <form action="<%- item.action %>" method="<%= item.method %>" name="cse-search-box" role="search">
+                            <div class="form-group wb-srch-qry">
+                                <label for="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
+                                <input id="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-srch-q form-control" name="<%= item.name != null? item.name: 'q' %>" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>">
+                                <%_ if (item.hiddenInput != null) { 
+                                    for (var inputIndex=0; inputIndex<item.hiddenInput.length; inputIndex++) {
+                                    const input=item.hiddenInput[inputIndex]; -%>
+                                        <input type="hidden" name="<%= input.name %>" value="<%= input.value %>">
+                                    <%_ } -%>
+                                <%_ } -%>
+                            </div>
+                            <div class="form-group submit">
+                                <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></span></button>
+                            </div>
+                        </form>
+                    </section>
+                <%_ } else { -%>
+                    <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
+                        <h2><^- msg('Search') ^></h2>
+                        <form action="<^- msg('https://www.canada.ca/en/sr.html') ^>" method="get" name="cse-search-box" role="search">
+                            <div class="form-group wb-srch-qry">
+                                <label for="wb-srch-q" class="wb-inv"><^- msg('Search Canada.ca') ^></label>
+                                <input name="cdn" value="canada" type="hidden">
+                                <input name="st" value="s" type="hidden">
+                                <input name="num" value="10" type="hidden">
+                                <input name="langs" value="<^- msg('en') ^>" type="hidden">
+                                <input name="st1rt" value="1" type="hidden">
+                                <input name="s5bm3ts21rch" value="x" type="hidden">
+                                <input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search Canada.ca') ^>">
+                                <input type="hidden" name="_charset_" value="UTF-8">
+                                <datalist id="wb-srch-q-ac">
+                                </datalist>
+                            </div>
+                            <div class="form-group submit">
+                                <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv"><^- msg('Search') ^></span></button>
+                            </div>
+                        </form>
+                    </section>
+                <%_ } -%>
+            <%_ } -%>
+        </div>
+    </div>
+    <%_ if (pr.siteMenu != false) { -%>
+        <nav class="gcweb-menu" typeof="SiteNavigationElement" aria-labelledby="gcwebMenu">
+            <div class="container">
+                <h2 class="wb-inv" id="gcwebMenu"><^- msg('Menu') ^></h2>
+                <button type="button" aria-haspopup="true" aria-expanded="false"><^- msg('<span class="wb-inv">Main </span>Menu') ^> <span class="expicon glyphicon glyphicon-chevron-down"></span></button>
+                <ul role="menu" aria-orientation="vertical" data-ajax-replace="<^- msg('//www.canada.ca/content/dam/canada/sitemenu/sitemenu-v2-en.html') ^>">
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/jobs.html') ^>"><^- msg('Jobs and the workplace') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/immigration-citizenship.html') ^>"><^- msg('Immigration and citizenship') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://travel.gc.ca/') ^>"><^- msg('Travel and tourism') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/business.html') ^>"><^- msg('Business and industry') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/benefits.html') ^>"><^- msg('Benefits') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/health.html') ^>"><^- msg('Health') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/taxes.html') ^>"><^- msg('Taxes') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/environment.html') ^>"><^- msg('Environment and natural resources') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/defence.html') ^>"><^- msg('National security and defence') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/culture.html') ^>"><^- msg('Culture, history and sport') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/policing.html') ^>"><^- msg('Policing, justice and emergencies') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/transport.html') ^>"><^- msg('Transport and infrastructure') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('http://international.gc.ca/world-monde/index.aspx?lang=eng') ^>"><^- msg('Canada and the world') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/finance.html') ^>"><^- msg('Money and finances') ^></a></li>
+                    <li role="presentation"><a role="menuitem" href="<^- msg('https://www.canada.ca/en/services/science.html') ^>"><^- msg('Science and innovation') ^></a></li>
+                </ul>
+            </div>
+        </nav>
+    <%_ } else { -%>
+        <div class="transactBar"></div>
+    <%_ } -%>
+    <%_ if (pr.breadcrumbs != false) { -%>
+        <nav id="wb-bc" property="breadcrumb" aria-labelledby="breadcrumbPosition">
+            <h2 id="breadcrumbPosition"><^- msg('You are here:') ^></h2>
+            <div class="container">
+                <ol class="breadcrumb">
+                    <%_ if (pr.breadcrumbs != null) { -%>
+                        <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
+                            var item=pr.breadcrumbs[breadcrumbIndex]; -%>
+                            <%_ if (breadcrumbIndex == 0) { /* if first item */ -%>
+                                <%_ if (item.title.toLowerCase() == 'canada.ca') { -%>
+                                    <li>
+                                        <abbr title="Canada.ca">
+                                            <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
+                                        </abbr>
+                                    </li>
+                                <%_ } else { /* item.title != 'Canada.ca' - Ponting on a variants */ -%>
+                                    <%# //Todo: We should find a better way to do that it's soy v2 syntax... -%>
+                                    <%#//Todo: https://github.com/wet-boew/cdts-sgdc/issues/166 -%>
+                                    <%_ if (new RegExp('^http[s]{0,1}://www.canada.ca(/en\.html|/fr\.html|/index\.html|/en/index\.html|/fr/index\.html|/home\.html|/accueil\.html){0,1}[/]{0,1}$', 'gi').test(item.href)) { -%>                                                                                
+                                        // For Backward compatibility we keep the old tags (In html title contains the full description)
+                                        <li>
+                                        <%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%>
+                                        <%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%>
+                                        <%_ -%>Canada.ca<%_ -%>
+                                        <%_ if (item.href != null) { -%></a><%_ } -%>
+                                        <%_ if (item.acronym != null) { -%></abbr><%_ } -%>
+                                        </li>
+                                    <%_ } else { /* item.href doesn't point on Canada.ca variants - Adding Canada.ca */ -%>
+                                        <li>
+                                            <abbr title="Canada.ca">
+                                                <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
+                                            </abbr>
+                                        </li>
+                                        <li>
+                                        <%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%>
+                                        <%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%>
+                                        <%_ if (item.title != null) { -%><%= item.title %><%_ } -%>
+                                        <%_ if (item.href != null) { -%></a><%_ } -%>
+                                        <%_ if (item.acronym != null) { -%></abbr><%_ } -%>
+                                        </li>
+                                    <%_ } -%> 
+                                <%_ } /* of if item.title == 'Canada.ca' */ -%> 
+                            <%_ } else { /* NOT first item */ -%>
+                                <li>
+                                <%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%>
+                                <%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%>
+                                <%_ if (item.title != null) { -%><%= item.title %><%_ } -%>
+                                <%_ if (item.href != null) { -%></a><%_ } -%>
+                                <%_ if (item.acronym != null) { -%></abbr><%_ } -%>
+                                </li>
+                            <%_ } /* of if (breadcrumbIndex == 0) */ -%>
+                        <%_ } /* of for each item */ -%>
+                    <%_ } else { /* breadcrumbs IS null/undefined */ -%>
+                        <li>
+                            <abbr title="Canada.ca">
+                                <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
+                            </abbr>
+                        </li>
+                    <%_ } /* of if (pr.breadcrumbs != null) */ -%>
+                </ol>
+            </div>
+        </nav>
+    <%_ } /*--- of if (pr.breadcrumbs != false) */ -%>
+</header>
+<%_ if (pr.showPreContent != false) { -%>
+<%_ } -%>

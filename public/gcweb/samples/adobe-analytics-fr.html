@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>adobe-analytics-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod",
+				"webAnalytics" : [{
+					// * version 1 or 2
+					//"environment" : "staging",
+					//"version" : 1,
+					//"version" : 2,
+
+					// * version 3 custom staging
+					"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+					// * version 3 custom production
+					//"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
+				}]
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "esdcprod",
+				"lngLinks": [{
+					"lang": "en",
+					"href": "adobe-analytics-en.html",
+					"text": "English"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Adobe Analytics</h1>
+			<p>Cet exemple de page montre comment incorporer Adobe Analytics dans votre page Web.</p>
+            <h2>Mise en œuvre</h2>
+            <p>Adobe Analytics est appliqué via le paramètre <code>webAnalytics</code>. Vous aurez une modification à apporter dans la section <b>refTop</b> de votre page en fonction de l'environnement.</p>
+            <p>Vous devrez également définir <code>webAnalytics</code> sur true dans la section <b>refFooter</b> de votre page.</p>			
+            <section>
+                <h3 class="wb-prettify all-pre"><em>document.write</em> "refTop" élément</h3>
+                <p>Utiliser Adobe Analytics <em>version</em> <strong>1</strong> sur l'<em>environnement</em> <strong>staging</strong>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"environment" : "staging",
+		"version" : 1
+	}]
+}));</code></pre>
+				<p>Utiliser Adobe Analytics <em>version</em> <strong>2</strong> sur l'<em>environnement</em> <strong>production</strong>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"environment" : "production",
+		"version" : 2
+	}]
+}));</code></pre>
+				<p>Utiliser Adobe Analytics <em>version</em> <strong>3</strong> sur l'<strong>environnement</strong> <em>staging</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+	}]
+}));</code></pre>
+				<p>Utiliser Adobe Analytics <em>version</em> <strong>3</strong> sur l'<strong>environnement</strong> <em>production</em>.</p>
+<pre class="prettyprint"><code>document.write(wet.builder.refTop({
+	"webAnalytics" : [{
+		"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
+	}]
+}));</code></pre>
+			</section>
+				
+            <section>
+                <h3 class="wb-prettify all-pre"><em>document.write</em> "refFooter" élément</h3>
+<pre class="prettyprint"><code>document.write(wet.builder.refFooter({
+    "webAnalytics" : true
+}));</code></pre>	
+            </section>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-18"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod",
+				"webAnalytics" : true
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

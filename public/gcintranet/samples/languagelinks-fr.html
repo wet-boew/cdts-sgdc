@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>languagelinks-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"lngLinks": [{
+					"lang": "en",
+					"href": "languagelinks-en.html",
+					"text": "English"
+				}],
+				"breadcrumbs": [{
+					"title": "Canada.ca",
+					"acronym": "Canada.ca",
+					"href": "http://www.canada.ca/en.html"
+				}, {
+					"title": "CDTS",
+					"acronym": "Centrally Deployed Templates Solution"
+				}],
+				"cdnEnv": "prod"
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Liens linguistiques</h1>
+			<p>Ajoutez un lien de langue pour basculer entre les langues sur votre page. Bien que cela soit facultatif, il est généralement obligatoire de fournir le lien de bascule de langue.</p>
+			<h2>Mise en oeuvre</h2>
+			<p>Les liens linguistiques sont ajoutés dans la section <b>top</b> de la page. Il existe trois options de configuration:</p>
+            <ul>
+                <li><code class="wb-prettify">href</code>: l'url de la page dans l'autre langue</li>
+                <li><code class="wb-prettify">text</code>: le texte du lien qui s'affiche</li>
+                <li><code class="wb-prettify">lang</code>: la langue (code) de la page Web</li>
+            </ul>
+            <pre>
+defTop.outerHTML = wet.builder.top({
+...
+    "lngLinks": [{
+        "lang": "en",
+        "href": "languagelinks-en.html",
+        "text": "English"
+    }]
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2021-05-20",
+					"cdnEnv": "prod"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "prod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</body>
+</html>

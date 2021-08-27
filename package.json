@@ -1,0 +1,40 @@
+{
+  "name": "sgdc-cdts",
+  "version": "4.0.44",
+  "private": true,
+  "scripts": {
+    "translate": "grunt --stack i18n-ejs --cdts_samples_cdnenv=localhost",
+    "build": "grunt --stack build --cdts_samples_cdnenv=localhost",
+    "build-prod": "grunt --stack build-prod",
+    "serve": "grunt --stack serve --cdts_samples_cdnenv=localhost",
+    "serve-nobuild": "grunt --stack serve-nobuild --cdts_samples_cdnenv=localhost",
+    "test": "grunt --stack test --cdts_samples_cdnenv=localhost"
+  },
+  "author": "ESDC-EDSC",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@wdio/cli": "^6.12.1",
+    "@wdio/dot-reporter": "^6.11.0",
+    "@wdio/junit-reporter": "^6.11.0",
+    "@wdio/local-runner": "^6.12.1",
+    "@wdio/mocha-framework": "^6.11.0",
+    "@wdio/selenium-standalone-service": "^6.12.1",
+    "@wdio/spec-reporter": "^6.11.0",
+    "axe-core": "^4.3.1",
+    "ejs": "^3.1.6",
+    "global-agent": "^2.2.0",
+    "grunt": "^1.4.1",
+    "grunt-cli": "^1.4.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^3.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-exec": "^3.0.0",
+    "grunt-webdriver": "^3.0.0",
+    "html-validate": "^4.14.0"
+  }
+}

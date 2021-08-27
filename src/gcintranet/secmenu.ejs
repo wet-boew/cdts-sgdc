@@ -1,0 +1,31 @@
+<%# **
+ * This is all of the html for the secondary menu.
+ * @param sections Loops of the sections
+ -%>
+<h2 id="wb-sec-h" class="wb-inv"><^- msg('Section menu') ^></h2>
+<%_ for (var sectionIndex=0; sectionIndex<pr.sections.length; sectionIndex++) { 
+    const section=pr.sections[sectionIndex];-%>
+    <section class="list-group menu list-unstyled">
+        <h3><%_ if (section.sectionLink != null) { -%>
+                <%_ -%><a href="<%- section.sectionLink %>"<%- (section.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%_ -%>
+            <%_ } -%>
+            <%_ -%><%= section.sectionName %><%_ if (section.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%>
+            <%_ if (section.sectionLink != null) { -%></a><%_ } -%></h3>
+        <ul class="list-group menu list-unstyled">
+            <%_ for (var linkIndex=0; linkIndex<section.menuLinks.length; linkIndex++) { 
+                const link=section.menuLinks[linkIndex];-%>
+                <li>
+                    <a href="<%- link.href %>" class="list-group-item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a>
+                    <%_ if (link.subLinks != null) { -%>
+                        <ul class="list-group menu list-unstyled">
+                            <%_ for (var subLinkIndex=0; subLinkIndex<link.subLinks.length; subLinkIndex++) { 
+                                const subLink=link.subLinks[subLinkIndex];-%>
+                            <li><a href="<%- subLink.subhref %>" class="list-group-item"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= subLink.subtext %><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                            <%_ } -%>
+                        </ul>
+                     <%_ } -%>
+                </li>
+            <%_ } -%>
+        </ul>
+    </section>
+<%_ } -%>

@@ -1,0 +1,28 @@
+<%# **
+ * This is all of the references to be made before existing page content.
+ * @param? exitScript If set to true, loads a script that alerts users they are leaving a secure site.
+ * @param? displayModal If set to true will display modal otherwise skip to exitURL.
+ * @param? exitURL The URL where the users are redirected if they continue.
+ * @param? msgBoxHeader The message box title.
+ * @param? exitMsg The message to display to the user.
+ * @param? cancelMsg Text for Cancel Button
+ * @param? yesMsg Text for yes Button
+ * @param? exitDomains Domains to not check for secure exit.
+ * @param? targetWarning A warning to display to the user that the link will open in a new window
+ * @param? displayModalForNewWindow If set to true, will not display modal for links that open in new window
+ * @param? jqueryEnv Used to determine location of jQuery files (local / external).
+ * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
+-%>
+<!--[if gte IE 9 | !IE ]><!-->
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"></script>
+<!--<![endif]-->
+<!--[if lt IE 9]>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew2.min.js"></script>
+<![endif]-->
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"></script>
+<%_ if (pr.exitScript == true) { -%>
+    <%# This is a placeholder link to trigger the WET exitscript intialization in the event the no external link is present on the page -%>
+    <a href="#" id="cdts-exitscript-placeholder-link" style="display: none" aria-hidden="true" class="wb-exitscript">Exit Link</a>
+    <script data-id="exitScript">cdtsApplyExitScriptToLinks("<%=pr.displayModal != null? pr.displayModal: 'undefined'%>", "<%-pr.exitURL != null? pr.exitURL: 'undefined'%>", "<%=pr.exitDomains != null? pr.exitDomains: 'undefined'%>", "<%=pr.exitMsg != null? pr.exitMsg: 'undefined'%>", "<%=pr.yesMsg != null? pr.yesMsg: 'undefined'%>", "<%=pr.cancelMsg != null? pr.cancelMsg: 'undefined'%>", "<%=pr.msgBoxHeader != null? pr.msgBoxHeader: 'undefined'%>", "<%=pr.targetWarning != null? pr.targetWarning: 'undefined'%>", "<%=pr.displayModalForNewWindow != null? pr.displayModalForNewWindow: 'undefined'%>");</script>
+<%_ } -%>

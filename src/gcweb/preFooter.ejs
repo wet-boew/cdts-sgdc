@@ -1,0 +1,53 @@
+<%# **
+ * This is all of the html to be included after existing page content.
+ * @param? dateModified The date the content was last modified.
+ * @param? showPostContent Used to determine if the postcontent space will be displayed, off by default.
+ * @param? showShare Used to determine if the share button will be displayed
+ * @param? showFeedback Used to determine if the "Report a problem ..." button will be displayed or customized
+ * @param? versionIdentifier Used instead of dateModified
+ * @param? screenIdentifier Used to identify screens for users that need help
+ * @param? pagedetails Used to determine if the pagedetails div will be displayed
+ * @param? isContainer Used to add the container class to the pageDetails section when using the homepage look
+-%>
+<%_ if (pr.showPostContent != false) { -%>
+<%_ } -%>
+<%_ if (pr.pagedetails != false) { -%>
+    <div class="pagedetails<%= (pr.isContainer != null)? ' container': '' %>">
+        <%_ if (pr.showFeedback != false || pr.showShare != false) { -%>
+            <div class="row">
+                <%_ if (pr.showFeedback != false) { -%>
+                    <%_ if (pr.showFeedback != null && pr.showFeedback != true) { -%>
+                        <div class="col-sm-6 col-md-5 col-lg-4">
+                            <a href="<%- pr.showFeedback %>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
+                        </div>
+                    <%_ } else { -%>
+                        <div class="col-sm-6 col-md-5 col-lg-4">
+                            <a href="<^- msg('https://www.canada.ca/en/report-problem.html') ^>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
+                        </div>
+                    <%_ } -%>
+                <%_ } -%>
+                <%_ if (pr.showShare != false) { -%>
+                    <%_ if (pr.showShare != null) { -%>
+                        <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
+                    <%_ } else { -%>
+                        <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}'></div>
+                    <%_ } -%>
+                <%_ } -%>
+            </div>
+        <%_ } -%>
+        <dl id="wb-dtmd">
+            <%_ if (pr.screenIdentifier != null) { -%>
+                <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
+                <dd property="identifier"><%= pr.screenIdentifier %></dd>
+            <%_ } -%>
+            <%_ if (pr.dateModified != null) { -%>
+                <dt><^- msg('Date modified:') ^>&#32;</dt>
+                <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
+            <%_ } -%>
+            <%_ if (pr.versionIdentifier != null) { -%>
+                <dt><^- msg('Version:') ^>&#32;</dt>
+                <dd property="version"><%= pr.versionIdentifier %></dd>
+            <%_ } -%>
+        </dl>
+    </div>
+<%_ } -%>

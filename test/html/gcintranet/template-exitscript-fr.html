@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Page de contenu - Canada.ca</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop("~refTop~"));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top("~top~");
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Page de contenu</h1>
+			<section>
+				<h2>Quitter un site sécurisé</h2>
+				<ul class="lst-spcd">
+					<li>
+						Ce lien <a href="https://www.google.ca">https://www.google.ca</a> affichera un avertissement puisque son nom de domaine (google.ca) est différent du vôtre.
+						Et il vous redigera sur la page <code>exiturl-fr.html</code> car le paramètre <code>exitURL</code> contient la valeur <code>exiturl-fr.html</code>.
+					</li>
+					<li>
+						Ce lien <a target="_blank" href="https://www.google.ca">https://www.google.ca</a> 
+						s'ouvrira dans une autre fenêtre. Grâce au paramètre targetWarning, vous pouvez définir un message qui avertira les utilisateurs que le lien s'ouvrira dans une autre fenêtre.
+						Ce message ajoutera le message d'affichage existant. 
+					</li>
+					<li>
+						Ce lien <a href="breadcrumbs-fr.html">breadcrumbs-fr.html</a> n'affichera pas un avertissement car son nom de domaine est le même que le vôtre.
+					</li>
+					<li>
+						Ce lien <a href="https://google.com">https://google.com</a> n'affichera pas un avertissement car son nom de domaine (google.com) est dans la liste d'exception <code>exitDomains</code>.
+					</li>
+				</ul>
+			</section>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter("~preFooter~");
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer("~footer~");
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter("~refFooter~"));
+		</script>
+		<script>
+            $( document ).on( "wb-ready.wb", function( event ) {
+                $("#wb-cont").after('<a name="wetInitializedMarker" id="wetInitializedMarker"></a>');
+            });
+		</script>
+	</body>
+</html>
