@@ -1,0 +1,83 @@
+<%# **
+ * This is all of the html to be included in the body.
+ * @param? nameEng The English name of your web asset.
+ * @param? nameFra The French name of your web asset.
+ * @param indexEng The English index of the asset.
+ * @param indexFra The French index of the asset.
+ * @param termsEng The English Terms and conditions of use.
+ * @param termsFra The French Terms and conditions of use.
+ * @param? jqueryEnv Used to determine location of jQuery files (local / external).
+ * @param? webAnalytics Used to determine inclusion of current analytics code.
+-%>
+<div id="bg">
+    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/img/splash/sp-bg-2.jpg" alt="">
+</div>
+<main>
+    <div class="sp-hb">
+        <div class="sp-bx col-xs-12">
+            <h1 property="name" class="wb-inv">Canada.ca</h1>
+            <div class="row">
+                <div class="col-xs-11 col-md-8">
+                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/sig-spl.svg" alt="Government of Canada / Gouvernement du Canada">
+                </div>
+            </div>
+            <div class="row cdts-splash">
+                <section class="col-xs-6 text-right" lang="en">
+                    <%_ if (pr.nameEng != null) { -%>
+                        <h2><%= pr.nameEng %></h2>
+                    <%_ } else { -%>
+                        <h2 class="wb-inv">Government of Canada</h2>
+                    <%_ } -%>
+                </section>
+                <section class="col-xs-6" lang="fr">
+                    <%_ if (pr.nameFra != null) { -%>
+                        <h2><%= pr.nameFra %></h2>
+                    <%_ } else { -%>
+                        <h2 class="wb-inv">Gouvernement du Canada</h2>
+                    <%_ } -%>
+                </section>
+            </div>
+            <div class="row text-center">
+                <%_ var navlang = navigator.language; -%>
+                <ul class="list-inline lst-spcd">
+                    <li>
+                        <%_ if (navlang == 'fr-CA') { -%>
+                            <a href="<%- pr.indexEng %>" class="btn btn-default" lang="en">English</a>
+                        <%_ } else { -%>
+                            <a href="<%- pr.indexEng %>" class="btn btn-primary" lang="en">English</a>
+                        <%_ } -%>
+                    </li>
+                    <li>
+                        <%_ if (navlang == 'fr-CA') { -%>
+                            <a href="<%- pr.indexFra %>" class="btn btn-primary" lang="fr">Français</a>
+                        <%_ } else { -%>
+                            <a href="<%- pr.indexFra %>" class="btn btn-default" lang="fr">Français</a>
+                        <%_ } -%>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sp-bx-bt col-xs-12">
+            <div class="row">
+                <div class="col-xs-7 col-md-8">
+                    <a href="<%- pr.termsEng %>" class="sp-lk">Terms &amp; conditions</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="<%- pr.termsFra %>" class="sp-lk" lang="fr">Avis</a>
+                </div>
+                <div class="col-xs-5 col-md-4 text-right mrgn-bttm-md">
+                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-spl.svg" width="127" alt="Symbol of the Government of Canada / Symbole du gouvernement du Canada">
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--[if gte IE 9 | !IE ]><!-->
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"></script>
+<!--<![endif]-->
+<!--[if lt IE 9]>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew2.min.js"></script>
+<![endif]-->
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"></script>
+<%_ if (pr.webAnalytics != null) { -%>
+    <script>_satellite.pageBottom();</script>
+<%_ } -%>
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">

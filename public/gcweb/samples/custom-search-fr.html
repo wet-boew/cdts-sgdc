@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>custom-search-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+                "appName": [{
+                    "text": "Nom de l'application",
+                    "href": "#"
+                }],
+				"lngLinks": [{
+					"lang": "en",
+					"href": "custom-search-en.html",
+					"text": "English"
+				}],
+                "customSearch": [{
+                    "action" : "https://www.canada.ca/en/sr.html", 
+                    "placeholder" : "Canada.ca",
+                    "id" : "wb-srch-q",
+                    "name" : "q",
+                    "method" : "get",
+                    "hiddenInput" : [{
+                        "name" : "cdn",
+                        "value" : "canada"
+                    }] 
+	            }],
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Recherche personnalisée</h1>
+			<p>Lorsque vous utilisez le modèle d'application, vous avez la possibilité d'utiliser un moteur de recherche personnalisé pour votre site.</p>
+            <h2>Mise en oeuvre</h2>
+			<p>La personnalisation de la recherche se fait via le paramètre <code>customSearch</code> dans la section <b>appTop</b> de votre page.</p>
+            <p>Il existe quelques options de configuration:</p>
+            <ul>
+                <li><code class="wb-prettify">action</code>: l'URL de la recherche vers laquelle vous souhaitez pointer</li>
+                <li><code class="wb-prettify">method</code>: « get » ou « post »</li>
+                <li><code class="wb-prettify">placeholder</code>: Facultatif - texte d'espace réservé affiché dans la barre de recherche</li>
+                <li><code class="wb-prettify">id</code>: Facultatif - vous pouvez fournir un identifiant facultatif pour votre recherche</li>
+                <li><code class="wb-prettify">name</code>: Facultatif - vous pouvez personnaliser l'attribut « name » pour votre recherche</li>
+                <li><code class="wb-prettify">hiddenInput</code>: Facultatif - vous pouvez fournir des entrées de données via les paramètres « name » et « value »</li>
+            </ul>    
+            <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "customSearch": [{
+        "action" : "https://www.canada.ca/en/sr.html", 
+        "placeholder" : "Canada.ca",
+        "id" : "wb-srch-q",
+        "name" : "q",
+        "method" : "get",
+        "hiddenInput" : [{
+            "name" : "cdn",
+            "value" : "canada"
+        }] 
+    }]
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2021-05-18",
+					"cdnEnv": "esdcprod"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "esdcprod",
+                "footerSections": [{
+					"href": "#",
+					"text": "Portal footer link 1"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 2"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 3"
+				}],
+                "contactLink": [{
+                    "href": "https://www.canada.ca/en/contact.html",
+                    "newWindow": true
+                }],
+                "termsLink": [{
+                    "href": "https://www.canada.ca/en/transparency/terms.html",
+                    "newWindow": true
+                }],
+                "privacyLink": [{
+                    "href": "https://www.canada.ca/en/transparency/privacy.html",
+                    "newWindow": true
+                }]
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>

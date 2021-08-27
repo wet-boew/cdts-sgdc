@@ -1,0 +1,79 @@
+<%# **
+ * This is all of the html to be included after existing page content.
+ * @param? contactLinks Used to override the Contact link in the footer.
+ * @param? termsLink Used to override the Terms and conditions link in the footer.
+ * @param? privacyLink Used to override the Privacy link in the footer.
+ * @param? showFooter Used to determine if the page footer will be displayed.
+-%>
+<footer id="wb-info">
+    <div id="transactFooter" class="landscape">
+        <%_ if (pr.showFooter != false) { -%>
+        <nav class="container wb-navcurr" aria-labelledby="aboutGov">
+            <h2 class="wb-inv" id="aboutGov"><^- msg('About government') ^></h2>
+            <ul class="list-unstyled colcount-sm-2 colcount-md-3">
+                <%_ if (pr.contactLinks != null && pr.contactLinks.length > 0) { 
+                    const link=pr.contactLinks[0]; -%>
+                    <li><a href="<%- link.href %>"><^- msg('Contact us') ^></a></li>
+                <%_ } else { -%>
+                    <li><a href="<^- msg('https://www.canada.ca/en/contact.html') ^>"><^- msg('Contact us') ^></a></li>
+                <%_ } -%>
+                <li><a href="<^- msg('https://www.canada.ca/en/government/dept.html') ^>"><^- msg('Departments and agencies') ^></a></li>
+                <li><a href="<^- msg('https://www.canada.ca/en/government/publicservice.html') ^>"><^- msg('Public service and military') ^></a></li>
+                <li><a href="<^- msg('https://www.canada.ca/en/news.html') ^>"><^- msg('News') ^></a></li>
+                <li><a href="<^- msg('https://www.canada.ca/en/government/system/laws.html') ^>"><^- msg('Treaties, laws and regulations') ^></a></li>
+                <li><a href="<^- msg('https://www.canada.ca/en/transparency/reporting.html') ^>"><^- msg('Government-wide reporting') ^></a></li>
+                <li><a href="<^- msg('http://pm.gc.ca/eng') ^>"><^- msg('Prime Minister') ^></a></li>
+                <li><a href="<^- msg('https://www.canada.ca/en/government/system.html') ^>"><^- msg('About government') ^></a></li>
+                <li><a href="<^- msg('http://open.canada.ca/en/') ^>"><^- msg('Open government') ^></a></li>
+            </ul>
+        </nav>
+        <%_ } -%>
+    </div>
+    <div class="brand">
+        <div class="container">
+            <div class="row">
+                <nav class="col-md-9 col-lg-10 ftr-urlt-lnk" aria-labelledby="aboutSite">
+                    <h2 class="wb-inv" id="aboutSite"><^- msg('About this site') ^></h2>
+                    <%_ if (pr.showFooter != false) { -%>
+                        <ul>
+                            <li><a href="<^- msg('https://www.canada.ca/en/social.html') ^>"><^- msg('Social media') ^></a></li>
+                            <li><a href="<^- msg('https://www.canada.ca/en/mobile.html') ^>"><^- msg('Mobile applications') ^></a></li>
+                            <li><a href="<^- msg('https://www.canada.ca/en/government/about.html') ^>"><^- msg('About Canada.ca') ^></a></li>
+                            <li><a href="<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>"><^- msg('Terms and conditions') ^></a></li>
+                            <li><a href="<^- msg('https://www.canada.ca/en/transparency/privacy.html') ^>"><^- msg('Privacy') ^></a></li>
+                        </ul>
+                    <%_ } else { -%>
+                        <ul>
+                        <%_ if (pr.contactLinks != null && pr.contactLinks.length > 0) {
+                            const link=pr.contactLinks[0]; -%>
+                            <li><a href="<%- (link.href)? link.href: '<^- msg('https://www.canada.ca/en/contact.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Contact information') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                        <%_ } else { -%>
+                            <li><a href="<^- msg('https://www.canada.ca/en/contact.html') ^>"><^- msg('Contact information') ^></a></li>
+                        <%_ } -%>
+
+                        <%_ if (pr.termsLink != null && pr.termsLink.length > 0) {
+                            const link=pr.termsLink[0]; -%>
+                            <li><a href="<%- (link.href)? link.href: '<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Terms and conditions') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                        <%_ } else { -%>
+                            <li><a href="<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>"><^- msg('Terms and conditions') ^></a></li>
+                        <%_ } -%>
+
+                        <%_ if (pr.privacyLink != null && pr.privacyLink.length > 0) {
+                            const link=pr.privacyLink[0]; -%>
+                            <li><a href="<%- (link.href)? link.href: '<^- msg('https://www.canada.ca/en/transparency/privacy.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Privacy') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                        <%_ } else { -%>
+                            <li><a href="<^- msg('https://www.canada.ca/en/transparency/privacy.html') ^>"><^- msg('Privacy') ^></a></li>
+                        <%_ } -%>
+                        </ul>
+                    <%_ } -%>
+                </nav>
+                <div class="col-xs-6 visible-sm visible-xs tofpg">
+                    <a href="#wb-cont"><^- msg('Top of Page') ^> <span class="glyphicon glyphicon-chevron-up"></span></a>
+                </div>
+                <div id="StdIssueWasHere2" class="col-xs-6 col-md-2 text-right">
+                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-blk.svg" alt="<^- msg('Symbol of the Government of Canada') ^>">
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

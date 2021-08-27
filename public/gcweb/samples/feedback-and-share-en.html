@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>feedback-and-share-en</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "esdcprod",
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "feedback-and-share-fr.html",
+					"text": "Français"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Feedback and Share</h1>
+			<p>This page will demonstrate how to enable/disable the Feedback Link, as well as how to use the feature to share the current page with some pre-defined Social Media applications.</p>
+			<h2>Feedback</h2>
+            <p>Specify the "Report a problem or mistake on this page" button of your page. By default this button is shown with the default Canada.ca URL. You can customize the URL or simply hide the button.</p>
+            <h3>Implementation</h3>
+            <p>This link can be customized in the preFooter section of your page.</p>
+            <p>Hide the button</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "showFeedback": false
+...
+});
+            </pre>
+            <p>Customize the URL</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "showFeedback": "Custom URL here"
+...
+});
+            
+            </pre>
+            <h2>Share</h2>
+            <p>The "Share This Page" button is a way for the users to share the URL of the site via Social Media. By default this button is shown with the default selection of social media sites. You can customize this selection or simply hide the button.</p>
+            <h3>Implementation</h3>
+            <p>This button can be customized in the <b>preFooter</b> section of your page.</p>
+            <p>Hide the button</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "showShare": false
+...
+});
+            </pre>
+            <p>Choose which social media sites you would like to show as options to the user.</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "showShare": ["email", "facebook", "linkedin", "twitter"]
+...
+});            
+            </pre>
+            <div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+                    "showFeedback": "Custom URL here",
+                    "showShare": ["email", "facebook", "linkedin", "twitter"]
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

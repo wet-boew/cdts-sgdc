@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>contactlinks-en</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "esdcprod",
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "contactlinks-fr.html",
+					"text": "Français"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Contact Links</h1>
+			<p>The contact link variable will override the default "Contact Us" link located in the footer of your page. If no variable is specified then the default url will be used.</p>
+			<h2>Implementation</h2>
+			<p>The contact link is modified in the <b>footer</b> section of the page. Only the following option is available:
+            <ul>
+                <li><code class="wb-prettify">"href"</code>: the url of the link.</li>
+            </ul>
+            <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "contactLinks": [{
+        "href": "contactus.html"
+    }]
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-25"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod",
+				"contactLinks": [{
+					"href": "contactus.html"
+				}]
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

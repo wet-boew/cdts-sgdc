@@ -1,0 +1,102 @@
+<%# **
+ * This is all of the html to be included after existing page content.
+ * @param? showFeatures Used to determine if the "GoC activities and initiatives" section will be displayed.
+ * @param? subTheme Used to identify the custom subTheme.
+ * @param? footerPath Local path for footer 
+ * @param? footerSections Loops of the sections in the footer.
+ * @param? globalNav Loops of the sections in the footer.
+ * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
+-%>
+<%_ if (pr.showFeatures == true) { -%>
+    <section class="ajaxed-in" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('activities-footer-eng.html') ^>"></section>
+<%_ } -%>
+<footer role="contentinfo" id="wb-info">
+    <%_ if (pr.footerSections != null) { -%>
+        <nav role="navigation" class="container wb-navcurr">
+            <h2 class="wb-inv"><^- msg('Related links') ^></h2>
+            <div class="row">
+                <%_ for (var sectionIndex=0; sectionIndex<pr.footerSections.length; sectionIndex++) { 
+                    const footerSection=pr.footerSections[sectionIndex];-%>
+                    <%_ if (footerSection.customFooterLinks != null) { -%>
+                        <%_ if (sectionIndex < 3) { -%>
+                            <section class="col-md-3 col-sm-6 col-lg-3">
+                                <%_ if (footerSection.sectionName != null) { -%>
+                                    <h3><%= footerSection.sectionName %></h3>
+                                <%_ } -%>
+                                <ul class="list-unstyled">
+                                    <%_ for (var linkIndex=0; linkIndex<footerSection.customFooterLinks.length; linkIndex++) { 
+                                        const link=footerSection.customFooterLinks[linkIndex];-%>
+                                        <li><a href="<%- link.href %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                                    <%_ } -%>
+                                </ul>
+                            </section>
+                        <%_ } -%>
+                    <%_ } else if (sectionIndex == 0) { /*For backward compatibility */ -%>
+                        <section class="col-md-3 col-sm-6 col-lg-3">
+                            <%_ if (footerSection.sectionName != null) { -%>
+                                <h3><%= footerSection.sectionName %></h3>
+                            <%_ } -%>
+                            <ul class="list-unstyled">
+                                <%_ for (var linkIndex=0; linkIndex<pr.footerSections.length; linkIndex++) { 
+                                    const link=pr.footerSections[linkIndex];-%>
+                                    <li><a href="<%- link.href %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                                <%_ } -%>
+                            </ul>
+                        </section>
+                    <%_ } -%>
+                <%_ } -%>
+                <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
+                    <section class="col-md-3 col-sm-6 col-lg-3">
+                        <h3><^- msg('Corporate') ^></h3>
+                        <ul class="list-unstyled">
+                            <li><a href="<^- msg('http://esdc.prv/en/branches_regions/index.shtml') ^>"><^- msg('ESDC/SC IntraWeb') ^></a></li>
+                            <li><a href="<^- msg('http://esdc.prv/en/news/index.shtml') ^>"><^- msg('News') ^></a></li>
+                            <li><a href="<^- msg('http://esdc.prv/en/contact/index.shtml') ^>"><^- msg('Contact and Feedback') ^></a></li>
+                            <li><a href="<^- msg('http://esdc.prv/en/stay_connected/index.shtml') ^>"><^- msg('Stay Connected') ^></a></li>
+                            <li><a href="<^- msg('http://edsc.prv/en/help.shtml') ^>"><^- msg('Help and Important Notices') ^></a></li>
+                        </ul>
+                    </section>
+                <%_ } else if (pr.subTheme == 'eccc') { -%>
+                    <section class="col-md-3 col-sm-6 col-lg-3">
+                        <h3><^- msg('Contact Us') ^></h3>
+                        <ul class="list-unstyled">
+                            <li><a href="#"><^- msg('EnviroTel') ^></a></li>
+                            <li><a href="#"><^- msg('GEDS') ^></a></li>
+                            <li><a href="#"><^- msg('Organizational Chart') ^></a></li>
+                            <li><a href="#"><^- msg('Service Desk') ^></a></li>
+                            <li><a href="#"><^- msg('Feedback') ^></a></li>
+                            <li><a href="#"><^- msg('Services Catalogue') ^></a></li>
+                        </ul>
+                    </section>
+                <%_ } -%>
+            </div>
+        </nav>
+    <%_ } else if (pr.globalNav == true) { -%>
+        <nav role="navigation" class="container wb-navcurr">
+            <h2 class="wb-inv"><^- msg('About government') ^></h2>
+            <ul class="list-unstyled colcount-sm-2 colcount-md-4 container-fluid">
+                <li><a href="<^- msg('https://intranet.canada.ca/psc-fsc/index-eng.asp') ^>"><^- msg('News') ^></a></li>
+                <li><a href="<^- msg('https://intranet.canada.ca/hr-rh/index-eng.asp') ^>"><^- msg('Human resources') ^></a></li>
+                <li><a href="<^- msg('https://intranet.canada.ca/cdl-dca/index-eng.asp') ^>"><^- msg('Career development and learning') ^></a></li>
+                <li><a href="<^- msg('https://intranet.canada.ca/wg-tg/index-eng.asp') ^>"><^- msg('Services and tools') ^></a></li>
+            </ul>
+        </nav>
+    <%_ } else if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
+        <nav role="navigation" class="container visible-sm visible-md visible-lg wb-navcurr" data-wb-ajax='{"url": "<%- (pr.footerPath != null)? pr.footerPath: wet.builder.environmentHost(pr.cdnEnv) + 'app/cls/WET/global/<^- msg('esdcfooter-eng.html') ^>'%>", "type": "replace", "nocache": true}'></nav>
+    <%_ } -%>
+    <div class="brand">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-8">
+                    <a href="<^- msg('https://www.canada.ca/en.html') ^>"><img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/<^- msg('sig-blk-en.svg') ^>" alt=""><span class="wb-inv"><^- msg('Government of Canada') ^></span></a>
+                </div>
+                <div class="col-xs-6 visible-sm visible-xs tofpg">
+                    <a href="#wb-cont"><^- msg('Top of Page') ^><span class="glyphicon glyphicon-chevron-up"></span></a>
+                </div>
+                <div class="col-xs-6 col-md-4 text-right">
+                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-blk.svg" alt="<^- msg('Symbol of the Government of Canada') ^>">
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

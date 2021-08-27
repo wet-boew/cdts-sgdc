@@ -1,0 +1,30 @@
+<%# **
+ * This is all of the html to be included after existing page content.
+ * @param? dateModified The date the content was last modified.
+ * @param? showPostContent Used to determine if the postcontent space will be displayed, off by default.
+ * @param? versionIdentifier Used instead of dateModified
+ * @param? screenIdentifier Used to identify screens for users that need help
+ * @param? pagedetails Used to determine if the pagedetails div will be displayed
+-%>
+<%_ if (pr.showPostContent != false) { -%>
+<%_ } -%>
+<%_ if (pr.pagedetails != false) { -%>
+    <div class="row pagedetails">
+        <div class="col-sm-5 col-xs-12 datemod">
+            <dl id="wb-dtmd">
+                <%_ if (pr.screenIdentifier != null) { -%>
+                    <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
+                    <dd property="identifier"><%= pr.screenIdentifier %></dd>
+                <%_ } -%>
+                <%_ if (pr.dateModified != null) { -%>
+                    <dt><^- msg('Date modified:') ^>&#32;</dt>
+                    <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
+                <%_ } -%>
+                <%_ if (pr.versionIdentifier != null) { -%>
+                    <dt><^- msg('Version:') ^>&#32;</dt>
+                    <dd property="version"><%= pr.versionIdentifier %></dd>
+                <%_ } -%>
+            </dl>
+        </div>
+    </div>
+<%_ } -%>

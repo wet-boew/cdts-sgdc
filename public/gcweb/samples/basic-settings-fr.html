@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>basic-settings-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "esdcprod",
+				"lngLinks": [{
+					"lang": "en",
+					"href": "basic-settings-en.html",
+					"text": "English"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Paramètres de base</h1>
+            <p>Cet exemple de page fournit des informations pour configurer les éléments de base de votre page.</p>
+            <h2>Date modifiée</h2>
+            <p>La date de modification est affichée en bas de la page, au-dessus du pied de page.</p>
+            <p>Ceci est configuré dans la section <b>preFooter</b> de votre page.</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "dateModified": "2019-07-31"
+...
+});            
+            </pre>
+            <h2>Identifiant d'écran</h2>
+            <p>L'identifiant d'écran s'affiche en bas de la page. Cet élément sert un identifiant unique pour votre page et peut être utilisé pour faciliter la communication entre les utilisateurs et le centre de services / l'équipe de support afin d'identifier l'emplacement exact d'un utilisateur dans votre application.</p>
+            <p>Ceci est configuré dans la section <b>preFooter</b> de votre page.</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "screenIdentifier": "0123456789"
+...
+});
+            </pre>
+            <h2>Identifiant de version</h2>
+            <p>L'identifiant de version est affiché en bas de la page, au-dessus du pied de page.</p>
+            <p>Ceci est configuré dans la section <b>preFooter</b> de votre page.</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "versionIdentifier": "7890123456"
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-18",
+					"screenIdentifier": "0123456789",
+					"versionIdentifier": "7890123456"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

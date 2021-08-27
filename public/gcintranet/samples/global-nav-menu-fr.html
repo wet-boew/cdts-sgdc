@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>global-nav-menu-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- appTop-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"cdnEnv": "prod",
+				"appName": [{
+					"text": "Nom de l'application"
+				}],
+				"lngLinks": [{
+					"lang": "en",
+					"href": "global-nav-menu-en.html",
+					"text": "English"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" class="container">
+			<main property="mainContentOfPage" class="container">
+			<h1 property="name" id="wb-cont">Menu de navigation globale</h1>
+			<p>Un menu de navigation global est un pied de page global qui peut être affiché à la place du pied de page par défaut.</p>
+            <h2>Mise en oeuvre</h2>
+            <p>Le menu de navigation global est ajouté dans la section <b>appFooter</b> de la page.</p>
+            <p>Définissez simplement la variable <code>globalNav</code> sur true.</p>
+            <pre>
+defFooter.outerHTML = wet.builder.appFooter({
+...
+    "globalNav": true
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "prod",
+					"dateModified": "2021-05-21"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "prod",
+				"globalNav": true,
+				"showFeatures": false
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</body>
+</html>

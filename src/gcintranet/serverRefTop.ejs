@@ -1,0 +1,11 @@
+<!--[if gte IE 9 | !IE ]><!-->
+<link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+<!--<![endif]-->
+<!--[if lt IE 9]>
+<link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="shortcut icon">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/ie8-theme-srv.min.css">
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew.min.js"></script>
+<![endif]-->

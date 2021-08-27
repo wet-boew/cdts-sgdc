@@ -1,0 +1,396 @@
+{
+    "sourceLanguage": "en",
+    "targetLanguage": "en",
+    "d63850c575d2c0b199adf4d5d69c015afcc392b3": {
+        "source": "activities-footer-eng.html",
+        "target": null
+    },
+    "2256cc6ee2a5d077491a8a63ef76ac743c25d2d2": {
+        "source": "Related links",
+        "target": null
+    },
+    "1d8b1236d7b70a9ca73929aa23ac4bfd96450bb1": {
+        "source": "This link will open in a new window",
+        "target": null
+    },
+    "a83ed75221e875c789f78f19697cffcdbc75e73c": {
+        "source": "Corporate",
+        "target": null
+    },
+    "cffdbfe95e3606a7ec7cef16b598db0e66061e8e": {
+        "source": "http://esdc.prv/en/branches_regions/index.shtml",
+        "target": null
+    },
+    "a3026e467213bf871821544a5c04131e16e4f0fc": {
+        "source": "ESDC/SC IntraWeb",
+        "target": null
+    },
+    "866d5c697f8026de51b4bba32a3a025160b2c69f": {
+        "source": "http://esdc.prv/en/news/index.shtml",
+        "target": null
+    },
+    "34c808d0a63f277e04fb23a5f76cc83d0a3e024b": {
+        "source": "News",
+        "target": null
+    },
+    "b9be91bcea5adc228dcc725542eb44aab739ac04": {
+        "source": "http://esdc.prv/en/contact/index.shtml",
+        "target": null
+    },
+    "2cb33c4f93c98e591575527a3aff576706cb8326": {
+        "source": "Contact and Feedback",
+        "target": null
+    },
+    "7d49ee6263d50776fb5abd189ad7befdd8775c9d": {
+        "source": "http://esdc.prv/en/stay_connected/index.shtml",
+        "target": null
+    },
+    "a73624362c4b5337603d5ee8e53f802cb91cf1c7": {
+        "source": "Stay Connected",
+        "target": null
+    },
+    "70dc69922cf2af9af4458557a85f7a66675c011e": {
+        "source": "http://edsc.prv/en/help.shtml",
+        "target": null
+    },
+    "8e153eebdea15ba070f36a605224fda3ae6300ef": {
+        "source": "Help and Important Notices",
+        "target": null
+    },
+    "9ad0ccff7c60872356cb74b82694782be79ba338": {
+        "source": "Contact Us",
+        "target": null
+    },
+    "df388cfad59b9d7346e81f3449f7fb7e6f18e73b": {
+        "source": "EnviroTel",
+        "target": null
+    },
+    "4f281dcc807aeeaf17af694a1d024a835eafeccf": {
+        "source": "GEDS",
+        "target": null
+    },
+    "dd30e7a45f2454832f243d68973b01fde53e0035": {
+        "source": "Organizational Chart",
+        "target": null
+    },
+    "ef3c7d2a1ee94a54a885d243c02e2efe02dea7e0": {
+        "source": "Service Desk",
+        "target": null
+    },
+    "c8d7677e19495f21da984fe4e2829b7ca91b27c7": {
+        "source": "Feedback",
+        "target": null
+    },
+    "0733bcacb1fe550d8adddc0092971a8ae3a1843e": {
+        "source": "Services Catalogue",
+        "target": null
+    },
+    "c10a23b0d50c0f38ac22fcdac6b4ae174703aec9": {
+        "source": "About government",
+        "target": null
+    },
+    "8b9d8a29a05dc40e4e8541e9e11231e2980b27e9": {
+        "source": "https://intranet.canada.ca/psc-fsc/index-eng.asp",
+        "target": null
+    },
+    "b26cfe5a4b97b424a6d0a2602d06976051489217": {
+        "source": "https://intranet.canada.ca/hr-rh/index-eng.asp",
+        "target": null
+    },
+    "116cf9fed5acdf310ce03899897b11abb30160f8": {
+        "source": "Human resources",
+        "target": null
+    },
+    "9c0bb0aa91cb45e97b0488e377f6de60f1f6a3ef": {
+        "source": "https://intranet.canada.ca/cdl-dca/index-eng.asp",
+        "target": null
+    },
+    "6a61865937bae0aac183a3af54735722d6c241a2": {
+        "source": "Career development and learning",
+        "target": null
+    },
+    "414d38c009d3d1b6d41e44f955f2dd290529f28c": {
+        "source": "https://intranet.canada.ca/wg-tg/index-eng.asp",
+        "target": null
+    },
+    "1e5d5c7e7ef6f69739f177d2852e20d0bd12199a": {
+        "source": "Services and tools",
+        "target": null
+    },
+    "49daaf3fded771275b2a6b52a4ebc1cf7829df24": {
+        "source": "esdcfooter-eng.html",
+        "target": null
+    },
+    "f8b98efb05c4d336ee4b7ab2ac44c2da12306907": {
+        "source": "https://www.canada.ca/en.html",
+        "target": null
+    },
+    "661af3b693584fedac8c5a35bda9d636a3aa9689": {
+        "source": "sig-blk-en.svg",
+        "target": null
+    },
+    "9b0c2133d530bdd7b3b7e239c94faf83a2097da9": {
+        "source": "Government of Canada",
+        "target": null
+    },
+    "af9d5a302c5423a656f859b7b5a353fd8b879361": {
+        "source": "Top of Page",
+        "target": null
+    },
+    "4c4e7125a283fe6001b1e525ac5d08dc54f39bbd": {
+        "source": "Symbol of the Government of Canada",
+        "target": null
+    },
+    "be504f616fd1d37b2a0143949516a1f34b40e9cf": {
+        "source": "Skip to main content",
+        "target": null
+    },
+    "006d78959e8e4b260e6430a5d835e855aa8ead9f": {
+        "source": "Skip to \"About this site\"",
+        "target": null
+    },
+    "1afa1ddc58fbce2588c8963b98d0037f7da1d052": {
+        "source": "Skip to section menu",
+        "target": null
+    },
+    "7a08c0fdda9a3256944b9a94f9edc2970f9d4984": {
+        "source": "http://intranet.ec.gc.ca/default.asp?lang=En",
+        "target": null
+    },
+    "99a3e18460e703b6b52b26b4155c66c3e3ba24bc": {
+        "source": "GC",
+        "target": null
+    },
+    "2bc852fcd5b270afb834d01d5e668bc12b9e080e": {
+        "source": "intranet",
+        "target": null
+    },
+    "a342dbc776415adcafc6840057c39c89197a5836": {
+        "source": "https://intranet.canada.ca/index-eng.asp",
+        "target": null
+    },
+    "997ed80ce129d90556a13acf3a04140e1790e153": {
+        "source": "<span class=\"bold-gc\">GC</span> intranet",
+        "target": null
+    },
+    "7d9dbfdf9975a94bdf9fde1f6a737f8efc2b8719": {
+        "source": "GCTools links",
+        "target": null
+    },
+    "25aa56e71e6dea4190f7e3ae2e7f1e780c1ea0a3": {
+        "source": "<span class=\"bold-gc\">GC</span>Tools",
+        "target": null
+    },
+    "7a9879f753b1cbc91699f7633e02edd782afa127": {
+        "source": "https://gcconnex.gc.ca/splash/",
+        "target": null
+    },
+    "31c034b69abeaaaffe608be6bb5979005b8c4cbb": {
+        "source": "GCTBannerOnclick-eng",
+        "target": null
+    },
+    "0d391295aae2a533bacbb9a9c2e6a120cc951528": {
+        "source": "<span class=\"bold-gc\">GC</span>connex",
+        "target": null
+    },
+    "2ddb8e8264479cebcc4d01ba7e42d8d76124b290": {
+        "source": "http://www.gcpedia.gc.ca/wiki/?setlang=en",
+        "target": null
+    },
+    "1f9795ea2af7ddf43807a0dad133af769f7fb872": {
+        "source": "<span class=\"bold-gc\">GC</span>pedia",
+        "target": null
+    },
+    "70d4ab746e428d7b9a9ae0d78b40172f64ef5ffd": {
+        "source": "http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002",
+        "target": null
+    },
+    "bc9e060b83e411308030ffa99e2d930ba35a0a4e": {
+        "source": "<span class=\"bold-gc\">GC</span>directory",
+        "target": null
+    },
+    "c25c766772face455cca31b7b6779be131538fc0": {
+        "source": "https://gccollab.ca/splash/",
+        "target": null
+    },
+    "3ff37f6da1be71b3ecfc3e3d79928bdbc04b96be": {
+        "source": "<span class=\"bold-gc\">GC</span>collab",
+        "target": null
+    },
+    "e765875a05aca0dfad86cb621edcef3491cb8d5a": {
+        "source": "<span class=\"bold-gc\">GC</span>intranet",
+        "target": null
+    },
+    "4715fce1fdbafc47a29ff9d0c1be459d8eafd034": {
+        "source": "Language selection",
+        "target": null
+    },
+    "bce06414177f72ab70e6387b6af9f8ceef0d6049": {
+        "source": "Search",
+        "target": null
+    },
+    "7fd55d55e20c94bc80a4a0a03379dd91903a6800": {
+        "source": "https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx",
+        "target": null
+    },
+    "b52395ae15f3a3530e439a86409f25eebabe6eb1": {
+        "source": "Search GCintranet",
+        "target": null
+    },
+    "57f5f5efbc5990f5230aa95359042338b856707b": {
+        "source": "Menu",
+        "target": null
+    },
+    "f57618381021587bbb6003b1c07711c85856c059": {
+        "source": "Search and menu",
+        "target": null
+    },
+    "dc1649a16c1496db3e4073be6a73faf5121aeae7": {
+        "source": "Sign out",
+        "target": null
+    },
+    "ada2e9e96fa9ce85430225b412068b5b62b79800": {
+        "source": "Sign in",
+        "target": null
+    },
+    "11b5a68a90c1de36a7f61d1b289fa4a9e547c19a": {
+        "source": "Main navigation menu",
+        "target": null
+    },
+    "fa002e582ae93fb57117395d6364dcbd8ca403c6": {
+        "source": "GCTools",
+        "target": null
+    },
+    "616127b124840170bb853584ca52fbb610817859": {
+        "source": "appmenu-eng.html",
+        "target": null
+    },
+    "a902791b8ecb6e346f745709cdd2db1287db6fa5": {
+        "source": "You are here:",
+        "target": null
+    },
+    "9dbac3eeed4e800f61885f73610ccb70b18c74b0": {
+        "source": "https://intranet.canada.ca/contact/contactgc-eng.aspx",
+        "target": null
+    },
+    "4832e45812a2724f16a15f9ae87adfc8ae4168cf": {
+        "source": "Contact us",
+        "target": null
+    },
+    "3b84acfc75860aac05a44993d2994a1225a3c28d": {
+        "source": "https://intranet.canada.ca/ict-oci/index-eng.asp",
+        "target": null
+    },
+    "389bcb689080cbcb855af4b88367de6a426afbec": {
+        "source": "About GCTools",
+        "target": null
+    },
+    "043b68832107ac236ec0b0cb3c64d040570ef4ea": {
+        "source": "Canada.ca",
+        "target": null
+    },
+    "f86e19109a36df8845119734bd24a03f0226d51a": {
+        "source": "https://intranet.canada.ca/terms-avis-eng.asp",
+        "target": null
+    },
+    "92d0286da122f925192755a952e521131270bd5f": {
+        "source": "Terms and conditions",
+        "target": null
+    },
+    "efb5fa84e0d3b15213cba88bb409ad0d3e1d6683": {
+        "source": "Screen Identifier:",
+        "target": null
+    },
+    "91335677928160ef9cebd0ffaefa3f36b4714e4b": {
+        "source": "Date modified:",
+        "target": null
+    },
+    "9f49127025fb5873ad1bd738867c76e3725ffeaa": {
+        "source": "Version:",
+        "target": null
+    },
+    "a9e50663b70c0c99152b5f17c92340ab938b80c7": {
+        "source": "Section menu",
+        "target": null
+    },
+    "2fa16d28ed7fad15a239bc54df29df9ad62d2799": {
+        "source": "https://esdc.prv/includes/edsc-esdc_prv/wet4/en/mega_menu/esdcmenu-eng.html",
+        "target": null
+    },
+    "a2205a0df11ca5a2cded368d894a36f76d897623": {
+        "source": "Topics menu",
+        "target": null
+    },
+    "6ce2e8f02962067227eba4246bfa194ab99b214d": {
+        "source": "http://esdc.prv/en/department/index.shtml",
+        "target": null
+    },
+    "f8d8e90a1540b78be0a035ceeb69eedfa674f993": {
+        "source": "Our Department",
+        "target": null
+    },
+    "6e9578bffb8fb568c7521a0d09ce86f874b8284e": {
+        "source": "Branches and Regions",
+        "target": null
+    },
+    "484eadc1acd9ea106e3719fa0ae4adeeabd81ac6": {
+        "source": "http://iservice.prv/eng/index.shtml",
+        "target": null
+    },
+    "6eef9ecad11da73e352b96e522d05290f4eb61a0": {
+        "source": "iService",
+        "target": null
+    },
+    "3ac55b9715ae78b884eb74188ef946b82fefd6c0": {
+        "source": "http://esdc.prv/en/work_tools/index.shtml",
+        "target": null
+    },
+    "e46e78ced58026f3d45edf28ccb3c910854f5d5d": {
+        "source": "Work Tools",
+        "target": null
+    },
+    "06098ab98b3198dd9d08a1a92451c76d7aafce64": {
+        "source": "http://esdc.prv/en/quick-links/index.shtml",
+        "target": null
+    },
+    "917bcf00a5f43df11b199071267499daef7275d9": {
+        "source": "Quick Links",
+        "target": null
+    },
+    "06b5091b044c4924ea976b19755feeb8c624cd90": {
+        "source": "sitemenu-eng.html",
+        "target": null
+    },
+    "185a826a2a72c29d68f6c4866a523d8be43418a8": {
+        "source": "About ECCC",
+        "target": null
+    },
+    "f578227926a03a85a494aaca127cfbff63d7ec5e": {
+        "source": "Branches",
+        "target": null
+    },
+    "5cbd584046863bc7b753e57e8681a98a87f36f0f": {
+        "source": "Services",
+        "target": null
+    },
+    "f2f01e19c8434496946b30c1faa20c61b66857d6": {
+        "source": "Tools and References",
+        "target": null
+    },
+    "87df60de337fb58864343e396696d74611e0d403": {
+        "source": "Resources",
+        "target": null
+    },
+    "4bec9575721b2739ed1e7c56eb6c8471084fcbcf": {
+        "source": "Forms",
+        "target": null
+    },
+    "3277d8a353fc9d029e7fa529c57dbb142d8a4957": {
+        "source": "DMs' Corner",
+        "target": null
+    },
+    "70f8bb9a8a5393ef080507a89e4b98d139000d65": {
+        "source": "Home",
+        "target": null
+    }
+}

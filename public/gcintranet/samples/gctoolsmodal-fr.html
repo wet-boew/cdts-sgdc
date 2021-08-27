@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>gctoolsmodal-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "prod",
+				"jqueryEnv": "external"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "prod",
+				"lngLinks": [{
+					"lang": "en",
+					"href": "gctoolsmodal-en.html",
+					"text": "English"
+				}],
+                "GCToolsModal": true
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Modal GCTools</h1>
+			<p>Cet exemple de page montre comment afficher un modal GC Tools contenant les liens GC Tools</p>
+			<h2>Mise en œuvre</h2>
+			<p>Par défaut, quatre liens GC Tools s'affichent dans l'en-tête. Vous pouvez remplacer tout cela par un seul lien vers une boîte de dialogue modale qui contiendra les liens GC Tools à la place.</p>
+			<p>Cela peut être fait via le paramètre <code>GCToolsModal</code> dans la section <b>top</b> de votre page.</p>
+            <pre>
+document.write(wet.builder.top({
+...
+    "GCToolsModal": true
+...
+});
+            </pre>
+            <div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "prod",
+					"dateModified": "2021-05-17"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "prod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</body>
+</html>

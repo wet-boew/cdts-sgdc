@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>sectionmenu-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "esdcprod",
+				"topSecMenu": true,
+				"lngLinks": [{
+					"lang": "en",
+					"href": "sectionmenu-en.html",
+					"text": "English"
+				}]
+			});
+		</script>
+		<div class="container">
+			<div class="row">
+				<main property="mainContentOfPage" typeof="WebPageElement" class="col-md-9 col-md-push-3">
+					<h1 property="name" id="wb-cont">Menu de section</h1>
+					<p>Cet exemple de page montre comment le menu de la section (à gauche) est affiché et configuré.</p>
+                    <h2>Mise en oeuvre</h2>
+                    <p>Afin d'implémenter un menu de section, quelques modifications sont nécessaires.</p>
+                    <p>Dans la section <b>top</b>, vous devez définir le paramètre « topSecMenu » sur true.</p>
+                    <pre>
+defTop.outerHTML = wet.builder.top({
+...
+    "topSecMenu": true
+...
+});
+                    </pre>
+                     <p>Ajoutez deux <code>&lt;div&gt;</code> non fermés après le code ci-dessus et juste avant l'élément d'ouverture <code>&lt;main&gt;</code>.</p>
+                    <ul>
+                        <li>Le premier <code>&lt;div&gt;</code> doit avoir une classe nommée "container"</li>
+                        <li>La deuxième <code>&lt;div&gt;</code> doit avoir une classe nommée "row"</li>
+                    </ul>
+                    <p>Après avoir fermé l'élément <code>&lt;main&gt;</code> vous devrez ajouter un élément <code>&lt;nav&gt;</code> qui devrait contenir votre code de secours statique.</p>
+                    <p>Après cela viendra le menu de la section réelle. Il existe quelques options de configuration.</p>
+                    <ul>
+                        <li><code class="wb-prettify">sectionName</code>: Ceci sera utilisé pour afficher le (s) titre (s) du (des) menu (s) de section.</li>
+                        <pre>
+"sectionName": "[Sujet - Navigation locale]"
+                        </pre>
+                        <li><code class="wb-prettify">menuLinks</code>: Ceci sera utilisé pour afficher les liens dans le menu.</li>
+                        <pre>
+"menuLinks": [{
+	"href": "#",
+	"text": "Lien 1"
+}                        
+                        </pre>
+                        <li><code class="wb-prettify">subLinks</code>: Ceci sera utilisé pour afficher les liens dans le menu. Vous pouvez également ajouter <code>"newWindow": true</code> si vous souhaitez que le lien s'ouvre dans une nouvelle fenêtre.</li>
+                        <pre>
+"subLinks": [{
+	"subhref": "#",
+	"subtext": "Lien 1",
+	"newWindow": true
+}]
+                        </pre>                    
+                    </ul> 
+                    <p>Le dernier changement sera de fermer les deux <code>&lt;div&gt;</code> vous avez précédemment ouvert. Voici l'extrait de code complet:</p>
+                    <pre>
+&lt;script&gt;
+    var defTop = document.getElementById("def-top");
+    defTop.outerHTML = wet.builder.top({
+        ...
+        "topSecMenu": true
+        ...
+    });
+&lt;/script&gt;
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+        &lt;main property="mainContentOfPage" typeof="WebPageElement" class="col-md-9 col-md-push-3"&gt;
+        ...
+        &lt;/main&gt;
+        &lt;nav class="wb-sec col-md-3 col-md-pull-9" typeof="SiteNavigationElement" id="wb-sec"&gt;
+            &lt;!-- Write closure fall-back static file --&gt;
+            &lt;!-- secMenu-en.html --&gt;
+        &lt;/nav&gt;
+        &lt;!-- Write closure template --&gt;
+        &lt;script&gt;
+            var secondarymenu = document.getElementById("wb-sec");
+            secondarymenu.innerHTML = wet.builder.secmenu({
+                "sections": [{
+                    "sectionName": "[Sujet - Navigation locale]",
+                    "menuLinks": [{
+                        "href": "#",
+                        "text": "Lien 1",
+                        "subLinks": [{ 
+                            "subhref": "#11a",
+                            "subtext": "Lien 1.1 a)"
+                        }, { 
+                            "subhref": "#11b",
+                            "subtext": "Lien 1.1 b)"
+                        }, {
+                            "subhref": "#11c",
+                            "subtext": "Ouvre dans une nouvelle fenêtre",
+                            "newWindow": true
+                        }, {
+                            "subhref": "#11d",
+                            "subtext": "Lien 1.1 d)" 
+                        }]
+                    }, {
+                        "href": "#",
+                        "text": "Lien 2"
+                    }, {
+                        "href": "#",
+                        "text": "Ouvre dans une nouvelle fenêtre",
+                        "newWindow": true
+                    }, {
+                        "href": "#",
+                        "text": "Lien 4"
+                    }]
+                },{
+                    "sectionName": "Ouvre dans une nouvelle fenêtre",
+                    "sectionLink": "#",
+                    "newWindow": true,
+                    "menuLinks": [{
+                        "href": "#",
+                        "text": "Lien 1"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 2"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 3"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 4"
+                    }]
+                },{
+                    // Rinse and repeat
+                    "sectionName": "Nom de la section 3",
+                    "menuLinks": [{
+                        "href": "#",
+                        "text": "Lien 1"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 2"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 3"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 4"
+                    }]
+                },{
+                    // Rinse and repeat
+                    "sectionName": "Nom de la section ... 27",
+                    "menuLinks": [{
+                        "href": "#",
+                        "text": "Lien 1"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 2"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 3"
+                    }, {
+                        "href": "#",
+                        "text": "Lien 4"
+                    }]
+                }]
+            });
+        &lt;/script&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                    </pre>                
+					<div id="def-preFooter">
+						<!-- Write closure fall-back static file -->
+						<!-- preFooter-en.html -->
+					</div>
+					<!-- Write closure template -->
+					<script>
+						var defPreFooter = document.getElementById("def-preFooter");
+						defPreFooter.outerHTML = wet.builder.preFooter({
+							"cdnEnv": "esdcprod",
+							"dateModified": "2021-05-19"
+						});
+					</script>
+				</main>
+				<nav class="wb-sec col-md-3 col-md-pull-9" typeof="SiteNavigationElement" id="wb-sec">
+					<!-- Write closure fall-back static file -->
+					<!-- secMenu-en.html -->
+				</nav>
+				<!-- Write closure template -->
+				<script>
+					var secondarymenu = document.getElementById("wb-sec");
+					secondarymenu.innerHTML = wet.builder.secmenu({
+						"sections": [{
+							"sectionName": "[Sujet - Navigation locale]",
+							"menuLinks": [{
+								"href": "#",
+								"text": "Lien 1",
+								"subLinks": [{ 
+									"subhref": "#11a",
+									"subtext": "Lien 1.1 a)"
+								}, { 
+									"subhref": "#11b",
+									"subtext": "Lien 1.1 b)"
+								}, {
+									"subhref": "#11c",
+									"subtext": "Ouvre dans une nouvelle fenêtre",
+									"newWindow": true
+								}, {
+									"subhref": "#11d",
+									"subtext": "Lien 1.1 d)" 
+								}]
+							}, {
+								"href": "#",
+								"text": "Lien 2"
+							}, {
+								"href": "#",
+								"text": "Ouvre dans une nouvelle fenêtre",
+								"newWindow": true
+							}, {
+								"href": "#",
+								"text": "Lien 4"
+							}]
+						},{
+							"sectionName": "Ouvre dans une nouvelle fenêtre",
+							"sectionLink": "#",
+							"newWindow": true,
+							"menuLinks": [{
+								"href": "#",
+								"text": "Lien 1"
+							}, {
+								"href": "#",
+								"text": "Lien 2"
+							}, {
+								"href": "#",
+								"text": "Lien 3"
+							}, {
+								"href": "#",
+								"text": "Lien 4"
+							}]
+						},{
+							// Rinse and repeat
+							"sectionName": "Nom de la section 3",
+							"menuLinks": [{
+								"href": "#",
+								"text": "Lien 1"
+							}, {
+								"href": "#",
+								"text": "Lien 2"
+							}, {
+								"href": "#",
+								"text": "Lien 3"
+							}, {
+								"href": "#",
+								"text": "Lien 4"
+							}]
+						},{
+							// Rinse and repeat
+							"sectionName": "Nom de la section ... 27",
+							"menuLinks": [{
+								"href": "#",
+								"text": "Lien 1"
+							}, {
+								"href": "#",
+								"text": "Lien 2"
+							}, {
+								"href": "#",
+								"text": "Lien 3"
+							}, {
+								"href": "#",
+								"text": "Lien 4"
+							}]
+						}]
+					});
+				</script>
+			</div>
+		</div>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

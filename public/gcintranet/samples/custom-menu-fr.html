@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>custom-menu-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "prod",
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+                "appName": [{
+                    "text": "Nom de l'application",
+                    "href": "#"
+                }],
+				"lngLinks": [{
+					"lang": "en",
+					"href": "custom-menu-en.html",
+					"text": "English"
+				}],
+				//"menuPath": "../ajax/custommenu-fra.html",
+                "menuLinks":[
+                        {"text":"Aperçu", "href":"#"},
+                        {"text":"Première section", "href":"#"},
+                        {"href": "#",
+                        "text":"Deuxième section",
+                            "subLinks": [{
+                                "subhref": "#",
+                                "subtext": "Sous-section 1"
+                            },
+                            {
+                                "subhref": "#",
+                                "subtext": "Sous-section 2"
+                            },
+                            {
+                                "subhref": "#",
+                                "subtext": "Sous-section 3"
+                            },
+                            {
+                                "subhref": "#",
+                                "subtext": "Sous-section 4"
+                            },
+                            {
+                                "subhref": "#",
+                                "subtext": "Deuxième section - Plus"
+                            }],
+                        }],
+				"cdnEnv": "prod"
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Menu personnalisé</h1>
+			<p>Cet exemple de page montre comment un menu personnalisé peut être affiché sur votre page.</p>
+			<h2>Mise en œuvre</h2>
+			<p>Il existe deux méthodes par lesquelles un menu personnalisé peut être affiché.</p>
+            <p><b>Première méthode</b></p>
+            <ul>
+                <li>Créez un menu personnalisé dans un fichier html séparé et l'URL de fourniture via le paramètre <code>menuPath</code> dans la section <b>appTop</b> de votre page.</li>
+                <li>Un exemple de fichier html contenant un menu peut être trouvé <a href="../ajax/custommenu-fra.html">ici</a>.</li>
+            </ul>    
+                <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "menuPath": "../ajax/custommenu-fra.html"
+...
+});
+                </pre>
+            <p><b>Deuxième méthode</b></p>
+            <p>La deuxième méthode consiste à créer le menu dans la section appTop de votre page. Il existe quelques options de configuration:</p>
+            <ul>
+                <li><code class="wb-prettify">menuLinks</code>: utilisé pour créer une navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «text» et «href» respectivement.</li>
+                <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "menuLinks": [{
+        "text": "Première section",
+        "href": "#"
+    }]
+...
+});  
+                </pre>
+                <li><code class="wb-prettify">subLinks</code>: utilisé pour créer les éléments de sous-menu. Ceux-ci sont affichés lorsque l'utilisateur survole la navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «subtext» et «subhref» respectivement.</li>
+                <pre>
+"subLinks": [{
+    "subtext": "Sous-section 1",
+    "subhref": "#"
+}]
+                </pre>
+            </ul>
+            <p><b>Noter:</b> Les éléments de menu avec des sous-liens n'ont pas de lien, ce qui permet de trouver un comportement cohérent lors de l'accès à un site via un mobile ou de la navigation sur un site à l'aide d'un clavier. Par exemple, sur un écran tactile, appuyer sur un élément de menu devrait ouvrir le panneau avec les sous-liens et ne pas naviguer ailleurs.</p>
+            <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "menuLinks":[
+        {
+            "text":"Aperçu"
+        },
+        {
+            "text":"Première section"
+        },
+        {
+            "href": "#",
+            "text":"Deuxième section",
+            "subLinks": [{
+                "subhref": "#",
+                "subtext": "Sous-section 1"
+            },
+            {
+                "subhref": "#",
+                "subtext": "Sous-section 2"
+            },
+            {
+                "subhref": "#",
+                "subtext": "Sous-section 3"
+            },
+            {
+                "subhref": "#",
+                "subtext": "Sous-section 4"
+            },
+            {
+                "subhref": "#",
+                "subtext": "Deuxième section - Plus"
+            }],
+        }]
+...
+});   
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2021-05-19",
+					"cdnEnv": "prod"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "prod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "prod",
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>

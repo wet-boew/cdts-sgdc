@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="fr" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>intranettitle-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "prod",
+				"lngLinks": [{
+					"lang": "en",
+					"href": "intranettitle-en.html",
+					"text": "English"
+				}],
+				"intranetTitle": [{
+					"href": "https://www.canada.ca/fr/employment-social-development.html",
+					"text": "Titre Intranet",
+					"acronym": "Emploi et Développement social Canada"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" class="container">
+			<h1 property="name" id="wb-cont">Titre intranet</h1>
+            <p>Cet exemple de page montre comment afficher un titre intranet personnalisé. Avant de continuer, assurez-vous d'avoir la permission de votre ministère, du SCT ou de l'éditeur principal. Cette variable n'est pas conforme au document de spécifications C&IA.</p>
+			<h2>Mise en œuvre</h2>
+			<p>Le titre GCIntranet est modifié dans la section <b>top</b> de la page. Il existe trois options de configuration:</p>
+            <ul>
+                <li><code class="wb-prettify">href</code>: l'url du titre. Si elle est laissée vide, <a href="http://intranet.ec.gc.ca/default.asp?lang=En">l'URL par défaut</a> sera utilisée</li>
+                <li><code class="wb-prettify">text</code>: le texte du titre qui sera affiché</li>
+                <li><code class="wb-prettify">acronym</code>: si votre titre a un acronyme, vous pouvez utiliser cette propriété pour fournir le texte intégral du titre. Il sera affiché lorsque l'utilisateur survolera le titre</li>
+            </ul>
+            <pre>
+defTop.outerHTML = wet.builder.top({
+...
+    "intranetTitle": [{
+        "href": "https://www.canada.ca/fr/employment-social-development.html",
+        "text": "Titre Intranet",
+        "acronym": "Emploi et Développement social Canada"
+    }]
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-fr.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "prod",
+					"dateModified": "2021-05-19"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-fr.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "prod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</body>
+</html>

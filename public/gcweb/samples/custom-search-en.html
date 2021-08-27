@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>custom-search-en</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+                "appName": [{
+                    "text": "Application name",
+                    "href": "#"
+                }],
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "custom-search-fr.html",
+					"text": "Français"
+				}],
+                "customSearch": [{
+                    "action" : "https://www.canada.ca/en/sr.html", 
+                    "placeholder" : "Canada.ca",
+                    "id" : "wb-srch-q",
+                    "name" : "q",
+                    "method" : "get",
+                    "hiddenInput" : [{
+                        "name" : "cdn",
+                        "value" : "canada"
+                    }] 
+	            }],
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Custom Search</h1>
+			<p>When using the application template, you have the ability to use a custom search engine for your site.</p>
+            <h2>Implementation</h2>
+			<p>Customization of the search is done through the <code>customSearch</code> parameter in the <b>appTop</b> section of your page.</p>
+            <p>There are a few configuration options:</p>
+            <ul>
+                <li><code class="wb-prettify">"action"</code>: the URL of the search you would like to point to</li>
+                <li><code class="wb-prettify">"method"</code>: "get" or "post"</li>
+                <li><code class="wb-prettify">"placeholder"</code>: Optional - placeholder text that is displayed inside the search bar</li>
+                <li><code class="wb-prettify">"id"</code>: Optional - you can provide an optional id for your search</li>
+                <li><code class="wb-prettify">"name"</code>: Optional - you can customize the "name" attribute for your search</li>
+                <li><code class="wb-prettify">"hiddenInput:</code>: Optional - you can provide data inputs through the "name" and "value" parameters</li>
+            </ul>    
+            <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "customSearch": [{
+        "action" : "https://www.canada.ca/en/sr.html", 
+        "placeholder" : "Canada.ca",
+        "id" : "wb-srch-q",
+        "name" : "q",
+        "method" : "get",
+        "hiddenInput" : [{
+            "name" : "cdn",
+            "value" : "canada"
+        }] 
+    }]
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2021-05-25",
+					"cdnEnv": "esdcprod"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "esdcprod",
+                "footerSections": [{
+					"href": "#",
+					"text": "Portal footer link 1"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 2"
+				}, {
+					"href": "#",
+					"text": "Portal footer link 3"
+				}],
+                "contactLink": [{
+                    "href": "https://www.canada.ca/en/contact.html",
+                    "newWindow": true
+                }],
+                "termsLink": [{
+                    "href": "https://www.canada.ca/en/transparency/terms.html",
+                    "newWindow": true
+                }],
+                "privacyLink": [{
+                    "href": "https://www.canada.ca/en/transparency/privacy.html",
+                    "newWindow": true
+                }]
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>

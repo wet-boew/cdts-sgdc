@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>Samples - home</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "index-fr.html",
+					"text": "Français"
+				}],
+				"breadcrumbs": [{
+					"title": "Canada.ca",
+					"acronym": "Canada.ca",
+					"href": "http://www.canada.ca/en.html"
+				}, {
+					"title": "CDTS",
+					"acronym": "Centrally Deployed Templates Solution"
+				}],
+				"cdnEnv": "prod"
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">CDTS Samples</h1>
+			<p>Welcome to the CDTS sample pages. You will find below, links to sample pages that demonstrate how to implement various CDTS features, as well as some useful links.</p>
+			<ul>
+				<li><a href="basic-settings-en.html">Basic Settings</a></li>
+				<li><a href="breadcrumbs-en.html">Breadcrumbs</a></li>
+                <li><a href="contactlinks-en.html">Contact Links</a></li>
+                <li><a href="content-en.html">Content (style guide)</a></li>                
+				<li><a href="exitscript-en.html">Leaving a Secure Site</a></li>
+                <li><a href="gctoolsmodal-en.html">GCTools Modal</a></li>
+                <li><a href="intranettitle-en.html">GCIntranet Title</a></li>
+                <li><a href="jquery-en.html">Loading jQuery</a></li>
+				<li><a href="languagelinks-en.html">Language Links</a></li>
+				<li><a href="sectionmenu-en.html">Section Menu</a></li>
+                <li><a href="server-en.html">Error Sample</a></li>
+                <li><a href="server.html">Error Bilingual Sample</a></li>
+                <li><a href="subtheme-en.html">Sub-theme</a></li>
+				<li><a href="splashpage.html">Splash Page</a></li>
+				<li><a href="transactional-en.html">Transactional Page</a></li>
+            </ul>
+            <h3>Application template</h3>
+            <ul>
+				<li><a href="custom-menu-en.html">Custom Menu</a></li>
+                <li><a href="custom-footer-en.html">Custom Footer</a></li>
+                <li><a href="custom-search-en.html">Custom Search</a></li>
+                <li><a href="global-nav-menu-en.html">Global Navigation Menu</a></li>
+                <li><a href="secure-en.html">Secure (Lock) Icon</a></li>
+                <li><a href="signin-en.html">Sign in</a></li>
+                <li><a href="signout-en.html">Sign out</a></li>
+            </ul>
+            <h3>Useful Links</h3>
+            <ul>
+                <li><a href="https://cenw-wscoe.github.io/sgdc-cdts/docs/index-en.html">CDTS Documentation</a></li>
+                <li><a href="https://github.com/wet-boew/cdts-sgdc/issues">Report a CDTS Issue</a></li>
+                <li><a href="https://cenw-wscoe.github.io/sgdc-cdts/docs/templates-en.html">.Net and Java Web Templates</a></li>
+                <li><a href="https://wet-boew.github.io/wet-boew-styleguide/index-en.html">WET Style Guide</a></li>
+			</ul>
+            <div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2021-05-17",
+					"cdnEnv": "prod"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "prod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</body>
+</html>

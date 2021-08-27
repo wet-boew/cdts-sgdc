@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>transactional-en</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</head>
+	<body vocab="http://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- transactTop-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "prod",
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "transactional-fr.html",
+					"text": "Français"
+				}],
+				"search": false,
+				"siteMenu": false,
+				"showPreContent": false
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Transactional Page</h1>
+            <p>A transactional page is to be used under specific scenarios. Treasury Board defines this as follows:</p>
+            <p><i>Users are engaged in a transactional process where allowing them to navigate away from the current page would interrupt the intended flow and result in errors, loss of data or accidental termination of the session</i></p>
+			<p>Basically, you avoid having external links to prevent users from losing data if they was to navgiate away.</p>
+            <h2>Implementation</h2>
+            <p>There are a few modifications required in order to make your page truly transactional. All of these changes are mandatory unless stated otherwise.</p>
+            <p>In the <b>top</b> section:</p>
+            <ul>
+                <li>Hide the search bar</li>
+                <pre>
+defTop.outerHTML = wet.builder.top({
+...
+    "search": false
+...
+});
+                </pre>
+                <li>Hide the site menu</li>
+                <pre>
+defTop.outerHTML = wet.builder.top({
+...
+    "siteMenu": false
+...
+});
+                </pre>
+                <li>Breadcrumbs need to be replaced with a link to exit the transaction that directs users to a safe point where they can abandon the current transaction and restart it should they wish.</li>
+                <pre>
+defTop.outerHTML = wet.builder.top({
+...
+    "breadcrumbs": [{
+        "title": "Exit secure transaction",
+        "href": "https://www.canada.ca/en/index.html"
+    }]
+...
+});
+                </pre>
+                <li>Hide the content inserted into the pre content space of your page</li>
+                <pre>
+defTop.outerHTML = wet.builder.top({
+...
+    "showPreContent": false
+...
+});
+                </pre>
+            </ul>
+            <p>In the <b>preFooter</b> section:</p>
+            <ul>
+                <li>Hide the content inserted into the post content space of your page</li>
+                <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "showPostContent": false
+...
+});
+                </pre>
+            </ul>
+            <p>In the <b>footer</b> section:</p>
+            <ul>
+                <li>Hide the content inside the footer</li>
+                <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "showFooter": false
+...
+});
+                </pre>
+                <li>Optional: Override the 'Contact us' link located at the bottom of the page.</li>
+                <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "contactLink": [{
+        "text": "Contact us",
+        "href": "https://www.canada.ca/en/contact.html"        
+    }]
+...
+});
+                </pre>
+            </ul>
+            <div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "prod",
+					"dateModified": "2021-05-17",
+					"showPostContent": false,
+					"showFeedback": false,
+					"showShare": false
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- transactFooter-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "prod",
+				"showFooter": false,
+				"showFeatures": false,
+				"contactLinks": [{
+					"text": "Contact us",
+					"href": "#"
+				}]
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "prod"
+			}));
+		</script>
+	</body>
+</html>
