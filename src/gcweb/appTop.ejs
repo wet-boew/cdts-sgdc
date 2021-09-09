@@ -33,7 +33,7 @@ dataLayer = [];
                 <section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
                     <h2 class="wb-inv"><^- msg('Language selection') ^></h2>
                     <ul class="list-inline mrgn-bttm-0">
-                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) { 
+                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) {
                             const link=pr.lngLinks[linkIndex];-%>
                         <li>
                             <a lang="<%= link.lang %>" href="<%- link.href %>">
@@ -52,15 +52,15 @@ dataLayer = [];
                 <meta property="areaServed" typeof="Country" content="Canada">
                 <link property="logo" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-blk.svg">
             </div>
-            <%_ if (pr.customSearch != null && pr.customSearch.length > 0) { 
+            <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                 const item=pr.customSearch[0]; -%>
                 <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4 visible-md visible-lg">
                     <h2><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h2>
                     <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search">
                         <div class="form-group wb-srch-qry">
-                            <label for="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>                        
+                            <label for="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
                             <input id="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-srch-q form-control" name="<%= item.name != null? item.name: 'q' %>" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>">
-                            <%_ if (item.hiddenInput != null) { 
+                            <%_ if (item.hiddenInput != null) {
                                 for (var inputIndex=0; inputIndex<item.hiddenInput.length; inputIndex++) {
                                 const input=item.hiddenInput[inputIndex]; -%>
                                     <input type="hidden" name="<%= input.name %>" value="<%= input.value %>">
@@ -83,7 +83,7 @@ dataLayer = [];
                 <%_ } else { -%>
                     <section class="col-xs-12">
                 <%_ } -%>
-                <%_ if (pr.appName != null && pr.appName.length > 0) { 
+                <%_ if (pr.appName != null && pr.appName.length > 0) {
                     const item=pr.appName[0]; -%>
                     <h2 class="wb-inv"><^- msg('Name of Web application') ^></h2>
                     <a class="app-name" href="<%- item.href %>"><%= item.text%></a>
@@ -93,17 +93,17 @@ dataLayer = [];
                     <nav class="col-sm-5 hidden-xs hidden-print">
                         <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
                         <ul class="app-list-account list-unstyled">
-                            <%_ if (pr.appSettings != null && pr.appSettings.length > 0) { 
+                            <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
                                 const item=pr.appSettings[0]; -%>
                                 <li><a href="<%- item.href %>" class="btn"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <^- msg('Account settings') ^></a></li>&#32;
                             <%_ } -%>
                             <%_ if (pr.signOut != null) { -%>
-                                <%_ if (pr.signOut.length > 0) { 
+                                <%_ if (pr.signOut.length > 0) {
                                     const item=pr.signOut[0]; -%>
                                     <li><a href="<%- item.href %>" id="cdts-signout-btn" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <^- msg('Sign out') ^></a></li>
                                 <%_ } -%>
                             <%_ } else if (pr.signIn != null) { -%>
-                                <%_ if (pr.signIn.length > 0) { 
+                                <%_ if (pr.signIn.length > 0) {
                                     const item=pr.signIn[0]; -%>
                                     <li><a href="<%- item.href %>" id="cdts-signin-btn" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <^- msg('Sign in') ^></a></li>
                                 <%_ } -%>
@@ -124,7 +124,7 @@ dataLayer = [];
                         <%_ if (pr.customSearch != null) { -%><li><a href="#app-srch-mb" title="<^- msg('Search') ^>" aria-controls="app-srch-mb" class="btn overlay-lnk" role="button"><span class="glyphicon-search glyphicon" aria-hidden="true"></span><span class="wb-inv"><^- msg('Search') ^></span></a></li><%_ } -%>
                     </ul>
                     <div id="mb-pnl"></div>
-                    <%_ if (pr.customSearch != null && pr.customSearch.length > 0) { 
+                    <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                         const item=pr.customSearch[0]; -%>
                         <section id="app-srch-mb" class="wb-overlay modal-content overlay-def wb-bar-t">
                             <div class="modal-header">
@@ -135,7 +135,7 @@ dataLayer = [];
                                     <div class="input-group">
                                         <label for="<%= item.id != null? 'app-' + item.id: 'app-srch-q-mb' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
                                         <input placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>" id="<%= item.id != null? 'app-' + item.id: 'app-srch-q-mb' %>" class="app-srch-q-mb form-control" name="q" type="search" value="" size="27" maxlength="150">
-                                        <%_ if (item.hiddenInput != null) { 
+                                        <%_ if (item.hiddenInput != null) {
                                             for (var hiddenIndex=0; hiddenIndex<item.hiddenInput.length; hiddenIndex++) {
                                             const input=item.hiddenInput[hiddenIndex]; -%>
                                                 <input type="hidden" name="<%=input.name%>" value="<%=input.value%>">
@@ -153,17 +153,17 @@ dataLayer = [];
             <nav>
                 <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
                 <ul class="app-list-account list-unstyled">
-                    <%_ if (pr.appSettings != null && pr.appSettings.length > 0) { 
+                    <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
                         const item=pr.appSettings[0]; -%>
                         <li><a href="<%- item.href %>" class="btn"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <^- msg('Account settings') ^></a></li>&#32;
                     <%_ } -%>
                     <%_ if (pr.signOut != null) { -%>
-                        <%_ if (pr.signOut.length > 0) { 
+                        <%_ if (pr.signOut.length > 0) {
                             const item=pr.signOut[0]; -%>
                             <li><a href="<%- item.href %>" id="cdts-signout-btn-mobile" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <^- msg('Sign out') ^></a></li>
                         <%_ } -%>
                     <%_ } else if (pr.signIn != null) { -%>
-                        <%_ if (pr.signIn.length > 0) { 
+                        <%_ if (pr.signIn.length > 0) {
                             const item=pr.signIn[0]; -%>
                             <li><a href="<%- item.href %>" id="cdts-signin-btn-mobile" class="btn"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> <^- msg('Sign in') ^></a></li>
                         <%_ } -%>
@@ -172,7 +172,7 @@ dataLayer = [];
             </nav>
             <%_ } -%>
         </div>
-    
+
         <%_ if (pr.menuLinks != null) { -%>
             <nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="appNavMenu">
                 <div class="pnl-strt container nvbar">
@@ -184,8 +184,8 @@ dataLayer = [];
                                 <%_ if (link.subLinks != null) { -%>
                                     <li role="none">
                                         <a href="#<%=link.id%>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a>
-                                        <ul class="sm list-unstyled" id="<%= link.id %>" role="menu">
-                                            <%_ for (var subLinkIndex=0; subLinkIndex<link.subLinks.length; subLinkIndex++) { 
+                                        <ul class="sm list-unstyled" <%_ if (link.id != null) { -%>id="<%= link.id %>"<%_ } -%> role="menu">
+                                            <%_ for (var subLinkIndex=0; subLinkIndex<link.subLinks.length; subLinkIndex++) {
                                                 const subLink=link.subLinks[subLinkIndex];-%>
                                                 <%_ if (subLinkIndex >= (link.subLinks.length-1)) {  /*if isLast($subLink)*/ -%>
                                                     <li class="slflnk" role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= subLink.subtext %><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
