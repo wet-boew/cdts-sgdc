@@ -100,7 +100,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
-                                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) { 
+                                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) {
                                             const link=pr.lngLinks[linkIndex];-%>
                                             <li><a hreflang="<%= link.lang %>" lang="<%= link.lang %>" href="<%- link.href %>"><%= link.text %></a></li>
                                         <%_ } -%>
@@ -112,7 +112,7 @@
                     <%_ if (pr.search != false) { -%>
                         <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md">
                             <h2><^- msg('Search') ^></h2>
-                            <%_ if (pr.customSearch != null && pr.customSearch.length > 0) { 
+                            <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                                 const item=pr.customSearch[0]; -%>
                                 <form action="<%- (item.action != null)? item.action: '<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>' %>" method="<%= (item.method != null)? item.method: 'get' %>" name="<%= (item.name != null)? item.name: 'cse-search-box'%>" role="search" class="form-inline">
                                     <div class="form-group">
@@ -228,8 +228,8 @@
                             <%_ if (link.subLinks != null) { -%>
                                 <li role="none">
                                     <a href="#<%=link.id%>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a>
-                                    <ul class="sm list-unstyled" id="<%= link.id %>" role="menu">
-                                        <%_ for (var subLinkIndex=0; subLinkIndex<link.subLinks.length; subLinkIndex++) { 
+                                    <ul class="sm list-unstyled" <%_ if (link.id != null) { -%>id="<%= link.id %>"<%_ } -%> role="menu">
+                                        <%_ for (var subLinkIndex=0; subLinkIndex<link.subLinks.length; subLinkIndex++) {
                                             const subLink=link.subLinks[subLinkIndex];-%>
                                             <%_ if (subLinkIndex >= (link.subLinks.length-1)) {  /*if isLast($subLink)*/ -%>
                                                 <li class="slflnk" role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= subLink.subtext %><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>

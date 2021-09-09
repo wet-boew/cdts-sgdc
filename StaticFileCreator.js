@@ -1,12 +1,11 @@
-const { HtmlValidate } = require('html-validate'); //(https://html-validate.org/dev/using-api.html)
-const {default: htmlValidateFormatReport} = require('html-validate/dist/formatters/stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
+const { HtmlValidate, formatterFactory } = require('html-validate'); //(https://html-validate.org/dev/using-api.html)
 
 const scriptRegex = /<script.*?<\/script>/sg;
 
 function defaultContentFilter(grunt, content, definition, language, targetFileName) {
     //---[ Strip any <script> elements from file content
     const matches = content.match(scriptRegex);
-    
+
     if (matches && matches.length > 0) {
         grunt.log.writeln(`${targetFileName}: Removing ${matches.length} '<script>' element(s)...`);
     }
@@ -47,6 +46,7 @@ function createStaticFallbackFile(grunt, definition, language) {
 
     //---[ Validate HTML before we save
     const htmlValidate = new HtmlValidate(require('./htmlvalidator.conf.js'));
+	const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
     const report = htmlValidate.validateString(output);
     if ((!report.valid) || (report.warningCount > 0)) {
         grunt.log.error(`${targetFileName}: ${report.errorCount} error(s), ${report.warningCount} warning(s) reported:`);
@@ -62,23 +62,23 @@ function createStaticFallbackFile(grunt, definition, language) {
 module.exports = function generateStaticFile(grunt, themeName, definitionFileBasename, getStaticFileDefinition) {
     //---[ Establish file defitinion/parameters
     const definition = getStaticFileDefinition(grunt);
-    
+
     //(override values for theme)
     if (definition[themeName]) Object.assign(definition, definition[themeName]);
-    
+
     //(apply defaults)
     if (!definition.fileBaseName) definition.fileBaseName = definitionFileBasename;
     if (!definition.builderFunctionName) definition.builderFunctionName = definition.fileBaseName;
     if (typeof definition.multiLanguageEnabled === 'undefined') definition.multiLanguageEnabled = true;
-    
+
     //(add to definition)
     definition.themeName = themeName;
     definition.themeVersion = grunt.config('project.version_name');
     definition.cdnEnvOverride = grunt.option('cdts_samples_cdnenv') || null;
 
     //---[ If not enabled, don't do anything and return
-    if (definition.enabled === false) return; 
-    
+    if (definition.enabled === false) return;
+
     //---[ Create one or more files depending on multiLanguageEnabled
     if (definition.multiLanguageEnabled) {
         ['en', 'fr'].forEach((language) => createStaticFallbackFile(grunt, definition, language));
