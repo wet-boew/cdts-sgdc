@@ -1,11 +1,12 @@
 {
-  "name": "sgdc-cdts",
+  "name": "cdts-sgdc",
   "version": "4.0.44",
   "private": true,
   "scripts": {
     "translate": "grunt --stack i18n-ejs --cdts_samples_cdnenv=localhost",
     "build": "grunt --stack build --cdts_samples_cdnenv=localhost",
     "build-prod": "grunt --stack build-prod",
+    "build-nowet": "grunt --stack build-nowet --cdts_samples_cdnenv=localhost",
     "serve": "grunt --stack serve --cdts_samples_cdnenv=localhost",
     "serve-nobuild": "grunt --stack serve-nobuild --cdts_samples_cdnenv=localhost",
     "test": "grunt --stack test --cdts_samples_cdnenv=localhost"
