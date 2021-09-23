@@ -37,10 +37,6 @@
         "source": "Social media",
         "target": "Médias sociaux"
     },
-    "d450a8842462be76b9bd2a449110d5aef22a9840": {
-        "source": "http://pm.gc.ca/eng",
-        "target": "http://pm.gc.ca/fra"
-    },
     "5e461a2404d8ee5f0aed62c7e55859208f6a29cf": {
         "source": "About this site",
         "target": "À propos du site"
@@ -72,10 +68,6 @@
     "be504f616fd1d37b2a0143949516a1f34b40e9cf": {
         "source": "Skip to main content",
         "target": "Passer au contenu principal"
-    },
-    "6b0bfabde7a2a8a78a05a98d31d0da27c38e85da": {
-        "source": "http://open.canada.ca/en/",
-        "target": "http://ouvert.canada.ca/"
     },
     "3703cd216881d3303a10a898fe54439bf05685b6": {
         "source": "Health",
@@ -329,10 +321,6 @@
         "source": "en",
         "target": "fr"
     },
-    "8a2c07c84f3e78eac88e26d0c6300c0ed0b674c1": {
-        "source": "http://international.gc.ca/world-monde/index.aspx?lang=eng",
-        "target": "http://international.gc.ca/world-monde/index.aspx?lang=fra"
-    },
     "555c28667a3f7c70cdc7b0d124a4e0ef1e748446": {
         "source": "https://www.canada.ca/en/transparency/reporting.html",
         "target": "https://www.canada.ca/fr/transparence/rapports.html"
@@ -396,5 +384,17 @@
     "cb711be644fab2f119f120823991b3fedd7ea523": {
         "source": "<span class=\"wb-inv\">Main </span>Menu",
         "target": "Menu<span class=\"wb-inv\"> principal</span>"
+    },
+    "8581b1527994bc90364cd1cd488af794a1212d03": {
+        "source": "https://international.gc.ca/world-monde/index.aspx?lang=eng",
+        "target": "https://international.gc.ca/world-monde/index.aspx?lang=fra"
+    },
+    "1db191da7fde54515d7602f870df2704961625b4": {
+        "source": "https://pm.gc.ca/en",
+        "target": "https://pm.gc.ca/fr"
+    },
+    "0bab7baf8a072251cb14e3315956808a7cdad6a9": {
+        "source": "https://open.canada.ca/en",
+        "target": "https://open.canada.ca/fr"
     }
 }

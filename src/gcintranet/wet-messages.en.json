@@ -17,40 +17,40 @@
         "source": "Corporate",
         "target": null
     },
-    "cffdbfe95e3606a7ec7cef16b598db0e66061e8e": {
-        "source": "http://esdc.prv/en/branches_regions/index.shtml",
+    "56f95c3b48e6157762d6d10dcd2fee3954d3a134": {
+        "source": "https://esdc.prv/en/branches_regions/index.shtml",
         "target": null
     },
     "a3026e467213bf871821544a5c04131e16e4f0fc": {
         "source": "ESDC/SC IntraWeb",
         "target": null
     },
-    "866d5c697f8026de51b4bba32a3a025160b2c69f": {
-        "source": "http://esdc.prv/en/news/index.shtml",
+    "4f19422871d148695ed12f5b9572f5023395a2f7": {
+        "source": "https://esdc.prv/en/news/index.shtml",
         "target": null
     },
     "34c808d0a63f277e04fb23a5f76cc83d0a3e024b": {
         "source": "News",
         "target": null
     },
-    "b9be91bcea5adc228dcc725542eb44aab739ac04": {
-        "source": "http://esdc.prv/en/contact/index.shtml",
+    "1069fa5d64acba79fe7feed0275ee90c4fd3f8bb": {
+        "source": "https://esdc.prv/en/contact/index.shtml",
         "target": null
     },
     "2cb33c4f93c98e591575527a3aff576706cb8326": {
         "source": "Contact and Feedback",
         "target": null
     },
-    "7d49ee6263d50776fb5abd189ad7befdd8775c9d": {
-        "source": "http://esdc.prv/en/stay_connected/index.shtml",
+    "71061bebb2aee943268635510b2939eba9ddd062": {
+        "source": "https://esdc.prv/en/stay_connected/index.shtml",
         "target": null
     },
     "a73624362c4b5337603d5ee8e53f802cb91cf1c7": {
         "source": "Stay Connected",
         "target": null
     },
-    "70dc69922cf2af9af4458557a85f7a66675c011e": {
-        "source": "http://edsc.prv/en/help.shtml",
+    "b1c32100348229f0b66c3ceba26fc75f41f58911": {
+        "source": "https://edsc.prv/en/help.shtml",
         "target": null
     },
     "8e153eebdea15ba070f36a605224fda3ae6300ef": {
@@ -153,8 +153,8 @@
         "source": "Skip to section menu",
         "target": null
     },
-    "7a08c0fdda9a3256944b9a94f9edc2970f9d4984": {
-        "source": "http://intranet.ec.gc.ca/default.asp?lang=En",
+    "8d12437949e4425e3739fdb7a008fc2a29f8299f": {
+        "source": "https://intranet.ec.gc.ca/default.asp?lang=En",
         "target": null
     },
     "99a3e18460e703b6b52b26b4155c66c3e3ba24bc": {
@@ -193,16 +193,16 @@
         "source": "<span class=\"bold-gc\">GC</span>connex",
         "target": null
     },
-    "2ddb8e8264479cebcc4d01ba7e42d8d76124b290": {
-        "source": "http://www.gcpedia.gc.ca/wiki/?setlang=en",
+    "f2417ac676050e05bc647767e748c98c93073622": {
+        "source": "https://www.gcpedia.gc.ca/wiki/?setlang=en",
         "target": null
     },
     "1f9795ea2af7ddf43807a0dad133af769f7fb872": {
         "source": "<span class=\"bold-gc\">GC</span>pedia",
         "target": null
     },
-    "70d4ab746e428d7b9a9ae0d78b40172f64ef5ffd": {
-        "source": "http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002",
+    "11b2a2430905d82d51e01301ffb743fdefd0784e": {
+        "source": "https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002",
         "target": null
     },
     "bc9e060b83e411308030ffa99e2d930ba35a0a4e": {
@@ -269,8 +269,8 @@
         "source": "You are here:",
         "target": null
     },
-    "9dbac3eeed4e800f61885f73610ccb70b18c74b0": {
-        "source": "https://intranet.canada.ca/contact/contactgc-eng.aspx",
+    "0052b2c1760a4b2697c109bc3a864419bf33ecd2": {
+        "source": "https://intranet.canada.ca/contact-eng.asp",
         "target": null
     },
     "4832e45812a2724f16a15f9ae87adfc8ae4168cf": {
@@ -321,8 +321,8 @@
         "source": "Topics menu",
         "target": null
     },
-    "6ce2e8f02962067227eba4246bfa194ab99b214d": {
-        "source": "http://esdc.prv/en/department/index.shtml",
+    "7ed154bf364007949d96c9b0c12cd6310b4b62f8": {
+        "source": "https://esdc.prv/en/department/index.shtml",
         "target": null
     },
     "f8d8e90a1540b78be0a035ceeb69eedfa674f993": {
@@ -333,24 +333,24 @@
         "source": "Branches and Regions",
         "target": null
     },
-    "484eadc1acd9ea106e3719fa0ae4adeeabd81ac6": {
-        "source": "http://iservice.prv/eng/index.shtml",
+    "172f6f4af6339bf3d9b299900678ad114ebb15c7": {
+        "source": "https://iservice.prv/eng/index.shtml",
         "target": null
     },
     "6eef9ecad11da73e352b96e522d05290f4eb61a0": {
         "source": "iService",
         "target": null
     },
-    "3ac55b9715ae78b884eb74188ef946b82fefd6c0": {
-        "source": "http://esdc.prv/en/work_tools/index.shtml",
+    "39384f459ef921cebc4e14330219a1369f48aa89": {
+        "source": "https://esdc.prv/en/work_tools/index.shtml",
         "target": null
     },
     "e46e78ced58026f3d45edf28ccb3c910854f5d5d": {
         "source": "Work Tools",
         "target": null
     },
-    "06098ab98b3198dd9d08a1a92451c76d7aafce64": {
-        "source": "http://esdc.prv/en/quick-links/index.shtml",
+    "f766e10ff6ea54db5ca05d580e6e8a2c2ded42c6": {
+        "source": "https://esdc.prv/en/quick-links/index.shtml",
         "target": null
     },
     "917bcf00a5f43df11b199071267499daef7275d9": {

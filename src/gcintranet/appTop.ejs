@@ -32,7 +32,7 @@
                         <div class="app-name<%- (pr.intranetTitle != null)? ' app-name-lg': '' %>">
                             <%_ if (pr.intranetTitle != null && pr.intranetTitle.length > 0) {
                                 const item=pr.intranetTitle[0]; -%>
-                                <a href="<%- (item.href != null)? item.href: '<^- msg('http://intranet.ec.gc.ca/default.asp?lang=En') ^>' %>">
+                                <a href="<%- (item.href != null)? item.href: '<^- msg('https://intranet.ec.gc.ca/default.asp?lang=En') ^>' %>">
                                     <span>
                                         <%_ if (item.acronym != null) { -%>
                                             <%_ -%><abbr title="<%= item.acronym %>"><%_ -%>
@@ -66,8 +66,8 @@
                                 <div class="modal-body">
                                     <ul class="list-unstyled lst-spcd">
                                         <li><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></li>
-                                        <li><a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></li>
-                                        <li><a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></li>
+                                        <li><a href="<^- msg('https://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></li>
+                                        <li><a href="<^- msg('https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></li>
                                         <li><a href="<^- msg('https://gccollab.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>collab') ^></a></li>
                                         <li><a href="<^- msg('https://intranet.canada.ca/index-eng.asp') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>intranet') ^></a></li>
                                     </ul>
@@ -81,11 +81,11 @@
                                 <^- msg('<span class="bold-gc">GC</span>connex') ^></a>
                             </div>
                             <div class="pull-left tool-link">
-                                <a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
+                                <a href="<^- msg('https://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
                                 <^- msg('<span class="bold-gc">GC</span>pedia') ^></a>
                             </div>
                             <div class="pull-left tool-link">
-                                <a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
+                                <a href="<^- msg('https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
                                 <^- msg('<span class="bold-gc">GC</span>directory') ^></a>
                             </div>
                             <div class="pull-left tool-link">
@@ -168,8 +168,8 @@
                     <div id="tools-sm" class="row<%- (pr.intranetTitle != null)? '': ' visible-md' %>">
                         <section id="tool-container-sm" class="col-md-12 col-sm-12">
                             <div class="pull-left tool-link"><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></div>
-                            <div class="pull-left tool-link"><a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></div>
-                            <div class="pull-left tool-link"><a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></div>
+                            <div class="pull-left tool-link"><a href="<^- msg('https://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></div>
+                            <div class="pull-left tool-link"><a href="<^- msg('https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></div>
                             <div class="pull-left tool-link"><a href="<^- msg('https://gccollab.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>collab') ^></a></div>
                         </section>
                     </div>
@@ -246,8 +246,8 @@
                         <li class="hidden-md hidden-lg" role="none"><a href="#mnuTools" class="item"><^- msg('GCTools') ^></a>
                             <ul class="sm list-unstyled" id="mnuTools" role="menu">
                                 <li role="none"><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></li>
-                                <li role="none"><a href="<^- msg('http://www.gcpedia.gc.ca/wiki/?setlang=en') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></li>
-                                <li role="none"><a href="<^- msg('http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></li>
+                                <li role="none"><a href="<^- msg('https://www.gcpedia.gc.ca/wiki/?setlang=en') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></li>
+                                <li role="none"><a href="<^- msg('https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></li>
                                 <li role="none"><a href="<^- msg('https://gccollab.ca/splash/') ^>"><^- msg('<span class="bold-gc">GC</span>collab') ^></a></li>
                             </ul>
                         </li>

@@ -23,7 +23,7 @@
 			}));
 		</script>
 	</head>
-	<body vocab="http://schema.org/" typeof="WebPage">
+	<body vocab="https://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
 			<!-- top-fr.html -->
@@ -39,7 +39,7 @@
 					"text": "English"
 				}],
 				"intranetTitle": [{
-					"href": "https://www.canada.ca/fr/employment-social-development.html",
+					"href": "https://www.canada.ca/fr/emploi-developpement-social.html",
 					"text": "Titre Intranet",
 					"acronym": "Emploi et Développement social Canada"
 				}]
@@ -51,7 +51,7 @@
 			<h2>Mise en œuvre</h2>
 			<p>Le titre GCIntranet est modifié dans la section <b>top</b> de la page. Il existe trois options de configuration:</p>
             <ul>
-                <li><code class="wb-prettify">href</code>: l'url du titre. Si elle est laissée vide, <a href="http://intranet.ec.gc.ca/default.asp?lang=En">l'URL par défaut</a> sera utilisée</li>
+                <li><code class="wb-prettify">href</code>: l'url du titre. Si elle est laissée vide, <a href="https://intranet.ec.gc.ca/default.asp?lang=En">l'URL par défaut</a> sera utilisée</li>
                 <li><code class="wb-prettify">text</code>: le texte du titre qui sera affiché</li>
                 <li><code class="wb-prettify">acronym</code>: si votre titre a un acronyme, vous pouvez utiliser cette propriété pour fournir le texte intégral du titre. Il sera affiché lorsque l'utilisateur survolera le titre</li>
             </ul>
@@ -59,7 +59,7 @@
 defTop.outerHTML = wet.builder.top({
 ...
     "intranetTitle": [{
-        "href": "https://www.canada.ca/fr/employment-social-development.html",
+        "href": "https://www.canada.ca/fr/emploi-developpement-social.html",
         "text": "Titre Intranet",
         "acronym": "Emploi et Développement social Canada"
     }]

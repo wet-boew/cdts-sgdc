@@ -197,11 +197,11 @@ border-right: 1px solid #999; }
  background-color: #7f1322;
 }
 
-.followus .Instagram{background-image:url(http://intranet.canada.ca/images/Instagram.png); width:30px;height:30px; background-repeat:no-repeat;}
-.followus .GCConnex{background-image:url(http://intranet.canada.ca/images/GCconnex.png); width:30px;height:30px; background-repeat:no-repeat;}
-.followus .GCdirectory{background-image:url(http://intranet.canada.ca/images/GCdirectory.png); width:30px;height:30px; background-repeat:no-repeat;}
-.followus .GCpedia{background-image:url(http://intranet.canada.ca/images/GCpedia.png); width:30px;height:30px; background-repeat:no-repeat;}
-.followus .GCTools{background-image:url(http://intranet.canada.ca/images/GCTools.png); width:30px;height:30px; background-repeat:no-repeat;}
+.followus .Instagram{background-image:url(https://intranet.canada.ca/images/Instagram.png); width:30px;height:30px; background-repeat:no-repeat;}
+.followus .GCConnex{background-image:url(https://intranet.canada.ca/images/GCconnex.png); width:30px;height:30px; background-repeat:no-repeat;}
+.followus .GCdirectory{background-image:url(https://intranet.canada.ca/images/GCdirectory.png); width:30px;height:30px; background-repeat:no-repeat;}
+.followus .GCpedia{background-image:url(https://intranet.canada.ca/images/GCpedia.png); width:30px;height:30px; background-repeat:no-repeat;}
+.followus .GCTools{background-image:url(https://intranet.canada.ca/images/GCTools.png); width:30px;height:30px; background-repeat:no-repeat;}
 .followus .GCConnex, .followus .GCdirectory, .followus .GCpedia, .followus .GCTools, .followus .Instagram{background-position:center center;background-repeat:no-repeat;display:inline;min-height:27px;min-width:40px;position:relative;vertical-align:middle;vertical-align:text-bottom}
 
 /* Creates a fade when hovering over clickable images */

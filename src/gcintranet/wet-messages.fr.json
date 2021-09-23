@@ -57,10 +57,6 @@
         "source": "Canada.ca",
         "target": "Canada.ca"
     },
-    "866d5c697f8026de51b4bba32a3a025160b2c69f": {
-        "source": "http://esdc.prv/en/news/index.shtml",
-        "target": "http://edsc.prv/fr/nouvelles/index.shtml"
-    },
     "6eef9ecad11da73e352b96e522d05290f4eb61a0": {
         "source": "iService",
         "target": "iService"
@@ -113,14 +109,6 @@
         "source": "https://intranet.canada.ca/hr-rh/index-eng.asp",
         "target": "https://intranet.canada.ca/hr-rh/index-fra.asp"
     },
-    "484eadc1acd9ea106e3719fa0ae4adeeabd81ac6": {
-        "source": "http://iservice.prv/eng/index.shtml",
-        "target": "http://iservice.prv/fra/index.shtml"
-    },
-    "2ddb8e8264479cebcc4d01ba7e42d8d76124b290": {
-        "source": "http://www.gcpedia.gc.ca/wiki/?setlang=en",
-        "target": "http://www.gcpedia.gc.ca/wiki/?setlang=fr"
-    },
     "3277d8a353fc9d029e7fa529c57dbb142d8a4957": {
         "source": "DMs' Corner",
         "target": "DMs' Corner"
@@ -136,10 +124,6 @@
     "f578227926a03a85a494aaca127cfbff63d7ec5e": {
         "source": "Branches",
         "target": "Branches"
-    },
-    "7d49ee6263d50776fb5abd189ad7befdd8775c9d": {
-        "source": "http://esdc.prv/en/stay_connected/index.shtml",
-        "target": "http://edsc.prv/fr/restez_branche/index.shtml"
     },
     "f2f01e19c8434496946b30c1faa20c61b66857d6": {
         "source": "Tools and References",
@@ -157,10 +141,6 @@
         "source": "https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx",
         "target": "https://intranet.canada.ca/search-recherche/query-recherche-fra.aspx"
     },
-    "70d4ab746e428d7b9a9ae0d78b40172f64ef5ffd": {
-        "source": "http://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002",
-        "target": "http://gcdirectory-gcannuaire.gc.ca/fr/GCA/?pgid=002"
-    },
     "6a61865937bae0aac183a3af54735722d6c241a2": {
         "source": "Career development and learning",
         "target": "Développement de carrière et apprentissage"
@@ -176,14 +156,6 @@
     "bce06414177f72ab70e6387b6af9f8ceef0d6049": {
         "source": "Search",
         "target": "Recherche"
-    },
-    "06098ab98b3198dd9d08a1a92451c76d7aafce64": {
-        "source": "http://esdc.prv/en/quick-links/index.shtml",
-        "target": "http://esdc.prv/fr/liens-rapides/index.shtml"
-    },
-    "cffdbfe95e3606a7ec7cef16b598db0e66061e8e": {
-        "source": "http://esdc.prv/en/branches_regions/index.shtml",
-        "target": "http://esdc.prv/fr/directions_regions/index.shtml"
     },
     "31c034b69abeaaaffe608be6bb5979005b8c4cbb": {
         "source": "GCTBannerOnclick-eng",
@@ -253,10 +225,6 @@
         "source": "https://intranet.canada.ca/ict-oci/index-eng.asp",
         "target": "https://intranet.canada.ca/ict-oci/index-fra.asp"
     },
-    "7a08c0fdda9a3256944b9a94f9edc2970f9d4984": {
-        "source": "http://intranet.ec.gc.ca/default.asp?lang=En",
-        "target": "http://intranet.ec.gc.ca/default.asp?lang=Fr"
-    },
     "4715fce1fdbafc47a29ff9d0c1be459d8eafd034": {
         "source": "Language selection",
         "target": "Sélection de la langue"
@@ -264,18 +232,6 @@
     "6e9578bffb8fb568c7521a0d09ce86f874b8284e": {
         "source": "Branches and Regions",
         "target": "Directions générales et régions"
-    },
-    "6ce2e8f02962067227eba4246bfa194ab99b214d": {
-        "source": "http://esdc.prv/en/department/index.shtml",
-        "target": "http://esdc.prv/fr/ministere/index.shtml"
-    },
-    "b9be91bcea5adc228dcc725542eb44aab739ac04": {
-        "source": "http://esdc.prv/en/contact/index.shtml",
-        "target": "http://edsc.prv/fr/coordonnees/index.shtml"
-    },
-    "9dbac3eeed4e800f61885f73610ccb70b18c74b0": {
-        "source": "https://intranet.canada.ca/contact/contactgc-eng.aspx",
-        "target": "https://intranet.canada.ca/contact/contactgc-fra.aspx"
     },
     "5cbd584046863bc7b753e57e8681a98a87f36f0f": {
         "source": "Services",
@@ -317,10 +273,6 @@
         "source": "https://intranet.canada.ca/psc-fsc/index-eng.asp",
         "target": "https://intranet.canada.ca/psc-fsc/index-fra.asp"
     },
-    "70dc69922cf2af9af4458557a85f7a66675c011e": {
-        "source": "http://edsc.prv/en/help.shtml",
-        "target": "http://edsc.prv/fr/aide.shtml"
-    },
     "c8d7677e19495f21da984fe4e2829b7ca91b27c7": {
         "source": "Feedback",
         "target": "Feedback"
@@ -336,10 +288,6 @@
     "ef3c7d2a1ee94a54a885d243c02e2efe02dea7e0": {
         "source": "Service Desk",
         "target": "Service Desk"
-    },
-    "3ac55b9715ae78b884eb74188ef946b82fefd6c0": {
-        "source": "http://esdc.prv/en/work_tools/index.shtml",
-        "target": "http://esdc.prv/fr/outils_travail/index.shtml"
     },
     "b52395ae15f3a3530e439a86409f25eebabe6eb1": {
         "source": "Search GCintranet",
@@ -392,5 +340,57 @@
     "9f49127025fb5873ad1bd738867c76e3725ffeaa": {
         "source": "Version:",
         "target": "Version&#160;:"
+    },
+    "56f95c3b48e6157762d6d10dcd2fee3954d3a134": {
+        "source": "https://esdc.prv/en/branches_regions/index.shtml",
+        "target": "https://esdc.prv/fr/directions_regions/index.shtml"
+    },
+    "4f19422871d148695ed12f5b9572f5023395a2f7": {
+        "source": "https://esdc.prv/en/news/index.shtml",
+        "target": "https://esdc.prv/fr/nouvelles/index.shtml"
+    },
+    "1069fa5d64acba79fe7feed0275ee90c4fd3f8bb": {
+        "source": "https://esdc.prv/en/contact/index.shtml",
+        "target": "https://esdc.prv/fr/coordonnees/index.shtml"
+    },
+    "71061bebb2aee943268635510b2939eba9ddd062": {
+        "source": "https://esdc.prv/en/stay_connected/index.shtml",
+        "target": "https://esdc.prv/fr/restez_branche/index.shtml"
+    },
+    "b1c32100348229f0b66c3ceba26fc75f41f58911": {
+        "source": "https://edsc.prv/en/help.shtml",
+        "target": "https://edsc.prv/fr/aide.shtml"
+    },
+    "8d12437949e4425e3739fdb7a008fc2a29f8299f": {
+        "source": "https://intranet.ec.gc.ca/default.asp?lang=En",
+        "target": "https://intranet.ec.gc.ca/default.asp?lang=fr"
+    },
+    "f2417ac676050e05bc647767e748c98c93073622": {
+        "source": "https://www.gcpedia.gc.ca/wiki/?setlang=en",
+        "target": "https://www.gcpedia.gc.ca/wiki/?setlang=fr&uselang=fr"
+    },
+    "11b2a2430905d82d51e01301ffb743fdefd0784e": {
+        "source": "https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002",
+        "target": "https://gcdirectory-gcannuaire.ssc-spc.gc.ca/fr/GCA/?pgid=002"
+    },
+    "7ed154bf364007949d96c9b0c12cd6310b4b62f8": {
+        "source": "https://esdc.prv/en/department/index.shtml",
+        "target": "https://esdc.prv/fr/ministere/index.shtml"
+    },
+    "172f6f4af6339bf3d9b299900678ad114ebb15c7": {
+        "source": "https://iservice.prv/eng/index.shtml",
+        "target": "https://iservice.prv/fra/index.shtml"
+    },
+    "39384f459ef921cebc4e14330219a1369f48aa89": {
+        "source": "https://esdc.prv/en/work_tools/index.shtml",
+        "target": "https://esdc.prv/fr/outils_travail/index.shtml"
+    },
+    "f766e10ff6ea54db5ca05d580e6e8a2c2ded42c6": {
+        "source": "https://esdc.prv/en/quick-links/index.shtml",
+        "target": "https://esdc.prv/fr/liens-rapides/index.shtml"
+    },
+    "0052b2c1760a4b2697c109bc3a864419bf33ecd2": {
+        "source": "https://intranet.canada.ca/contact-eng.asp",
+        "target": "https://intranet.canada.ca/contact-fra.asp"
     }
 }
