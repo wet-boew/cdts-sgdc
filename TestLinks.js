@@ -49,7 +49,20 @@ module.exports = function testFileLinks(done)
                             "http://sgr-rms.prv/sgr-rms/",
                             "http://service-wiki.prv/",
                             "http://gcintranet.tpsgc-pwgsc.gc.ca/",
-                            "http://blogs-blogues.prv/"] 
+                            "http://blogs-blogues.prv/"]
+
+    let intranetLinksList = ["https://intranet.canada.ca",
+                            "https://gcconnex.gc.ca",
+                            "https://www.gcpedia.gc.ca",
+                            "https://gcdirectory",
+                            "https://templates.service",
+                            "https://gcannuaire-gcdirectory.gc.ca",
+                            "https://kmt-ogc.service.gc.ca",
+                            "http://agora.on",
+                            "https://gcintranet.tpsgc-pwgsc.gc.ca",
+                            "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
+                            "https://portal-portail.tbs-sct.gc.ca",
+                            "https://nscc-cnas.pwgsc-tpsgc.gc.ca"]
 
     //Get all files from a directory
     function getFiles (dir, myFiles){
@@ -80,7 +93,7 @@ module.exports = function testFileLinks(done)
                     try{
                         validURL = new URL(url[i]);
                         //We can choose to skip testing for intranet links
-                        if (!(process.env.DISABLE_PROXY && (validURL.host).split(".")[1] == "prv")){
+                        if (!(process.env.DISABLE_PROXY && ((validURL.host).split(".")[1] == "prv" || intranetLinksList.some(intranetLinksList => validURL.href.startsWith(intranetLinksList))))){
                             try {
                                 const res = await axios.get(validURL.href, config);
                                 if (/4\d[^\D1]/.test(res.status) === true) console.log(validURL.href + "does not have a valid response. Status: " + res.status);
