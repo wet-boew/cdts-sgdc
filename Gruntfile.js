@@ -96,9 +96,11 @@ module.exports = function(grunt) {
         return true;
     });
 
-    grunt.registerTask('test-links', 'Test all links in files in the src and public (minus the WET folder) directories', function() {
-        var done = this.async();
-        testFileLinks(done);
+    grunt.registerTask('test-links', 'Test all links in files in the src and public (minus the WET folder) directories', function(target) {
+        if (!target || target === 'test') {
+            var done = this.async();
+            testFileLinks(done);
+        }
     });
     
     //---[ Can get called with 'genstatic', 'genstatic:gcweb' or 'genstatic:gcintranet'

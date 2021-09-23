@@ -1,4 +1,4 @@
-module.exports = function testFileLinks()
+module.exports = function testFileLinks(done)
 {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
@@ -11,10 +11,7 @@ module.exports = function testFileLinks()
     let validURL;	
     let directories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
     let matches = [];
-    let config = {
-    httpsAgent: agent,
-    proxy: false
-    }
+    let config = (process.env.DISABLE_PROXY) ? null : {httpsAgent: agent, proxy: false};
 
     //Exception list (complete skip of validation)
     //Includes links found on legacy templates, links that require credentials and partial URLs
@@ -90,7 +87,7 @@ module.exports = function testFileLinks()
                             } catch(err) { 
                                 console.error(validURL.href + " encountered the following error: " + err.message);
                                 errorCount++;
-                            }				
+                            }
                         }
                     } catch (err) {
                         console.error(err);
@@ -117,5 +114,10 @@ module.exports = function testFileLinks()
     let url = [...new Set(matches)];
 
     console.log("***** Validating links");
-    validateLinks().then((errorCount) => {if (errorCount !=0) throw new Error(errorCount + " error(s) were found when validating URLs.");});
+    validateLinks().then((errorCount) => {if (errorCount !=0){ 
+		throw new Error(errorCount + " error(s) were found when validating URLs.");
+		done(false);
+	} else {
+		done();
+	}});
 }
