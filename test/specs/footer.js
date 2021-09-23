@@ -154,9 +154,13 @@ async function footerContactLink(theme, lang){
         await expect(footerPage.footerContactLink).toHaveHrefContaining('contact.html');
     }
     else{
-        await expect(footerPage.footerContactLink).toHaveHrefContaining('contactgc');
-        if (lang ==='en') { await expect(footerPage.footerContactLink).toHaveTextContaining('Contact us'); }
-        else { await expect(footerPage.footerContactLink).toHaveTextContaining('Communiquez avec nous'); }
+        if (lang ==='en') { 
+            await expect(footerPage.footerContactLink).toHaveHrefContaining('contact-eng');
+            await expect(footerPage.footerContactLink).toHaveTextContaining('Contact us'); 
+        } else {
+            await expect(footerPage.footerContactLink).toHaveHrefContaining('contact-fra'); 
+            await expect(footerPage.footerContactLink).toHaveTextContaining('Communiquez avec nous'); 
+        }
     }
 }
 

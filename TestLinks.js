@@ -83,7 +83,7 @@ module.exports = function testFileLinks()
                     try{
                         validURL = new URL(url[i]);
                         //We can choose to skip testing for intranet links
-                        if (!(process.env.SKIP_INTRANET_URL_CHECK && (validURL.host).split(".")[1] == "prv")){
+                        if (!(process.env.DISABLE_PROXY && (validURL.host).split(".")[1] == "prv")){
                             try {
                                 const res = await axios.get(validURL.href, config);
                                 if (/4\d[^\D1]/.test(res.status) === true) console.log(validURL.href + "does not have a valid response. Status: " + res.status);
