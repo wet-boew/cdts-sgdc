@@ -1,21 +1,11 @@
-module.exports = function testFileLinks(done)
-{
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-
-    const fs = require('fs');
-    const regex = /http[s]?:\/\/.*?(?="|')/g;
-    const axios = require('axios');
-    const ProxyAgent = require('https-proxy-agent');
-    const agent = ProxyAgent('http://proxy.prv:80');
-
-    let validURL;	
-    let directories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
-    let matches = [];
-    let config = (process.env.DISABLE_PROXY) ? null : {httpsAgent: agent, proxy: false};
-
-    //Exception list (complete skip of validation)
+const fs = require('fs');
+const axios = require('axios');
+const ProxyAgent = require('https-proxy-agent');
+	
+module.exports = async function testFileLinks() {
+	//Exception list (complete skip of validation)
     //Includes links found on legacy templates, links that require credentials and partial URLs
-    let exceptionSyntaxList = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
+    const exceptionSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
                             "https://ssl-templates.services.gc.ca/app/cls/WET",
                             "https://ajax.googleapis.com/ajax/libs/",
                             "https://s2tst-cdn-canada.sade-edap.prv",
@@ -33,7 +23,7 @@ module.exports = function testFileLinks(done)
                             "http://offices-bureaux.prv",
                             "http://crt-orc.prv/"] 
                             
-    let exceptionHTTPList = ["http://www.gcpedia.gc.ca/", 
+    const exceptionHTTPLinks = ["http://www.gcpedia.gc.ca/", 
                             "http://gcdirectory-gcannuaire.gc.ca/",
                             "http://dialogue",
                             "http://agora.on.prv/",
@@ -51,7 +41,7 @@ module.exports = function testFileLinks(done)
                             "http://gcintranet.tpsgc-pwgsc.gc.ca/",
                             "http://blogs-blogues.prv/"]
 
-    let intranetLinksList = ["https://intranet.canada.ca",
+    const exceptionIntranetLinks = ["https://intranet.canada.ca",
                             "https://gcconnex.gc.ca",
                             "https://www.gcpedia.gc.ca",
                             "https://gcdirectory",
@@ -60,17 +50,26 @@ module.exports = function testFileLinks(done)
                             "https://kmt-ogc.service.gc.ca",
                             "http://agora.on",
                             "https://gcintranet.tpsgc-pwgsc.gc.ca",
-                            "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
                             "https://portal-portail.tbs-sct.gc.ca",
                             "https://nscc-cnas.pwgsc-tpsgc.gc.ca"]
+							
+    const regex = /http[s]?:\/\/.*?(?="|')/g;
+    const agent = ProxyAgent('http://proxy.prv:80');
+    const directories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
+    const config = (process.env.DISABLE_PROXY) ? null : {httpsAgent: agent, proxy: false};
+							
+    let validURL;	
+    let matches = [];
+    
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;    
 
     //Get all files from a directory
-    function getFiles (dir, myFiles){
+    function getFiles (dir, myFiles) {
         myFiles = myFiles || [];
         let files = fs.readdirSync(dir);
-        for (let i in files){
+        for (let i in files) {
             let name = dir + '/' + files[i];
-            if (fs.statSync(name).isDirectory()){
+            if (fs.statSync(name).isDirectory()) {
                 getFiles(name, myFiles);
             } else {
                 myFiles.push(name);
@@ -79,31 +78,32 @@ module.exports = function testFileLinks(done)
         return myFiles;
     }
 
-    async function validateLinks(){
+    async function validateLinks(urls) {
         let errorCount = 0;
-        for (let i =0; i<url.length; i++){
+        for (let i =0; i<urls.length; i++) {
             //Check if URL is in the exception list of syntax check and validation
-            if (!exceptionSyntaxList.some(exceptionSyntaxList => url[i].startsWith(exceptionSyntaxList))){	
+            if (!exceptionSyntaxLinks.some(l => urls[i].startsWith(l))) {	
                 //Issue error message if URL starts with HTTP unless it is part of the HTTP exception list
-                if (url[i].startsWith("http:/") && !exceptionHTTPList.some(exceptionHTTPList => url[i].startsWith(exceptionHTTPList))){
-                    console.error("HTTP URL Found: " + url[i]);
+                if (urls[i].startsWith("http:/") && !exceptionHTTPLinks.some(l => urls[i].startsWith(l))) {
+                    console.error("Error: HTTP URL Found: " + urls[i]);
                     errorCount++;
                 }
                 else {
-                    try{
-                        validURL = new URL(url[i]);
+                    try {
+                        validURL = new URL(urls[i]);
                         //We can choose to skip testing for intranet links
-                        if (!(process.env.DISABLE_PROXY && ((validURL.host).split(".")[1] == "prv" || intranetLinksList.some(intranetLinksList => validURL.href.startsWith(intranetLinksList))))){
+                        if (!(process.env.DISABLE_PROXY && ((validURL.host).endsWith('.prv') || exceptionIntranetLinks.some(l => validURL.href.startsWith(l))))) {
                             try {
                                 const res = await axios.get(validURL.href, config);
-                                if (/4\d[^\D1]/.test(res.status) === true) console.log(validURL.href + "does not have a valid response. Status: " + res.status);
+                                //Check response - regex determines if response starts with '2' or '3' followed by 2 digits, or is 401 (this will be considered valid)
+                                if (/([23][\d]{2})|401/.test(res.status) === false) console.log("Error: " + validURL.href + "does not have a valid response. Status: " + res.status);
                             } catch(err) { 
-                                console.error(validURL.href + " encountered the following error: " + err.message);
+                                console.error("Error: " + validURL.href + " encountered the following error: " + err.message);
                                 errorCount++;
                             }
                         }
                     } catch (err) {
-                        console.error(err);
+                        console.error("Error: An error occured with URL: " + urls[i] + err);
                         errorCount++;
                     }				
                 }		
@@ -120,17 +120,17 @@ module.exports = function testFileLinks(done)
 
     console.log("***** Reading files and scanning for links");
     for (let i = 0; i < files.length; i++) {
-        let fileMatch = fs.readFileSync(files[i], 'utf8').match(regex);
-        if (fileMatch != null) matches = matches.concat(fileMatch);
+        let fileMatches = fs.readFileSync(files[i], 'utf8').match(regex);
+        if (fileMatches != null) matches = matches.concat(fileMatches);
     }
 
-    let url = [...new Set(matches)];
+    let urls = [...new Set(matches)];
 
     console.log("***** Validating links");
-    validateLinks().then((errorCount) => {if (errorCount !=0){ 
-		throw new Error(errorCount + " error(s) were found when validating URLs.");
-		done(false);
-	} else {
-		done();
-	}});
+    const errorCount = await validateLinks(urls);
+	if (errorCount !=0) {
+		console.error("Error: " + errorCount + " error(s) were found when validating " + urls.length + " URLs.");
+		throw new Error("Error: " + errorCount + " error(s) were found when validating"  + urls.length + " URLs.");
+	}
+	console.log("Done, " + urls.length + " URLs were checked successfully.");
 }

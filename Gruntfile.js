@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('serve', 'Start development web server', ['build', 'copy-test', 'connect', 'watch']);
     grunt.registerTask('serve-nobuild', 'Start development web server on current build (USE WITH CAUTION, only use with known state of directories dist and tmp)', ['nobuild-warning', 'connect', 'watch']);
-    grunt.registerTask('test', 'Start dev web server and run tests', ['setenv', 'test-links', 'build-prod', 'copy-test', 'connect', 'webdriver:maintests']); //NOTE: should we do a build-prod instead?
+    grunt.registerTask('test', 'Start dev web server and run tests', ['setenv', 'test-links', 'build-prod', 'copy-test', 'connect', 'webdriver:maintests']);
 
     grunt.registerTask('nobuild-warning', 'Issue a warning on screen about using serve-nobuild', function() {
         grunt.log.writeln('***** WARNING ***** When using "serve-nobuild", you have to be sure that the directories "dist" and "tmp" are in a known good state (as they would be after a build)');
@@ -103,8 +103,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test-links', 'Test all links in files in the src and public (minus the WET folder) directories', function(target) {
         if (!target || target === 'test') {
-            var done = this.async();
-            testFileLinks(done);
+            const done = this.async();
+            testFileLinks().then(done).catch(() => done(false));
         }
     });
     

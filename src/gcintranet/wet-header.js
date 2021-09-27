@@ -18,7 +18,7 @@ wet.builder.environmentHost = function(cdnEnv) {
         return '/';
     }
     else if (cdnEnv != null && cdnEnv.startsWith('http')) {
-        return cdnEnv; //if starts with https: return as-is
+        return cdnEnv; //if starts with http: return as-is
     }
     else {
         return 'https://ssl-templates.services.gc.ca/';
