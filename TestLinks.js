@@ -21,7 +21,8 @@ module.exports = async function testFileLinks() {
                             "https://impact.prv/",
                             "http://hrsc-csrh.prv",
                             "http://offices-bureaux.prv",
-                            "http://crt-orc.prv/"] 
+                            "http://crt-orc.prv/",
+                            "https://www.forces.gc.ca"] 
                             
     const exceptionHTTPLinks = ["http://www.gcpedia.gc.ca/", 
                             "http://gcdirectory-gcannuaire.gc.ca/",
