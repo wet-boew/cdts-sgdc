@@ -18,10 +18,10 @@ module.exports = function() {
         gcintranet: {
             builderFunctionParam: {
                 'cdnEnv': 'prod',
-                'indexEng': 'http://intranet.canada.ca/index-eng.asp',
-                'indexFra': 'http://intranet.canada.ca/index-fra.asp',
-                'termsEng': 'http://intranet.canada.ca/terms-avis-eng.asp',
-                'termsFra': 'http://intranet.canada.ca/terms-avis-fra.asp',
+                'indexEng': 'https://intranet.canada.ca/index-eng.asp',
+                'indexFra': 'https://intranet.canada.ca/index-fra.asp',
+                'termsEng': 'https://intranet.canada.ca/terms-avis-eng.asp',
+                'termsFra': 'https://intranet.canada.ca/terms-avis-fra.asp',
             },
         },
     };
