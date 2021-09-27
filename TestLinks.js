@@ -3,7 +3,7 @@ const axios = require('axios');
 const ProxyAgent = require('https-proxy-agent');
 	
 module.exports = async function testFileLinks() {
-	//Exception list (complete skip of validation)
+    //Exception list (complete skip of validation)
     //Includes links found on legacy templates, links that require credentials and partial URLs
     const exceptionSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
                             "https://ssl-templates.services.gc.ca/app/cls/WET",
@@ -104,7 +104,7 @@ module.exports = async function testFileLinks() {
                             }
                         }
                     } catch (err) {
-                        console.error("Error: An error occured with URL: " + urls[i] + err);
+                        console.error("Error: An error occured with URL: " + urls[i] + " " + err);
                         errorCount++;
                     }				
                 }		
@@ -129,9 +129,9 @@ module.exports = async function testFileLinks() {
 
     console.log("***** Validating links");
     const errorCount = await validateLinks(urls);
-	if (errorCount !=0) {
-		console.error("Error: " + errorCount + " error(s) were found when validating " + urls.length + " URLs.");
-		throw new Error("Error: " + errorCount + " error(s) were found when validating"  + urls.length + " URLs.");
-	}
-	console.log("Done, " + urls.length + " URLs were checked successfully.");
+    if (errorCount !=0) {
+        console.error("Error: " + errorCount + " error(s) were found when validating " + urls.length + " URLs.");
+        throw new Error("Error: " + errorCount + " error(s) were found when validating"  + urls.length + " URLs.");
+    }
+    console.log("Done, " + urls.length + " URLs were checked successfully.");
 }
