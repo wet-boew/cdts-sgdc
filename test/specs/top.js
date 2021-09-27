@@ -359,7 +359,6 @@ async function breadcrumbsExist(theme){
     if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
     await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
     await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html');    
-    await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
 }
 
 async function breadcrumbsExist_FR(theme){
@@ -367,7 +366,6 @@ async function breadcrumbsExist_FR(theme){
     if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');    
     await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
     await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html');
-    await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
 }
 
 async function breadcrumbsDoNotExist(theme, lang){
@@ -375,11 +373,9 @@ async function breadcrumbsDoNotExist(theme, lang){
     await expect(basicPage.cdtsBreadCrumb).toHaveChildren(1);
     if (lang == 'en') { 
         await expect(basicPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html') 
-        await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
     }
     else { 
         await expect(basicPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html') 
-        await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
     } 
 }
 

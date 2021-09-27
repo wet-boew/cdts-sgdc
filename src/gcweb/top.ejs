@@ -127,9 +127,7 @@
                             <%_ if (breadcrumbIndex == 0) { /* if first item */ -%>
                                 <%_ if (item.title.toLowerCase() == 'canada.ca') { -%>
                                     <li>
-                                        <abbr title="Canada.ca">
-                                            <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
-                                        </abbr>
+                                        <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
                                     </li>
                                 <%_ } else { /* item.title != 'Canada.ca' - Ponting on a variants */ -%>
                                     <%# //Todo: We should find a better way to do that it's soy v2 syntax... -%>
@@ -145,9 +143,7 @@
                                         </li>
                                     <%_ } else { /* item.href doesn't point on Canada.ca variants - Adding Canada.ca */ -%>
                                         <li>
-                                            <abbr title="Canada.ca">
-                                                <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
-                                            </abbr>
+                                            <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
                                         </li>
                                         <li>
                                         <%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%>
@@ -170,9 +166,7 @@
                         <%_ } /* of for each item */ -%>
                     <%_ } else { /* breadcrumbs IS null/undefined */ -%>
                         <li>
-                            <abbr title="Canada.ca">
-                                <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
-                            </abbr>
+                            <a href="<^- msg('https://www.canada.ca/en.html') ^>">Canada.ca</a>
                         </li>
                     <%_ } /* of if (pr.breadcrumbs != null) */ -%>
                 </ol>
