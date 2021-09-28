@@ -357,6 +357,7 @@ describe('Top section tests for GCIntranet', () => {
 async function breadcrumbsExist(theme){
     await topPage.open(theme, 'en');
     if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
+    if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
     await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
     await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html');    
 }
@@ -364,6 +365,7 @@ async function breadcrumbsExist(theme){
 async function breadcrumbsExist_FR(theme){
     await topPage.open(theme, 'fr');
     if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');    
+    if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
     await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
     await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html');
 }
