@@ -51,7 +51,7 @@
                 <li>autorisez votre application à exclure tous les domaines du déclenchement de l'avertissement</li>
             </ul>
             <h2>Mise en oeuvre</h2>
-			<p>L'exitscript est ajouté dans la section <b>refFooter</b> de la page. Il y a quelques options de configuration à prendre en compte:</p>
+			<p>L'exitscript est ajouté dans la section <b>refFooter</b> de la page. Cet objet possède les propriétés suivantes auxquelles une valeur peut être affectée :</p>
             <ul>
                 <li><code class="wb-prettify">exitScript</code>: Défini sur true pour activer la fonctionnalité ExitScript</li>
                 <li><code class="wb-prettify">displayModal</code>: Défini sur true pour afficher la boîte de dialogue modale avertissant que l'utilisateur est sur le point de quitter le site sécurisé. Sinon, passez directement à exitUrl.</li>
@@ -67,14 +67,16 @@
             <pre>
 document.write(wet.builder.refFooter({
 ...
-    "exitScript": true,
-    "displayModal": true,
-    "exitURL": "exiturl-en.html",
-    "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
-    "cancelMsg": "Nope",
-    "yesMsg" : "Sure",
-    "targetWarning": "Warning: This will open in another window!",
-    "exitDomains" : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+    exitSecureSite : {
+        exitScript: true,
+        displayModal: true,
+        exitURL: "exiturl-fr.html",
+        exitMsg: "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?",
+        cancelMsg: "Arrêter",
+        yesMsg : "Continuer",
+        targetWarning: "Attention: cela s'ouvrira dans une autre fenêtre!",
+        exitDomains: "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+    },
 ...
 }));
             </pre>
@@ -130,14 +132,16 @@ document.write(wet.builder.refFooter({
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"exitScript": true,
-				"displayModal": true,
-				"exitURL": "exiturl-en.html",
-				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
-				"cancelMsg": "Nope",
-				"yesMsg" : "Sure",
-				"targetWarning": "Warning: This will open in another window!",
-				"exitDomains" : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca",
+				"exitSecureSite" : {
+				    exitScript: true,
+				    displayModal: true,
+				    exitURL: "exiturl-fr.html",
+				    exitMsg: "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?",
+				    cancelMsg: "Arrêter",
+				    yesMsg : "Continuer",
+				    targetWarning: "Attention: cela s'ouvrira dans une autre fenêtre!",
+				    exitDomains: "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+				},
 				//"jqueryEnv" : "external",
 				//"webAnalytics" :false,
 				//"isApplication":true,
