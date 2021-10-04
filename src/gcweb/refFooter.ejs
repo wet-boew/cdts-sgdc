@@ -1,5 +1,6 @@
 <%# **
  * This is all of the references to be made before existing page content.
+ * @param? exitSecureSite The exitScript is defined through an object.
  * @param? exitScript If set to true, loads a script that alerts users they are leaving a secure site.
  * @param? displayModal If set to true will display modal otherwise skip to exitURL.
  * @param? exitURL The URL where the users are redirected if they continue.
@@ -22,8 +23,14 @@
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew2.min.js"></script>
 <![endif]-->
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"></script>
-<%_ if (pr.exitScript == true) { -%>
-    <%# This is a placeholder link to trigger the WET exitscript intialization in the event the no external link is present on the page -%>
+<%_ if (pr.exitSecureSite != null) { -%>
+    <%_ if (pr.exitSecureSite.exitScript == true) { -%>
+        <%# This is a placeholder link to trigger the WET exitscript intialization in the event the no external link is present on the page -%>
+        <a href="#" id="cdts-exitscript-placeholder-link" style="display: none" aria-hidden="true" class="wb-exitscript">Exit Link</a>
+        <script data-id="exitScript">cdtsApplyExitScriptToLinks("<%=pr.exitSecureSite.displayModal != null? pr.exitSecureSite.displayModal: 'undefined'%>", "<%-pr.exitSecureSite.exitURL != null? pr.exitSecureSite.exitURL: 'undefined'%>", "<%=pr.exitSecureSite.exitDomains != null? pr.exitSecureSite.exitDomains: 'undefined'%>", "<%=pr.exitSecureSite.exitMsg != null? pr.exitSecureSite.exitMsg: 'undefined'%>", "<%=pr.exitSecureSite.yesMsg != null? pr.exitSecureSite.yesMsg: 'undefined'%>", "<%=pr.exitSecureSite.cancelMsg != null? pr.exitSecureSite.cancelMsg: 'undefined'%>", "<%=pr.exitSecureSite.msgBoxHeader != null? pr.exitSecureSite.msgBoxHeader: 'undefined'%>", "<%=pr.exitSecureSite.targetWarning != null? pr.exitSecureSite.targetWarning: 'undefined'%>", "<%=pr.exitSecureSite.displayModalForNewWindow != null? pr.exitSecureSite.displayModalForNewWindow: 'undefined'%>");</script>
+    <%_ } -%>
+<%_ } else if (pr.exitScript == true) { -%>
+    <%# This is only for backwards compatibility where a user implements exitscript using parameters instead of an object. -%>
     <a href="#" id="cdts-exitscript-placeholder-link" style="display: none" aria-hidden="true" class="wb-exitscript">Exit Link</a>
     <script data-id="exitScript">cdtsApplyExitScriptToLinks("<%=pr.displayModal != null? pr.displayModal: 'undefined'%>", "<%-pr.exitURL != null? pr.exitURL: 'undefined'%>", "<%=pr.exitDomains != null? pr.exitDomains: 'undefined'%>", "<%=pr.exitMsg != null? pr.exitMsg: 'undefined'%>", "<%=pr.yesMsg != null? pr.yesMsg: 'undefined'%>", "<%=pr.cancelMsg != null? pr.cancelMsg: 'undefined'%>", "<%=pr.msgBoxHeader != null? pr.msgBoxHeader: 'undefined'%>", "<%=pr.targetWarning != null? pr.targetWarning: 'undefined'%>", "<%=pr.displayModalForNewWindow != null? pr.displayModalForNewWindow: 'undefined'%>");</script>
 <%_ } -%>

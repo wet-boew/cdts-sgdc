@@ -51,30 +51,32 @@
                 <li>allow your application to exclude any domains from raising the warning</li>
             </ul>
             <h2>Implementation</h2>
-			<p>The exitscript is added in the <b>refFooter</b> section of the page. There are a few configuration options to take into consideration:
+			<p>The exitscript is added in the <b>refFooter</b> section of the page, via the <code class="wb-prettify">exitSecureSite</code> object. This object has the following properties that can be assigned a value:</p>
             <ul>
-                <li><code class="wb-prettify">"exitScript"</code>: Set to true to enable the ExitScript functionality</li>
-                <li><code class="wb-prettify">"displayModal"</code>: Set to true to show the modal dialog warning the user is about to leave the secure site. Otherwise, continue directly to the exitUrl.</li>
-                <li><code class="wb-prettify">"msgBoxHeader"</code>: Customize the title of the modal dialog otherwise a default title will show</li>
-                <li><code class="wb-prettify">"exitMsg"</code>: Customize the message of the modal dialog</li>
-                <li><code class="wb-prettify">"cancelMsg"</code>: Customize the label on the cancel button</li>
-                <li><code class="wb-prettify">"yesMsg"</code>: Customize the label on the yes button</li>
-                <li><code class="wb-prettify">"exitDomains"</code>: A list of exempt domains that the exitscript will not trigger for</li>
-                <li><code class="wb-prettify">"targetWarning"</code>: A warning to display to the user that the link will open in a new window. This will append the exitMsg</li>
-                <li><code class="wb-prettify">"displayModalForNewWindow"</code>: If set to true, will not display modal for links that open in new window</li>
+                <li><code class="wb-prettify">exitScript</code>: Set to true to enable the ExitScript functionality</li>
+                <li><code class="wb-prettify">displayModal</code>: Set to true to show the modal dialog warning the user is about to leave the secure site. Otherwise, continue directly to the exitUrl.</li>
+                <li><code class="wb-prettify">msgBoxHeader</code>: Customize the title of the modal dialog otherwise a default title will show</li>
+                <li><code class="wb-prettify">exitMsg</code>: Customize the message of the modal dialog</li>
+                <li><code class="wb-prettify">cancelMsg</code>: Customize the label on the cancel button</li>
+                <li><code class="wb-prettify">yesMsg</code>: Customize the label on the yes button</li>
+                <li><code class="wb-prettify">exitDomains</code>: A list of exempt domains that the exitscript will not trigger for</li>
+                <li><code class="wb-prettify">targetWarning</code>: A warning to display to the user that the link will open in a new window. This will append the exitMsg</li>
+                <li><code class="wb-prettify">displayModalForNewWindow</code>: If set to true, will not display modal for links that open in new window</li>
 
             </ul>
             <pre>
 document.write(wet.builder.refFooter({
 ...
-    "exitScript": true,
-    "displayModal": true,
-    "exitURL": "exiturl-en.html",
-    "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
-    "cancelMsg": "Nope",
-    "yesMsg" : "Sure",
-    "targetWarning": "Warning: This will open in another window!",
-    "exitDomains" : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+    "exitSecureSite" : {
+        exitScript: true,
+        displayModal: true,
+        exitURL: "exiturl-en.html",
+        exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
+        cancelMsg: "Nope",
+        yesMsg : "Sure",
+        targetWarning: "Warning: This will open in another window!",
+        exitDomains : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+    }
 ...
 }));
             </pre>
@@ -131,14 +133,16 @@ document.write(wet.builder.refFooter({
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"exitScript": true,
-				"displayModal" : true,
-				"exitURL": "exiturl-en.html",
-				"exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?",
-				"cancelMsg": "Nope",
-				"yesMsg" : "Sure",
-				"targetWarning": "Warning: This will open in another window!",
-				"exitDomains" : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca",
+				"exitSecureSite" : {
+				    exitScript: true,  
+				    displayModal: true, 
+				    exitURL: "exiturl-en.html", 
+				    exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
+				    cancelMsg: "Nope", 
+				    yesMsg: "Sure",	
+				    targetWarning: "Warning: This will open in another window!", 
+				    exitDomains : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+				},
 				//"jqueryEnv" : "external",
 				//"webAnalytics" :false,
 				//"isApplication":true

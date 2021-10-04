@@ -11,7 +11,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-fr.html', 'gcweb', 'gcweb-exitscript-fr', {
@@ -19,7 +19,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-en.html', 'gcweb', 'gcweb-exitscript-noCustomMsg-en', {
@@ -27,7 +27,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-fr.html', 'gcweb', 'gcweb-exitscript-noCustomMsg-fr', {
@@ -35,7 +35,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-en.html', 'gcweb', 'gcweb-exitscript-noDisplay-en', {
@@ -43,7 +43,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-fr.html', 'gcweb', 'gcweb-exitscript-noDisplay-fr', {
@@ -51,7 +51,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-en.html', 'gcweb', 'gcweb-exitscript-noDisplayNewWindow-en', {
@@ -59,7 +59,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-fr.html', 'gcweb', 'gcweb-exitscript-noDisplayNewWindow-fr', {
@@ -67,7 +67,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-en.html', 'gcweb', 'gcweb-exitscript-disabled-en', {
@@ -75,7 +75,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": false, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": false, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-fr.html', 'gcweb', 'gcweb-exitscript-disabled-fr', {
@@ -83,7 +83,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": false, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": false, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-en.html', 'gcweb', 'gcweb-exitscript-noExitUrl-en', {
@@ -91,7 +91,7 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcweb/template-exitscript-fr.html', 'gcweb', 'gcweb-exitscript-noExitUrl-fr', {
@@ -99,7 +99,23 @@ describe('ExitScript Tests - GCWeb', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-exitscript-en.html', 'gcweb', 'gcweb-exitscript-parameters-en', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-exitscript-fr.html', 'gcweb', 'gcweb-exitscript-parameters-fr', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
     });
     
     it('Straight forward path of exit script', async () => {
@@ -161,6 +177,11 @@ describe('ExitScript Tests - GCWeb', () => {
         await testExitScriptForMenuLinks(theme, 'fr');
     });
 
+    it('Test backwards compatibility', async () => {
+        await exitScriptBackwardsCompatible(theme, 'en');
+        await exitScriptBackwardsCompatible(theme, 'fr');
+    });
+
     it('Accessibility', async () => {
         await accessibility(theme, 'en');
         await accessibility(theme, 'fr');
@@ -175,7 +196,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-fr', {
@@ -183,7 +204,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
     
     generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-nomenu-en', {
@@ -191,7 +212,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost", "siteMenu": false}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-nomenu-fr', {
@@ -199,7 +220,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost", "siteMenu": false}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-noCustomMsg-en', {
@@ -207,7 +228,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-noCustomMsg-fr', {
@@ -215,7 +236,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-noDisplay-en', {
@@ -223,7 +244,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-noDisplay-fr', {
@@ -231,7 +252,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-noDisplayNewWindow-en', {
@@ -239,7 +260,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-noDisplayNewWindow-fr', {
@@ -247,7 +268,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "displayModalForNewWindow": false, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-disabled-en', {
@@ -255,7 +276,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": false, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": false, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-disabled-fr', {
@@ -263,7 +284,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": false, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": false, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-noExitUrl-en', {
@@ -271,7 +292,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
 
     generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-noExitUrl-fr', {
@@ -279,7 +300,23 @@ describe('ExitScript Tests - GCIntranet', () => {
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
-        refFooter: '{"exitScript": true, "displayModal": true, "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+        refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-parameters-en', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-en.html", "exitMsg": "This is a custom message. You are about to leave a secure site, do you wish to continue?", "cancelMsg": "Nope", "yesMsg" : "Sure", "targetWarning": "Warning: This will open in another window!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-exitscript-fr.html', 'gcintranet', 'gcintranet-exitscript-parameters-fr', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
     });
 
     it('Straight forward path of exit script', async () => {
@@ -339,6 +376,11 @@ describe('ExitScript Tests - GCIntranet', () => {
     it('Test ExitScript pop up for menu links', async () => {
         await testExitScriptForMenuLinksGCIntranet(theme, 'en');
         await testExitScriptForMenuLinksGCIntranet(theme, 'fr');
+    });
+
+    it('Test backwards compatibility', async () => {
+        await exitScriptBackwardsCompatible(theme, 'en');
+        await exitScriptBackwardsCompatible(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -510,6 +552,35 @@ async function testExitScriptForMenuLinksGCIntranet(theme, lang){
     await menuNewsLink.click();
     await (await exitScriptPage.exitScriptModal).waitForExist({timeout: 3000})
     //await expect(exitScriptPage.exitScriptModal).toExist();    
+}
+
+async function exitScriptBackwardsCompatible(theme, lang){
+    await exitScriptPage.open(theme, lang, 'parameters');
+    const extLink = await exitScriptPage.extLink;
+    await extLink.waitUntil(async () => {
+        const extLinkClass = await extLink.getAttribute('class');
+        return extLinkClass === 'wb-exitscript';
+    }, {
+        timeout: 5000, 
+        timeoutMsg: 'Expected class to be wb-exitscript after 5s'
+    });
+    await extLink.click();
+
+    const yesBtn = await exitScriptPage.yesBtn;
+    await yesBtn.waitForExist({timeout: 3000});
+    
+    if (lang === 'en') {
+        await expect(exitScriptPage.modalText).toHaveTextContaining('This is a custom message');
+        await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Sure');
+        await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Nope');
+    } else {
+        await expect(exitScriptPage.modalText).toHaveTextContaining('Ceci est un message personnalisé');
+        await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Continuer');
+        await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Arrêter');
+    }
+    
+    await yesBtn.click();
+    await expect(browser).toHaveUrlContaining('targetUrl');
 }
 
 //French

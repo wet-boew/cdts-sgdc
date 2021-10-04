@@ -1,5 +1,9 @@
 # CDTS Change Log
 
+## v4.0.44 (In Progress)
+
+- Updated ExitScript which now uses an *exitSecureSite* object for its implementation. It is currently backwards compatible. Please visit the sample pages for all the details. 
+
 ## v4.0.43
 
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.43
