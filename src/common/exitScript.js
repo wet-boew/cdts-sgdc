@@ -1,4 +1,7 @@
-function wetExitScript(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
+if (typeof wet == 'undefined') { var wet = {}; }
+if (typeof wet.utilities == 'undefined') { wet.utilities = {}; }
+
+wet.utilities.wetExitScript = function(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
     var links = document.getElementsByTagName('a');
     excludedDomains = excludedDomains.toLowerCase().split(",").map(function(elem){
         return elem.trim();
@@ -44,7 +47,7 @@ function wetExitScript(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, 
 
 function cdtsApplyExitScriptToLinks(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
     $(document).on("wb-ready.wb", function(event) {
-        wetExitScript(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow);
+        wet.utilities.wetExitScript(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow);
         var placeholderLink = document.getElementById("cdts-exitscript-placeholder-link");
         if (placeholderLink) placeholderLink.parentElement.removeChild(placeholderLink);
     });

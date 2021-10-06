@@ -2,7 +2,8 @@
 
 ## v4.0.44 (In Progress)
 
-- Updated ExitScript which now uses an *exitSecureSite* object for its implementation. It is currently backwards compatible. Please visit the sample pages for all the details. 
+- Updated ExitScript which now uses an *exitSecureSite* object for its implementation. It is currently backwards compatible. Please visit the sample pages for all the details.
+- Removed unused function loadDoc() 
 
 ## v4.0.43
 
