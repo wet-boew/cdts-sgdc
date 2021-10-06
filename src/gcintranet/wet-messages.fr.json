@@ -392,5 +392,9 @@
     "0052b2c1760a4b2697c109bc3a864419bf33ecd2": {
         "source": "https://intranet.canada.ca/contact-eng.asp",
         "target": "https://intranet.canada.ca/contact-fra.asp"
+    },
+    "db2c0f3302d1fdb35304ee3a70891a7649f944cc": {
+        "source": "Skip Links",
+        "target": "Ignorer les liens"
     }
 }

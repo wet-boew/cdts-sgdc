@@ -13,13 +13,15 @@
  * @param? GCToolsModal Used to turn the GCTools links into a modal.
  * @param? customSearch Used to control the custom searches.
 -%>
-<ul id="wb-tphp">
-    <li class="wb-slc"><a class="wb-sl" href="#wb-cont"><^- msg('Skip to main content') ^></a></li>
-    <li class="wb-slc visible-xs visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info"><^- msg('Skip to "About this site"') ^></a></li>
-    <%_ if (pr.topSecMenu == true) { -%>
-        <li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec"><^- msg('Skip to section menu') ^></a></li>
-    <%_ } -%>
-</ul>
+<nav aria-label="<^- msg('Skip Links') ^>">
+    <ul id="wb-tphp">
+        <li class="wb-slc"><a class="wb-sl" href="#wb-cont"><^- msg('Skip to main content') ^></a></li>
+        <li class="wb-slc visible-xs visible-sm visible-md visible-lg"><a class="wb-sl" href="#wb-info"><^- msg('Skip to "About this site"') ^></a></li>
+        <%_ if (pr.topSecMenu == true) { -%>
+            <li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec"><^- msg('Skip to section menu') ^></a></li>
+        <%_ } -%>
+    </ul>
+</nav>
 <header role="banner">
     <div id="wb-bnr">
         <div id="app-brand">
