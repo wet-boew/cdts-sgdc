@@ -1,3 +1,4 @@
+/* eslint no-undef: "off", space-in-parens: "off", func-names: "off", prefer-arrow-callback: "off", no-tabs: "off", indent: "off", vars-on-top: "off", no-var: "off", dot-location: "off" */
 /*Secure application templates: Custom JavaScript
   Purpose: Keep mobile mode's menu/search buttons visually-highlighted while their associated overlays are open.
   Description: Sets an "active" class on mobile mode's menu/search buttons when their associated overlays are open. Removes the "active" class when the overlays are closed.
@@ -12,7 +13,7 @@ $( document ).ready(function() {
 	}
 
 	// Declare all variables.
-	var 
+	var
 		$currentOverlay, // jQuery DOM reference to the most recently opened overlay
 		$currentOverlayLink, // jQuery DOM reference to the most recently opened overlay's reference link
 		$overlayLinks = wb.doc.find( '.app-list-main .overlay-lnk' ), // jQuery DOM references to the application list's overlay links

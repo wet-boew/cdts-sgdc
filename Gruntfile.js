@@ -8,16 +8,16 @@ const testFileLinks = require('./TestLinks.js');
 ///    --cdts_samples_cdnenv=<environment name>     (e.g. --cdts_samples_cdnenv=esdcprod)
 ///
 /// ************************************************************
-module.exports = function(grunt) {
+module.exports = function run(grunt) {
 
     //---[ Content replacing function (in copy and concat tasks)
     //(replaces CDTS version mentions in URLs and optionally environment in sample pages.)
     function cdtsContentReplace(content, srcpath) {
-        const newVersionName = grunt.config('project.version_name');
+        const newVersionName = grunt.config('project.versionName');
         const newEnvironment = grunt.option('cdts_samples_cdnenv') || null;
 
         //Replace version...
-        var vtr = content.replace(/\/v[0-9]+_[0-9]+_[0-9]+\//g, `/${newVersionName}/`); //replaces '/vX_X_X/' where X can be any number
+        let vtr = content.replace(/\/v[0-9]+_[0-9]+_[0-9]+\//g, `/${newVersionName}/`); //replaces '/vX_X_X/' where X can be any number
 
         //Replace environment in sample pages...
         if (newEnvironment && (srcpath.includes('/samples/') || srcpath.includes('/appTop/'))) {
@@ -45,35 +45,35 @@ module.exports = function(grunt) {
     grunt.registerTask('copy-test', 'Copy all test files', ['copy:gcweb-test', 'copy:gcintranet-test']);
     grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['i18n-ejs', 'compile-ejs', 'concat']);
     grunt.registerTask('build-prod', 'Run production build', ['build', 'minify']);
-	grunt.registerTask('build-nowet', 'Run build without clean:target, copy-wet and genstatic (for convenience because of McAfee performance)', ['nowet-warning', 'clean:temp', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public', 'build-ejs']);
+    grunt.registerTask('build-nowet', 'Run build without clean:target, copy-wet and genstatic (for convenience because of McAfee performance)', ['nowet-warning', 'clean:temp', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public', 'build-ejs']);
     grunt.registerTask('minify', 'Minify target files', ['uglify']);
 
     grunt.registerTask('serve', 'Start development web server', ['build', 'copy-test', 'connect', 'watch']);
     grunt.registerTask('serve-nobuild', 'Start development web server on current build (USE WITH CAUTION, only use with known state of directories dist and tmp)', ['nobuild-warning', 'connect', 'watch']);
     grunt.registerTask('test', 'Start dev web server and run tests', ['setenv', 'test-links', 'build-prod', 'copy-test', 'connect', 'webdriver:maintests']);
 
-    grunt.registerTask('nobuild-warning', 'Issue a warning on screen about using serve-nobuild', function() {
+    grunt.registerTask('nobuild-warning', 'Issue a warning on screen about using serve-nobuild', () => {
         grunt.log.writeln('***** WARNING ***** When using "serve-nobuild", you have to be sure that the directories "dist" and "tmp" are in a known good state (as they would be after a build)');
         grunt.log.writeln('                If ./dist and ./tmp are not consistent with a proper build, you may experience unexpected runtime errors.');
     });
-    grunt.registerTask('nowet-warning', 'Issue a warning on screen about using build-nowet', function() {
+    grunt.registerTask('nowet-warning', 'Issue a warning on screen about using build-nowet', () => {
         grunt.log.writeln('***** WARNING ***** When using "build-nowet", the "dist" directory is not cleaned, the WET files are not copied to "dist" and the static files are not re-generated (as they would be with a build).');
         grunt.log.writeln('                "build-nowet" IS FOR CONVENIENCE/TROUBLESHOOTING ONLY AND MUST NOT BE USED IN THE CONTEXT OF A CI/CD PIPELINE.');
     });
 
-    grunt.registerTask('setenv', 'Set environment variable from grunt configuration', function(target) {
+    grunt.registerTask('setenv', 'Set environment variable from grunt configuration', function(target) { //eslint-disable-line
         if (!target || target === 'test') {
-            process.env.CDTS_TEST_VERSION_NAME = grunt.config('project.version_name');
+            process.env.CDTS_TEST_VERSION_NAME = grunt.config('project.versionName');
         }
     });
 
     //---[ Can get called with 'compile-ejs', 'compile-ejs:gcweb' or 'compile-ejs:gcintranet'
-    grunt.registerTask('compile-ejs', 'Compile EJS templates', function(target) {
+    grunt.registerTask('compile-ejs', 'Compile EJS templates', function(target) { //eslint-disable-line
         const projectTempDir = grunt.config('project.temp');
 
         ['gcweb', 'gcintranet'].forEach((themeName) => {
             //(if target specified, only run for that one)
-            if ( (!target) || (themeName === target) ) {
+            if ((!target) || (themeName === target)) {
                 compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-en.js`, 'en', false);
                 compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-fr.js`, 'fr', false);
 
@@ -89,10 +89,10 @@ module.exports = function(grunt) {
     });
 
     //---[ Can get called with 'i18n-ejs', 'i18n-ejs:gcweb' or 'i18n-ejs:gcintranet'
-    grunt.registerTask('i18n-ejs', 'Internationalize EJS templates', function(target) {
+    grunt.registerTask('i18n-ejs', 'Internationalize EJS templates', function(target) { //eslint-disable-line
         ['gcweb', 'gcintranet'].forEach((themeName) => {
             //(if target specified, only run for that one)
-            if ( (!target) || (themeName === target) ) {
+            if ((!target) || (themeName === target)) {
                 extractEJSModuleMessages(`./src/${themeName}`, 'en');
                 mergeLanguageFiles(`./src/${themeName}`, 'en', ['fr'], false, true);
             }
@@ -101,15 +101,15 @@ module.exports = function(grunt) {
         return true;
     });
 
-    grunt.registerTask('test-links', 'Test all links in files in the src and public (minus the WET folder) directories', function(target) {
+    grunt.registerTask('test-links', 'Test all links in files in the src and public (minus the WET folder) directories', function(target) { //eslint-disable-line
         if (!target || target === 'test') {
             const done = this.async();
             testFileLinks().then(done).catch(() => done(false));
         }
     });
-    
+
     //---[ Can get called with 'genstatic', 'genstatic:gcweb' or 'genstatic:gcintranet'
-    grunt.registerTask('genstatic', 'Generate static fallback files.', function(target) {
+    grunt.registerTask('genstatic', 'Generate static fallback files.', function(target) { //eslint-disable-line
         const fs = require('fs');
         const path = require('path');
         const definitionPath = './src/fallbackFileDefinitions';
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
 
         ['gcweb', 'gcintranet'].forEach((themeName) => {
             //(if target specified, only run for that one)
-            if ( (!target) || (themeName === target) ) {
+            if ((!target) || (themeName === target)) {
                 const files = fs.readdirSync(definitionPath);
 
                 grunt.log.writeln(`---   ${themeName}: Processing ${files.length} definition file(s)...`);
@@ -140,10 +140,10 @@ module.exports = function(grunt) {
         //---[ Global Configuration Properties
         project: {
             pkg: grunt.file.readJSON('package.json'),
-            version_name: grunt.option('cdts_version') || 'v<%= project.pkg.version.replace(/\\./g, "_")%>',
+            versionName: grunt.option('cdts_version') || 'v<%= project.pkg.version.replace(/\\./g, "_")%>',
             target: './dist/app/cls/WET',
             temp: './tmp',
-            banner:  '/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n' +
+            banner: '/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n' +
                         ' * Version <%= project.pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n *\n */',
         },
 
@@ -155,14 +155,14 @@ module.exports = function(grunt) {
         copy: {
             wet: {
                 files: [
-                    {cwd: 'public/wet', src: ['**'], dest:'<%= project.target %>/gcweb/<%= project.version_name %>', expand: true},
-                    {cwd: 'public/wet', src: ['**'], dest:'<%= project.target %>/gcintranet/<%= project.version_name %>', expand: true},
+                    {cwd: 'public/wet', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>', expand: true},
+                    {cwd: 'public/wet', src: ['**'], dest: '<%= project.target %>/gcintranet/<%= project.versionName %>', expand: true},
                 ],
             },
             'gcweb-public': {
                 files: [
-                    {cwd: 'public/gcweb', src: ['**'], dest:'<%= project.target %>/gcweb/<%= project.version_name %>/cdts', expand: true},
-                    {cwd: 'public/common', src: ['**'], dest:'<%= project.target %>/gcweb/<%= project.version_name %>', expand: true},
+                    {cwd: 'public/gcweb', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts', expand: true},
+                    {cwd: 'public/common', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>', expand: true},
                 ],
                 options: {
                     process: cdtsContentReplace,
@@ -170,8 +170,8 @@ module.exports = function(grunt) {
             },
             'gcintranet-public': {
                 files: [
-                    {cwd: 'public/gcintranet', src: ['**'], dest:'<%= project.target %>/gcintranet/<%= project.version_name %>/cdts', expand: true},
-                    {cwd: 'public/common', src: ['**'], dest:'<%= project.target %>/gcintranet/<%= project.version_name %>', expand: true},
+                    {cwd: 'public/gcintranet', src: ['**'], dest: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts', expand: true},
+                    {cwd: 'public/common', src: ['**'], dest: '<%= project.target %>/gcintranet/<%= project.versionName %>', expand: true},
                 ],
                 options: {
                     process: cdtsContentReplace,
@@ -179,12 +179,12 @@ module.exports = function(grunt) {
             },
             'global-public': {
                 files: [
-                    {cwd: 'public/global', src: ['**'], dest:'<%= project.target %>/global', expand: true}
+                    {cwd: 'public/global', src: ['**'], dest: '<%= project.target %>/global', expand: true}
                 ]
             },
             'gcweb-test': {
                 files: [
-                    {cwd: 'test/html/gcweb', src: ['**'], dest:'<%= project.target %>/gcweb/<%= project.version_name %>/cdts/test', expand: true}
+                    {cwd: 'test/html/gcweb', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/test', expand: true}
                 ],
                 options: {
                     process: cdtsContentReplace,
@@ -192,7 +192,7 @@ module.exports = function(grunt) {
             },
             'gcintranet-test': {
                 files: [
-                    {cwd: 'test/html/gcintranet', src: ['**'], dest:'<%= project.target %>/gcintranet/<%= project.version_name %>/cdts/test', expand: true}
+                    {cwd: 'test/html/gcintranet', src: ['**'], dest: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/test', expand: true}
                 ],
                 options: {
                     process: cdtsContentReplace,
@@ -208,19 +208,19 @@ module.exports = function(grunt) {
             },
             'gcweb-en': {
                 src: ['<%= project.temp %>/gcweb/wet-en.js', './src/common/*.js'],
-                dest: '<%= project.target %>/gcweb/<%= project.version_name %>/cdts/compiled/wet-en.js',
+                dest: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled/wet-en.js',
             },
             'gcweb-fr': {
                 src: ['<%= project.temp %>/gcweb/wet-fr.js', './src/common/*.js'],
-                dest: '<%= project.target %>/gcweb/<%= project.version_name %>/cdts/compiled/wet-fr.js',
+                dest: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled/wet-fr.js',
             },
             'gcintranet-en': {
                 src: ['<%= project.temp %>/gcintranet/wet-en.js', './src/common/*.js'],
-                dest: '<%= project.target %>/gcintranet/<%= project.version_name %>/cdts/compiled/wet-en.js',
+                dest: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled/wet-en.js',
             },
             'gcintranet-fr': {
                 src: ['<%= project.temp %>/gcintranet/wet-fr.js', './src/common/*.js'],
-                dest: '<%= project.target %>/gcintranet/<%= project.version_name %>/cdts/compiled/wet-fr.js',
+                dest: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled/wet-fr.js',
             },
         },
 
@@ -231,18 +231,18 @@ module.exports = function(grunt) {
                 banner: '<%= project.banner %>'
             },
             gcweb: {
-                cwd: '<%= project.target %>/gcweb/<%= project.version_name %>/cdts/compiled',
+                cwd: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled',
                 src: ['wet-en.js', 'wet-fr.js'],
-                dest: '<%= project.target %>/gcweb/<%= project.version_name %>/cdts/compiled',
+                dest: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled',
                 ext: '.js',
-                expand:true,
+                expand: true,
             },
             gcintranet: {
-                cwd: '<%= project.target %>/gcintranet/<%= project.version_name %>/cdts/compiled',
+                cwd: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled',
                 src: ['wet-en.js', 'wet-fr.js'],
-                dest: '<%= project.target %>/gcintranet/<%= project.version_name %>/cdts/compiled',
+                dest: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled',
                 ext: '.js',
-                expand:true,
+                expand: true,
             },
         },
 

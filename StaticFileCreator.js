@@ -29,16 +29,16 @@ function createStaticFallbackFile(grunt, definition, language) {
     }
 
     //---[ Mock global variable available in browsers and needed by wet-[en|fr].js
-    const navigator = {language: 'en-CA',};
+    const navigator = {language: 'en-CA',}; //eslint-disable-line
 
     //---[ Load soy/wet functions
     //NOTE: Using eval on arbritrary files is a huge NO-NO, but we just generated these files and trust them
     //      (not to mention that they are not modules so require/import does not work with them)
-    eval(fs.readFileSync(`${distCompiledDirName}/soyutils.js`, 'utf8'));
-    eval(fs.readFileSync(`${distCompiledDirName}/${wetFileName}`, 'utf8'));
+    eval(fs.readFileSync(`${distCompiledDirName}/soyutils.js`, 'utf8')); //eslint-disable-line
+    eval(fs.readFileSync(`${distCompiledDirName}/${wetFileName}`, 'utf8')); //eslint-disable-line
 
     //---[ Get CDTS "pure" output
-    let output = wet.builder[definition.builderFunctionName](builderParam).toString(); //new version of SOY compiler returns an Object instead of a String
+    let output = wet.builder[definition.builderFunctionName](builderParam).toString(); //eslint-disable-line
 
     //---[ Process output through content filter(s)
     output = defaultContentFilter(grunt, output, definition, language, targetFileName);
@@ -46,7 +46,7 @@ function createStaticFallbackFile(grunt, definition, language) {
 
     //---[ Validate HTML before we save
     const htmlValidate = new HtmlValidate(require('./htmlvalidator.conf.js'));
-	const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
+    const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
     const report = htmlValidate.validateString(output);
     if ((!report.valid) || (report.warningCount > 0)) {
         grunt.log.error(`${targetFileName}: ${report.errorCount} error(s), ${report.warningCount} warning(s) reported:`);
@@ -73,7 +73,7 @@ module.exports = function generateStaticFile(grunt, themeName, definitionFileBas
 
     //(add to definition)
     definition.themeName = themeName;
-    definition.themeVersion = grunt.config('project.version_name');
+    definition.themeVersion = grunt.config('project.versionName');
     definition.cdnEnvOverride = grunt.option('cdts_samples_cdnenv') || null;
 
     //---[ If not enabled, don't do anything and return
@@ -82,7 +82,8 @@ module.exports = function generateStaticFile(grunt, themeName, definitionFileBas
     //---[ Create one or more files depending on multiLanguageEnabled
     if (definition.multiLanguageEnabled) {
         ['en', 'fr'].forEach((language) => createStaticFallbackFile(grunt, definition, language));
-    } else {
+    }
+    else {
         //single/no language
         createStaticFallbackFile(grunt, definition);
     }

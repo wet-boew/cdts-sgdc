@@ -1,10 +1,11 @@
-if (typeof wet == 'undefined') { var wet = {}; }
-if (typeof wet.builder == 'undefined') { wet.builder = {}; }
+/* eslint no-use-before-define: "off", block-scoped-var: "off", no-undef: "off", eqeqeq: "off", vars-on-top: "off", no-var: "off", prefer-arrow-callback: "off", object-shorthand: "off", no-eq-null: "off", func-name-matching: "off" */
+if (typeof wet == 'undefined') { var wet = {}; } //eslint-disable-line
+if (typeof wet.builder == 'undefined') { wet.builder = {}; } //eslint-disable-line
 
 /**
  * @param cdnEnv Used to switch between esdc envrionments and Akamai implementations.
  */
-wet.builder.environment = function(cdnEnv) {
+wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
     var baseUrl;
     if (cdnEnv === 'esdcqat') {
         baseUrl = 'https://cdn-canada.services.gc.qat/app/cls/WET';
