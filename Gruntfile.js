@@ -36,6 +36,7 @@ module.exports = function run(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin'); //could consider minifying cdts/*.css
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-eslint');
     grunt.loadNpmTasks('grunt-webdriver');
 
     //---[ Task Definitions
@@ -43,7 +44,7 @@ module.exports = function run(grunt) {
     grunt.registerTask('build', 'Run non-minified build', ['clean', 'copy-public', 'build-ejs', 'genstatic']);
     grunt.registerTask('copy-public', 'Copy all public files', ['copy:wet', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public']);
     grunt.registerTask('copy-test', 'Copy all test files', ['copy:gcweb-test', 'copy:gcintranet-test']);
-    grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['i18n-ejs', 'compile-ejs', 'concat']);
+    grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['eslint', 'i18n-ejs', 'compile-ejs', 'concat']);
     grunt.registerTask('build-prod', 'Run production build', ['build', 'minify']);
     grunt.registerTask('build-nowet', 'Run build without clean:target, copy-wet and genstatic (for convenience because of McAfee performance)', ['nowet-warning', 'clean:temp', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public', 'build-ejs']);
     grunt.registerTask('minify', 'Minify target files', ['uglify']);
@@ -197,6 +198,14 @@ module.exports = function run(grunt) {
                 options: {
                     process: cdtsContentReplace,
                 },
+            },
+        },
+
+        eslint: {
+            target: ['*.js', 'src', 'public'],
+            options: {
+                extensions: ['.js'],
+                ignorePattern: 'public/wet',
             },
         },
 
