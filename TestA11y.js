@@ -5,6 +5,8 @@
 ///    https://github.com/dequelabs/axe-core/blob/develop/doc/API.md
 ///    https://dequeuniversity.com/rules/axe/4.2
 
+/* eslint no-undef: "off" */
+
 const axeSource = require('axe-core').source;
 
 /// (Must be executed in webdriver.io context - browser object must exist in global scope.)
@@ -18,24 +20,24 @@ module.exports = async function runAccessibilityTest(url) {
 
     //---[ Inject the AXE script
     await browser.execute(axeSource);
-    
+
     //(If we have sporadic "axe is not defined errors" when doing the run below... we could try waiting until it's available...)
     /*await browser.waitUntil(async () => {
         return await browser.execute(() => {
             return (typeof(axe) !== 'undefined');
         }) === true;
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Timeout (5s) reached waiting for axe to be installed on current browser web page'
     });*/
 
-    let axeOptions = {runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] }};
+    const axeOptions = {runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa'] }};
 
     //---[ Run axe in browser and get results/error
-    let results = await browser.executeAsync((options, done) => {
-        axe.run(options, (err, results) => {
+    const results = await browser.executeAsync((options, done) => {
+        axe.run(options, (err, runResults) => {
             if (err) throw err; //done(err);
-            done(results);
+            done(runResults);
         });
     }, axeOptions);
 

@@ -1,6 +1,6 @@
 if (!process.env.DISABLE_PROXY) { //just a cheap way to disable this proxy setup from command line
     console.log('Setting up for ESDC proxies...');
-    
+
     process.env.GLOBAL_AGENT_HTTP_PROXY = 'http://proxy.prv:80'; //to enable proxy, alternative is to run with: GLOBAL_AGENT_HTTP_PROXY=http://proxy.prv:80 GLOBAL_AGENT_NO_PROXY='localhost,*.prv'
     process.env.GLOBAL_AGENT_NO_PROXY = 'localhost,*.prv';
 
@@ -11,9 +11,9 @@ if (!process.env.DISABLE_PROXY) { //just a cheap way to disable this proxy setup
 
 const targetBrowser = process.env.TEST_BROWSER_NAME || 'firefox'; //NOTE: we could instead always test with both by adding a second "capabilities" below
 const drivers = {
-        chrome: { version: '89.0.4389.23' },  //https://chromedriver.chromium.org/
-        firefox: { version: '0.29.0' }, //https://github.com/mozilla/geckodriver/releases
-    };
+    chrome: { version: '89.0.4389.23' }, //https://chromedriver.chromium.org/
+    firefox: { version: '0.29.0' }, //https://github.com/mozilla/geckodriver/releases
+};
 
 exports.config = {
     //
@@ -63,14 +63,14 @@ exports.config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-    
+
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
         maxInstances: 1,
         //
         browserName: targetBrowser, //'chrome',
-        
+
         'moz:firefoxOptions': {
             //binary: '/c/Program Files/Mozilla Firefox/firefox.exe',
             // flag to activate Firefox headless mode (see https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities for more details about moz:firefoxOptions)
@@ -81,7 +81,7 @@ exports.config = {
         //    // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
         //    args: ['--headless', '--disable-gpu'],
         //},
-        
+
         acceptInsecureCerts: true,
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
@@ -143,10 +143,10 @@ exports.config = {
         ['selenium-standalone', {
             installArgs: { drivers },
             skipSeleniumInstall: false,
-            args: { drivers }, 
+            args: { drivers },
         }]
     ],
-    
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks.html
@@ -175,7 +175,7 @@ exports.config = {
             outputFileFormat: (options) => `junit-results-${options.capabilities.browserName}-report.xml`,
         }],
     ],
-    
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/

@@ -23,7 +23,9 @@
     "@wdio/selenium-standalone-service": "^7.14.1",
     "@wdio/spec-reporter": "^7.14.1",
     "axe-core": "^4.3.3",
+    "axios": "^0.22.0",
     "ejs": "^3.1.6",
+    "eslint": "^7.32.0",
     "global-agent": "^3.0.0",
     "grunt": "^1.4.1",
     "grunt-cli": "^1.4.3",
@@ -34,10 +36,10 @@
     "grunt-contrib-cssmin": "^4.0.0",
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-eslint": "^23.0.0",
     "grunt-exec": "^3.0.0",
     "grunt-webdriver": "^3.0.0",
     "html-validate": "^6.1.0",
-    "axios": "^0.22.0",
     "https-proxy-agent": "^5.0.0"
   }
 }
