@@ -1,6 +1,7 @@
 const fs = require('fs');
 const axios = require('axios');
 const ProxyAgent = require('https-proxy-agent');
+const { performance } = require('perf_hooks');
 
 module.exports = async function testFileLinks() {
     //Exception list (complete skip of validation)
@@ -60,6 +61,10 @@ module.exports = async function testFileLinks() {
     const config = (process.env.DISABLE_PROXY) ? null : {httpsAgent: agent, proxy: false};
 
     let matches = [];
+    let errorCount = 0;
+    let skippedSyntaxUrls = 0;
+    let skippedIntranetUrls = 0;
+    let successResponseUrls = 0;
 
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; //eslint-disable-line
 
@@ -79,42 +84,67 @@ module.exports = async function testFileLinks() {
         return myFiles;
     }
 
+    //Check response - regex determines if response starts with '2' or '3' followed by 2 digits, or is 401 (this will be considered valid)
+    function checkAxiosResponse(res, validURL) {
+        if ((/([23][\d]{2})|401/).test(res.status) === false) {
+            console.error("Error: " + validURL.href + "does not have a valid response. Status: " + res.status);
+            errorCount++;
+        }
+        else {
+            successResponseUrls++;
+        }
+    }
+
     async function validateLinks(urls) {
-        let errorCount = 0;
         for (let i =0; i<urls.length; i++) {
             //Check if URL is in the exception list of syntax check and validation
-            if (!exceptionSyntaxLinks.some((l) => urls[i].startsWith(l))) {
-                //Issue error message if URL starts with HTTP unless it is part of the HTTP exception list
-                if (urls[i].startsWith("http:/") && !exceptionHTTPLinks.some((l) => urls[i].startsWith(l))) {
-                    console.error("Error: HTTP URL Found: " + urls[i]);
-                    errorCount++;
-                }
-                else {
+            if (exceptionSyntaxLinks.some((l) => urls[i].startsWith(l))) {
+                skippedSyntaxUrls++;
+                continue;
+            }
+
+            //Issue error message if URL starts with HTTP unless it is part of the HTTP exception list
+            if (urls[i].startsWith("http:/") && !exceptionHTTPLinks.some((l) => urls[i].startsWith(l))) {
+                console.error("Error: HTTP URL Found: " + urls[i]);
+                errorCount++;
+            }
+            else {
+                try {
+                    const validURL = new URL(urls[i]);
+                    //We can choose to skip testing for intranet links
+                    if (process.env.DISABLE_PROXY && ((validURL.host).endsWith('.prv') || exceptionIntranetLinks.some((l) => validURL.href.startsWith(l)))) {
+                        skippedIntranetUrls++;
+                        continue;
+                    }
+
                     try {
-                        const validURL = new URL(urls[i]);
-                        //We can choose to skip testing for intranet links
-                        if (!(process.env.DISABLE_PROXY && ((validURL.host).endsWith('.prv') || exceptionIntranetLinks.some((l) => validURL.href.startsWith(l))))) {
-                            try {
-                                const res = await axios.get(validURL.href, config); //eslint-disable-line no-await-in-loop
-                                //Check response - regex determines if response starts with '2' or '3' followed by 2 digits, or is 401 (this will be considered valid)
-                                if ((/([23][\d]{2})|401/).test(res.status) === false) console.log("Error: " + validURL.href + "does not have a valid response. Status: " + res.status);
-                            }
-                            catch (err) {
-                                console.error("Error: " + validURL.href + " encountered the following error: " + err.message);
-                                errorCount++;
-                            }
+                        const res = await axios.head(validURL.href, config); //eslint-disable-line no-await-in-loop
+                        checkAxiosResponse(res, validURL);
+                    }
+                    catch (headErr) {
+                        console.warn("Warning: " + validURL.href + " failed with a HEAD request. Retrying with a GET request. The error was: " + headErr);
+                        try {
+                            const res = await axios.get(validURL.href, config); //eslint-disable-line no-await-in-loop
+                            checkAxiosResponse(res, validURL);
+                        }
+                        catch (getErr) {
+                            console.error("Error: " + validURL.href + " encountered the following error: " + getErr.message);
+                            errorCount++;
                         }
                     }
-                    catch (err) {
-                        console.error("Error: An error occured with URL: " + urls[i] + " " + err);
-                        errorCount++;
-                    }
+                }
+                catch (err) {
+                    console.error("Error: An error occured with URL: " + urls[i] + " " + err);
+                    errorCount++;
                 }
             }
         }
         return errorCount;
     }
 
+    if (process.env.DISABLE_TESTLINKS) return;
+
+    const startTime = performance.now();
     console.log("***** Scanning directories: " + directories);
     let files = [];
     directories.forEach((directory) => {
@@ -130,10 +160,16 @@ module.exports = async function testFileLinks() {
     const urls = [...new Set(matches)];
 
     console.log("***** Validating links");
-    const errorCount = await validateLinks(urls);
-    if (errorCount !== 0) {
-        console.error("Error: " + errorCount + " error(s) were found when validating " + urls.length + " URLs.");
-        throw new Error("Error: " + errorCount + " error(s) were found when validating" + urls.length + " URLs.");
+    const totalErrorCount = await validateLinks(urls);
+    const endTime = performance.now();
+    console.log(`Done, validating all the links took ${endTime - startTime} milliseconds.`);
+    console.log(urls.length + " unique URLs were found.");
+    console.log(successResponseUrls + " URLs had a successful response.");
+    console.log(skippedSyntaxUrls + " URLs were skipped because of their syntax.");
+    console.log(skippedIntranetUrls + " URLs were skipped because they are intranet links.");
+
+    if (totalErrorCount !== 0) {
+        console.error("Error: " + totalErrorCount + " error(s) were found when validating " + urls.length + " URLs.");
+        throw new Error("Error: " + totalErrorCount + " error(s) were found when validating" + urls.length + " URLs.");
     }
-    console.log("Done, " + urls.length + " URLs were checked successfully.");
 }
