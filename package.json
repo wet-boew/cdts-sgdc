@@ -40,7 +40,6 @@
     "grunt-exec": "^3.0.0",
     "grunt-webdriver": "^3.0.0",
     "html-validate": "^6.1.0",
-    "https-proxy-agent": "^5.0.0",
-    "perf_hooks": "0.0.1"
+    "https-proxy-agent": "^5.0.0"
   }
 }

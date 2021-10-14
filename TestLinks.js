@@ -62,9 +62,9 @@ module.exports = async function testFileLinks() {
 
     let matches = [];
     let errorCount = 0;
-    let skippedSyntaxUrls = 0;
-    let skippedIntranetUrls = 0;
-    let successResponseUrls = 0;
+    let skippedSyntaxUrlCount = 0;
+    let skippedIntranetUrlCount = 0;
+    let successResponseUrlCount = 0;
 
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; //eslint-disable-line
 
@@ -91,7 +91,7 @@ module.exports = async function testFileLinks() {
             errorCount++;
         }
         else {
-            successResponseUrls++;
+            successResponseUrlCount++;
         }
     }
 
@@ -99,7 +99,7 @@ module.exports = async function testFileLinks() {
         for (let i =0; i<urls.length; i++) {
             //Check if URL is in the exception list of syntax check and validation
             if (exceptionSyntaxLinks.some((l) => urls[i].startsWith(l))) {
-                skippedSyntaxUrls++;
+                skippedSyntaxUrlCount++;
                 continue;
             }
 
@@ -113,7 +113,7 @@ module.exports = async function testFileLinks() {
                     const validURL = new URL(urls[i]);
                     //We can choose to skip testing for intranet links
                     if (process.env.DISABLE_PROXY && ((validURL.host).endsWith('.prv') || exceptionIntranetLinks.some((l) => validURL.href.startsWith(l)))) {
-                        skippedIntranetUrls++;
+                        skippedIntranetUrlCount++;
                         continue;
                     }
 
@@ -164,9 +164,9 @@ module.exports = async function testFileLinks() {
     const endTime = performance.now();
     console.log(`Done, validating all the links took ${endTime - startTime} milliseconds.`);
     console.log(urls.length + " unique URLs were found.");
-    console.log(successResponseUrls + " URLs had a successful response.");
-    console.log(skippedSyntaxUrls + " URLs were skipped because of their syntax.");
-    console.log(skippedIntranetUrls + " URLs were skipped because they are intranet links.");
+    console.log(successResponseUrlCount + " URLs had a successful response.");
+    console.log(skippedSyntaxUrlCount + " URLs were skipped because of their syntax.");
+    console.log(skippedIntranetUrlCount + " URLs were skipped because they are intranet links.");
 
     if (totalErrorCount !== 0) {
         console.error("Error: " + totalErrorCount + " error(s) were found when validating " + urls.length + " URLs.");
