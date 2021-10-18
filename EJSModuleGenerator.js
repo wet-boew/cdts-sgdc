@@ -16,6 +16,7 @@
     - https://ejs.co/
     - https://github.com/mde/ejs
     - https://github.com/mde/ejs/blob/main/lib/ejs.js
+    - https://github.com/RyanZim/EJS-Lint
 */
 
 const crypto = require('crypto');
@@ -23,6 +24,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ejs = require('ejs'); //https://github.com/mde/ejs
+const ejsLint = require('ejs-lint'); //https://github.com/RyanZim/EJS-Lint
 
 function getSourceMessageLocaleKey(sourceMessage) {
     //console.log(`[${sourceMessage}] -> [${crypto.createHash('sha1').update(sourceMessage).digest('hex')}]`);
@@ -35,9 +37,18 @@ function getSourceMessageLocaleKey(sourceMessage) {
     @param srcDirPath           Source base directory containing the language files (e.g. './src/gcweb')
     @param inputTemplateText    Input EJS template (localization delimiters <^ ... ^>)
     @param locale               Locale (e.g. 'en')
+    @param ejsFilePath          EJS source file path (used in error messages)
     @return The localized template text.
 */
-function localizeEJSModule(srcDirPath, inputTemplateText, locale) {
+function localizeEJSModule(srcDirPath, inputTemplateText, locale, ejsFilePath) {
+
+    //---[ Lint EJS input
+    const lintingResult = ejsLint(inputTemplateText, {delimiter: '^'});
+    if (lintingResult) {
+        console.error(`EJSModuleGenerator.localizeEJSModule: Linting error found in [${ejsFilePath}]:`);
+        console.error(lintingResult);
+        throw lintingResult;
+    }
 
     //---[ Load locale/message file
     const localeFilePath = `${srcDirPath}/wet-messages.${locale}.json`;
@@ -104,7 +115,16 @@ module.exports.compileEJSModule = function compileEJSModule(srcDirPath, trgFileP
         const wetFunctionName = path.basename(ejsFile, path.extname(ejsFile));
 
         console.log(`---    Compiling ${ejsFilePath}`);
-        const localizedTemplate = localizeEJSModule(srcDirPath, fs.readFileSync(ejsFilePath, 'utf8'), locale);
+        const localizedTemplate = localizeEJSModule(srcDirPath, fs.readFileSync(ejsFilePath, 'utf8'), locale, ejsFilePath);
+
+        //---[ Lint EJS input
+        const lintingResult = ejsLint(localizedTemplate, {delimiter: '%'});
+        if (lintingResult) {
+            console.error(`EJSModuleGenerator.compileEJSModule: Linting error found in [${ejsFilePath}]:`);
+            console.error(lintingResult);
+            throw lintingResult;
+        }
+
         const ejsFunction = ejs.compile(localizedTemplate, {
             compileDebug,
             debug: false,
@@ -162,7 +182,16 @@ module.exports.extractEJSModuleMessages = function extractEJSModuleMessages(base
     files.forEach((ejsFile) => {
         const ejsFilePath = `${baseDirPath}/${ejsFile}`;
 
-        const ejsFunction = ejs.compile(fs.readFileSync(ejsFilePath, 'utf8'), {
+        //---[ Load/lint EJS file content
+        const ejsContent = fs.readFileSync(ejsFilePath, 'utf8');
+        const lintingResult = ejsLint(ejsContent, {delimiter: '^'});
+        if (lintingResult) {
+            console.error(`EJSModuleGenerator.extractEJSModuleMessages: Linting error found in [${ejsFilePath}]:`);
+            console.error(lintingResult);
+            throw lintingResult;
+        }
+
+        const ejsFunction = ejs.compile(ejsContent, {
             compileDebug: true,
             debug: false,
             'async': false,
