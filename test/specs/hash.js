@@ -1,9 +1,9 @@
 const fs = require('fs');
 const assert = require('assert');
 const {writeFilesSRIHashes} = require('../../SRIUtilities.js');
+const projectTempDir = './tmp';
 
 describe('SRI Test', () => {
-    const projectTempDir = './tmp';
     const contentFile = `${projectTempDir}/TestSRIContentFile.js`;
     const inputFile = `${projectTempDir}/TestSRIInputFile.json`;
     const outputFile = `${projectTempDir}/TestSRIOutputFile.json`;
