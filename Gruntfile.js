@@ -205,7 +205,9 @@ module.exports = function run(grunt) {
             target: ['*.js', 'src', 'public'],
             options: {
                 extensions: ['.js'],
-                ignorePattern: 'public/wet',
+                overrideConfig: {
+                    ignorePatterns: ['public/wet'],
+                },
             },
         },
 
