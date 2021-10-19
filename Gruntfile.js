@@ -1,6 +1,7 @@
 const generateStaticFile = require('./StaticFileCreator.js');
 const {compileEJSModule, extractEJSModuleMessages, mergeLanguageFiles} = require('./EJSModuleGenerator.js');
 const testFileLinks = require('./TestLinks.js');
+const {writeFilesSRIHashes} = require('./SRIUtilities.js');
 
 /// ************************************************************
 /// Optional command line options:
@@ -44,7 +45,7 @@ module.exports = function run(grunt) {
     grunt.registerTask('build', 'Run non-minified build', ['clean', 'copy-public', 'build-ejs', 'genstatic']);
     grunt.registerTask('copy-public', 'Copy all public files', ['copy:wet', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public']);
     grunt.registerTask('copy-test', 'Copy all test files', ['copy:gcweb-test', 'copy:gcintranet-test']);
-    grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['eslint', 'i18n-ejs', 'compile-ejs', 'concat']);
+    grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['eslint', 'i18n-ejs', 'compile-ejs', 'sri-hashes', 'concat']);
     grunt.registerTask('build-prod', 'Run production build', ['build', 'minify']);
     grunt.registerTask('build-nowet', 'Run build without clean:target, copy-wet and genstatic (for convenience because of McAfee performance)', ['nowet-warning', 'clean:temp', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public', 'build-ejs']);
     grunt.registerTask('minify', 'Minify target files', ['uglify']);
@@ -87,6 +88,10 @@ module.exports = function run(grunt) {
         });
 
         return true;
+    });
+
+    grunt.registerTask('sri-hashes', 'Get the SRI hashes of css and js files', function() { //eslint-disable-line
+        writeFilesSRIHashes('SRIFileList.json', `${grunt.config('project.temp')}/sri-fileslist.json`);
     });
 
     //---[ Can get called with 'i18n-ejs', 'i18n-ejs:gcweb' or 'i18n-ejs:gcintranet'
