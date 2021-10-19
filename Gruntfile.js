@@ -91,7 +91,7 @@ module.exports = function run(grunt) {
     });
 
     grunt.registerTask('sri-hashes', 'Get the SRI hashes of css and js files', function() { //eslint-disable-line
-        writeFilesSRIHashes('SRIFileList.json', `${grunt.config('project.temp')}/sri-fileslist.json`);
+        writeFilesSRIHashes('sri-fileslist.json', `${grunt.config('project.temp')}/SRIFileHashes.json`);
     });
 
     //---[ Can get called with 'i18n-ejs', 'i18n-ejs:gcweb' or 'i18n-ejs:gcintranet'
