@@ -1,7 +1,7 @@
 const generateStaticFile = require('./StaticFileCreator.js');
 const {compileEJSModule, extractEJSModuleMessages, mergeLanguageFiles} = require('./EJSModuleGenerator.js');
 const testFileLinks = require('./TestLinks.js');
-const {writeFilesSRIHashes} = require('./SRIUtilities.js');
+const {writeFilesSRIHashes, getSRIHashes} = require('./SRIUtilities.js');
 
 /// ************************************************************
 /// Optional command line options:
@@ -45,8 +45,8 @@ module.exports = function run(grunt) {
     grunt.registerTask('build', 'Run non-minified build', ['clean', 'copy-public', 'build-ejs', 'genstatic']);
     grunt.registerTask('copy-public', 'Copy all public files', ['copy:wet', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public']);
     grunt.registerTask('copy-test', 'Copy all test files', ['copy:gcweb-test', 'copy:gcintranet-test']);
-    grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['eslint', 'i18n-ejs', 'compile-ejs', 'sri-hashes', 'concat']);
-    grunt.registerTask('build-prod', 'Run production build', ['build', 'minify']);
+    grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['eslint', 'i18n-ejs', 'sri-internal-hashes', 'compile-ejs', 'concat', 'sri-public-hashes']);
+    grunt.registerTask('build-prod', 'Run production build', ['build', 'minify', 'sri-public-hashes']);
     grunt.registerTask('build-nowet', 'Run build without clean:target, copy-wet and genstatic (for convenience because of McAfee performance)', ['nowet-warning', 'clean:temp', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public', 'build-ejs']);
     grunt.registerTask('minify', 'Minify target files', ['uglify']);
 
@@ -90,8 +90,38 @@ module.exports = function run(grunt) {
         return true;
     });
 
-    grunt.registerTask('sri-hashes', 'Get the SRI hashes of css and js files', function() { //eslint-disable-line
+    grunt.registerTask('sri-internal-hashes', 'Generate SRI hashes of css and js files for internal use', function() { //eslint-disable-line
         writeFilesSRIHashes('sri-fileslist.json', `${grunt.config('project.temp')}/SRIFileHashes.json`);
+        return true;
+    });
+
+    //---[ Can get called with 'sri-public-hashes', 'sri-public-hashes:gcweb' or 'sri-public-hashes:gcintranet'
+    grunt.registerTask('sri-public-hashes', 'Generate SRI hashes of css and js files for public use', function(target) { //eslint-disable-line
+        const fs = require('fs');
+
+        ['gcweb', 'gcintranet'].forEach((themeName) => {
+            //(if target specified, only run for that one)
+            if ((!target) || (themeName === target)) {
+                const pathPrefix = `${grunt.config('project.target')}/${themeName}/${grunt.config('project.versionName')}/cdts/`;
+                const targetFileName = `${pathPrefix}SRI-INFO.md`;
+                const sourceFiles = [
+                    `${pathPrefix}compiled/soyutils.js`,
+                    `${pathPrefix}compiled/wet-en.js`,
+                    `${pathPrefix}compiled/wet-fr.js`,
+                ];
+
+                const hashesMap = getSRIHashes(sourceFiles);
+                let fileContents = `# Subresource Integrity (SRI)\n\nHash values for ${pathPrefix.replace(grunt.config('project.target') + '/', '')}:\n`;
+                Object.keys(hashesMap).forEach((key) => {
+                    fileContents += `- ${key.replace(pathPrefix, '')}: \`${hashesMap[key]}\`\n`;
+                });
+
+                console.log(`Writing public SRI info to: ${targetFileName}`);
+                fs.writeFileSync(targetFileName, fileContents, {encoding: 'utf8'});
+            }
+        });
+
+        return true;
     });
 
     //---[ Can get called with 'i18n-ejs', 'i18n-ejs:gcweb' or 'i18n-ejs:gcintranet'
@@ -138,6 +168,7 @@ module.exports = function run(grunt) {
                 });
             }
         });
+        return true;
     });
 
     //---[ Configuration
