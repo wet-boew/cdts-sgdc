@@ -21,7 +21,7 @@
     "@wdio/local-runner": "^7.16.3",
     "@wdio/mocha-framework": "^7.16.4",
     "@wdio/selenium-standalone-service": "^7.16.1",
-    "@wdio/spec-reporter": "^7.16.3",
+    "@wdio/spec-reporter": "^7.16.4",
     "axe-core": "^4.3.5",
     "axios": "^0.24.0",
     "ejs": "^3.1.6",
