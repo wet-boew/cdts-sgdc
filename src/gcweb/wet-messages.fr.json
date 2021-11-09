@@ -285,10 +285,6 @@
         "source": "https://www.canada.ca/en/government/publicservice.html",
         "target": "https://www.canada.ca/fr/gouvernement/fonctionpublique.html"
     },
-    "59344fc46ff8da2b5e67f65a4191ea2bfa2f6129": {
-        "source": "https://www.canada.ca/en/sr.html",
-        "target": "https://www.canada.ca/fr/sr.html"
-    },
     "dd80e4539ec349b792b85bb8eb77c38e9a83f863": {
         "source": "https://www.canada.ca/en/services/science.html",
         "target": "https://www.canada.ca/fr/services/science.html"
@@ -316,10 +312,6 @@
     "b9687003b1ec5072edea4144f33a2e941e65de28": {
         "source": "https://www.canada.ca/en/government/system.html",
         "target": "https://www.canada.ca/fr/gouvernement/systeme.html"
-    },
-    "094b0fe0e302854af1311afab85b5203ba457a3b": {
-        "source": "en",
-        "target": "fr"
     },
     "555c28667a3f7c70cdc7b0d124a4e0ef1e748446": {
         "source": "https://www.canada.ca/en/transparency/reporting.html",
@@ -396,5 +388,9 @@
     "0bab7baf8a072251cb14e3315956808a7cdad6a9": {
         "source": "https://open.canada.ca/en",
         "target": "https://open.canada.ca/fr"
+    },
+    "ed7d65fbc9b45ccfaa566e92abb4f1e9c0757e0a": {
+        "source": "https://www.canada.ca/en/sr/srb.html",
+        "target": "https://www.canada.ca/fr/sr/srb.html"
     }
 }

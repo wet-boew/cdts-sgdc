@@ -66,15 +66,9 @@
                 <%_ } else { -%>
                     <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
                         <h2><^- msg('Search') ^></h2>
-                        <form action="<^- msg('https://www.canada.ca/en/sr.html') ^>" method="get" name="cse-search-box" role="search">
+                        <form action="<^- msg('https://www.canada.ca/en/sr/srb.html') ^>" method="get" name="cse-search-box" role="search">
                             <div class="form-group wb-srch-qry">
                                 <label for="wb-srch-q" class="wb-inv"><^- msg('Search Canada.ca') ^></label>
-                                <input name="cdn" value="canada" type="hidden">
-                                <input name="st" value="s" type="hidden">
-                                <input name="num" value="10" type="hidden">
-                                <input name="langs" value="<^- msg('en') ^>" type="hidden">
-                                <input name="st1rt" value="1" type="hidden">
-                                <input name="s5bm3ts21rch" value="x" type="hidden">
                                 <input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search Canada.ca') ^>">
                                 <input type="hidden" name="_charset_" value="UTF-8">
                                 <datalist id="wb-srch-q-ac">
