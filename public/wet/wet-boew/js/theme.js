@@ -340,6 +340,13 @@ $document.on( fetchEvent, function( event ) {
 					}
 				}
 
+				// Ensure we only receive JSON data and don't allow jsonp
+				// jQuery will raise an error if other data format is received
+				fetchOpts.dataType = "json";
+				if ( fetchOpts.jsonp ) {
+					fetchOpts.jsonp = false;
+				}
+
 				$.ajax( fetchOpts )
 					.done( function( response, status, xhr ) {
 						var i, i_len, i_cache, backlog;
@@ -1929,21 +1936,7 @@ var componentName = "wb-data-json",
 				refId: refId,
 				nocache: nocache,
 				nocachekey: nocachekey
-			},
-			settings = window[ componentName ],
-			urlParts;
-
-		// Detect CORS requests
-		if ( settings && ( url.substr( 0, 4 ) === "http" || url.substr( 0, 2 ) === "//" ) ) {
-			urlParts = wb.getUrlParts( url );
-			if ( ( wb.pageUrlParts.protocol !== urlParts.protocol || wb.pageUrlParts.host !== urlParts.host ) && ( !Modernizr.cors || settings.forceCorsFallback ) ) {
-				if ( typeof settings.corsFallback === "function" ) {
-					fetchObj.dataType = "jsonp";
-					fetchObj.jsonp = "callback";
-					fetchObj = settings.corsFallback( fetchObj );
-				}
-			}
-		}
+			};
 
 		$elm.trigger( {
 			type: "json-fetch.wb",
