@@ -26,7 +26,7 @@ describe('Top section tests for GCWeb', () => {
 
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-top-siteMenuTrue-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}], "lngLinks": [{"lang": "fr", "href": "gcweb-top-fr.html", "text": "Français"}], "breadcrumbs": [{"title": "Canada.ca", "acronym": "Canada.ca", "href": "testing"}, {"title": "CDTS", "acronym": "Centrally Deployed Templates Solution"}]}',
+        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}], "lngLinks": [{"lang": "fr", "href": "gcweb-top-fr.html", "text": "Français"}], "breadcrumbs": [{"title": "Canada.ca", "acronym": "Canada.ca", "href": "testing"}, {"title": "CDTS", "acronym": "Centrally Deployed Templates Solution"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -34,7 +34,7 @@ describe('Top section tests for GCWeb', () => {
 
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-top-siteMenuTrue-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}], "lngLinks": [{"lang": "en", "href": "gcweb-top-en.html", "text": "English"}], "breadcrumbs": [{"title": "Canada.ca", "acronym": "Canada.ca", "href": "testing"}, {"title": "SGDC", "acronym": "Centrally Deployed Templates Solution"}]}',
+        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}], "lngLinks": [{"lang": "en", "href": "gcweb-top-en.html", "text": "English"}], "breadcrumbs": [{"title": "Canada.ca", "acronym": "Canada.ca", "href": "testing"}, {"title": "SGDC", "acronym": "Centrally Deployed Templates Solution"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -58,7 +58,7 @@ describe('Top section tests for GCWeb', () => {
 
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-top-customSearchDefault-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "method" : "get"}], "lngLinks": [{"lang": "fr", "href": "gcweb-top-fr.html", "text": "Français"}], "breadcrumbs": [{"title": "Testing Canada.ca", "acronym": "Test Canada.ca", "href": "http://www.canada.ca"}, {"title": "CDTS", "acronym": "Centrally Deployed Templates Solution"}]}',
+        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "method" : "get"}], "lngLinks": [{"lang": "fr", "href": "gcweb-top-fr.html", "text": "Français"}], "breadcrumbs": [{"title": "Testing Canada.ca", "acronym": "Test Canada.ca", "href": "http://www.canada.ca"}, {"title": "CDTS", "acronym": "Centrally Deployed Templates Solution"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -66,7 +66,7 @@ describe('Top section tests for GCWeb', () => {
 
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-top-customSearchDefault-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "method" : "get"}], "lngLinks": [{"lang": "en", "href": "gcweb-top-en.html", "text": "English"}], "breadcrumbs": [{"title": "Testing Canada.ca", "acronym": "Test Canada.ca", "href": "http://www.canada.ca"}, {"title": "SGDC", "acronym": "Centrally Deployed Templates Solution"}]}',
+        top: '{"cdnEnv": "localhost", "siteMenu": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "method" : "get"}], "lngLinks": [{"lang": "en", "href": "gcweb-top-en.html", "text": "English"}], "breadcrumbs": [{"title": "Testing Canada.ca", "acronym": "Test Canada.ca", "href": "http://www.canada.ca"}, {"title": "SGDC", "acronym": "Centrally Deployed Templates Solution"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -180,7 +180,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-nomenu-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv" : "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "subTheme": "esdc"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -188,7 +188,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-nomenu-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "subTheme": "esdc"}',
+        top: '{"cdnEnv": "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "subTheme": "esdc"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -212,7 +212,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-customSearchDefault-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv" : "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "method" : "get"}]}',
+        top: '{"cdnEnv" : "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "method" : "get"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -220,7 +220,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-customSearchDefault-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr.html", "method" : "get"}]}',
+        top: '{"cdnEnv": "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "method" : "get"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
