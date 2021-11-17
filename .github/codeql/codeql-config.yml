@@ -1,0 +1,8 @@
+name: "CDTS CodeQL Configuration"
+
+paths-ignore:
+  - dist
+  - node_modules
+  - tmp
+  - public/wet
+
