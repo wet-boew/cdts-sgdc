@@ -9,6 +9,7 @@ Thumbs.db
 *.tmp
 *.log
 .vscode/
+*.code-workspace
 
 dist/
 tmp/
