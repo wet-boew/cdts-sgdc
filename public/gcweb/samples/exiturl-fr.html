@@ -57,8 +57,6 @@
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<h1 property="name" id="wb-cont">Page de contenu</h1>
 			<p>Vous avez été redirigé sur cette page en utilisant le script de sortie. Vous pouvez décoder le paramètre <code>targetUrl</code> pour accéder à votre destination originale</p>
-			<p>Vous pouvez aussi accéder automatiquement à votre destination originale en utilisant <code>window.location.replace</code>. Regardez le code source de cette page.</p>
-			<div id="originalDestination"></div>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
 				<!-- preFooter-fr.html -->
@@ -67,7 +65,7 @@
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
-					"dateModified": "2019-07-31",
+					"dateModified": "2021-11-17",
 					"cdnEnv": "esdcprod"
 				});
 			</script>
@@ -88,18 +86,6 @@
 			document.write(wet.builder.refFooter({
 				"cdnEnv": "esdcprod"
 			}));
-		</script>
-		<script>
-			function retrieveTargetUrl() {
-				var dec = decodeURIComponent(location.search.substr(11));
-				var res = 'Votre destination originale était: <a href="' + dec + '">' + dec + '</a>';
-				//Remove the following comment and unnecessary code to go to the original page
-				//window.location.replace(dec)
-				document.getElementById("originalDestination").innerHTML = res;
-			}
-		</script>
-		<script>
-			retrieveTargetUrl()
 		</script>
 	</body>
 </html>
