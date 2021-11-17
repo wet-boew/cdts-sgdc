@@ -166,8 +166,8 @@ describe('AppTop section tests for GCWeb', () => {
     it('Accessibility', async () => {
         await accessibility(theme, 'en');
         await accessibility(theme, 'fr');
-        await accessibilityExternalMenu(theme, 'en');
-        await accessibilityExternalMenu(theme, 'fr');
+        await accessibility(theme, 'en', 'externalLinkMenu');
+        await accessibility(theme, 'fr', 'externalLinkMenu');
     });
 });
 
@@ -422,8 +422,8 @@ describe('AppTop section tests for GCIntranet', () => {
     it('Accessibility', async () => {
         await accessibility(theme, 'en');
         await accessibility(theme, 'fr');
-        await accessibilityExternalMenu(theme, 'en');
-        await accessibilityExternalMenu(theme, 'fr');
+        await accessibility(theme, 'en', 'externalLinkMenu');
+        await accessibility(theme, 'fr', 'externalLinkMenu');
     });
 });
 
@@ -745,12 +745,7 @@ async function defaultMenu(theme, lang){
     await expect(basicPage.defaultMenu).toExist();
 }
 
-async function accessibility(theme, lang) {
-    await appTopPage.open(theme, lang);
-    await runAccessbilityTest();
-}
-
-async function accessibilityExternalMenu(theme, lang) {
-    await appTopPage.open(theme, lang, 'externalLinkMenu');
+async function accessibility(theme, lang , classifier = '') {
+    await appTopPage.open(theme, lang, classifier);
     await runAccessbilityTest();
 }
