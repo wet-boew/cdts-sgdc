@@ -43,7 +43,6 @@
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<h1 property="name" id="wb-cont">Page de contenu</h1>
 			<p>Vous avez été redirigé sur cette page en utilisant le script de sortie. Vous pouvez décoder le paramètre <code>targetUrl</code> pour accéder à votre destination originale</p>
-			<div id="originalDestination"></div>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
 				<!-- preFooter-fr.html -->
@@ -53,7 +52,7 @@
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
 					"cdnEnv": "localhost",
-					"dateModified": "2019-07-31"
+					"dateModified": "2021-11-17"
 				});
 			</script>
 		</main>
@@ -73,16 +72,6 @@
 			document.write(wet.builder.refFooter({
 				"cdnEnv": "localhost"
 			}));
-		</script>
-		<script>
-			function retrieveTargetUrl() {
-				var dec = decodeURIComponent(location.search.substr(8));
-				var res = 'Votre destination originale était: <a href="' + dec + '">' + dec + '</a>';
-				document.getElementById("originalDestination").innerHTML = res;
-			}
-		</script>
-		<script>
-			retrieveTargetUrl()
 		</script>
 	</body>
 </html>
