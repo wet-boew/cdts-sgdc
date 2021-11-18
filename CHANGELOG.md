@@ -1,9 +1,18 @@
 # CDTS Change Log
 
-## v4.0.44 (In Progress)
+## v4.0.44
 
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.44.4
 - Updated ExitScript which now uses an *exitSecureSite* object for its implementation. It is currently backwards compatible. Please visit the sample pages for all the details.
+- Updated the url for Canada.ca search and removed hidden inputs
+- Updated sample pages to include full path of js files
+- Updated links to https
 - Removed unused function loadDoc() 
+- Removed abbreviation element from breadcrumbs
+- Removed link from error page
+- Improved accessibility
+- Internal changes and optimizations
+- Bug fixes
 
 ## v4.0.43
 
