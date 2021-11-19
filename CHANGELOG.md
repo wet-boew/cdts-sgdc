@@ -2,7 +2,7 @@
 
 ## v4.0.44
 
-- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.44.4
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.44.5
 - Updated ExitScript which now uses an *exitSecureSite* object for its implementation. It is currently backwards compatible. Please visit the sample pages for all the details.
 - Updated the url for Canada.ca search and removed hidden inputs
 - Updated sample pages to include full path of js files

@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.44.4 - 2021-11-16
+ * v4.0.44.5 - 2021-11-18
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
 /*! @license DOMPurify 2.3.3 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.3/LICENSE */
@@ -9317,7 +9317,7 @@ var componentName = "wb-lbx",
 						$response;
 
 					// Sanitize the response
-					mfpResponse = DOMPurify.sanitize( mfpResponse );
+					mfpResponse.data = DOMPurify.sanitize( mfpResponse.data );
 
 					// Provide the ability to filter the AJAX response HTML
 					// by the URL hash or a selector
