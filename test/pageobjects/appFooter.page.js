@@ -21,8 +21,8 @@ class AppFooterPage extends Page {
     get customFooterLinkText() { return $('//footer[@id="wb-info"]/nav/h2/following-sibling::div/section/h3'); }
     get customFooterLink() { return $('//footer[@id="wb-info"]/nav/h2/following-sibling::div/section/h3/following-sibling::ul/li/a'); }
     get customFooterLinkTextSubTheme() { return $('//footer[@id="wb-info"]/nav/h2/following-sibling::div/section[4]/h3'); }
-    get cssScriptESDC() { return $('//head/link[@href="/app/cls/WET/gcintranet/v4_0_44/cdts/esdc.css"]'); }
-    get cssScriptECCC() { return $('//head/link[@href="/app/cls/WET/gcintranet/v4_0_44/cdts/eccc.css"]'); }
+    get cssScriptESDC() { return $('//head/link[contains(@href, "/cdts/esdc.css")]'); }
+    get cssScriptECCC() { return $('//head/link[contains(@href, "/cdts/eccc.css")]'); }
     
     /**
     * Opens a sub page of the page
