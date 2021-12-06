@@ -127,7 +127,7 @@
                                     <%# //Todo: We should find a better way to do that it's soy v2 syntax... -%>
                                     <%#//Todo: https://github.com/wet-boew/cdts-sgdc/issues/166 -%>
                                     <%_ if (new RegExp('^http[s]{0,1}://www.canada.ca(/en\.html|/fr\.html|/index\.html|/en/index\.html|/fr/index\.html|/home\.html|/accueil\.html){0,1}[/]{0,1}$', 'gi').test(item.href)) { -%>                                                                                
-                                        <%_ For Backward compatibility we keep the old tags (In html title contains the full description) -%>
+                                        <%# For Backward compatibility we keep the old tags (In html title contains the full description) -%>
                                         <li>
                                         <%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%>
                                         <%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%>
