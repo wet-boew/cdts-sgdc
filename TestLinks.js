@@ -143,6 +143,9 @@ module.exports = async function testFileLinks() {
         return errorCount;
     }
 
+    console.log("::warning file=TestLinks.js::Testing github action warnings.");
+    /*eslint-disable*/
+    return;
     if (process.env.DISABLE_TESTLINKS) return;
 
     const startTime = performance.now();
