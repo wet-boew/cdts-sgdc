@@ -143,9 +143,6 @@ module.exports = async function testFileLinks() {
         return errorCount;
     }
 
-    console.log("::warning file=TestLinks.js::Testing github action warnings.");
-    /*eslint-disable*/
-    return;
     if (process.env.DISABLE_TESTLINKS) return;
 
     const startTime = performance.now();
@@ -174,7 +171,9 @@ module.exports = async function testFileLinks() {
 
     if (totalErrorCount !== 0) {
         console.error("Error: " + totalErrorCount + " error(s) were found when validating " + urls.length + " URLs.");
-        throw new Error("Error: " + totalErrorCount + " error(s) were found when validating" + urls.length + " URLs.");
+        if (!process.env.DISABLE_TESTLINKS_THROWONFAIL) {
+            throw new Error("Error: " + totalErrorCount + " error(s) were found when validating" + urls.length + " URLs.");
+        }
     }
     else {
         console.log("TestLinks Completed Successfully.");
