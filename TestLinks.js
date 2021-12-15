@@ -7,6 +7,7 @@ module.exports = async function testFileLinks() {
     //Exception list (complete skip of validation)
     //Includes links found on legacy templates, links that require credentials and partial URLs
     const exceptionSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
+        "https://recherche-search.gc.ca/", //skipping this link because it forbibs GET/HEAD
         "https://ssl-templates.services.gc.ca/app/cls/WET",
         "https://ajax.googleapis.com/ajax/libs/",
         "https://s2tst-cdn-canada.sade-edap.prv",
@@ -58,7 +59,7 @@ module.exports = async function testFileLinks() {
     const regex = /http[s]?:\/\/.*?(?="|')/g;
     const agent = ProxyAgent('http://proxy.prv:80');
     const directories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
-    const config = (process.env.DISABLE_PROXY) ? null : {httpsAgent: agent, proxy: false};
+    const config = (process.env.DISABLE_PROXY) ? null : { httpsAgent: agent, proxy: false };
 
     let matches = [];
     let errorCount = 0;
@@ -69,7 +70,7 @@ module.exports = async function testFileLinks() {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; //eslint-disable-line
 
     //Get all files from a directory
-    function getFiles (dir, inFiles) {
+    function getFiles(dir, inFiles) {
         const myFiles = inFiles || [];
         const files = fs.readdirSync(dir);
         for (const i in files) {
@@ -96,7 +97,7 @@ module.exports = async function testFileLinks() {
     }
 
     async function validateLinks(urls) {
-        for (let i =0; i<urls.length; i++) {
+        for (let i = 0; i < urls.length; i++) {
             //Check if URL is in the exception list of syntax check and validation
             if (exceptionSyntaxLinks.some((l) => urls[i].startsWith(l))) {
                 skippedSyntaxUrlCount++;
@@ -171,5 +172,8 @@ module.exports = async function testFileLinks() {
     if (totalErrorCount !== 0) {
         console.error("Error: " + totalErrorCount + " error(s) were found when validating " + urls.length + " URLs.");
         throw new Error("Error: " + totalErrorCount + " error(s) were found when validating" + urls.length + " URLs.");
+    }
+    else {
+        console.log("TestLinks Completed Successfully.");
     }
 }
