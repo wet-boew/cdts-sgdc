@@ -1,6 +1,6 @@
 const generateStaticFile = require('./StaticFileCreator.js');
 const { compileEJSModule, extractEJSModuleMessages, mergeLanguageFiles } = require('./EJSModuleGenerator.js');
-const testFileLinks = require('./TestLinks.js');
+const { testCDTSFileLinks } = require('./TestLinks.js');
 const { writeFilesSRIHashes, getSRIHashes } = require('./SRIUtilities.js');
 
 /// ************************************************************
@@ -140,7 +140,7 @@ module.exports = function run(grunt) {
     grunt.registerTask('test-links', 'Test all links in files in the src and public (minus the WET folder) directories', function (target) { //eslint-disable-line
         if (!target || target === 'test') {
             const done = this.async();
-            testFileLinks().then(done).catch(() => done(false));
+            testCDTSFileLinks().then(done).catch(() => done(false));
         }
     });
 
