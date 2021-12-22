@@ -3,12 +3,13 @@ const axios = require('axios');
 const ProxyAgent = require('https-proxy-agent');
 const { performance } = require('perf_hooks');
 
-module.exports = async function testFileLinks() {
+module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
     //Exception list (complete skip of validation)
     //Includes links found on legacy templates, links that require credentials and partial URLs
-    const exceptionSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
+    const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
         "https://recherche-search.gc.ca/", //skipping this link because it forbibs GET/HEAD
         "https://ssl-templates.services.gc.ca/app/cls/WET",
+        "https://ssl-templates.services.gc.ca/rn/cls/WET",
         "https://ajax.googleapis.com/ajax/libs/",
         "https://s2tst-cdn-canada.sade-edap.prv",
         "https://cdn-canada.services.gc.qat/",
@@ -24,9 +25,17 @@ module.exports = async function testFileLinks() {
         "http://hrsc-csrh.prv",
         "http://offices-bureaux.prv",
         "http://crt-orc.prv/",
-        "https://www.forces.gc.ca"]
+        "https://www.forces.gc.ca",
+        "https://csszengarden.com/219</a>",
+        "https://www.w3schools.com</a>",
+        "https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>",
+        "https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/",
+        "https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/",
+        "https://templates.service.gc.ca/app/",
+        "https://intranet.canada.ca/images/GC",
+        "https://intranet.canada.ca/images/Instagram.png"]
 
-    const exceptionHTTPLinks = ["http://www.gcpedia.gc.ca/",
+    const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
         "http://gcdirectory-gcannuaire.gc.ca/",
         "http://dialogue",
         "http://agora.on.prv/",
@@ -44,7 +53,7 @@ module.exports = async function testFileLinks() {
         "http://gcintranet.tpsgc-pwgsc.gc.ca/",
         "http://blogs-blogues.prv/"]
 
-    const exceptionIntranetLinks = ["https://intranet.canada.ca",
+    const exceptionCDTSIntranetLinks = ["https://intranet.canada.ca",
         "https://gcconnex.gc.ca",
         "https://www.gcpedia.gc.ca",
         "https://gcdirectory",
@@ -56,9 +65,20 @@ module.exports = async function testFileLinks() {
         "https://portal-portail.tbs-sct.gc.ca",
         "https://nscc-cnas.pwgsc-tpsgc.gc.ca"]
 
-    const regex = /http[s]?:\/\/.*?(?="|')/g;
+    const cdtsDirectories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
+
+    await module.exports.testFileLinks(cdtsDirectories, exceptionCDTSSyntaxLinks, exceptionCDTSHTTPLinks, exceptionCDTSIntranetLinks);
+}
+
+//Checks the response of links found in the provided directories, using Axios
+//A link can be exempt from testing if it is provided as part of an array in one of the three optional parameters. The three reasons a link can be exempt from testing are:
+//  1. The syntax is invalid (ex. contains a parameter)
+//  2. It is an HTTP link
+//  3. It is an intranet link that may not give a successful response
+//Once the check is complete, a summary is provided detailing how many tests were run, skipped and passed/failed.
+module.exports.testFileLinks = async function testFileLinks(directories, exceptionSyntaxLinks = [], exceptionHTTPLinks = [], exceptionIntranetLinks = []) {
+    const regex = /http[s]?:\/\/.*?(?="|'|\s)/g;
     const agent = ProxyAgent('http://proxy.prv:80');
-    const directories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
     const config = (process.env.DISABLE_PROXY) ? null : { httpsAgent: agent, proxy: false };
 
     let matches = [];
