@@ -10,8 +10,8 @@ Please visit [our documentation](https://cenw-wscoe.github.io/sgdc-cdts/docs/ind
 
 To work with this project you will need node.js and npm installed. This project was created with:
 
-* node.js v14.2.0
-* npm 6.14.4
+* node.js v16.13.1
+* npm 8.1.2
 
 **For ESDC employees** Please read [ESDC Development Setup](https://github.com/esdc-devcop/ESDC-Development-Setup) if it's your first time connecting to github from your work computer.
 
