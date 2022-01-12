@@ -27,7 +27,7 @@
                     <%_ } -%>
                 <%_ } -%>
                 <%_ if (pr.showShare != false) { -%>
-                    <%_ if (pr.showShare != null) { -%>
+                    <%_ if (pr.showShare != null && Array.isArray(pr.showShare)) { -%>
                         <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
                     <%_ } else { -%>
                         <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}'></div>
