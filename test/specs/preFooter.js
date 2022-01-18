@@ -28,7 +28,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-modifiedBtn-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": ["email", "facebook", "linkedin", "twitter"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -36,7 +36,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-modifiedBtn-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": ["email", "facebook", "linkedin", "twitter"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
