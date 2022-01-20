@@ -66,11 +66,10 @@
                 <%_ } else { -%>
                     <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4">
                         <h2><^- msg('Search') ^></h2>
-                        <form action="<^- msg('https://www.canada.ca/en/sr/srb.html') ^>" method="get" name="cse-search-box" role="search">
+                        <form action="<^- msg('https://www.canada.ca/en/sr/srb.html') ^>" method="get" name="cse-search-box" role="search" accept-charset="utf-8">
                             <div class="form-group wb-srch-qry">
                                 <label for="wb-srch-q" class="wb-inv"><^- msg('Search Canada.ca') ^></label>
                                 <input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search Canada.ca') ^>">
-                                <input type="hidden" name="_charset_" value="UTF-8">
                                 <datalist id="wb-srch-q-ac">
                                 </datalist>
                             </div>
