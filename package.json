@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@wdio/cli": "^7.16.12",
+    "@wdio/cli": "^7.16.13",
     "@wdio/dot-reporter": "^7.16.11",
     "@wdio/junit-reporter": "^7.16.13",
     "@wdio/local-runner": "^7.16.13",
