@@ -7,14 +7,14 @@ require('../setup/basic.js');
 
 describe('Top section tests for GCWeb', () => {
     const theme = 'gcweb';
-    
+
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-top-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "search": false, "lngLinks": [{"lang": "fr", "href": "gcweb-top-fr.html", "text": "Français"}], "breadcrumbs": [{"title": "CDTS", "acronym": "Centrally Deployed Templates Solution"}]}',
+        top: '{"cdnEnv": "localhost", "search": false, "lngLinks": [{"lang": "fr", "href": "gcweb-top-fr.html", "text": "Fran&#231;ais"}], "breadcrumbs": [{"title": "CDTS", "acronym": "Centrally Deployed Templates Solution"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-top-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -22,7 +22,7 @@ describe('Top section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-top-siteMenuTrue-en', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -30,7 +30,7 @@ describe('Top section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-top-siteMenuTrue-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -38,7 +38,7 @@ describe('Top section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-top-transactional-en', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -46,7 +46,7 @@ describe('Top section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-top-transactional-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -54,7 +54,7 @@ describe('Top section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-top-customSearchDefault-en', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -62,7 +62,7 @@ describe('Top section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-top-customSearchDefault-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -70,7 +70,7 @@ describe('Top section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     it('Should contain breadcrumbs and test href when title is Canada.ca (but href is something else)', async () => {
         await breadcrumbsExist(theme);
@@ -90,6 +90,10 @@ describe('Top section tests for GCWeb', () => {
     it('Default Canada.ca Breadcrumb added', async () => {
         await defaultBreadcrumb(theme, 'en');
         await defaultBreadcrumb(theme, 'fr');
+    });
+
+    it('Escaped text should allow for HTML entities', async () => {
+        await escapedTextAllowsHTMLEntities(theme, 'en');
     });
 
     it('Check if lang link exists', async () => {
@@ -161,14 +165,14 @@ describe('Top section tests for GCWeb', () => {
 
 describe('Top section tests for GCIntranet', () => {
     const theme = 'gcintranet';
-    
+
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv" : "localhost", "menuPath": "menu-esdc.html", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "breadcrumbs": [{ "title": "Home", "acronym": "Canada.ca", "href": "https://www.canada.ca/en.html"},{ "title": "CDTS","acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", 	"boldText" : "Bold", 	"acronym": "Employment and Social Development Canada / Service Canada" }], "GCToolsModal": true, "search": false, "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "menuPath": "menu-esdc.html", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Fran&#231;ais" }], "breadcrumbs": [{ "title": "Home", "acronym": "Canada.ca", "href": "https://www.canada.ca/en.html"},{ "title": "CDTS","acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", 	"boldText" : "Bold", 	"acronym": "Employment and Social Development Canada / Service Canada" }], "GCToolsModal": true, "search": false, "subTheme": "esdc"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -176,7 +180,7 @@ describe('Top section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-nomenu-en', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -184,7 +188,7 @@ describe('Top section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-nomenu-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -192,7 +196,7 @@ describe('Top section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-wblng-en', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -200,7 +204,7 @@ describe('Top section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-wblng-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -208,7 +212,7 @@ describe('Top section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-customSearchDefault-en', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -216,7 +220,7 @@ describe('Top section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-customSearchDefault-fr', {
         refTop: '{"cdnEnv": "localhost"}',
@@ -224,8 +228,8 @@ describe('Top section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
-    
+    });
+
     it('Should contain breadcrumbs and test href when title is Canada.ca', async () => {
         await breadcrumbsExist(theme);
         await breadcrumbsExist_FR(theme);
@@ -234,6 +238,10 @@ describe('Top section tests for GCIntranet', () => {
     it('Should contain the default breadcrumb', async () => {
         await defaultBreadcrumbIntranet(theme, 'en');
         await defaultBreadcrumbIntranet(theme, 'en');
+    });
+
+    it('Escaped text should allow for HTML entities', async () => {
+        await escapedTextAllowsHTMLEntities(theme, 'en');
     });
 
     it('Should contain lang link', async () => {
@@ -354,60 +362,70 @@ describe('Top section tests for GCIntranet', () => {
     });
 });
 
-async function breadcrumbsExist(theme){
+async function breadcrumbsExist(theme) {
     await topPage.open(theme, 'en');
     if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
     if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
     await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
-    await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html');    
+    await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html');
 }
 
-async function breadcrumbsExist_FR(theme){
+async function breadcrumbsExist_FR(theme) {
     await topPage.open(theme, 'fr');
-    if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');    
+    if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
     if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
     await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
     await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html');
 }
 
-async function breadcrumbsDoNotExist(theme, lang){
+async function breadcrumbsDoNotExist(theme, lang) {
     await basicPage.open(theme, lang);
     await expect(basicPage.cdtsBreadCrumb).toHaveChildren(1);
-    if (lang == 'en') { 
-        await expect(basicPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html') 
+    if (lang == 'en') {
+        await expect(basicPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html')
     }
-    else { 
-        await expect(basicPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html') 
-    } 
+    else {
+        await expect(basicPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html')
+    }
 }
 
-async function breadcrumbHref(theme, lang){
+async function breadcrumbHref(theme, lang) {
     await topPage.open(theme, lang, 'customSearchDefault');
     await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Test Canada.ca');
     if (lang == 'en') { await expect(basicPage.canBreadCrumb).toHaveHref('http://www.canada.ca') }
-    else { await expect(basicPage.canBreadCrumb).toHaveHref('http://www.canada.ca') } 
+    else { await expect(basicPage.canBreadCrumb).toHaveHref('http://www.canada.ca') }
 }
 
-async function defaultBreadcrumb(theme, lang){
+async function defaultBreadcrumb(theme, lang) {
     await topPage.open(theme, lang);
     if (lang == 'en') { await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html'); }
-    else { await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html'); } 
+    else { await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html'); }
     await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
 }
 
-async function defaultBreadcrumbIntranet(theme, lang){
+async function defaultBreadcrumbIntranet(theme, lang) {
     await basicPage.open(theme, lang);
-    if (lang == 'en') { 
+    if (lang == 'en') {
         await expect(topPage.canBreadCrumb).toHaveHref('https://intranet.canada.ca/index-eng.asp');
-        await expect(topPage.canBreadCrumb).toHaveTextContaining('Home'); 
+        await expect(topPage.canBreadCrumb).toHaveTextContaining('Home');
     }
-    else { 
+    else {
         await expect(topPage.canBreadCrumb).toHaveHref('https://intranet.canada.ca/index-fra.asp');
-        await expect(topPage.canBreadCrumb).toHaveTextContaining('Accueil'); 
-    } 
+        await expect(topPage.canBreadCrumb).toHaveTextContaining('Accueil');
+    }
 }
 
-async function langLinksExist(theme){
+async function escapedTextAllowsHTMLEntities(theme) {
+    await topPage.open(theme, 'en');
+    if (theme === "gcweb") {
+        await expect(topPage.langLinkText).toHaveTextContaining('Français');
+    }
+    else {
+        await expect(topPage.langLinkTextIntranet).toHaveTextContaining('Français');
+    }
+}
+
+async function langLinksExist(theme) {
     await topPage.open(theme, 'en');
     if (theme === "gcweb") {
         await expect(topPage.langLinkText).toHaveTextContaining('Français');
@@ -419,11 +437,11 @@ async function langLinksExist(theme){
         await expect(topPage.wbLang).toHaveElementClassContaining('lang-no-search')
         const langLink = await topPage.langLinkIntranet;
         await langLink.click();
-    }    
+    }
     await expect(browser).toHaveUrlContaining('-fr');
 }
 
-async function langLinksExist_FR(theme){
+async function langLinksExist_FR(theme) {
     await topPage.open(theme, 'fr');
     if (theme === "gcweb") {
         expect(topPage.langLinkText).toHaveTextContaining('English');
@@ -439,24 +457,24 @@ async function langLinksExist_FR(theme){
     await expect(browser).toHaveUrlContaining('-en');
 }
 
-async function langLinksDoNotExist(theme, lang){
+async function langLinksDoNotExist(theme, lang) {
     await basicPage.open(theme, lang);
     await expect(basicPage.langLink).not.toExist();
 }
 
-async function titleCustomized(theme, lang){
+async function titleCustomized(theme, lang) {
     await topPage.open(theme, lang);
     await expect(topPage.intranetText).toHaveTextContaining('Bold');
     await expect(topPage.intranetTitle).toHaveTextContaining('CustomTitle');
     await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada')
 }
 
-async function gcToolsLinks(theme){
+async function gcToolsLinks(theme) {
     await topPage.open(theme, 'en');
 
     const gcToolsLink = await topPage.gcToolsLink;
     await gcToolsLink.click();
-    await (await topPage.gcToolsModalTitle).waitForExist({timeout: 3000})
+    await (await topPage.gcToolsModalTitle).waitForExist({ timeout: 3000 })
     await expect(topPage.gcToolsModalTitle).toHaveTextContaining('GCTools');
     await expect(topPage.gcToolsModalLink1).toHaveTextContaining('connex');
     await expect(topPage.gcToolsModalLink2).toHaveTextContaining('pedia');
@@ -466,12 +484,12 @@ async function gcToolsLinks(theme){
     await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
 }
 
-async function gcToolsLinks_FR(theme){
+async function gcToolsLinks_FR(theme) {
     await topPage.open(theme, 'fr');
 
     const gcToolsLink = await topPage.gcToolsLink;
     await gcToolsLink.click();
-    await (await topPage.gcToolsModalTitle).waitForExist({timeout: 3000})
+    await (await topPage.gcToolsModalTitle).waitForExist({ timeout: 3000 })
     await expect(topPage.gcToolsModalTitle).toHaveTextContaining('OutilsGC');
     await expect(topPage.gcToolsModalLink1).toHaveTextContaining('connex');
     await expect(topPage.gcToolsModalLink2).toHaveTextContaining('pédia');
@@ -481,18 +499,18 @@ async function gcToolsLinks_FR(theme){
     await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
 }
 
-async function searchDoesNotExist(theme, lang){
+async function searchDoesNotExist(theme, lang) {
     await topPage.open(theme, lang);
     await expect(topPage.search).not.toExist();
 }
 
-async function subThemeESDCMenu(theme, lang){
+async function subThemeESDCMenu(theme, lang) {
     await topPage.open(theme, lang);
     await expect(topPage.intranetMenu).toHaveChildren(7);
     await expect(topPage.intranetMenu).toHaveTextContaining('This is a test menu!');
 }
 
-async function titleNotCustomized(theme, lang){
+async function titleNotCustomized(theme, lang) {
     await basicPage.open(theme, lang);
     await expect(basicPage.intranetText).toHaveTextContaining('GC');
     await expect(basicPage.intranetTitle).toHaveTextContaining('GC intranet');
@@ -500,63 +518,63 @@ async function titleNotCustomized(theme, lang){
     await expect(topPage.intranetTitleAbbr).not.toExist();
 }
 
-async function gcToolsLinksStandard(theme, lang){
+async function gcToolsLinksStandard(theme, lang) {
     await basicPage.open(theme, lang);
 
     await expect(basicPage.gcToolsModalLinks).toExist();
     await expect(basicPage.gcToolsModalLinks).toHaveChildren(4);
 }
 
-async function searchExists(theme, lang){
+async function searchExists(theme, lang) {
     await basicPage.open(theme, lang);
     await expect(basicPage.search).toExist();
 }
 
-async function subThemeStandard(theme, lang){
+async function subThemeStandard(theme, lang) {
     await basicPage.open(theme, lang);
     await expect(basicPage.intranetMenu).toHaveChildren(5);
 }
 
-async function noMenuWhenTurnedOff(theme, lang){
+async function noMenuWhenTurnedOff(theme, lang) {
     await topPage.open(theme, lang);
     await expect(topPage.intranetMenu).not.toExist();
 }
 
-async function skipSecLinkDoesNotExist(theme, lang, page = ''){
+async function skipSecLinkDoesNotExist(theme, lang, page = '') {
     await topPage.open(theme, lang, page);
     await expect(sectionMenuPage.skipSecLink).not.toExist();
 }
 
-async function govCanImgLinkDoesNotExist(theme, lang, page = ''){
+async function govCanImgLinkDoesNotExist(theme, lang, page = '') {
     await topPage.open(theme, lang, page);
     await expect(topPage.govCanImgLink).not.toExist();
 }
 
-async function govCanImgLinkExists(theme, lang, page = ''){
+async function govCanImgLinkExists(theme, lang, page = '') {
     await topPage.open(theme, lang, page);
-    if (lang == 'en') { await expect(topPage.govCanImgLink).toExist();}
-    else {await expect(topPage.govCanImgLinkFR).toExist();}
+    if (lang == 'en') { await expect(topPage.govCanImgLink).toExist(); }
+    else { await expect(topPage.govCanImgLinkFR).toExist(); }
 }
 
-async function menuExists(theme, lang, page = ''){
+async function menuExists(theme, lang, page = '') {
     await topPage.open(theme, lang, page);
     await expect(topPage.menuBtn).toExist();
     await expect(topPage.transactBar).not.toExist();
 }
 
-async function menuDoesNotExist(theme, lang, page = ''){
+async function menuDoesNotExist(theme, lang, page = '') {
     await topPage.open(theme, lang, page);
     await expect(topPage.menuBtn).not.toExist();
     await expect(topPage.transactBar).toExist();
 }
 
-async function customSearchExists(theme, lang){
-    if (theme == 'gcweb') { 
-        await topPage.open(theme, lang, 'siteMenuTrue'); 
+async function customSearchExists(theme, lang) {
+    if (theme == 'gcweb') {
+        await topPage.open(theme, lang, 'siteMenuTrue');
         await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search Canada.ca');
     }
-    else { 
-        await topPage.open(theme, lang, 'nomenu'); 
+    else {
+        await topPage.open(theme, lang, 'nomenu');
         await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search');
     }
     await expect(topPage.customSearch).toExist();
@@ -568,7 +586,7 @@ async function customSearchExists(theme, lang){
     await expect(topPage.customSearchBtn).toExist();
 }
 
-async function customSearchDefaultValues(theme, lang){
+async function customSearchDefaultValues(theme, lang) {
     await topPage.open(theme, lang, 'customSearchDefault');
     await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search');
     await expect(topPage.customSearchLabel).toHaveTextContaining('Search');
@@ -578,7 +596,7 @@ async function customSearchDefaultValues(theme, lang){
     else {
         await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('name', 'a');
         await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('value', 's');
-     }
+    }
 }
 
 async function sectionClass(theme, lang) {
@@ -612,20 +630,20 @@ async function langSearchClass(theme, lang) {
     await expect(topPage.wbLang).toHaveElementClassContaining('mrgn-bttm-md col-md-offset-1 col-lg-offset-2 col-md-1 hidden-sm hidden-xs text-right');
 }
 
-async function searchExistsIntranet(theme, lang){
+async function searchExistsIntranet(theme, lang) {
     await basicPage.open(theme, lang);
     if (lang == 'en') { await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx'); }
     else { await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.canada.ca/search-recherche/query-recherche-fra.aspx'); }
 }
 
-async function menuPath(theme, lang){
+async function menuPath(theme, lang) {
     await topPage.open(theme, lang);
-    
+
 }
 
-async function menuPathDefault(theme, lang){
+async function menuPathDefault(theme, lang) {
     await basicPage.open(theme, lang);
-    
+
 }
 
 async function accessibility(theme, lang) {
