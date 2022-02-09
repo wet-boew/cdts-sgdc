@@ -19,7 +19,7 @@ wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
     else if (cdnEnv === 'localhost') {
         baseUrl = '../../../..';
     }
-    else if (cdnEnv != null && cdnEnv.startsWith('http')) {
+    else if (cdnEnv != null && (cdnEnv.substr(0, 4) === 'http')) {
         return cdnEnv; //if starts with http: return as-is
     }
     else {
