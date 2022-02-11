@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.44.5 - 2021-11-18
+ * v4.0.47.1 - 2022-02-11
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
 /*! @license DOMPurify 2.3.3 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.3.3/LICENSE */
@@ -3584,6 +3584,41 @@ wb.escapeAttribute = function( str ) {
 	return str.replace( /'/g, "&#39;" ).replace( /"/g, "&#34;" );
 };
 
+/*
+* Find most common Personal Identifiable Information (PII) in a string and return either the cleaned string either true/false
+* @param {string} str
+* @param {boolean} toClean
+* @return {string | true | false}
+* @example
+* wb.findPotentialPII( "email:test@test.com, phone:123 123 1234", true )
+* returns "email:, phone:",
+* wb.findPotentialPII( "email:test@test.com, phone:123 123 1234", false )
+* returns true
+*/
+wb.findPotentialPII = function( str, toClean ) {
+
+	if ( typeof str  !== "string" ) {
+		return false;
+	}
+	var regEx = [
+			/\b(?:\w*[\s\\.-]*?\d[\s\\.-]*?){5,}\b/ig, //5digits or more pattern
+			/\b[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d\b/ig, //postal code pattern
+			/\b(?:[a-zA-Z0-9_\-\\.]+)(?:@|%40)(?:[a-zA-Z0-9_\-\\.]+)\.(?:[a-zA-Z]{2,5})\b/ig //email pattern
+		],
+		isFound = false;
+
+	for ( var key in regEx ) {
+		if ( str.match( regEx[ key ] ) ) {
+			isFound = true;
+			if ( toClean ) {
+				str = str.replaceAll( regEx[ key ], "" );
+			}
+		}
+	}
+
+	return toClean && isFound ? str : isFound;
+};
+
 } )( wb );
 
 ( function( $, undef ) {
@@ -6984,6 +7019,88 @@ wb.add( selector );
 } )( jQuery, window, wb );
 
 /**
+ * @title WET-BOEW Details closed on small screen
+ * @overview Closes details on defined viewport and down if they were not engaged, default is small
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @thomasgohard
+ */
+( function( $, wb ) {
+"use strict";
+
+/*
+* Variable and function definitions.
+* These are global to the plugin - meaning that they will be initialized once per page,
+* not once per instance of plugin on the page. So, this is a good place to define
+* variables that are common to all instances of the plugin on a page.
+*/
+var componentName = "wb-details-close",
+	selector = ".provisional." + componentName,
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+	views = [ "xxs", "xs", "sm", "md", "lg", "xl" ],
+	viewsClass = [ "xxsmallview", "xsmallview", "smallview", "mediumview", "largeview", "xlargeview" ],
+	breakpoint,
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector ),
+			$elm, i;
+
+		if ( elm ) {
+			$elm = $( elm );
+
+			// Get the plugin JSON configuration set on attribute data-wb-details-close
+			// Will define one set settings for all .wb-details-close on the page
+			breakpoint = $elm.data( "breakpoint" ) || "sm";
+
+			// reset breakpoint if config is passed
+			if ( views.length === viewsClass.length ) {
+				i = views.indexOf( breakpoint );
+				viewsClass = viewsClass.slice( 0, i + 1 );
+			}
+
+			hideOnBreakpoint();
+
+			// Identify that initialization has completed
+			wb.ready( $elm, componentName );
+		}
+	},
+
+	/**
+	 * Toggle details depending on breakpoint
+	 * @method hideOnBreakpoint
+	 * @param {jQuery DOM element | jQuery Event} $elm Element targetted by this plugin, which is the details
+	 */
+	hideOnBreakpoint = function() {
+		var $elm = $( selector ),
+			viewsSelector = "html." + viewsClass.join( ", html." );
+
+		// If within the targetted views, keep details closed
+		if ( $( viewsSelector ).length ) {
+			$elm.removeAttr( "open" );
+		} else {
+
+			// If not, keep opened
+			$elm.attr( "open", "" );
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, wb );
+
+/**
  * @title WET-BOEW Dismissable content plugin
  * @overview Enables content to be dismissed
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -8816,8 +8933,8 @@ var componentName = "wb-frmvld",
 
 							//Std If we have a label and the input field is inside the label
 							// need to add a css-implicite-input
-							if ( $form.find( "label" ).find( "input[name='" + $element.attr( "name" ) + "']" ).length > 0 ) {
-								$error.insertBefore( $form.find( "input[name='" + $element.attr( "name" ) + "']" ) );
+							if ( $form.find( "label" ).find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ).length > 0 ) {
+								$error.insertBefore( $form.find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ) );
 								return;
 							}
 
@@ -11681,7 +11798,7 @@ var componentName = "wb-overlay",
 				footer = $elm.find( ".modal-footer" )[ 0 ];
 
 				var hasFooter = ( footer && footer.length !== 0 ) ? true : false,
-					hasButton = hasFooter && $( footer ).find( closeClass ).length !== 0,
+					hasButton = hasFooter && $( footer ).find( "." + closeClass ).length !== 0,
 					closeClassFtr = ( $elm.hasClass( "wb-panel-l" ) ? "pull-right " : "pull-left " )  + closeClass,
 					closeTextFtr = i18nText.close,
 					spanTextFtr = i18nText.closeOverlay,
@@ -13264,7 +13381,8 @@ var componentName = "wb-tables",
 					processing: i18n( "process" ),
 					search: i18n( "filter" ),
 					thousands: i18n( "info1000" ),
-					zeroRecords: i18n( "infoEmpty" )
+					zeroRecords: i18n( "infoEmpty" ),
+					tblFilterInstruction: i18n( "tbFilterInst" )
 				};
 			}
 
@@ -13281,7 +13399,8 @@ var componentName = "wb-tables",
 				},
 				complete: function() {
 					var $elm = $( "#" + elmId ),
-						dataTableExt = $.fn.dataTableExt;
+						dataTableExt = $.fn.dataTableExt,
+						settings = wb.getData( $elm, componentName );
 
 					/*
 					 * Extend sorting support
@@ -13311,11 +13430,8 @@ var componentName = "wb-tables",
 						}
 					} );
 
-					// Add the container or the sorting icons
-					$elm.find( "th" ).append( "<span class='sorting-cnt'><span class='sorting-icons'></span></span>" );
-
 					// Create the DataTable object
-					$elm.dataTable( $.extend( true, {}, defaults, window[ componentName ], wb.getData( $elm, componentName ) ) );
+					$elm.dataTable( $.extend( true, {}, defaults, window[ componentName ], settings ) );
 				}
 			} );
 		}
@@ -13334,6 +13450,19 @@ $document.on( "draw.dt", selector, function( event, settings ) {
 		pHasPN = pagination.find( ".previous, .next" ).length === 2,
 		ol = document.createElement( "OL" ),
 		li = document.createElement( "LI" );
+
+	// Handle sorting/ordering
+	var order = $elm.dataTable( { "retrieve": true } ).api().order();
+	$elm.find( "th" ).each( function( index ) {
+		var $th = $( this ),
+			$btn = $th.find( "button" );
+		if ( order && order[ 0 ][ 0 ] === index ) {
+			var label = ( order[ 0 ][ 1 ] === "desc" ) ? i18nText.aria.sortAscending : i18nText.aria.sortDescending;
+			label = $btn.text() + label;
+			$btn.attr( "title", label );
+		}
+		$th.removeAttr( "aria-label" );
+	} );
 
 	// Determine if Pagination required
 	if (
@@ -13397,6 +13526,21 @@ $document.on( "draw.dt", selector, function( event, settings ) {
 
 // Identify that initialization has completed
 $document.on( "init.dt", function( event ) {
+	var $elm = $( event.target ),
+		settings = $.extend( true, {}, defaults, window[ componentName ], wb.getData( $elm, componentName ) );
+
+	// Handle sorting/ordering
+	var ordering = ( settings && settings.ordering === false ) ? false : true;
+	if ( ordering ) {
+		$elm.find( "th" ).each( function() {
+			var $th = $( this ),
+				label = ( $th.attr( "aria-sort" ) === "ascending" ) ? i18nText.aria.sortDescending : i18nText.aria.sortAscending;
+
+			$th.html( "<button type='button' class='sorting-cnt' aria-controls='" + $th.attr( "aria-controls" ) +  "' title='" + $th.text().replace( /'/g, "&#39;" ) + label + "'>" + $th.html() + " <span class='sorting-icons' aria-hidden='true'></span></button>" );
+			$th.removeAttr( "aria-label tabindex aria-controls" );
+		} );
+		$elm.attr( "aria-label", i18nText.tblFilterInstruction );
+	}
 	wb.ready( $( event.target ), componentName );
 } );
 
@@ -13426,6 +13570,7 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 	var $prevCol = -1, $cachedVal = "";
 	$form.find( "[name]" ).each( function() {
 		var $elm = $( this ),
+			$val = $elm.val(),
 			$value = "",
 			$regex = "",
 			$column = parseInt( $elm.attr( "data-column" ), 10 ),
@@ -13450,7 +13595,7 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 		if ( $elm.is( "select" ) ) {
 			$value = $elm.find( "option:selected" ).val();
 		} else if ( $elm.is( "input[type='number']" ) ) {
-			var $val = $elm.val(), $minNum, $maxNum;
+			var $minNum, $maxNum;
 
 			// Retain minimum number (always the first number input)
 			if ( $cachedVal === "" ) {
@@ -13462,6 +13607,7 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 			// Maximum number is always the current selected number
 			$maxNum = parseFloat( $val );
 
+			//Number filtering logic needs to be reviewed in order to remove the "-0" value (issue #9235)
 			// Generates a list of numbers (within the min and max number)
 			if ( !isNaN( $minNum ) && !isNaN( $maxNum ) ) {
 				$fData = $datatable.column( $column ).data().filter( function( obj ) {
@@ -13490,19 +13636,19 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 				$value = ( $fData ) ? $fData : "-0";
 				$regex = "(" + $value.replace( /&nbsp;|\s/g, "\\s" ).replace( /\$/g, "\\$" ) + ")";
 			}
-		} else if ( $elm.is( "input[type='date']" ) && $elm.val() ) {
+		} else if ( $elm.is( "input[type='date']" ) && $val ) {
 			var $minDate, $maxDate;
 
 			// Retain minimum date (always the first date input)
 			if ( $cachedVal === "" ) {
-				$cachedVal = new Date( $elm.val() );
+				$cachedVal = new Date( $val );
 				$cachedVal.setDate( $cachedVal.getDate() + 1 );
 				$cachedVal.setHours( 0, 0, 0, 0 );
 			}
 			$minDate = $cachedVal;
 
 			// Maximum date is always the current selected date
-			$maxDate = new Date( $elm.val() );
+			$maxDate = new Date( $val );
 			$maxDate.setDate( $maxDate.getDate() + 1 );
 			$maxDate.setHours( 23, 59, 59, 999 );
 
@@ -13525,17 +13671,17 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 			} );
 			$fData = $fData.join( "|" );
 
-			// If no dates match set as -1, so no results return
-			$value = ( $fData ) ? $fData : "-1";
+			// If no dates match set as element value, so no results return
+			$value = ( $fData ? $fData : $val );
 		} else if ( $elm.is( ":checkbox" ) ) {
 
 			// Verifies if checkbox is checked before setting value
 			if ( $elm.is( ":checked" ) ) {
 				if ( $aoType === "both" ) {
-					$cachedVal += "(?=.*\\b" + $elm.val() + "\\b)";
+					$cachedVal += "(?=.*\\b" + $val + "\\b)";
 				} else {
 					$cachedVal += ( $cachedVal.length > 0 ) ? "|" : "";
-					$cachedVal += $elm.val();
+					$cachedVal += $val;
 				}
 
 				$value = $cachedVal;
@@ -13559,7 +13705,7 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 				}
 			}
 		} else {
-			$value = $elm.val();
+			$value = $val;
 		}
 
 		if ( $value ) {
@@ -15466,6 +15612,8 @@ var $document = wb.doc,
 	componentName = "wb-postback",
 	selector = "." + componentName,
 	initEvent = "wb-init" + selector,
+	failEvent = "fail" + selector,
+	successEvent = "success" + selector,
 	defaults = {},
 
 	init = function( event ) {
@@ -15497,6 +15645,16 @@ var $document = wb.doc,
 				// Prevent regular form submit
 				e.preventDefault();
 
+				//Check if the form use the validation plugin
+				if ( elm.parentElement.classList.contains( "wb-frmvld" ) ) {
+					if ( !$elm.valid() ) {
+						$( this ).attr( attrEngaged, true );
+					} else {
+						$buttons.removeAttr( attrEngaged );
+						$( this ).attr( attrEngaged, "" );
+					}
+				}
+
 				if ( !$( this ).attr( attrEngaged ) ) {
 					var data = $elm.serializeArray(),
 						$btn = $( "[type=submit][name][" + attrEngaged + "]", $elm ),
@@ -15519,9 +15677,11 @@ var $document = wb.doc,
 						data: $.param( data )
 					} )
 						.done( function() {
+							$elm.trigger( successEvent );
 							$selectorSuccess.removeClass( classToggle );
 						} )
-						.fail( function() {
+						.fail( function( response ) {
+							$elm.trigger( failEvent, response );
 							$selectorFailure.removeClass( classToggle );
 						} )
 						.always( function() {
