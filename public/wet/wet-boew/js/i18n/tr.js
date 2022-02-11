@@ -184,6 +184,7 @@ wb.i18nDict = {
 	info1000: ",",
 	lenMenu: "_MENU_ girdileri göster",
 	filter: "Maddeleri filtrele",
+	tbFilterInst: "This table provides a sorting feature via the buttons across the column header row with only one instance visible at a time.",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",

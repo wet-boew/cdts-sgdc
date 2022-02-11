@@ -184,6 +184,7 @@ wb.i18nDict = {
 	info1000: "&#160;",
 	lenMenu: "Afficher _MENU_ entrées",
 	filter: "Filtrer les articles",
+	tbFilterInst: "Ce tableau offre une fonctionnalité de triage via les boutons situés dans la ligne d'entêtes de colonnes avec seulement une instance visible à la fois.",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",

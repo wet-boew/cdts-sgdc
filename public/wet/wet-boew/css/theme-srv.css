@@ -1,8 +1,8 @@
 @charset "utf-8";
 /*!
- * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
- * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v10.0.4 - 2021-11-18
+ * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * v10.5.0 - 2022-02-11
  *
  */
 /*!
@@ -6383,6 +6383,16 @@ fieldset {
 .align-bottom {
   vertical-align: bottom !important; }
 
+/* Color scheme */
+.text-white, a.text-white:visited {
+  color: #fff; }
+
+a.text-white:hover, a.text-white:focus {
+  color: #b3ffff; }
+
+.btn.text-white:hover, .btn.text-white:focus {
+  color: #b3ffff; }
+
 /* WET Core */
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -8100,10 +8110,6 @@ details {
     margin-right: -1.1em; }
   details[open] {
     padding-bottom: 1em; }
-  details.max-content {
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content; }
 
 code,
 kbd,
@@ -9553,25 +9559,29 @@ fieldset {
  */
 label.required:before,
 legend.required:before,
-.checkbox.required:before,
-input.required[type="checkbox"]:before, label.required strong.required,
+.checkbox.required:before, label.required strong.required,
 legend.required strong.required,
-.checkbox.required strong.required,
-input[type="checkbox"].required strong.required {
+.checkbox.required strong.required {
   color: #d3080c;
   font-weight: 700; }
 
 label.required:before,
 legend.required:before,
-.checkbox.required:before,
-input[type="checkbox"].required:before {
+.checkbox.required:before {
   content: "* ";
-  margin-left: -0.665em; }
+  margin-left: -0.67em;
+  vertical-align: top; }
+
+.form-group.has-error .checkbox {
+  color: #333333; }
+
+.form-group .checkbox.checkbox-standalone label {
+  font-weight: 700; }
 
 [dir=rtl] label.required:before,
 [dir=rtl] legend.required:before {
   margin-left: auto;
-  margin-right: -0.665em; }
+  margin-right: -0.67em; }
 
 .btn {
   display: inline-block;
@@ -14917,6 +14927,13 @@ table.dataTable {
   margin: 0 auto;
   width: 100% !important; }
   table.dataTable thead .sorting-cnt {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    background: transparent;
+    border: 0;
+    font-family: inherit;
+    padding: 0;
     white-space: nowrap; }
     table.dataTable thead .sorting-cnt:before {
       content: " "; }
@@ -16454,6 +16471,16 @@ ol-geolocate button {
 .align-bottom {
   vertical-align: bottom !important; }
 
+/* Color scheme */
+.text-white, a.text-white:visited {
+  color: #fff; }
+
+a.text-white:hover, a.text-white:focus {
+  color: #b3ffff; }
+
+.btn.text-white:hover, .btn.text-white:focus {
+  color: #b3ffff; }
+
 /*
  *
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -16478,6 +16505,20 @@ ol-geolocate button {
  */
 .bg-darker {
   background-color: #000; }
+
+.bg-dark {
+  background-color: #343a40; }
+
+button.bg-dark:hover, button.bg-dark:focus {
+  background-color: #1d2124; }
+
+/*
+Miscellaneous Utiliy CSS
+ */
+.max-content {
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content; }
 
 /*
  Views
