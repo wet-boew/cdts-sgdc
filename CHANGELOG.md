@@ -1,5 +1,12 @@
 # CDTS Change Log
 
+## v4.0.45
+
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.47.1
+- Updated search by adding an accept-charset attribute
+- Internal changes and optimizations
+- Bug fixes
+
 ## v4.0.44
 
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.44.5
