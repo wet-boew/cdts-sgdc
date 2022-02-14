@@ -77,7 +77,7 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
 //  3. It is an intranet link that may not give a successful response
 //Once the check is complete, a summary is provided detailing how many tests were run, skipped and passed/failed.
 module.exports.testFileLinks = async function testFileLinks(directories, exceptionSyntaxLinks = [], exceptionHTTPLinks = [], exceptionIntranetLinks = []) {
-    const regex = /http[s]?:\/\/.*?(?="|'|\s|\))/g;
+    const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|])/g;
     const agent = ProxyAgent('http://proxy.prv:80');
     const config = (process.env.DISABLE_PROXY) ? null : { httpsAgent: agent, proxy: false };
 
