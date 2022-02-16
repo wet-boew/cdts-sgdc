@@ -2,6 +2,7 @@
 
 ## v4.0.45
 
+- **IMPORTANT** Font Awesome has been removed from CDTS. If required, please add it directly in the &lt;head> of your html.
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.47.1
 - Updated search by adding an accept-charset attribute
 - Internal changes and optimizations
