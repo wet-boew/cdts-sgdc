@@ -24,6 +24,8 @@ module.exports = function run(grunt) {
         if (newEnvironment && (srcpath.includes('/samples/') || srcpath.includes('/appTop/'))) {
             vtr = vtr.replace(/"cdnEnv": "esdcprod"/g, `"cdnEnv": "${newEnvironment}"`);
             vtr = vtr.replace(/"cdnEnv": "prod"/g, `"cdnEnv": "${newEnvironment}"`);
+            vtr = vtr.replace(/cdnEnv: "esdcprod"/g, `cdnEnv: "${newEnvironment}"`);
+            vtr = vtr.replace(/cdnEnv: "prod"/g, `cdnEnv: "${newEnvironment}"`);
         }
 
         return vtr;
