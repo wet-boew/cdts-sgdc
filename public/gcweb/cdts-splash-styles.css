@@ -1,3 +1,4 @@
 /*TODO: See if we could replace cdts-*.css with conditional CSS statements*/
 @import url("../wet-boew/css/theme.min.css");
 @import url("cdtsfixes.css");
+@import url("../wet-boew/css/messages.min.css");

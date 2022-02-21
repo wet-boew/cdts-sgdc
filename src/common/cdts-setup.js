@@ -91,6 +91,32 @@ wet.utilities.applyRefFooter = function applyRefFooter(onCompletedFunc) {
     loader.run();
 }
 
+wet.utilities.applyServerRefTop = function applyServerRefTop(onCompletedFunc) {
+    if (!wet.localConfig.base) wet.localConfig.base = {};
+    wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
+
+    const parser = new DOMParser();
+
+    //---[ Insert refTop at the end of HEAD
+    const tmpDoc = parser.parseFromString('<html><head>' + wet.builder.serverRefTop(wet.localConfig.base) + '</head></html>', 'text/html');
+    const nodes = tmpDoc.head.childNodes; //NOTE: Must use `childNodes` and not `children` for comments to be inserted
+    const loader = new wet.utilities.FragmentLoader(document.head, nodes, onCompletedFunc);
+    loader.run();
+}
+
+wet.utilities.applySplashRefTop = function applySplashRefTop(onCompletedFunc) {
+    if (!wet.localConfig.base) wet.localConfig.base = {};
+    wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
+
+    const parser = new DOMParser();
+
+    //---[ Insert refTop at the end of HEAD
+    const tmpDoc = parser.parseFromString('<html><head>' + wet.builder.splashTop(wet.localConfig.base) + '</head></html>', 'text/html');
+    const nodes = tmpDoc.head.childNodes; //NOTE: Must use `childNodes` and not `children` for comments to be inserted
+    const loader = new wet.utilities.FragmentLoader(document.head, nodes, onCompletedFunc);
+    loader.run();
+}
+
 wet.utilities.applyTop = function applyTop() {
     if (!wet.localConfig.top) wet.localConfig.top = {};
 
@@ -110,6 +136,17 @@ wet.utilities.applyAppTop = function applyAppTop() {
     if (defTop) {
         wet.localConfig.top.cdnEnv = wet.localConfig.cdnEnv;
         defTop.outerHTML = wet.builder.appTop(wet.localConfig.top);
+    }
+}
+
+wet.utilities.applyServerTop = function applyServerTop() {
+    if (!wet.localConfig.top) wet.localConfig.top = {};
+
+    const defTop = document.getElementById(wet.localConfig.top.elementId || "cdts-def-top");
+
+    if (defTop) {
+        wet.localConfig.top.cdnEnv = wet.localConfig.cdnEnv;
+        defTop.outerHTML = wet.builder.serverTop(wet.localConfig.top);
     }
 }
 
@@ -146,6 +183,17 @@ wet.utilities.applyAppFooter = function applyAppFooter() {
     }
 }
 
+wet.utilities.applyServerBottom = function applyServerBottom() {
+    if (!wet.localConfig.footer) wet.localConfig.footer = {};
+
+    const defFooter = document.getElementById(wet.localConfig.footer.elementId || "cdts-def-footer");
+
+    if (defFooter) {
+        wet.localConfig.footer.cdnEnv = wet.localConfig.cdnEnv;
+        defFooter.outerHTML = wet.builder.serverBottom(wet.localConfig.footer);
+    }
+}
+
 wet.utilities.applySecmenu = function applySecmenu() {
     if (!wet.localConfig.secmenu) wet.localConfig.secmenu = {};
 
@@ -160,6 +208,17 @@ wet.utilities.applySecmenu = function applySecmenu() {
     if (defSecmenu) {
         wet.localConfig.secmenu.cdnEnv = wet.localConfig.cdnEnv;
         defSecmenu.innerHTML = wet.builder.secmenu(wet.localConfig.secmenu); //NOTE: unlike with the others, we're setting innerHTML!
+    }
+}
+
+wet.utilities.applySplash = function applySplash() {
+    if (!wet.localConfig.splash) wet.localConfig.splash = {};
+
+    const defContent = document.getElementById(wet.localConfig.splash.elementId || "cdts-splash-content");
+
+    if (defContent) {
+        wet.localConfig.splash.cdnEnv = wet.localConfig.cdnEnv;
+        defContent.outerHTML = wet.builder.splash(wet.localConfig.splash);
     }
 }
 
@@ -198,6 +257,10 @@ wet.utilities.applySecmenu = function applySecmenu() {
  *     },
  *     secmenu: { //(optional) (unlike others, the elementId for secmenu is not configurable and must be "wb-sec")
  *        ... //wet.builder.secmenu parameters
+ *     },
+ *     splash: { //(optional)
+ *        ... //wet.builder.splash parameters
+ *         elementId: 'some-div-id', //(optional) id of the element to replace, defaults to 'cdts-splash-content'
  *     },
  * //TODO: Complete
  * }
@@ -261,4 +324,55 @@ wet.builder.appSetup = function cdtsAppSetup(config) {
 
     wet.utilities.installBodyReady(onBodyReady);
     wet.utilities.applyRefTop();
+};
+
+/** Initialize CDTS on page for "server" template (see wet.builder.top for details) */
+wet.builder.serverSetup = function cdtsServerSetup(config) {
+
+    function onRefFooterCompleted() {
+        console.log('SERVER INIT COMPLETED!!! (refFooter completed)');
+    }
+
+    function onBodyReady() {
+        console.log('SERVER onBodyReady!');
+        //page and its "divs" now exist: apply rest of CDTS!
+        wet.utilities.applyServerTop();
+        wet.utilities.applyServerBottom();
+
+        wet.utilities.applyRefFooter(onRefFooterCompleted);
+    }
+
+    //---[ Initialize CDTS on page...
+    wet.localConfig = config || {};
+    if (!wet.localConfig.cdnEnv) {
+        console.warn('CDTS environment "cdnEnv" property not found in config, default will be used');
+        wet.localConfig.cdnEnv = '';
+    }
+    //---[ Set "isApplication = true" in base config (for refTop and refFooter)
+    if (!wet.localConfig.base) wet.localConfig.base = {};
+
+    wet.utilities.installBodyReady(onBodyReady);
+    wet.utilities.applyServerRefTop();
+};
+
+/** Initialize CDTS on page for Splash template (see wet.builder.top for details) */
+wet.builder.splashSetup = function cdtsSplashSetup(config) {
+
+    function onBodyReady() {
+        console.log('SPLASH onBodyReady!');
+        //page and its "divs" now exist: apply rest of CDTS!
+        wet.utilities.applySplash();
+    }
+
+    //---[ Initialize CDTS on page...
+    wet.localConfig = config || {};
+    if (!wet.localConfig.cdnEnv) {
+        console.warn('CDTS environment "cdnEnv" property not found in config, default will be used');
+        wet.localConfig.cdnEnv = '';
+    }
+    //---[ Set "isApplication = true" in base config (for refTop and refFooter)
+    if (!wet.localConfig.base) wet.localConfig.base = {};
+
+    wet.utilities.installBodyReady(onBodyReady);
+    wet.utilities.applySplashRefTop();
 };
