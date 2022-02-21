@@ -26,7 +26,7 @@
     "axios": "^0.26.0",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
-    "eslint": "^8.8.0",
+    "eslint": "^8.9.0",
     "global-agent": "^3.0.0",
     "grunt": "^1.4.1",
     "grunt-cli": "^1.4.3",
