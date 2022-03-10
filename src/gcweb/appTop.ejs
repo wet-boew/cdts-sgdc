@@ -183,20 +183,20 @@ dataLayer = [];
                                 const link=pr.menuLinks[menuLinkIndex]; -%>
                                 <%_ if (link.subLinks != null) { -%>
                                     <li role="none">
-                                        <a href="#<%=link.id%>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a>
+                                        <a href="#<%=link.id%>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%_ if (link.acronym != null) { -%><abbr title="<%= link.acronym %>"><%_ } -%><%= link.text %><%_ if (link.acronym != null) { -%></abbr><%_ } -%><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a>
                                         <ul class="sm list-unstyled" <%_ if (link.id != null) { -%>id="<%= link.id %>"<%_ } -%> role="menu">
                                             <%_ for (var subLinkIndex=0; subLinkIndex<link.subLinks.length; subLinkIndex++) {
                                                 const subLink=link.subLinks[subLinkIndex];-%>
                                                 <%_ if (subLinkIndex >= (link.subLinks.length-1)) {  /*if isLast($subLink)*/ -%>
-                                                    <li class="slflnk" role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= subLink.subtext %><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                                                    <li class="slflnk" role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%_ if (subLink.subacronym != null) { -%><abbr title="<%= subLink.subacronym %>"><%_ } -%><%= subLink.subtext %><%_ if (subLink.subacronym != null) { -%></abbr><%_ } -%><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
                                                 <%_ } else { -%>
-                                                    <li role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= subLink.subtext %><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                                                    <li role="none"><a href="<%- subLink.subhref %>"<%- (subLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%_ if (subLink.subacronym != null) { -%><abbr title="<%= subLink.subacronym %>"><%_ } -%><%= subLink.subtext %><%_ if (subLink.subacronym != null) { -%></abbr><%_ } -%><%_ if (subLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
                                                 <%_ } -%>
                                             <%_ } -%>
                                         </ul>
                                     </li>
                                 <%_ } else { -%>
-                                    <li role="none"><a href="<%- link.href %>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                                    <li role="none"><a href="<%- link.href %>" class="item"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%_ if (link.acronym != null) { -%><abbr title="<%= link.acronym %>"><%_ } -%><%= link.text %><%_ if (link.acronym != null) { -%></abbr><%_ } -%><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
                                 <%_ } -%>
                             <%_ } -%>
                         </ul>
