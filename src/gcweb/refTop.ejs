@@ -34,7 +34,7 @@
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
 <%# Only output css links if no explicit cdts css was found on the page -%>
 <%# TODO: Revise once we know about conditional css (maybe we can just refer to cdts-styles.css and cdts-app-styles.css from here instead of duplicating? -%>
-<% if (typeof(document) == "undefined" || !document.head.querySelector('link[rel="stylesheet"][href*="/cdts-" i][href$="styles.css" i]')) { -%>
+<% if (typeof(document) === "undefined" || !document.head.querySelector('link[rel="stylesheet"][href*="/cdts-"][href$="styles.css"]')) { -%>
     <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
     <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
     <%_ if (pr.isApplication == true) { -%>
