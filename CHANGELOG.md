@@ -4,6 +4,7 @@
 
 - **IMPORTANT** Font Awesome has been removed from CDTS. If required, please add it directly in the &lt;head> of your html.
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.47.1
+- Added an *acronym* parameter to the custom menu allowing users to provide a description for an abbreviation.  Please visit the sample pages for all the details.
 - Updated search by adding an accept-charset attribute
 - Internal changes and optimizations
 - Bug fixes

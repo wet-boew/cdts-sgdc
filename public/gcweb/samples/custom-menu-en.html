@@ -11,7 +11,7 @@
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
 		<!--
-			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain). 
+			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
 			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
 
 			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
@@ -80,7 +80,8 @@
                             },
                             {
                                 "subhref": "#",
-                                "subtext": "Second section - More"
+                                "subtext": "Second section - More",
+                                "acronym": "Description of abbreviation"
                             }],
                         }],
 				"cdnEnv": "esdcprod"
@@ -95,7 +96,7 @@
             <ul>
                 <li>Create a custom menu in a seperate html file and the provide URL through the menuPath parameter in the appTop section of your page. </li>
                 <li>The equivalent html of the menu on this page can be found <a href="../ajax/appmenu-en.html">here</a>.</li>
-            </ul>    
+            </ul>
                 <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
@@ -106,22 +107,24 @@ defTop.outerHTML = wet.builder.appTop({
             <p><b>Second method</b></p>
             <p>The second method is creating the menu in the appTop section of your page. There are a few configuration options:</p>
             <ul>
-                <li><code class="wb-prettify">"menuLinks"</code>: used to create a top navigation. You can provide the title and URL through the 'text' and 'href' parameters respectively.</li>
+                <li><code class="wb-prettify">"menuLinks"</code>: used to create a top navigation. You can provide the title and URL through the 'text' and 'href' parameters respectively. You can specify the description for an abbreviation through the 'acronym' parameter.</li>
                 <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
     "menuLinks": [{
         "text": "First Section",
-        "href": "#"
+        "href": "#",
+        "acronym": "Description of abbreviation"
     }]
 ...
-});  
+});
                 </pre>
-                <li><code class="wb-prettify">"subLinks"</code>: used to create the submenu items. These are displayed when the user hovers over the top navigation. You can provide the title and URL through the 'subtext' and 'subhref' parameters respectively.</li>
+                <li><code class="wb-prettify">"subLinks"</code>: used to create the submenu items. These are displayed when the user hovers over the top navigation. You can provide the title and URL through the 'subtext' and 'subhref' parameters respectively. You can specify the description for an abbreviation through the 'acronym' parameter.</li>
                 <pre>
 "subLinks": [{
     "subtext": "Subsection 1",
-    "subhref": "#"
+    "subhref": "#",
+    "acronym": "Description of abbreviation"
 }]
                 </pre>
             </ul>
@@ -157,11 +160,12 @@ defTop.outerHTML = wet.builder.appTop({
             },
             {
                 "subhref": "#",
-                "subtext": "Second section - More"
+                "subtext": "Second section - More",
+                "acronym": "Description of abbreviation"
             }],
         }]
 ...
-});   
+});
             </pre>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->

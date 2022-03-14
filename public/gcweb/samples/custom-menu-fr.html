@@ -80,7 +80,8 @@
                             },
                             {
                                 "subhref": "#",
-                                "subtext": "Deuxième section - Plus"
+                                "subtext": "Deuxième section - Plus",
+                                "acronym": "Description de l'abréviation"
                             }],
                         }],
 				"cdnEnv": "esdcprod"
@@ -95,7 +96,7 @@
             <ul>
                 <li>Créez un menu personnalisé dans un fichier html séparé et l'URL de fourniture via le paramètre menuPath dans la section <b>appTop</b> de votre page.</li>
                 <li>Le code HTML équivalent du menu de cette page peut être trouvé <a href="../ajax/appmenu-fr.html">ici</a>.</li>
-            </ul>    
+            </ul>
                 <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
@@ -106,22 +107,24 @@ defTop.outerHTML = wet.builder.appTop({
             <p><b>Deuxième méthode</b></p>
             <p>La deuxième méthode consiste à créer le menu dans la section appTop de votre page. Il existe quelques options de configuration:</p>
             <ul>
-                <li><code class="wb-prettify">menuLinks</code>: utilisé pour créer une navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «text» et «href» respectivement.</li>
+                <li><code class="wb-prettify">menuLinks</code>: utilisé pour créer une navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «text» et «href» respectivement. Vous pouvez spécifier la description d'une abréviation via le paramètre «acronym».</li>
                 <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
     "menuLinks": [{
         "text": "Première section",
-        "href": "#"
+        "href": "#",
+        "acronym": "Description de l'abréviation"
     }]
 ...
-});  
+});
                 </pre>
-                <li><code class="wb-prettify">subLinks</code>: utilisé pour créer les éléments de sous-menu. Ceux-ci sont affichés lorsque l'utilisateur survole la navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «subtext» et «subhref» respectivement.</li>
+                <li><code class="wb-prettify">subLinks</code>: utilisé pour créer les éléments de sous-menu. Ceux-ci sont affichés lorsque l'utilisateur survole la navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «subtext» et «subhref» respectivement. Vous pouvez spécifier la description d'une abréviation via le paramètre «acronym».</li>
                 <pre>
 "subLinks": [{
     "subtext": "Sous-section 1",
-    "subhref": "#"
+    "subhref": "#",
+    "acronym": "Description de l'abréviation"
 }]
                 </pre>
             </ul>
@@ -157,11 +160,12 @@ defTop.outerHTML = wet.builder.appTop({
             },
             {
                 "subhref": "#",
-                "subtext": "Deuxième section - Plus"
+                "subtext": "Deuxième section - Plus",
+                "acronym": "Description de l'abréviation"
             }],
         }]
 ...
-});   
+});
             </pre>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->

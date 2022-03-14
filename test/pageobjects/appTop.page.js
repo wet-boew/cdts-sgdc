@@ -20,7 +20,9 @@ class AppTopPage extends Page {
     get menuLinks() {return $('div.nvbar'); }
     get menuLink1() {return $('div.nvbar ul li:nth-child(1) a'); }
     get menuLink2() {return $('div.nvbar ul li:nth-child(2) a'); }
+    get menuLink3() {return $('div.nvbar ul li:nth-child(3) abbr'); }
     get menuSubLink1() {return $('div.nvbar ul li:nth-child(1) ul li:nth-child(1) a'); }
+    get menuSubLink2() {return $('div.nvbar ul li:nth-child(3) ul li:nth-child(1) abbr'); }
     get menuSubLink() {return $('div.nvbar ul li:nth-child(1) ul li.slflnk a'); }
     get menuPathSubLink() {return $('div.nvbar ul li:nth-child(3) ul li.slflnk a'); }
     get secureIcon() {return $('i.glyphicon-lock'); }
