@@ -78,7 +78,8 @@
                             },
                             {
                                 "subhref": "#",
-                                "subtext": "Deuxième section - Plus"
+                                "subtext": "Deuxième section - Plus",
+                                "acronym": "Description de l'abréviation"
                             }],
                         }],
 				"cdnEnv": "prod"
@@ -93,7 +94,7 @@
             <ul>
                 <li>Créez un menu personnalisé dans un fichier html séparé et l'URL de fourniture via le paramètre <code>menuPath</code> dans la section <b>appTop</b> de votre page.</li>
                 <li>Un exemple de fichier html contenant un menu peut être trouvé <a href="../ajax/custommenu-fra.html">ici</a>.</li>
-            </ul>    
+            </ul>
                 <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
@@ -110,16 +111,18 @@ defTop.outerHTML = wet.builder.appTop({
 ...
     "menuLinks": [{
         "text": "Première section",
-        "href": "#"
+        "href": "#",
+        "acronym": "Description de l'abréviation"
     }]
 ...
-});  
+});
                 </pre>
                 <li><code class="wb-prettify">subLinks</code>: utilisé pour créer les éléments de sous-menu. Ceux-ci sont affichés lorsque l'utilisateur survole la navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «subtext» et «subhref» respectivement.</li>
                 <pre>
 "subLinks": [{
     "subtext": "Sous-section 1",
-    "subhref": "#"
+    "subhref": "#",
+    "acronym": "Description de l'abréviation"
 }]
                 </pre>
             </ul>
@@ -155,11 +158,12 @@ defTop.outerHTML = wet.builder.appTop({
             },
             {
                 "subhref": "#",
-                "subtext": "Deuxième section - Plus"
+                "subtext": "Deuxième section - Plus",
+                "acronym": "Description de l'abréviation"
             }],
         }]
 ...
-});   
+});
             </pre>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->

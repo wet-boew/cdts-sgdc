@@ -7,10 +7,10 @@ require('../setup/basic.js');
 
 describe('AppTop section tests for GCWeb', () => {
     const theme = 'gcweb';
-     
+
     generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appTop-en', {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
-        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application name", "href": "#"}], "appSettings": [{"href": "#"}], "signIn": [{"href": "#"}], "lngLinks": [{"lang": "fr",	"href": "gcweb-appTop-fr.html",	"text": "Français"	}],	"menuLinks":[{"href": "#", "text":"Menu Option 1", "subLinks": [{ "subhref": "#", "subtext": "Link 1a", "newWindow": true }] }, { "href": "#", "text":"Menu Option 2", "newWindow": true }],	"breadcrumbs": [{"title": "Home", "href": "https://www.canada.ca/en/index.html"},{"title": "CDTS", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}]}',
+        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application name", "href": "#"}], "appSettings": [{"href": "#"}], "signIn": [{"href": "#"}], "lngLinks": [{"lang": "fr", "href": "gcweb-appTop-fr.html", "text": "Français" }], "menuLinks":[{"href": "#", "text":"Menu Option 1", "subLinks": [{ "subhref": "#", "subtext": "Link 1a", "newWindow": true }] }, { "href": "#", "text":"Menu Option 2", "newWindow": true }, {"href": "#", "text":"Menu Option 3", "acronym": "Test acronym", "subLinks": [{ "subhref": "#", "subtext": "Link 3a", "acronym": "Test acronym" }] }], "breadcrumbs": [{"title": "Home", "href": "https://www.canada.ca/en/index.html"},{"title": "CDTS", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
@@ -18,7 +18,7 @@ describe('AppTop section tests for GCWeb', () => {
 
     generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appTop-fr', {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
-        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application name", "href": "#"}], "appSettings": [{"href": "#"}], "signIn": [{"href": "#"}], "lngLinks": [{"lang": "en",	"href": "gcweb-appTop-en.html",	"text": "English"	}],	"menuLinks":[{"href": "#", "text":"Menu Option 1", "subLinks": [{ "subhref": "#", "subtext": "Link 1a", "newWindow": true }] }, { "href": "#", "text":"Menu Option 2", "newWindow": true  }],	"breadcrumbs": [{"title": "Home", "href": "https://www.canada.ca/en/index.html"},{"title": "SGDC", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "customSearch": [{ "action" : "https://www.canada.ca/fr/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}]}',
+        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application name", "href": "#"}], "appSettings": [{"href": "#"}], "signIn": [{"href": "#"}], "lngLinks": [{"lang": "en", "href": "gcweb-appTop-en.html", "text": "English" }], "menuLinks":[{"href": "#", "text":"Menu Option 1", "subLinks": [{ "subhref": "#", "subtext": "Link 1a", "newWindow": true }] }, { "href": "#", "text":"Menu Option 2", "newWindow": true  }, {"href": "#", "text":"Menu Option 3", "acronym": "Test acronym", "subLinks": [{ "subhref": "#", "subtext": "Link 3a", "acronym": "Test acronym" }] }], "breadcrumbs": [{"title": "Home", "href": "https://www.canada.ca/en/index.html"},{"title": "SGDC", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "customSearch": [{ "action" : "https://www.canada.ca/fr/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Canada.ca", "method" : "get"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
@@ -80,7 +80,7 @@ describe('AppTop section tests for GCWeb', () => {
         await signinBtnDoesNotExist(theme, 'en');
         await signinBtnDoesNotExist(theme, 'fr');
     });
-    
+
     it('Menu links exist', async () => {
         await menuExists(theme, 'en');
         await menuExists(theme, 'fr');
@@ -90,7 +90,7 @@ describe('AppTop section tests for GCWeb', () => {
         await menuExistsUsingPath(theme, 'en');
         await menuExistsUsingPath(theme, 'fr');
     });
-    
+
     it('Menu links do not exist', async () => {
         await menuDoesNotExist(theme, 'en');
         await menuDoesNotExist(theme, 'fr');
@@ -173,10 +173,10 @@ describe('AppTop section tests for GCWeb', () => {
 
 describe('AppTop section tests for GCIntranet', () => {
     const theme = 'gcintranet';
-    
+
     generateTestFile('./test/html/gcintranet/template-gcintranetapp-en.html', 'gcintranet', 'gcintranet-appTop-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application Name"}], "lngLinks": [{"lang": "fr", "href": "gcintranet-appTop-fr.html", "text": "Français"}], "secure": true, "signIn": [{ "href": "#" }], "search": false, "menuLinks": [{"href": "#", "text": "Link 1", "subLinks": [{"subhref": "#", "subtext": "SubLink 1", "newWindow": true}, {"subhref": "#", "subtext": "SubLink 2", "newWindow": true}]}, {"href": "#", "text": "Link 2", "newWindow": true }], "breadcrumbs": [{ "title": "Home", "href": "https://www.canada.ca/en/index.html" },{"title": "CDTS", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}]}',
+        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application Name"}], "lngLinks": [{"lang": "fr", "href": "gcintranet-appTop-fr.html", "text": "Français"}], "secure": true, "signIn": [{ "href": "#" }], "search": false, "menuLinks": [{"href": "#", "text": "Link 1", "subLinks": [{"subhref": "#", "subtext": "SubLink 1", "newWindow": true}, {"subhref": "#", "subtext": "SubLink 2", "newWindow": true}]}, {"href": "#", "text": "Link 2", "newWindow": true }, {"href": "#", "text": "Link 3", "acronym": "Test acronym", "subLinks": [{"subhref": "#", "subtext": "SubLink 3a", "acronym": "Test acronym"}]}], "breadcrumbs": [{ "title": "Home", "href": "https://www.canada.ca/en/index.html" },{"title": "CDTS", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -184,7 +184,7 @@ describe('AppTop section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranetapp-fr.html', 'gcintranet', 'gcintranet-appTop-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application Name"}], "lngLinks": [{"lang": "en", "href": "gcintranet-appTop-en.html", "text": "English"}], "secure": true, "signIn": [{ "href": "#" }], "search": false, "menuLinks": [{"href": "#", "text": "Link 1", "subLinks": [{"subhref": "#", "subtext": "SubLink 1", "newWindow": true}, {"subhref": "#", "subtext": "SubLink 2", "newWindow": true}]}, {"href": "#", "text": "Link 2", "newWindow": true }], "breadcrumbs": [{ "title": "Home", "href": "https://www.canada.ca/en/index.html" },{"title": "SGDC", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}]}',
+        appTop: '{"cdnEnv": "localhost", "topSecMenu": true, "appName": [{"text": "Application Name"}], "lngLinks": [{"lang": "en", "href": "gcintranet-appTop-en.html", "text": "English"}], "secure": true, "signIn": [{ "href": "#" }], "search": false, "menuLinks": [{"href": "#", "text": "Link 1", "subLinks": [{"subhref": "#", "subtext": "SubLink 1", "newWindow": true}, {"subhref": "#", "subtext": "SubLink 2", "newWindow": true}]}, {"href": "#", "text": "Link 2", "newWindow": true }, {"href": "#", "text": "Link 3", "acronym": "Test acronym", "subLinks": [{"subhref": "#", "subtext": "SubLink 3a", "acronym": "Test acronym"}]}], "breadcrumbs": [{ "title": "Home", "href": "https://www.canada.ca/en/index.html" },{"title": "SGDC", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -268,7 +268,7 @@ describe('AppTop section tests for GCIntranet', () => {
         await signinBtnDoesNotExist(theme, 'en');
         await signinBtnDoesNotExist(theme, 'fr');
     });
-    
+
     it('Menu links exist', async () => {
         await menuExists(theme, 'en');
         await menuExists(theme, 'fr');
@@ -293,7 +293,7 @@ describe('AppTop section tests for GCIntranet', () => {
         await breadcrumbsDoNotExist(theme, 'en');
         await breadcrumbsDoNotExist(theme, 'fr');
     });
-    
+
     it('Should contain lang link', async () => {
         await langLinksExist(theme);
         await langLinksExist_FR(theme);
@@ -303,7 +303,7 @@ describe('AppTop section tests for GCIntranet', () => {
         await langLinksDoNotExist(theme, 'en');
         await langLinksDoNotExist(theme, 'fr');
     });
-    
+
     it('Search bar should appear', async () => {
         await searchExists(theme, 'en');
         await searchExists(theme, 'fr');
@@ -474,8 +474,12 @@ async function menuExists(theme, lang){
     await expect(appTopPage.menuLink1).toExist();
     await expect(appTopPage.menuLink2).toExist();
     await expect(appTopPage.menuLink2).toHaveAttributeContaining('target', '_blank');
+    await expect(appTopPage.menuLink2Abbr).not.toExist();
     await expect(appTopPage.menuSubLink).toExist();
     await expect(appTopPage.menuSubLink).toHaveAttributeContaining('target', '_blank');
+    await expect(appTopPage.menuSubLinkAbbr).not.toExist();
+    await expect(appTopPage.menuSubLink2).toHaveAttributeContaining('title', 'Test acronym');
+    await expect(appTopPage.menuLink3).toHaveAttributeContaining('title', 'Test acronym');
 }
 
 async function menuExistsUsingPath(theme, lang){
@@ -594,17 +598,17 @@ async function validSectionClassBtnDoesNotExist(theme, lang){
 async function testAppName(theme, lang){
     await appTopPage.open(theme, lang);
     if (lang == 'en'){ await expect(appTopPage.appNameH2).toHaveTextContaining('Name of Web application'); }
-    else { await expect(appTopPage.appNameH2).toHaveTextContaining('Nom de l\'application Web'); }    
+    else { await expect(appTopPage.appNameH2).toHaveTextContaining('Nom de l\'application Web'); }
     await expect(appTopPage.appNameAnchor).toHaveTextContaining('Application name');
 }
 
 async function customSearchExists(theme, lang){
-    if (theme == 'gcweb') { 
-        await appTopPage.open(theme, lang); 
+    if (theme == 'gcweb') {
+        await appTopPage.open(theme, lang);
         await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search Canada.ca');
     }
-    else { 
-        await appTopPage.open(theme, lang, 'signOut'); 
+    else {
+        await appTopPage.open(theme, lang, 'signOut');
         await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search');
     }
     await expect(topPage.customSearch).toExist();
@@ -617,12 +621,12 @@ async function customSearchExists(theme, lang){
 }
 
 async function customSearchExists_FR(theme, lang){
-    if (theme == 'gcweb') { 
-        await appTopPage.open(theme, lang); 
+    if (theme == 'gcweb') {
+        await appTopPage.open(theme, lang);
         await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Recherche Canada.ca');
     }
-    else { 
-        await appTopPage.open(theme, lang, 'signOut'); 
+    else {
+        await appTopPage.open(theme, lang, 'signOut');
         await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Recherche');
     }
     await expect(topPage.customSearch).toExist();
@@ -647,10 +651,10 @@ async function customSearchDefaultValues(theme, lang){
 }
 
 async function customSearchDefaultValues_FR(theme, lang){
-    if (theme == 'gcweb') { 
+    if (theme == 'gcweb') {
         await appTopPage.open(theme, lang, 'externalLinkMenu');
     }
-    else { 
+    else {
         await appTopPage.open(theme, lang, 'customSearchDefault');
     }
     await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Recherche');
