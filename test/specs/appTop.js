@@ -474,8 +474,10 @@ async function menuExists(theme, lang){
     await expect(appTopPage.menuLink1).toExist();
     await expect(appTopPage.menuLink2).toExist();
     await expect(appTopPage.menuLink2).toHaveAttributeContaining('target', '_blank');
+    await expect(appTopPage.menuLink2Abbr).not.toExist();
     await expect(appTopPage.menuSubLink).toExist();
     await expect(appTopPage.menuSubLink).toHaveAttributeContaining('target', '_blank');
+    await expect(appTopPage.menuSubLinkAbbr).not.toExist();
     await expect(appTopPage.menuSubLink2).toHaveAttributeContaining('title', 'Test acronym');
     await expect(appTopPage.menuLink3).toHaveAttributeContaining('title', 'Test acronym');
 }
