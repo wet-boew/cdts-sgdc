@@ -24,7 +24,7 @@
     "@wdio/selenium-standalone-service": "^7.18.0",
     "@wdio/spec-reporter": "^7.16.14",
     "axe-core": "^4.4.1",
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "ejs": "^3.1.6",
     "ejs-lint": "^1.2.1",
     "eslint": "^8.11.0",
