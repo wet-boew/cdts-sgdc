@@ -14,15 +14,15 @@
 			Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
 			Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
 
-			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
-			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
-			templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcintranet/v4_0_43/cdts/compiled/[file name]
+			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
+			templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
 
 			Pour pointer vers la version d'exécution :
 
-			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
-			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
-			templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcintranet/rn/cdts/compiled/[file name]
+			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
+			templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
 		-->
 		<script src="../compiled/soyutils.js"></script>
 		<script src="../compiled/wet-fr.js"></script>
@@ -33,18 +33,18 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-				"cdnEnv": "prod",
-				"webAnalytics" : [{
+				"cdnEnv": "prod"
+				//"webAnalytics" : [{
 					// * version 1 or 2
 					//"environment" : "staging",
 					//"version" : 1,
 					//"version" : 2,
 
 					// * version 3 custom staging
-					"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
+					//"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"
 					// * version 3 custom production
 					//"custom" : "launch-EN0cf6c2810a2b48f8a4c36502a1b09541.min.js"
-				}]
+				//}]
 			}));
 		</script>
 	</head>
@@ -128,14 +128,14 @@
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.footer({
-				"cdnEnv": "prod",
-				"webAnalytics" : false
+				"cdnEnv": "prod"
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"cdnEnv": "prod"
+				"cdnEnv": "prod",
+				//"webAnalytics" : false
 			}));
 		</script>
 	</body>
