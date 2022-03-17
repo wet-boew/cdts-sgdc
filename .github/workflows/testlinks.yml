@@ -12,6 +12,9 @@ on:
 
 jobs:
   build:
+    # Avoid running for pushes comming from dependabot merges (as they wouldn't alter links)
+    # Determining this from commit message may not be ideal, but seems like the only way from the info available on push
+    if: github.event_name == 'schedule' || !(startsWith(github.event.head_commit.message, 'Merge pull request') && contains(github.event.head_commit.message, 'wet-boew/dependabot/'))
     runs-on: ubuntu-latest
 
     strategy:
