@@ -2,7 +2,34 @@
  * This is all of the references to be made before existing page content.
  * @param? subTheme Used to identify the custom subTheme.
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
+ * @param? webAnalytics Used to determine inclusion of current analytics code.
 -%>
+<% if (pr.webAnalytics != null) { -%>
+    <!-- Adobe Analytics -->
+    <script id="cdts_AnalyticsId" src="//assets.adobedtm.com/<%_ -%>
+        <%_ if (pr.webAnalytics.length > 0) { -%>
+            <%_ if (pr.webAnalytics[0].custom) { -%>
+                <%_ -%><%- pr.webAnalytics[0].custom -%><%_ -%>
+            <%_ } else if (pr.webAnalytics[0].version == 1 || pr.webAnalytics[0].version == 2) { -%>
+                <%_ -%>caacec67651710193d2331efef325107c23a0145/satelliteLib-<%_ -%>
+                <%_ switch (pr.webAnalytics[0].version) {
+                    case 1: -%>
+                        <%_ -%>92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24<%_ -%>
+                <%_ break;
+                    case 2: -%>
+                        <%_ -%>c2082deaf69c358c641c5eb20f94b615dd606662<%_ -%>
+                <%_ break;
+                    default:
+                        break;
+                } -%>
+                <%_ if (pr.webAnalytics[0].environment == 'staging') { -%>-staging<%_ } -%>
+                <%_ -%>.js<%_ -%>
+            <%_ } -%>
+        <%_ } -%>
+        <%_ -%>"><%_ -%>
+    <%_ -%></script>
+<% } -%>
+
 <!--[if gte IE 9 | !IE ]><!-->
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
 <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">

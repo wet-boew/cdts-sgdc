@@ -13,6 +13,7 @@
  * @param? displayModalForNewWindow If set to true, will not display modal for links that open in new window
  * @param? jqueryEnv Used to determine location of jQuery files (local / external).
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
+ * @param? webAnalytics Used to determine inclusion of current analytics code.
 -%>
 <!--[if gte IE 9 | !IE ]><!-->
 <script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
@@ -32,4 +33,7 @@
     <%# This is only for backwards compatibility where a user implements exitscript using parameters instead of an object. -%>
     <a href="#" id="cdts-exitscript-placeholder-link" style="display: none" aria-hidden="true" class="wb-exitscript">Exit Link</a>
     <script data-id="exitScript">wet.utilities.cdtsApplyExitScriptToLinks("<%=pr.displayModal != null? pr.displayModal: 'undefined'%>", "<%-pr.exitURL != null? pr.exitURL: 'undefined'%>", "<%=pr.exitDomains != null? pr.exitDomains: 'undefined'%>", "<%=pr.exitMsg != null? pr.exitMsg: 'undefined'%>", "<%=pr.yesMsg != null? pr.yesMsg: 'undefined'%>", "<%=pr.cancelMsg != null? pr.cancelMsg: 'undefined'%>", "<%=pr.msgBoxHeader != null? pr.msgBoxHeader: 'undefined'%>", "<%=pr.targetWarning != null? pr.targetWarning: 'undefined'%>", "<%=pr.displayModalForNewWindow != null? pr.displayModalForNewWindow: 'undefined'%>");</script>
+<%_ } -%>
+<%_ if (pr.webAnalytics != null) { -%>
+    <script>_satellite.pageBottom();</script>
 <%_ } -%>
