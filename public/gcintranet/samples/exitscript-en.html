@@ -11,7 +11,7 @@
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
 		<!--
-			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain). 
+			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
 			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
 
 			ssl-templates.services.gc.ca: https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
@@ -96,15 +96,15 @@ document.write(wet.builder.refFooter({
 				<h2>Example</h2>
 				<ul class="lst-spcd">
 					<li>
-						This link <a href="https://csszengarden.com/219">https://csszengarden.com/219</a> 
-						has a hostname (csszengarden.com) different from yours.
+						This link <a href="https://www.google.ca/">https://www.google.ca/</a>
+						has a hostname (google.ca) different from yours.
 						You'll be redirect to <code>exiturl-en.html</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.
 							html</code>.
 					</li>
 					<li>
-						This link <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a> 
+						This link <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a>
 						will open in another window. Through the targetWarning parameter, you can set a message that will warn users that the link will open in another window.
-						This message will append the existing display message. 
+						This message will append the existing display message.
 					</li>
 					<li>
 						This link <a href="breadcrumbs-en.html"> breadcrumbs-en.
@@ -112,11 +112,11 @@ document.write(wet.builder.refFooter({
 						You won't be redirect to <code>exiturl-en.html</code>.
 					</li>
 					<li>
-						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a> 
+						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>
 						has his hostname (developer.mozilla.org) in the exception list <code>exitDomains</code>.
 						You won't be redirect to <code>exiturl-en.html</code>.
 					</li>
-				</ul>					
+				</ul>
 			</section>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
@@ -146,13 +146,13 @@ document.write(wet.builder.refFooter({
 		<script>
 			document.write(wet.builder.refFooter({
 				"exitSecureSite" : {
-				    exitScript: true,  
-				    displayModal: true, 
-				    exitURL: "exiturl-en.html", 
+				    exitScript: true,
+				    displayModal: true,
+				    exitURL: "exiturl-en.html",
 				    exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
-				    cancelMsg: "Nope", 
-				    yesMsg: "Sure",	
-				    targetWarning: "Warning: This will open in another window!", 
+				    cancelMsg: "Nope",
+				    yesMsg: "Sure",
+				    targetWarning: "Warning: This will open in another window!",
 				    exitDomains : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
 				},
 				//"jqueryEnv" : "external",
