@@ -26,7 +26,7 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
         "http://offices-bureaux.prv",
         "http://crt-orc.prv/",
         "https://www.forces.gc.ca",
-        "https://csszengarden.com/219</a>",
+        "https://www.google.ca/</a>",
         "https://www.w3schools.com</a>",
         "https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>",
         "https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/",
