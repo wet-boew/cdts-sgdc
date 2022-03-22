@@ -5,8 +5,8 @@
 -%>
 <!--[if gte IE 9 | !IE ]><!-->
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
-<%# Only output css links if no explicit cdts css was found on the page -%>
-<% if (typeof(document) === "undefined" || !document.head.querySelector('link[rel="stylesheet"][href*="/cdts-"][href$="styles.css"]')) { -%>
+<%# Only output css links if not directed to ignore -%>
+<% if (!pr.cdtsSetupExcludeCSS) { -%>
     <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
     <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/messages.min.css">
 <% } -%>

@@ -36,8 +36,7 @@ wet.utilities.FragmentLoader = function FragmentLoader(targetElem, fragmentNodes
         return script;
     };
 
-    this.onScriptLoaded = function onScriptLoaded(ev) {
-        console.log('SCRIPT LOADED!', ev.target.src, this.cursorIndex);
+    this.onScriptLoaded = function onScriptLoaded(/*ev*/) {
         this.run(); //resume processing
     };
 
@@ -50,7 +49,7 @@ wet.utilities.FragmentLoader = function FragmentLoader(targetElem, fragmentNodes
                 if (hasSrc) tmpScript.onload = this.onScriptLoaded.bind(this); //if there is no src, there'll be no load event
                 this.targetElem.appendChild(tmpScript);
                 this.cursorIndex++;
-                if (hasSrc) return; //GET OUT HERE, event handler will call us again to resume
+                if (hasSrc) return; //GET OUT OF HERE, event handler will call us again to resume
                 //(if there is no event handler, consider the script loaded and just keep going)
             }
             else {
@@ -68,6 +67,7 @@ wet.utilities.FragmentLoader = function FragmentLoader(targetElem, fragmentNodes
 wet.utilities.applyRefTop = function applyRefTop(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
+    wet.localConfig.base.cdtsSetupExcludeCSS = true;
 
     const parser = new DOMParser();
 
@@ -81,6 +81,7 @@ wet.utilities.applyRefTop = function applyRefTop(onCompletedFunc) {
 wet.utilities.applyRefFooter = function applyRefFooter(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
+    wet.localConfig.base.cdtsSetupExcludeCSS = true;
 
     const parser = new DOMParser();
 
@@ -94,6 +95,7 @@ wet.utilities.applyRefFooter = function applyRefFooter(onCompletedFunc) {
 wet.utilities.applyServerRefTop = function applyServerRefTop(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
+    wet.localConfig.base.cdtsSetupExcludeCSS = true;
 
     const parser = new DOMParser();
 
@@ -107,6 +109,7 @@ wet.utilities.applyServerRefTop = function applyServerRefTop(onCompletedFunc) {
 wet.utilities.applySplashRefTop = function applySplashRefTop(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
+    wet.localConfig.base.cdtsSetupExcludeCSS = true;
 
     const parser = new DOMParser();
 
@@ -262,18 +265,16 @@ wet.utilities.applySplash = function applySplash() {
  *        ... //wet.builder.splash parameters
  *         elementId: 'some-div-id', //(optional) id of the element to replace, defaults to 'cdts-splash-content'
  *     },
- * //TODO: Complete
  * }
  *
 */
 wet.builder.setup = function cdtsSetup(config) {
 
     function onRefFooterCompleted() {
-        console.log('INIT COMPLETED!!! (refFooter completed)');
+        //console.log('INIT COMPLETED!!! (refFooter completed)');
     }
 
     function onBodyReady() {
-        console.log('onBodyReady!');
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applyTop();
         wet.utilities.applyPreFooter();
@@ -298,11 +299,10 @@ wet.builder.setup = function cdtsSetup(config) {
 wet.builder.appSetup = function cdtsAppSetup(config) {
 
     function onRefFooterCompleted() {
-        console.log('APP INIT COMPLETED!!! (refFooter completed)');
+        //console.log('APP INIT COMPLETED!!! (refFooter completed)');
     }
 
     function onBodyReady() {
-        console.log('APP onBodyReady!');
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applyAppTop();
         wet.utilities.applyPreFooter();
@@ -330,11 +330,10 @@ wet.builder.appSetup = function cdtsAppSetup(config) {
 wet.builder.serverSetup = function cdtsServerSetup(config) {
 
     function onRefFooterCompleted() {
-        console.log('SERVER INIT COMPLETED!!! (refFooter completed)');
+        //console.log('SERVER INIT COMPLETED!!! (refFooter completed)');
     }
 
     function onBodyReady() {
-        console.log('SERVER onBodyReady!');
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applyServerTop();
         wet.utilities.applyServerBottom();
@@ -348,8 +347,6 @@ wet.builder.serverSetup = function cdtsServerSetup(config) {
         console.warn('CDTS environment "cdnEnv" property not found in config, default will be used');
         wet.localConfig.cdnEnv = '';
     }
-    //---[ Set "isApplication = true" in base config (for refTop and refFooter)
-    if (!wet.localConfig.base) wet.localConfig.base = {};
 
     wet.utilities.installBodyReady(onBodyReady);
     wet.utilities.applyServerRefTop();
@@ -359,7 +356,6 @@ wet.builder.serverSetup = function cdtsServerSetup(config) {
 wet.builder.splashSetup = function cdtsSplashSetup(config) {
 
     function onBodyReady() {
-        console.log('SPLASH onBodyReady!');
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applySplash();
     }
@@ -370,8 +366,6 @@ wet.builder.splashSetup = function cdtsSplashSetup(config) {
         console.warn('CDTS environment "cdnEnv" property not found in config, default will be used');
         wet.localConfig.cdnEnv = '';
     }
-    //---[ Set "isApplication = true" in base config (for refTop and refFooter)
-    if (!wet.localConfig.base) wet.localConfig.base = {};
 
     wet.utilities.installBodyReady(onBodyReady);
     wet.utilities.applySplashRefTop();
