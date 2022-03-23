@@ -14,8 +14,8 @@ wet.utilities.installBodyReady = function installBodyReady(fn) {
     }
 };
 
-/** Loads a HTML fragment into a specified target element.
-    If the fragment contains "script" elements, they will be load synchronously.
+/** (Class) Loads a list of HTML nodes into a specified target element.
+    If the HTML fragment nodes contains "script" elements, they will be load synchronously.
     This is to allow subsequent "script" to run properly if they depend on previously injected "script" elements.
 */
 wet.utilities.FragmentLoader = function FragmentLoader(targetElem, fragmentNodes, doneFunc) {
@@ -41,9 +41,10 @@ wet.utilities.FragmentLoader = function FragmentLoader(targetElem, fragmentNodes
     };
 
     this.run = function run() {
+        //---[ While we still have nodes to load...
         while (this.cursorIndex < this.fragmentNodes.length) {
             if (this.fragmentNodes[this.cursorIndex].tagName != null && this.fragmentNodes[this.cursorIndex].tagName.toUpperCase() === 'SCRIPT') {
-                //node is a SCRIPT, special treatment (document.importNode(nodes[i], true) does NOT work for scripts)
+                //---[ node is a SCRIPT, special treatment (document.importNode(nodes[i], true) does NOT work for scripts)
                 const tmpScript = this.nodeScriptClone(this.fragmentNodes[this.cursorIndex]);
                 const hasSrc = tmpScript.hasAttribute('src');
                 if (hasSrc) tmpScript.onload = this.onScriptLoaded.bind(this); //if there is no src, there'll be no load event
@@ -53,7 +54,7 @@ wet.utilities.FragmentLoader = function FragmentLoader(targetElem, fragmentNodes
                 //(if there is no event handler, consider the script loaded and just keep going)
             }
             else {
-                //node is "normal", just inject
+                //---[ node is "normal", just inject
                 this.targetElem.appendChild(document.importNode(this.fragmentNodes[this.cursorIndex], true));
                 this.cursorIndex++;
             }
@@ -261,7 +262,7 @@ wet.utilities.applySplash = function applySplash() {
  *     secmenu: { //(optional) (unlike others, the elementId for secmenu is not configurable and must be "wb-sec")
  *        ... //wet.builder.secmenu parameters
  *     },
- *     splash: { //(optional)
+ *     splash: { //(optional, functino splashSetup only)
  *        ... //wet.builder.splash parameters
  *         elementId: 'some-div-id', //(optional) id of the element to replace, defaults to 'cdts-splash-content'
  *     },
