@@ -19,11 +19,11 @@ function validateBuilderFunctions(content, theme, version) {
 
     //---[ Extract all the "wet.builder" calls out of the page content
     const functionCalls = content.match(wetBuilderRegex);
-    if (functionCalls.length <= 0) return; //don't bother if the content does not include any wet.builder call
+    if (!functionCalls || functionCalls.length <= 0) return; //don't bother if the content does not include any wet.builder call
 
     //---[ Mock global variable available in browsers and needed by wet-[en|fr].js
     //NOTE: this is the navigator language, always setting to en-CA should be ok... right?
-    const navigator = {language: 'en-CA',}; //eslint-disable-line
+    const navigator = { language: 'en-CA', }; //eslint-disable-line
 
     //---[ Load soy/wet functions
     //NOTE: Using eval on arbritrary files is a huge NO-NO, but we just generated these files and trust them
@@ -33,8 +33,9 @@ function validateBuilderFunctions(content, theme, version) {
 
     //---[ For each call in content: validate the html it generates
     console.log(`***** Validating ${functionCalls.length} functions for ${wetFileName}...`);
-    for (let i=0; i<functionCalls.length; i++) {
+    for (let i = 0; i < functionCalls.length; i++) {
         const functionName = functionCalls[i].match(/(wet\.builder\..*)\(/)[1];
+        //TODO: Add detection of "setup" and call the corresponding wet.builder.* functions?
 
         const output = eval(functionCalls[i]).toString();  //eslint-disable-line
 
@@ -66,9 +67,21 @@ module.exports = function generateTestFile(inputFilePath, theme, outputFileName,
         return;
     }
 
+    if (!sections.cdnEnv) {
+        //---[ To support the wet.builder.setup function, make sure cdnEnv placeholder is defined
+        const tmpSection = sections.refTop || sections.serverRefTop || sections.splashTop || null;
+        if (tmpSection) {
+            const tmpParsed = JSON.parse(tmpSection);
+            sections.cdnEnv = tmpParsed ? `"${tmpParsed.cdnEnv || 'localhost'}"` : '"localhost"';
+        }
+        else {
+            sections.cdnEnv = '"localhost"';
+        }
+    }
+
     let data = fs.readFileSync(inputFilePath, 'utf8');
 
-    for (let i=0; i<Object.keys(sections).length; i++) {
+    for (let i = 0; i < Object.keys(sections).length; i++) {
         data = data.replace('"~' + Object.keys(sections)[i] + '~"', sections[Object.keys(sections)[i]]);
     }
 
