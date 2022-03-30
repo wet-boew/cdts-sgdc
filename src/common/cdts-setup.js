@@ -47,10 +47,10 @@ wet.utilities.FragmentLoader = function FragmentLoader(targetElem, fragmentNodes
                 //---[ node is a SCRIPT, special treatment (document.importNode(nodes[i], true) does NOT work for scripts)
                 const tmpScript = this.nodeScriptClone(this.fragmentNodes[this.cursorIndex]);
                 const hasSrc = tmpScript.hasAttribute('src');
-                if (hasSrc) tmpScript.onload = this.onScriptLoaded.bind(this); //if there is no src, there'll be no load event
+                if (hasSrc) tmpScript.onload = this.onScriptLoaded.bind(this); //(else, if there is no src, there'll be no load event so don't attach the handler)
                 this.targetElem.appendChild(tmpScript);
                 this.cursorIndex++;
-                if (hasSrc) return; //GET OUT OF HERE, event handler will call us again to resume
+                if (hasSrc) return; //GET OUT OF HERE, event handler will call us again to resume when script is finished loading
                 //(if there is no event handler, consider the script loaded and just keep going)
             }
             else {
@@ -203,7 +203,7 @@ wet.utilities.applySecmenu = function applySecmenu() {
 
     //(because the element id is not configurable, adding an "enabled" property to allow client web page to turn this function off)
     const enabled = wet.localConfig.secmenu.enabled || true;
-    if (!enabled) {
+    if ((!enabled) || (!wet.localConfig.sections)) {
         return;
     }
 
