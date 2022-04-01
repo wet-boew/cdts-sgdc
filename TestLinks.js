@@ -2,6 +2,7 @@ const fs = require('fs');
 const axios = require('axios');
 const ProxyAgent = require('https-proxy-agent');
 const { performance } = require('perf_hooks');
+const { isBinaryFileSync } = require('isbinaryfile');
 
 module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
     //Exception list (complete skip of validation)
@@ -93,13 +94,22 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
     function getFiles(dir, inFiles) {
         const myFiles = inFiles || [];
         const files = fs.readdirSync(dir);
+         
         for (const i in files) {
             const name = dir + '/' + files[i];
+
             if (fs.statSync(name).isDirectory()) {
                 getFiles(name, myFiles);
             }
             else {
-                myFiles.push(name);
+
+                if (!isBinaryFileSync(name)) {
+                    myFiles.push(name);
+                  }
+                  else {
+                    
+                  }
+                
             }
         }
         return myFiles;

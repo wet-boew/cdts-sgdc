@@ -14,7 +14,6 @@
   },
   "author": "ESDC-EDSC",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "@wdio/cli": "^7.19.3",
     "@wdio/dot-reporter": "^7.19.1",
@@ -41,6 +40,7 @@
     "grunt-eslint": "^24.0.0",
     "grunt-webdriver": "^3.0.0",
     "html-validate": "^6.6.1",
-    "https-proxy-agent": "^5.0.0"
+    "https-proxy-agent": "^5.0.0",
+    "isbinaryfile": "^5.0.0"
   }
 }
