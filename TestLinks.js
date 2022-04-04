@@ -110,8 +110,8 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
                 continue;
             }
         }
-    }
-    return myFiles;
+        return myFiles;
+    }  
 }
 
 //Check response - regex determines if response starts with '2' or '3' followed by 2 digits, or is 401 (this will be considered valid)
