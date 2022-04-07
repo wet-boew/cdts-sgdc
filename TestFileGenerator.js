@@ -2,10 +2,23 @@ const fs = require('fs');
 
 const { HtmlValidate, formatterFactory } = require('html-validate'); //(https://html-validate.org/dev/using-api.html)
 
-const wetBuilderRegex = /wet\.builder\..*\({[\s\S]*?}\)/gm; //NOTE: Relies on the fact that there are no spaces between '('+'{' and '}'+')', e.g. wet.builder.function({...})
+const scriptRegex = /<script>([\s\S]*?)<\/script>/gmi;
+const wetBuilderRegex = /wet\.builder\..*\({[\s\S]*}\)/gm; //NOTE: Relies on the fact that there are no spaces between '('+'{' and '}'+')', e.g. wet.builder.function({...})
 const wetLanguageRegex = /\/wet-(.*)\.js/;
 
 let warningIssued = false;
+
+function searchFunctionCalls(content) {
+    const scripts = [...content.matchAll(scriptRegex)];
+
+    const functionCalls = [];
+
+    scripts.forEach((script) => {
+        functionCalls.push(...(script[1].trim().match(wetBuilderRegex) || []));
+    });
+
+    return functionCalls;
+}
 
 function validateBuilderFunctions(content, theme, version) {
     const htmlValidate = new HtmlValidate(require('./htmlvalidator.conf.js')); //config path relative
@@ -30,7 +43,7 @@ function validateBuilderFunctions(content, theme, version) {
     const wetFileName = `wet-${language}.js`;
 
     //---[ Extract all the "wet.builder" calls out of the page content
-    const functionCalls = content.match(wetBuilderRegex);
+    const functionCalls = searchFunctionCalls(content);
     if (!functionCalls || functionCalls.length <= 0) return; //don't bother if the content does not include any wet.builder call
 
     //---[ Mock global variable available in browsers and needed by wet-[en|fr].js
@@ -93,6 +106,7 @@ function validateBuilderFunctions(content, theme, version) {
         const functionName = functionCalls[i].match(/(wet\.builder\..*)\(/)[1];
 
         //---[ Call function, it returns our HTML content
+        //console.log(`Evaluating [${functionCalls[i]}]`);
         const output = (eval(functionCalls[i]) || "").toString();  //eslint-disable-line
         if (output === "") {
             if (!functionName.toUpperCase().endsWith('SETUP')) {

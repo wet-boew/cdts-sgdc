@@ -226,6 +226,32 @@ wet.utilities.applySplash = function applySplash() {
     }
 }
 
+/**
+ * Parses the specified HTML and appends it at the end of the page.
+ *
+ * Because this function does NOT use document.write to insert the HTML, the
+ * <script> elements receive special treatment to ensure they are loaded in order.
+ *
+ * @param html (string, array of string) HTML text to be appended.
+ * @param onCompletedFunc (optional, function) Function to call upon completition.
+*/
+wet.builder.appendExtraHTML = function applyRefFooter(html, onCompletedFunc) {
+
+    let content = html;
+    if (Array.isArray(html)) {
+        content = html.join(' ');
+    }
+
+    const parser = new DOMParser();
+
+    //---[ Insert at the end of BODY
+    const tmpDoc = parser.parseFromString('<html><body>' + content + '</body></html>', 'text/html');
+    const nodes = tmpDoc.body.childNodes; //NOTE: Must use `childNodes` and not `children` for comments to be inserted
+    const loader = new wet.utilities.FragmentLoader(document.body, nodes, onCompletedFunc);
+    loader.run();
+}
+
+
 /** Initialize CDTS on page.
  *
  * ## Descrption
@@ -262,7 +288,7 @@ wet.utilities.applySplash = function applySplash() {
  *     secmenu: { //(optional) (unlike others, the elementId for secmenu is not configurable and must be "wb-sec")
  *        ... //wet.builder.secmenu parameters
  *     },
- *     splash: { //(optional, functino splashSetup only)
+ *     splash: { //(optional, splashSetup function only)
  *        ... //wet.builder.splash parameters
  *         elementId: 'some-div-id', //(optional) id of the element to replace, defaults to 'cdts-splash-content'
  *     },
@@ -272,7 +298,9 @@ wet.utilities.applySplash = function applySplash() {
 wet.builder.setup = function cdtsSetup(config) {
 
     function onRefFooterCompleted() {
-        //console.log('INIT COMPLETED!!! (refFooter completed)');
+        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
+            wet.localConfig.onCDTSPageFinalized();
+        }
     }
 
     function onBodyReady() {
@@ -300,7 +328,9 @@ wet.builder.setup = function cdtsSetup(config) {
 wet.builder.appSetup = function cdtsAppSetup(config) {
 
     function onRefFooterCompleted() {
-        //console.log('APP INIT COMPLETED!!! (refFooter completed)');
+        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
+            wet.localConfig.onCDTSPageFinalized();
+        }
     }
 
     function onBodyReady() {
@@ -331,7 +361,9 @@ wet.builder.appSetup = function cdtsAppSetup(config) {
 wet.builder.serverSetup = function cdtsServerSetup(config) {
 
     function onRefFooterCompleted() {
-        //console.log('SERVER INIT COMPLETED!!! (refFooter completed)');
+        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
+            wet.localConfig.onCDTSPageFinalized();
+        }
     }
 
     function onBodyReady() {
@@ -359,6 +391,10 @@ wet.builder.splashSetup = function cdtsSplashSetup(config) {
     function onBodyReady() {
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applySplash();
+
+        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
+            wet.localConfig.onCDTSPageFinalized();
+        }
     }
 
     //---[ Initialize CDTS on page...
