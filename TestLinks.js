@@ -2,6 +2,7 @@ const fs = require('fs');
 const axios = require('axios');
 const ProxyAgent = require('https-proxy-agent');
 const { performance } = require('perf_hooks');
+const { isBinaryFileSync } = require('isbinaryfile');
 
 module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
     //Exception list (complete skip of validation)
@@ -86,6 +87,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
     let skippedSyntaxUrlCount = 0;
     let skippedIntranetUrlCount = 0;
     let successResponseUrlCount = 0;
+    let skippedBinaryFileCount = 0;
 
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; //eslint-disable-line
 
@@ -93,13 +95,19 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
     function getFiles(dir, inFiles) {
         const myFiles = inFiles || [];
         const files = fs.readdirSync(dir);
+
         for (const i in files) {
             const name = dir + '/' + files[i];
+
             if (fs.statSync(name).isDirectory()) {
                 getFiles(name, myFiles);
             }
-            else {
+            else if (!isBinaryFileSync(name)) {
                 myFiles.push(name);
+            }
+            else {
+                skippedBinaryFileCount++;
+                continue;
             }
         }
         return myFiles;
@@ -155,7 +163,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
                     }
                 }
                 catch (err) {
-                    console.error("Error: An error occured with URL: " + urls[i] + " " + err);
+                    console.error("Error: An error occurred with URL: " + urls[i] + " " + err);
                     errorCount++;
                 }
             }
@@ -188,6 +196,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
     console.log(successResponseUrlCount + " URLs had a successful response.");
     console.log(skippedSyntaxUrlCount + " URLs were skipped because of their syntax.");
     console.log(skippedIntranetUrlCount + " URLs were skipped because they are intranet links.");
+    console.log(skippedBinaryFileCount + " URLs were skipped because they are binary files.");
 
     if (totalErrorCount !== 0) {
         console.error("Error: " + totalErrorCount + " error(s) were found when validating " + urls.length + " URLs.");
