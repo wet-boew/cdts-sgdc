@@ -21,19 +21,19 @@ class AppFooterPage extends Page {
     get customFooterLinkText() { return $('//footer[@id="wb-info"]/nav/h2/following-sibling::div/section/h3'); }
     get customFooterLink() { return $('//footer[@id="wb-info"]/nav/h2/following-sibling::div/section/h3/following-sibling::ul/li/a'); }
     get customFooterLinkTextSubTheme() { return $('//footer[@id="wb-info"]/nav/h2/following-sibling::div/section[4]/h3'); }
-    get cssScriptESDC() { return $('//head/link[contains(@href, "/cdts/esdc.css")]'); }
-    get cssScriptECCC() { return $('//head/link[contains(@href, "/cdts/eccc.css")]'); }
-    
+    get cssScriptESDC() { return $('//head/link[contains(@href, "/cdts/esdc.css")] | //head/link[contains(@href, "cdts-esdc-styles.css")] | //head/link[contains(@href, "cdts-labour-styles.css")]'); }
+    get cssScriptECCC() { return $('//head/link[contains(@href, "/cdts/eccc.css")] | //head/link[contains(@href, "cdts-eccc-styles.css")]'); }
+
     /**
     * Opens a sub page of the page
     * @param theme theme of the sub page (e.g. gcweb, gcintranet)
     * @param lang language of the sub page (e.g. en, fr)
     */
- 
+
     //Return the various test pages
     open(theme, lang, classifier = '') {
         return super.open(theme, `${theme}-appFooter${classifier ? '-' : ''}${classifier}-${lang}.html`);
     }
- }
- 
- module.exports = new AppFooterPage();
+}
+
+module.exports = new AppFooterPage();

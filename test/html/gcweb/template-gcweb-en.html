@@ -28,13 +28,12 @@
             top: "~top~",
             preFooter: "~preFooter~",
             footer: "~footer~",
-            onCDTSPageFinalized: function () { //TODO: Remove commentted-out script at end of page
+            onCDTSPageFinalized: function () {
                 if (typeof $ !== 'undefined') {
                     $(document).on("wb-ready.wb", function (event) {
                         $("#wb-cont").after('<a name="wetInitializedMarker" id="wetInitializedMarker"></a>');
                     });
                 }
-                //wet.builder.appendExtraHTML('<script src=\'https://blabla/bla.js\' />');
             },
         });
     </script>
@@ -56,12 +55,6 @@
         <!-- Write closure fall-back static file -->
         <!-- footer-en.html -->
     </div>
-    <!-- This is where refFooter is -->
-    <!--<script>
-        $(document).on("wb-ready.wb", function (event) {
-            $("#wb-cont").after('<a name="wetInitializedMarker" id="wetInitializedMarker"></a>');
-        });
-    </script>-->
 </body>
 
 </html>

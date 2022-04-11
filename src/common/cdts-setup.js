@@ -203,7 +203,7 @@ wet.utilities.applySecmenu = function applySecmenu() {
 
     //(because the element id is not configurable, adding an "enabled" property to allow client web page to turn this function off)
     const enabled = wet.localConfig.secmenu.enabled || true;
-    if ((!enabled) || (!wet.localConfig.sections)) {
+    if ((!enabled) || (!wet.localConfig.secmenu.sections)) {
         return;
     }
 
@@ -225,6 +225,16 @@ wet.utilities.applySplash = function applySplash() {
         defContent.outerHTML = wet.builder.splash(wet.localConfig.splash);
     }
 }
+
+wet.utilities.onRefFooterCompleted = function onRefFooterCompleted() {
+    if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
+        wet.localConfig.onCDTSPageFinalized();
+    }
+    else if (Array.isArray(wet.localConfig.onCDTSPageFinalized)) {
+        wet.builder.appendExtraHTML(wet.localConfig.onCDTSPageFinalized);
+    }
+}
+
 
 /**
  * Parses the specified HTML and appends it at the end of the page.
@@ -297,12 +307,6 @@ wet.builder.appendExtraHTML = function applyRefFooter(html, onCompletedFunc) {
 */
 wet.builder.setup = function cdtsSetup(config) {
 
-    function onRefFooterCompleted() {
-        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
-            wet.localConfig.onCDTSPageFinalized();
-        }
-    }
-
     function onBodyReady() {
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applyTop();
@@ -310,7 +314,7 @@ wet.builder.setup = function cdtsSetup(config) {
         wet.utilities.applyFooter();
         wet.utilities.applySecmenu();
 
-        wet.utilities.applyRefFooter(onRefFooterCompleted);
+        wet.utilities.applyRefFooter(wet.utilities.onRefFooterCompleted);
     }
 
     //---[ Initialize CDTS on page...
@@ -327,12 +331,6 @@ wet.builder.setup = function cdtsSetup(config) {
 /** Initialize CDTS on page for Application template (see wet.builder.top for details) */
 wet.builder.appSetup = function cdtsAppSetup(config) {
 
-    function onRefFooterCompleted() {
-        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
-            wet.localConfig.onCDTSPageFinalized();
-        }
-    }
-
     function onBodyReady() {
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applyAppTop();
@@ -340,7 +338,7 @@ wet.builder.appSetup = function cdtsAppSetup(config) {
         wet.utilities.applyAppFooter();
         wet.utilities.applySecmenu();
 
-        wet.utilities.applyRefFooter(onRefFooterCompleted);
+        wet.utilities.applyRefFooter(wet.utilities.onRefFooterCompleted);
     }
 
     //---[ Initialize CDTS on page...
@@ -360,18 +358,12 @@ wet.builder.appSetup = function cdtsAppSetup(config) {
 /** Initialize CDTS on page for "server" template (see wet.builder.top for details) */
 wet.builder.serverSetup = function cdtsServerSetup(config) {
 
-    function onRefFooterCompleted() {
-        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
-            wet.localConfig.onCDTSPageFinalized();
-        }
-    }
-
     function onBodyReady() {
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applyServerTop();
         wet.utilities.applyServerBottom();
 
-        wet.utilities.applyRefFooter(onRefFooterCompleted);
+        wet.utilities.applyRefFooter(wet.utilities.onRefFooterCompleted);
     }
 
     //---[ Initialize CDTS on page...
@@ -392,9 +384,7 @@ wet.builder.splashSetup = function cdtsSplashSetup(config) {
         //page and its "divs" now exist: apply rest of CDTS!
         wet.utilities.applySplash();
 
-        if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
-            wet.localConfig.onCDTSPageFinalized();
-        }
+        wet.utilities.onRefFooterCompleted();
     }
 
     //---[ Initialize CDTS on page...

@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
-	<head>
-		<meta charset="utf-8">
-		<title>Canada.ca</title>
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<meta name="description" content="">
-		<meta name="description" lang="fr" content="">
-		<meta name="dcterms.creator" content="Government of Canada, Service Canada, Citizen Service Branch, Integrated Channel Management, Web Strategies and Product Management">
-		<meta name="dcterms.creator" lang="fr" content="Government of Canada, Service Canada, Citizen Service Branch, Integrated Channel Management, Web Strategies and Product Management">
-		<meta name="dcterms.title" content="Canada.ca">
-		<meta name="dcterms.title" lang="fr" content="Canada.ca">
-		<meta name="dcterms.issued" title="W3CDTF" content="2013-12-13">
-		<meta name="dcterms.modified" title="W3CDTF" content="">
-		<meta name="dcterms.subject" title="scheme" content="Government of Canada, services">
-		<meta name="dcterms.subject" lang="fr" title="scheme" content="Gouvernement du Canada, services">
-		<meta name="dcterms.language" title="ISO639-2" content="eng">
-		<meta name="dcterms.language" lang="fr" title="ISO639-2" content="fra">
-		<meta name="robots" content="noindex, follow">
-		<!-- Load closure template scripts -->
-		<script src="../compiled/soyutils.js"></script>
-		<script src="../compiled/wet-en.js"></script>
-		<noscript>
-			<!-- Write closure fall-back static file -->
-			<!-- splashTop.html -->
-		</noscript>
-		<!-- Write closure template -->
-		<script>
-			document.write(wet.builder.splashTop("~splashTop~"));
-		</script>
-		<script>
-			window.addEventListener('load', (event) => {
-				//(no jquery avaialble, so unlike other test pages, we'll just add our marker on window load event)
-				document.getElementById('splashContent').insertAdjacentHTML('afterend', '<a name="wetInitializedMarker" id="wetInitializedMarker"></a>');
-			});
-		</script>
-	</head>
-	<body class="splash" vocab="http://schema.org/" typeof="WebPage">
-		<div id="splashContent">
-			<!-- Write closure fall-back static file -->
-			<!-- splash.html -->
-			<!-- Write closure template -->
-			<script>
-				var contentSplash = document.getElementById("splashContent");
-				contentSplash.innerHTML = wet.builder.splash("~splash~");
-			</script>
-		</div>
-	</body>
+<!--[if gt IE 8]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>Canada.ca</title>
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta name="description" content="">
+    <meta name="description" lang="fr" content="">
+    <meta name="dcterms.creator"
+        content="Government of Canada, Service Canada, Citizen Service Branch, Integrated Channel Management, Web Strategies and Product Management">
+    <meta name="dcterms.creator" lang="fr"
+        content="Government of Canada, Service Canada, Citizen Service Branch, Integrated Channel Management, Web Strategies and Product Management">
+    <meta name="dcterms.title" content="Canada.ca">
+    <meta name="dcterms.title" lang="fr" content="Canada.ca">
+    <meta name="dcterms.issued" title="W3CDTF" content="2013-12-13">
+    <meta name="dcterms.modified" title="W3CDTF" content="">
+    <meta name="dcterms.subject" title="scheme" content="Government of Canada, services">
+    <meta name="dcterms.subject" lang="fr" title="scheme" content="Gouvernement du Canada, services">
+    <meta name="dcterms.language" title="ISO639-2" content="eng">
+    <meta name="dcterms.language" lang="fr" title="ISO639-2" content="fra">
+    <meta name="robots" content="noindex, follow">
+    <!-- Load closure template scripts -->
+    <link rel="stylesheet" href="../cdts-splash-styles.css">
+    <script src="../compiled/wet-en.js"></script>
+    <noscript>
+        <!-- Write closure fall-back static file -->
+        <!-- splashTop.html -->
+    </noscript>
+    <!-- Write closure template -->
+    <script>
+        wet.builder.splashSetup({
+            cdnEnv: "~cdnEnv~",
+            base: "~splashTop~",
+            splash: "~splash~",
+            onCDTSPageFinalized: function () {
+                //(no jquery avaialble, so unlike other test pages, we'll just add our marker on window load event)
+                if (typeof window !== 'undefined') { //(if running in browser)
+                    document.body.insertAdjacentHTML('beforeend', '<a name="wetInitializedMarker" id="wetInitializedMarker"></a>');
+                }
+            },
+        });
+    </script>
+</head>
+
+<body class="splash" vocab="http://schema.org/" typeof="WebPage">
+    <div id="cdts-splash-content">
+        <!-- Write closure fall-back static file -->
+        <!-- splash.html -->
+    </div>
+</body>
+
 </html>

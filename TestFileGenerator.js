@@ -111,8 +111,7 @@ function validateBuilderFunctions(content, theme, version) {
         if (output === "") {
             if (!functionName.toUpperCase().endsWith('SETUP')) {
                 //not "setup": having no content is an error
-                console.error(`${functionName} returned has no content!`);
-                throw new Error(`Error: ${functionName} returned has no content, aborting.`);
+                console.warn(`${functionName} returned no content, SKIPPING!`);
             }
             continue; //it was setup, skip output validation (it was done by mock functions above) and move on
         }
@@ -136,19 +135,38 @@ module.exports = function generateTestFile(inputFilePath, theme, outputFileName,
         return;
     }
 
-    if (!sections.cdnEnv) {
-        //---[ To support the wet.builder.setup function, make sure cdnEnv placeholder is defined
-        const tmpSection = sections.refTop || sections.serverRefTop || sections.splashTop || null;
-        if (tmpSection) {
-            const tmpParsed = JSON.parse(tmpSection);
-            sections.cdnEnv = tmpParsed ? `"${tmpParsed.cdnEnv || 'localhost'}"` : '"localhost"';
-        }
-        else {
-            sections.cdnEnv = '"localhost"';
-        }
-    }
-
     let data = fs.readFileSync(inputFilePath, 'utf8');
+
+    if (data.match(/wet\.builder\.[\S]*[sS]etup\(/gm) !== null) {
+        //---[ To support the wet.builder.setup function, we must make sure cdnEnv placeholder is defined
+        //---[ also have to merge refFooter and refTop objects into a single "base" object
+        //---[ also have to handle sub-theme if specified in refTop (for gcintranet/esdc|eccc)
+        const tmpTopSection = sections.refTop || sections.serverRefTop || sections.splashTop || null;
+        const tmpFooterSection = sections.refFooter || null;
+        const tmpTopParsed = tmpTopSection ? JSON.parse(tmpTopSection) : {};
+        const tmpFooterParsed = tmpFooterSection ? JSON.parse(tmpFooterSection) : {};
+
+        //set cdnEnv
+        if (!sections.cdnEnv) {
+            if (tmpTopSection) {
+                sections.cdnEnv = tmpTopParsed ? `"${tmpTopParsed.cdnEnv || 'localhost'}"` : '"localhost"';
+            }
+            else {
+                sections.cdnEnv = '"localhost"';
+            }
+        }
+
+        //merge refTop/refFooter
+        //(instead of trying to figure out which was set, we'll reset them all to merged object)
+        const tmpBase = JSON.stringify({ ...tmpTopParsed, ...tmpFooterParsed });
+        sections.refTop = tmpBase;
+        sections.serverRefTop = tmpBase;
+        sections.splashTop = tmpBase;
+        sections.refFooter = tmpBase;
+
+        //subTheme vs css
+        data = data.replace('~~subTheme~~', tmpTopParsed.subTheme ? `${tmpTopParsed.subTheme}-` : '');
+    }
 
     for (let i = 0; i < Object.keys(sections).length; i++) {
         data = data.replace('"~' + Object.keys(sections)[i] + '~"', sections[Object.keys(sections)[i]]);

@@ -177,7 +177,7 @@ describe('PreFooter section tests for GCIntranet', () => {
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-preFooter-pageDetails-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '"cdnEnv": "localhost", "pagedetails": false}',
+        preFooter: '{"cdnEnv": "localhost", "pagedetails": false}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -185,7 +185,7 @@ describe('PreFooter section tests for GCIntranet', () => {
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-preFooter-pageDetails-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '"cdnEnv": "localhost", "pagedetails": false}',
+        preFooter: '{"cdnEnv": "localhost", "pagedetails": false}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
