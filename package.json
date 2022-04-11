@@ -28,7 +28,7 @@
     "ejs-lint": "^1.2.1",
     "eslint": "^8.13.0",
     "global-agent": "^3.0.0",
-    "grunt": "^1.4.1",
+    "grunt": "^1.5.0",
     "grunt-cli": "^1.4.3",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-concat": "^2.1.0",
