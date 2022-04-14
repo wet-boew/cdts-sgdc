@@ -5,6 +5,7 @@ const { HtmlValidate, formatterFactory } = require('html-validate'); //(https://
 const scriptRegex = /<script>([\s\S]*?)<\/script>/gmi;
 const wetBuilderRegex = /wet\.builder\..*\({[\s\S]*}\)/gm; //NOTE: Relies on the fact that there are no spaces between '('+'{' and '}'+')', e.g. wet.builder.function({...})
 const wetLanguageRegex = /\/wet-(.*)\.js/;
+const setupAttributeRegex = /<script[\s\S]*?data-cdts-setup='({[\s\S]*?})'/gm;
 
 let warningIssued = false;
 
@@ -16,6 +17,12 @@ function searchFunctionCalls(content) {
     scripts.forEach((script) => {
         functionCalls.push(...(script[1].trim().match(wetBuilderRegex) || []));
     });
+
+    //If we find a script with the data-cdts-setup attribute, add its content as a call to setup
+    const setupAttributeMatches = [...content.matchAll(setupAttributeRegex)];
+    if (setupAttributeMatches.length > 0) {
+        functionCalls.push(`wet.builder.setup(${setupAttributeMatches[0][1].replace("&apos;", "'")})`);
+    }
 
     return functionCalls;
 }
@@ -76,6 +83,9 @@ function validateBuilderFunctions(content, theme, version) {
                 },
             };
             return vtr;
+        },
+        querySelector: function querySelector() {
+            return null;
         },
     };
     function DOMParser() { //eslint-disable-line
