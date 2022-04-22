@@ -15,28 +15,20 @@
     <!-- Meta data-->
     <!-- Load closure template scripts -->
     <link rel="stylesheet" href="../cdts-~~subTheme~~styles.css">
-    <script src="../compiled/wet-en.js"></script>
+    <script src="../compiled/wet-en.js" data-cdts-setup='{
+        "cdnEnv": "~cdnEnv~",
+        "base": "~refTop~",
+        "top": "~top~",
+        "preFooter": "~preFooter~",
+        "footer": "~footer~",
+        "onCDTSPageFinalized": [
+            "<script>$(document).on(\"wb-ready.wb\", () => $(\"#wb-cont\").after(&apos;<a name=\"wetInitializedMarker\" id=\"wetInitializedMarker\"></a>&apos;))</script>"
+        ]
+    }'></script>
     <noscript>
         <!-- Write closure fall-back static file -->
         <!-- refTop.html -->
     </noscript>
-    <!-- Write closure template -->
-    <script>
-        wet.builder.setup({
-            cdnEnv: "~cdnEnv~",
-            base: "~refTop~",
-            top: "~top~",
-            preFooter: "~preFooter~",
-            footer: "~footer~",
-            onCDTSPageFinalized: function () {
-                if (typeof $ !== 'undefined') {
-                    $(document).on("wb-ready.wb", function (event) {
-                        $("#wb-cont").after('<a name="wetInitializedMarker" id="wetInitializedMarker"></a>');
-                    });
-                }
-            },
-        });
-    </script>
 </head>
 
 <body vocab="http://schema.org/" typeof="WebPage">

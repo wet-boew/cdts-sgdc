@@ -227,6 +227,12 @@ wet.utilities.applySplash = function applySplash() {
 }
 
 wet.utilities.onRefFooterCompleted = function onRefFooterCompleted() {
+    if (wet.localConfig.cdtsCompletionListeners) {
+        for (let i = 0; i < wet.localConfig.cdtsCompletionListeners.length; i++) {
+            wet.localConfig.cdtsCompletionListeners[i]();
+        }
+    }
+
     if (typeof wet.localConfig.onCDTSPageFinalized === 'function') {
         wet.localConfig.onCDTSPageFinalized();
     }
@@ -235,6 +241,16 @@ wet.utilities.onRefFooterCompleted = function onRefFooterCompleted() {
     }
 }
 
+wet.utilities.isCDTSSetupMode = function isCDTSSetupMode() {
+    return (typeof wet.localConfig !== 'undefined');
+}
+
+wet.utilities.addSetupCompletitionListener = function addSetupCompletitionListener(f) {
+    if (wet.localConfig) {
+        if (!wet.localConfig.cdtsCompletionListeners) wet.localConfig.cdtsCompletionListeners = [];
+        wet.localConfig.cdtsCompletionListeners.push(f);
+    }
+}
 
 /**
  * Parses the specified HTML and appends it at the end of the page.
@@ -245,7 +261,7 @@ wet.utilities.onRefFooterCompleted = function onRefFooterCompleted() {
  * @param html (string, array of string) HTML text to be appended.
  * @param onCompletedFunc (optional, function) Function to call upon completition.
 */
-wet.builder.appendExtraHTML = function applyRefFooter(html, onCompletedFunc) {
+wet.builder.appendExtraHTML = function appendExtraHTML(html, onCompletedFunc) {
 
     let content = html;
     if (Array.isArray(html)) {
@@ -280,6 +296,7 @@ wet.builder.appendExtraHTML = function applyRefFooter(html, onCompletedFunc) {
  * injected based on the presence of a specific <div> element. Example/format:
  * {
  *     cdnEnv: 'esdcprod',  //(mandatory) CDTS environment, see wet-header.js for possible values
+ *     mode: 'common', //(optional) Template mode, one of 'common', 'app', 'server' or 'splash' (alternatively can call appSetup, serverSetup or splashSetup directly)
  *     base: { //(optional)
  *        ... //combined wet.builder.refTop and wet.builder.refFooter parameters
  *     },
@@ -322,6 +339,24 @@ wet.builder.setup = function cdtsSetup(config) {
     if (!wet.localConfig.cdnEnv) {
         console.warn('CDTS environment "cdnEnv" property not found in config, default will be used');
         wet.localConfig.cdnEnv = '';
+    }
+    if (wet.localConfig.mode) {
+        /*eslint-disable indent */
+        switch (wet.localConfig.mode) {
+            case 'app':
+                wet.builder.appSetup(wet.localConfig);
+                return;
+            case 'server':
+                wet.builder.serverSetup(wet.localConfig);
+                return;
+            case 'splash':
+                wet.builder.splashSetup(wet.localConfig);
+                return;
+            default:
+                //(else continue with "common" setup)
+                break;
+        }
+        /*eslint-enable indent */
     }
 
     wet.utilities.installBodyReady(onBodyReady);

@@ -26,8 +26,15 @@
 <%_ if (pr.exitSecureSite != null) { -%>
     <%_ if (pr.exitSecureSite.exitScript == true) { -%>
         <%# This is a placeholder link to trigger the WET exitscript intialization in the event the no external link is present on the page -%>
-        <a href="#" id="cdts-exitscript-placeholder-link" style="display: none" aria-hidden="true" class="wb-exitscript">Exit Link</a>
-        <script data-id="exitScript">wet.utilities.cdtsApplyExitScriptToLinks("<%=pr.exitSecureSite.displayModal != null? pr.exitSecureSite.displayModal: 'undefined'%>", "<%-pr.exitSecureSite.exitURL != null? pr.exitSecureSite.exitURL: 'undefined'%>", "<%=pr.exitSecureSite.exitDomains != null? pr.exitSecureSite.exitDomains: 'undefined'%>", "<%=pr.exitSecureSite.exitMsg != null? pr.exitSecureSite.exitMsg: 'undefined'%>", "<%=pr.exitSecureSite.yesMsg != null? pr.exitSecureSite.yesMsg: 'undefined'%>", "<%=pr.exitSecureSite.cancelMsg != null? pr.exitSecureSite.cancelMsg: 'undefined'%>", "<%=pr.exitSecureSite.msgBoxHeader != null? pr.exitSecureSite.msgBoxHeader: 'undefined'%>", "<%=pr.exitSecureSite.targetWarning != null? pr.exitSecureSite.targetWarning: 'undefined'%>", "<%=pr.exitSecureSite.displayModalForNewWindow != null? pr.exitSecureSite.displayModalForNewWindow: 'undefined'%>");</script>
+        <a href="#" id="cdts-exitscript-placeholder-link" aria-hidden="true" class="wb-exitscript cdts-hidden">Exit Link</a>
+        <%# When is "setup" mode, we avoid inserting an inline script element to support clients who want to use Content-Security-Policy -%>
+        <%_ if (wet.utilities.isCDTSSetupMode()) {
+            wet.utilities.addSetupCompletitionListener(function() {
+                wet.utilities.cdtsApplyExitScriptToLinks(pr.exitSecureSite.displayModal != null? pr.exitSecureSite.displayModal.toString(): 'undefined', pr.exitSecureSite.exitURL != null? pr.exitSecureSite.exitURL: 'undefined', pr.exitSecureSite.exitDomains != null? pr.exitSecureSite.exitDomains: 'undefined', pr.exitSecureSite.exitMsg != null? pr.exitSecureSite.exitMsg: 'undefined', pr.exitSecureSite.yesMsg != null? pr.exitSecureSite.yesMsg: 'undefined', pr.exitSecureSite.cancelMsg != null? pr.exitSecureSite.cancelMsg: 'undefined', pr.exitSecureSite.msgBoxHeader != null? pr.exitSecureSite.msgBoxHeader: 'undefined', pr.exitSecureSite.targetWarning != null? pr.exitSecureSite.targetWarning: 'undefined', pr.exitSecureSite.displayModalForNewWindow != null? pr.exitSecureSite.displayModalForNewWindow.toString(): 'undefined');
+            });
+        } else { -%>
+            <script data-id="exitScript">wet.utilities.cdtsApplyExitScriptToLinks("<%=pr.exitSecureSite.displayModal != null? pr.exitSecureSite.displayModal: 'undefined'%>", "<%-pr.exitSecureSite.exitURL != null? pr.exitSecureSite.exitURL: 'undefined'%>", "<%=pr.exitSecureSite.exitDomains != null? pr.exitSecureSite.exitDomains: 'undefined'%>", "<%=pr.exitSecureSite.exitMsg != null? pr.exitSecureSite.exitMsg: 'undefined'%>", "<%=pr.exitSecureSite.yesMsg != null? pr.exitSecureSite.yesMsg: 'undefined'%>", "<%=pr.exitSecureSite.cancelMsg != null? pr.exitSecureSite.cancelMsg: 'undefined'%>", "<%=pr.exitSecureSite.msgBoxHeader != null? pr.exitSecureSite.msgBoxHeader: 'undefined'%>", "<%=pr.exitSecureSite.targetWarning != null? pr.exitSecureSite.targetWarning: 'undefined'%>", "<%=pr.exitSecureSite.displayModalForNewWindow != null? pr.exitSecureSite.displayModalForNewWindow: 'undefined'%>");</script>
+        <%_ } -%>
     <%_ } -%>
 <%_ } else if (pr.exitScript == true) { -%>
     <%# This is only for backwards compatibility where a user implements exitscript using parameters instead of an object. -%>
@@ -37,6 +44,7 @@
 <%_ if (pr.isApplication == true) { -%>
     <script src="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtscustom.js"></script>
 <%_ } -%>
-<%_ if (pr.webAnalytics != null) { -%>
+<%_ if (pr.webAnalytics != null && !wet.utilities.isCDTSSetupMode()) { -%>
+    <%# Do NOT add this call in "setup" mode because Adobe's script will be loaded essentially async (https://experienceleague.adobe.com/docs/experience-platform/tags/client-side/asynchronous-deployment.html?lang=en) -%>
     <script>_satellite.pageBottom();</script>
 <%_ } -%>

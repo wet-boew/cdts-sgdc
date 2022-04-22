@@ -88,6 +88,11 @@ function validateBuilderFunctions(content, theme, version) {
             return null;
         },
     };
+    const $ = function $() { //eslint-disable-line
+        return ({
+            on: function on() { }, //eslint-disable-line
+        });
+    };
     function DOMParser() { //eslint-disable-line
         this.parseFromString = function parseFromString(htmlContent) {
             const output = htmlContent.replace(/(<[/]?html>)|(<[/]?body>)|(<[/]?head>)/gm, '');
@@ -147,7 +152,7 @@ module.exports = function generateTestFile(inputFilePath, theme, outputFileName,
 
     let data = fs.readFileSync(inputFilePath, 'utf8');
 
-    if (data.match(/wet\.builder\.[\S]*[sS]etup\(/gm) !== null) {
+    if (data.match(/wet\.builder\.[\S]*[sS]etup\(/gm) !== null || data.match(setupAttributeRegex) !== null) {
         //---[ To support the wet.builder.setup function, we must make sure cdnEnv placeholder is defined
         //---[ also have to merge refFooter and refTop objects into a single "base" object
         //---[ also have to handle sub-theme if specified in refTop (for gcintranet/esdc|eccc)
