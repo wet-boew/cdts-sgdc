@@ -24,11 +24,11 @@
     "@wdio/spec-reporter": "^7.19.5",
     "axe-core": "^4.4.1",
     "axios": "^0.26.1",
-    "ejs": "^3.1.6",
+    "ejs": "^3.1.7",
     "ejs-lint": "^1.2.1",
     "eslint": "^8.13.0",
     "global-agent": "^3.0.0",
-    "grunt": "^1.5.0",
+    "grunt": "^1.5.2",
     "grunt-cli": "^1.4.3",
     "grunt-contrib-clean": "^2.0.1",
     "grunt-contrib-concat": "^2.1.0",
@@ -40,7 +40,7 @@
     "grunt-eslint": "^24.0.0",
     "grunt-webdriver": "^3.0.0",
     "html-validate": "^6.7.1",
-    "https-proxy-agent": "^5.0.0",
+    "https-proxy-agent": "^5.0.1",
     "isbinaryfile": "^5.0.0"
   }
 }
