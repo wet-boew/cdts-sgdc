@@ -41,6 +41,11 @@ function validateBuilderFunctions(content, theme, version) {
                 throw new Error('HTML validator error reported, aborting.');
             }
         }
+
+        if (htmlContent.match(/\/\/(?<!:\/\/)(?<!"\/\/)/gm) || htmlContent.includes('/*')) {
+            console.error(`${functionName}: HTML content should not contain stray '//' or '/*' strings. HTML content: [${htmlContent}]`);
+            throw new Error('Encountered invalid HTML content, aborting.');
+        }
     }
 
     //---[ Extract language from the "wet-??.js" files found in data
