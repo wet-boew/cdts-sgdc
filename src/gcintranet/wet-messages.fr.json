@@ -396,5 +396,37 @@
     "db2c0f3302d1fdb35304ee3a70891a7649f944cc": {
         "source": "Skip Links",
         "target": "Ignorer les liens"
+    },
+    "4a473e480cbabb3de395d0216f3c487fff33478c": {
+        "source": "ESDC/SC",
+        "target": "EDSC/SC"
+    },
+    "984899c046458204e280206be3d6d4cce3690ef3": {
+        "source": "Search the Intranet",
+        "target": "Recherche sur l'Intranet"
+    },
+    "ab3158a8fdb5eb4a89e7fb6cd7ec658390bb8629": {
+        "source": "Search ECCC intranet",
+        "target": "Rechercher ECCC intranet"
+    },
+    "094b0fe0e302854af1311afab85b5203ba457a3b": {
+        "source": "en",
+        "target": "fr"
+    },
+    "31774bf598004e244f16f504caae2b3c31992628": {
+        "source": "https://esdc.prv/en/index.shtml",
+        "target": "https://esdc.prv/fr/index.shtml"
+    },
+    "6e2ea07ada1df352a6a8d4f10ab9f8f929d52206": {
+        "source": "Employment and Social Development Canada / Service Canada",
+        "target": "Emploi et Développement social Canada / Service Canada"
+    },
+    "a4cd2ab840e08a5cbee3bd3d914e8c4145dd58e5": {
+        "source": "eng",
+        "target": "fra"
+    },
+    "ce4f8c9973287cd759d12cf2fa27be2fb5679808": {
+        "source": "https://intranet.ec.gc.ca/default.asp?lang=en&n=F7CAD023-1",
+        "target": "https://intranet.ec.gc.ca/default.asp?lang=fr&n=F7CAD023-1"
     }
 }

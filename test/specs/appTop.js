@@ -208,7 +208,7 @@ describe('AppTop section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranetapp-en.html', 'gcintranet', 'gcintranet-appTop-signOut-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        appTop: '{"cdnEnv": "localhost","appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr",	"href": "gcweb-appTop-fr.html",	"text": "Français"	}], "subTheme": "esdc", "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "appName": [{"text": "Application name", "href": "#"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", "boldText" : "Bold", "acronym": "Acronym" }], "signOut": [{"href": "#"}]}',
+        appTop: '{"cdnEnv": "localhost","appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr",	"href": "gcweb-appTop-fr.html",	"text": "Français"	}], "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "appName": [{"text": "Application name", "href": "#"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", "boldText" : "Bold", "acronym": "Acronym" }], "signOut": [{"href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -216,7 +216,7 @@ describe('AppTop section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranetapp-fr.html', 'gcintranet', 'gcintranet-appTop-signOut-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        appTop: '{"cdnEnv": "localhost","appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr",	"href": "gcweb-appTop-fr.html",	"text": "Français"	}], "subTheme": "esdc", "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Recherche Canada.ca", "method" : "get"}], "appName": [{"text": "Application name", "href": "#"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", "boldText" : "Bold", "acronym": "Acronym" }], "signOut": [{"href": "#"}]}',
+        appTop: '{"cdnEnv": "localhost","appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr",	"href": "gcweb-appTop-fr.html",	"text": "Français"	}], "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Recherche Canada.ca", "method" : "get"}], "appName": [{"text": "Application name", "href": "#"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", "boldText" : "Bold", "acronym": "Acronym" }], "signOut": [{"href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -254,6 +254,37 @@ describe('AppTop section tests for GCIntranet', () => {
         refFooter: '{"cdnEnv": "localhost"}'
     });
 
+    generateTestFile('./test/html/gcintranet/template-gcintranetapp-en.html', 'gcintranet', 'gcintranet-appTop-esdcPreConfigured-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        appTop: '{"cdnEnv" : "localhost", "appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcPreConfigured-fr.html", "text": "Fran&#231;ais" }], "subTheme": "esdc", "signOut": [{"href": "#"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranetapp-fr.html', 'gcintranet', 'gcintranet-appTop-esdcPreConfigured-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        appTop: '{"cdnEnv" : "localhost", "appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcPreConfigured-en.html", "text": "English" }], "subTheme": "esdc", "signOut": [{"href": "#"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranetapp-en.html', 'gcintranet', 'gcintranet-appTop-ecccPreConfigured-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        appTop: '{"cdnEnv" : "localhost", "appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr", "href": "gcintranet-top-ecccPreConfigured-fr.html", "text": "Fran&#231;ais" }], "subTheme": "eccc"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranetapp-fr.html', 'gcintranet', 'gcintranet-appTop-ecccPreConfigured-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        appTop: '{"cdnEnv" : "localhost", "appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr", "href": "gcintranet-top-ecccPreConfigured-en.html", "text": "English" }], "subTheme": "eccc"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
     it('Sign in button exists', async () => {
         await signinBtnExistsIntranet('en');
         await signinBtnExistsIntranet('fr');
@@ -417,6 +448,16 @@ describe('AppTop section tests for GCIntranet', () => {
     it('Test the default menu', async () => {
         await defaultMenu(theme, 'en');
         await defaultMenu(theme, 'fr');
+    });
+
+    it('Test the pre-configured ESDC subtheme', async () => {
+        await subThemeESDCPreConfigured(theme, 'en');
+        await subThemeESDCPreConfigured(theme, 'fr');
+    });
+
+    it('Test the pre-configured ECCC subtheme', async () => {
+        await subThemeECCCPreConfigured(theme, 'en');
+        await subThemeECCCPreConfigured(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -716,7 +757,7 @@ async function gcAppBannerClass(theme, lang) {
 }
 
 async function gcAppBannerSubthemeClass(theme, lang) {
-    await appTopPage.open(theme, lang, 'signOut');
+    await appTopPage.open(theme, lang, 'esdcPreConfigured');
     await expect(appTopPage.gcAppBannerClass).toHaveElementClassContaining('gc-app-br');
     await expect(appTopPage.gcAppBannerSTTL).toHaveElementClassContaining('col-md-10');
 }
@@ -747,6 +788,26 @@ async function gcToolsLinksStandard(theme, lang){
 async function defaultMenu(theme, lang){
     await basicPage.open(theme, lang, 'app');
     await expect(basicPage.defaultMenu).toExist();
+}
+
+async function subThemeESDCPreConfigured(theme, lang) {
+    await appTopPage.open(theme, lang, 'esdcPreConfigured');
+    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
+    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    if (lang == 'en') {
+        await expect(topPage.intranetText).toHaveTextContaining('ESDC/SC');
+        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
+    } else {
+        await expect(topPage.intranetText).toHaveTextContaining('EDSC/SC');
+        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
+    }
+}
+
+async function subThemeECCCPreConfigured(theme, lang) {
+    await appTopPage.open(theme, lang, 'ecccPreConfigured');
+    await expect(topPage.intranetText).toHaveTextContaining('ECCC');
+    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
+    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.ec.gc.ca/default.asp');
 }
 
 async function accessibility(theme, lang , classifier = '') {
