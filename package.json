@@ -40,7 +40,7 @@
     "grunt-eslint": "^24.0.0",
     "grunt-webdriver": "^3.0.0",
     "html-validate": "^6.7.1",
-    "https-proxy-agent": "^5.0.0",
+    "https-proxy-agent": "^5.0.1",
     "isbinaryfile": "^5.0.0"
   }
 }
