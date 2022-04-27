@@ -31,12 +31,12 @@ if (pr.subTheme === 'eccc') {
         "method" : "get",
         "hiddenInput" : [{ "name" : "lang", "id" : "lang", "value" : "<^- msg('en') ^>"}, { "name" : "n", "id" : "n", "value" : "F7CAD023-1"}, { "name" : "xsl", "id" : "xsl", "value" : "idolsearchguirenderer,result"}, { "name" : "xml", "id" : "xml", "value" : "F7CAD023-E332-4264-9BE3-0D07260E64CC"}, { "name" : "searchoffset", "id" : "searchoffset", "value" : "1"}, { "name" : "searchfunction", "id" : "searchfunction", "value" : "basicsearch"}, { "name" : "language", "id" : "language", "value" : "<^- msg('en') ^>"}]
     }]
-} else if (pr.subTheme === 'esdc') {
+} else if (pr.subTheme === 'esdc' || pr.subTheme === 'labour') {
     pr.GCToolsModal = true;
     if (pr.intranetTitle == null) pr.intranetTitle = [{
         "href": "<^- msg('https://esdc.prv/en/index.shtml') ^>",
         "text": " Intranet",
-        "boldText" : "<^- msg('ESDC/SC') ^>",
+        "boldText" : (pr.subTheme === 'esdc')? "<^- msg('ESDC/SC') ^>" : "<^- msg('Labour Program') ^>",
         "acronym": "<^- msg('Employment and Social Development Canada / Service Canada') ^>"
 	}];
     if (pr.customSearch == null) pr.customSearch =[{

@@ -428,5 +428,9 @@
     "ce4f8c9973287cd759d12cf2fa27be2fb5679808": {
         "source": "https://intranet.ec.gc.ca/default.asp?lang=en&n=F7CAD023-1",
         "target": "https://intranet.ec.gc.ca/default.asp?lang=fr&n=F7CAD023-1"
+    },
+    "40bcf855c323a0eb408d1731cce62c2141e53af5": {
+        "source": "Labour Program",
+        "target": "Programme du travail"
     }
 }
