@@ -692,6 +692,7 @@ async function subThemeESDCPreConfigured(theme, lang) {
     await topPage.open(theme, lang, 'esdcPreConfigured');
     await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
     await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    await expect(topPage.gcToolsLink).toExist();
     if (lang == 'en') {
         await expect(topPage.intranetText).toHaveTextContaining('ESDC/SC');
         await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
@@ -706,6 +707,7 @@ async function subThemeECCCPreConfigured(theme, lang) {
     await expect(topPage.intranetText).toHaveTextContaining('ECCC');
     await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
     await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.ec.gc.ca/default.asp');
+    await expect(topPage.gcToolsLink).toExist();
 }
 
 async function accessibility(theme, lang) {
