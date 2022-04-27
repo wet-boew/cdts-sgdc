@@ -184,7 +184,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-nomenu-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv" : "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -192,7 +192,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-nomenu-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}], "subTheme": "esdc"}',
+        top: '{"cdnEnv": "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Search Canada.ca", "method" : "get"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -200,7 +200,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-wblng-en', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv" : "localhost", "menuPath": "menu-esdc.html", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "breadcrumbs": [{ "title": "Home", "href": "https://www.canada.ca/en/index.html"},{ "title": "CDTS","acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", 	"boldText" : "Bold", 	"acronym": "Employment and Social Development Canada / Service Canada" }], "GCToolsModal": false, "search": false, "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "menuPath": "menu-esdc.html", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-fr.html", "text": "Français" }], "breadcrumbs": [{ "title": "Home", "href": "https://www.canada.ca/en/index.html"},{ "title": "CDTS","acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", 	"boldText" : "Bold", 	"acronym": "Employment and Social Development Canada / Service Canada" }], "GCToolsModal": false, "search": false}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -208,7 +208,7 @@ describe('Top section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-wblng-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        top: '{"cdnEnv": "localhost", "menuPath": "menu-esdc.html", "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "breadcrumbs": [{"title": "Canada.ca", "acronym": "Canada.ca", "href": "http://www.canada.ca/fr.html"}, {"title": "SGDC", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", 	"boldText" : "Bold", 	"acronym": "Employment and Social Development Canada / Service Canada" }], "GCToolsModal": false, "search": false, "subTheme": "esdc"}',
+        top: '{"cdnEnv": "localhost", "menuPath": "menu-esdc.html", "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "breadcrumbs": [{"title": "Canada.ca", "acronym": "Canada.ca", "href": "http://www.canada.ca/fr.html"}, {"title": "SGDC", "acronym": "Centrally Deployed Templates Solution", "href": "https://www.canada.ca/en/index.html"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", 	"boldText" : "Bold", 	"acronym": "Employment and Social Development Canada / Service Canada" }], "GCToolsModal": false, "search": false}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -225,6 +225,54 @@ describe('Top section tests for GCIntranet', () => {
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-customSearchDefault-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost", "topSecMenu": false, "siteMenu": false, "lngLinks": [{"lang": "en", "href": "gcintranet-top-en.html", "text": "English"}], "GCToolsModal": true, "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "method" : "get"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-esdcPreConfigured-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcPreConfigured-fr.html", "text": "Fran&#231;ais" }], "subTheme": "esdc"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-esdcPreConfigured-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcPreConfigured-en.html", "text": "English" }], "subTheme": "esdc"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-ecccPreConfigured-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-ecccPreConfigured-fr.html", "text": "Fran&#231;ais" }], "subTheme": "eccc"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-ecccPreConfigured-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-ecccPreConfigured-en.html", "text": "English" }], "subTheme": "eccc"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-labourPreConfigured-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-labourPreConfigured-fr.html", "text": "Fran&#231;ais" }], "subTheme": "labour"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-labourPreConfigured-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-labourPreConfigured-en.html", "text": "English" }], "subTheme": "labour"}',
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -354,6 +402,21 @@ describe('Top section tests for GCIntranet', () => {
     it('Default menu is displayed', async () => {
         await menuPathDefault(theme, 'en');
         await menuPathDefault(theme, 'fr');
+    });
+
+    it('Test the pre-configured ESDC subtheme', async () => {
+        await subThemeESDCPreConfigured(theme, 'en');
+        await subThemeESDCPreConfigured(theme, 'fr');
+    });
+
+    it('Test the pre-configured ECCC subtheme', async () => {
+        await subThemeECCCPreConfigured(theme, 'en');
+        await subThemeECCCPreConfigured(theme, 'fr');
+    });
+
+    it('Test the pre-configured Labour subtheme', async () => {
+        await subThemeLabourPreConfigured(theme, 'en');
+        await subThemeLabourPreConfigured(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -605,7 +668,7 @@ async function sectionClass(theme, lang) {
 }
 
 async function sectionClassNoTitle(theme, lang) {
-    await topPage.open(theme, lang, 'nomenu');
+    await topPage.open(theme, lang);
     await expect(topPage.sectionClass).toHaveElementClassContaining('col-lg-6 col-md-6 col-sm-9 col-xs-8')
 }
 
@@ -644,6 +707,42 @@ async function menuPath(theme, lang) {
 async function menuPathDefault(theme, lang) {
     await basicPage.open(theme, lang);
 
+}
+
+async function subThemeESDCPreConfigured(theme, lang) {
+    await topPage.open(theme, lang, 'esdcPreConfigured');
+    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
+    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    await expect(topPage.gcToolsLink).toExist();
+    if (lang == 'en') {
+        await expect(topPage.intranetText).toHaveTextContaining('ESDC/SC');
+        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
+    } else {
+        await expect(topPage.intranetText).toHaveTextContaining('EDSC/SC');
+        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
+    }
+}
+
+async function subThemeECCCPreConfigured(theme, lang) {
+    await topPage.open(theme, lang, 'ecccPreConfigured');
+    await expect(topPage.intranetText).toHaveTextContaining('ECCC');
+    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
+    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.ec.gc.ca/default.asp');
+    await expect(topPage.gcToolsLink).toExist();
+}
+
+async function subThemeLabourPreConfigured(theme, lang) {
+    await topPage.open(theme, lang, 'labourPreConfigured');
+    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
+    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    await expect(topPage.gcToolsLink).toExist();
+    if (lang == 'en') {
+        await expect(topPage.intranetText).toHaveTextContaining('Labour Program');
+        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
+    } else {
+        await expect(topPage.intranetText).toHaveTextContaining('Programme du travail');
+        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
+    }
 }
 
 async function accessibility(theme, lang) {

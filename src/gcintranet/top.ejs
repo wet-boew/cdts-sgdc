@@ -13,6 +13,36 @@
  * @param? GCToolsModal Used to turn the GCTools links into a modal.
  * @param? customSearch Used to control the custom searches.
 -%>
+<%_
+// The following parameters are pre-configured for users using a specific sub-theme.
+if (pr.subTheme === 'eccc') {
+    pr.GCToolsModal = true;
+    if (pr.intranetTitle == null) pr.intranetTitle = [{
+        "href": "<^- msg('https://intranet.ec.gc.ca/default.asp?lang=En') ^>",
+        "text": " Intranet",
+        "boldText" : "ECCC"
+    }];
+    if (pr.customSearch == null) pr.customSearch = [{
+        "action" : "<^- msg('https://intranet.ec.gc.ca/default.asp?lang=en&n=F7CAD023-1') ^>",
+        "placeholder" : "<^- msg('Search ECCC intranet') ^>",
+        "method" : "get",
+        "hiddenInput" : [{ "name" : "lang", "id" : "lang", "value" : "<^- msg('en') ^>"}, { "name" : "n", "id" : "n", "value" : "F7CAD023-1"}, { "name" : "xsl", "id" : "xsl", "value" : "idolsearchguirenderer,result"}, { "name" : "xml", "id" : "xml", "value" : "F7CAD023-E332-4264-9BE3-0D07260E64CC"}, { "name" : "searchoffset", "id" : "searchoffset", "value" : "1"}, { "name" : "searchfunction", "id" : "searchfunction", "value" : "basicsearch"}, { "name" : "language", "id" : "language", "value" : "<^- msg('en') ^>"}]
+    }]
+} else if (pr.subTheme === 'esdc' || pr.subTheme === 'labour') {
+    pr.GCToolsModal = true;
+    if (pr.intranetTitle == null) pr.intranetTitle = [{
+        "href": "<^- msg('https://esdc.prv/en/index.shtml') ^>",
+        "text": " Intranet",
+        "boldText" : (pr.subTheme === 'esdc')? "<^- msg('ESDC/SC') ^>" : "<^- msg('Labour Program') ^>",
+        "acronym": "<^- msg('Employment and Social Development Canada / Service Canada') ^>"
+    }];
+    if (pr.customSearch == null) pr.customSearch =[{
+        "action" : "https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx",
+        "placeholder" : "<^- msg('Search the Intranet') ^>",
+        "method" : "get",
+        "hiddenInput" : [{ "name" : "k", "value" : "<^- msg('en') ^>"}, { "name" : "l", "value" : "<^- msg('eng') ^>"}, { "name" : "chk2", "value" : "True"}]
+    }]
+} -%>
 <nav aria-label="<^- msg('Skip Links') ^>">
     <ul id="wb-tphp">
         <li class="wb-slc"><a class="wb-sl" href="#wb-cont"><^- msg('Skip to main content') ^></a></li>
@@ -99,7 +129,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
-                                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) { 
+                                        <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) {
                                             const link=pr.lngLinks[linkIndex];-%>
                                             <li><a hreflang="<%= link.lang %>" lang="<%= link.lang %>" href="<%- link.href %>"><%= link.text %></a></li>
                                         <%_ } -%>
@@ -111,7 +141,7 @@
                     <%_ if (pr.search != false) { -%>
                         <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md">
                             <h2><^- msg('Search') ^></h2>
-                            <%_ if (pr.customSearch != null && pr.customSearch.length > 0) { 
+                            <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                                 const item=pr.customSearch[0]; -%>
                                 <form action="<%- (item.action != null)? item.action: '<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>' %>" method="<%= (item.method != null)? item.method: 'get' %>" name="<%= (item.name != null)? item.name: 'cse-search-box'%>" role="search" class="form-inline">
                                     <div class="form-group">
@@ -193,7 +223,7 @@
                 </div>
             </nav>
         <%_ } else if (pr.subTheme == 'eccc') { -%>
-            //Todo: Change with eccc Menu
+            <%# Todo: Change with eccc Menu -%>
             <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: wet.builder.environment(pr.cdnEnv) + 'cdts/ajax/<^- msg('sitemenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
                 <div class="container nvbar">
                     <h2><^- msg('Topics menu') ^></h2>
