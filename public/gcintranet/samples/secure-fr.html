@@ -14,12 +14,12 @@
 			Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
 			Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
 
-			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
+			cdts.service.canada.ca : https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
 			templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
 
 			Pour pointer vers la version d'exécution :
 
-			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
+			cdts.service.canada.ca : https://cdts.service.canada.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
 			templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
 		-->
 		<script src="../compiled/soyutils.js"></script>
@@ -55,7 +55,7 @@
 			<h1 property="name" id="wb-cont">Icône Secure (la serrure)</h1>
 			<p>SGDC vous offre la possibilité d'afficher une icône de verrouillage à côté du nom de l'application.</p>
             <h2>Mise en œuvre</h2>
-            <p>L'icône de verrouillage est ajoutée dans la section <b>appTop</b> de la page. Définissez simplement <code>secure</code> sur true.</p> 
+            <p>L'icône de verrouillage est ajoutée dans la section <b>appTop</b> de la page. Définissez simplement <code>secure</code> sur true.</p>
             <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...

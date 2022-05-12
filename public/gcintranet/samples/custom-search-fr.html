@@ -14,12 +14,12 @@
 			Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
 			Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
 
-			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
+			cdts.service.canada.ca : https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
 			templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
 
 			Pour pointer vers la version d'exécution :
 
-			ssl-templates.services.gc.ca : https://ssl-templates.services.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
+			cdts.service.canada.ca : https://cdts.service.canada.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
 			templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
 		-->
 		<script src="../compiled/soyutils.js"></script>
@@ -55,7 +55,7 @@
 					"text": "English"
 				}],
                 "customSearch": [{
-                    "action" : "https://www.canada.ca/en/sr/srb.html", 
+                    "action" : "https://www.canada.ca/en/sr/srb.html",
                     "placeholder" : "Canada.ca",
                     "id" : "wb-srch-q",
                     "name" : "q",
@@ -63,7 +63,7 @@
                     "hiddenInput" : [{
                         "name" : "cdn",
                         "value" : "canada"
-                    }] 
+                    }]
 	            }],
 				"cdnEnv": "prod"
 			});
@@ -81,12 +81,12 @@
                 <li><code class="wb-prettify">id</code>: Facultatif - vous pouvez fournir un identifiant facultatif pour votre recherche</li>
                 <li><code class="wb-prettify">name</code>: Facultatif - vous pouvez personnaliser l'attribut « name » pour votre recherche</li>
                 <li><code class="wb-prettify">hiddenInput</code>: Facultatif - vous pouvez fournir des entrées de données via les paramètres « name » et « value »</li>
-            </ul>    
+            </ul>
             <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
     "customSearch": [{
-        "action" : "https://www.canada.ca/en/sr/srb.html", 
+        "action" : "https://www.canada.ca/en/sr/srb.html",
         "placeholder" : "Canada.ca",
         "id" : "wb-srch-q",
         "name" : "q",
@@ -94,7 +94,7 @@ defTop.outerHTML = wet.builder.appTop({
         "hiddenInput" : [{
             "name" : "cdn",
             "value" : "canada"
-        }] 
+        }]
     }]
 ...
 });

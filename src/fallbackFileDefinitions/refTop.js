@@ -24,7 +24,7 @@ module.exports = () => ({ //can take grunt object as parameter
     },
     gcintranet: {
         filterContent: (grunt, content, definition, language, targetFileName) => { //optional
-            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/${definition.themeVersion}/css/noscript.min.css">`;
+            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://cdts.service.canada.ca/app/cls/WET/gcintranet/${definition.themeVersion}/css/noscript.min.css">`;
 
             return content.concat(APPENDED_VALUE);
         },

@@ -11,17 +11,17 @@
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
 		<!--
-			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain). 
+			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
 			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
 
 			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
-			ssl-templates.services.gc.ca: https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
 			templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
 
 			To point to the run version:
 
 			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
-			ssl-templates.services.gc.ca: https://ssl-templates.services.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
 			templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
 		-->
 		<script src="../compiled/soyutils.js"></script>
@@ -87,7 +87,7 @@ defTop.outerHTML = wet.builder.top({
 "menuLinks": [{
 	"href": "#",
 	"text": "Link 1"
-}                        
+}
                         </pre>
                         <li><code class="wb-prettify">"subLinks"</code>: This will be used for display the links in the menu. You can also add <code>"newWindow": true</code> if you want the link to open in a new window. </li>
                         <pre>
@@ -96,8 +96,8 @@ defTop.outerHTML = wet.builder.top({
 	"subtext": "Link 1",
 	"newWindow": true
 }]
-                        </pre>                    
-                    </ul> 
+                        </pre>
+                    </ul>
                     <p>The last change will be to close the two <code>&lt;div&gt;</code> you previously opened. Here is the full snippet of code:</p>
                     <pre>
 var secondarymenu = document.getElementById("wb-sec");
@@ -107,10 +107,10 @@ secondarymenu.innerHTML = wet.builder.secmenu({
         "menuLinks": [{
             "href": "#",
             "text": "Link 1",
-            "subLinks": [{ 
+            "subLinks": [{
                 "subhref": "#11a",
                 "subtext": "Link 1.1 a)"
-            }, { 
+            }, {
                 "subhref": "#11b",
                 "subtext": "Link 1.1 b)"
             }, {
@@ -119,7 +119,7 @@ secondarymenu.innerHTML = wet.builder.secmenu({
                 "newWindow": true
             }, {
                 "subhref": "#11d",
-                "subtext": "Link 1.1 d)" 
+                "subtext": "Link 1.1 d)"
             }]
         }, {
             "href": "#",
@@ -183,7 +183,7 @@ secondarymenu.innerHTML = wet.builder.secmenu({
         }]
     }]
 });
-                    </pre>                
+                    </pre>
 					<div id="def-preFooter">
 						<!-- Write closure fall-back static file -->
 						<!-- preFooter-en.html -->
@@ -210,10 +210,10 @@ secondarymenu.innerHTML = wet.builder.secmenu({
 							"menuLinks": [{
 								"href": "#",
 								"text": "Link 1",
-								"subLinks": [{ 
+								"subLinks": [{
 									"subhref": "#11a",
 									"subtext": "Link 1.1 a)"
-								}, { 
+								}, {
 									"subhref": "#11b",
 									"subtext": "Link 1.1 b)"
 								}, {
@@ -222,7 +222,7 @@ secondarymenu.innerHTML = wet.builder.secmenu({
 									"newWindow": true
 								}, {
 									"subhref": "#11d",
-									"subtext": "Link 1.1 d)" 
+									"subtext": "Link 1.1 d)"
 								}]
 							}, {
 								"href": "#",
