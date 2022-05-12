@@ -11,17 +11,17 @@
 		<!-- Meta data-->
 		<!-- Load closure template scripts -->
 		<!--
-			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain). 
+			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
 			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
 
 			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
-			ssl-templates.services.gc.ca: https://ssl-templates.services.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
 			templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
 
 			To point to the run version:
 
 			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
-			ssl-templates.services.gc.ca: https://ssl-templates.services.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
 			templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
 		-->
 		<script src="../compiled/soyutils.js"></script>
@@ -57,7 +57,7 @@
 					"text": "Français"
 				}],
                 "customSearch": [{
-                    "action" : "https://www.canada.ca/en/sr/srb.html", 
+                    "action" : "https://www.canada.ca/en/sr/srb.html",
                     "placeholder" : "Canada.ca",
                     "id" : "wb-srch-q",
                     "name" : "q",
@@ -65,7 +65,7 @@
                     "hiddenInput" : [{
                         "name" : "cdn",
                         "value" : "canada"
-                    }] 
+                    }]
 	            }],
 				"cdnEnv": "esdcprod"
 			});
@@ -83,12 +83,12 @@
                 <li><code class="wb-prettify">"id"</code>: Optional - you can provide an optional id for your search</li>
                 <li><code class="wb-prettify">"name"</code>: Optional - you can customize the "name" attribute for your search</li>
                 <li><code class="wb-prettify">"hiddenInput:</code>: Optional - you can provide data inputs through the "name" and "value" parameters</li>
-            </ul>    
+            </ul>
             <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
     "customSearch": [{
-        "action" : "https://www.canada.ca/en/sr/srb.html", 
+        "action" : "https://www.canada.ca/en/sr/srb.html",
         "placeholder" : "Canada.ca",
         "id" : "wb-srch-q",
         "name" : "q",
@@ -96,7 +96,7 @@ defTop.outerHTML = wet.builder.appTop({
         "hiddenInput" : [{
             "name" : "cdn",
             "value" : "canada"
-        }] 
+        }]
     }]
 ...
 });

@@ -2,6 +2,7 @@
 
 ## v4.0.45
 
+- **IMPORTANT** GCIntranet URLs https://ssl-templates.services.gc.ca and https://templates.services.gc.ca have been replaced by https://cdts.service.canada.ca hosted in the cloud. The old URLs still work but they now redirect to the new URL. GCIntranet URLs https://ssl-templates.service.gc.ca and https://templates.service.gc.ca are still being hosted on premise in ESDC.
 - **IMPORTANT** Font Awesome has been removed from CDTS. If required, please add it directly in the &lt;head> of your html.
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.47.1
 - Added an *acronym* parameter to the custom menu allowing users to provide a description for an abbreviation.  Please visit the sample pages for all the details.

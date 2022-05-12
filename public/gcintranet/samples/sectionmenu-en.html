@@ -15,15 +15,15 @@
     <!-- Meta data-->
     <!-- Load closure template scripts -->
     <!--
-        Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain). 
+        Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
         This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
 
-        ssl-templates.services.gc.ca: https://ssl-templates.services.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
+        cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
         templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
 
         To point to the run version:
 
-        ssl-templates.services.gc.ca: https://ssl-templates.services.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
+        cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
         templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
     -->
     <script src="../compiled/soyutils.js"></script>
@@ -91,7 +91,7 @@ defTop.outerHTML = wet.builder.top({
 "menuLinks": [{
 	"href": "#",
 	"text": "Link 1"
-}                        
+}
                         </pre>
                     <li><code class="wb-prettify">"subLinks"</code>: This will be used for display the links in the
                         menu. You can also add <code>"newWindow": true</code> if you want the link to open in a new
@@ -133,10 +133,10 @@ defTop.outerHTML = wet.builder.top({
                     "menuLinks": [{
                         "href": "#",
                         "text": "Link 1",
-                        "subLinks": [{ 
+                        "subLinks": [{
                             "subhref": "#11a",
                             "subtext": "Link 1.1 a)"
-                        }, { 
+                        }, {
                             "subhref": "#11b",
                             "subtext": "Link 1.1 b)"
                         }, {
@@ -145,7 +145,7 @@ defTop.outerHTML = wet.builder.top({
                             "newWindow": true
                         }, {
                             "subhref": "#11d",
-                            "subtext": "Link 1.1 d)" 
+                            "subtext": "Link 1.1 d)"
                         }]
                     }, {
                         "href": "#",

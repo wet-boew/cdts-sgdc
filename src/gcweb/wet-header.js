@@ -14,7 +14,7 @@ wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
         baseUrl = 'https://s2tst-cdn-canada.sade-edap.prv/app/cls/WET';
     }
     else if (cdnEnv === 'esdcprod') {
-        baseUrl = 'https://ssl-templates.services.gc.ca/app/cls/WET';
+        baseUrl = 'https://cdts.service.canada.ca/app/cls/WET';
     }
     else if (cdnEnv === 'localhost') {
         baseUrl = '../../../..';
