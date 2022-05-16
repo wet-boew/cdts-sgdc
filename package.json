@@ -24,7 +24,7 @@
     "@wdio/spec-reporter": "^7.19.7",
     "axe-core": "^4.4.1",
     "axios": "^0.27.2",
-    "ejs": "^3.1.7",
+    "ejs": "^3.1.8",
     "ejs-lint": "^1.2.1",
     "eslint": "^8.15.0",
     "global-agent": "^3.0.0",
