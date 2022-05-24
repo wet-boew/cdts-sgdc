@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v10.5.0 - 2022-02-11
+ * v11.0.0 - 2022-05-19
  *
  */
 /*!
@@ -14080,6 +14080,10 @@ body.wb-modal .modal-dialog summary {
   text-align: right;
   width: 25%; }
 
+.wb-modal dialog {
+  background-color: transparent;
+  border: none; }
+
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -14528,9 +14532,11 @@ body.wb-modal .modal-dialog summary {
 .mfp-bg {
   opacity: .97; }
 
-.wb-overlay-dlg .overlay-bg {
-  -webkit-box-shadow: 0 0 1000px 1000px black;
-          box-shadow: 0 0 1000px 1000px black; }
+.wb-overlay-dlg {
+  overflow: hidden; }
+  .wb-overlay-dlg .overlay-bg {
+    -webkit-box-shadow: 0 0 1000px 1000px black;
+            box-shadow: 0 0 1000px 1000px black; }
 
 /*
  *	Overlay parts
@@ -14926,7 +14932,7 @@ table.dataTable {
   border-spacing: 0;
   margin: 0 auto;
   width: 100% !important; }
-  table.dataTable thead .sorting-cnt {
+  table.dataTable thead button {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
@@ -14934,6 +14940,8 @@ table.dataTable {
     border: 0;
     font-family: inherit;
     padding: 0;
+    text-align: left; }
+  table.dataTable thead .sorting-cnt {
     white-space: nowrap; }
     table.dataTable thead .sorting-cnt:before {
       content: " "; }
@@ -15465,11 +15473,11 @@ table.dataTable {
   display: inline; }
 
 .geomap-lgnd-layer {
-  margin-bottom: 10px !important;
+  margin-bottom: 10px;
   margin-top: 0px !important; }
 
 .geomap-lgnd > :last-child {
-  margin-bottom: 0px !important; }
+  margin-bottom: 0px; }
 
 .geomap-geoloc {
   background: transparent;
@@ -16600,7 +16608,9 @@ Miscellaneous Utiliy CSS
   /*
   WET-BOEW
   @title: Extra-small view and under (screen only)
- */ }
+ */
+  .wb-eqht-grd > [class*="col-"] {
+    width: 100%; } }
 
 /* Small view and under */
 @media screen and (max-width: 991px) {
@@ -16727,13 +16737,13 @@ Miscellaneous Utiliy CSS
  */
   /* Margin */
   .mb-sm-5 {
-    margin-bottom: 50px !important; }
+    margin-bottom: 50px; }
   /* Padding */
   .p-sm-3 {
-    padding: 15px !important; }
+    padding: 15px; }
   .px-sm-3 {
-    padding-left: 15px !important;
-    padding-right: 15px !important; }
+    padding-left: 15px;
+    padding-right: 15px; }
   /*
   WET-BOEW
   @title: Proximity CSS - Small view and over
