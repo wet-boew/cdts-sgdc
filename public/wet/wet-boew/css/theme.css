@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v10.5.0 - 2022-02-11
+ * v11.0.0 - 2022-05-19
  *
  */
 /*
@@ -3638,6 +3638,12 @@ input[placeholder],
 *[placeholder] {
   color: #5c5c5c !important; }
 
+.input-group .form-control,
+.input-group .input-group-addon,
+.input-group .input-group-btn input,
+.input-group .input-group-btn button {
+  min-height: 39px; }
+
 /* Exclude temporary the form element from the font update, keep same style as before
  * - Rational: More testing and various adjustment need to be completed before to apply it
  * - Fieldflow is brought to speed with the visual update with a clearly defined temporary class .gc-font-2019, but the class can be tried out on other forms
@@ -4325,7 +4331,7 @@ details {
  WET breadcrumb overwrites
  for: GCWeb v5
  */
-.gcweb-menu ~ #wb-bc ol {
+#wb-bc ol {
   margin-top: 15px;
   padding-left: 0px;
   padding-right: 0px; }
@@ -4699,19 +4705,21 @@ main .pagedetails {
 /*
  * Site menu
  */
-/* Special style for the home page - GCWeb v5 (gcweb-menu) */
+/*
+ * Special style for the home page - GCWeb v5 (gcweb-menu)
+ */
 .home .gcweb-menu {
-  border-top: 1px solid #ddd;
-  color: #284162;
-  margin-left: 0px; }
-
-.home .gcweb-menu button[aria-haspopup=true] {
-  background-color: #fff;
-  border-color: #fff;
   color: #284162; }
-  .home .gcweb-menu button[aria-haspopup=true]:hover {
-    background-color: #444;
-    color: #fff; }
+  .home .gcweb-menu button[aria-haspopup=true] {
+    background-color: #fff;
+    border-color: #fff;
+    color: #284162; }
+    .home .gcweb-menu button[aria-haspopup=true]:hover {
+      background-color: #444;
+      color: #fff; }
+
+.home #wb-bnr + .gcweb-menu {
+  margin-left: 0px; }
 
 /*
  * ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -4719,13 +4727,17 @@ main .pagedetails {
  * GCWeb v5 (gcweb-menu)
  *
  */
-.gcweb-menu {
+#wb-bnr + .gcweb-menu {
   /*
 	 * Level 0 - button menu
-	 */
+	*/
   border-top: 3px solid #38414d;
   font-size: 20px;
-  margin-top: 5px;
+  margin-top: 5px; }
+  #wb-bnr + .gcweb-menu .container {
+    padding: 0px; }
+
+.gcweb-menu {
   /*
 	 * Level 1
 	 */
@@ -4737,8 +4749,6 @@ main .pagedetails {
   /* Undo for lower level */
   /* SubSubMenu (MostRequested) for more iteroperability, use CSS class */
   /* Grid of the submenu panel */ }
-  .gcweb-menu .container {
-    padding: 0px; }
   .gcweb-menu button[aria-haspopup=true] {
     background-color: #26374a;
     border: 1px solid #26374a;
@@ -5068,6 +5078,26 @@ main .pagedetails {
       border-right: 1em solid rgba(0, 0, 0, 0);
       left: auto;
       right: -1em; }
+
+/*
+ * Specific classes for authentication section which include Sign-on/Sign-off button and the Contextual Sign-in button.
+ */
+#wb-so .btn {
+  border-radius: 0px;
+  margin-top: 5px; }
+
+#wb-so a.btn:hover {
+  background-color: #444; }
+
+/*
+ * Site header
+ */
+#wb-bnr + hr {
+  border-top: 3px solid #38414d;
+  margin-bottom: 0px;
+  margin-top: 5px; }
+  #wb-bnr + hr + .container {
+    font-size: 20px; }
 
 /*! Components (CSS type only) */
 .fade {
@@ -9081,6 +9111,10 @@ body.wb-modal .modal-dialog summary {
   text-align: right;
   width: 25%; }
 
+.wb-modal dialog {
+  background-color: transparent;
+  border: none; }
+
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -9553,9 +9587,11 @@ body.wb-modal .modal-dialog summary {
 .mfp-bg {
   opacity: .97; }
 
-.wb-overlay-dlg .overlay-bg {
-  -webkit-box-shadow: 0 0 1000px 1000px black;
-          box-shadow: 0 0 1000px 1000px black; }
+.wb-overlay-dlg {
+  overflow: hidden; }
+  .wb-overlay-dlg .overlay-bg {
+    -webkit-box-shadow: 0 0 1000px 1000px black;
+            box-shadow: 0 0 1000px 1000px black; }
 
 /*
  *	Overlay parts
@@ -9957,7 +9993,7 @@ table.dataTable {
   border-spacing: 0;
   margin: 0 auto;
   width: 100% !important; }
-  table.dataTable thead .sorting-cnt {
+  table.dataTable thead button {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
@@ -9965,6 +10001,8 @@ table.dataTable {
     border: 0;
     font-family: inherit;
     padding: 0;
+    text-align: left; }
+  table.dataTable thead .sorting-cnt {
     white-space: nowrap; }
     table.dataTable thead .sorting-cnt:before {
       content: " "; }
@@ -10520,11 +10558,11 @@ Carousel
   display: inline; }
 
 .geomap-lgnd-layer {
-  margin-bottom: 10px !important;
+  margin-bottom: 10px;
   margin-top: 0px !important; }
 
 .geomap-lgnd > :last-child {
-  margin-bottom: 0px !important; }
+  margin-bottom: 0px; }
 
 .geomap-geoloc {
   background: transparent;
@@ -11319,7 +11357,6 @@ main .gc-rms-lngth img {
  */
 /*
 	Global Provisional styling
-
 	- Provisional  CSSspecific for view port are defined in the "views/[view port]" theme CSS
 */
 .provisional {
@@ -11363,8 +11400,8 @@ main .gc-rms-lngth img {
   .provisional.pnkDy-theme .srchbox button:focus, .provisional.pnkDy-theme .srchbox button:hover {
     background-color: #570030;
     color: #fff; }
-  .provisional.pnkDy-theme .gcweb-menu,
-  .provisional.pnkDy-theme.home .gcweb-menu {
+  .provisional.pnkDy-theme .gcweb-menu, .provisional.pnkDy-theme #wb-bnr + .gcweb-menu,
+  .provisional.pnkDy-theme.home .gcweb-menu, .provisional.pnkDy-theme #wb-bnr + hr {
     border-top-color: #AD005F; }
   .provisional.pnkDy-theme.home .gcweb-menu button[aria-haspopup=true] {
     background-color: #ffffff;
@@ -11389,8 +11426,8 @@ main .gc-rms-lngth img {
   .provisional.dark-theme .srchbox button:focus, .provisional.dark-theme .srchbox button:hover {
     background-color: #000;
     color: #fff; }
-  .provisional.dark-theme .gcweb-menu,
-  .provisional.dark-theme.home .gcweb-menu {
+  .provisional.dark-theme .gcweb-menu, .provisional.dark-theme #wb-bnr + .gcweb-menu,
+  .provisional.dark-theme.home .gcweb-menu, .provisional.dark-theme #wb-bnr + hr {
     border-top-color: #000; }
   .provisional.dark-theme.home .gcweb-menu button[aria-haspopup=true] {
     background-color: #fff;
@@ -11799,9 +11836,6 @@ main .gc-rms-lngth img {
 */
 .wb-fieldflow-form .input-group .form-control:last-child {
   border-radius: 4px 0 0 4px; }
-
-.wb-fieldflow-form .input-group input[type=submit] {
-  padding-bottom: 7px; }
 
 /*
  *
@@ -12490,7 +12524,7 @@ aside.features {
       .provisional.gc-subway ul dd,
       .provisional.gc-subway dl dd {
         border-left: 4px solid #26374a;
-        line-height: inherit !important;
+        line-height: inherit;
         margin-bottom: 0px;
         margin-top: -3px;
         padding: 0px 20px 20px 1em; }
@@ -12535,7 +12569,7 @@ aside.features {
           width: 1.5em; }
         .provisional.gc-subway ul li::first-line,
         .provisional.gc-subway dl li::first-line {
-          line-height: 1 !important; }
+          line-height: 1; }
         .provisional.gc-subway ul li:last-child,
         .provisional.gc-subway dl li:last-child {
           border-bottom: 4px solid #26374a;
@@ -12609,9 +12643,9 @@ h1 ~ .provisional.gc-subway {
       line-height: 1.5em; }
 
 /* Well bold provisional */
-.provisional.well.well-bold {
+.well.well-bold {
   font-weight: 700; }
-  .provisional.well.well-bold strong {
+  .well.well-bold strong {
     font-weight: 400; }
 
 /* Feeds plugin GC override */
@@ -12697,6 +12731,9 @@ h1 ~ .provisional.gc-subway {
  *
  */
 .home {
+  /*
+	 * GCWeb menu
+	 */
   /* Home page banner
 	 *
 	 * Reference in:
@@ -12722,6 +12759,16 @@ h1 ~ .provisional.gc-subway {
     margin-top: 10px; }
   .home h2 {
     font-size: 1.2em; }
+  .home #wb-bnr + hr {
+    border-top: 1px solid #ddd;
+    color: #284162;
+    margin-left: 0px; }
+  .home #wb-bnr + .gcweb-menu {
+    border-top: 1px solid #ddd;
+    color: #284162;
+    margin-left: 0px; }
+    .home #wb-bnr + .gcweb-menu .container {
+      padding: 0px; }
   .home .header-rwd {
     margin: 2em 0px; }
   .home .home-most-requested li {
@@ -13163,16 +13210,16 @@ table.dataTable.nws-tbl .label.label-success {
  * Helper Classes
  */
 .margin-bottom-none {
-  margin-bottom: 0 !important; }
+  margin-bottom: 0; }
 
 .margin-bottom-small {
-  margin-bottom: .25em !important; }
+  margin-bottom: .25em; }
 
 .margin-top-large {
-  margin-top: 1.5em !important; }
+  margin-top: 1.5em; }
 
 .margin-top-medium {
-  margin-top: .75em !important; }
+  margin-top: .75em; }
 
 .clearfix:before, .clearfix:after {
   display: table;
@@ -13877,13 +13924,21 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: Extra-small view and under (screen only)
  */
-  .gcweb-menu button[aria-haspopup=true] {
+  .gcweb-menu > [role=menu] {
+    margin-left: -15px;
+    margin-right: -15px; }
+  #wb-bnr + .gcweb-menu button[aria-haspopup="true"] {
     margin-left: 15px !important; }
+  #wb-bnr + .gcweb-menu > [role=menu] {
+    margin-left: 0;
+    margin-right: 0; }
   /*
  * Share/feedback-specific overrides (extra-small view and under)
  */
   .pagedetails .pull-right {
     float: none !important; }
+  .wb-eqht-grd > [class*="col-"] {
+    width: 100%; }
   /*
   WET-BOEW
   @title: Extra-small view and under (screen only)
@@ -13974,17 +14029,8 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: Small view and under (screen only)
  */
-  #wb-info .ftr-urlt-lnk ul {
-    -webkit-column-count: 2;
-       -moz-column-count: 2;
-            column-count: 2; }
-  #wb-info .ftr-urlt-lnk li {
-    display: block;
-    margin-bottom: .2em; }
-  /*
-  WET-BOEW
-  @title: Small view and under (screen only)
- */
+  #wb-bnr + .gcweb-menu button[aria-haspopup="true"] {
+    margin-left: calc( 50% - 360px); }
   .gcweb-menu {
     /*
 	 * Mobile - first level
@@ -14001,11 +14047,8 @@ Miscellaneous Utiliy CSS
       width: 100%; }
     .gcweb-menu [role=menu] {
       position: static; }
-    .gcweb-menu button[aria-haspopup=true] {
-      margin-left: calc( 50% - 360px);
-      /* 360px is half the container, minus the padding */ }
-      .gcweb-menu button[aria-haspopup=true][aria-expanded=true] + [role=menu] {
-        border-right: #eee solid 1px; }
+    .gcweb-menu button[aria-haspopup=true][aria-expanded=true] + [role=menu] {
+      border-right: #eee solid 1px; }
     .gcweb-menu [role=menuitem] {
       width: auto; }
     .gcweb-menu [role=menu] [role=menu] li:first-child [role=menuitem] {
@@ -14089,6 +14132,24 @@ Miscellaneous Utiliy CSS
       padding-left: 0px; }
     .gcweb-menu [role=menu] [role=menu] [role=menu] li {
       width: auto; }
+  /*
+ * Specific classes for authentication section which include Sign-on/Sign-off button and the Contextual Sign-in button.
+ */
+  #wb-bnr + hr + .container .col-md-8 .gcweb-menu > [role=menu] {
+    margin-bottom: 50px; }
+  #wb-bnr + hr + .container .col-xs-5 {
+    margin-top: -50px; }
+  /*
+  WET-BOEW
+  @title: Small view and under (screen only)
+ */
+  #wb-info .ftr-urlt-lnk ul {
+    -webkit-column-count: 2;
+       -moz-column-count: 2;
+            column-count: 2; }
+  #wb-info .ftr-urlt-lnk li {
+    display: block;
+    margin-bottom: .2em; }
   /*
  Details Summary Styling (small view and under)
 */
@@ -14433,13 +14494,13 @@ Miscellaneous Utiliy CSS
  */
   /* Margin */
   .mb-sm-5 {
-    margin-bottom: 50px !important; }
+    margin-bottom: 50px; }
   /* Padding */
   .p-sm-3 {
-    padding: 15px !important; }
+    padding: 15px; }
   .px-sm-3 {
-    padding-left: 15px !important;
-    padding-right: 15px !important; }
+    padding-left: 15px;
+    padding-right: 15px; }
   /*
   Variant - GCWeb custom implementation
   @title: Small view and over (screen only)
@@ -14490,6 +14551,7 @@ Miscellaneous Utiliy CSS
   @title: Medium view and over (screen only)
  */
   .gcweb-menu {
+    margin-left: -15px;
     /* SubSubMenu (MostRequested) keep it black
 	 *
 	 * Todo: check to use this CSS selector: [data-keep-expanded=md-min][role=menuitem][aria-haspopup=true]
@@ -14500,6 +14562,8 @@ Miscellaneous Utiliy CSS
       font-size: 20px;
       font-weight: 700;
       text-decoration: none; }
+  #wb-bnr + .gcweb-menu {
+    margin-left: 0px; }
   .wb-disable .gcweb-menu [role=menu] > li {
     float: left;
     padding-right: 5px;
@@ -15195,3 +15259,20 @@ Miscellaneous Utiliy CSS
   Variant - GCWeb custom implementation
   @title: Print view
  */ }
+
+/* Testing WCAG Spacing */
+/*
+ *
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ *
+ *The purpose of these utilities are to test WCAG success criterion 1.4.12: Text Spacing
+ */
+/* Text Spacing */
+.test-textSpacing * {
+  letter-spacing: .12em !important;
+  line-height: 1.5em !important;
+  word-spacing: .16em !important; }
+
+.test-textSpacing p {
+  margin-bottom: 2em !important; }

@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.47.1 - 2022-02-11
+ * v4.0.50.1 - 2022-05-19
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
 // Copyright 2006 Google Inc.
@@ -3338,18 +3338,13 @@ var getUrlParts = function( url ) {
 
 			// A collection of the parameters of the query string part of the URL.
 			params: ( function() {
-				var results = {},
-					queryString = encodeURI( decodeURI( a.search.replace( /^\?/, "" ) ) ).replace( /'/g, "%27" ).split( "&" ),
-					len = queryString.length,
-					key, strings, i;
-
-				for ( i = 0; i !== len; i += 1 ) {
-					if ( ( key = queryString[ i ] ) !== null ) {
-						strings = key.split( "=" );
-						results[ strings[ 0 ] ] = strings[ 1 ];
-					}
+				var queryString = a.search.replace( /(^\?)/, "" );
+				if ( !queryString ) {
+					return {};
 				}
-				return results;
+				return queryString.split( "&" ).map( function( n ) {
+					return ( n = n.split( "=" ), this[ n[ 0 ] ] = decodeURIComponent( n[ 1 ] ), this );
+				}.bind( {} ) )[ 0 ];
 			}() )
 		};
 	},
@@ -3369,9 +3364,33 @@ var getUrlParts = function( url ) {
 
 	/**
 	 * @variable i18n
-	 * @return {string} of HTML document language
+	 * @return {string} of WET document language
 	 */
-	lang = document.documentElement.lang,
+	lang = ( function( ele ) {
+		let lang = document.documentElement.lang;
+		const shortLangLength = 2;
+
+		// Perform extra checks if the page uses a long language code
+		if ( lang.length > shortLangLength ) {
+			let longLangs = [ "pt-BR", "zh-Hans" ]; // Built-in long language codes
+
+			// Check if any custom long language codes have been specified
+			// Specify by adding data-wb-core and data-lang-long="en-CA en-US etc" attributes to WET's script element (e.g. wet-boew.js or wet-boew.min.js)
+			if ( ele[ 0 ].hasAttribute( "data-wb-core" ) &&  ele[ 0 ].hasAttribute( "data-lang-long" ) ) {
+				const longLangsCustom = ele.attr( "data-lang-long" ).split( " " );
+
+				// Add extra language codes to the beginning of the longLangs array to match them more quickly
+				longLangs = longLangsCustom.concat( longLangs );
+			}
+
+			// Shorten the language code if it doesn't exist in the longLangs array
+			if ( longLangs.indexOf( lang ) === -1 ) {
+				lang = lang.substring( 0, shortLangLength );
+			}
+		}
+
+		return lang;
+	}( $src ) ),
 
 	paths = ( function( ele ) {
 		var paths = {};
