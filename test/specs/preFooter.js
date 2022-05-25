@@ -230,6 +230,8 @@ async function feedbackBtnDoesNotExist(theme, lang) {
 async function shareBtnExists(theme, lang) {
     await basicPage.open(theme, lang);
     const shareBtn = await preFooterPage.shareBtn;
+    if (lang === 'en' ) { await expect(shareBtn).toHaveTextContaining('Share this page'); }
+    else { await expect(shareBtn).toHaveTextContaining('Partagez cette page'); }
     await shareBtn.click();
     await (await preFooterPage.shareModal).waitForExist({timeout: 3000})
     //await expect(preFooterPage.shareModal).toExist();
