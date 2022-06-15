@@ -43,7 +43,7 @@ jobs:
 
       - name: Build
         run: |
-          npm ci
+          npm ci --legacy-peer-deps
           npm run build-prod
         env:
           DISABLE_PROXY: true
