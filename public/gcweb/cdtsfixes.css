@@ -12,6 +12,9 @@
 /********** Date modified/Screen identifier/Version **********/
 /* Pour ajuster le splashpage */
 
+.cdts-hidden {
+    display: none;
+}
 .cdts-splash {
 	font-size: .5em;
 }
@@ -19,19 +22,19 @@
 @media (min-width: 768) {
 	.cdts-splash {
 		font-size: .6em;
-	} 
+	}
 }
 
 @media (min-width: 992) {
 	.cdts-splash {
 		font-size: .7em;
-	} 
+	}
 }
 
 @media (min-width: 1200px) {
 	.cdts-splash {
 		font-size: .8em;
-	} 
+	}
 }
 
 /********** AJOUTÉ PAR NICK LE 2017/08/31 **********/

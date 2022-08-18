@@ -32,7 +32,10 @@
 
 <!--[if gte IE 9 | !IE ]><!-->
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
-<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
+<%# Only output css links if not directed to ignore -%>
+<% if (!pr.cdtsSetupExcludeCSS) { -%>
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
+<% } -%>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="shortcut icon">
@@ -41,10 +44,13 @@
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew.min.js"></script>
 <![endif]-->
 <!--[if lte IE 9]><![endif]-->
-<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/gctheme.css">
-<%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/esdc.css">
-<%_ } else if (pr.subTheme == 'eccc') { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/eccc.css">
-<%_ } -%>
-<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+<%# Only output css links if not directed to ignore -%>
+<% if (!pr.cdtsSetupExcludeCSS) { -%>
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/gctheme.css">
+    <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
+        <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/esdc.css">
+    <%_ } else if (pr.subTheme == 'eccc') { -%>
+        <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/eccc.css">
+    <%_ } -%>
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+<% } -%>

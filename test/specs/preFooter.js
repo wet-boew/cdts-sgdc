@@ -44,7 +44,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-pageDetails-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '"cdnEnv": "localhost", "pagedetails": false}',
+        preFooter: '{"cdnEnv": "localhost", "pagedetails": false}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -52,7 +52,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-pageDetails-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '"cdnEnv": "localhost", "pagedetails": false}',
+        preFooter: '{"cdnEnv": "localhost", "pagedetails": false}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -177,7 +177,7 @@ describe('PreFooter section tests for GCIntranet', () => {
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-preFooter-pageDetails-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '"cdnEnv": "localhost", "pagedetails": false}',
+        preFooter: '{"cdnEnv": "localhost", "pagedetails": false}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -185,7 +185,7 @@ describe('PreFooter section tests for GCIntranet', () => {
     generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-preFooter-pageDetails-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '"cdnEnv": "localhost", "pagedetails": false}',
+        preFooter: '{"cdnEnv": "localhost", "pagedetails": false}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -233,7 +233,7 @@ async function shareBtnExists(theme, lang) {
     if (lang === 'en' ) { await expect(shareBtn).toHaveTextContaining('Share this page'); }
     else { await expect(shareBtn).toHaveTextContaining('Partagez cette page'); }
     await shareBtn.click();
-    await (await preFooterPage.shareModal).waitForExist({timeout: 3000})
+    await (await preFooterPage.shareModal).waitForExist({ timeout: 3000 })
     //await expect(preFooterPage.shareModal).toExist();
 }
 
@@ -280,7 +280,7 @@ async function customShareModal(theme, lang) {
     const shareBtn = await preFooterPage.shareBtn;
     await shareBtn.click();
 
-    await (await preFooterPage.emailBtn).waitForExist({timeout: 3000})
+    await (await preFooterPage.emailBtn).waitForExist({ timeout: 3000 })
     await expect(preFooterPage.emailBtn).toHaveTextContaining('Email');
     await expect(preFooterPage.facebookBtn).toHaveTextContaining('Facebook');
     await expect(preFooterPage.linkedinBtn).toHaveTextContaining('LinkedIn');
@@ -311,7 +311,7 @@ async function showShareTrue(theme, lang) {
     await preFooterPage.open(theme, lang, 'showShareTrue');
     const shareBtn = await preFooterPage.shareBtn;
     await shareBtn.click();
-    await (await preFooterPage.shareModal).waitForExist({timeout: 3000})
+    await (await preFooterPage.shareModal).waitForExist({ timeout: 3000 })
     await expect(preFooterPage.shareModal).toExist();
 }
 

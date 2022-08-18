@@ -24,6 +24,8 @@ module.exports = function run(grunt) {
         if (newEnvironment && (srcpath.includes('/samples/') || srcpath.includes('/appTop/'))) {
             vtr = vtr.replace(/"cdnEnv": "esdcprod"/g, `"cdnEnv": "${newEnvironment}"`);
             vtr = vtr.replace(/"cdnEnv": "prod"/g, `"cdnEnv": "${newEnvironment}"`);
+            vtr = vtr.replace(/cdnEnv: "esdcprod"/g, `cdnEnv: "${newEnvironment}"`);
+            vtr = vtr.replace(/cdnEnv: "prod"/g, `cdnEnv: "${newEnvironment}"`);
         }
 
         return vtr;
@@ -254,19 +256,19 @@ module.exports = function run(grunt) {
                 process: cdtsContentReplace,
             },
             'gcweb-en': {
-                src: ['<%= project.temp %>/gcweb/wet-en.js', './src/common/*.js'],
+                src: ['<%= project.temp %>/gcweb/wet-en.js', './src/common/*.js', './src/common-footer/*.js'],
                 dest: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled/wet-en.js',
             },
             'gcweb-fr': {
-                src: ['<%= project.temp %>/gcweb/wet-fr.js', './src/common/*.js'],
+                src: ['<%= project.temp %>/gcweb/wet-fr.js', './src/common/*.js', './src/common-footer/*.js'],
                 dest: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled/wet-fr.js',
             },
             'gcintranet-en': {
-                src: ['<%= project.temp %>/gcintranet/wet-en.js', './src/common/*.js'],
+                src: ['<%= project.temp %>/gcintranet/wet-en.js', './src/common/*.js', './src/common-footer/*.js'],
                 dest: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled/wet-en.js',
             },
             'gcintranet-fr': {
-                src: ['<%= project.temp %>/gcintranet/wet-fr.js', './src/common/*.js'],
+                src: ['<%= project.temp %>/gcintranet/wet-fr.js', './src/common/*.js', './src/common-footer/*.js'],
                 dest: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled/wet-fr.js',
             },
         },

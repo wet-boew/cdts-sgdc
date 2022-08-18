@@ -2,7 +2,7 @@
 if (typeof wet == 'undefined') { var wet = {}; } //eslint-disable-line
 if (typeof wet.utilities == 'undefined') { wet.utilities = {}; } //eslint-disable-line
 
-wet.utilities.wetExitScript = function(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
+wet.utilities.wetExitScript = function (displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
     var links = document.getElementsByTagName('a');
     excludedDomains = excludedDomains.toLowerCase().split(",").map(function trimDomain(elem) {
         return elem.trim();
@@ -11,7 +11,7 @@ wet.utilities.wetExitScript = function(displayModal, exitUrl, excludedDomains, e
     //WET adds a default message if targetWarning is the string 'undefined'. Overriding to set an empty string.
     if (targetWarning === "undefined") targetWarning = " ";
 
-    var linkObj = {"exitMsg": exitMsg, "cancelBtn": cancelMsg, "yesBtn": yesMsg, "msgboxHeader": msgBoxHeader, "targetWarning": targetWarning};
+    var linkObj = { "exitMsg": exitMsg, "cancelBtn": cancelMsg, "yesBtn": yesMsg, "msgboxHeader": msgBoxHeader, "targetWarning": targetWarning };
 
     //TODO: This should be updated to have the soy files return if the value is the string 'undefined'
     //rather than finding and replacing the "undefined" in quotes
@@ -27,7 +27,7 @@ wet.utilities.wetExitScript = function(displayModal, exitUrl, excludedDomains, e
         for (var i = 0; i < links.length; i++) {
             if (links[i].hasAttribute('href') && links[i].host !== window.location.host && excludedDomains.indexOf(links[i].host.toLowerCase().trim()) < 0) {
                 if (exitUrl !== "undefined") {
-                    links[i].href = encodeURI(exitUrl + (exitUrl.indexOf('?') < 0 ? "?": "&") + "targetUrl=") + encodeURIComponent(links[i].href);
+                    links[i].href = encodeURI(exitUrl + (exitUrl.indexOf('?') < 0 ? "?" : "&") + "targetUrl=") + encodeURIComponent(links[i].href);
                 }
                 if (displayModal.toLowerCase() === "true") {
                     if (!(links[i].target === "_blank" && displayModalForNewWindow.toLowerCase() === "false")) {
@@ -42,12 +42,12 @@ wet.utilities.wetExitScript = function(displayModal, exitUrl, excludedDomains, e
             }
         }
     }
-}
+};
 
-wet.utilities.cdtsApplyExitScriptToLinks = function(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
-    $(document).on("wb-ready.wb", function(event) { //eslint-disable-line
+wet.utilities.cdtsApplyExitScriptToLinks = function (displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
+    $(document).on("wb-ready.wb", function (event) { //eslint-disable-line
         wet.utilities.wetExitScript(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow);
         var placeholderLink = document.getElementById("cdts-exitscript-placeholder-link");
         if (placeholderLink) placeholderLink.parentElement.removeChild(placeholderLink);
     });
-}
+};
