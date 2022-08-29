@@ -16,7 +16,7 @@ module.exports = () => ({ //can take grunt object as parameter
         filterContent: (grunt, content, definition, language, targetFileName) => { //optional
             const APPENDED_VALUE = `\n<!-- Are you using the application templates? If so add the following CSS file -->
 <!-- <link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/cdts/cdtsapps.css">-->
-<link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/css/noscript.min.css">
+<link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/wet-boew/css/noscript.min.css">
 <link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/cdts/cdtsnoscript.css">`;
 
             return content.concat(APPENDED_VALUE);
@@ -24,7 +24,7 @@ module.exports = () => ({ //can take grunt object as parameter
     },
     gcintranet: {
         filterContent: (grunt, content, definition, language, targetFileName) => { //optional
-            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://cdts.service.canada.ca/app/cls/WET/gcintranet/${definition.themeVersion}/css/noscript.min.css">`;
+            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://cdts.service.canada.ca/app/cls/WET/gcintranet/${definition.themeVersion}/wet-boew/css/noscript.min.css">`;
 
             return content.concat(APPENDED_VALUE);
         },
