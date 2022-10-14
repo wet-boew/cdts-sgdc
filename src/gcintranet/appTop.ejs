@@ -127,7 +127,7 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.lngLinks != null) { -%>
-                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': 'lang-with-search'%>">
+                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': (pr.GCToolsModal == true)? '': 'lang-with-search'%>">
                             <h2 class="wb-inv"><^- msg('Language selection') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
