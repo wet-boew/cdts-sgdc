@@ -764,7 +764,7 @@ async function wbGCTools(theme, lang) {
 
 async function langSearchClass(theme, lang) {
     await appTopPage.open(theme, lang, 'externalLinkMenu');
-    await expect(topPage.wbLang).toHaveElementClassContaining('lang-with-search');
+    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
     await expect(topPage.wbLang).not.toHaveElementClassContaining('mrgn-bttm-md');
 }
 
