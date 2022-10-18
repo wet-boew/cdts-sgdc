@@ -302,6 +302,22 @@ describe('AppTop section tests for GCIntranet', () => {
         refFooter: '{"cdnEnv": "localhost"}'
     });
 
+    generateTestFile('./test/html/gcintranet/template-gcintranetapp-en.html', 'gcintranet', 'gcintranet-appTop-langWithSearch-en', {
+        refTop: '{"cdnEnv": "localhost"}',
+        appTop: '{"cdnEnv": "localhost", "GCToolsModal": false, "appName": [{"text": "Application name", "href": "#", "acronym": "Acronym"}], "lngLinks": [{"lang": "fr", "href": "gcintranet-appTop-fr.html", text: "Français"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranetapp-fr.html', 'gcintranet', 'gcintranet-appTop-langWithSearch-fr', {
+        refTop: '{"cdnEnv": "localhost"}',
+        appTop: '{"cdnEnv": "localhost", "GCToolsModal": false, "appName": [{"text": "Application name", "href": "#", "acronym": "Acronym"}], "lngLinks": [{"lang": "en", "href": "gcintranet-appTop-en.html", text: "English"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
     it('Sign in button exists', async () => {
         await signinBtnExistsIntranet('en');
         await signinBtnExistsIntranet('fr');
@@ -410,6 +426,11 @@ describe('AppTop section tests for GCIntranet', () => {
     it('wb-gctools should exist when gctoolsmodal is false and title is null', async () => {
         await wbGCTools(theme, 'en');
         await wbGCTools(theme, 'fr');
+    });
+
+    it('Check class when language link and search exists', async () => {
+        await langWithSearchClass(theme, 'en');
+        await langWithSearchClass(theme, 'fr');
     });
 
     it('Check class when language link and search does not exist', async () => {
@@ -760,6 +781,11 @@ async function gcToolsSectionClassSearchFalse(theme, lang) {
 async function wbGCTools(theme, lang) {
     await basicPage.open(theme, lang);
     await expect(topPage.wbGCTools).toExist();
+}
+
+async function langWithSearchClass(theme, lang) {
+    await appTopPage.open(theme, lang, 'langWithSearch');
+    await expect(topPage.wbLang).toHaveElementClassContaining('lang-with-search');
 }
 
 async function langSearchClass(theme, lang) {
