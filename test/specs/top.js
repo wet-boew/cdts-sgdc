@@ -545,6 +545,7 @@ async function gcToolsLinks(theme) {
     await expect(topPage.gcToolsModalLink4).toHaveTextContaining('collab');
     await expect(topPage.gcToolsModalLink5).toHaveTextContaining('intranet');
     await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
+    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
 }
 
 async function gcToolsLinks_FR(theme) {
@@ -560,6 +561,7 @@ async function gcToolsLinks_FR(theme) {
     await expect(topPage.gcToolsModalLink4).toHaveTextContaining('collab');
     await expect(topPage.gcToolsModalLink5).toHaveTextContaining('intranet');
     await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
+    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
 }
 
 async function searchDoesNotExist(theme, lang) {
@@ -713,6 +715,7 @@ async function subThemeESDCPreConfigured(theme, lang) {
     await topPage.open(theme, lang, 'esdcPreConfigured');
     await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
     await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
     await expect(topPage.gcToolsLink).toExist();
     if (lang == 'en') {
         await expect(topPage.intranetText).toHaveTextContaining('ESDC/SC');
