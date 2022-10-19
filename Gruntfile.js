@@ -72,24 +72,34 @@ module.exports = function run(grunt) {
     });
 
     //---[ Can get called with 'compile-ejs', 'compile-ejs:gcweb' or 'compile-ejs:gcintranet'
-    grunt.registerTask('compile-ejs', 'Compile EJS templates', function (target) { //eslint-disable-line
+    grunt.registerTask('compile-ejs', 'Compile EJS templates', async function (target) { //eslint-disable-line
         const projectTempDir = grunt.config('project.temp');
+        const done = this.async();
 
-        ['gcweb', 'gcintranet'].forEach((themeName) => {
-            //(if target specified, only run for that one)
-            if ((!target) || (themeName === target)) {
-                compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-en.js`, 'en', false);
-                compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-fr.js`, 'fr', false);
+        try {
+            const themes = ['gcweb', 'gcintranet'];
+            for (let i = 0; i < themes.length; i++) {
+                const themeName = themes[i]; //themes.forEach((themeName) => {
 
-                //NOTE: Following is from the conversion from SOY to EJS, kept as comment for posterity
-                //      (requires the "xmldom" and "xpath" npm packages to be installed.)
-                //const {convertXliffToJSON} = require('./EJSModuleGenerator.js');
-                //convertXliffToJSON(`./src/${themeName}/wet-messages.en.xlf`, `./src/${themeName}/wet-messages-conv.en.json`);
-                //convertXliffToJSON(`./src/${themeName}/wet-messages.fr.xlf`, `./src/${themeName}/wet-messages-conv.fr.json`);
+                //(if target specified, only run for that one)
+                if ((!target) || (themeName === target)) {
+                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-en.js`, 'en', false); // eslint-disable-line no-await-in-loop
+                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-fr.js`, 'fr', false); // eslint-disable-line no-await-in-loop
+
+                    //NOTE: Following is from the conversion from SOY to EJS, kept as comment for posterity
+                    //      (requires the "xmldom" and "xpath" npm packages to be installed.)
+                    //const {convertXliffToJSON} = require('./EJSModuleGenerator.js');
+                    //await convertXliffToJSON(`./src/${themeName}/wet-messages.en.xlf`, `./src/${themeName}/wet-messages-conv.en.json`);
+                    //await convertXliffToJSON(`./src/${themeName}/wet-messages.fr.xlf`, `./src/${themeName}/wet-messages-conv.fr.json`);
+                }
             }
-        });
 
-        return true;
+            done(true); //return true;
+        }
+        catch (error) {
+            console.error('Error occured in compile-ejs: ', error);
+            done(false);
+        }
     });
 
     grunt.registerTask('sri-internal-hashes', 'Generate SRI hashes of css and js files for internal use', function () { //eslint-disable-line
@@ -127,16 +137,27 @@ module.exports = function run(grunt) {
     });
 
     //---[ Can get called with 'i18n-ejs', 'i18n-ejs:gcweb' or 'i18n-ejs:gcintranet'
-    grunt.registerTask('i18n-ejs', 'Internationalize EJS templates', function (target) { //eslint-disable-line
-        ['gcweb', 'gcintranet'].forEach((themeName) => {
-            //(if target specified, only run for that one)
-            if ((!target) || (themeName === target)) {
-                extractEJSModuleMessages(`./src/${themeName}`, 'en');
-                mergeLanguageFiles(`./src/${themeName}`, 'en', ['fr'], false, true);
-            }
-        });
+    grunt.registerTask('i18n-ejs', 'Internationalize EJS templates', async function (target) { //eslint-disable-line
+        const done = this.async();
 
-        return true;
+        try {
+            const themes = ['gcweb', 'gcintranet'];
+            for (let i = 0; i < themes.length; i++) {
+                const themeName = themes[i]; //themes.forEach((themeName) => {
+
+                //(if target specified, only run for that one)
+                if ((!target) || (themeName === target)) {
+                    await extractEJSModuleMessages(`./src/${themeName}`, 'en'); // eslint-disable-line no-await-in-loop
+                    await mergeLanguageFiles(`./src/${themeName}`, 'en', ['fr'], false, true); // eslint-disable-line no-await-in-loop
+                }
+            }
+
+            done(true); //return true;
+        }
+        catch (error) {
+            console.error('Error occured in i18n-ejs: ', error);
+            done(false);
+        }
     });
 
     grunt.registerTask('test-links', 'Test all links in files in the src and public (minus the WET folder) directories', function (target) { //eslint-disable-line
