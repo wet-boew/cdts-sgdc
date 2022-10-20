@@ -278,6 +278,70 @@ describe('Top section tests for GCIntranet', () => {
         refFooter: '{"cdnEnv": "localhost"}'
     });
 
+    generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-hidePlaceholderMenuESDC-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-fr.html", "text": "Fran&#231;ais" }], "subTheme": "esdc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": true}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-hidePlaceholderMenuESDC-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-en.html", "text": "English" }], "subTheme": "esdc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": true}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-hidePlaceholderMenuECCC-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-fr.html", "text": "Fran&#231;ais" }], "subTheme": "eccc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": true}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-hidePlaceholderMenuECCC-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-en.html", "text": "English" }], "subTheme": "eccc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": true}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-displayPlaceholderMenuESDC-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-fr.html", "text": "Fran&#231;ais" }], "subTheme": "esdc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": false}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-displayPlaceholderMenuESDC-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "esdc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-en.html", "text": "English" }], "subTheme": "esdc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": false}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-top-displayPlaceholderMenuECCC-en', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-fr.html", "text": "Fran&#231;ais" }], "subTheme": "eccc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": false}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcintranet/template-gcintranet-fr.html', 'gcintranet', 'gcintranet-top-displayPlaceholderMenuECCC-fr', {
+        refTop: '{"cdnEnv": "localhost", "subTheme": "eccc"}',
+        top: '{"cdnEnv" : "localhost", "lngLinks": [{"lang": "fr", "href": "gcintranet-top-esdcCustomMenu-en.html", "text": "English" }], "subTheme": "eccc", "menuPath": "../ajax/blah.html", "hidePlaceholderMenu": false}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
     it('Should contain breadcrumbs and test href when title is Canada.ca', async () => {
         await breadcrumbsExist(theme);
         await breadcrumbsExist_FR(theme);
@@ -417,6 +481,26 @@ describe('Top section tests for GCIntranet', () => {
     it('Test the pre-configured Labour subtheme', async () => {
         await subThemeLabourPreConfigured(theme, 'en');
         await subThemeLabourPreConfigured(theme, 'fr');
+    });
+
+    it('Test the ESDC subtheme placeholder menu should be hidden', async () => {
+        await hidePlaceholderMenuESDC(theme, 'en');
+        await hidePlaceholderMenuESDC(theme, 'fr');
+    });
+
+    it('Test the ECCC subtheme placeholder menu should be hidden', async () => {
+        await hidePlaceholderMenuECCC(theme, 'en');
+        await hidePlaceholderMenuECCC(theme, 'fr');
+    });
+
+    it('Test the ESDC subtheme placeholder menu should be displayed', async () => {
+        await displayPlaceholderMenuESDC(theme, 'en');
+        await displayPlaceholderMenuESDC(theme, 'fr');
+    });
+
+    it('Test the ECCC subtheme placeholder menu should be displayed', async () => {
+        await displayPlaceholderMenuECCC(theme, 'en');
+        await displayPlaceholderMenuECCC(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -746,6 +830,26 @@ async function subThemeLabourPreConfigured(theme, lang) {
         await expect(topPage.intranetText).toHaveTextContaining('Programme du travail');
         await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
     }
+}
+
+async function hidePlaceholderMenuESDC(theme, lang) {
+    await topPage.open(theme, lang, 'hidePlaceholderMenuESDC');
+    await expect(topPage.placeholderMenu).toHaveChildren(1);
+}
+
+async function hidePlaceholderMenuECCC(theme, lang) {
+    await topPage.open(theme, lang, 'hidePlaceholderMenuECCC');
+    await expect(topPage.placeholderMenu).toHaveChildren(1);
+}
+
+async function displayPlaceholderMenuESDC(theme, lang) {
+    await topPage.open(theme, lang, 'displayPlaceholderMenuESDC');
+    await expect(topPage.placeholderMenu).toHaveChildren(5);
+}
+
+async function displayPlaceholderMenuECCC(theme, lang) {
+    await topPage.open(theme, lang, 'displayPlaceholderMenuECCC');
+    await expect(topPage.placeholderMenu).toHaveChildren(7);
 }
 
 async function accessibility(theme, lang) {

@@ -1,5 +1,9 @@
 # CDTS Change Log
 
+## v4.0.46
+
+- Added a *hidePlaceholderMenu* parameter which when set to true, is used to hide the placeholder menu while a custom menu is being loaded.
+
 ## v4.0.45
 
 - **IMPORTANT** GCIntranet URLs https://ssl-templates.services.gc.ca and https://templates.services.gc.ca have been replaced by https://cdts.service.canada.ca hosted in the cloud. The old URLs still work but they now redirect to the new URL. GCIntranet URLs https://ssl-templates.service.gc.ca and https://templates.service.gc.ca are still being hosted on premise in ESDC.

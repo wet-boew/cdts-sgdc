@@ -12,6 +12,7 @@
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
  * @param? GCToolsModal Used to turn the GCTools links into a modal.
  * @param? customSearch Used to control the custom searches.
+ * @param? hidePlaceholderMenu Used to hide the placeholder menu while a custom menu is being loaded
 -%>
 <%_
 // The following parameters are pre-configured for users using a specific sub-theme.
@@ -213,11 +214,15 @@ if (pr.subTheme === 'eccc') {
                     <h2><^- msg('Topics menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu">
-                            <li><a href="<^- msg('https://esdc.prv/en/department/index.shtml') ^>"><^- msg('Our Department') ^></a></li>
-                            <li><a href="<^- msg('https://esdc.prv/en/branches_regions/index.shtml') ^>"><^- msg('Branches and Regions') ^></a></li>
-                            <li><a href="<^- msg('https://iservice.prv/eng/index.shtml') ^>"><^- msg('iService') ^></a></li>
-                            <li><a href="<^- msg('https://esdc.prv/en/work_tools/index.shtml') ^>"><^- msg('Work Tools') ^></a></li>
-                            <li><a href="<^- msg('https://esdc.prv/en/quick-links/index.shtml') ^>"><^- msg('Quick Links') ^></a></li>
+                            <%_ if (pr.hidePlaceholderMenu == true) { -%>
+                                <li><a>&nbsp;</a></li>
+                            <%_ } else { -%>
+                                <li><a href="<^- msg('https://esdc.prv/en/department/index.shtml') ^>"><^- msg('Our Department') ^></a></li>
+                                <li><a href="<^- msg('https://esdc.prv/en/branches_regions/index.shtml') ^>"><^- msg('Branches and Regions') ^></a></li>
+                                <li><a href="<^- msg('https://iservice.prv/eng/index.shtml') ^>"><^- msg('iService') ^></a></li>
+                                <li><a href="<^- msg('https://esdc.prv/en/work_tools/index.shtml') ^>"><^- msg('Work Tools') ^></a></li>
+                                <li><a href="<^- msg('https://esdc.prv/en/quick-links/index.shtml') ^>"><^- msg('Quick Links') ^></a></li>
+                            <%_ } -%>
                         </ul>
                     </div>
                 </div>
@@ -229,13 +234,17 @@ if (pr.subTheme === 'eccc') {
                     <h2><^- msg('Topics menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu">
-                            <li><a href="#"><^- msg('About ECCC') ^></a></li>
-                            <li><a href="#"><^- msg('Branches') ^></a></li>
-                            <li><a href="#"><^- msg('Services') ^></a></li>
-                            <li><a href="#"><^- msg('Tools and References') ^></a></li>
-                            <li><a href="#"><^- msg('Resources') ^></a></li>
-                            <li><a href="#"><^- msg('Forms') ^></a></li>
-                            <li><a href="#"><^- msg("DMs' Corner") ^></a></li>
+                            <%_ if (pr.hidePlaceholderMenu == true) { -%>
+                                <li><a>&nbsp;</a></li>
+                            <%_ } else { -%>
+                                <li><a href="#"><^- msg('About ECCC') ^></a></li>
+                                <li><a href="#"><^- msg('Branches') ^></a></li>
+                                <li><a href="#"><^- msg('Services') ^></a></li>
+                                <li><a href="#"><^- msg('Tools and References') ^></a></li>
+                                <li><a href="#"><^- msg('Resources') ^></a></li>
+                                <li><a href="#"><^- msg('Forms') ^></a></li>
+                                <li><a href="#"><^- msg("DMs' Corner") ^></a></li>
+                            <%_ } -%>
                         </ul>
                     </div>
                 </div>
