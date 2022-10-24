@@ -2,7 +2,7 @@
 
 ## v4.0.46
 
-- Added a *hidePlaceholderMenu* parameter which when set to true, is used to hide the placeholder menu while a custom menu is being loaded.
+- Added an optional parameter *hidePlaceholderMenu* to the GCIntranet theme, ESDC sub-theme. When set to true, this parameter is used to hide the placeholder menu while a custom menu is being loaded.
 
 ## v4.0.45
 

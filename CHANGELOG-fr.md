@@ -1,5 +1,9 @@
 # SGDC : Journal des modifications
 
+## v4.0.46
+
+- Ajout d'un paramètre optionnel *hidePlaceholderMenu* au thème GCIntranet, sous-thème EDSC. Lorsqu'il est défini sur true, ce paramètre est utilisé pour masquer le menu d'espace réservé pendant le chargement d'un menu personnalisé.
+
 ## v4.0.45
 
 - **IMPORTANT** Les URL GCIntranet https://ssl-templates.services.gc.ca et https://templates.services.gc.ca ont été remplacés par https://cdts.service.canada.ca hébergé dans le nuage. Les anciennes URL fonctionnent toujours, mais elles redirigent désormais vers la nouvelle URL. Les URL GCIntranet https://ssl-templates.service.gc.ca et https://templates.service.gc.ca sont toujours hébergés sur place à EDSC.
