@@ -44,6 +44,7 @@ class TopPage extends Page {
     get wbLang() { return $('#wb-lng'); }
     get searchAction() { return $('//section[@id="wb-srch"]/h2/following-sibling::form'); }
     get toolsSM() { return $('#tools-sm'); }
+    get placeholderMenu() { return $('//nav[@id="wb-sm"]/div/div/ul'); }
 
     /**
     * Opens a sub page of the page
