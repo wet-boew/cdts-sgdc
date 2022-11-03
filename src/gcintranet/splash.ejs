@@ -18,7 +18,11 @@
             <h1 property="name" class="wb-inv">GC Intranet / Intranet du GC</h1>
             <div class="row">
                 <div class="col-xs-11 col-md-8">
-                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/sig-spl.svg" width="283" alt="Government of Canada / Gouvernement du Canada">
+                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/sig-spl.svg" width="283" alt="Government of Canada">
+                    <span class="wb-inv"> / <span lang="fr">Gouvernement du Canada</span></span>
+                    <meta property="name" content="Government of Canada">
+                    <meta property="name" lang="fr" content="Gouvernement du Canada">
+                    <meta property="areaServed" typeof="Country" content="Canada">
                 </div>
             </div>
             <div class="row cdts-splash">
@@ -36,7 +40,7 @@
                         <h2 class="wb-inv">Gouvernement du Canada</h2>
                     <%_ } -%>
                 </section>
-            </div>					
+            </div>
             <div class="row text-center">
                 <%_ var navlang = navigator.language; -%>
                 <ul class="list-inline lst-spcd">
@@ -63,7 +67,7 @@
                     <a href="<%- pr.termsEng %>" class="sp-lk">Terms &amp; conditions</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="<%- pr.termsFra %>" class="sp-lk" lang="fr">Avis</a>
                 </div>
                 <div class="col-xs-5 col-md-4 text-right mrgn-bttm-md">
-                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-spl.svg" width="127" alt="Symbol of the Government of Canada / Symbole du gouvernement du Canada">
+                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-spl.svg" width="127" alt="Symbol of the Government of Canada"><span class="wb-inv"> / <span lang="fr">Symbole du gouvernement du Canada</span></span>
                 </div>
             </div>
         </div>
