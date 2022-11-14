@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "现在位置：",
 	dur: "总时间：",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "分享",

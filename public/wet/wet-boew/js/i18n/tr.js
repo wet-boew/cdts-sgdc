@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "Geçerli pozisyon:",
 	dur: "Toplam zaman:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "Paylaş",
@@ -264,7 +266,7 @@ $.extend( $.validator.messages, {
 	email: "Lütfen geçerli bir e-posta adresi giriniz.",
 	url: "Lütfen geçerli bir web adresi (URL) giriniz.",
 	date: "Lütfen geçerli bir tarih giriniz.",
-	dateISO: "Lütfen geçerli bir tarih giriniz(ISO formatında)",
+	dateISO: "Lütfen geçerli bir tarih giriniz(ISO formatında).",
 	number: "Lütfen geçerli bir sayı giriniz.",
 	digits: "Lütfen sadece sayısal karakterler giriniz.",
 	creditcard: "Lütfen geçerli bir kredi kartı giriniz.",

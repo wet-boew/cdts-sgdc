@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "Esama pozicija:",
 	dur: "Visas laikas:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "Dalytis ",

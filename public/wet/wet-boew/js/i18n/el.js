@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "Τρέχουσα θέση:",
 	dur: "Συνολικός χρόνος:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "Κοινή χρήση",
