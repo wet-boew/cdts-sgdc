@@ -2,7 +2,10 @@
 
 ## v4.0.46
 
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.55
 - Added an optional parameter *hidePlaceholderMenu* to the GCIntranet theme, ESDC sub-theme. When set to true, this parameter is used to hide the placeholder menu while a custom menu is being loaded.
+- Internal changes and optimizations
+- Bug fixes
 
 ## v4.0.45
 

@@ -10,7 +10,7 @@ Extra CSS for MathJax 3.2.0:
 -Only needed for 3.2.0, remove whenever WET updates to > 3.2.0
 */
 mjx-script > * {
-  display: inline-block !important; }
+	display: inline-block !important; }
 
 mjx-script > mjx-spacer {
-  display: block !important; }
+	display: block !important; }

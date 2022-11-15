@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "Поточне положення:",
 	dur: "Загальний час:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "Поділитись ",

@@ -2,7 +2,10 @@
 
 ## v4.0.46
 
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.55
 - Ajout d'un paramètre optionnel *hidePlaceholderMenu* au thème GCIntranet, sous-thème EDSC. Lorsqu'il est défini sur true, ce paramètre est utilisé pour masquer le menu d'espace réservé pendant le chargement d'un menu personnalisé.
+- Modifications et optimisations internes
+- Corrections de bogues
 
 ## v4.0.45
 

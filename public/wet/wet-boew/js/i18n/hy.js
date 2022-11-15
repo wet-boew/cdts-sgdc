@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "Ներկայիս պաշտոնը:",
 	dur: "Ընդհանուր ժամանակը:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "Կիսում",

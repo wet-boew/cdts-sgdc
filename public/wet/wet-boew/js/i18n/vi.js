@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "Chức vụ hiện tại:",
 	dur: "Tổng thời gian:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "Chia",

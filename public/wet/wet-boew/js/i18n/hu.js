@@ -94,6 +94,8 @@ wb.i18nDict = {
 	},
 	pos: "Jelenlegi pozíció:",
 	dur: "Összidő:",
+	msgYoutubeNotLoad: "Video encountered loading issues",
+	msgYoutubeVdLoad: "Loading youtube video",
 
 	/* Share widget */
 	"shr-txt": "Oszd",
