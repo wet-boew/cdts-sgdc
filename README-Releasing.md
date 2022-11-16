@@ -28,9 +28,16 @@ The first step of releasing will be to update WET to the latest version.
 
 Update the changelog with all the fixes and changes that were done for that release. Commit and push your change, open a pull request and submit for review. Once the PR is merged, the release can now be done.
 
-## Releasing on ssl-templates
+## Releasing on intranet
 
-The process of releasing on ssl-templates is changing. To be updated.
+1. To release on the intranet (cdts.service.canada.ca), we have to push our final build files to the production repository containing all the previous CDTS versions. Start by cloning the following repository: https://github.com/wet-boew/cdts-sgdc-dist.git
+2. Go back to the root of your CDTS directory, open git-bash and run `npm run build-prod`.
+3. Copy the version folder from **dist/app/cls/WET/gcweb**. Go to your newly cloned repository and paste the folder to **dist/app/cls/WET/gcweb**.
+4. Repeat step 3 for gcintranet.
+5. Commit and push these changes and create a pull request.
+6. Once the pull request has been merged, go to https://dev.azure.com/. Click on the CDTS project and go to pipelines. Select the cdts pipeline (under *Recently run pipelines*).
+7. Click the *Run pipelines* button on the top right and a side menu will show. Under *Branch/tag* dropdown option, select *update-build-agent* and then click the *Run* button.
+8. Once the pipeline has successfully ran, you can verify the release on https://cdts.service.canada.ca/app/cls/WET/gcweb/vX_X_XX/cdts/samples/
 
 ## Releasing on canada.ca
 
