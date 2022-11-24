@@ -64,3 +64,63 @@
 		clear: both;
 	}
 }
+
+/*Top Info Banner*/
+.banner-color {
+    background-color: #D4EBF2;
+}
+.banner-text {
+    margin-top: 16px;
+    margin-bottom: 28px;
+    color: #000000;
+    font-family: "Noto Sans";
+    font-size: 20px;
+    line-height: 33px;
+}
+
+.banner-link {
+    color: #284162;
+    font-size: 20px;
+    line-height: 47.5px; /*Changed from 33px to make text inline with button*/
+    margin-right: 12px;
+}
+.banner-link:visited {
+    color: #284162;
+}
+
+.banner-margin-bottom{
+    margin-bottom: 16px;
+}
+
+.banner-button{
+    float: right;
+    height: 45px;
+    /*width: 169px; Cannot set fixed width as content can change the width of the button*/
+    border-radius: 4px;
+    color: #FFF;
+    font-family: Noto Sans;
+    font-size: 20px;
+    line-height: 33px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+}
+.banner-external-icon{
+    font-size: 18px;
+    color: #284162;
+}
+
+@media (max-width: 768px) {
+    .banner-text {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .banner-link {
+        line-height: 33px;
+    }
+
+    .banner-button{
+        width: 100%;
+        margin-top: 32px;
+    }
+}

@@ -56,6 +56,54 @@ describe('AppTop section tests for GCWeb', () => {
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
     });
 
+    generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appTop-bannerTrue-en', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": [{ "showBanner": true}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appTop-bannerTrue-fr', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": [{ "showBanner": true}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appTop-bannerFalse-en', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": [{ "showBanner": false}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appTop-bannerFalse-fr', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": [{ "showBanner": false}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appTop-banner-en', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": [{ "showBanner": true, "boldText": "Beta version: ", "mainText": "We\'ve made some changes to improve your experience with My Service Canada Account.", "link": [{"text": "Learn more about the beta version", "href": "#"}], "button": [{ "text": "Try beta version", "href": "#"}]}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appTop-banner-fr', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": [{ "showBanner": true, "boldText": "Beta version: ", "mainText": "We\'ve made some changes to improve your experience with My Service Canada Account.", "link": [{"text": "Learn more about the beta version", "href": "#"}], "button": [{ "text": "Try beta version", "href": "#"}]}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
     it('Account settings button exists', async () => {
         await settingsBtnExists(theme, 'en');
         await settingsBtnExists(theme, 'fr');
@@ -162,6 +210,22 @@ describe('AppTop section tests for GCWeb', () => {
         await customSearchDefaultValues(theme, 'en');
         await customSearchDefaultValues_FR(theme, 'fr');
     });
+
+    it('Test the banner is visible without the text, link and button', async () => {
+        await bannerTrue(theme, 'en');
+        await bannerTrue(theme, 'fr');
+    });
+
+    it('Test the banner doesn\'t show when set to false', async () => {
+        await bannerFalse(theme, 'en');
+        await bannerFalse(theme, 'fr');
+    });
+
+    it('Test the banner shows the text, link and button', async () => {
+        await bannerAllConfigurations(theme, 'en');
+        await bannerAllConfigurations(theme, 'fr');
+    });
+
 
     it('Accessibility', async () => {
         await accessibility(theme, 'en');
@@ -872,6 +936,29 @@ async function subThemeLabourPreConfigured(theme, lang) {
         await expect(topPage.intranetText).toHaveTextContaining('Programme du travail');
         await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
     }
+}
+
+async function bannerTrue(theme, lang) {
+    await appTopPage.open(theme, lang, 'bannerTrue');
+    await expect(appTopPage.banner).toExist();
+    await expect(appTopPage.bannerText).toHaveTextContaining('');
+    await expect(appTopPage.bannerLink).not.toExist();
+    await expect(appTopPage.bannerExternalIcon).not.toExist();
+    await expect(appTopPage.bannerButton).not.toExist();
+}
+
+async function bannerFalse(theme, lang) {
+    await appTopPage.open(theme, lang, 'bannerFalse');
+    await expect(appTopPage.banner).not.toExist();
+}
+
+async function bannerAllConfigurations(theme, lang) {
+    await appTopPage.open(theme, lang, 'banner');
+    await expect(appTopPage.banner).toExist();
+    await expect(appTopPage.bannerExternalIcon).toExist();
+    await expect(appTopPage.bannerText).toHaveTextContaining('We\'ve made some changes to improve your experience with My Service Canada Account');
+    await expect(appTopPage.bannerLink).toHaveTextContaining('Learn more about the beta version');
+    await expect(appTopPage.bannerButton).toHaveTextContaining('Try beta version');
 }
 
 async function accessibility(theme, lang , classifier = '') {
