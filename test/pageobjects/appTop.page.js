@@ -52,7 +52,6 @@ class AppTopPage extends Page {
     get bannerButton() { return $('button.banner-button'); }
     get bannerExternalIcon() { return $('i.banner-external-icon'); }
 
-
     /**
     * Opens a sub page of the page
     * @param theme theme of the sub page (e.g. gcweb, gcintranet)

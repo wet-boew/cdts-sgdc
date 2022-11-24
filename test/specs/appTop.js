@@ -226,7 +226,6 @@ describe('AppTop section tests for GCWeb', () => {
         await bannerAllConfigurations(theme, 'fr');
     });
 
-
     it('Accessibility', async () => {
         await accessibility(theme, 'en');
         await accessibility(theme, 'fr');
