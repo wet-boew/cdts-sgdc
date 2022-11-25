@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>Samples - home</title>
+		<title>info-banner-en</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
@@ -33,72 +33,72 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-				"cdnEnv": "esdcprod"
+				"cdnEnv": "esdcprod",
+				"isApplication": true
 			}));
 		</script>
 	</head>
 	<body vocab="https://schema.org/" typeof="WebPage">
 		<div id="def-top">
 			<!-- Write closure fall-back static file -->
-			<!-- top-en.html -->
+			<!-- appTop-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defTop = document.getElementById("def-top");
-			defTop.outerHTML = wet.builder.top({
-				"lngLinks": [{
-					"lang": "fr",
-					"href": "index-fr.html",
-					"text": "Français"
-				}],
-				"breadcrumbs": [{
-					"title": "Canada.ca",
-					"acronym": "Canada.ca",
-					"href": "https://www.canada.ca/en.html"
-				}, {
-					"title": "CDTS",
-					"acronym": "Centrally Deployed Templates Solution"
-				}],
-				"cdnEnv": "esdcprod"
+			defTop.outerHTML = wet.builder.appTop({
+				"cdnEnv": "esdcprod",
+				"appName": [{"text": "Application name", "href": "#"}],
+				"lngLinks": [{"lang": "fr",	"href": "info-banner-fr.html",	"text": "Français"}],
+                "infoBanner": [{
+                    "showBanner": true,
+                    "boldText": "Beta version: ",
+                    "mainText": "We've made some changes to improve your experience with My Service Canada Account.",
+                    "link": [{
+                        "text": "Learn more about the beta version",
+                        "href": "#"
+                    }],
+                    "button": [{
+                        "text": "Try beta version",
+                        "href": "#"
+                    }]
+                }]
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
-			<h1 property="name" id="wb-cont">CDTS Samples</h1>
-			<p>Welcome to the CDTS sample pages. You will find below, links to sample pages that demonstrate how to implement various CDTS features, as well as some useful links.</p>
-			<ul>
-				<li><a href="adobe-analytics-en.html">Adobe Analytics</a></li>
-                <li><a href="basic-settings-en.html">Basic Settings</a></li>
-				<li><a href="breadcrumbs-en.html">Breadcrumbs</a></li>
-                <li><a href="contactlinks-en.html">Contact Links</a></li>
-                <li><a href="content-en.html">Content (style guide)</a></li>
-				<li><a href="exitscript-en.html">Leaving a Secure Site</a></li>
-                <li><a href="feedback-and-share-en.html">Feedback and Share</a></li>
-                <li><a href="jquery-en.html">Loading jQuery</a></li>
-				<li><a href="languagelinks-en.html">Language Links</a></li>
-				<li><a href="sectionmenu-en.html">Section Menu</a></li>
-                <li><a href="server-en.html">Error Sample</a></li>
-                <li><a href="server.html">Error Bilingual Sample</a></li>
-				<li><a href="splashpage.html">Splash Page</a></li>
-				<li><a href="transactional-en.html">Transactional Page</a></li>
-            </ul>
-            <h3>Application template</h3>
+			<h1 property="name" id="wb-cont">Information Banner</h1>
+			<p>This sample page will demontrate how to implement an information banner on top of the page.</p>
+            <h2>Implementation</h2>
+            <p>The banner is added in the <b>appTop</b> section of the page with the following configuration options:</p>
             <ul>
-				<li><a href="custom-menu-en.html">Custom Menu</a></li>
-                <li><a href="custom-footer-en.html">Custom Footer</a></li>
-                <li><a href="custom-search-en.html">Custom Search</a></li>
-                <li><a href="info-banner-en.html">Information Banner</a></li>
-                <li><a href="signin-en.html">Sign in</a></li>
-                <li><a href="signout-en.html">Sign out</a></li>
-                <li><a href="settings-en.html">Settings</a></li>
+                <li><code class="wb-prettify">"showBanner"</code>: the url of the link.</li>
+                <li><code class="wb-prettify">"mainText"</code>: the text you would like displayed in your custom banner.</li>
+                <li><code class="wb-prettify">"boldText"</code>: the bold text that will be before the main text.</li>
+                <li><code class="wb-prettify">"link":"text"</code>: the text of the link that is displayed.</li>
+                <li><code class="wb-prettify">"link":"href"</code>: the url of the link.</li>
+                <li><code class="wb-prettify">"button":"text"</code>: the text of the button that is displayed.</li>
+                <li><code class="wb-prettify">"button":"href"</code>: the url of the button.</li>
             </ul>
-            <h3>Useful Links</h3>
-            <ul>
-                <li><a href="https://cenw-wscoe.github.io/sgdc-cdts/docs/index-en.html">CDTS Documentation</a></li>
-                <li><a href="https://github.com/wet-boew/cdts-sgdc/issues">Report a CDTS Issue</a></li>
-                <li><a href="https://cenw-wscoe.github.io/sgdc-cdts/docs/templates-en.html">.Net and Java Web Templates</a></li>
-                <li><a href="https://wet-boew.github.io/wet-boew-styleguide/index-en.html">WET Style Guide</a></li>
-			</ul>
-            <div id="def-preFooter">
+            <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "infoBanner": [{
+        "showBanner": true,
+        "boldText": "Beta version: ",
+        "mainText": "We've made some changes to improve your experience with My Service Canada Account.",
+        "link": [{
+            "text": "Learn more about the beta version",
+            "href": "#"
+        }],
+        "button": [{
+            "text": "Try beta version",
+            "href": "#"
+        }]
+    }]
+...
+});
+            </pre>
+			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
 				<!-- preFooter-en.html -->
 			</div>
@@ -106,26 +106,28 @@
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
-					"dateModified": "2021-05-25",
-					"cdnEnv": "esdcprod"
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-25"
 				});
 			</script>
 		</main>
 		<div id="def-footer">
 			<!-- Write closure fall-back static file -->
-			<!-- footer-en.html -->
+			<!-- appFooter-en.html -->
 		</div>
 		<!-- Write closure template -->
 		<script>
 			var defFooter = document.getElementById("def-footer");
-			defFooter.outerHTML = wet.builder.footer({
-				"cdnEnv": "esdcprod"
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "esdcprod",
+				"showFeatures": false
 			});
 		</script>
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refFooter({
-				"cdnEnv": "esdcprod"
+				"cdnEnv": "esdcprod",
+				"isApplication": true
 			}));
 		</script>
 	</body>
