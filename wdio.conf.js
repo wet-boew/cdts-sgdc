@@ -12,7 +12,7 @@ if (!process.env.DISABLE_PROXY) { //just a cheap way to disable this proxy setup
 const targetBrowser = process.env.TEST_BROWSER_NAME || 'firefox'; //NOTE: we could instead always test with both by adding a second "capabilities" below
 const drivers = {
     chrome: { version: '102.0.5005.61' }, //https://chromedriver.chromium.org/
-    firefox: { version: '0.30.0' }, //https://github.com/mozilla/geckodriver/releases
+    firefox: { version: '0.32.0' }, //https://github.com/mozilla/geckodriver/releases
 };
 
 exports.config = {
