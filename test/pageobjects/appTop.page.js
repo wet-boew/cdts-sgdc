@@ -45,12 +45,10 @@ class AppTopPage extends Page {
     get gcAppBannerSTTL() { return $('#wb-sttl'); }
     get appNameIntranet() { return $('//div[@id="wb-sttl"]/span'); }
     get appNameAbbrIntranet() { return $('//div[@id="wb-sttl"]/abbr'); }
-    get banner() { return $('section.banner-color'); }
-    get bannerText() { return $('section.banner-color p.banner-text'); }
-    get bannerBoldText() { return $('section.banner-color p.banner-text b'); }
-    get bannerLink() { return $('a.banner-link'); }
-    get bannerButton() { return $('button.banner-button'); }
-    get bannerExternalIcon() { return $('i.banner-external-icon'); }
+    get banner() { return $('section.cdts-banner-color'); }
+    get bannerText() { return $('section.cdts-banner-color p.cdts-banner-text'); }
+    get bannerLink() { return $('a.cdts-banner-link'); }
+    get bannerButton() { return $('button.cdts-banner-button'); }
 
     /**
     * Opens a sub page of the page

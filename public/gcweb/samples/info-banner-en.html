@@ -26,6 +26,10 @@
 		-->
 		<script src="../compiled/soyutils.js"></script>
 		<script src="../compiled/wet-en.js"></script>
+        <!--<script src="../all.js"></script>
+        <link rel="stylesheet" href="../all.css">-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 		<noscript>
 			<!-- Write closure fall-back static file -->
 			<!-- refTop.html -->
@@ -50,19 +54,18 @@
 				"cdnEnv": "esdcprod",
 				"appName": [{"text": "Application name", "href": "#"}],
 				"lngLinks": [{"lang": "fr",	"href": "info-banner-fr.html",	"text": "Français"}],
-                "infoBanner": [{
+                "infoBanner": {
                     "showBanner": true,
-                    "boldText": "Beta version: ",
-                    "mainText": "We've made some changes to improve your experience with My Service Canada Account.",
-                    "link": [{
+                    "mainHTML": "<strong>Beta version: </strong>We've made some changes to improve your experience with My Service Canada Account.",
+                    "link": {
                         "text": "Learn more about the beta version",
                         "href": "#"
-                    }],
-                    "button": [{
+                    },
+                    "button": {
                         "text": "Try beta version",
                         "href": "#"
-                    }]
-                }]
+                    }
+                }
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -72,8 +75,7 @@
             <p>The banner is added in the <b>appTop</b> section of the page with the following configuration options:</p>
             <ul>
                 <li><code class="wb-prettify">"showBanner"</code>: the url of the link.</li>
-                <li><code class="wb-prettify">"mainText"</code>: the text you would like displayed in your custom banner.</li>
-                <li><code class="wb-prettify">"boldText"</code>: the bold text that will be before the main text.</li>
+                <li><code class="wb-prettify">"mainHTML"</code>: the text you would like displayed in your custom banner.</li>
                 <li><code class="wb-prettify">"link":"text"</code>: the text of the link that is displayed.</li>
                 <li><code class="wb-prettify">"link":"href"</code>: the url of the link.</li>
                 <li><code class="wb-prettify">"button":"text"</code>: the text of the button that is displayed.</li>
@@ -83,9 +85,7 @@
 defTop.outerHTML = wet.builder.appTop({
 ...
     "infoBanner": [{
-        "showBanner": true,
-        "boldText": "Beta version: ",
-        "mainText": "We've made some changes to improve your experience with My Service Canada Account.",
+        "mainHTML": "<strong>Beta version: </strong>We've made some changes to improve your experience with My Service Canada Account.",
         "link": [{
             "text": "Learn more about the beta version",
             "href": "#"

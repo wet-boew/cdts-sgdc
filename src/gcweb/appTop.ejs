@@ -22,28 +22,46 @@
             <li class="wb-slc visible-md visible-lg"><a class="wb-sl" href="#wb-sec"><^- msg('Skip to section menu') ^></a></li>
         <%_ } -%>
     </ul>
-    <%_ if (pr.infoBanner != null) { -%>
-        <%_ const banner=pr.infoBanner[0]; -%>
-        <%_ if (banner.showBanner == true) { -%>
-            <section class="banner-color">
-                <div class="container">
-                    <p class="banner-text"><b><%= banner.boldText %></b><%= banner.mainText %></p>
-                    <div id="banner-container-div" class="<%_ if (banner.button == null) { -%>banner-margin-bottom<%_ } -%>">
-                        <%_ if (banner.link != null) { -%>
-                            <%_ const link=banner.link[0]; -%>
-                            <a class="banner-link" href="<%- link.href %>"><%= link.text %></a>
-                            <i class="fa fa-external-link banner-external-icon" aria-hidden="true"></i>
-                        <%_ } -%>
-                        <%_ if (banner.button != null) { -%>
-                            <%_ const button=banner.button[0]; -%>
-                            <button class="banner-button btn-primary" type="button" href="<%- button.href %>"><%= button.text %></button>
-                        <%_ } -%>
-                    </div>
-                </div>
-            </section>
-        <%_ } -%>
-    <%_ } -%>
 </nav>
+<%_ if (pr.infoBanner != null) { -%>
+    <header>
+        <section class="cdts-banner-color">
+            <div class="container">
+                <%_ if (pr.infoBanner.mainHTML != null) { -%> <p class="cdts-banner-text"><%- pr.infoBanner.mainHTML %></p> <%_ } -%>
+                <div id="cdts-banner-container-div" class="<%_ if (pr.infoBanner.button == null) { -%>cdts-banner-margin-bottom<%_ } -%>">
+                    <%_ if (pr.infoBanner.link != null) { -%>
+                        <span class="cdts-link-icon-span">
+                            <a class="cdts-banner-link" href="<%- pr.infoBanner.link.href %>"><%= pr.infoBanner.link.text %></a>
+                        </span>
+                    <%_ } -%>
+                    <%_ if (pr.infoBanner.button != null) { -%>
+                        <button class="cdts-banner-button btn-primary" type="button" href="<%- pr.infoBanner.button.href %>"><%= pr.infoBanner.button.text %></button>
+                    <%_ } -%>
+                </div>
+            </div>
+        </section>
+    </header>
+    <!--<header>
+        <section class="bg-info">
+            <div class="container">
+                <%_ if (pr.infoBanner.mainHTML != null) { -%> <p class="cdts-banner-text"><%- pr.infoBanner.mainHTML %></p> <%_ } -%>
+                <div id="cdts-banner-container-div" class="<%_ if (pr.infoBanner.button == null) { -%>cdts-banner-margin-bottom<%_ } -%>">
+                    <%_ if (pr.infoBanner.link != null) { -%>
+                        <span class="cdts-link-icon-span">
+                            <a class="cdts-banner-link" href="<%- pr.infoBanner.link.href %>"><%= pr.infoBanner.link.text %></a>
+                            <span class='glyphicon glyphicon-share'></span>
+                        </span>
+                    <%_ } -%>
+                    <span></span>
+                    <%_ if (pr.infoBanner.button != null) { -%>
+                        <button class="cdts-banner-button btn-primary" type="button" href="<%- pr.infoBanner.button.href %>"><%= pr.infoBanner.button.text %></button>
+                    <%_ } -%>
+                </div>
+            </div>
+        </section>
+    </header>-->
+<%_ } -%>
+
 <header>
     <div id="wb-bnr" class="container">
         <div class="row">

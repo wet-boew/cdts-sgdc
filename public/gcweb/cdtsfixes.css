@@ -66,11 +66,11 @@
 }
 
 /*Top Info Banner*/
-.banner-color {
+.cdts-banner-color {
     background-color: #D4EBF2;
 }
 
-.banner-text {
+.cdts-banner-text {
     margin-top: 16px;
     margin-bottom: 28px;
     color: #000000;
@@ -79,19 +79,37 @@
     line-height: 33px;
 }
 
-.banner-link {
-    color: #284162;
-    font-size: 20px;
-    line-height: 47.5px; /*Changed from 33px to make text inline with button*/
-    margin-right: 12px;
+#cdts-banner-container-div{
+    display: flex;
+    align-items: baseline;
 }
 
-.banner-margin-bottom{
+.cdts-link-icon-span{
+    flex-grow: 1;
+}
+
+.cdts-banner-link {
+    color: #284162;
+    font-size: 20px;
+    line-height: 33px;
+    /*margin-right: 12px; only for the mockup*/
+}
+
+.cdts-banner-link:after {
+    content: '';
+    background-color: #284162;
+    mask-image: url("../cdts/external-link-alt.svg");
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    margin-left: 12px;
+}
+
+.cdts-banner-margin-bottom{
     margin-bottom: 16px;
 }
 
-.banner-button{
-    float: right;
+.cdts-banner-button{
     height: 45px;
     /*width: 169px; Cannot set fixed width as content can change the width of the button*/
     border-radius: 4px;
@@ -103,23 +121,27 @@
     margin-bottom: 16px;
 }
 
-.banner-external-icon{
+.cdts-banner-external-icon{
     font-size: 18px;
     color: #284162;
 }
 
 @media (max-width: 768px) {
-    .banner-text {
+    .cdts-banner-text {
         margin-top: 12px;
         margin-bottom: 12px;
     }
 
-    .banner-link {
+    .cdts-banner-link {
         line-height: 33px;
     }
 
-    .banner-button{
+    .cdts-banner-button{
         width: 100%;
         margin-top: 32px;
+    }
+
+    #cdts-banner-container-div{
+        display: block;
     }
 }

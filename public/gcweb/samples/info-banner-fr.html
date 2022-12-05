@@ -50,19 +50,18 @@
 				"cdnEnv": "esdcprod",
 				"appName": [{"text": "Nom de l'application", "href": "#"}],
 				"lngLinks": [{"lang": "en",	"href": "info-banner-en.html",	"text": "English"}],
-                "infoBanner": [{
+                "infoBanner": {
                     "showBanner": true,
-                    "boldText": "Version bêta : ",
-                    "mainText": "Nous avons apporté quelques changements pour améliorer votre expérience avec Mon dossier Service Canada.",
-                    "link": [{
+                    "mainHTML": "<strong>Version bêta : </strong>Nous avons apporté quelques changements pour améliorer votre expérience avec Mon dossier Service Canada.",
+                    "link": {
                         "text": "En savoir plus sur la version bêta",
                         "href": "#"
-                    }],
-                    "button": [{
+                    },
+                    "button": {
                         "text": "Essayez la version bêta",
                         "href": "#"
-                    }]
-                }]
+                    }
+                }
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -72,8 +71,7 @@
             <p>La bannière est ajoutée dans la section <b>appTop</b> de la page avec les options de configuration suivantes :</p>
             <ul>
                 <li><code class="wb-prettify">"showBanner"</code>: l'url du lien.</li>
-                <li><code class="wb-prettify">"mainText"</code>: the text you would like displayed in your custom banner.</li>
-                <li><code class="wb-prettify">"boldText"</code>: le texte que vous souhaitez afficher dans votre bannière personnalisée.</li>
+                <li><code class="wb-prettify">"mainHTML"</code>: the text you would like displayed in your custom banner.</li>
                 <li><code class="wb-prettify">"link":"text"</code>: le texte du lien affiché.</li>
                 <li><code class="wb-prettify">"link":"href"</code>: l'url du lien.</li>
                 <li><code class="wb-prettify">"button":"text"</code>: le texte du bouton affiché.</li>
@@ -83,9 +81,7 @@
 defTop.outerHTML = wet.builder.appTop({
 ...
     "infoBanner": [{
-        "showBanner": true,
-        "boldText": "Version bêta : ",
-        "mainText": "Nous avons apporté quelques changements pour améliorer votre expérience avec Mon dossier Service Canada.",
+        "mainHTML": "<strong>Version bêta : </strong>Nous avons apporté quelques changements pour améliorer votre expérience avec Mon dossier Service Canada.",
         "link": [{
             "text": "En savoir plus sur la version bêta",
             "href": "#"
