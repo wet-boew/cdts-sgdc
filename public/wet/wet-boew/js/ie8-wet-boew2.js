@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.55 - 2022-11-08
+ * v4.0.56.2 - 2022-11-30
  *
  *//**
  * @title WET-BOEW JQuery Helper Methods
@@ -1253,6 +1253,24 @@ wb.guid = function() {
 
 wb.escapeAttribute = function( str ) {
 	return str.replace( /'/g, "&#39;" ).replace( /"/g, "&#34;" );
+};
+
+/*
+ * Returns an escaped HTML string
+ */
+wb.escapeHTML = function( str ) {
+	return wb.escapeAttribute( str
+		.replace( /&/g, "&#38;" )
+		.replace( /</g, "&#60;" )
+		.replace( />/g, "&#62;" ) );
+};
+
+/*
+ * Returns a UTF-8 output from Base64
+ * Reference: https://developer.mozilla.org/fr/docs/Glossary/Base64 (To be reviewed later because escape function is deprecated)
+ */
+wb.decodeUTF8Base64 = function( str ) {
+	return decodeURIComponent( escape( atob( str ) ) );
 };
 
 /*
@@ -2671,7 +2689,7 @@ $document.on( "change", selector, function( event ) {
 	} );
 } );
 
-$document.on( "click vclick touchstart", ".cal-month-prev, .cal-month-next", function( event ) {
+$document.on( "click", ".cal-month-prev, .cal-month-next", function( event ) {
 	var $calendar = $( event.currentTarget ).closest( selector ),
 		calendar = $calendar.get( 0 ),
 		className = event.currentTarget.className,
@@ -4617,7 +4635,7 @@ var componentName = "wb-inview",
 		// Link the overlay close button to the dismiss action if the inview content is dismissable
 		if ( $elm.hasClass( "wb-dismissable" ) ) {
 			if ( $dataInView.hasClass( "wb-overlay" ) ) {
-				$dataInView.children( ".overlay-close" ).on( "click vclick", function( event ) {
+				$dataInView.children( ".overlay-close" ).on( "click", function( event ) {
 					var which = event.which;
 
 					// Ignore middle/right mouse buttons
@@ -5030,7 +5048,7 @@ var componentName = "wb-dismissable",
 $document.on( "timerpoke.wb " + initEvent, selector, init );
 
 // Handler for clicking on the dismiss button
-$document.on( "click vclick", "." + dismissClass, function( event ) {
+$document.on( "click", "." + dismissClass, function( event ) {
 	var elm = event.currentTarget,
 		which = event.which;
 
@@ -6343,9 +6361,15 @@ var componentName = "wb-filter",
 
 			totalEntries = $elm.find( ( settings.section || "" ) + " " + settings.selector ).length;
 
-			filterUI = "<div class=\"input-group\"><label for=\"" + inptId + "\" class=\"input-group-addon\"><span class=\"glyphicon glyphicon-filter\" aria-hidden=\"true\"></span> " + i18nText.filter_label + "</label><input id=\"" + inptId + "\" class=\"form-control " + inputClass + "\" data-" + dtNameFltrArea + "=\"" + elm.id + "\" type=\"search\"></div>" + "<p aria-live=\"polite\" id=\"" + elm.id + "-info\">" + infoFormater( totalEntries, totalEntries ) + "</p>";
+			filterUI = $( "<div class=\"input-group\">" +
+				"<label for=\"" + inptId + "\" class=\"input-group-addon\"><span class=\"glyphicon glyphicon-filter\" aria-hidden=\"true\"></span> " + i18nText.filter_label + "</label>" +
+				"<input id=\"" + inptId + "\" class=\"form-control " + inputClass + "\" data-" + dtNameFltrArea + "=\"" + elm.id + "\" aria-controls=\"" + elm.id + "\" type=\"search\">" +
+				"</div>" +
+				"<p aria-live=\"polite\" id=\"" + elm.id + "-info\">" + infoFormater( totalEntries, totalEntries ) + "</p>" );
 
-			if ( prependUI ) {
+			if ( settings.source ) {
+				$( settings.source ).prepend( filterUI );
+			} else if ( prependUI ) {
 				$elm.prepend( filterUI );
 			} else {
 				$elm.before( filterUI );
@@ -6952,7 +6976,7 @@ var componentName = "wb-frmvld",
 					} );
 
 					// Clear the form and remove error messages on reset
-					$document.on( "click vclick touchstart", selector + " input[type=reset]", function( event ) {
+					$document.on( "click", selector + " input[type=reset]", function( event ) {
 						var which = event.which,
 							ariaLive;
 
@@ -7600,7 +7624,7 @@ var componentName = "wb-lbx",
 $document.on( "timerpoke.wb " + initEvent, selector, init );
 
 // Handler for clicking on a same page link within the overlay to outside the overlay
-$document.on( "click vclick", ".mfp-wrap a[href^='#']", function( event ) {
+$document.on( "click", ".mfp-wrap a[href^='#']", function( event ) {
 	var which = event.which,
 		eventTarget = event.currentTarget,
 		$lightbox, linkTarget;
@@ -8239,13 +8263,12 @@ $document.on( "mouseenter", selector + " .sm", function() {
 } );
 
 // Touchscreen "touches" on menubar items should close the submenu if it is open
-$document.on( "touchstart click", selector + " .item[aria-haspopup=true]", function( event ) {
-	var isTouchstart = event.type === "touchstart",
-		which = event.which,
+$document.on( "click", selector + " .item[aria-haspopup=true]", function( event ) {
+	var which = event.which,
 		$this, $parent;
 
 	// Ignore middle and right mouse buttons
-	if ( isTouchstart || ( !which || which === 1 ) ) {
+	if ( !which || which === 1 ) {
 		event.preventDefault();
 		$this = $( this );
 		$parent = $this.parent();
@@ -8253,10 +8276,6 @@ $document.on( "touchstart click", selector + " .item[aria-haspopup=true]", funct
 		// Open the submenu if it is closed
 		if ( !$parent.hasClass( "sm-open" ) ) {
 			$this.trigger( "focusin" );
-
-		// Close the open submenu for a touch event
-		} else if ( isTouchstart ) {
-			menuClose( $parent, true );
 		}
 	}
 } );
@@ -8294,12 +8313,12 @@ $document.on( "click", selector + " [role=menu] [aria-haspopup=true]", function(
 } );
 
 // Clicks and touches outside of menus should close any open menus
-$document.on( "click touchstart", function( event ) {
+$document.on( "click", function( event ) {
 	var $openMenus,
 		which = event.which;
 
 	// Ignore middle and right mouse buttons
-	if ( event.type === "touchstart" || ( !which || which === 1 ) ) {
+	if ( event.type === "" || ( !which || which === 1 ) ) {
 		$openMenus = $( selector + " .sm-open" );
 		if ( $openMenus.length !== 0 &&
 			$( event.target ).closest( selector ).length === 0 ) {
@@ -10084,7 +10103,7 @@ $document.on( "timerpoke.wb " + initEvent + " keydown open" + selector +
 } );
 
 // Handler for clicking on the close button of the overlay
-$document.on( "click vclick", "." + closeClass, function( event ) {
+$document.on( "click", "." + closeClass, function( event ) {
 	var which = event.which;
 
 	// Ignore if not initialized and middle/right mouse buttons
@@ -10098,7 +10117,7 @@ $document.on( "click vclick", "." + closeClass, function( event ) {
 } );
 
 // Handler for clicking on a source link for the overlay
-$document.on( "click vclick keydown", "." + linkClass, function( event ) {
+$document.on( "click keydown", "." + linkClass, function( event ) {
 	var which = event.which,
 		sourceLink = event.currentTarget,
 		overlayId = sourceLink.hash.substring( 1 );
@@ -10120,7 +10139,7 @@ $document.on( "click vclick keydown", "." + linkClass, function( event ) {
 } );
 
 // Handler for clicking on a same page link within the overlay to outside the overlay
-$document.on( "click vclick", selector + " a[href^='#']", function( event ) {
+$document.on( "click", selector + " a[href^='#']", function( event ) {
 	var which = event.which,
 		eventTarget = event.target,
 		href, overlay, linkTarget;
@@ -10149,7 +10168,7 @@ $document.on( "click vclick", selector + " a[href^='#']", function( event ) {
 } );
 
 // Outside activity detection
-$document.on( "click vclick touchstart focusin", "body", function( event ) {
+$document.on( "click focusin", "body", function( event ) {
 	var eventTarget = event.target,
 		which = event.which,
 		overlayId, overlay;
@@ -11654,9 +11673,10 @@ $document.on( "init.dt", function( event ) {
 		$elm.find( "th" ).each( function() {
 			var $th = $( this ),
 				label = ( $th.attr( "aria-sort" ) === "ascending" ) ? i18nText.aria.sortDescending : i18nText.aria.sortAscending;
-
-			$th.html( "<button type='button' aria-controls='" + $th.attr( "aria-controls" ) +  "' title='" + $th.text().replace( /'/g, "&#39;" ) + label + "'>" + $th.html() + "<span class='sorting-cnt'><span class='sorting-icons' aria-hidden='true'></span></span></button>" );
-			$th.removeAttr( "aria-label tabindex aria-controls" );
+			if ( $th.attr( "data-orderable" ) !== "false" ) {
+				$th.html( "<button type='button' aria-controls='" + $th.attr( "aria-controls" ) +  "' title='" + $th.text().replace( /'/g, "&#39;" ) + label + "'>" + $th.html() + "<span class='sorting-cnt'><span class='sorting-icons' aria-hidden='true'></span></span></button>" );
+				$th.removeAttr( "aria-label tabindex aria-controls" );
+			}
 		} );
 		$elm.attr( "aria-label", i18nText.tblFilterInstruction );
 	}
@@ -11683,7 +11703,7 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 		};
 
 	// Lets reset the search
-	$datatable.search( "" ).columns().search( "" ).draw();
+	$datatable.search( "" ).columns().search( "" );
 
 	// Lets loop throug all options
 	var $prevCol = -1, $cachedVal = "";
@@ -11835,10 +11855,10 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 				$regex = "(" + $value + ")";
 			}
 
-			$datatable.column( $column ).search( $regex, true ).draw();
+			$datatable.column( $column ).search( $regex, true );
 		}
 	} );
-
+	$datatable.draw();
 	return false;
 } );
 
@@ -11851,10 +11871,8 @@ $document.on( "click", ".wb-tables-filter [type='reset']", function( event ) {
 	$datatable.search( "" ).columns().search( "" ).draw();
 
 	$form.find( "select" ).prop( "selectedIndex", 0 );
-	$form.find( "input:checkbox" ).prop( "checked", false );
-	$form.find( "input:radio" ).prop( "checked", false );
-	$form.find( "input[type=date]" ).val( "" );
-
+	$form.find( "input:checkbox, input:radio" ).prop( "checked", false );
+	$form.find( ":input" ).not( ":button, :submit, :reset, :hidden, :checkbox, :radio" ).val( "" );
 	return false;
 } );
 
@@ -14143,7 +14161,7 @@ wb.add( selector );
 
 var $document = wb.doc,
 	$window = wb.win,
-	clickEvents = "click vclick",
+	clickEvents = "click",
 	setFocusEvent = "setfocus.wb",
 	linkSelector = "a[href]",
 	$linkTarget,
@@ -14337,6 +14355,38 @@ var componentName = "wb-jsonmanager",
 					jsonpatch.apply( tree, [
 						{ op: "replace", path: this.path, value: prefix + val.toLocaleString( loc ) + suffix  }
 					] );
+				}
+			},
+			{
+				name: "wb-decodeUTF8Base64",
+				fn: function( obj, key, tree ) {
+					var val = obj[ key ];
+
+					if ( !this.set ) {
+						jsonpatch.apply( tree, [
+							{ op: "replace", path: this.path, value: wb.decodeUTF8Base64( val ) }
+						] );
+					} else {
+						jsonpatch.apply( tree, [
+							{ op: "add", path: this.set, value: wb.decodeUTF8Base64( val ) }
+						] );
+					}
+				}
+			},
+			{
+				name: "wb-escapeHTML",
+				fn: function( obj, key, tree ) {
+					var val = obj[ key ];
+
+					if ( !this.set ) {
+						jsonpatch.apply( tree, [
+							{ op: "replace", path: this.path, value: wb.escapeHTML( val ) }
+						] );
+					} else {
+						jsonpatch.apply( tree, [
+							{ op: "add", path: this.set, value: wb.escapeHTML( val ) }
+						] );
+					}
 				}
 			},
 			{
