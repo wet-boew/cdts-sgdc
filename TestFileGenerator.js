@@ -144,7 +144,7 @@ function validateBuilderFunctions(content, theme, version) {
 }
 
 module.exports = function generateTestFile(inputFilePath, theme, outputFileName, sections) {
-    const version = process.env.CDTS_TEST_VERSION_NAME || 'v4_0_45';
+    const version = process.env.CDTS_TEST_VERSION_NAME || 'v4_0_46';
     const filePath = `./dist/app/cls/WET/${theme}/${version}/cdts/test/${outputFileName}.html`;
 
     if (fs.existsSync(filePath)) {

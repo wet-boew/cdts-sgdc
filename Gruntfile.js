@@ -40,7 +40,7 @@ module.exports = function run(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
-    grunt.loadNpmTasks('grunt-webdriver');
+    //grunt.loadNpmTasks('grunt-webdriver'); //TODO: remove
 
     //---[ Task Definitions
     grunt.registerTask('default', 'Default task (performs a dev build)', ['build']);
@@ -192,6 +192,31 @@ module.exports = function run(grunt) {
             }
         });
         return true;
+    });
+
+    grunt.registerMultiTask('webdriver', 'run wdio test runner', async function (target) { //eslint-disable-line
+        const done = this.async();
+
+        try {
+            //const Launcher = require('@wdio/cli').default; //"require" no longer supported for webdriver v8, switching to using "dynamic import"
+            const Launcher = (await import('@wdio/cli')).default;
+
+            if (typeof this.data.configFile !== 'string') {
+                grunt.log.error('You need to define "configFile" property with the path to your wdio.conf.js')
+                return done(false);
+            }
+
+            const wdio = new Launcher(this.data.configFile, this.data);
+
+            grunt.log.debug(`spawn wdio with these attributes:\n${JSON.stringify(this.data, null, 2)}`)
+            const returnCode = await wdio.run();
+            grunt.log.debug(`wdio testrunner finished with exit code ${returnCode}`)
+            return done(returnCode === 0);
+        }
+        catch (error) {
+            console.error('Error occured launching webdriver: ', error);
+            done(false);
+        }
     });
 
     //---[ Configuration
