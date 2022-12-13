@@ -1,5 +1,10 @@
 # CDTS Change Log
 
+## v4.0.47
+
+- **IMPORTANT** The GCWeb site footer has been updated to reflect the changes introduced in WET footer version 4. These changes will be applied automatically. For more information, please visit the WET documentation: https://wet-boew.github.io/GCWeb/sites/footers/footers-en.html
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.56.2.
+
 ## v4.0.46
 
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.55
@@ -25,7 +30,7 @@
 - Updated the url for Canada.ca search and removed hidden inputs
 - Updated sample pages to include full path of js files
 - Updated links to https
-- Removed unused function loadDoc() 
+- Removed unused function loadDoc()
 - Removed abbreviation element from breadcrumbs
 - Removed link from error page
 - Improved accessibility

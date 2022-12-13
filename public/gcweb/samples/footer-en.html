@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>footer-en</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<!--
+			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
+			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
+
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+
+			To point to the run version:
+
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+		-->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "esdcprod",
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "footer-fr.html",
+					"text": "Français"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Footer</h1>
+			<p>As of v4.0.47, CDTS is implementing the latest version of the site footer provided by WET.</p>
+            <p>For more infomation, please visit the WET footer documentation <a href="https://wet-boew.github.io/GCWeb/sites/footers/footers-en.html">here.</a></p>
+			<h2>Contextual Footer</h2>
+			<p>The contextual footer is hidden by default. Making the contextual footer visible is done via the <code class="wb-prettify">contextualFooter</code> parameter.</p>
+            <p>This is configured in the <b>footer</b> section of your page.</p>
+            <ul>
+                <li><code class="wb-prettify">"title"</code>: the title of the contextual footer.</li>
+                <li><code class="wb-prettify">"text"</code>: the text of the link that is displayed.</li>
+                <li><code class="wb-prettify">"href"</code>: the url of the link.</li>
+            </ul>
+            <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "contextualFooter":{
+        "title": "Title",
+        "link": [{
+            "text": "Link 1",
+            "href":"#"
+        },
+        {
+            "text": "Link 2",
+            "href":"#"
+        },
+        {
+            "text": "Link 3",
+            "href":"#"
+        },
+        {
+            "text": "Link 4",
+            "href":"#"
+        }]
+    }
+...
+});
+            </pre>
+            <h2>Main Footer</h2>
+			<p>The main footer is visible by default. You have the ability to hide the main footer via the <code class="wb-prettify">hideFooterMain</code> parameter.</p></p>
+            <p>This is configured in the <b>footer</b> section of your page.</p>
+            <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "hideFooterMain": true
+...
+});
+            </pre>
+            <h2>Sub Footer</h2>
+            <p>The sub footer is visible by default. You have the option of hiding the first three links via the <code class="wb-prettify">hideFooterCorporate</code> parameter.</p>
+            <p>You also have the option of overwriting the href attribute of the Terms and conditions link via the <code class="wb-prettify">termsLink</code> parameter.</p>
+            <p>You also have the option of overwriting the href attribute of the Privacy link via the <code class="wb-prettify">privacyLink</code> parameter.</p>
+            <p>This is configured in the <b>footer</b> section of your page.</p>
+
+            <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "hideFooterCorporate": true,
+    "termsLink": {
+        "href": "custom.html"
+    },
+    "privacyLink": {
+        "href": "custom.html"
+    }
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-25"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod",
+				"contextualFooter":{
+                    "title": "Title",
+                    "link": [{
+                        "text": "Link 1",
+                        "href":"#"
+                    },
+                    {
+                        "text": "Link 2",
+                        "href":"#"
+                    },
+                    {
+                        "text": "Link 3",
+                        "href":"#"
+                    },
+                    {
+                        "text": "Link 4",
+                        "href":"#"
+                    }]
+                }
+                //"hideFooterMain": true,
+                //"hideFooterCorporate": true
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>
