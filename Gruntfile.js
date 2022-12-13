@@ -40,7 +40,6 @@ module.exports = function run(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
-    //grunt.loadNpmTasks('grunt-webdriver'); //TODO: remove
 
     //---[ Task Definitions
     grunt.registerTask('default', 'Default task (performs a dev build)', ['build']);
