@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>info-banner-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<!--
+			Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
+			Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
+			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+			cdts.service.canada.ca : https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			Pour pointer vers la version d'exécution :
+			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+			cdts.service.canada.ca : https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+		-->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- appTop-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"cdnEnv": "esdcprod",
+				"appName": [{"text": "Nom de l'application", "href": "#"}],
+				"lngLinks": [{"lang": "en",	"href": "info-banner-en.html",	"text": "English"}],
+                "infoBanner": {
+                    "showBanner": true,
+                    "mainHTML": "<strong>Version bêta : </strong>Nous avons apporté quelques changements pour améliorer votre expérience avec Mon dossier Service Canada.",
+                    "link": {
+                        "text": "En savoir plus sur la version bêta",
+                        "href": "#"
+                    },
+                    "button": {
+                        "text": "Essayez la version bêta",
+                        "href": "#"
+                    }
+                }
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Bannière d'information</h1>
+			<p>Cet exemple de page montre comment implémenter une bannière d'information en haut de la page.</p>
+            <h2>Mise en œuvre</h2>
+            <p>La bannière est ajoutée dans la section <b>appTop</b> de la page avec les options de configuration suivantes :</p>
+            <ul>
+                <li><code class="wb-prettify">"showBanner"</code>: l'url du lien.</li>
+                <li><code class="wb-prettify">"mainHTML"</code>: the text you would like displayed in your custom banner.</li>
+                <li><code class="wb-prettify">"link":"text"</code>: le texte du lien affiché.</li>
+                <li><code class="wb-prettify">"link":"href"</code>: l'url du lien.</li>
+                <li><code class="wb-prettify">"button":"text"</code>: le texte du bouton affiché.</li>
+                <li><code class="wb-prettify">"button":"href"</code>: l'url du bouton.</li>
+            </ul>
+            <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "infoBanner": {
+        "mainHTML": "<strong>Version bêta : </strong>Nous avons apporté quelques changements pour améliorer votre expérience avec Mon dossier Service Canada.",
+        "link": [{
+            "text": "En savoir plus sur la version bêta",
+            "href": "#"
+        }],
+        "button": {
+            "text": "Essayez la version bêta",
+            "href": "#"
+        }
+    }
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-19"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- appFooter-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "esdcprod",
+				"showFeatures": false
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>

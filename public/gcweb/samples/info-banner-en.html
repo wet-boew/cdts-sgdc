@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>info-banner-en</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<!--
+			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
+			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			To point to the run version:
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+		-->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+        <!--<script src="../all.js"></script>
+        <link rel="stylesheet" href="../all.css">-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- appTop-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.appTop({
+				"cdnEnv": "esdcprod",
+				"appName": [{"text": "Application name", "href": "#"}],
+				"lngLinks": [{"lang": "fr",	"href": "info-banner-fr.html",	"text": "Français"}],
+                "infoBanner": {
+                    "showBanner": true,
+                    "mainHTML": "<strong>Beta version: </strong>We've made some changes to improve your experience with My Service Canada Account.",
+                    "link": {
+                        "text": "Learn more about the beta version",
+                        "href": "#"
+                    },
+                    "button": {
+                        "text": "Try beta version",
+                        "href": "#"
+                    }
+                }
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Information Banner</h1>
+			<p>This sample page will demontrate how to implement an information banner on top of the page.</p>
+            <h2>Implementation</h2>
+            <p>The banner is added in the <b>appTop</b> section of the page with the following configuration options:</p>
+            <ul>
+                <li><code class="wb-prettify">"showBanner"</code>: the url of the link.</li>
+                <li><code class="wb-prettify">"mainHTML"</code>: the text you would like displayed in your custom banner.</li>
+                <li><code class="wb-prettify">"link":"text"</code>: the text of the link that is displayed.</li>
+                <li><code class="wb-prettify">"link":"href"</code>: the url of the link.</li>
+                <li><code class="wb-prettify">"button":"text"</code>: the text of the button that is displayed.</li>
+                <li><code class="wb-prettify">"button":"href"</code>: the url of the button.</li>
+            </ul>
+            <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "infoBanner": {
+        "mainHTML": "<strong>Beta version: </strong>We've made some changes to improve your experience with My Service Canada Account.",
+        "link": {
+            "text": "Learn more about the beta version",
+            "href": "#"
+        },
+        "button": {
+            "text": "Try beta version",
+            "href": "#"
+        }
+    }
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-25"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- appFooter-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.appFooter({
+				"cdnEnv": "esdcprod",
+				"showFeatures": false
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod",
+				"isApplication": true
+			}));
+		</script>
+	</body>
+</html>
