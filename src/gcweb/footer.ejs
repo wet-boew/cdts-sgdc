@@ -4,7 +4,7 @@
  * @param? termsLink Used to override the Terms and conditions link in the footer.
  * @param? privacyLink Used to override the Privacy link in the footer.
  * @param? showFooter Used to determine if the page footer will be displayed.
- * @param? contextualFooter Used to determine if the page contextual band will be displayed.
+ * @param? contextualFooter Used to add a contextual band above the main footer that can display up to 3 links.
  * @param? hideFooterMain Used to determine if the main footer will be displayed.
  * @param? hideFooterCorporate Used to determine if the corportate footer links will be displayed.
 -%>
@@ -14,13 +14,15 @@
         <div class="gc-contextual">
             <div class="container">
                 <nav>
-                    <h3><%- pr.contextualFooter.title %></h3>
-                    <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
-                        <%_ for (var footerIndex=0; footerIndex<(pr.contextualFooter.link.length > 3 ? 3 : pr.contextualFooter.link.length); footerIndex++) {
-                            const link=pr.contextualFooter.link[footerIndex];-%>
-                            <li><a href="<%- link.href %>"><%- link.text %></a></li>
-                        <%_ } -%>
-                    </ul>
+                    <h3><%= pr.contextualFooter.title %></h3>
+                    <%_ if (pr.contextualFooter.links != null) { -%>
+                        <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
+                            <%_ for (var footerIndex=0; footerIndex<(pr.contextualFooter.links.length > 3 ? 3 : pr.contextualFooter.links.length); footerIndex++) {
+                                const link=pr.contextualFooter.links[footerIndex];-%>
+                                <li><a href="<%- link.href %>"><%= link.text %></a></li>
+                            <%_ } -%>
+                        </ul>
+                    <%_ } -%>
                 </nav>
             </div>
         </div>

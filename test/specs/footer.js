@@ -43,7 +43,7 @@ describe('Footer section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"cdnEnv": "localhost", "contextualFooter":{ "title": "this title", "link": [{ "text": "text1", "href":"link1"}, {"text": "text2", "href":"link2"}, {"text": "text3", "href":"link3"}, {"text": "text4", "href":"link4"}]}, "hideFooterMain": true, "hideFooterCorporate": true, "termsLink": { "href": "customTermsLink" }, "privacyLink": { "href": "customPrivacyLink" }}',
+        footer: '{"cdnEnv": "localhost", "contextualFooter":{ "title": "this title", "links": [{ "text": "text1", "href":"link1"}, {"text": "text2", "href":"link2"}, {"text": "text3", "href":"link3"}, {"text": "text4", "href":"link4"}]}, "hideFooterMain": true, "hideFooterCorporate": true, "termsLink": { "href": "customTermsLink" }, "privacyLink": { "href": "customPrivacyLink" }}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
@@ -51,7 +51,7 @@ describe('Footer section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"cdnEnv": "localhost", "contextualFooter":{ "title": "this title", "link": [{ "text": "text1", "href":"link1"}, {"text": "text2", "href":"link2"}, {"text": "text3", "href":"link3"}, {"text": "text4", "href":"link4"}]}, "hideFooterMain": true, "hideFooterCorporate": true, "termsLink": { "href": "customTermsLink" }, "privacyLink": { "href": "customPrivacyLink" }}',
+        footer: '{"cdnEnv": "localhost", "contextualFooter":{ "title": "this title", "links": [{ "text": "text1", "href":"link1"}, {"text": "text2", "href":"link2"}, {"text": "text3", "href":"link3"}, {"text": "text4", "href":"link4"}]}, "hideFooterMain": true, "hideFooterCorporate": true, "termsLink": { "href": "customTermsLink" }, "privacyLink": { "href": "customPrivacyLink" }}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
