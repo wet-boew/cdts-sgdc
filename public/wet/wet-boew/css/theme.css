@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v12.1.0 - 2022-11-08
+ * v12.3.0 - 2022-11-30
  *
  */
 /*
@@ -4548,6 +4548,10 @@ h2.hme-banner-bg {
 		padding-bottom: 1em;
 		padding-top: 1.4em;
 		position: relative; }
+		#wb-info nav ul[class*="colcount-"] {
+			-webkit-column-gap: 0;
+			   -moz-column-gap: 0;
+			        column-gap: 0; }
 		#wb-info nav li {
 			margin-bottom: .75em; }
 	#wb-info .gc-contextual {
@@ -4559,18 +4563,18 @@ h2.hme-banner-bg {
 			color: #fff; }
 			#wb-info .gc-contextual a:hover {
 				text-decoration: underline; }
-	#wb-info .landscape {
+	#wb-info .gc-main-footer, #wb-info .landscape {
 		background: #26374a url(../assets/landscape.png) no-repeat right bottom;
 		color: #fff;
 		/* Start: to support footer version 2.0 (with gcweb v4.0.22) */
 		/* END */ }
-		#wb-info .landscape nav h2.wb-inv + ul {
+		#wb-info .gc-main-footer nav h2.wb-inv + ul, #wb-info .landscape nav h2.wb-inv + ul {
 			padding-bottom: 1em;
 			padding-top: .6em; }
-		#wb-info .landscape h4 {
+		#wb-info .gc-main-footer h4, #wb-info .landscape h4 {
 			margin-top: 2em;
 			position: relative; }
-			#wb-info .landscape h4::before {
+			#wb-info .gc-main-footer h4::before, #wb-info .landscape h4::before {
 				border-bottom: 4px solid #fff;
 				content: "";
 				display: block;
@@ -4578,53 +4582,56 @@ h2.hme-banner-bg {
 				position: absolute;
 				top: -1.5em;
 				width: 2.25em; }
-				[dir=rtl] #wb-info .landscape h4::before {
+				[dir=rtl] #wb-info .gc-main-footer h4::before, [dir=rtl] #wb-info .landscape h4::before {
 					left: auto;
 					right: 0; }
-		#wb-info .landscape a {
+		#wb-info .gc-main-footer a, #wb-info .landscape a {
 			color: #fff; }
-			#wb-info .landscape a:hover {
+			#wb-info .gc-main-footer a:hover, #wb-info .landscape a:hover {
 				text-decoration: underline; }
-	#wb-info .brand {
+	#wb-info .gc-sub-footer, #wb-info .brand {
 		background: #f8f8f8;
 		color: #333;
 		padding: 1.5em 0 2em;
 		/* START: To support footer <= v2.0 */
 		/* END */ }
-		#wb-info .brand object,
+		#wb-info .gc-sub-footer object,
+		#wb-info .gc-sub-footer img, #wb-info .brand object,
 		#wb-info .brand img {
 			height: 40px;
 			width: auto; }
-		#wb-info .brand nav {
+		#wb-info .gc-sub-footer nav, #wb-info .brand nav {
 			-webkit-box-flex: 1;
 			    -ms-flex: 1 1 auto;
 			        flex: 1 1 auto;
 			padding-bottom: 0;
-			padding-top: 0; }
-			#wb-info .brand nav ul {
+			padding-top: 0;
+			/* START: To support footer v3.0 */
+			/* END */ }
+			#wb-info .gc-sub-footer nav ul, #wb-info .brand nav ul {
 				display: inline-block;
 				list-style-type: none;
 				margin: 0;
 				padding: 0; }
-				#wb-info .brand nav ul li {
+				#wb-info .gc-sub-footer nav ul li, #wb-info .brand nav ul li {
 					display: inline-block;
 					margin-bottom: 0;
 					margin-right: .5em; }
-					[dir=rtl] #wb-info .brand nav ul li {
+					[dir=rtl] #wb-info .gc-sub-footer nav ul li, [dir=rtl] #wb-info .brand nav ul li {
 						margin-left: .5em;
 						margin-right: 0; }
-					#wb-info .brand nav ul li:not(:first-child)::before {
+					#wb-info .gc-sub-footer nav ul li:not(:first-child)::before, #wb-info .brand nav ul li:not(:first-child)::before {
 						content: "\2022";
 						margin-right: .7em; }
-						[dir=rtl] #wb-info .brand nav ul li:not(:first-child)::before {
+						[dir=rtl] #wb-info .gc-sub-footer nav ul li:not(:first-child)::before, [dir=rtl] #wb-info .brand nav ul li:not(:first-child)::before {
 							margin-left: .7em;
 							margin-right: 0; }
-			#wb-info .brand nav h4 {
+			#wb-info .gc-sub-footer nav h4, #wb-info .brand nav h4 {
 				margin: 0; }
-			#wb-info .brand nav ul + h4 {
+			#wb-info .gc-sub-footer nav ul + h4, #wb-info .brand nav ul + h4 {
 				display: inline-block;
 				margin: 0; }
-				#wb-info .brand nav ul + h4::before {
+				#wb-info .gc-sub-footer nav ul + h4::before, #wb-info .brand nav ul + h4::before {
 					border: 1px solid #333;
 					border-width: 0 0 0 1px;
 					content: "";
@@ -4633,60 +4640,44 @@ h2.hme-banner-bg {
 					margin: 0 .75em 0 .4em;
 					position: relative;
 					top: .1875em; }
-		#wb-info .brand .wtrmrk {
+		#wb-info .gc-sub-footer .wtrmrk, #wb-info .brand .wtrmrk {
 			text-align: right; }
-			[dir=rtl] #wb-info .brand .wtrmrk {
+			[dir=rtl] #wb-info .gc-sub-footer .wtrmrk, [dir=rtl] #wb-info .brand .wtrmrk {
 				text-align: left; }
-		#wb-info .brand .row ul {
+		#wb-info .gc-sub-footer .row ul, #wb-info .brand .row ul {
 			list-style-type: none;
 			margin-bottom: 0;
 			padding: 0;
 			padding-top: 1em; }
-			#wb-info .brand .row ul li {
+			#wb-info .gc-sub-footer .row ul li, #wb-info .brand .row ul li {
 				display: inline-block;
 				margin-right: .5em; }
-				[dir=rtl] #wb-info .brand .row ul li {
+				[dir=rtl] #wb-info .gc-sub-footer .row ul li, [dir=rtl] #wb-info .brand .row ul li {
 					margin-left: .5em;
 					margin-right: 0; }
-				#wb-info .brand .row ul li:not(:first-child):before {
+				#wb-info .gc-sub-footer .row ul li:not(:first-child):before, #wb-info .brand .row ul li:not(:first-child):before {
 					content: "\2022";
 					margin-right: .75em; }
-					[dir=rtl] #wb-info .brand .row ul li:not(:first-child):before {
+					[dir=rtl] #wb-info .gc-sub-footer .row ul li:not(:first-child):before, [dir=rtl] #wb-info .brand .row ul li:not(:first-child):before {
 						margin-left: .75em;
 						margin-right: 0; }
-		#wb-info .brand .row nav {
+		#wb-info .gc-sub-footer .row nav, #wb-info .brand .row nav {
 			padding-bottom: 0;
 			padding-top: 0; }
-		#wb-info .brand .tofpg {
+		#wb-info .gc-sub-footer .tofpg, #wb-info .brand .tofpg {
 			line-height: 40px; }
-			#wb-info .brand .tofpg a {
+			#wb-info .gc-sub-footer .tofpg a, #wb-info .brand .tofpg a {
 				color: #000; }
-				#wb-info .brand .tofpg a span {
+				#wb-info .gc-sub-footer .tofpg a span, #wb-info .brand .tofpg a span {
 					margin-left: 25px; }
-				#wb-info .brand .tofpg a:hover {
+				#wb-info .gc-sub-footer .tofpg a:hover, #wb-info .brand .tofpg a:hover {
 					text-decoration: none; }
-			[dir=rtl] #wb-info .brand .tofpg {
+			[dir=rtl] #wb-info .gc-sub-footer .tofpg, [dir=rtl] #wb-info .brand .tofpg {
 				float: right; }
-				[dir=rtl] #wb-info .brand .tofpg a span {
+				[dir=rtl] #wb-info .gc-sub-footer .tofpg a span, [dir=rtl] #wb-info .brand .tofpg a span {
 					margin-left: 0;
 					margin-right: 10px; }
 
-/* START: To be removed once added to WET-BOEW */
-.d-flex {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex; }
-
-.align-items-center {
-	-webkit-box-align: center;
-	    -ms-flex-align: center;
-	        align-items: center; }
-
-.align-self-end {
-	-ms-flex-item-align: end;
-	    align-self: flex-end; }
-
-/* END */
 #wb-lng {
 	padding-top: 10px; }
 	#wb-lng li {
@@ -14118,25 +14109,21 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: Footer extra-small view and under (screen only)
  */
-	#wb-info .brand {
+	#wb-info .gc-sub-footer, #wb-info .brand {
+		/* START: To support footer v3.0 */
+		/* END */
 		/* START: To support footer <= v2.0 */
 		/* END */ }
-		#wb-info .brand nav ul li {
-			display: block; }
-			#wb-info .brand nav ul li:not(:last-child) {
-				margin-bottom: .75em; }
-			#wb-info .brand nav ul li:not(:first-child)::before {
-				display: none; }
-		#wb-info .brand nav ul + h4 {
+		#wb-info .gc-sub-footer nav ul + h4, #wb-info .brand nav ul + h4 {
 			margin-top: 0; }
-			#wb-info .brand nav ul + h4::before {
+			#wb-info .gc-sub-footer nav ul + h4::before, #wb-info .brand nav ul + h4::before {
 				border-width: 0 0 1px 0;
 				display: block !important;
 				height: 0;
 				margin: 1em 0;
 				position: static;
 				width: 1.5em; }
-		#wb-info .brand .row nav ul li:not(:first-child)::before {
+		#wb-info .gc-sub-footer .row nav ul li:first-child::before, #wb-info .brand .row nav ul li:first-child::before {
 			display: inline; }
 	.wb-eqht-grd > [class*="col-"] {
 		width: 100%; }
@@ -14344,28 +14331,41 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: Small view and under (screen only)
  */
-	#wb-info .brand {
+	#wb-info .gc-sub-footer, #wb-info .brand {
 		/* START: To support footer <= v2.0 */
 		/* END */ }
-		#wb-info .brand nav ul {
-			display: block; }
-			#wb-info .brand nav ul + h4 {
-				display: block;
-				margin-top: .75em; }
-				#wb-info .brand nav ul + h4::before {
+		#wb-info .gc-sub-footer nav ul, #wb-info .brand nav ul {
+			/* START: To support footer v3.0 */
+			display: block;
+			/* END */ }
+			#wb-info .gc-sub-footer nav ul + h4, #wb-info .brand nav ul + h4 {
+				margin-top: 0; }
+				#wb-info .gc-sub-footer nav ul + h4::before, #wb-info .brand nav ul + h4::before {
+					border-width: 0 0 1px 0;
+					display: block !important;
+					height: 0;
+					margin: 1em 0;
+					position: static;
+					width: 1.5em; }
+			#wb-info .gc-sub-footer nav ul li, #wb-info .brand nav ul li {
+				display: block; }
+				#wb-info .gc-sub-footer nav ul li:not(:last-child), #wb-info .brand nav ul li:not(:last-child) {
+					margin-bottom: .75em; }
+				#wb-info .gc-sub-footer nav ul li::before, #wb-info .brand nav ul li::before {
 					display: none; }
-		#wb-info .brand .row nav {
+		#wb-info .gc-sub-footer .row nav, #wb-info .brand .row nav {
 			margin: .75em 0 3em; }
-			#wb-info .brand .row nav ul {
+			#wb-info .gc-sub-footer .row nav ul, #wb-info .brand .row nav ul {
 				-webkit-column-count: 2;
 				   -moz-column-count: 2;
 				        column-count: 2;
 				padding-top: 0; }
-			#wb-info .brand .row nav li {
+			#wb-info .gc-sub-footer .row nav li, #wb-info .brand .row nav li {
 				display: block;
 				margin-bottom: .75em; }
-				#wb-info .brand .row nav li:first-child::before {
+				#wb-info .gc-sub-footer .row nav li::before, #wb-info .brand .row nav li::before {
 					content: "\2022";
+					display: inline;
 					margin-right: .75em; }
 	/*
  Details Summary Styling (small view and under)
@@ -15097,16 +15097,17 @@ Miscellaneous Utiliy CSS
 	/*
  * Site information (extra-extra-small view)
  */
-	#wb-info .brand {
+	#wb-info .gc-sub-footer, #wb-info .brand {
 		/* START: To support footer <= v2.0 */
 		/* END */ }
-		#wb-info .brand object,
+		#wb-info .gc-sub-footer object,
+		#wb-info .gc-sub-footer img, #wb-info .brand object,
 		#wb-info .brand img {
 			height: 25px;
 			margin-top: 15px;
 			max-width: 100%;
 			padding-right: 10px; }
-		#wb-info .brand .row nav ul {
+		#wb-info .gc-sub-footer .row nav ul, #wb-info .brand .row nav ul {
 			-webkit-column-count: 1;
 			   -moz-column-count: 1;
 			        column-count: 1; }

@@ -1,5 +1,10 @@
 # SGDC : Journal des modifications
 
+## v4.0.47
+
+- **IMPORTANT** Le pied de page du site GCWeb a été mis à jour pour refléter les changements introduits dans la version 4 du pied de page WET. Ces changements seront appliqués automatiquement. Pour plus d'informations, veuillez consulter la documentation WET : https://wet-boew.github.io/GCWeb/sites/footers/footers-en.html
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.56.2.
+
 ## v4.0.46
 
 - Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.55
@@ -25,7 +30,7 @@
 - Mise à jour de l'URL pour la recherche Canada.ca et suppression des entrées masquées
 - Exemples de pages mis à jour pour inclure le chemin complet des fichiers js
 - Liens mis à jour vers https
-- Suppression de la fonction inutilisée loadDoc() 
+- Suppression de la fonction inutilisée loadDoc()
 - Élément d'abréviation supprimé du fil d'Ariane
 - Lien supprimé de la page d'erreur
 - Accessibilité améliorée

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>footer-fr</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<!--
+			Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
+			Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
+
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+
+			Pour pointer vers la version d'exécution :
+
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+		-->
+		<script src="../compiled/wet-fr.js"></script>
+		<noscript>
+			<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"cdnEnv": "esdcprod",
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "footer-en.html",
+					"text": "English"
+				}]
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Footer</h1>
+			<p>Depuis la v4.0.47, SGDC implémente la dernière version du pied de page du site fournie par WET.</p>
+			<p>Pour plus d'informations, veuillez consulter la documentation du pied de page WET <a href="https://wet-boew.github.io/GCWeb/sites/footers/footers-fr.html">ici.</a></p>
+			<h2>Bande contextuelle</h2>
+			<p>La bande contextuelle est masqué par défaut. Rendre visible la bande contextuelle se fait via le paramètre <code class="wb-prettify">contextualFooter</code>.</p>
+            <p>Ceci est configuré dans la section <b>footer</b> de votre page.</p>
+            <ul>
+                <li><code class="wb-prettify">"title"</code>: le titre de la bande contextuelle.</li>
+                <li><code class="wb-prettify">"text"</code>: le texte du lien affiché.</li>
+                <li><code class="wb-prettify">"href"</code>: l'url du lien.</li>
+            </ul>
+            <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "contextualFooter":{
+        "title": "Title",
+        "links": [{
+            "text": "Link 1",
+            "href":"#"
+        },
+        {
+            "text": "Link 2",
+            "href":"#"
+        },
+        {
+            "text": "Link 3",
+            "href":"#"
+        },
+        {
+            "text": "Link 4",
+            "href":"#"
+        }]
+    }
+...
+});
+            </pre>
+            <h2>La bande principale</h2>
+            <p>La bande principale est visible par défaut. Vous avez la possibilité de masquer la bande principale via le paramètre <code class="wb-prettify">hideFooterMain</code>.</p></p>
+            <p>Ceci est configuré dans la section <b>footer</b> de votre page.</p>>
+            <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "hideFooterMain": true
+...
+});
+            </pre>
+            <h2>La bande sous le pied de page</h2>
+            <p>La bande sous le pied de page est visible par défaut. Vous avez la possibilité de masquer les trois premiers liens via le paramètre <code class="wb-prettify">hideFooterCorporate</code>.</p>
+            <p>Vous avez également la possibilité d'écraser l'attribut href du lien Avis via le paramètre <code class="wb-prettify">termsLink</code>.</p>
+            <p>Vous avez également la possibilité d'écraser l'attribut href du lien Confidentialité via le paramètre <code class="wb-prettify">privacyLink</code>.</p>
+            <p>Ceci est configuré dans la section <b>footer</b> de votre page.</p>
+            <pre>
+defFooter.outerHTML = wet.builder.footer({
+...
+    "hideFooterCorporate": true,
+    "termsLink": {
+        "href": "custom.html"
+    },
+    "privacyLink": {
+        "href": "custom.html"
+    }
+...
+});
+            </pre>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"cdnEnv": "esdcprod",
+					"dateModified": "2021-05-25"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod",
+				"contextualFooter":{
+                    "title": "Title",
+                    "links": [{
+                        "text": "Link 1",
+                        "href":"#"
+                    },
+                    {
+                        "text": "Link 2",
+                        "href":"#"
+                    },
+                    {
+                        "text": "Link 3",
+                        "href":"#"
+                    },
+                    {
+                        "text": "Link 4",
+                        "href":"#"
+                    }]
+                }
+                //"hideFooterMain": true,
+                //"hideFooterCorporate": true
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

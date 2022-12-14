@@ -21,10 +21,6 @@
         "source": "https://www.canada.ca/en/services/benefits.html",
         "target": "https://www.canada.ca/fr/services/prestations.html"
     },
-    "34c808d0a63f277e04fb23a5f76cc83d0a3e024b": {
-        "source": "News",
-        "target": "Nouvelles"
-    },
     "99e9accd50e44f6e92ad387104e55beb13437648": {
         "source": "\"Related links\"",
         "target": "«&#160;Liens connexes&#160;»"
@@ -36,10 +32,6 @@
     "7e89cf439cfdfff50251e8e6d7190cb33f40d466": {
         "source": "Social media",
         "target": "Médias sociaux"
-    },
-    "5e461a2404d8ee5f0aed62c7e55859208f6a29cf": {
-        "source": "About this site",
-        "target": "À propos du site"
     },
     "c059f4c660010cd411c695a4cfd9d9a96f0547c8": {
         "source": "https://www.canada.ca/en/services/finance.html",
@@ -105,10 +97,6 @@
         "source": "https://www.canada.ca/en/services/jobs.html",
         "target": "https://www.canada.ca/fr/services/emplois.html"
     },
-    "abd6f859102785bc00ce81cd88c4ece0bc1d87f5": {
-        "source": "https://www.canada.ca/en/government/system/laws.html",
-        "target": "https://www.canada.ca/fr/gouvernement/systeme/lois.html"
-    },
     "dc1649a16c1496db3e4073be6a73faf5121aeae7": {
         "source": "Sign out",
         "target": "Fermer la session"
@@ -116,10 +104,6 @@
     "540bd890ede535762b51eee7bb8d7bd2bd998b9e": {
         "source": "Transport and infrastructure",
         "target": "Transport et infrastructure"
-    },
-    "485f9abd92f9979aca4d24413efa24e022d2ecff": {
-        "source": "Treaties, laws and regulations",
-        "target": "Traités, lois et règlements"
     },
     "4c4e7125a283fe6001b1e525ac5d08dc54f39bbd": {
         "source": "Symbol of the Government of Canada",
@@ -149,17 +133,9 @@
         "source": "https://www.canada.ca/en/services/environment.html",
         "target": "https://www.canada.ca/fr/services/environnement.html"
     },
-    "e03324d14c6ea2084c49a14813c0045daaf43b01": {
-        "source": "Prime Minister",
-        "target": "Premier ministre"
-    },
     "fc646392389fe73473000a88b5d0c9fb1eee82d6": {
         "source": "https://www.canada.ca/en/services/health.html",
         "target": "https://www.canada.ca/fr/services/sante.html"
-    },
-    "dbc74f088e833b77559c57c6b06331a0ce826e08": {
-        "source": "Open government",
-        "target": "Gouvernement ouvert"
     },
     "ddcaa6f34e64b1598ac38e20a058c85fd9824d84": {
         "source": "https://www.canada.ca/en/government/about.html",
@@ -191,7 +167,7 @@
     },
     "c2f68d41226f2e6f70ebe991998b6c9c25c03859": {
         "source": "Canada and the world",
-        "target": "Canada et le monde"
+        "target": "Le Canada et le monde"
     },
     "9b0c2133d530bdd7b3b7e239c94faf83a2097da9": {
         "source": "Government of Canada",
@@ -217,10 +193,6 @@
         "source": "Sign in",
         "target": "Ouvrir une session"
     },
-    "9c828219d5fe56c8df5e64396192fea02dab5f44": {
-        "source": "Government-wide reporting",
-        "target": "Rapports à l'échelle du gouvernement"
-    },
     "c10a23b0d50c0f38ac22fcdac6b4ae174703aec9": {
         "source": "About government",
         "target": "À propos du gouvernement"
@@ -240,10 +212,6 @@
     "f8b98efb05c4d336ee4b7ab2ac44c2da12306907": {
         "source": "https://www.canada.ca/en.html",
         "target": "https://www.canada.ca/fr.html"
-    },
-    "873f636900960652087ceda8315a6ad1a11aa4b9": {
-        "source": "Public service and military",
-        "target": "Fonction publique et force militaire"
     },
     "60f5a30c306c03775734e687edd561829f213769": {
         "source": "Account menu",
@@ -269,10 +237,6 @@
         "source": "\"About this Web application\"",
         "target": "«&#160;À propos de cette application Web&#160;»"
     },
-    "77ec807a85deefa540b64ab2c409ade52efb1968": {
-        "source": "https://www.canada.ca/en/news.html",
-        "target": "https://www.canada.ca/fr/nouvelles.html"
-    },
     "bab77a5ebc7176e74bca7a3e39c71432bd44d414": {
         "source": "Jobs and the workplace",
         "target": "Emplois et milieu de travail"
@@ -280,10 +244,6 @@
     "11b5a68a90c1de36a7f61d1b289fa4a9e547c19a": {
         "source": "Main navigation menu",
         "target": "Menu de navigation principal"
-    },
-    "474cf47cdf4117f09c39b539e271baca35aa3bb5": {
-        "source": "https://www.canada.ca/en/government/publicservice.html",
-        "target": "https://www.canada.ca/fr/gouvernement/fonctionpublique.html"
     },
     "dd80e4539ec349b792b85bb8eb77c38e9a83f863": {
         "source": "https://www.canada.ca/en/services/science.html",
@@ -313,10 +273,6 @@
         "source": "https://www.canada.ca/en/government/system.html",
         "target": "https://www.canada.ca/fr/gouvernement/systeme.html"
     },
-    "555c28667a3f7c70cdc7b0d124a4e0ef1e748446": {
-        "source": "https://www.canada.ca/en/transparency/reporting.html",
-        "target": "https://www.canada.ca/fr/transparence/rapports.html"
-    },
     "70dc41d7bc7c8ba8712154bf7f41ac51b27e359a": {
         "source": "Money and finances",
         "target": "Argent et finances"
@@ -344,10 +300,6 @@
     "c50ae38e9169089f75cd27b845c09aefb4eca4d0": {
         "source": "and search",
         "target": "et recherche"
-    },
-    "4832e45812a2724f16a15f9ae87adfc8ae4168cf": {
-        "source": "Contact us",
-        "target": "Contactez-nous"
     },
     "a5777158d38b898618f41dc9cd44fe7838732398": {
         "source": "Gouvernement du Canada",
@@ -381,16 +333,60 @@
         "source": "https://international.gc.ca/world-monde/index.aspx?lang=eng",
         "target": "https://international.gc.ca/world-monde/index.aspx?lang=fra"
     },
-    "1db191da7fde54515d7602f870df2704961625b4": {
-        "source": "https://pm.gc.ca/en",
-        "target": "https://pm.gc.ca/fr"
-    },
-    "0bab7baf8a072251cb14e3315956808a7cdad6a9": {
-        "source": "https://open.canada.ca/en",
-        "target": "https://open.canada.ca/fr"
-    },
     "ed7d65fbc9b45ccfaa566e92abb4f1e9c0757e0a": {
         "source": "https://www.canada.ca/en/sr/srb.html",
         "target": "https://www.canada.ca/fr/sr/srb.html"
+    },
+    "1f48daa3332ea1344168d351499a78f85b203318": {
+        "source": "All Contacts",
+        "target": "Toutes les coordonnées"
+    },
+    "2592f1967e8002a2a3ab1c5fe4f440ba575c75fd": {
+        "source": "Themes and topics",
+        "target": "Thèmes et sujets"
+    },
+    "437736fdb5bb707abdc048483193c86b9a99983e": {
+        "source": "Jobs",
+        "target": "Emplois"
+    },
+    "d6663dda5fe9b2524bf91f13a7621ec735f8a155": {
+        "source": "Business",
+        "target": "Entreprises"
+    },
+    "02ed2f1bc744b9cd753fc65f8e76c34776fe1149": {
+        "source": "Money and finance",
+        "target": "Argent et finance"
+    },
+    "3f54e823b109fac51fa5d518d2acefa192b39e21": {
+        "source": "Indigenous peoples",
+        "target": "Autochtones"
+    },
+    "c9578f3916085c75073b2d37ccec5da741eef660": {
+        "source": "Veterans and military",
+        "target": "Vétérans et militaires"
+    },
+    "b2370d58ad8583864bee7877ddafbd3995d8415b": {
+        "source": "Youth",
+        "target": "Jeunesse"
+    },
+    "5963107d49b02ffba55b2f3cec45716e591d79de": {
+        "source": "https://www.canada.ca/en/services/indigenous-peoples.html",
+        "target": "https://www.canada.ca/fr/services/autochtones.html"
+    },
+    "d6da618c2fb0c98ae342b5b12964b62740864561": {
+        "source": "https://www.canada.ca/en/services/veterans.html",
+        "target": "https://www.canada.ca/fr/services/veterans.html"
+    },
+    "9a84c7c6d78041b49f6e06c5e933bdae1eb1d6ab": {
+        "source": "https://www.canada.ca/en/services/youth.html",
+        "target": "https://www.canada.ca/fr/services/jeunesse.html"
+    },
+    "5e461a2404d8ee5f0aed62c7e55859208f6a29cf": {
+        "source": "About this site",
+        "target": "À propos de ce site"
+    },
+    "06a4cdf8f6ded10adae4db5e747358e6fcb3ce47": {
+        "source": "Government of Canada Corporate",
+        "target": "Organisation du gouvernement du Canada"
     }
 }

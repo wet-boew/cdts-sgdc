@@ -39,6 +39,22 @@ describe('Footer section tests for GCWeb', () => {
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
+    generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-footer-contextualFooter-en', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost", "contextualFooter":{ "title": "this title", "links": [{ "text": "text1", "href":"link1"}, {"text": "text2", "href":"link2"}, {"text": "text3", "href":"link3"}, {"text": "text4", "href":"link4"}]}, "hideFooterMain": true, "hideFooterCorporate": true, "termsLink": { "href": "customTermsLink" }, "privacyLink": { "href": "customPrivacyLink" }}',
+        refFooter: '{"cdnEnv": "localhost"}'
+	});
+
+    generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-footer-contextualFooter-fr', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        footer: '{"cdnEnv": "localhost", "contextualFooter":{ "title": "this title", "links": [{ "text": "text1", "href":"link1"}, {"text": "text2", "href":"link2"}, {"text": "text3", "href":"link3"}, {"text": "text4", "href":"link4"}]}, "hideFooterMain": true, "hideFooterCorporate": true, "termsLink": { "href": "customTermsLink" }, "privacyLink": { "href": "customPrivacyLink" }}',
+        refFooter: '{"cdnEnv": "localhost"}'
+	});
+
     it('Validate that the footer does not show', async () => {
         await showFooterFalse(theme, 'en');
         await showFooterFalse(theme, 'fr');
@@ -67,6 +83,21 @@ describe('Footer section tests for GCWeb', () => {
     it('Validate the default footer brand links when footer is shown', async () => {
         await defaultFooterBrandLinks(theme, 'en');
         //await defaultFooterBrandLinks(theme, 'fr');
+    });
+
+    it('Validate the contextual footer is visible, and has 3 links', async () => {
+        await contextualFooter(theme, 'en');
+        await contextualFooter(theme, 'en');
+    });
+
+    it('Validate the main and corportate footer are not displayed', async () => {
+        await mainCorporateFooter(theme, 'en');
+        await mainCorporateFooter(theme, 'en');
+    });
+
+    it('Validate the Terms and Privacy links can be overwritten', async () => {
+        await termsPrivacyLink(theme, 'en');
+        await termsPrivacyLink(theme, 'en');
     });
 
     it('Accessibility', async () => {
@@ -138,7 +169,7 @@ describe('Footer section tests for GCIntranet', () => {
 
 async function showFooterFalse(theme, lang){
     await footerPage.open(theme, lang);
-    await expect(footerPage.footer).toExist();
+    await expect(footerPage.footer).not.toExist();
 }
 
 async function footerBrandLinks(theme, lang){
@@ -154,12 +185,12 @@ async function footerContactLink(theme, lang){
         await expect(footerPage.footerContactLink).toHaveHrefContaining('contact.html');
     }
     else{
-        if (lang ==='en') { 
+        if (lang ==='en') {
             await expect(footerPage.footerContactLink).toHaveHrefContaining('contact-eng');
-            await expect(footerPage.footerContactLink).toHaveTextContaining('Contact us'); 
+            await expect(footerPage.footerContactLink).toHaveTextContaining('Contact us');
         } else {
-            await expect(footerPage.footerContactLink).toHaveHrefContaining('contact-fra'); 
-            await expect(footerPage.footerContactLink).toHaveTextContaining('Communiquez avec nous'); 
+            await expect(footerPage.footerContactLink).toHaveHrefContaining('contact-fra');
+            await expect(footerPage.footerContactLink).toHaveTextContaining('Communiquez avec nous');
         }
     }
 }
@@ -178,13 +209,25 @@ async function footerCustomizedContactLinkGC(theme, lang){
 async function defaultFooterLinks(theme, lang){
     await footerPage.open(theme, lang, 'customizedContact');
     await expect(footerPage.footerLink2).toHaveHrefContaining('dept.html');
-    await expect(footerPage.footerLink3).toHaveHrefContaining('publicservice.html');
-    await expect(footerPage.footerLink4).toHaveHrefContaining('news.html');
-    await expect(footerPage.footerLink5).toHaveHrefContaining('laws.html');
-    await expect(footerPage.footerLink6).toHaveHrefContaining('reporting.html');
-    await expect(footerPage.footerLink7).toHaveHrefContaining('pm.gc.ca');
-    await expect(footerPage.footerLink8).toHaveHrefContaining('system.html');
-    await expect(footerPage.footerLink9).toHaveHrefContaining('open.canada.ca');
+    await expect(footerPage.footerLink3).toHaveHrefContaining('system.html');
+    await expect(footerPage.footerLink4).toHaveHrefContaining('jobs.html');
+    await expect(footerPage.footerLink5).toHaveHrefContaining('immigration');
+    await expect(footerPage.footerLink6).toHaveHrefContaining('travel.gc.ca');
+    await expect(footerPage.footerLink7).toHaveHrefContaining('business.html');
+    await expect(footerPage.footerLink8).toHaveHrefContaining('benefits.html');
+    await expect(footerPage.footerLink9).toHaveHrefContaining('health.html');
+    await expect(footerPage.footerLink10).toHaveHrefContaining('taxes.html');
+    await expect(footerPage.footerLink11).toHaveHrefContaining('environment.html');
+    await expect(footerPage.footerLink12).toHaveHrefContaining('defence.html');
+    await expect(footerPage.footerLink13).toHaveHrefContaining('culture.html');
+    await expect(footerPage.footerLink14).toHaveHrefContaining('policing.html');
+    await expect(footerPage.footerLink15).toHaveHrefContaining('transport.html');
+    await expect(footerPage.footerLink16).toHaveHrefContaining('international.gc.ca');
+    await expect(footerPage.footerLink17).toHaveHrefContaining('finance.html');
+    await expect(footerPage.footerLink18).toHaveHrefContaining('science.html');
+    await expect(footerPage.footerLink19).toHaveHrefContaining('indigenous-peoples.html');
+    await expect(footerPage.footerLink20).toHaveHrefContaining('veterans.html');
+    await expect(footerPage.footerLink21).toHaveHrefContaining('youth.html');
 }
 
 async function defaultFooterBrandLinks(theme, lang){
@@ -214,6 +257,24 @@ async function defaultFooterLinksIntranet(theme, lang){
         await expect(footerPage.footerLinkIntranet3).toHaveHrefContaining('https://www.canada.ca/fr.html');
         await expect(footerPage.footerLinkIntranet4).toHaveHrefContaining('https://intranet.canada.ca/terms-avis-fra.asp');
     }
+}
+
+async function contextualFooter(theme, lang){
+    await footerPage.open(theme, lang, 'contextualFooter');
+    await expect(footerPage.contextualFooter).toExist();
+    await expect(footerPage.contextualFooterLinks).toHaveChildren(3);
+}
+
+async function mainCorporateFooter(theme, lang){
+    await footerPage.open(theme, lang, 'contextualFooter');
+    await expect(footerPage.footer).not.toExist();
+    await expect(footerPage.footerCorporateLinks).toHaveChildren(2);
+}
+
+async function termsPrivacyLink(theme, lang){
+    await footerPage.open(theme, lang, 'contextualFooter');
+    await expect(footerPage.footerBrandLink1).toHaveHrefContaining('customTermsLink');
+    await expect(footerPage.footerBrandLink2).toHaveHrefContaining('customPrivacyLink');
 }
 
 async function accessibility(theme, lang) {
