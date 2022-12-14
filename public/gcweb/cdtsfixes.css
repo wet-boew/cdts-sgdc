@@ -92,9 +92,11 @@
     color: #284162;
     font-size: 20px;
     line-height: 33px;
-    /*margin-right: 12px; only for the mockup*/
+    margin-right: 12px;
 }
 
+/*
+*If we use font-awesome, this would need to be uncommented*
 .cdts-banner-link:after {
     content: '';
     background-color: #284162;
@@ -103,7 +105,7 @@
     width: 18px;
     display: inline-block;
     margin-left: 12px;
-}
+}*/
 
 .cdts-banner-margin-bottom{
     margin-bottom: 16px;
