@@ -380,5 +380,13 @@
     "9a84c7c6d78041b49f6e06c5e933bdae1eb1d6ab": {
         "source": "https://www.canada.ca/en/services/youth.html",
         "target": "https://www.canada.ca/fr/services/jeunesse.html"
+    },
+    "5e461a2404d8ee5f0aed62c7e55859208f6a29cf": {
+        "source": "About this site",
+        "target": "À propos de ce site"
+    },
+    "06a4cdf8f6ded10adae4db5e747358e6fcb3ce47": {
+        "source": "Government of Canada Corporate",
+        "target": "Organisation du gouvernement du Canada"
     }
 }

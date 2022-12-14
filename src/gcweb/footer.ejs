@@ -9,7 +9,7 @@
  * @param? hideFooterCorporate Used to determine if the corportate footer links will be displayed.
 -%>
 <footer id="wb-info">
-    <h2 class="wb-inv">About this site</h2>
+    <h2 class="wb-inv"><^- msg('About this site') ^></h2>
     <%_ if (pr.contextualFooter != null) { -%>
         <div class="gc-contextual">
             <div class="container">
@@ -70,7 +70,7 @@
     <div class="gc-sub-footer">
         <div class="container d-flex align-items-center">
             <nav>
-                <h3 class="wb-inv">Government of Canada Corporate</h3>
+                <h3 class="wb-inv"><^- msg('Government of Canada Corporate') ^></h3>
                 <%_ if (pr.showFooter != false) { -%>
                     <ul>
                         <%_ if (pr.hideFooterCorporate != true) { -%>
@@ -115,7 +115,7 @@
                 <%_ } -%>
             </nav>
             <div class="wtrmrk align-self-end">
-                <img src="https://wet-boew.github.io/themes-dist/GCWeb/GCWeb/assets/wmms-blk.svg" alt="Symbol of the Government of Canada">
+                <img src="https://wet-boew.github.io/themes-dist/GCWeb/GCWeb/assets/wmms-blk.svg" alt="<^- msg('Symbol of the Government of Canada') ^>">
             </div>
         </div>
     </div>
