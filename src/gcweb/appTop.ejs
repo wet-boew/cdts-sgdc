@@ -12,6 +12,7 @@
  * @param? menuLinks Loops of the menu sections - MSCA only
  * @param? breadcrumbs Used to set custom breadcrumbs.
  * @param? showPreContent Used to determine if the precontent space will be displayed.
+ * @param? infoBanner Used to display an information banner on top of the page
 -%>
 <nav aria-label="<^- msg('Skip Links') ^>">
     <ul id="wb-tphp">
@@ -22,6 +23,28 @@
         <%_ } -%>
     </ul>
 </nav>
+<%_ if (pr.infoBanner != null) { -%>
+    <header>
+        <section class="bg-info">
+            <div class="container">
+                <%_ if (pr.infoBanner.mainHTML != null) { -%>
+                    <p class="cdts-banner-text"><%- pr.infoBanner.mainHTML %></p>
+                <%_ } -%>
+                <div id="cdts-banner-container-div" class="<%_ if (pr.infoBanner.button == null) { -%>cdts-banner-margin-bottom<%_ } -%>">
+                    <%_ if (pr.infoBanner.link != null) { -%>
+                        <span class="cdts-banner-link-icon-span">
+                            <a class="cdts-banner-link" href="<%- pr.infoBanner.link.href %>"><%= pr.infoBanner.link.text %></a>
+                            <span class="glyphicon glyphicon-share cdts-banner-external-icon"></span>
+                        </span>
+                    <%_ } -%>
+                    <%_ if (pr.infoBanner.button != null) { -%>
+                        <button class="cdts-banner-button btn-primary" type="button" href="<%- pr.infoBanner.button.href %>"><%= pr.infoBanner.button.text %></button>
+                    <%_ } -%>
+                </div>
+            </div>
+        </section>
+    </header>
+<%_ } -%>
 <header>
     <div id="wb-bnr" class="container">
         <div class="row">

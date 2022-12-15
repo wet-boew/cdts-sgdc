@@ -64,3 +64,66 @@
 		clear: both;
 	}
 }
+
+/********** Only applicable for the top info banner **********/
+#cdts-banner-container-div{
+    display: flex;
+    align-items: baseline;
+}
+
+.cdts-banner-text {
+    margin-top: 16px;
+    margin-bottom: 28px;
+    color: #000000;
+    font-family: "Noto Sans";
+    font-size: 20px;
+    line-height: 33px;
+}
+
+.cdts-banner-link-icon-span{
+    flex-grow: 1;
+}
+
+.cdts-banner-link {
+    color: #284162;
+    font-size: 20px;
+    line-height: 33px;
+    margin-right: 12px;
+}
+
+.cdts-banner-margin-bottom{
+    margin-bottom: 16px;
+}
+
+.cdts-banner-button{
+    height: 45px;
+    border-radius: 4px;
+    color: #FFF;
+    font-family: Noto Sans;
+    font-size: 20px;
+    line-height: 33px;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+}
+
+.cdts-banner-external-icon{
+    font-size: 18px;
+    color: #284162;
+}
+
+@media (max-width: 768px) {
+    .cdts-banner-text {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .cdts-banner-button{
+        width: 100%;
+        margin-top: 32px;
+    }
+
+    #cdts-banner-container-div{
+        display: block;
+    }
+}
+/********** End of CSS classes used specifically for the top info banner **********/

@@ -45,6 +45,10 @@ class AppTopPage extends Page {
     get gcAppBannerSTTL() { return $('#wb-sttl'); }
     get appNameIntranet() { return $('//div[@id="wb-sttl"]/span'); }
     get appNameAbbrIntranet() { return $('//div[@id="wb-sttl"]/abbr'); }
+    get banner() { return $('section.bg-info'); }
+    get bannerText() { return $('section.bg-info p.cdts-banner-text'); }
+    get bannerLink() { return $('a.cdts-banner-link'); }
+    get bannerButton() { return $('button.cdts-banner-button'); }
 
     /**
     * Opens a sub page of the page
