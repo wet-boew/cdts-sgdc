@@ -22,7 +22,7 @@
     "@wdio/mocha-framework": "^8.0.13",
     "@wdio/selenium-standalone-service": "^8.0.13",
     "@wdio/spec-reporter": "^8.0.13",
-    "axe-core": "^4.5.2",
+    "axe-core": "^4.6.1",
     "axios": "^1.2.0",
     "ejs": "^3.1.8",
     "ejs-lint": "^2.0.0",
