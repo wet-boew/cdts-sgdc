@@ -1,7 +1,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v12.3.0 - 2022-11-30
+ * v12.5.1 - 2023-01-04
  *
  */( function( $, document, wb ) {
 "use strict";
@@ -374,9 +374,15 @@ var $document = wb.doc,
 		if ( $source.get( 0 ).nodeName !== "TABLE" ) {
 			throw "Table filtering can only applied on table";
 		}
+
 		$datatable = $source.dataTable( { "retrieve": true } ).api();
-		column = ( colInt === true ) ? colInt : column;
-		$datatable.column( column ).search( data.value, regex, smart, caseinsen ).draw();
+
+		if ( column ) {
+			column = ( colInt === true ) ? colInt : column;
+			$datatable.column( column ).search( data.value, regex, smart, caseinsen ).draw();
+		} else {
+			$datatable.search( data.value, regex, smart, caseinsen ).draw();
+		}
 	},
 	geomapAOIAct = function( event, data ) {
 		var $source = $( data.source || event.target ),
