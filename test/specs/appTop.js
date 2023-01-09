@@ -74,7 +74,7 @@ describe('AppTop section tests for GCWeb', () => {
 
     generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appTop-banner-en', {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
-        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": { "mainHTML": "We\'ve made some changes to improve your experience with My Service Canada Account.", "link": {"text": "Learn more about the beta version", "href": "#"}, "button": { "text": "Try beta version", "href": "#"}}}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": { "mainHTML": "We\'ve made some changes to improve your experience with My Service Canada Account.", "link": {"text": "Learn more about the beta version", "href": "https://www.google.ca/"}, "button": { "text": "Try beta version", "href": "https://www.google.ca/"}}}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
@@ -82,7 +82,7 @@ describe('AppTop section tests for GCWeb', () => {
 
     generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appTop-banner-fr', {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
-        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": { "mainHTML": "We\'ve made some changes to improve your experience with My Service Canada Account.", "link": {"text": "Learn more about the beta version", "href": "#"}, "button": { "text": "Try beta version", "href": "#"}}}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "infoBanner": { "mainHTML": "We\'ve made some changes to improve your experience with My Service Canada Account.", "link": {"text": "Learn more about the beta version", "href": "https://www.google.ca/"}, "button": { "text": "Try beta version", "href": "https://www.google.ca/"}}}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
@@ -929,7 +929,9 @@ async function bannerAllConfigurations(theme, lang) {
     await expect(appTopPage.banner).toExist();
     await expect(appTopPage.bannerText).toHaveTextContaining('We\'ve made some changes to improve your experience with My Service Canada Account');
     await expect(appTopPage.bannerLink).toHaveTextContaining('Learn more about the beta version');
+    await expect(appTopPage.bannerLink).toHaveHref('https://www.google.ca/');
     await expect(appTopPage.bannerButton).toHaveTextContaining('Try beta version');
+    await expect(appTopPage.bannerButton).toHaveHref('https://www.google.ca/');
 }
 
 async function accessibility(theme, lang , classifier = '') {

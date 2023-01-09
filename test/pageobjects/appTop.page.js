@@ -48,7 +48,7 @@ class AppTopPage extends Page {
     get banner() { return $('section.bg-info'); }
     get bannerText() { return $('section.bg-info p.cdts-banner-text'); }
     get bannerLink() { return $('a.cdts-banner-link'); }
-    get bannerButton() { return $('button.cdts-banner-button'); }
+    get bannerButton() { return $('a.cdts-banner-button'); }
 
     /**
     * Opens a sub page of the page
