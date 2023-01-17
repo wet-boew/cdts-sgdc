@@ -49,6 +49,9 @@ class AppTopPage extends Page {
     get bannerText() { return $('section.bg-info p.cdts-banner-text'); }
     get bannerLink() { return $('a.cdts-banner-link'); }
     get bannerButton() { return $('a.cdts-banner-button'); }
+    get headerMenu() { return $('#cdts-header-menu'); }
+    get headerMenuList() { return $('ul.cdts-menu-list'); }
+    get headerMenuSignOutLink() { return $('span.cdts-sign-out'); }
 
     /**
     * Opens a sub page of the page

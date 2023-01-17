@@ -127,3 +127,133 @@
     }
 }
 /********** End of CSS classes used specifically for the top info banner **********/
+
+/********** Only applicable for the header menu **********/
+.cdts-menu-rectangle{
+    background: #EBF2FC;
+    width: 260px;
+}
+
+.cdts-menu-icon{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background: #38414d;
+    color: #EBF2FC;
+    text-align: center;
+    padding-top: 6px;
+    font-size: 23px;
+    margin-left: 20px;
+    vertical-align: sub;
+}
+
+.cdts-menu-label{
+    display: inline-block !important;
+    width: 154px;
+    text-align: initial !important;
+    font-size: 18px;
+    line-height: 20px;
+    color: #26374A;
+    font-weight: bold;
+    margin-left: 15px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.cdts-menu-label:visited{
+    color: #26374A;
+}
+
+.cdts-menu-chevron-up{
+    display: none;
+}
+
+.cdts-menu-list{
+    display: block !important;
+    font-size: 16px;
+    line-height: 22px;
+    color: #26374A;
+    background: white;
+    width: 260px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0 0 5px 5px;
+}
+
+.cdts-menu-list a:visited{
+    color: #26374A;
+}
+
+.cdts-menu-list > li a{
+    padding-left: 20px !important;
+}
+
+.cdts-menu-list > li:not(:first-child){
+    border: solid;
+    border-color: #BBBFC5;
+    border-width: 1px 0;
+}
+
+.cdts-menu-list > li a:hover{
+    color: #0535d2;
+}
+
+.cdts-menu-list > li:first-child{
+    border: solid;
+    border-width: 1px 0px;
+    border-bottom-color: #BBBFC5;
+    border-top-color: #EBF2FC;
+}
+
+.wb-menu .sm-open .cdts-menu-chevron-up{
+    display: inline;
+}
+
+.wb-menu .sm-open .cdts-menu-chevron{
+    display: none;
+}
+
+.cdts-sign-out{
+    padding-right: 12px;
+    color: #26374A;
+}
+
+#cdts-header-menu .expicon{
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .cdts-menu-rectangle{
+        display: flow-root;
+        width: 100%;
+    }
+
+    .cdts-menu-list{
+        width: 100%;
+    }
+
+    .cdts-menu-chevron-up{
+        float: right;
+        padding-top: 18px;
+        margin-right: 20px;
+    }
+
+    .cdts-menu-chevron{
+        float: right;
+        padding-top: 18px;
+        margin-right: 20px;
+    }
+
+    .cdts-menu-list-width{
+        width: 100%;
+    }
+
+    .cdts-menu-label{
+        width: 76%;
+    }
+}
+
+@media (max-width: 480px) {
+    .cdts-menu-label{
+        width: 65%;
+    }
+}
+/********** End of CSS classes used specifically for the header menu **********/

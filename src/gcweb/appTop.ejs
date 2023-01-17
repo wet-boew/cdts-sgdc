@@ -13,6 +13,7 @@
  * @param? breadcrumbs Used to set custom breadcrumbs.
  * @param? showPreContent Used to determine if the precontent space will be displayed.
  * @param? infoBanner Used to display an information banner on top of the page
+ * @param? headerMenu Used to display a navigation menu in the header
 -%>
 <nav aria-label="<^- msg('Skip Links') ^>">
     <ul id="wb-tphp">
@@ -108,6 +109,31 @@
                     <a class="app-name" href="<%- item.href %>"><%= item.text%></a>
                 <%_ } -%>
                 </section>
+                <%_ if (pr.headerMenu != null) {
+                    const item=pr.headerMenu[0]; -%>
+                    <nav id="cdts-header-menu" class="cdts-menu-rectangle wb-menu" typeof="SiteNavigationElement" aria-labelledby="appNavMenu">
+                        <h2 class="wb-inv" id="appNavMenu"><^- msg('Header navigation menu') ^></h2>
+                        <ul class="list-inline menu" role="menubar">
+                            <li role="none" class="cdts-menu-list-width">
+                            <span class="glyphicon glyphicon-user cdts-menu-icon"></span>
+                            <a href="#" class="cdts-menu-label item" role="menuitem" aria-haspopup="true"><%= pr.headerMenu.text %></a>
+                            <span class="glyphicon glyphicon-chevron-down cdts-menu-chevron"></span>
+                            <span class="glyphicon glyphicon-chevron-up cdts-menu-chevron-up"></span>
+                            <%_ if (pr.headerMenu.links != null) { -%>
+                                <ul class="sm list-unstyled cdts-menu-list" role="menu">
+                                    <%_ for (var hiddenIndex=0; hiddenIndex<pr.headerMenu.links.length; hiddenIndex++) {
+                                        const link=pr.headerMenu.links[hiddenIndex]; -%>
+                                        <li role="none"><a href="<%- link.href %>" <%- (link.newWindow==true)? ' target="_blank"': '' %> tabindex="-1" aria-posinet="<%= hiddenIndex + 1-%>" aria-setsize="<%= pr.headerMenu.logoutLink != null? pr.headerMenu.links.length + 1 : pr.headerMenu.links.length %>" role="menuitem"><%= link.text %></a></li>
+                                    <%_ } -%>
+                                    <%_ if (pr.headerMenu.logoutLink != null) { -%>
+                                        <li role="none"><a href="<%- pr.headerMenu.logoutLink.href %>" tabindex="-1" aria-posinet="<%= hiddenIndex + 2-%>" aria-setsize="<%= pr.headerMenu.links.length + 1-%>" role="menuitem"><span class="glyphicon glyphicon-log-out cdts-sign-out"></span><%= pr.headerMenu.logoutLink.text %></a></li>
+                                    <%_ } -%>
+                                </ul>
+                            <%_ } -%>
+                            </li>
+                        </ul>
+                    </nav>
+                <%_ } -%>
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
                     <nav class="col-sm-5 hidden-xs hidden-print">
                         <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
