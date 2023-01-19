@@ -159,7 +159,7 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
-.cdts-menu-label:visited{
+.cdts-menu-label:hover, .cdts-menu-label:visited{
     color: #26374A;
 }
 
@@ -192,8 +192,8 @@
     border-width: 1px 0;
 }
 
-.cdts-menu-list > li a:hover{
-    color: #0535d2;
+.cdts-menu-list > li a:hover, li a:hover span{
+    color: #FFF;
 }
 
 .cdts-menu-list > li:first-child{
@@ -201,6 +201,10 @@
     border-width: 1px 0px;
     border-bottom-color: #BBBFC5;
     border-top-color: #EBF2FC;
+}
+
+.cdts-menu-list > li:hover{
+    background-color:#26374a;
 }
 
 .wb-menu .sm-open .cdts-menu-chevron-up{
@@ -228,6 +232,7 @@
 
     .cdts-menu-list{
         width: 100%;
+        position: static !important;
     }
 
     .cdts-menu-chevron-up{

@@ -116,7 +116,7 @@
                         <ul class="list-inline menu" role="menubar">
                             <li role="none" class="cdts-menu-list-width">
                             <span class="glyphicon glyphicon-user cdts-menu-icon"></span>
-                            <a href="#" class="cdts-menu-label item" role="menuitem" aria-haspopup="true"><%= pr.headerMenu.text %></a>
+                            <a href="#" class="cdts-menu-label item" role="menuitem" aria-haspopup="true"><%= (pr.headerMenu.text == null)? ' <^- msg('Account') ^>': pr.headerMenu.text %></a>
                             <span class="glyphicon glyphicon-chevron-down cdts-menu-chevron"></span>
                             <span class="glyphicon glyphicon-chevron-up cdts-menu-chevron-up"></span>
                             <%_ if (pr.headerMenu.links != null) { -%>
