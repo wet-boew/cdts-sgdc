@@ -80,12 +80,12 @@
             <h2>Mise en œuvre</h2>
             <p>Le menu est ajouté dans la section <b>appTop</b> de la page avec les options de configuration suivantes :</p>
             <ul>
-                <li><code class="wb-prettify">"text"</code>: le texte à l'intérieur du menu</li>
-                <li><code class="wb-prettify">"link":"text"</code>: le texte du lien affiché</li>
-                <li><code class="wb-prettify">"link":"href"</code>: the url of the link</li>
-                <li><code class="wb-prettify">"link":"newWindow"</code>: ouvrir le lien dans une nouvelle fenêtre</li>
-                <li><code class="wb-prettify">"logoutLink":"text"</code>: l'url du lien</li>
-                <li><code class="wb-prettify">"logoutLink":"href"</code>: l'url du lien de déconnexion</li>
+                <li><code class="wb-prettify">"text"</code>: (OBLIGATOIRE) - le texte à l'intérieur du menu</li>
+                <li><code class="wb-prettify">"link":"text"</code>: (OBLIGATOIRE) - le texte du lien affiché</li>
+                <li><code class="wb-prettify">"link":"href"</code>: (OBLIGATOIRE) - l'url du lien</li>
+                <li><code class="wb-prettify">"link":"newWindow"</code>: (FACULTATIF) - ouvrir le lien dans une nouvelle fenêtre</li>
+                <li><code class="wb-prettify">"logoutLink":"text"</code>: (FACULTATIF) - le text du lien de déconnexion</li>
+                <li><code class="wb-prettify">"logoutLink":"href"</code>: (FACULTATIF) - l'url du lien de déconnexion</li>
             </ul>
             <pre>
 defTop.outerHTML = wet.builder.appTop({
