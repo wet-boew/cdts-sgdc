@@ -192,7 +192,7 @@
     border-width: 1px 0;
 }
 
-.cdts-menu-list > li a:hover, li a:hover span{
+.cdts-menu-list > li a:hover, .cdts-menu-list > li a:hover span{
     color: #FFF;
 }
 
