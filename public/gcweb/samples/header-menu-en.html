@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+        <title>header-menu-en</title>
+        <meta content="width=device-width,initial-scale=1" name="viewport">
+        <!-- Meta data -->
+        <meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+        <!-- Meta data-->
+        <!-- Load closure template scripts -->
+        <!--
+            Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
+            This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
+
+            canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+            cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+            templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+
+            To point to the run version:
+
+            canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+            cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+            templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+        -->
+        <script src="../compiled/wet-en.js"></script>
+        <noscript>
+            <!-- Write closure fall-back static file -->
+            <!-- refTop.html -->
+        </noscript>
+        <!-- Write closure template -->
+        <script>
+            document.write(wet.builder.refTop({
+                "cdnEnv": "esdcprod",
+                "isApplication": true
+            }));
+        </script>
+    </head>
+    <body vocab="https://schema.org/" typeof="WebPage">
+        <div id="def-top">
+            <!-- Write closure fall-back static file -->
+            <!-- top-en.html -->
+        </div>
+        <!-- Write closure template -->
+        <script>
+            var defTop = document.getElementById("def-top");
+            defTop.outerHTML = wet.builder.appTop({
+                "appName": [{
+                    "text": "Application name",
+                    "href": "#"
+                }],
+                "lngLinks": [{
+                    "lang": "fr",
+                    "href": "header-menu-fr.html",
+                    "text": "Français"
+                }],
+                "headerMenu": {
+                    "text": "Account",
+                    "links": [{
+                        "href": "header-menu-fr.html",
+                        "text": "Link 1"
+                    },
+                    {
+                        "href": "header-menu-fr.html",
+                        "text": "Link 2",
+                        "newWindow": true
+                    }],
+                    "logoutLink": {
+                        "href": "#",
+                        "text":"Logout Link",
+                    }
+                },
+                "cdnEnv": "esdcprod"
+            });
+        </script>
+        <main property="mainContentOfPage" typeof="WebPageElement" class="container">
+            <h1 property="name" id="wb-cont">Header Menu</h1>
+            <p>This sample page demonstrates how a header menu can be displayed on your page.</p>
+            <h2>Implementation</h2>
+            <p>The menu is added in the <b>appTop</b> section of the page with the following configuration options:</p>
+            <ul>
+                <li><code class="wb-prettify">"text"</code>: (MANDATORY) - the text inside the menu</li>
+                <li><code class="wb-prettify">"link":"text"</code>: (MANDATORY) - the text of the link that is displayed</li>
+                <li><code class="wb-prettify">"link":"href"</code>: (MANDATORY) - the url of the link</li>
+                <li><code class="wb-prettify">"link":"newWindow"</code>: (OPTIONAL) - open the link in a new window</li>
+                <li><code class="wb-prettify">"logoutLink":"text"</code>: (OPTIONAL) - the text of the logout link that is displayed.</li>
+                <li><code class="wb-prettify">"logoutLink":"href"</code>: (OPTIONAL) - the url of the logout link</li>
+            </ul>
+            <pre>
+defTop.outerHTML = wet.builder.appTop({
+...
+    "headerMenu": {
+        "text": "Account",
+        "links": [{
+            "href": "custom-menu-fr.html",
+            "text": "Link 1"
+        },
+        {
+            "href": "custom-menu-fr.html",
+            "text": "Link 2",
+            "newWindow": true
+        }],
+        "logoutLink": {
+            "href": "#",
+            "text":"Logout Link",
+        }
+    }
+...
+});
+            </pre>
+            <div id="def-preFooter">
+                <!-- Write closure fall-back static file -->
+                <!-- preFooter-en.html -->
+            </div>
+            <!-- Write closure template -->
+            <script>
+                var defPreFooter = document.getElementById("def-preFooter");
+                defPreFooter.outerHTML = wet.builder.preFooter({
+                    "dateModified": "2021-05-25",
+                    "cdnEnv": "esdcprod"
+                });
+            </script>
+        </main>
+        <div id="def-footer">
+            <!-- Write closure fall-back static file -->
+            <!-- footer-en.html -->
+        </div>
+        <!-- Write closure template -->
+        <script>
+            var defFooter = document.getElementById("def-footer");
+            defFooter.outerHTML = wet.builder.appFooter({
+                "cdnEnv": "esdcprod"
+            });
+        </script>
+        <!-- Write closure template -->
+        <script>
+            document.write(wet.builder.refFooter({
+                "cdnEnv": "esdcprod",
+                "isApplication": true
+            }));
+        </script>
+    </body>
+</html>

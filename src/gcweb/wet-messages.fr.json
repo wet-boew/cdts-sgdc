@@ -388,5 +388,13 @@
     "06a4cdf8f6ded10adae4db5e747358e6fcb3ce47": {
         "source": "Government of Canada Corporate",
         "target": "Organisation du gouvernement du Canada"
+    },
+    "c6dc33865459206f14516ae374ff8dee59ab2595": {
+        "source": "Header navigation menu",
+        "target": "Menu de navigation de l'en-tête"
+    },
+    "85dfa32c97d8618d1bea083609e2c8a29845abe5": {
+        "source": "Account",
+        "target": "Compte"
     }
 }

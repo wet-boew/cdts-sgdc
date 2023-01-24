@@ -88,6 +88,38 @@ describe('AppTop section tests for GCWeb', () => {
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
     });
 
+    generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appTop-headerMenu-en', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "headerMenu": {"text": "Account", "links": [{"href": "custom-menu-fr.html", "text": "Link 1"}, {"href": "custom-menu-fr.html", "text": "Link 2"}], "logoutLink": {"href": "#", "text":"Logout Link"}}}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appTop-headerMenu-fr', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "headerMenu": {"text": "Account", "links": [{"href": "custom-menu-en.html", "text": "Link 1"}, {"href": "custom-menu-en.html", "text": "Link 2"}], "logoutLink": {"href": "#", "text":"Logout Link"}}}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appTop-headerMenuNoLinks-en', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "headerMenu": {"text": "Account"}}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appTop-headerMenuNoLinks-fr', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}], "headerMenu": {"text": "Account"}}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+    });
+
     it('Account settings button exists', async () => {
         await settingsBtnExists(theme, 'en');
         await settingsBtnExists(theme, 'fr');
@@ -203,6 +235,16 @@ describe('AppTop section tests for GCWeb', () => {
     it('Test the banner shows the text, link and button', async () => {
         await bannerAllConfigurations(theme, 'en');
         await bannerAllConfigurations(theme, 'fr');
+    });
+
+    it('Test the header menu', async () => {
+        await headerMenu(theme, 'en');
+        await headerMenu(theme, 'fr');
+    });
+
+    it('Test the header menu list/logout link is not present', async () => {
+        await headerMenuLinksNotPresent(theme, 'en');
+        await headerMenuLinksNotPresent(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -932,6 +974,19 @@ async function bannerAllConfigurations(theme, lang) {
     await expect(appTopPage.bannerLink).toHaveHref('https://www.google.ca/');
     await expect(appTopPage.bannerButton).toHaveTextContaining('Try beta version');
     await expect(appTopPage.bannerButton).toHaveHref('https://www.google.ca/');
+}
+
+async function headerMenu(theme, lang) {
+    await appTopPage.open(theme, lang, 'headerMenu');
+    await expect(appTopPage.headerMenu).toExist();
+    await expect(appTopPage.headerMenuList).toHaveChildren(3);
+    await expect(appTopPage.headerMenuSignOutLink).toExist();
+}
+
+async function headerMenuLinksNotPresent(theme, lang) {
+    await appTopPage.open(theme, lang, 'headerMenuNoLinks');
+    await expect(appTopPage.headerMenuList).not.toExist();
+    await expect(appTopPage.headerMenuSignOutLink).not.toExist();
 }
 
 async function accessibility(theme, lang , classifier = '') {
