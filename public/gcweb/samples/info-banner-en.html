@@ -57,10 +57,12 @@
                     "link": {
                         "text": "Learn more about the beta version",
                         "href": "#"
+                        //"newWindow": true
                     },
                     "button": {
                         "text": "Try beta version",
                         "href": "#"
+                        //"newWindow": true
                     }
                 }
 			});
@@ -71,12 +73,13 @@
             <h2>Implementation</h2>
             <p>The banner is added in the <b>appTop</b> section of the page with the following configuration options:</p>
             <ul>
-                <li><code class="wb-prettify">"showBanner"</code>: the url of the link.</li>
                 <li><code class="wb-prettify">"mainHTML"</code>: the text you would like displayed in your custom banner.</li>
                 <li><code class="wb-prettify">"link":"text"</code>: the text of the link that is displayed.</li>
                 <li><code class="wb-prettify">"link":"href"</code>: the url of the link.</li>
+                <li><code class="wb-prettify">"link":"newWindow"</code>: open the link in a new window.</li>
                 <li><code class="wb-prettify">"button":"text"</code>: the text of the button that is displayed.</li>
                 <li><code class="wb-prettify">"button":"href"</code>: the url of the button.</li>
+                <li><code class="wb-prettify">"button":"newWindow"</code>: open the link in a window.</li>
             </ul>
             <pre>
 defTop.outerHTML = wet.builder.appTop({
@@ -85,11 +88,13 @@ defTop.outerHTML = wet.builder.appTop({
         "mainHTML": "<strong>Beta version: </strong>We've made some changes to improve your experience with My Service Canada Account.",
         "link": {
             "text": "Learn more about the beta version",
-            "href": "#"
+            "href": "#",
+            "newWindow": true
         },
         "button": {
             "text": "Try beta version",
-            "href": "#"
+            "href": "#",
+            "newWindow": true
         }
     }
 ...

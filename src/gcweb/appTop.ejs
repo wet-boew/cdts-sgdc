@@ -34,12 +34,12 @@
                 <div id="cdts-banner-container-div" class="<%_ if (pr.infoBanner.button == null) { -%>cdts-banner-margin-bottom<%_ } -%>">
                     <%_ if (pr.infoBanner.link != null) { -%>
                         <span class="cdts-banner-link-icon-span">
-                            <a class="cdts-banner-link" href="<%- pr.infoBanner.link.href %>"><%= pr.infoBanner.link.text %></a>
+                            <a class="cdts-banner-link" <%- (pr.infoBanner.link.newWindow==true)? ' target="_blank"': '' %> href="<%- pr.infoBanner.link.href %>"><%= pr.infoBanner.link.text %></a>
                             <span class="glyphicon glyphicon-share cdts-banner-external-icon"></span>
                         </span>
                     <%_ } -%>
                     <%_ if (pr.infoBanner.button != null) { -%>
-                        <a class="btn cdts-banner-button btn-primary" type="button" href="<%- pr.infoBanner.button.href %>"><%= pr.infoBanner.button.text %></a>
+                        <a class="btn cdts-banner-button btn-primary" <%- (pr.infoBanner.button.newWindow==true)? ' target="_blank"': '' %> type="button" href="<%- pr.infoBanner.button.href %>"><%= pr.infoBanner.button.text %></a>
                     <%_ } -%>
                 </div>
             </div>
