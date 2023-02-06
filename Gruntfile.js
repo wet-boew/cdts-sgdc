@@ -198,7 +198,7 @@ module.exports = function run(grunt) {
 
         try {
             //const Launcher = require('@wdio/cli').default; //"require" no longer supported for webdriver v8, switching to using "dynamic import"
-            const Launcher = (await import('@wdio/cli')).default;
+            const Launcher = (await import('@wdio/cli')).Launcher;
 
             if (typeof this.data.configFile !== 'string') {
                 grunt.log.error('You need to define "configFile" property with the path to your wdio.conf.js')
