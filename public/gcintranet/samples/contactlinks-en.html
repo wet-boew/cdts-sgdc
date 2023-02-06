@@ -60,6 +60,7 @@
             <ul>
                 <li><code class="wb-prettify">"text"</code>: the display text of the link.</li>
                 <li><code class="wb-prettify">"href"</code>: the url of the link.</li>
+                <li><code class="wb-prettify">"newWindow"</code>: open the link to open in a new window</li>
             </ul>
             <pre>
 defFooter.outerHTML = wet.builder.footer({
@@ -72,7 +73,8 @@ defFooter.outerHTML = wet.builder.footer({
         "text": "Contact Link 2"
     }, {
         "href": "#",
-        "text": "Contact Link 3"
+        "text": "Contact Link 3",
+        "newWindow": true
     }]
 ...
 });
@@ -107,7 +109,8 @@ defFooter.outerHTML = wet.builder.footer({
 					"text": "Contact Link 2"
 				}, {
 					"href": "#",
-					"text": "Contact Link 3"
+					"text": "Contact Link 3",
+					"newWindow": true
 				}]
 			});
 		</script>

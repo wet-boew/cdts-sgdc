@@ -11,9 +11,9 @@
         <h2 class="wb-inv"><^- msg('About government') ^></h2>
         <ul class="list-unstyled colcount-sm-2 colcount-md-4">
             <%_ if (pr.contactLinks != null) { -%>
-                <%_ for (var linkIndex=0; linkIndex<pr.contactLinks.length; linkIndex++) { 
+                <%_ for (var linkIndex=0; linkIndex<pr.contactLinks.length; linkIndex++) {
                     const link=pr.contactLinks[linkIndex];-%>
-                    <li><a href="<%- link.href %>"><%= link.text %></a></li>
+                    <li><a href="<%- link.href %>" <%- (link.newWindow==true)? ' target="_blank"': '' %>><%= link.text %></a></li>
                 <%_ } -%>
             <%_ } else { -%>
                 <li><a href="<^- msg('https://intranet.canada.ca/contact-eng.asp') ^>"><^- msg('Contact us') ^></a></li>

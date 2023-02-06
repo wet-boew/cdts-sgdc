@@ -64,6 +64,7 @@
                 <li><code class="wb-prettify">"title"</code>: le titre de la bande contextuelle.</li>
                 <li><code class="wb-prettify">"text"</code>: le texte du lien affiché.</li>
                 <li><code class="wb-prettify">"href"</code>: l'url du lien.</li>
+                <li><code class="wb-prettify">"newWindow"</code>: ouvrir le lien dans une nouvelle fenêtre</li>
             </ul>
             <pre>
 defFooter.outerHTML = wet.builder.footer({
@@ -80,7 +81,8 @@ defFooter.outerHTML = wet.builder.footer({
         },
         {
             "text": "Link 3",
-            "href":"#"
+            "href":"#",
+            "newWindow": true
         },
         {
             "text": "Link 4",
@@ -104,6 +106,7 @@ defFooter.outerHTML = wet.builder.footer({
             <p>La bande sous le pied de page est visible par défaut. Vous avez la possibilité de masquer les trois premiers liens via le paramètre <code class="wb-prettify">hideFooterCorporate</code>.</p>
             <p>Vous avez également la possibilité d'écraser l'attribut href du lien Avis via le paramètre <code class="wb-prettify">termsLink</code>.</p>
             <p>Vous avez également la possibilité d'écraser l'attribut href du lien Confidentialité via le paramètre <code class="wb-prettify">privacyLink</code>.</p>
+            <p>Vous pouvez ouvrir les liens personnalisés Avis/Confidentialité dans une nouvelle fenêtre via le paramètre <code class="wb-prettify">newWindow</code>.</p>
             <p>Ceci est configuré dans la section <b>footer</b> de votre page.</p>
             <pre>
 defFooter.outerHTML = wet.builder.footer({
@@ -113,7 +116,8 @@ defFooter.outerHTML = wet.builder.footer({
         "href": "custom.html"
     },
     "privacyLink": {
-        "href": "custom.html"
+        "href": "custom.html",
+        "newWindow": true
     }
 ...
 });
@@ -152,7 +156,8 @@ defFooter.outerHTML = wet.builder.footer({
                     },
                     {
                         "text": "Link 3",
-                        "href":"#"
+                        "href":"#",
+                        "newWindow": true
                     },
                     {
                         "text": "Link 4",
@@ -161,6 +166,13 @@ defFooter.outerHTML = wet.builder.footer({
                 }
                 //"hideFooterMain": true,
                 //"hideFooterCorporate": true
+                /*"termsLink": {
+                    "href": "custom.html"
+                },
+                "privacyLink": {
+                    "href": "custom.html",
+                    "newWindow": true
+                }*/
 			});
 		</script>
 		<!-- Write closure template -->
