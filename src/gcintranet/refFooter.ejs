@@ -41,7 +41,7 @@
     <a href="#" id="cdts-exitscript-placeholder-link" style="display: none" aria-hidden="true" class="wb-exitscript">Exit Link</a>
     <script data-id="exitScript">wet.utilities.cdtsApplyExitScriptToLinks("<%=pr.displayModal != null? pr.displayModal: 'undefined'%>", "<%-pr.exitURL != null? pr.exitURL: 'undefined'%>", "<%=pr.exitDomains != null? pr.exitDomains: 'undefined'%>", "<%=pr.exitMsg != null? pr.exitMsg: 'undefined'%>", "<%=pr.yesMsg != null? pr.yesMsg: 'undefined'%>", "<%=pr.cancelMsg != null? pr.cancelMsg: 'undefined'%>", "<%=pr.msgBoxHeader != null? pr.msgBoxHeader: 'undefined'%>", "<%=pr.targetWarning != null? pr.targetWarning: 'undefined'%>", "<%=pr.displayModalForNewWindow != null? pr.displayModalForNewWindow: 'undefined'%>");</script>
 <%_ } -%>
-<%_ if (pr.webAnalytics != null && !wet.utilities.isCDTSSetupMode()) { -%>
+<%_ if (pr.webAnalytics != null && pr.webAnalytics != false && !wet.utilities.isCDTSSetupMode()) { -%>
     <%# Do NOT add this call in "setup" mode because Adobe's script will be loaded essentially async (https://experienceleague.adobe.com/docs/experience-platform/tags/client-side/asynchronous-deployment.html?lang=en) -%>
     <script>_satellite.pageBottom();</script>
 <%_ } -%>
