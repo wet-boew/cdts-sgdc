@@ -261,4 +261,10 @@
         width: 65%;
     }
 }
+
+@media (min-width: 1200px){
+    .cdts-app-title-menu{
+        padding-left: 0;
+    }
+}
 /********** End of CSS classes used specifically for the header menu **********/

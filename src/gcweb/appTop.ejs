@@ -100,6 +100,8 @@
             <div class="row">
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
                     <section class="col-xs-12 col-sm-7">
+                <%_ } else if (pr.headerMenu != null) { -%>
+                    <section class="col-xs-12 col-sm-9 cdts-app-title-menu">
                 <%_ } else { -%>
                     <section class="col-xs-12">
                 <%_ } -%>
