@@ -262,8 +262,8 @@
     }
 }
 
-@media (min-width: 1200px){
-    .cdts-app-title-menu{
+@media (min-width: 1200px) {
+    .cdts-app-title-menu {
         padding-left: 0;
     }
 }
