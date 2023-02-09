@@ -44,7 +44,7 @@
 <%_ if (pr.isApplication == true) { -%>
     <script src="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtscustom.js"></script>
 <%_ } -%>
-<%_ if (pr.webAnalytics != null && !wet.utilities.isCDTSSetupMode()) { -%>
+<%_ if (pr.webAnalytics != null && pr.webAnalytics != false && !wet.utilities.isCDTSSetupMode()) { -%>
     <%# Do NOT add this call in "setup" mode because Adobe's script will be loaded essentially async (https://experienceleague.adobe.com/docs/experience-platform/tags/client-side/asynchronous-deployment.html?lang=en) -%>
     <script>_satellite.pageBottom();</script>
 <%_ } -%>
