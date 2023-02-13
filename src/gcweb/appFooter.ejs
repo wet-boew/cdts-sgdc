@@ -6,55 +6,56 @@
  * @param? footerSections Used to populate the footer with custom links.
 -%>
 <footer id="wb-info">
-    <%_ if (pr.footerSections != null) { -%>
-        <div class="landscape">
-            <nav class="container wb-navcurr">
-                <h2 class="wb-inv"><^- msg('Related links') ^></h2>
-                <ul class="list-unstyled colcount-sm-2 colcount-md-3">
-                    <%_ for (var sectionIndex=0; sectionIndex<pr.footerSections.length; sectionIndex++) { 
-                        const link=pr.footerSections[sectionIndex];-%>
-                        <li><a href="<%- link.href %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
-                    <%_ } -%>
-                </ul>
-            </nav>
+    <%_ if (pr.footerSections != null || (pr.contactLink != null && pr.contactLink.length > 0)) { -%>
+        <%# Check if footerSections is an array to maintain backwards compatibility -%>
+        <%_ if (pr.footerSections != null) { -%>
+            <%_ if (Array.isArray(pr.footerSections)) pr.footerSections = { links: pr.footerSections } -%>
+        <%_ } -%>
+        <div class="gc-contextual">
+            <div class="container">
+                <nav>
+                    <h2 class="wb-inv"><^- msg('Related links') ^></h2>
+                    <%_ if (pr.footerSections.title != null) { -%> <h3><%= pr.footerSections.title %></h3> <%_ } -%>
+                    <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
+                        <%_ if (pr.contactLink != null && pr.contactLink.length > 0) { -%>
+                            <%_ const link=pr.contactLink[0]; -%>
+                            <li><a href="<%- (link.href != null)? link.href: '<^- msg('https://www.canada.ca/en/contact.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Contact information') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                        <%_ } -%>
+                        <%_ if (pr.footerSections != null) { -%>
+                            <%_ for (var sectionIndex=0; sectionIndex<pr.footerSections.links.length; sectionIndex++) {
+                                const link=pr.footerSections.links[sectionIndex];-%>
+                                <li><a href="<%- link.href %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%= link.text %><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
+                            <%_ } -%>
+                        <%_ } -%>
+                    </ul>
+                </nav>
+            </div>
         </div>
     <%_ } -%>
-    <div class="brand">
-        <div class="container">
-            <div class="row">
-                <nav class="col-md-10 ftr-urlt-lnk" aria-labelledby="aboutWebApp">
-                    <h2 class="wb-inv" id="aboutWebApp"><^- msg('About this Web application') ^></h2>
-                    <ul>
-
-                    <%_ if (pr.contactLink != null && pr.contactLink.length > 0) {
-                        const link=pr.contactLink[0]; -%>
-                        <li><a href="<%- (link.href != null)? link.href: '<^- msg('https://www.canada.ca/en/contact.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Contact information') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
-                    <%_ } else { -%>
-                        <li><a href="<^- msg('https://www.canada.ca/en/contact.html') ^>"><^- msg('Contact information') ^></a></li>
-                    <%_ } -%>
-
+    <div class="gc-sub-footer">
+        <div class="container d-flex align-items-center">
+            <nav aria-labelledby="aboutWebApp">
+                <h3 class="wb-inv" id="aboutWebApp"><^- msg('Government of Canada Corporate') ^></h3>
+                <ul>
                     <%_ if (pr.termsLink != null && pr.termsLink.length > 0) {
                         const link=pr.termsLink[0]; -%>
                         <li><a href="<%- (link.href != null)? link.href: '<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Terms and conditions') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
                     <%_ } else { -%>
                         <li><a href="<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>"><^- msg('Terms and conditions') ^></a></li>
                     <%_ } -%>
-
                     <%_ if (pr.privacyLink != null && pr.privacyLink.length > 0) {
                         const link=pr.privacyLink[0]; -%>
                         <li><a href="<%- (link.href != null)? link.href: '<^- msg('https://www.canada.ca/en/transparency/privacy.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Privacy') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
                     <%_ } else { -%>
                         <li><a href="<^- msg('https://www.canada.ca/en/transparency/privacy.html') ^>"><^- msg('Privacy') ^></a></li>
                     <%_ } -%>
-
-                    </ul>
-                </nav>
-                <div class="col-xs-6 visible-sm visible-xs tofpg">
-                    <a href="#wb-cont"><^- msg('Top of Page') ^> <span class="glyphicon glyphicon-chevron-up"></span></a>
-                </div>
-                <div class="col-xs-6 col-md-3 col-lg-2 text-right">
-                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-blk.svg" alt="<^- msg('Symbol of the Government of Canada') ^>">
-                </div>
+                </ul>
+            </nav>
+            <div class="col-xs-6 visible-sm visible-xs tofpg">
+                <a href="#wb-cont"><^- msg('Top of Page') ^> <span class="glyphicon glyphicon-chevron-up"></span></a>
+            </div>
+            <div class="wtrmrk align-self-end">
+                <img src="https://wet-boew.github.io/themes-dist/GCWeb/GCWeb/assets/wmms-blk.svg" alt="<^- msg('Symbol of the Government of Canada') ^>">
             </div>
         </div>
     </div>

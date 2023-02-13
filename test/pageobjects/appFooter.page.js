@@ -8,13 +8,16 @@ class AppFooterPage extends Page {
      * define selectors using getter methods
      */
     get footer() { return $('nav.wb-navcurr'); }
+    get footerGCWeb() { return $('div.gc-contextual'); }
+    get footerTitle() { return $('div.gc-contextual h3'); }
     get footerLink() { return $('#wb-info nav.wb-navcurr li:nth-child(1) a'); }
-    get contactLink() { return $('#wb-info nav.ftr-urlt-lnk li:nth-child(1) a'); }
-    get termsLink() { return $('#wb-info nav.ftr-urlt-lnk li:nth-child(2) a'); }
-    get privacyLink() { return $('#wb-info nav.ftr-urlt-lnk li:nth-child(3) a'); }
-    get footerLinkNewWin() { return $('//footer[@id="wb-info"]/div/nav/ul/li[3]/a'); }
+    get footerLinkGCWeb() { return $('div.gc-contextual li:nth-child(2) a'); }
+    get contactLink() { return $('div.gc-contextual li:nth-child(1) a'); }
+    get termsLink() { return $('div.gc-sub-footer li:nth-child(1) a'); }
+    get privacyLink() { return $('div.gc-sub-footer li:nth-child(2) a'); }
+    get footerLinkNewWin() { return $('//footer[@id="wb-info"]/div/div/nav/ul/li[4]/a'); }
     get footerLinkNewWinIntranet() { return $('//footer[@id="wb-info"]/nav/div/section/ul/li[3]/a'); }
-    get footerLinkNewWinSpan() { return $('//footer[@id="wb-info"]/div/nav/ul/li[3]/a/span'); }
+    get footerLinkNewWinSpan() { return $('//footer[@id="wb-info"]/div/div/nav/ul/li[4]/a/span'); }
     get footerLinkNewWinSpanIntranet() { return $('//footer[@id="wb-info"]/nav/div/section/ul/li[3]/a'); }
     get footerSectionName() { return $('//section[@class="col-md-3 col-sm-6 col-lg-3"]/h3'); }
     get customFooterLinkClass() { return $('//section[@class="col-md-3 col-sm-6 col-lg-3"]'); }

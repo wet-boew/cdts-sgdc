@@ -1,92 +1,105 @@
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js" lang="fr" dir="ltr"><!--<![endif]-->
-	<head>
-		<meta charset="utf-8">
-		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>custom-footer-fr</title>
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<!-- Meta data -->
-		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
-		<!-- Meta data-->
-		<!-- Load closure template scripts -->
-		<!--
-			Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
-			Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
+    <head>
+        <meta charset="utf-8">
+        <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+        <title>custom-footer-fr</title>
+        <meta content="width=device-width,initial-scale=1" name="viewport">
+        <!-- Meta data -->
+        <meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
+        <!-- Meta data-->
+        <!-- Load closure template scripts -->
+        <!--
+            Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
+            Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
 
-			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
-			cdts.service.canada.ca : https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
-			templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+            canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+            cdts.service.canada.ca : https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+            templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
 
-			Pour pointer vers la version d'exécution :
+            Pour pointer vers la version d'exécution :
 
-			canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
-			cdts.service.canada.ca : https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
-			templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
-		-->
-		<script src="../compiled/soyutils.js"></script>
-		<script src="../compiled/wet-fr.js"></script>
-		<noscript>
-			<!-- Write closure fall-back static file -->
-			<!-- refTop.html -->
-		</noscript>
-		<!-- Write closure template -->
-		<script>
-			document.write(wet.builder.refTop({
-				"cdnEnv": "esdcprod",
-				"isApplication": true
-			}));
-		</script>
-	</head>
-	<body vocab="https://schema.org/" typeof="WebPage">
-		<div id="def-top">
-			<!-- Write closure fall-back static file -->
-			<!-- top-en.html -->
-		</div>
-		<!-- Write closure template -->
-		<script>
-			var defTop = document.getElementById("def-top");
-			defTop.outerHTML = wet.builder.appTop({
+            canada.ca : https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+            cdts.service.canada.ca : https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+            templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+        -->
+        <script src="../compiled/soyutils.js"></script>
+        <script src="../compiled/wet-fr.js"></script>
+        <noscript>
+            <!-- Write closure fall-back static file -->
+            <!-- refTop.html -->
+        </noscript>
+        <!-- Write closure template -->
+        <script>
+            document.write(wet.builder.refTop({
+                "cdnEnv": "esdcprod",
+                "isApplication": true
+            }));
+        </script>
+    </head>
+    <body vocab="https://schema.org/" typeof="WebPage">
+        <div id="def-top">
+            <!-- Write closure fall-back static file -->
+            <!-- top-en.html -->
+        </div>
+        <!-- Write closure template -->
+        <script>
+            var defTop = document.getElementById("def-top");
+            defTop.outerHTML = wet.builder.appTop({
                 "appName": [{
                     "text": "Nom de l'application",
                     "href": "#"
                 }],
-				"lngLinks": [{
-					"lang": "en",
-					"href": "custom-footer-en.html",
-					"text": "English"
-				}],
-				"cdnEnv": "esdcprod"
-			});
-		</script>
-		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
-			<h1 property="name" id="wb-cont">Pied de page personnalisé</h1>
-			<p>Lorsque vous utilisez le modèle d'application, vous avez la possibilité d'ajouter un pied de page personnalisé qui contiendra les liens de votre choix.</p>
-			<h2>Mise en œuvre</h2>
-			<p>La personnalisation du pied de page se fait via le paramètre <code>footerSections</code> dans la section <b>appFooter</b> de votre page.</p>
+                "lngLinks": [{
+                    "lang": "en",
+                    "href": "custom-footer-en.html",
+                    "text": "English"
+                }],
+                "cdnEnv": "esdcprod"
+            });
+        </script>
+        <main property="mainContentOfPage" typeof="WebPageElement" class="container">
+            <h1 property="name" id="wb-cont">Pied de page personnalisé</h1>
+            <p>Lorsque vous utilisez le modèle d'application, vous avez la possibilité d'ajouter un pied de page personnalisé qui contiendra les liens de votre choix.</p>
+            <h2>Mise en œuvre</h2>
+            <p>La personnalisation du pied de page se fait via le paramètre <code>footerSections</code> dans la section <b>appFooter</b> de votre page.</p>
             <ul>
-                <li><code class="wb-prettify">href</code>: l'url du lien</li>
-                <li><code class="wb-prettify">text</code>: le texte du lien qui s'affiche</li>
-                <li><code class="wb-prettify">newWindow</code>: Facultatif: défini sur true si vous souhaitez que le lien s'ouvre dans une nouvelle fenêtre</li>
+                <li><code class="wb-prettify">"title"</code>: (FACULTATIF) - le titre de votre pied de page personnalisé</li>
+                <li><code class="wb-prettify">href</code>: (OBLIGATOIRE) - l'url du lien</li>
+                <li><code class="wb-prettify">text</code>: (OBLIGATOIRE) - le texte du lien qui s'affiche</li>
+                <li><code class="wb-prettify">newWindow</code>: (FACULTATIF) - défini sur true si vous souhaitez que le lien s'ouvre dans une nouvelle fenêtre</li>
             </ul>
             <pre>
 defFooter.outerHTML = wet.builder.appFooter({
 ...
-    "footerSections": [{
-        "href": "#",
-        "text": "Lien de pied de page du portail 1"
-    }, {
-        "href": "#",
-        "text": "Lien de pied de page du portail 2"
-    }, {
-        "href": "#",
-        "text": "Lien de pied de page du portail 3"
-    }]
+    "footerSections": {
+        "title":"Title",
+        "links": [{
+            "href": "#",
+            "text": "Portal footer link 1"
+        }, {
+            "href": "#",
+            "text": "Portal footer link 2"
+        }, {
+            "href": "#",
+            "text": "Portal footer link 3",
+            "newWindow": true
+        }]
+    }
 ...
 });
             </pre>
-            <p>To modify the contact link, the terms link and the privacy link at the bottom of the page, simply add the following code snippet in the <b>appFooter</b> section for your page.</p>
-            <p>Contact Link</p>
+            <p>Ajoutez un titre à votre pied de page personnalisé via le paramètre <code>footerSectionsTitle</code> dans la section <b>appFooter</b> de votre page.</p>
+            <pre>
+defFooter.outerHTML = wet.builder.appFooter({
+...
+    "footerSectionsTitle": "Title"
+...
+});
+            </pre>
+            <p>Pour modifier le lien de contact, le lien de Avis et le lien de confidentialité au bas de la page, ajoutez simplement l'extrait de code suivant dans la section <b>appFooter</b> de votre page.</p>
+            <p>Lien de Contact</p>
             <pre>
 defFooter.outerHTML = wet.builder.appFooter({
 ...
@@ -97,7 +110,7 @@ defFooter.outerHTML = wet.builder.appFooter({
 ...
 });
             </pre>
-            <p>Terms Link</p>
+            <p>Lien de Avis</p>
             <pre>
 defFooter.outerHTML = wet.builder.appFooter({
 ...
@@ -108,7 +121,7 @@ defFooter.outerHTML = wet.builder.appFooter({
 ...
 });
             </pre>
-            <p>Privacy Link</p>
+            <p>Lien de Confidentialité</p>
             <pre>
 defFooter.outerHTML = wet.builder.footer({
 ...
@@ -119,38 +132,42 @@ defFooter.outerHTML = wet.builder.footer({
 ...
 });
             </pre>
-			<div id="def-preFooter">
-				<!-- Write closure fall-back static file -->
-				<!-- preFooter-en.html -->
-			</div>
-			<!-- Write closure template -->
-			<script>
-				var defPreFooter = document.getElementById("def-preFooter");
-				defPreFooter.outerHTML = wet.builder.preFooter({
-					"dateModified": "2021-05-19",
-					"cdnEnv": "esdcprod"
-				});
-			</script>
-		</main>
-		<div id="def-footer">
-			<!-- Write closure fall-back static file -->
-			<!-- footer-en.html -->
-		</div>
-		<!-- Write closure template -->
-		<script>
-			var defFooter = document.getElementById("def-footer");
-			defFooter.outerHTML = wet.builder.appFooter({
-				"cdnEnv": "esdcprod",
-                "footerSections": [{
-					"href": "#",
-					"text": "Lien de pied de page du portail 1"
-				}, {
-					"href": "#",
-					"text": "Lien de pied de page du portail 2"
-				}, {
-					"href": "#",
-					"text": "Lien de pied de page du portail 3"
-				}],
+            <div id="def-preFooter">
+                <!-- Write closure fall-back static file -->
+                <!-- preFooter-en.html -->
+            </div>
+            <!-- Write closure template -->
+            <script>
+                var defPreFooter = document.getElementById("def-preFooter");
+                defPreFooter.outerHTML = wet.builder.preFooter({
+                    "dateModified": "2021-05-19",
+                    "cdnEnv": "esdcprod"
+                });
+            </script>
+        </main>
+        <div id="def-footer">
+            <!-- Write closure fall-back static file -->
+            <!-- footer-en.html -->
+        </div>
+        <!-- Write closure template -->
+        <script>
+            var defFooter = document.getElementById("def-footer");
+            defFooter.outerHTML = wet.builder.appFooter({
+                "cdnEnv": "esdcprod",
+                "footerSections": {
+                    "title":"Title",
+                    "links": [{
+                        "href": "#",
+                        "text": "Portal footer link 1"
+                    }, {
+                        "href": "#",
+                        "text": "Portal footer link 2"
+                    }, {
+                        "href": "#",
+                        "text": "Portal footer link 3",
+                        "newWindow": true
+                    }]
+                },
                 "contactLink": [{
                     "href": "https://www.canada.ca/en/contact.html",
                     "newWindow": true
@@ -163,14 +180,14 @@ defFooter.outerHTML = wet.builder.footer({
                     "href": "https://www.canada.ca/en/transparency/privacy.html",
                     "newWindow": true
                 }]
-			});
-		</script>
-		<!-- Write closure template -->
-		<script>
-			document.write(wet.builder.refFooter({
-				"cdnEnv": "esdcprod",
-				"isApplication": true
-			}));
-		</script>
-	</body>
+            });
+        </script>
+        <!-- Write closure template -->
+        <script>
+            document.write(wet.builder.refFooter({
+                "cdnEnv": "esdcprod",
+                "isApplication": true
+            }));
+        </script>
+    </body>
 </html>

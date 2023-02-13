@@ -5,20 +5,20 @@
         "source": "Related links",
         "target": null
     },
-    "1d8b1236d7b70a9ca73929aa23ac4bfd96450bb1": {
-        "source": "This link will open in a new window",
-        "target": null
-    },
-    "e6e5b24ac32aea237e7550632aa3f78aaa8256e8": {
-        "source": "About this Web application",
-        "target": null
-    },
     "ea28d56fe7c9677f23f83e7d8fc186a475bd7cda": {
         "source": "https://www.canada.ca/en/contact.html",
         "target": null
     },
     "852a4222122269b28e61fe1c3ef5f78501df156e": {
         "source": "Contact information",
+        "target": null
+    },
+    "1d8b1236d7b70a9ca73929aa23ac4bfd96450bb1": {
+        "source": "This link will open in a new window",
+        "target": null
+    },
+    "06a4cdf8f6ded10adae4db5e747358e6fcb3ce47": {
+        "source": "Government of Canada Corporate",
         "target": null
     },
     "fb0cbc1982e89eb7fb08dd66ff74e164ec45cfc3": {
@@ -307,10 +307,6 @@
     },
     "b2370d58ad8583864bee7877ddafbd3995d8415b": {
         "source": "Youth",
-        "target": null
-    },
-    "06a4cdf8f6ded10adae4db5e747358e6fcb3ce47": {
-        "source": "Government of Canada Corporate",
         "target": null
     },
     "2df3eb3885cc8d7db17f46df232da00a494dc489": {
