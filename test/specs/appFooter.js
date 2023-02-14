@@ -56,6 +56,22 @@ describe('AppFooter section tests for GCWeb', () => {
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
 	});
 
+    generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appFooter-contactLink-en', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+	});
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appFooter-contactLink-fr', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+	});
+
     it('Validate the footer links', async () => {
         await footerLinks(theme, 'en');
         await footerLinks(theme, 'fr');
@@ -81,6 +97,11 @@ describe('AppFooter section tests for GCWeb', () => {
         await footerBrandLinksDoNotOpenNewWin(theme, 'fr', 'newWinFalse');
         await footerBrandLinksDoNotOpenNewWin(theme, 'en', 'newWinEmpty');
         await footerBrandLinksDoNotOpenNewWin(theme, 'fr', 'newWinEmpty');
+    });
+
+    it('Check for contact links when footer section is not there', async () => {
+        await footerContactLink(theme, 'en', 'contactLink');
+        await footerContactLink(theme, 'fr', 'contactLink');
     });
 
     it('Accessibility', async () => {
@@ -387,6 +408,11 @@ async function cssScript(theme, lang, page){
 async function cssScriptECCC(theme, lang){
     await appFooterPage.open(theme, lang, 'ecccCustomFooterLinks');
     await expect(appFooterPage.cssScriptECCC).toExist();
+}
+
+async function footerContactLink(theme, lang){
+    await appFooterPage.open(theme, lang, 'contactLink');
+    await expect(appFooterPage.contactLink).toHaveHrefContaining('contactLinksTest');
 }
 
 async function accessibility(theme, lang) {

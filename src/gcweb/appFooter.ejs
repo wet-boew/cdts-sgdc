@@ -8,14 +8,12 @@
 <footer id="wb-info">
     <%_ if (pr.footerSections != null || (pr.contactLink != null && pr.contactLink.length > 0)) { -%>
         <%# Check if footerSections is an array to maintain backwards compatibility -%>
-        <%_ if (pr.footerSections != null) { -%>
-            <%_ if (Array.isArray(pr.footerSections)) pr.footerSections = { links: pr.footerSections } -%>
-        <%_ } -%>
+        <%_ if (pr.footerSections != null && Array.isArray(pr.footerSections)) pr.footerSections = { links: pr.footerSections } -%>
         <div class="gc-contextual">
             <div class="container">
                 <nav>
                     <h2 class="wb-inv"><^- msg('Related links') ^></h2>
-                    <%_ if (pr.footerSections.title != null) { -%> <h3><%= pr.footerSections.title %></h3> <%_ } -%>
+                    <%_ if (pr.footerSections != null && pr.footerSections.title != null) { -%> <h3><%= pr.footerSections.title %></h3> <%_ } -%>
                     <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
                         <%_ if (pr.contactLink != null && pr.contactLink.length > 0) { -%>
                             <%_ const link=pr.contactLink[0]; -%>
@@ -55,7 +53,7 @@
                 <a href="#wb-cont"><^- msg('Top of Page') ^> <span class="glyphicon glyphicon-chevron-up"></span></a>
             </div>
             <div class="wtrmrk align-self-end">
-                <img src="https://wet-boew.github.io/themes-dist/GCWeb/GCWeb/assets/wmms-blk.svg" alt="<^- msg('Symbol of the Government of Canada') ^>">
+                <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-blk.svg" alt="<^- msg('Symbol of the Government of Canada') ^>">
             </div>
         </div>
     </div>
