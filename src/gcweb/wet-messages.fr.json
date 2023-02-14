@@ -177,10 +177,6 @@
         "source": "Search",
         "target": "Recherche"
     },
-    "e6e5b24ac32aea237e7550632aa3f78aaa8256e8": {
-        "source": "About this Web application",
-        "target": "À propos de cette application Web"
-    },
     "be0e108e4a9c3bc256fd4a0cc18f0c521b1a771e": {
         "source": "https://www.canada.ca/en/services/policing.html",
         "target": "https://www.canada.ca/fr/services/police.html"

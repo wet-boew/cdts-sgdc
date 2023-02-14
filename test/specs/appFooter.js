@@ -12,7 +12,7 @@ describe('AppFooter section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
         appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"footerSections": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": true}], "contactLink": [{"href": "contactLinksTest", "newWindow": true }], "termsLink": [{"href": "termsLinkTest", "newWindow": true}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": true}], "showFeatures": true, "cdnEnv": "localhost"}',
+        appFooter: '{"footerSections": {"title":"Title", "links": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": true}]}, "contactLink": [{"href": "contactLinksTest", "newWindow": true }], "termsLink": [{"href": "termsLinkTest", "newWindow": true}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": true}], "showFeatures": true, "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
 	});
 
@@ -20,7 +20,7 @@ describe('AppFooter section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
         appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"footerSections": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": true}], "contactLink": [{"href": "contactLinksTest", "newWindow": true }], "termsLink": [{"href": "termsLinkTest", "newWindow": true}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": true}], "showFeatures": true, "cdnEnv": "localhost"}',
+        appFooter: '{"footerSections": {"title":"Title", "links": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": true}]}, "contactLink": [{"href": "contactLinksTest", "newWindow": true }], "termsLink": [{"href": "termsLinkTest", "newWindow": true}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": true}], "showFeatures": true, "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
 	});
 
@@ -28,7 +28,7 @@ describe('AppFooter section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
         appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"footerSections": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": false}], "contactLink": [{"href": "contactLinksTest", "newWindow": false }], "termsLink": [{"href": "termsLinkTest", "newWindow": false}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": false}], "cdnEnv": "localhost"}',
+        appFooter: '{"footerSections": {"title":"Title", "links": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": false}]}, "contactLink": [{"href": "contactLinksTest", "newWindow": false }], "termsLink": [{"href": "termsLinkTest", "newWindow": false}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": false}], "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
 	});
 
@@ -36,7 +36,7 @@ describe('AppFooter section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
         appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"footerSections": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": false}], "contactLink": [{"href": "contactLinksTest", "newWindow": false }], "termsLink": [{"href": "termsLinkTest", "newWindow": false}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": false}], "cdnEnv": "localhost"}',
+        appFooter: '{"footerSections": {"title":"Title", "links": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3", "newWindow": false}]}, "contactLink": [{"href": "contactLinksTest", "newWindow": false }], "termsLink": [{"href": "termsLinkTest", "newWindow": false}], "privacyLink": [{"href": "privacyLinkTest", "newWindow": false}], "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
 	});
 
@@ -44,7 +44,7 @@ describe('AppFooter section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
         appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"footerSections": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3"}], "contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        appFooter: '{"footerSections": {"title":"Title", "links": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3"}]}, "contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
 	});
 
@@ -52,7 +52,23 @@ describe('AppFooter section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost", "isApplication": true}',
         appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"footerSections": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3"}], "contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        appFooter: '{"footerSections": {"title":"Title", "links": [{"href": "#", "text": "Portal footer link 1"}, {"href": "#", "text": "Portal footer link 2"}, {"href": "#", "text": "Portal footer link 3"}]}, "contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+	});
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-en.html', 'gcweb', 'gcweb-appFooter-contactLink-en', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
+	});
+
+    generateTestFile('./test/html/gcweb/template-gcwebapp-fr.html', 'gcweb', 'gcweb-appFooter-contactLink-fr', {
+        refTop: '{"cdnEnv": "localhost", "isApplication": true}',
+        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
+        preFooter: '{"cdnEnv": "localhost"}',
+        appFooter: '{"contactLink": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost", "isApplication": true}'
 	});
 
@@ -81,6 +97,11 @@ describe('AppFooter section tests for GCWeb', () => {
         await footerBrandLinksDoNotOpenNewWin(theme, 'fr', 'newWinFalse');
         await footerBrandLinksDoNotOpenNewWin(theme, 'en', 'newWinEmpty');
         await footerBrandLinksDoNotOpenNewWin(theme, 'fr', 'newWinEmpty');
+    });
+
+    it('Check for contact links when footer section is not there', async () => {
+        await footerContactLink(theme, 'en', 'contactLink');
+        await footerContactLink(theme, 'fr', 'contactLink');
     });
 
     it('Accessibility', async () => {
@@ -281,12 +302,13 @@ describe('AppFooter section tests for GCIntranet', () => {
 
 async function footerLinks(theme, lang){
     await appFooterPage.open(theme, lang);
-    await expect(appFooterPage.footer).toExist();
-    await expect(appFooterPage.footerLink).toHaveTextContaining('Portal footer link 1');
-    await expect(appFooterPage.footerLink).not.toHaveAttributeContaining('target', '_blank'); //first link should not have attribute
+    await expect(appFooterPage.footerGCWeb).toExist();
+    await expect(appFooterPage.footerLinkGCWeb).toHaveTextContaining('Portal footer link 1');
+    await expect(appFooterPage.footerLinkGCWeb).not.toHaveAttributeContaining('target', '_blank'); //first link should not have attribute
     await expect(appFooterPage.footerLinkNewWin).toHaveAttributeContaining('target', '_blank'); //only third link should have the attribute
     if (lang == 'en') { await expect(appFooterPage.footerLinkNewWinSpan).toHaveTextContaining('This link will open in a new window'); }
     else { await expect(appFooterPage.footerLinkNewWinSpan).toHaveTextContaining('Ce lien ouvrira dans une nouvelle fenêtre'); }
+    await expect(appFooterPage.footerTitle).toHaveTextContaining('Title');
 }
 
 async function footerLinksIntranet(theme, lang){
@@ -332,7 +354,7 @@ async function footerLinksNotExist(theme, lang){
 
 async function footerDefaultBrandLinks(theme, lang){
     await basicPage.open(theme, lang, 'app');
-    await expect(appFooterPage.contactLink).toHaveHrefContaining('contact.html');
+    await expect(appFooterPage.contactLink).not.toExist();
     if (lang === 'en'){
         await expect(appFooterPage.termsLink).toHaveHrefContaining('terms.html');
         await expect(appFooterPage.privacyLink).toHaveHrefContaining('privacy.html');
@@ -366,7 +388,7 @@ async function customFooterLinksSubTheme(theme, lang, page){
     await expect(appFooterPage.customFooterLinkText).toHaveTextContaining('Custom Section 1');
     await expect(appFooterPage.customFooterLink).toHaveAttributeContaining('target', '_blank');
     if (lang == 'en') { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Corporate'); }
-    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Ministère'); } 
+    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Ministère'); }
 }
 
 async function customFooterLinksECCC(theme, lang){
@@ -375,7 +397,7 @@ async function customFooterLinksECCC(theme, lang){
     await expect(appFooterPage.customFooterLinkText).toHaveTextContaining('Custom Section 1');
     await expect(appFooterPage.customFooterLink).toHaveAttributeContaining('target', '_blank');
     if (lang == 'en') { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Contact Us'); }
-    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Communiquez avec nous'); } 
+    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Communiquez avec nous'); }
 }
 
 async function cssScript(theme, lang, page){
@@ -386,6 +408,11 @@ async function cssScript(theme, lang, page){
 async function cssScriptECCC(theme, lang){
     await appFooterPage.open(theme, lang, 'ecccCustomFooterLinks');
     await expect(appFooterPage.cssScriptECCC).toExist();
+}
+
+async function footerContactLink(theme, lang){
+    await appFooterPage.open(theme, lang, 'contactLink');
+    await expect(appFooterPage.contactLink).toHaveHrefContaining('contactLinksTest');
 }
 
 async function accessibility(theme, lang) {
