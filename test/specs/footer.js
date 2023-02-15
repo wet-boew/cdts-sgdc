@@ -174,7 +174,6 @@ async function showFooterFalse(theme, lang){
 
 async function footerBrandLinks(theme, lang){
     await footerPage.open(theme, lang);
-    await expect(footerPage.contactLink).toHaveHrefContaining('contactLinksTest');
     await expect(footerPage.termsLink).toHaveHrefContaining('termsLinkTest');
     await expect(footerPage.privacyLink).toHaveHrefContaining('privacyLinkTest');
 }

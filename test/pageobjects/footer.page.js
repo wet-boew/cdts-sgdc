@@ -12,9 +12,8 @@ class FooterPage extends Page {
     get contextualFooter() { return $('div.gc-contextual'); }
     get contextualFooterLinks() { return $('div.gc-contextual ul'); }
     get footerContactLink() { return $('#wb-info nav li:nth-child(1) a'); }
-    get contactLink() { return $('#wb-info nav li:nth-child(1) a'); }
-    get termsLink() { return $('#wb-info nav li:nth-child(2) a'); }
-    get privacyLink() { return $('#wb-info nav li:nth-child(3) a'); }
+    get termsLink() { return $('#wb-info nav li:nth-child(1) a'); }
+    get privacyLink() { return $('#wb-info nav li:nth-child(2) a'); }
     get footerLink2() { return $('(//footer[@id="wb-info"]/div/div/nav/ul/li/a)[2]'); }
     get footerLink3() { return $('(//footer[@id="wb-info"]/div/div/nav/ul/li/a)[3]'); }
     get footerLink4() { return $('(//footer[@id="wb-info"]/div/div/nav/descendant::li/a)[4]'); }

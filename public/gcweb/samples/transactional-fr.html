@@ -140,19 +140,7 @@ defPreFooter.outerHTML = wet.builder.preFooter({
     ...
     });
                 </pre>
-                <li>Facultatif: remplacez le lien « Coordonnées », le lien « Avis » et le lien « Confidentialité » situé au bas de la page. Un paramètre optionnel newWindow peut être défini sur true si vous souhaitez que le lien s'ouvre dans une nouvelle fenêtre.</li>
-                <li>Lien Coordonnées</li>
-                <pre>
-defFooter.outerHTML = wet.builder.footer({
-...
-    "contactLink": [{
-        "href": "https://www.canada.ca/en/contact.html",
-        "newWindow": true
-    }]
-...
-});
-
-                </pre>
+                <li>Facultatif: remplacez le lien « Avis » et le lien « Confidentialité » situé au bas de la page. Un paramètre optionnel newWindow peut être défini sur true si vous souhaitez que le lien s'ouvre dans une nouvelle fenêtre.</li>
                 <li>Lien Avis</li>
                 <pre>
 defFooter.outerHTML = wet.builder.footer({
@@ -203,11 +191,6 @@ defFooter.outerHTML = wet.builder.footer({
 				"cdnEnv": "esdcprod",
 				"showFooter": false,
 				"showFeatures": false,
-
-				"contactLinks": [{
-					"href": "#",
-					"newWindow": true
-				}],
 				"termsLink": [{
 					"href": "#"
 				}],
