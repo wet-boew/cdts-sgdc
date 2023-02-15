@@ -91,13 +91,6 @@
                     </ul>
                 <%_ } else { -%>
                     <ul>
-                        <%_ if (pr.contactLinks != null && pr.contactLinks.length > 0) {
-                            const link=pr.contactLinks[0]; -%>
-                            <li><a href="<%- (link.href)? link.href: '<^- msg('https://www.canada.ca/en/contact.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Contact information') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
-                        <%_ } else { -%>
-                            <li><a href="<^- msg('https://www.canada.ca/en/contact.html') ^>"><^- msg('Contact information') ^></a></li>
-                        <%_ } -%>
-
                         <%_ if (pr.termsLink != null && pr.termsLink.length > 0) {
                             const link=pr.termsLink[0]; -%>
                             <li><a href="<%- (link.href)? link.href: '<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>' %>"<%- (link.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Terms and conditions') ^><%_ if (link.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>

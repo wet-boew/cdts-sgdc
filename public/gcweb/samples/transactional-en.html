@@ -140,19 +140,7 @@ defPreFooter.outerHTML = wet.builder.preFooter({
     ...
     });
                 </pre>
-                <li>Optional: Override the 'Contact us' link, the 'Terms and Conditions' link and the 'Privacy' located at the bottom of the page. An optional newWindow parameter can be set to true if you would like the link to open in a new window.</li>
-                <li>Contact link</li>
-                <pre>
-defFooter.outerHTML = wet.builder.footer({
-...
-    "contactLink": [{
-        "href": "https://www.canada.ca/en/contact.html",
-        "newWindow": true
-    }]
-...
-});
-
-                </pre>
+                <li>Optional: Override the 'Terms and Conditions' link and the 'Privacy' located at the bottom of the page. An optional newWindow parameter can be set to true if you would like the link to open in a new window.</li>
                 <li>Terms and conditions link</li>
                 <pre>
 defFooter.outerHTML = wet.builder.footer({
@@ -203,11 +191,6 @@ defFooter.outerHTML = wet.builder.footer({
 				"cdnEnv": "esdcprod",
 				"showFooter": false,
 				"showFeatures": false,
-
-				"contactLinks": [{
-					"href": "#",
-					"newWindow": true
-				}],
 				"termsLink": [{
 					"href": "#"
 				}],
