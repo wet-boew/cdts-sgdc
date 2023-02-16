@@ -7,17 +7,12 @@ require('../setup/basic.js');
 const fs = require('fs');
 const assert = require('assert');
 
-function getSoyUtilsModuleFilename(theme) {
-    return `./dist/app/cls/WET/${theme}/${process.env.CDTS_TEST_VERSION_NAME || 'v4_0_40'}/cdts/compiled/soyutils.js`;
-}
-
 function getWetModuleFilename(theme, language) {
     return `./dist/app/cls/WET/${theme}/${process.env.CDTS_TEST_VERSION_NAME || 'v4_0_40'}/cdts/compiled/wet-${language}.js`;
 }
 
 describe('refTop section tests for GCWeb - English', () => {
     //---[ Load wet-en.js file (to be able to call wet.builder.* functions manually)
-    eval(fs.readFileSync(getSoyUtilsModuleFilename('gcweb'), 'utf8'));
     eval(fs.readFileSync(getWetModuleFilename('gcweb', 'en'), 'utf8'));
 
     performTests(wet);
@@ -25,7 +20,6 @@ describe('refTop section tests for GCWeb - English', () => {
 
 describe('refTop section tests for GCWeb - French', () => {
     //---[ Load wet-en.js file (to be able to call wet.builder.* functions manually)
-    eval(fs.readFileSync(getSoyUtilsModuleFilename('gcweb'), 'utf8'));
     eval(fs.readFileSync(getWetModuleFilename('gcweb', 'fr'), 'utf8'));
 
     performTests(wet);
@@ -33,7 +27,6 @@ describe('refTop section tests for GCWeb - French', () => {
 
 describe('refTop section tests for GCIntranet - English', () => {
     //---[ Load wet-en.js file (to be able to call wet.builder.* functions manually)
-    eval(fs.readFileSync(getSoyUtilsModuleFilename('gcintranet'), 'utf8'));
     eval(fs.readFileSync(getWetModuleFilename('gcintranet', 'en'), 'utf8'));
 
     performTests(wet, 'gcintranet');
@@ -41,7 +34,6 @@ describe('refTop section tests for GCIntranet - English', () => {
 
 describe('refTop section tests for GCIntranet - French', () => {
     //---[ Load wet-en.js file (to be able to call wet.builder.* functions manually)
-    eval(fs.readFileSync(getSoyUtilsModuleFilename('gcintranet'), 'utf8'));
     eval(fs.readFileSync(getWetModuleFilename('gcintranet', 'fr'), 'utf8'));
 
     performTests(wet, 'gcintranet');

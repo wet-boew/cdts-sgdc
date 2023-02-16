@@ -114,10 +114,9 @@ function validateBuilderFunctions(content, theme, version) {
         }
     }
 
-    //---[ Load soy/wet functions
+    //---[ Load wet functions
     //NOTE: Using eval on arbritrary files is a huge NO-NO, but we just generated these files and trust them
     //      (not to mention that they are not modules so require/import does not work with them)
-    eval(fs.readFileSync(`${distCompiledDirName}/soyutils.js`, 'utf8')); //eslint-disable-line
     eval(fs.readFileSync(`${distCompiledDirName}/${wetFileName}`, 'utf8')); //eslint-disable-line
 
     //---[ For each call in content: validate the html it generates

@@ -116,7 +116,6 @@ module.exports = function run(grunt) {
                 const pathPrefix = `${grunt.config('project.target')}/${themeName}/${grunt.config('project.versionName')}/cdts/`;
                 const targetFileName = `${pathPrefix}SRI-INFO.md`;
                 const sourceFiles = [
-                    `${pathPrefix}compiled/soyutils.js`,
                     `${pathPrefix}compiled/wet-en.js`,
                     `${pathPrefix}compiled/wet-fr.js`,
                 ];
