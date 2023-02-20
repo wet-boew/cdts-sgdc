@@ -11,7 +11,7 @@ describe('Footer section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"showFooter": false, "contactLinks": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        footer: '{"showFooter": false, "contactLinks": [{"href": "contactLinksTest"}], "termsLink": {"href": "termsLinkTest"}, "privacyLink": {"href": "privacyLinkTest"}, "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
@@ -19,7 +19,7 @@ describe('Footer section tests for GCWeb', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"showFooter": false, "contactLinks": [{"href": "contactLinksTest"}], "termsLink": [{"href": "termsLinkTest"}], "privacyLink": [{"href": "privacyLinkTest"}], "cdnEnv": "localhost"}',
+        footer: '{"showFooter": false, "contactLinks": [{"href": "contactLinksTest"}], "termsLink": {"href": "termsLinkTest"}, "privacyLink": {"href": "privacyLinkTest"}, "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
