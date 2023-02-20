@@ -93,7 +93,7 @@
                     <ul>
                         <%_ if (pr.termsLink != null) { -%>
                             <%# Check if termsLink is an array to maintain backwards compatibility -%>
-                            <%_ if (Array.isArray(pr.termsLink)) pr.termsLink = pr.termsLink[0] -%>
+                            <%_ if (Array.isArray(pr.termsLink)) pr.termsLink = (pr.termsLink.length > 0? pr.termsLink[0] : {}) -%>
                             <li><a href="<%- (pr.termsLink.href)? pr.termsLink.href: '<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>' %>"<%- (pr.termsLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Terms and conditions') ^><%_ if (pr.termsLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
                         <%_ } else { -%>
                             <li><a href="<^- msg('https://www.canada.ca/en/transparency/terms.html') ^>"><^- msg('Terms and conditions') ^></a></li>
@@ -101,7 +101,7 @@
 
                         <%_ if (pr.privacyLink != null) { -%>
                              <%# Check if privacyLink is an array to maintain backwards compatibility -%>
-                             <%_ if (Array.isArray(pr.privacyLink)) pr.privacyLink = pr.privacyLink[0] -%>
+                             <%_ if (Array.isArray(pr.privacyLink)) pr.privacyLink = (pr.privacyLink.length > 0? pr.privacyLink[0] : {}) -%>
                             <li><a href="<%- (pr.privacyLink.href)? pr.privacyLink.href: '<^- msg('https://www.canada.ca/en/transparency/privacy.html') ^>' %>"<%- (pr.privacyLink.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><^- msg('Privacy') ^><%_ if (pr.privacyLink.newWindow==true) { -%><span class="wb-inv"> <^- msg('This link will open in a new window') ^></span><%_ } -%></a></li>
                         <%_ } else { -%>
                             <li><a href="<^- msg('https://www.canada.ca/en/transparency/privacy.html') ^>"><^- msg('Privacy') ^></a></li>
