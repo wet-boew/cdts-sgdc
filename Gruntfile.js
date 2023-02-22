@@ -72,18 +72,22 @@ module.exports = function run(grunt) {
 
     //---[ Can get called with 'compile-ejs', 'compile-ejs:gcweb' or 'compile-ejs:gcintranet'
     grunt.registerTask('compile-ejs', 'Compile EJS templates', async function (target) { //eslint-disable-line
+        const fs = require('fs');
         const projectTempDir = grunt.config('project.temp');
         const done = this.async();
 
         try {
+            //load SRI hash map
+            const sriHashesMap = JSON.parse(await fs.promises.readFile(`${grunt.config('project.temp')}/SRIFileHashes.json`, 'utf8'));
+
             const themes = ['gcweb', 'gcintranet'];
             for (let i = 0; i < themes.length; i++) {
                 const themeName = themes[i]; //themes.forEach((themeName) => {
 
                 //(if target specified, only run for that one)
                 if ((!target) || (themeName === target)) {
-                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-en.js`, 'en', false); // eslint-disable-line no-await-in-loop
-                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-fr.js`, 'fr', false); // eslint-disable-line no-await-in-loop
+                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-en.js`, 'en', sriHashesMap, false); // eslint-disable-line no-await-in-loop
+                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-fr.js`, 'fr', sriHashesMap, false); // eslint-disable-line no-await-in-loop
 
                     //NOTE: Following is from the conversion from SOY to EJS, kept as comment for posterity
                     //      (requires the "xmldom" and "xpath" npm packages to be installed.)
