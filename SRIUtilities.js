@@ -14,15 +14,17 @@ module.exports.writeFilesSRIHashes = function writeFilesSRIHashes(inputJSONFileN
 
     //write output to file
     console.log(`Writing SRI hash map to: ${outputJSONFileName}`);
-    fs.writeFileSync(outputJSONFileName, JSON.stringify(hashes), {encoding: 'utf8'});
+    fs.writeFileSync(outputJSONFileName, JSON.stringify(hashes), { encoding: 'utf8' });
 }
 
 //Read the JSON file containing list of files that require a hash
 module.exports.getSRIHashes = function getSRIHashes(files) {
     const hashObj = {};
     files.forEach((f) => {
-        const fileContent = fs.readFileSync(f, 'utf8');
-        hashObj[f] = module.exports.generateSRIHash(fileContent);
+        if (fs.existsSync(f)) {
+            const fileContent = fs.readFileSync(f, 'utf8');
+            hashObj[f] = module.exports.generateSRIHash(fileContent);
+        }
     });
     return hashObj;
 }

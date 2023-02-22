@@ -115,20 +115,30 @@ module.exports = function run(grunt) {
             if ((!target) || (themeName === target)) {
                 const pathPrefix = `${grunt.config('project.target')}/${themeName}/${grunt.config('project.versionName')}/cdts/`;
                 const targetFileName = `${pathPrefix}SRI-INFO.md`;
+                const targetJsonFileName = `${pathPrefix}SRI-INFO.json`;
                 const sourceFiles = [
-                    `${pathPrefix}compiled/soyutils.js`,
                     `${pathPrefix}compiled/wet-en.js`,
                     `${pathPrefix}compiled/wet-fr.js`,
+                    `${pathPrefix}cdts-styles.css`,
+                    `${pathPrefix}cdts-app-styles.css`, //gcweb only
+                    `${pathPrefix}cdts-splash-styles.css`,
+                    `${pathPrefix}cdts-eccc-styles.css`, //gcintranet only
+                    `${pathPrefix}cdts-esdc-styles.css`, //gcintranet only
+                    `${pathPrefix}cdts-labour-styles.css`, //gcintranet only
                 ];
 
                 const hashesMap = getSRIHashes(sourceFiles);
-                let fileContents = `# Subresource Integrity (SRI)\n\nHash values for ${pathPrefix.replace(grunt.config('project.target') + '/', '')}:\n`;
+                const outputObject = { cdtsPath: pathPrefix.replace(grunt.config('project.target') + '/', '') };
+                let fileContents = `# Subresource Integrity (SRI)\n\nHash values for ${outputObject.cdtsPath}:\n`;
                 Object.keys(hashesMap).forEach((key) => {
                     fileContents += `- ${key.replace(pathPrefix, '')}: \`${hashesMap[key]}\`\n`;
+                    outputObject[key.replace(pathPrefix, '')] = hashesMap[key];
                 });
 
                 console.log(`Writing public SRI info to: ${targetFileName}`);
                 fs.writeFileSync(targetFileName, fileContents, { encoding: 'utf8' });
+                console.log(`Writing public SRI info to: ${targetJsonFileName}`);
+                fs.writeFileSync(targetJsonFileName, JSON.stringify(outputObject), { encoding: 'utf8' });
             }
         });
 
