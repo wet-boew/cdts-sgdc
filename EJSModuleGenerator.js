@@ -100,7 +100,7 @@ async function localizeEJSModule(srcDirPath, inputTemplateText, locale, sriHashe
     }
     function sriHash(key) {
         if (typeof sriHashesMap[key] === 'undefined') {
-            console.error(`EJSModuleGenerator.localizeEJSModule: No SRI hash found for file [${key}]:`);
+            console.error(`EJSModuleGenerator.localizeEJSModule: No SRI hash found for file [${key}]. Does it need to be added to sri-fileslist.json ?`);
             throw new Error(`No SRI hash found for file [${key}]:`);
         }
         return sriHashesMap[key];
@@ -266,7 +266,10 @@ module.exports.extractEJSModuleMessages = async function extractEJSModuleMessage
 
             return localeData[keyHash].target || key;
         }
-        ejsFunction({ msg }); //(we don't care about the rendered template here, we just wanted to capture the message/keys)
+        function sriHash() {
+            //placeholder, actual functionality not needed here, see localizeEJSModule
+        }
+        ejsFunction({ msg, sriHash, templateLocale: 'en' }); //(we don't care about the rendered template here, we just wanted to capture the message/keys)
     }
 
     //---[ Write results to file

@@ -2,6 +2,7 @@
     * This is all of the references to be made before existing page content.
     * @param? webAnalytics Used to determine inclusion of current analytics code.
     * @param? isApplication Used to determine if this will use the application templates (true/false).
+    * @param? sriEnabled boolean - Set to true to enable rendering of SRI hashes for CDTS sub resources.
 -%>
 <% if (pr.webAnalytics != null) { -%>
     <!-- Adobe Analytics -->
@@ -33,16 +34,15 @@
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
 <%# Only output css links if not directed to ignore -%>
 <% if (!pr.cdtsSetupExcludeCSS) { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/css/theme.min.css') ^>" crossorigin="anonymous"<% } %>>
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcweb/cdtsfixes.css') ^>" crossorigin="anonymous"<% } %>>
     <%_ if (pr.isApplication == true) { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsapps.css">
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsapps.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcweb/cdtsapps.css') ^>" crossorigin="anonymous"<% } %>>
     <%_ } -%>
 <% } -%>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="shortcut icon">
-<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/ie8-theme.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew.min.js"></script>
 <![endif]-->

@@ -1,9 +1,16 @@
-["public/gcweb/cdtsapps.css",
-"public/gcweb/cdtscustom.js",
-"public/gcweb/cdtsfixes.css",
-"public/gcweb/cdtsnoscript.css",
-"public/gcintranet/cdtsfixes.css",
-"public/gcintranet/eccc.css",
-"public/gcintranet/eccc_green.css",
-"public/gcintranet/esdc.css",
-"public/gcintranet/gctheme.css"]
+[
+  "public/gcweb/cdtsapps.css",
+  "public/gcweb/cdtscustom.js",
+  "public/gcweb/cdtsfixes.css",
+  "public/gcweb/cdtsnoscript.css",
+  "public/gcintranet/cdtsfixes.css",
+  "public/gcintranet/eccc.css",
+  "public/gcintranet/eccc_green.css",
+  "public/gcintranet/esdc.css",
+  "public/gcintranet/gctheme.css",
+  "public/wet/wet-boew/css/theme.min.css",
+  "public/wet/wet-boew/js/jquery/2.2.4/jquery.min.js",
+  "public/wet/wet-boew/js/wet-boew.min.js",
+  "public/wet/wet-boew/js/theme.min.js",
+  "public/wet/wet-boew/css/messages.min.css"
+]
