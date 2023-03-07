@@ -242,7 +242,7 @@ module.exports = function run(grunt) {
             target: './dist/app/cls/WET',
             temp: './tmp',
             banner: '/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n' +
-                ' * Version <%= project.pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n *\n */',
+                ' * Version <%= project.pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n *\n */',
         },
 
         clean: {

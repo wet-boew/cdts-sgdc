@@ -1,5 +1,12 @@
 # CDTS Change Log
 
+## v4.1.0
+
+- Introducing a new way for clients to reference CDTS that avoids the need for `document.write`, having to call multiple CDTS functions and optionally the need for inline scripts altogether. Backwards compatibility to seperate CDTS functions was preserved. For details, refer to documentation for [GCWeb](https://cenw-wscoe.github.io/sgdc-cdts/docs/internet-en.html) and [GCIntranet](https://cenw-wscoe.github.io/sgdc-cdts/docs/intranet-en.html) and corresponding sample pages.
+- Added support for Sub Resource Integrity (SRI)
+  - CDTS can now include SRI hash values when including libraries and internal files on the page.  This is controlled by the `sriEnabled` boolean parameter in calling refTop, refFooter or the new setup function.
+  - For clients to make use of SRI when referencing CDTS, hash values to public files are available for [GCWeb](https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_48/cdts/SRI-INFO.md) and [GCIntranet](https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_0_48/cdts/SRI-INFO.md)
+
 ## v4.0.47
 
 - **IMPORTANT** The GCWeb site footer has been updated to reflect the changes introduced in WET footer version 4. These changes will be applied automatically. For more information, please visit the WET documentation: https://wet-boew.github.io/GCWeb/sites/footers/footers-en.html
