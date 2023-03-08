@@ -56,7 +56,7 @@ describe('refTop section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-refTop-prod', {
         refTop: '{"cdnEnv": "localhost", "webAnalytics" : [{"environment" : "production", "version" : 2}]}',
@@ -64,7 +64,7 @@ describe('refTop section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-refTop-custom', {
         refTop: '{"cdnEnv": "localhost", "webAnalytics" : [{"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"}]}',
@@ -72,7 +72,7 @@ describe('refTop section tests for GCWeb', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     it('Test if analytics has been loaded', async () => {
         await analyticsStaging();
@@ -90,7 +90,7 @@ describe('refTop section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-refTop-prod', {
         refTop: '{"cdnEnv": "localhost", "webAnalytics" : [{"environment" : "production", "version" : 2}]}',
@@ -98,7 +98,7 @@ describe('refTop section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     generateTestFile('./test/html/gcintranet/template-gcintranet-en.html', 'gcintranet', 'gcintranet-refTop-custom', {
         refTop: '{"cdnEnv": "localhost", "webAnalytics" : [{"custom" : "launch-EN11c0261481f74c56b7656937bbd995e9-staging.min.js"}]}',
@@ -106,7 +106,7 @@ describe('refTop section tests for GCIntranet', () => {
         preFooter: '{"cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
-	});
+    });
 
     it('Test if analytics has been loaded', async () => {
         await analyticsStaging();
@@ -115,55 +115,65 @@ describe('refTop section tests for GCIntranet', () => {
     });
 });
 
-async function analyticsStaging(){
+async function analyticsStaging() {
     await refTopPage.open('staging');
     await expect(refTopPage.analyticsScript).toHaveAttributeContaining('src', 'caacec67651710193d2331efef325107c23a0145/satelliteLib-92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24-staging');
 }
 
-async function analyticsProd(){
+async function analyticsProd() {
     await refTopPage.open('prod');
     await expect(refTopPage.analyticsScript).toHaveAttributeContaining('src', 'caacec67651710193d2331efef325107c23a0145/satelliteLib-c2082deaf69c358c641c5eb20f94b615dd606662');
 }
 
-async function analyticsCustom(){
+async function analyticsCustom() {
     await refTopPage.open('custom');
     await expect(refTopPage.analyticsScript).toHaveAttributeContaining('src', 'launch-EN11c0261481f74c56b7656937bbd995e9');
 }
 
 function performTests(wet, theme = '') {
     it('Should not render analytics by default', async () => {
-        const result = wet.builder.refTop({cdnEnv: 'localhost'});
+        const result = wet.builder.refTop({ cdnEnv: 'localhost' });
         assert(!result.includes('cdts_AnalyticsId'), 'Found analytics script when expecting none.');
     });
 
     it('Should render analytics custom as pecified', async () => {
-        const result = wet.builder.refTop({cdnEnv: 'localhost', webAnalytics: [{custom: 'ABCDEFG'}]});
+        const result = wet.builder.refTop({ cdnEnv: 'localhost', webAnalytics: [{ custom: 'ABCDEFG' }] });
         assert(result.includes('src="//assets.adobedtm.com/ABCDEFG">'), `Did not find expected Web Analytics script URL in [${result}]`);
     });
 
     it('Should render analytics version 1 as pecified', async () => {
-        const result = wet.builder.refTop({cdnEnv: 'localhost', webAnalytics: [{version: 1}]});
+        const result = wet.builder.refTop({ cdnEnv: 'localhost', webAnalytics: [{ version: 1 }] });
         assert(result.includes('src="//assets.adobedtm.com/caacec67651710193d2331efef325107c23a0145/satelliteLib-92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24.js">'), `Did not find expected Web Analytics script URL in [${result}]`);
     });
 
     it('Should render analytics version 2 as pecified', async () => {
-        const result = wet.builder.refTop({cdnEnv: 'localhost', webAnalytics: [{version: 2}]});
+        const result = wet.builder.refTop({ cdnEnv: 'localhost', webAnalytics: [{ version: 2 }] });
         assert(result.includes('src="//assets.adobedtm.com/caacec67651710193d2331efef325107c23a0145/satelliteLib-c2082deaf69c358c641c5eb20f94b615dd606662.js">'), `Did not find expected Web Analytics script URL in [${result}]`);
     });
 
     it('Should render analytics version 2 staging as pecified', async () => {
-        const result = wet.builder.refTop({cdnEnv: 'localhost', webAnalytics: [{version: 2, environment: 'staging'}]});
+        const result = wet.builder.refTop({ cdnEnv: 'localhost', webAnalytics: [{ version: 2, environment: 'staging' }] });
         assert(result.includes('src="//assets.adobedtm.com/caacec67651710193d2331efef325107c23a0145/satelliteLib-c2082deaf69c358c641c5eb20f94b615dd606662-staging.js">'), `Did not find expected Web Analytics script URL in [${result}]`);
+    });
+
+    it('Should render integrity when turned on', async () => {
+        const result = wet.builder.refTop({ cdnEnv: 'localhost', sriEnabled: true });
+        assert(result.includes('integrity="sha512-'), 'Did not find expected "integrity" attribute.');
+    });
+
+    it('Should NOT render integrity when turned off', async () => {
+        const result = wet.builder.refTop({ cdnEnv: 'localhost', sriEnabled: false });
+        assert(!result.includes('integrity="sha512-'), 'Found UNexpected "integrity" attribute.');
     });
 
     if (theme != 'gcintranet') {
         it('Should not render for application by default', async () => {
-            const result = wet.builder.refTop({cdnEnv: 'localhost'});
+            const result = wet.builder.refTop({ cdnEnv: 'localhost' });
             assert(!result.includes('cdts/cdtsapps.css'), 'Found app css script when expecting none.');
         });
 
         it('Should render for application when enabled', async () => {
-            const result = wet.builder.refTop({cdnEnv: 'localhost', isApplication: true});
+            const result = wet.builder.refTop({ cdnEnv: 'localhost', isApplication: true });
             assert(result.includes('cdts/cdtsapps.css'), 'Did not find expected app css script.');
         });
     }
