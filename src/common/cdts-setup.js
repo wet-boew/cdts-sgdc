@@ -69,6 +69,7 @@ wet.utilities.applyRefTop = function applyRefTop(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
     wet.localConfig.base.cdtsSetupExcludeCSS = true;
+    if (typeof wet.localConfig.base.sriEnabled === 'undefined') wet.localConfig.base.sriEnabled = true;
 
     const parser = new DOMParser();
 
@@ -83,6 +84,7 @@ wet.utilities.applyRefFooter = function applyRefFooter(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
     wet.localConfig.base.cdtsSetupExcludeCSS = true;
+    if (typeof wet.localConfig.base.sriEnabled === 'undefined') wet.localConfig.base.sriEnabled = true;
 
     const parser = new DOMParser();
 
@@ -97,6 +99,7 @@ wet.utilities.applyServerRefTop = function applyServerRefTop(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
     wet.localConfig.base.cdtsSetupExcludeCSS = true;
+    if (typeof wet.localConfig.base.sriEnabled === 'undefined') wet.localConfig.base.sriEnabled = true;
 
     const parser = new DOMParser();
 
@@ -111,6 +114,7 @@ wet.utilities.applySplashRefTop = function applySplashRefTop(onCompletedFunc) {
     if (!wet.localConfig.base) wet.localConfig.base = {};
     wet.localConfig.base.cdnEnv = wet.localConfig.cdnEnv;
     wet.localConfig.base.cdtsSetupExcludeCSS = true;
+    if (typeof wet.localConfig.base.sriEnabled === 'undefined') wet.localConfig.base.sriEnabled = true;
 
     const parser = new DOMParser();
 

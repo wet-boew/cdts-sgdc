@@ -3,6 +3,7 @@
  * @param? subTheme Used to identify the custom subTheme.
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
  * @param? webAnalytics Used to determine inclusion of current analytics code.
+ * @param? sriEnabled boolean - Set to true to enable rendering of SRI hashes for CDTS sub resources.
 -%>
 <% if (pr.webAnalytics != null) { -%>
     <!-- Adobe Analytics -->
@@ -34,7 +35,7 @@
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
 <%# Only output css links if not directed to ignore -%>
 <% if (!pr.cdtsSetupExcludeCSS) { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/css/theme.min.css') ^>" crossorigin="anonymous"<% } %>>
 <% } -%>
 <!--<![endif]-->
 <!--[if lt IE 9]>
@@ -46,11 +47,11 @@
 <!--[if lte IE 9]><![endif]-->
 <%# Only output css links if not directed to ignore -%>
 <% if (!pr.cdtsSetupExcludeCSS) { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/gctheme.css">
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/gctheme.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcintranet/gctheme.css') ^>" crossorigin="anonymous"<% } %>>
     <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
-        <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/esdc.css">
+        <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/esdc.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcintranet/esdc.css') ^>" crossorigin="anonymous"<% } %>>
     <%_ } else if (pr.subTheme == 'eccc') { -%>
-        <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/eccc.css">
+        <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/eccc.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcintranet/eccc.css') ^>" crossorigin="anonymous"<% } %>>
     <%_ } -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcintranet/cdtsfixes.css') ^>" crossorigin="anonymous"<% } %>>
 <% } -%>

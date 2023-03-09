@@ -72,18 +72,22 @@ module.exports = function run(grunt) {
 
     //---[ Can get called with 'compile-ejs', 'compile-ejs:gcweb' or 'compile-ejs:gcintranet'
     grunt.registerTask('compile-ejs', 'Compile EJS templates', async function (target) { //eslint-disable-line
+        const fs = require('fs');
         const projectTempDir = grunt.config('project.temp');
         const done = this.async();
 
         try {
+            //load SRI hash map
+            const sriHashesMap = JSON.parse(await fs.promises.readFile(`${grunt.config('project.temp')}/SRIFileHashes.json`, 'utf8'));
+
             const themes = ['gcweb', 'gcintranet'];
             for (let i = 0; i < themes.length; i++) {
                 const themeName = themes[i]; //themes.forEach((themeName) => {
 
                 //(if target specified, only run for that one)
                 if ((!target) || (themeName === target)) {
-                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-en.js`, 'en', false); // eslint-disable-line no-await-in-loop
-                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-fr.js`, 'fr', false); // eslint-disable-line no-await-in-loop
+                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-en.js`, 'en', sriHashesMap, false); // eslint-disable-line no-await-in-loop
+                    await compileEJSModule(`./src/${themeName}`, `${projectTempDir}/${themeName}/wet-fr.js`, 'fr', sriHashesMap, false); // eslint-disable-line no-await-in-loop
 
                     //NOTE: Following is from the conversion from SOY to EJS, kept as comment for posterity
                     //      (requires the "xmldom" and "xpath" npm packages to be installed.)
@@ -115,20 +119,30 @@ module.exports = function run(grunt) {
             if ((!target) || (themeName === target)) {
                 const pathPrefix = `${grunt.config('project.target')}/${themeName}/${grunt.config('project.versionName')}/cdts/`;
                 const targetFileName = `${pathPrefix}SRI-INFO.md`;
+                const targetJsonFileName = `${pathPrefix}SRI-INFO.json`;
                 const sourceFiles = [
-                    `${pathPrefix}compiled/soyutils.js`,
                     `${pathPrefix}compiled/wet-en.js`,
                     `${pathPrefix}compiled/wet-fr.js`,
+                    `${pathPrefix}cdts-styles.css`,
+                    `${pathPrefix}cdts-app-styles.css`, //gcweb only
+                    `${pathPrefix}cdts-splash-styles.css`,
+                    `${pathPrefix}cdts-eccc-styles.css`, //gcintranet only
+                    `${pathPrefix}cdts-esdc-styles.css`, //gcintranet only
+                    `${pathPrefix}cdts-labour-styles.css`, //gcintranet only
                 ];
 
                 const hashesMap = getSRIHashes(sourceFiles);
-                let fileContents = `# Subresource Integrity (SRI)\n\nHash values for ${pathPrefix.replace(grunt.config('project.target') + '/', '')}:\n`;
+                const outputObject = { cdtsPath: pathPrefix.replace(grunt.config('project.target') + '/', '') };
+                let fileContents = `# Subresource Integrity (SRI)\n\nHash values for ${outputObject.cdtsPath}:\n`;
                 Object.keys(hashesMap).forEach((key) => {
                     fileContents += `- ${key.replace(pathPrefix, '')}: \`${hashesMap[key]}\`\n`;
+                    outputObject[key.replace(pathPrefix, '')] = hashesMap[key];
                 });
 
                 console.log(`Writing public SRI info to: ${targetFileName}`);
                 fs.writeFileSync(targetFileName, fileContents, { encoding: 'utf8' });
+                console.log(`Writing public SRI info to: ${targetJsonFileName}`);
+                fs.writeFileSync(targetJsonFileName, JSON.stringify(outputObject), { encoding: 'utf8' });
             }
         });
 
@@ -228,7 +242,7 @@ module.exports = function run(grunt) {
             target: './dist/app/cls/WET',
             temp: './tmp',
             banner: '/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n' +
-                ' * Version <%= project.pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n *\n */',
+                ' * Version <%= project.pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n *\n */',
         },
 
         clean: {

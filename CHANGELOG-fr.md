@@ -1,5 +1,12 @@
 # SGDC : Journal des modifications
 
+## v4.1.0
+
+- Introduction d'une nouvelle façon de référencer le SGDC qui evite aux clients le besoin d'utiliser `document.write`, d'avoir à appeler plusieurs fonctions du SGDC et optionellement le besoin pour des scripts directs sur la page. La rétrocompatibilité aux fonctions séparées du SGDC est préservée. Pour plus de détails, consulter la documentation pour [GCWeb](https://cenw-wscoe.github.io/sgdc-cdts/docs/internet-fr.html) and [GCIntranet](https://cenw-wscoe.github.io/sgdc-cdts/docs/intranet-fr.html) ainsi que les pages d'examples correspondantes.
+- Ajout du support pour "Sub Resource Integrity (SRI)"
+  - Le SGDC peut maintenant inclure les valeurs SRI lors de l'inclusion de sous-libraries et fichiers internes sur la page.  Ceci est contrôlé par le paramètre `sriEnabled` dans l'appel à "refTop", "refFooter" ou la nouvelle fonction "setup".
+  - Pour les clients qui veulent utiliser SRI pour référencer le SGDC, les valeurs pour les fichiers publiques sont disponible pour [GCWeb](https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_1_0/cdts/SRI-INFO.md) et [GCIntranet](https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_1_0/cdts/SRI-INFO.md).
+
 ## v4.0.47
 
 - **IMPORTANT** Le pied de page du site GCWeb a été mis à jour pour refléter les changements introduits dans la version 4 du pied de page WET. Ces changements seront appliqués automatiquement. Pour plus d'informations, veuillez consulter la documentation WET : https://wet-boew.github.io/GCWeb/sites/footers/footers-en.html

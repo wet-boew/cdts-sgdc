@@ -5,13 +5,12 @@
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
 <%# Only output css links if not directed to ignore -%>
 <% if (!pr.cdtsSetupExcludeCSS) { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css">
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/css/theme.min.css') ^>" crossorigin="anonymous"<% } %>>
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcweb/cdtsfixes.css') ^>" crossorigin="anonymous"<% } %>>
 <% } -%>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="shortcut icon">
-<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/ie8-theme-srv.min.css">
 <script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew.min.js"></script>
 <![endif]-->

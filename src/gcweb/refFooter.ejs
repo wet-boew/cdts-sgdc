@@ -14,15 +14,16 @@
  * @param? jqueryEnv Used to determine location of jQuery files (local / external).
  * @param? webAnalytics Used to determine inclusion of current analytics code.
  * @param? isApplication Used to determine if this will use the application templates (true/false).
+ * @param? sriEnabled boolean - Set to true to enable rendering of SRI hashes for CDTS sub resources.
 -%>
 <!--[if gte IE 9 | !IE ]><!-->
-<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
-<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"></script>
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/jquery/2.2.4/jquery.min.js') ^>" crossorigin="anonymous"<% } %>></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/wet-boew.min.js') ^>" crossorigin="anonymous"<% } %>></script>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew2.min.js"></script>
 <![endif]-->
-<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/theme.min.js') ^>" crossorigin="anonymous"<% } %>></script>
 <%_ if (pr.exitSecureSite != null) { -%>
     <%_ if (pr.exitSecureSite.exitScript == true) { -%>
         <%# This is a placeholder link to trigger the WET exitscript intialization in the event the no external link is present on the page -%>
@@ -42,7 +43,7 @@
     <script data-id="exitScript">wet.utilities.cdtsApplyExitScriptToLinks("<%=pr.displayModal != null? pr.displayModal: 'undefined'%>", "<%-pr.exitURL != null? pr.exitURL: 'undefined'%>", "<%=pr.exitDomains != null? pr.exitDomains: 'undefined'%>", "<%=pr.exitMsg != null? pr.exitMsg: 'undefined'%>", "<%=pr.yesMsg != null? pr.yesMsg: 'undefined'%>", "<%=pr.cancelMsg != null? pr.cancelMsg: 'undefined'%>", "<%=pr.msgBoxHeader != null? pr.msgBoxHeader: 'undefined'%>", "<%=pr.targetWarning != null? pr.targetWarning: 'undefined'%>", "<%=pr.displayModalForNewWindow != null? pr.displayModalForNewWindow: 'undefined'%>");</script>
 <%_ } -%>
 <%_ if (pr.isApplication == true) { -%>
-    <script src="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtscustom.js"></script>
+    <script src="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtscustom.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcweb/cdtscustom.js') ^>" crossorigin="anonymous"<% } %>></script>
 <%_ } -%>
 <%_ if (pr.webAnalytics != null && pr.webAnalytics != false && !wet.utilities.isCDTSSetupMode()) { -%>
     <%# Do NOT add this call in "setup" mode because Adobe's script will be loaded essentially async (https://experienceleague.adobe.com/docs/experience-platform/tags/client-side/asynchronous-deployment.html?lang=en) -%>
