@@ -29,6 +29,6 @@ wet.builder.environmentHost = function cdtsWetBuilderEnvironmentHost(cdnEnv) {
  * @param cdnEnv Used to switch between esdc envrionments and Akamai implementations.
  */
 wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
-    return wet.builder.environmentHost(cdnEnv) + ((cdnEnv != null && (cdnEnv.substr(0, 4) === 'http')) ? '' : 'app/cls/WET/gcintranet/v4_0_48/');
+    return wet.builder.environmentHost(cdnEnv) + ((cdnEnv != null && (cdnEnv.substr(0, 4) === 'http')) ? '' : 'app/cls/WET/gcintranet/v4_1_0/');
 }
 
