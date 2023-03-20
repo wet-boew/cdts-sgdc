@@ -11,11 +11,29 @@ const { writeFilesSRIHashes, getSRIHashes } = require('./SRIUtilities.js');
 /// ************************************************************
 module.exports = function run(grunt) {
 
+    //---[ Line ending check (in copy and concat tasks)
+    //---[ (This helps making sure files have consistent lines endings no matter the build platform,
+    //---[  consistency is required to avoid problems with Sub-Resource Integrity)
+    function cdtsCheckLineEndings(content, srcpath) {
+        const lcSrcPath = srcpath.toLowerCase();
+
+        //Only check files applicable to Sub-Resource Integrity
+        if (lcSrcPath.endsWith('.js') || lcSrcPath.endsWith('.css')) {
+            if (content.includes('\r')) {
+                throw Error(`Found CR caracter in [${srcpath}]! Files must not contain Windows line-endings.`);
+            }
+        }
+
+        return content;
+    }
+
     //---[ Content replacing function (in copy and concat tasks)
     //(replaces CDTS version mentions in URLs and optionally environment in sample pages.)
     function cdtsContentReplace(content, srcpath) {
         const newVersionName = grunt.config('project.versionName');
         const newEnvironment = grunt.option('cdts_samples_cdnenv') || null;
+
+        cdtsCheckLineEndings(content, srcpath);
 
         //Replace version...
         let vtr = content.replace(/\/v[0-9]+_[0-9]+_[0-9]+\//g, `/${newVersionName}/`); //replaces '/vX_X_X/' where X can be any number
@@ -256,6 +274,9 @@ module.exports = function run(grunt) {
                     { cwd: 'public/wet', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>', expand: true },
                     { cwd: 'public/wet', src: ['**'], dest: '<%= project.target %>/gcintranet/<%= project.versionName %>', expand: true },
                 ],
+                options: {
+                    process: cdtsCheckLineEndings,
+                },
             },
             'gcweb-public': {
                 files: [
@@ -278,7 +299,10 @@ module.exports = function run(grunt) {
             'global-public': {
                 files: [
                     { cwd: 'public/global', src: ['**'], dest: '<%= project.target %>/global', expand: true }
-                ]
+                ],
+                options: {
+                    process: cdtsCheckLineEndings,
+                },
             },
             'gcweb-test': {
                 files: [
