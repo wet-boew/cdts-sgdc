@@ -11,7 +11,9 @@ const { writeFilesSRIHashes, getSRIHashes } = require('./SRIUtilities.js');
 /// ************************************************************
 module.exports = function run(grunt) {
 
-    //---[ Line ending check (in copy and concat tasks
+    //---[ Line ending check (in copy and concat tasks)
+    //---[ (This helps making sure files have consistent lines endings no matter the build platform,
+    //---[  consistency is required to avoid problems with Sub-Resource Integrity)
     function cdtsCheckLineEndings(content, srcpath) {
         const lcSrcPath = srcpath.toLowerCase();
 
