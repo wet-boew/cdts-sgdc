@@ -49,6 +49,28 @@ module.exports = function run(grunt) {
         return vtr;
     }
 
+    //---[ CSS file path replacing function (in copy tasks)
+    //(replaces the path found in the css files in the run folders)
+    function cdtsCSSPathReplace(content, srcpath, targetpath) {
+        const path = require('path');
+        const newVersionName = grunt.config('project.versionName');
+        const urlRegex = /(?<=url\(").*(?="\))/g;
+
+        let vtr = content;
+
+        if (srcpath.endsWith('.css')) {
+            if (targetpath.includes('/etc/')) {
+                vtr = vtr.replaceAll(urlRegex, (item) => path.normalize(`../../${newVersionName}/cdts/${item}`).replaceAll('\\', '/'));
+            }
+            else {
+                if (srcpath.includes('/gcweb/')) vtr = vtr.replaceAll(urlRegex, (item) => path.normalize(`../../../../../app/cls/WET/gcweb/${newVersionName}/cdts/${item}`).replaceAll('\\', '/'));
+                if (srcpath.includes('/gcintranet/')) vtr = vtr.replaceAll(urlRegex, (item) => path.normalize(`../../../../../app/cls/WET/gcintranet/${newVersionName}/cdts/${item}`).replaceAll('\\', '/'));
+            }
+        }
+
+        return vtr;
+    }
+
     //---[ Grunt Modules
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -61,9 +83,10 @@ module.exports = function run(grunt) {
 
     //---[ Task Definitions
     grunt.registerTask('default', 'Default task (performs a dev build)', ['build']);
-    grunt.registerTask('build', 'Run non-minified build', ['clean', 'copy-public', 'build-ejs', 'genstatic']);
+    grunt.registerTask('build', 'Run non-minified build', ['clean', 'copy-public', 'build-ejs', 'genstatic', 'copy-run']);
     grunt.registerTask('copy-public', 'Copy all public files', ['copy:wet', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public']);
     grunt.registerTask('copy-test', 'Copy all test files', ['copy:gcweb-test', 'copy:gcintranet-test']);
+    grunt.registerTask('copy-run', 'Copy all run files', ['copy:rn-cloud', 'copy:rn-canada']);
     grunt.registerTask('build-ejs', 'Produce Javascript from EJS templates', ['eslint', 'i18n-ejs', 'sri-internal-hashes', 'compile-ejs', 'concat', 'sri-public-hashes']);
     grunt.registerTask('build-prod', 'Run production build', ['build', 'minify', 'sri-public-hashes']);
     grunt.registerTask('build-nowet', 'Run build without clean:target, copy-wet and genstatic (for convenience because of McAfee performance)', ['nowet-warning', 'clean:temp', 'copy:gcweb-public', 'copy:gcintranet-public', 'copy:global-public', 'build-ejs']);
@@ -258,6 +281,8 @@ module.exports = function run(grunt) {
             pkg: grunt.file.readJSON('package.json'),
             versionName: grunt.option('cdts_version') || 'v<%= project.pkg.version.replace(/\\./g, "_")%>',
             target: './dist/app/cls/WET',
+            targetCloud: './dist/rn/cls/WET',
+            targetCanada: './dist/etc/designs/canada/cdts/gcweb/rn/cdts',
             temp: './tmp',
             banner: '/*!\n * Centrally Deployed Templates Solution (CDTS) / Solution de gabarits à déploiement centralisé (SGDC)\n' +
                 ' * Version <%= project.pkg.version %> - <%= grunt.template.today("yyyy-mm-dd HH:MM:ss") %>\n *\n */',
@@ -302,6 +327,26 @@ module.exports = function run(grunt) {
                 ],
                 options: {
                     process: cdtsCheckLineEndings,
+                },
+            },
+            'rn-cloud': {
+                files: [
+                    { cwd: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled', src: ['**'], dest: '<%= project.targetCloud %>/gcweb/cdts/compiled', expand: true },
+                    { cwd: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled', src: ['**'], dest: '<%= project.targetCloud %>/gcintranet/cdts/compiled', expand: true },
+                    { cwd: 'public/gcweb', src: ['cdts-*.css'], dest: '<%= project.targetCloud %>/gcweb/cdts', expand: true },
+                    { cwd: 'public/gcintranet', src: ['cdts-*.css'], dest: '<%= project.targetCloud %>/gcintranet/cdts', expand: true },
+                ],
+                options: {
+                    process: cdtsCSSPathReplace,
+                },
+            },
+            'rn-canada': {
+                files: [
+                    { cwd: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled', src: ['**'], dest: '<%= project.targetCanada %>/compiled', expand: true },
+                    { cwd: 'public/gcweb', src: ['cdts-*.css'], dest: '<%= project.targetCanada %>', expand: true },
+                ],
+                options: {
+                    process: cdtsCSSPathReplace,
                 },
             },
             'gcweb-test': {
@@ -403,6 +448,14 @@ module.exports = function run(grunt) {
             'global-public': {
                 files: ['./public/global/**'],
                 tasks: ['copy:global-public'],
+            },
+            'rn-cloud': {
+                files: ['./public/gcweb/cdts-*.css', './public/gcintranet/cdts-*.css', '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled', '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled'],
+                tasks: ['copy:rn-cloud'],
+            },
+            'rn-canada': {
+                files: ['./public/gcweb/cdts-*.css', '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled'],
+                tasks: ['copy:rn-canada'],
             },
             'gcweb-test': {
                 files: ['./test/html/gcweb/**'],
