@@ -59,10 +59,12 @@ module.exports = function run(grunt) {
         let vtr = content;
 
         if (srcpath.endsWith('.css')) {
-            if (targetpath.includes('/etc/')) {
+            //Files for the CDTS Canada.ca release
+            if (targetpath.includes('/etc/designs/canada/')) {
                 vtr = vtr.replaceAll(urlRegex, (item) => path.normalize(`../../${newVersionName}/cdts/${item}`).replaceAll('\\', '/'));
             }
-            else {
+            //Files for the CDTS Azure cloud release
+            else if (targetpath.includes('/rn/cls/WET/')) {
                 if (srcpath.includes('/gcweb/')) vtr = vtr.replaceAll(urlRegex, (item) => path.normalize(`../../../../../app/cls/WET/gcweb/${newVersionName}/cdts/${item}`).replaceAll('\\', '/'));
                 if (srcpath.includes('/gcintranet/')) vtr = vtr.replaceAll(urlRegex, (item) => path.normalize(`../../../../../app/cls/WET/gcintranet/${newVersionName}/cdts/${item}`).replaceAll('\\', '/'));
             }
@@ -333,8 +335,8 @@ module.exports = function run(grunt) {
                 files: [
                     { cwd: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled', src: ['**'], dest: '<%= project.targetCloud %>/gcweb/cdts/compiled', expand: true },
                     { cwd: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled', src: ['**'], dest: '<%= project.targetCloud %>/gcintranet/cdts/compiled', expand: true },
-                    { cwd: 'public/gcweb', src: ['cdts-*.css'], dest: '<%= project.targetCloud %>/gcweb/cdts', expand: true },
-                    { cwd: 'public/gcintranet', src: ['cdts-*.css'], dest: '<%= project.targetCloud %>/gcintranet/cdts', expand: true },
+                    { cwd: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts', src: ['cdts-*.css'], dest: '<%= project.targetCloud %>/gcweb/cdts', expand: true },
+                    { cwd: '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts', src: ['cdts-*.css'], dest: '<%= project.targetCloud %>/gcintranet/cdts', expand: true },
                 ],
                 options: {
                     process: cdtsCSSPathReplace,
@@ -343,7 +345,7 @@ module.exports = function run(grunt) {
             'rn-canada': {
                 files: [
                     { cwd: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled', src: ['**'], dest: '<%= project.targetCanada %>/compiled', expand: true },
-                    { cwd: 'public/gcweb', src: ['cdts-*.css'], dest: '<%= project.targetCanada %>', expand: true },
+                    { cwd: '<%= project.target %>/gcweb/<%= project.versionName %>/cdts', src: ['cdts-*.css'], dest: '<%= project.targetCanada %>', expand: true },
                 ],
                 options: {
                     process: cdtsCSSPathReplace,
@@ -448,14 +450,6 @@ module.exports = function run(grunt) {
             'global-public': {
                 files: ['./public/global/**'],
                 tasks: ['copy:global-public'],
-            },
-            'rn-cloud': {
-                files: ['./public/gcweb/cdts-*.css', './public/gcintranet/cdts-*.css', '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled', '<%= project.target %>/gcintranet/<%= project.versionName %>/cdts/compiled'],
-                tasks: ['copy:rn-cloud'],
-            },
-            'rn-canada': {
-                files: ['./public/gcweb/cdts-*.css', '<%= project.target %>/gcweb/<%= project.versionName %>/cdts/compiled'],
-                tasks: ['copy:rn-canada'],
             },
             'gcweb-test': {
                 files: ['./test/html/gcweb/**'],
