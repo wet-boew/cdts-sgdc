@@ -296,6 +296,9 @@ module.exports = function run(grunt) {
         },
 
         copy: {
+            options: {
+                noProcess: ['**/*.{png,gif,jpg,jpeg,eot,otf,ttf,woff,woff2,ico,svg}'], //do NOT put binary files (and SVGs) through the process functions otherwise they get corrupted
+            },
             wet: {
                 files: [
                     { cwd: 'public/wet', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>', expand: true },
