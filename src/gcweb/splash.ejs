@@ -8,6 +8,7 @@
  * @param termsFra The French Terms and conditions of use.
  * @param? jqueryEnv Used to determine location of jQuery files (local / external).
  * @param? webAnalytics Used to determine inclusion of current analytics code.
+ * @param? sriEnabled boolean - Set to true to enable rendering of SRI hashes for CDTS sub resources.
 -%>
 <div id="bg">
     <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/img/splash/sp-bg-2.jpg" alt="">
@@ -74,14 +75,15 @@
     </div>
 </main>
 <!--[if gte IE 9 | !IE ]><!-->
-<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
-<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"></script>
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/jquery/2.2.4/jquery.min.js') ^>" crossorigin="anonymous"<% } %>></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/wet-boew.min.js') ^>" crossorigin="anonymous"<% } %>></script>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew2.min.js"></script>
 <![endif]-->
-<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"></script>
-<%_ if (pr.webAnalytics != null) { -%>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/theme.min.js') ^>" crossorigin="anonymous"<% } %>></script>
+<%_ if (pr.webAnalytics != null && pr.webAnalytics != false && !wet.utilities.isCDTSSetupMode()) { -%>
+    <%# Do NOT add this call in "setup" mode because Adobe's script will be loaded essentially async (https://experienceleague.adobe.com/docs/experience-platform/tags/client-side/asynchronous-deployment.html?lang=en) -%>
     <script>_satellite.pageBottom();</script>
 <%_ } -%>
-<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcweb/cdtsfixes.css') ^>" crossorigin="anonymous"<% } %>>

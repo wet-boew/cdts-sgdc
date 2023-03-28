@@ -8,6 +8,7 @@
  * @param termsFra The French Terms and conditions of use.
  * @param? jqueryEnv Used to determine location of jQuery files (local / external).
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
+ * @param? sriEnabled boolean - Set to true to enable rendering of SRI hashes for CDTS sub resources.
 -%>
 <div id="bg">
     <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/img/splash/sp-bg-2.jpg" alt="">
@@ -74,10 +75,10 @@
     </div>
 </main>
 <!--[if gte IE 9 | !IE ]><!-->
-<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"></script>
-<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"></script>
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/jquery/2.2.4/jquery.min.js') ^>" crossorigin="anonymous"<% } %>></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/wet-boew.min.js') ^>" crossorigin="anonymous"<% } %>></script>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew2.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css">
+<link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcintranet/cdtsfixes.css') ^>" crossorigin="anonymous"<% } %>>
