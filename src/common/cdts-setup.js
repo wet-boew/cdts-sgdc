@@ -221,6 +221,9 @@ wet.utilities.applySecmenu = function applySecmenu() {
 
 wet.utilities.applySplash = function applySplash() {
     if (!wet.localConfig.splash) wet.localConfig.splash = {};
+    wet.localConfig.splash.cdnEnv = wet.localConfig.base.cdnEnv || wet.localConfig.cdnEnv;
+    wet.localConfig.splash.cdtsSetupExcludeCSS = wet.localConfig.base.cdtsSetupExcludeCSS;
+    wet.localConfig.splash.sriEnabled = wet.localConfig.base.sriEnabled;
 
     const defContent = document.getElementById(wet.localConfig.splash.elementId || "cdts-splash-content");
 
