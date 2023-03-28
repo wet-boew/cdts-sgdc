@@ -392,5 +392,9 @@
     "85dfa32c97d8618d1bea083609e2c8a29845abe5": {
         "source": "Account",
         "target": "Compte"
+    },
+    "d6d1ef7f621da1c081add385eda657c90708fbd3": {
+        "source": "../ajax/report-problem-en.html",
+        "target": "../ajax/report-problem-fr.html"
     }
 }
