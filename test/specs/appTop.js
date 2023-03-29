@@ -300,7 +300,7 @@ describe('AppTop section tests for GCIntranet', () => {
 
     generateTestFile('./test/html/gcintranet/template-gcintranetapp-fr.html', 'gcintranet', 'gcintranet-appTop-signOut-fr', {
         refTop: '{"cdnEnv": "localhost"}',
-        appTop: '{"cdnEnv": "localhost","appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr",	"href": "gcweb-appTop-fr.html",	"text": "Français"	}], "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Recherche Canada.ca", "method" : "get"}], "appName": [{"text": "Application name", "href": "#"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", "boldText" : "Bold", "acronym": "Acronym" }], "signOut": [{"href": "#"}]}',
+        appTop: '{"cdnEnv": "localhost","appName": [{"text": "Application name", "href": "#"}], "lngLinks": [{"lang": "fr",	"href": "gcweb-appTop-fr.html",	"text": "Français"	}], "customSearch": [{ "action" : "https://www.canada.ca/en/sr/srb.html", "id": "custom-search", "name": "customName", "hiddenInput" : [{"name" : "cdn", "value" : "canada"}], "placeholder" : "Rechercher Canada.ca", "method" : "get"}], "appName": [{"text": "Application name", "href": "#"}], "intranetTitle": [{"href": "http://esdc.prv/en/index.shtml","text": "CustomTitle", "boldText" : "Bold", "acronym": "Acronym" }], "signOut": [{"href": "#"}]}',
         preFooter: '{"cdnEnv": "localhost"}',
         appFooter: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
@@ -791,16 +791,16 @@ async function customSearchExists(theme, lang){
 async function customSearchExists_FR(theme, lang){
     if (theme == 'gcweb') {
         await appTopPage.open(theme, lang);
-        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Recherche Canada.ca');
+        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Rechercher Canada.ca');
     }
     else {
         await appTopPage.open(theme, lang, 'signOut');
         await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Recherche');
     }
     await expect(topPage.customSearch).toExist();
-    await expect(topPage.customSearchLabel).toHaveTextContaining('Recherche Canada.ca');
+    await expect(topPage.customSearchLabel).toHaveTextContaining('Rechercher Canada.ca');
     await expect(topPage.customSearchInput).toHaveAttributeContaining('name', 'customName');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Recherche Canada.ca');
+    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Rechercher Canada.ca');
     await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('name', 'cdn');
     await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('value', 'canada');
     await expect(topPage.customSearchBtn).toExist();
