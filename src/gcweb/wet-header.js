@@ -7,13 +7,7 @@ if (typeof wet.builder == 'undefined') { wet.builder = {}; } //eslint-disable-li
  */
 wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
     var baseUrl;
-    if (cdnEnv === 'esdcqat') {
-        baseUrl = 'https://cdn-canada.services.gc.qat/app/cls/WET';
-    }
-    else if (cdnEnv === 'esdcnonprod') {
-        baseUrl = 'https://s2tst-cdn-canada.sade-edap.prv/app/cls/WET';
-    }
-    else if (cdnEnv === 'esdcprod') {
+    if (cdnEnv === 'esdcprod') {
         baseUrl = 'https://cdts.service.canada.ca/app/cls/WET';
     }
     else if (cdnEnv === 'localhost') {

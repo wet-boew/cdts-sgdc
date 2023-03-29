@@ -6,13 +6,7 @@ if (typeof wet.builder == 'undefined') { wet.builder = {}; } //eslint-disable-li
  * @param cdnEnv Used to switch URL host name depending on cdnEnv value.
  */
 wet.builder.environmentHost = function cdtsWetBuilderEnvironmentHost(cdnEnv) {
-    if (cdnEnv === 'qat') {
-        return 'https://cdn-canada.services.gc.qat/';
-    }
-    else if (cdnEnv === 'nonprod') {
-        return 'https://s2tst-cdn-canada.sade-edap.prv/';
-    }
-    else if (cdnEnv === 'esdcprod') {
+    if (cdnEnv === 'esdcprod') {
         return 'https://templates.service.gc.ca/';
     }
     else if (cdnEnv === 'localhost') {
