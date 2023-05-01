@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>custom-menu-fr</title>
+		<title>Exemple SGDC - Menu personnalisé</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
@@ -94,7 +94,7 @@
 			<p>Il existe deux méthodes par lesquelles un menu personnalisé peut être affiché.</p>
             <p><b>Première méthode</b></p>
             <ul>
-                <li>Créez un menu personnalisé dans un fichier html séparé et l'URL de fourniture via le paramètre menuPath dans la section <b>appTop</b> de votre page.</li>
+                <li>Créez un menu personnalisé dans un fichier html séparé et l'URL de fourniture via le paramètre <code>menuPath</code> dans la section <code>appTop</code> de votre page.</li>
                 <li>Le code HTML équivalent du menu de cette page peut être trouvé <a href="../ajax/appmenu-fr.html">ici</a>.</li>
             </ul>
                 <pre>
@@ -105,9 +105,9 @@ defTop.outerHTML = wet.builder.appTop({
 });
                 </pre>
             <p><b>Deuxième méthode</b></p>
-            <p>La deuxième méthode consiste à créer le menu dans la section appTop de votre page. Il existe quelques options de configuration:</p>
+            <p>La deuxième méthode consiste à créer le menu dans la section <code>appTop</code> de votre page. Il existe quelques options de configuration:</p>
             <ul>
-                <li><code class="wb-prettify">menuLinks</code>: utilisé pour créer une navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «text» et «href» respectivement. Vous pouvez spécifier la description d'une abréviation via le paramètre «acronym».</li>
+                <li><code class="wb-prettify">menuLinks</code>: utilisé pour créer une navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres <code>text</code> et <code>href</code> respectivement. Vous pouvez spécifier la description d'une abréviation via le paramètre <code>acronym</code>.</li>
                 <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
@@ -119,7 +119,7 @@ defTop.outerHTML = wet.builder.appTop({
 ...
 });
                 </pre>
-                <li><code class="wb-prettify">subLinks</code>: utilisé pour créer les éléments de sous-menu. Ceux-ci sont affichés lorsque l'utilisateur survole la navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres «subtext» et «subhref» respectivement. Vous pouvez spécifier la description d'une abréviation via le paramètre «acronym».</li>
+                <li><code class="wb-prettify">subLinks</code>: utilisé pour créer les éléments de sous-menu. Ceux-ci sont affichés lorsque l'utilisateur survole la navigation supérieure. Vous pouvez fournir le titre et l'URL via les paramètres <code>subtext</code> et <code>subhref</code> respectivement. Vous pouvez spécifier la description d'une abréviation via le paramètre <code>acronym</code>.</li>
                 <pre>
 "subLinks": [{
     "subtext": "Sous-section 1",

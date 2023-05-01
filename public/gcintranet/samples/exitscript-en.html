@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>exitscript-en</title>
+		<title>CDTS Sample - Leaving a secure site</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
@@ -63,16 +63,16 @@
                 <li>allow your application to exclude any domains from raising the warning</li>
             </ul>
             <h2>Implementation</h2>
-			<p>The exitscript is added in the <b>refFooter</b> section of the page, via the <code class="wb-prettify">exitSecureSite</code> object. This object has the following properties that can be assigned a value:</p>
+			<p>The exit script is added in the <code>refFooter</code> section of the page, via the <code class="wb-prettify">exitSecureSite</code> object. This object has the following properties that can be assigned a value:</p>
             <ul>
-                <li><code class="wb-prettify">exitScript</code>: Set to true to enable the ExitScript functionality</li>
-                <li><code class="wb-prettify">displayModal</code>: Set to true to show the modal dialog warning the user is about to leave the secure site. Otherwise, continue directly to the exitUrl.</li>
+                <li><code class="wb-prettify">exitScript</code>: Set to true to enable the Exit Script functionality</li>
+                <li><code class="wb-prettify">displayModal</code>: Set to true to show the modal dialog warning the user is about to leave the secure site. Otherwise, continue directly to the exit Url.</li>
                 <li><code class="wb-prettify">msgBoxHeader</code>: Customize the title of the modal dialog otherwise a default title will show</li>
                 <li><code class="wb-prettify">exitMsg</code>: Customize the message of the modal dialog</li>
                 <li><code class="wb-prettify">cancelMsg</code>: Customize the label on the cancel button</li>
                 <li><code class="wb-prettify">yesMsg</code>: Customize the label on the yes button</li>
-                <li><code class="wb-prettify">exitDomains</code>: A list of exempt domains that the exitscript will not trigger for</li>
-                <li><code class="wb-prettify">targetWarning</code>: A warning to display to the user that the link will open in a new window. This will append the exitMsg</li>
+                <li><code class="wb-prettify">exitDomains</code>: A list of exempt domains that the exit script will not trigger for</li>
+                <li><code class="wb-prettify">targetWarning</code>: A warning to display to the user that the link will open in a new window. This will append the exit message</li>
                 <li><code class="wb-prettify">displayModalForNewWindow</code>: If set to true, will not display modal for links that open in new window</li>
 
             </ul>
@@ -97,23 +97,21 @@ document.write(wet.builder.refFooter({
 				<ul class="lst-spcd">
 					<li>
 						This link <a href="https://www.google.ca/">https://www.google.ca/</a>
-						has a hostname (google.ca) different from yours.
-						You'll be redirect to <code>exiturl-en.html</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.
-							html</code>.
+						has a host name (google.ca) different from yours.
+						You'll be redirect to <code>exiturl-en.html</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.html</code>.
 					</li>
 					<li>
 						This link <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a>
-						will open in another window. Through the targetWarning parameter, you can set a message that will warn users that the link will open in another window.
+						will open in another window. Through the <code>targetWarning</code> parameter, you can set a message that will warn users that the link will open in another window.
 						This message will append the existing display message.
 					</li>
 					<li>
-						This link <a href="breadcrumbs-en.html"> breadcrumbs-en.
-							html </a> has the same hostname as yours.
+						This link <a href="breadcrumbs-en.html">breadcrumbs-en.html</a> has the same host name as yours.
 						You won't be redirect to <code>exiturl-en.html</code>.
 					</li>
 					<li>
 						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>
-						has his hostname (developer.mozilla.org) in the exception list <code>exitDomains</code>.
+						has his host name (developer.mozilla.org) in the exception list <code>exitDomains</code>.
 						You won't be redirect to <code>exiturl-en.html</code>.
 					</li>
 				</ul>

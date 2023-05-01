@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-        <title>custom-footer-en</title>
+        <title>CDTS Sample - Custom Footer</title>
         <meta content="width=device-width,initial-scale=1" name="viewport">
         <!-- Meta data -->
         <meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
@@ -64,7 +64,7 @@
             <p>When using the application template, you have the ability to add a customized footer that will contain links of your choosing.</p>
             <p>When customizing the footer, you also have the ability to override the contact link, the terms link, and the privacy link.</p>
             <h2>Implementation</h2>
-            <p>Customization of the footer is done through the <code>footerSections</code> parameter in the <b>appFooter</b> section of your page.</p>
+            <p>Customization of the footer is done through the <code>footerSections</code> parameter in the <code>appFooter</code> section of your page.</p>
             <ul>
                 <li><code class="wb-prettify">"title"</code>: (OPTIONAL) - the title of your custom footer</li>
                 <li><code class="wb-prettify">"href"</code>: (MANDATORY) - the url of the link</li>
@@ -91,7 +91,7 @@ defFooter.outerHTML = wet.builder.appFooter({
 ...
 });
             </pre>
-            <p>Add a title to your custom footer through the <code>footerSectionsTitle</code> parameter in the <b>appFooter</b> section of your page.</p>
+            <p>Add a title to your custom footer through the <code>footerSectionsTitle</code> parameter in the <code>appFooter</code> section of your page.</p>
             <pre>
 defFooter.outerHTML = wet.builder.appFooter({
 ...
@@ -99,7 +99,7 @@ defFooter.outerHTML = wet.builder.appFooter({
 ...
 });
             </pre>
-            <p>To modify the contact link, the terms link and the privacy link at the bottom of the page, simply add the following code snippet in the <b>appFooter</b> section for your page.</p>
+            <p>To modify the contact link, the terms link and the privacy link at the bottom of the page, simply add the following code snippet in the <code>appFooter</code> section for your page.</p>
             <p>Contact Link</p>
             <pre>
 defFooter.outerHTML = wet.builder.appFooter({

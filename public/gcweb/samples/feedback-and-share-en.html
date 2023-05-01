@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>feedback-and-share-en</title>
+		<title>CDTS Sample - Feedback and Share</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
@@ -56,11 +56,11 @@
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<h1 property="name" id="wb-cont">Feedback and Share</h1>
-			<p>This page will demonstrate how to enable/disable the Feedback Link, as well as how to use the feature to share the current page with some pre-defined Social Media applications.</p>
+			<p>This page will demonstrate how to enable/disable the Feedback Link, as well as how to use the feature to share the current page with some predefined Social Media applications.</p>
 			<h2>Feedback</h2>
             <p>Specify the "Report a problem or mistake on this page" button of your page. By default this button is shown with the default Canada.ca URL. You can customize the URL or simply hide the button.</p>
             <h3>Implementation</h3>
-            <p>This link can be customized in the preFooter section of your page.</p>
+            <p>This link can be customized in the <code>preFooter</code> section of your page.</p>
             <p>Hide the button</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({
@@ -81,7 +81,7 @@ defPreFooter.outerHTML = wet.builder.preFooter({
             <h2>Share</h2>
             <p>The "Share This Page" button is a way for the users to share the URL of the site via Social Media. By default this button is shown with the default selection of social media sites. You can customize this selection or simply hide the button.</p>
             <h3>Implementation</h3>
-            <p>This button can be customized in the <b>preFooter</b> section of your page.</p>
+            <p>This button can be customized in the <code>preFooter</code> section of your page.</p>
             <p>Hide the button</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({

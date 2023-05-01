@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>custom-menu-en</title>
+		<title>CDTS Sample - Custom Menu</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
@@ -94,7 +94,7 @@
 			<p>There are two methods by which a custom menu can be displayed.</p>
             <p><b>First method</b></p>
             <ul>
-                <li>Create a custom menu in a seperate html file and the provide URL through the menuPath parameter in the appTop section of your page. </li>
+                <li>Create a custom menu in a separate html file and the provide URL through the <code>menuPath</code> parameter in the <code>appTop</code> section of your page. </li>
                 <li>The equivalent html of the menu on this page can be found <a href="../ajax/appmenu-en.html">here</a>.</li>
             </ul>
                 <pre>
@@ -105,9 +105,9 @@ defTop.outerHTML = wet.builder.appTop({
 });
                 </pre>
             <p><b>Second method</b></p>
-            <p>The second method is creating the menu in the appTop section of your page. There are a few configuration options:</p>
+            <p>The second method is creating the menu in the <code>appTop</code> section of your page. There are a few configuration options:</p>
             <ul>
-                <li><code class="wb-prettify">"menuLinks"</code>: used to create a top navigation. You can provide the title and URL through the 'text' and 'href' parameters respectively. You can specify the description for an abbreviation through the 'acronym' parameter.</li>
+                <li><code class="wb-prettify">"menuLinks"</code>: used to create a top navigation. You can provide the title and URL through the <code>text</code> and <code>href</code> parameters respectively. You can specify the description for an abbreviation through the <code>acronym</code> parameter.</li>
                 <pre>
 defTop.outerHTML = wet.builder.appTop({
 ...
@@ -119,7 +119,7 @@ defTop.outerHTML = wet.builder.appTop({
 ...
 });
                 </pre>
-                <li><code class="wb-prettify">"subLinks"</code>: used to create the submenu items. These are displayed when the user hovers over the top navigation. You can provide the title and URL through the 'subtext' and 'subhref' parameters respectively. You can specify the description for an abbreviation through the 'acronym' parameter.</li>
+                <li><code class="wb-prettify">"subLinks"</code>: used to create the sub-menu items. These are displayed when the user hovers over the top navigation. You can provide the title and URL through the <code>subtext</code> and <code>subhref</code> parameters respectively. You can specify the description for an abbreviation through the <code>acronym</code> parameter.</li>
                 <pre>
 "subLinks": [{
     "subtext": "Subsection 1",

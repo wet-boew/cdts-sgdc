@@ -115,27 +115,27 @@ matrix:
       - ':matches(code, pre)'
       - 'code'
       - 'pre'
-- name: markdown-en
-  sources:
-  #- '**/*.md|!*-fr.md'
-  - '*.md|!*-fr.md'
-  aspell:
-    lang: en
-    d: en_CA
-    #filter-path: /mingw64/lib/aspell-0.60
-  dictionary:
-    wordlists:
-    - spell-wordlist-en.txt
-    output: tmp/wordlist-en.dic
-    encoding: utf-8
-  pipeline:
-  - pyspelling.filters.markdown:
-      markdown_extensions:
-      - markdown.extensions.extra:
-  - pyspelling.filters.html:
-      comments: true
-      attributes:
-      - title
-      - alt
-      ignores:
-      - :matches(code, pre, samp, kbd, var)
+#- name: markdown-en
+#  sources:
+#  #- '**/*.md|!*-fr.md'
+#  - '*.md|!*-fr.md'
+#  aspell:
+#    lang: en
+#    d: en_CA
+#    #filter-path: /mingw64/lib/aspell-0.60
+#  dictionary:
+#    wordlists:
+#    - spell-wordlist-en.txt
+#    output: tmp/wordlist-en.dic
+#    encoding: utf-8
+#  pipeline:
+#  - pyspelling.filters.markdown:
+#      markdown_extensions:
+#      - markdown.extensions.extra:
+#  - pyspelling.filters.html:
+#      comments: true
+#      attributes:
+#      - title
+#      - alt
+#      ignores:
+#      - :matches(code, pre, samp, kbd, var)

@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>exitscript-fr</title>
+		<title>Exemple SGDC - Quitter un site sécurisé</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
@@ -65,17 +65,17 @@
                 <li>autorisez votre application à exclure tous les domaines du déclenchement de l'avertissement</li>
             </ul>
             <h2>Mise en oeuvre</h2>
-			<p>L'exitscript est ajouté dans la section <b>refFooter</b> de la page. Cet objet possède les propriétés suivantes auxquelles une valeur peut être affectée :</p>
+			<p>La configuration est ajouté dans la section <code>refFooter</code> de la page. Cet objet possède les propriétés suivantes auxquelles une valeur peut être affectée :</p>
             <ul>
-                <li><code class="wb-prettify">exitScript</code>: Défini sur true pour activer la fonctionnalité ExitScript</li>
-                <li><code class="wb-prettify">displayModal</code>: Défini sur true pour afficher la boîte de dialogue modale avertissant que l'utilisateur est sur le point de quitter le site sécurisé. Sinon, passez directement à exitUrl.</li>
+                <li><code class="wb-prettify">exitScript</code>: Défini <code>true</code> pour activer la fonctionnalité Exit Script</li>
+                <li><code class="wb-prettify">displayModal</code>: Défini <code>true</code> pour afficher la boîte de dialogue modale avertissant que l'utilisateur est sur le point de quitter le site sécurisé. Sinon, passez directement au URL de sortie.</li>
                 <li><code class="wb-prettify">msgBoxHeader</code>: Personnalisez le titre de la boîte de dialogue modale sinon un titre par défaut s'affichera</li>
                 <li><code class="wb-prettify">exitMsg</code>: Personnaliser le message de la boîte de dialogue modale</li>
                 <li><code class="wb-prettify">cancelMsg</code>: Personnalisez l'étiquette sur le bouton d'annulation</li>
                 <li><code class="wb-prettify">yesMsg</code>: Personnalisez l'étiquette sur le bouton Oui</li>
-                <li><code class="wb-prettify">exitDomains</code>: Une liste de domaines exemptés pour lesquels l'exitscript ne déclenchera pas</li>
-                <li><code class="wb-prettify">targetWarning</code>: Un avertissement à afficher à l'utilisateur que le lien s'ouvrira dans une nouvelle fenêtre. Cela ajoutera le exitMsg</li>
-                <li><code class="wb-prettify">displayModalForNewWindow</code>: S'il est défini sur true, n'affichera pas modal pour les liens qui s'ouvrent dans une nouvelle fenêtre</li>
+                <li><code class="wb-prettify">exitDomains</code>: Une liste de domaines exemptés pour lesquels le script ne déclenchera pas</li>
+                <li><code class="wb-prettify">targetWarning</code>: Un avertissement à afficher à l'utilisateur que le lien s'ouvrira dans une nouvelle fenêtre. Cela ajoutera au message</li>
+                <li><code class="wb-prettify">displayModalForNewWindow</code>: S'il est défini <code>true</code>, n'affichera pas modal pour les liens qui s'ouvrent dans une nouvelle fenêtre</li>
 
             </ul>
             <pre>
@@ -104,12 +104,11 @@ document.write(wet.builder.refFooter({
 					</li>
 					<li>
 						Ce lien <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a>
-						s'ouvrira dans une autre fenêtre. Avec le paramètre targetWarning, vous pouvez définir un message qui avertira les utilisateurs que le lien s'ouvrira dans une autre fenêtre.
+						s'ouvrira dans une autre fenêtre. Avec le paramètre <code>targetWarning</code>, vous pouvez définir un message qui avertira les utilisateurs que le lien s'ouvrira dans une autre fenêtre.
 						Ce message ajoutera le message d'affichage existant.
 					</li>
 					<li>
-						Ce lien <a href="breadcrumbs-en.html"> breadcrumbs-en.
-							html </a> a le même nom de domaine que le vôtre.
+						Ce lien <a href="breadcrumbs-en.html">breadcrumbs-en.html</a> a le même nom de domaine que le vôtre.
 						Vous ne serez pas redirigé vers <code>exiturl-en.html</code>.
 					</li>
 					<li>
