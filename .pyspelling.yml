@@ -1,0 +1,141 @@
+# This will instruct pyspelling to perform spell check on
+#    - Static HTML files in "public" directory (except for WET files)
+#    - gcweb and gcintranet wet-messages-*.json, files:
+#        - For english, the "source" property
+#        - For french, the "target" property
+#      (note that is both cases values containing '<', '>' or '-' will be skipped)
+#
+# ref: https://facelessuser.github.io/pyspelling/pipeline/
+matrix:
+- name: messages-en
+  sources:
+  - 'src/gcweb/wet-messages.en.json'
+  - 'src/gcintranet/wet-messages.en.json'
+  aspell:
+    lang: en
+    d: en_CA
+    #filter-path: /mingw64/lib/aspell-0.60
+  dictionary:
+    wordlists:
+    - spell-wordlist-en.txt
+    output: tmp/wordlist-en.dic
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.context:
+      context_visible_first: false
+      delimiters:
+      # In an attempt to skip values containing HTML or file names, the
+      # open token is basically any `"source": "` that is NOT followed at some point by a `<` or a `-`
+      # The URLs will be filtered out by next pipeline step
+      - open: '^\s*"source":\s*"(?!.*[\-\<\>])'
+        close: '",$'
+  - pyspelling.filters.url:
+- name: messages-fr
+  sources:
+  - 'src/gcweb/wet-messages.fr.json'
+  - 'src/gcintranet/wet-messages.fr.json'
+  aspell:
+    lang: fr
+    #d: fr_CA
+    #filter-path: /mingw64/lib/aspell-0.60
+  dictionary:
+    wordlists:
+    - spell-wordlist-fr.txt
+    output: tmp/wordlist-fr.dic
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.context:
+      context_visible_first: false
+      delimiters:
+      # In an attempt to skip values containing HTML or file names, the
+      # open token is basically any `"target": "` that is NOT followed at some point by a `<` or a `-`
+      # The URLs will be filtered out by next pipeline step
+      - open: '^\s*"target":\s*"(?!.*[\-\<\>])'
+        close: '"$'
+  - pyspelling.filters.url:
+- name: HTML-EN
+  sources:
+  - 'public/common/**/*-en.html'
+  - 'public/common/**/*-eng.html'
+  - 'public/gcweb/**/*-en.html'
+  - 'public/gcweb/**/*-eng.html'
+  - 'public/gcintranet/**/*-en.html'
+  - 'public/gcintranet/**/*-eng.html'
+  - 'public/global/**/*-en.html'
+  - 'public/global/**/*-eng.html'
+  expect_match: false  #no error is no file found
+  default_encoding: utf-8
+  aspell:
+    lang: en
+    d: en_CA
+    #filter-path: /mingw64/lib/aspell-0.60
+  dictionary:
+    wordlists:
+    - spell-wordlist-en.txt
+    output: tmp/wordlist-en.dic
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.html:
+      comments: false # We have a lot of paths and other stuff in out HTML comments, truning spell check off
+      attributes:
+      - title
+      - alt
+      ignores:
+      - ':matches(code, pre)'
+      - 'code'
+      - 'pre'
+- name: HTML-FR
+  sources:
+  - 'public/common/**/*-fr.html'
+  - 'public/common/**/*-fra.html'
+  - 'public/gcweb/**/*-fr.html'
+  - 'public/gcweb/**/*-fra.html'
+  - 'public/gcintranet/**/*-fr.html'
+  - 'public/gcintranet/**/*-fra.html'
+  - 'public/global/**/*-fr.html'
+  - 'public/global/**/*-fra.html'
+  expect_match: false  #no error is no file found
+  default_encoding: utf-8
+  aspell:
+    lang: fr
+    #d: fr_CA
+    #filter-path: /mingw64/lib/aspell-0.60
+  dictionary:
+    wordlists:
+    - spell-wordlist-fr.txt
+    output: tmp/wordlist-fr.dic
+    encoding: utf-8
+  pipeline:
+  - pyspelling.filters.html:
+      comments: false # We have a lot of paths and other stuff in out HTML comments, truning spell check off
+      attributes:
+      - title
+      - alt
+      ignores:
+      - ':matches(code, pre)'
+      - 'code'
+      - 'pre'
+#- name: markdown-en
+#  sources:
+#  #- '**/*.md|!*-fr.md'
+#  - '*.md|!*-fr.md'
+#  aspell:
+#    lang: en
+#    d: en_CA
+#    #filter-path: /mingw64/lib/aspell-0.60
+#  dictionary:
+#    wordlists:
+#    - spell-wordlist-en.txt
+#    output: tmp/wordlist-en.dic
+#    encoding: utf-8
+#  pipeline:
+#  - pyspelling.filters.markdown:
+#      markdown_extensions:
+#      - markdown.extensions.extra:
+#  - pyspelling.filters.html:
+#      comments: true
+#      attributes:
+#      - title
+#      - alt
+#      ignores:
+#      - :matches(code, pre, samp, kbd, var)

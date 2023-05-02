@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-        <title>header-menu-fr</title>
+        <title>Exemple SGDC - Menu d'en-tête</title>
         <meta content="width=device-width,initial-scale=1" name="viewport">
         <!-- Meta data -->
         <meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
@@ -78,13 +78,13 @@
             <h1 property="name" id="wb-cont">Menu d'en-tête</h1>
             <p>Cet exemple de page montre comment un menu d'en-tête peut être affiché sur votre page.</p>
             <h2>Mise en œuvre</h2>
-            <p>Le menu est ajouté dans la section <b>appTop</b> de la page avec les options de configuration suivantes :</p>
+            <p>Le menu est ajouté dans la section <code>appTop</code> de la page avec les options de configuration suivantes :</p>
             <ul>
                 <li><code class="wb-prettify">"text"</code>: (OBLIGATOIRE) - le texte à l'intérieur du menu</li>
                 <li><code class="wb-prettify">"link":"text"</code>: (OBLIGATOIRE) - le texte du lien affiché</li>
                 <li><code class="wb-prettify">"link":"href"</code>: (OBLIGATOIRE) - l'url du lien</li>
                 <li><code class="wb-prettify">"link":"newWindow"</code>: (FACULTATIF) - ouvrir le lien dans une nouvelle fenêtre</li>
-                <li><code class="wb-prettify">"logoutLink":"text"</code>: (FACULTATIF) - le text du lien de déconnexion</li>
+                <li><code class="wb-prettify">"logoutLink":"text"</code>: (FACULTATIF) - le texte du lien de déconnexion</li>
                 <li><code class="wb-prettify">"logoutLink":"href"</code>: (FACULTATIF) - l'url du lien de déconnexion</li>
             </ul>
             <pre>
@@ -106,40 +106,6 @@ defTop.outerHTML = wet.builder.appTop({
             "text":"Logout Link",
         }
     }
-...
-});
-            </pre>
-            <p>To modify the contact link, the terms link and the privacy link at the bottom of the page, simply add the following code snippet in the <b>appFooter</b> section for your page.</p>
-            <p>Contact Link</p>
-            <pre>
-defFooter.outerHTML = wet.builder.appFooter({
-...
-    "contactLink": [{
-        "href": "https://www.canada.ca/en/contact.html",
-        "newWindow": true
-    }]
-...
-});
-            </pre>
-            <p>Terms Link</p>
-            <pre>
-defFooter.outerHTML = wet.builder.appFooter({
-...
-    "termsLink": [{
-        "href": "https://www.canada.ca/en/transparency/terms.html",
-        "newWindow": true
-    }]
-...
-});
-            </pre>
-            <p>Privacy Link</p>
-            <pre>
-defFooter.outerHTML = wet.builder.footer({
-...
-    "privacyLink": [{
-        "href": "https://www.canada.ca/en/transparency/privacy.html",
-        "newWindow": true
-    }]
 ...
 });
             </pre>

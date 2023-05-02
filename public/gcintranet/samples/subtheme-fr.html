@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>ESDC intranet theme template - fr</title>
+		<title>Sous-thème EDSC</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
@@ -78,11 +78,11 @@
 		</script>
 		<main property="mainContentOfPage" class="container">
 			<h1 property="name" id="wb-cont">Sous-thème</h1>
-			<p>Dans votre site GCIntranet, vous avez la possibilité d'appliquer un sous-thème. Cela vous permet d'avoir un look personnalisé tout en bénéficiant des avantages de CDTS.</p>
+			<p>Dans votre site GCIntranet, vous avez la possibilité d'appliquer un sous-thème. Cela vous permet d'avoir un look personnalisé tout en bénéficiant des avantages du SGDC.</p>
 			<p>Pour cet exemple de page, le sous-thème EDSC est appliqué. Si vous souhaitez avoir un look personnalisé, veuillez contacter l'équipe SGDC.</p>
             <h2>Mise en œuvre</h2>
-            <p>Afin d'implémenter le sous-thème personnalisé, vous devez ajouter la variable <code>subTheme</code> à différentes sections de la page. Nous utilisons « esdc » comme exemple.</p>
-            <b>refTop</b>
+            <p>Afin d'implémenter le sous-thème personnalisé, vous devez ajouter la variable <code>subTheme</code> à différentes sections de la page. Nous utilisons <code>"esdc"</code> comme exemple.</p>
+            <code>refTop</code>
             <pre>
 document.write(wet.builder.refTop({
 ...
@@ -90,7 +90,7 @@ document.write(wet.builder.refTop({
 ...
 }));
             </pre>
-            <b>top</b>
+            <code>top</code>
             <pre>
 document.write(wet.builder.top({
 ...
@@ -98,7 +98,7 @@ document.write(wet.builder.top({
 ...
 }));
             </pre>
-            <b>footer</b>
+            <code>footer</code>
             <pre>
 document.write(wet.builder.footer({
 ...

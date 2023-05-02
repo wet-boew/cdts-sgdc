@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>transaction-fr</title>
+		<title>Exemple SGDC - Page transactionnelle</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
 		<!-- Meta data -->
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
@@ -62,7 +62,7 @@
 			<p>Fondamentalement, vous évitez d'avoir des liens externes pour empêcher les utilisateurs de perdre des données s'ils devaient s'éloigner.</p>
             <h2>Mise en œuvre</h2>
             <p>Quelques modifications sont nécessaires pour rendre votre page vraiment transactionnelle. Tous ces changements sont obligatoires, sauf indication contraire.</p>
-            <p>Dans la section <b>top</b>:</p>
+            <p>Dans la section <code>top</code>:</p>
             <ul>
                 <li>Masquer la barre de recherche</li>
                 <pre>
@@ -100,7 +100,7 @@ defTop.outerHTML = wet.builder.top({
 });
                 </pre>
             </ul>
-            <p>Dans la section <b>preFooter</b>:</p>
+            <p>Dans la section <code>preFooter</code>:</p>
             <ul>
                 <li>Masquer le contenu inséré dans l'espace de contenu de publication de votre page</li>
                 <pre>
@@ -111,7 +111,7 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 });
                 </pre>
             </ul>
-            <p>Dans la section <b>footer</b>:</p>
+            <p>Dans la section <code>footer</code>:</p>
             <ul>
                 <li>Masquer le contenu à l'intérieur du pied de page</li>
                 <pre>

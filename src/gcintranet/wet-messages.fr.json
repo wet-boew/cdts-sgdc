@@ -83,7 +83,7 @@
     },
     "87df60de337fb58864343e396696d74611e0d403": {
         "source": "Resources",
-        "target": "Resources"
+        "target": "Ressources"
     },
     "92d0286da122f925192755a952e521131270bd5f": {
         "source": "Terms and conditions",
@@ -191,7 +191,7 @@
     },
     "dd30e7a45f2454832f243d68973b01fde53e0035": {
         "source": "Organizational Chart",
-        "target": "Organizational Chart"
+        "target": "Organigramme"
     },
     "414d38c009d3d1b6d41e44f955f2dd290529f28c": {
         "source": "https://intranet.canada.ca/wg-tg/index-eng.asp",
@@ -275,7 +275,7 @@
     },
     "c8d7677e19495f21da984fe4e2829b7ca91b27c7": {
         "source": "Feedback",
-        "target": "Feedback"
+        "target": "Rétroaction"
     },
     "4832e45812a2724f16a15f9ae87adfc8ae4168cf": {
         "source": "Contact us",
@@ -287,7 +287,7 @@
     },
     "ef3c7d2a1ee94a54a885d243c02e2efe02dea7e0": {
         "source": "Service Desk",
-        "target": "Service Desk"
+        "target": "InfoService"
     },
     "b52395ae15f3a3530e439a86409f25eebabe6eb1": {
         "source": "Search GCintranet",
