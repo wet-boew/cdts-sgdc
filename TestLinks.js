@@ -1,10 +1,11 @@
 const fs = require('fs');
 const axios = require('axios');
-const ProxyAgent = require('https-proxy-agent');
+//const ProxyAgent = require('https-proxy-agent'); //"require" no longer supported for https-proxy-agent v6.1+, switching to using "dynamic import" below
 const { performance } = require('perf_hooks');
 const { isBinaryFileSync } = require('isbinaryfile');
 
 module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
+
     //Exception list (complete skip of validation)
     //Includes links found on legacy templates, links that require credentials and partial URLs
     const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
@@ -78,8 +79,10 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
 //  3. It is an intranet link that may not give a successful response
 //Once the check is complete, a summary is provided detailing how many tests were run, skipped and passed/failed.
 module.exports.testFileLinks = async function testFileLinks(directories, exceptionSyntaxLinks = [], exceptionHTTPLinks = [], exceptionIntranetLinks = []) {
+    const ProxyAgent = (await import('https-proxy-agent')).HttpsProxyAgent;
+
     const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|])/g;
-    const agent = ProxyAgent('http://proxy.prv:80');
+    const agent = new ProxyAgent('http://proxy.prv:80');
     const config = (process.env.DISABLE_PROXY) ? null : { httpsAgent: agent, proxy: false };
 
     let matches = [];
