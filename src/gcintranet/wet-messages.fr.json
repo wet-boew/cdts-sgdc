@@ -5,10 +5,6 @@
         "source": "https://esdc.prv/includes/edsc-esdc_prv/wet4/en/mega_menu/esdcmenu-eng.html",
         "target": "https://esdc.prv/includes/edsc-esdc_prv/wet4/fr/mega_menu/esdcmenu-fra.html"
     },
-    "a3026e467213bf871821544a5c04131e16e4f0fc": {
-        "source": "ESDC/SC IntraWeb",
-        "target": "EDSC/SC IntraWeb"
-    },
     "d63850c575d2c0b199adf4d5d69c015afcc392b3": {
         "source": "activities-footer-eng.html",
         "target": "activities-footer-fra.html"
@@ -432,5 +428,9 @@
     "40bcf855c323a0eb408d1731cce62c2141e53af5": {
         "source": "Labour Program",
         "target": "Programme du travail"
+    },
+    "04f6175a59a7d9ac57d61277b75f3105938090cc": {
+        "source": "ESDC/SC Intranet",
+        "target": "EDSC/SC Intranet"
     }
 }
