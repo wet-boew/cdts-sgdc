@@ -49,9 +49,9 @@
                 <li><code>cdts-esdc-styles.css</code>: Le gabarit GCIntranet <em>esdc</em></li>
                 <li><code>cdts-splash-styles.css</code>: Le gabarit GCIntranet page d'entrée</li>
             </ul>
-            <p>2. Ajouter l'élément <code>script</code> référençant le fichier Javascript de SGDC (<code>wet-[language].js</code> où [langage] est soit "en" ou "fr"). Le SGDC est activé soit en spécifiant un attribut <code>data-cdts-setup</code> contenant l'objet JSON de configuration de SGDC.</p>
+            <p>2. Ajouter l'élément <code>script</code> référençant le fichier JavaScript de SGDC (<code>wet-[language].js</code> où [langage] est soit "en" ou "fr"). Le SGDC est activé soit en spécifiant un attribut <code>data-cdts-setup</code> contenant l'objet JSON de configuration de SGDC.</p>
             <p>3. Créer une section <code>&lt;noscript&gt;</code> ce qui permettra à votre page d’avoir la présentation voulue si JavaScript est désactivé. Vous devrez charger un fichier statique de repli dans la section <code>&lt;noscript&gt;</code>.</p>
-            <p><strong>L'objet the configuration SGDC</strong> qui est passé dans l'attribut <code>data-cdts-setup</code> doit inclure les propriétés suivantes :</p>
+            <p><strong>L'objet de configuration SGDC</strong> qui est passé dans l'attribut <code>data-cdts-setup</code> doit inclure les propriétés suivantes :</p>
             <ul>
                 <li><code>cdnEnv</code> (FACULTATIF, par défaut "prod") - Chaîne de caractères indiquant l'environnement SGDC à utiliser pour télécharger les ressources. Valeurs possibles:
                     <ul>
