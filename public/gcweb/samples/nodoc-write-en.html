@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+        <title>CDTS Sample - CDTS without document.write</title>
+        <meta content="width=device-width,initial-scale=1" name="viewport">
+        <!-- Meta data -->
+        <meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+        <!-- Meta data-->
+        <!-- Load closure template scripts -->
+        <!--
+            Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
+            This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
+
+            canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+            cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+            templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+
+            To point to the run version:
+
+            canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+            cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+            templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+        -->
+        <link rel="stylesheet" href="../cdts-styles.css">
+        <script type="text/javascript" src="../compiled/wet-en.js" data-cdts-setup='{"cdnEnv": "esdcprod","base":{"exitSecureSite":{"exitScript":true,"displayModal":true,"exitURL":"http://www.google.ca","exitDomains":"www.esdc.gc.ca, www.jobbank.gc.ca, www.redseal.ca","displayModalForNewWindow":true}},"top":{"lngLinks":[{"href":"nodoc-write-fr.html","lang":"fr","text":"Français"}]},"preFooter":{},"footer":{},"onCDTSPageFinalized":[]}'></script>
+    </head>
+    <body vocab="https://schema.org/" typeof="WebPage">
+        <div id="cdts-def-top"></div>
+        <main property="mainContentOfPage" typeof="WebPageElement" class="container">
+            <h1 property="name" id="wb-cont">CDTS without document.write</h1>
+            <p>Users have the ability to implement CDTS without having to use document.write. This sample page is intended for users who currently use CDTS and would like to convert their application to the new method that doesn't use document.write.</p>
+            <h2>Implementation</h2>
+            <h3>Section <code>&lt;head&gt;</code> references</h3>
+            <p>1. Add a link to the CDTS stylesheet appropriate to your situation. One of:</p>
+            <ul>
+                <li><code>cdts-styles.css</code>: The GCWeb basic template</li>
+                <li><code>cdts-app-styles.css</code>: The GCWeb application template</li>
+                <li><code>cdts-splash-styles.css</code>: The GCWeb splash template</li>
+            </ul>
+            <p>2. Add the <code>script</code> element referencing the CDTS Javascript file (<code>wet-[language].js</code> where [language] is either "en" or "fr"). CDTS is activated by specifying a <code>data-cdts-setup</code> attribute containing the CDTS configuration JSON object.</p>
+            <p>3. Create a <code>&lt;noscript&gt;</code> section which will make your page look good if JavaScript is disabled. You will need to load a fall-back static file in the <code>&lt;noscript&gt;</code> section.</p>
+            <p>The <strong>CDTS configuration object</strong> that is passed in the <code>data-cdts-setup</code> attribute should include the following properties:</p>
+            <ul>
+                <li><code>cdnEnv</code> (OPTIONAL, defaults to "prod") - A string specifying the CDTS environment from which to load resources. One of:
+                    <ul>
+                        <li>Hosting Environment: https://www.canada.ca<pre>"cdnEnv": "prod"</pre></li>
+                        <li>Hosting Environment: https://cdts.service.canada.ca<pre>"cdnEnv": "esdcprod"</pre></li>
+                    </ul>
+                </li>
+                <li><code>mode</code> (OPTIONAL, defaults to "common") - A string specifying which template mode to use. One of:
+                    <ul>
+                        <li>The GCWeb basic template<pre>"mode": "common"</pre></li>
+                        <li>The GCWeb <em>application</em> template (also must make sure the corresponding CSS <code>cdts-app-styles.css</code> is used)<pre>"mode": "app"</pre></li>
+                        <li>The GCWeb <em>server</em> template (typically used for error pages)<pre>"mode": "server"</pre></li>
+                        <li>The GCWeb <em>splash</em> template (also must make sure the corresponding CSS <code>cdts-splash-styles.css</code> is used)<pre>"mode": "splash"</pre></li>
+                    </ul>
+                </li>
+                <li><code>base</code> (OPTIONAL) - refTop and refFooter configurations go here.</li>
+                <li><code>top</code>, <code>preFooter</code>, <code>footer</code>, <code>secmenu</code>, <code>splash</code> (OPTIONAL) - Objects specifying the configuration of each section as needed.</li>
+            </ul>
+            <pre>
+&lt;link rel="stylesheet" href="../cdts-styles.css"&gt;
+&lt;script type="text/javascript" src="../compiled/wet-en.js" data-cdts-setup='{"cdnEnv": "esdcprod","base":{"exitSecureSite":{"exitScript":true,"displayModal":true,"exitURL":"http://www.google.ca","exitDomains":"www.esdc.gc.ca, www.jobbank.gc.ca, www.redseal.ca","displayModalForNewWindow":true}},"top":{"lngLinks":[{"href":"nodoc-write-fr.html","lang":"fr","text":"Français"}]},"preFooter":{},"footer":{},"onCDTSPageFinalized":[]}'&gt;&lt;/script&gt;
+            </pre>
+            <h3>Section <code>&lt;body&gt;</code> references</h3>
+            <p>Add three <code>div</code> elements with IDs mentioned below.</p>
+            <p>Insert/include fall-back static content in the new <code>div</code> you have created.</p>
+            <ul>
+                <li>Add a new <code>div</code> element with an ID of <code>cdts-def-top</code>. It should be located before the <code>main</code> element on the page.</li>
+                <li>Add a new <code>div</code> element with an ID of <code>cdts-def-preFooter</code>. It should be located inside the <code>main</code> element on the page.</li>
+                <li>Add a new <code>div</code> element with an ID of <code>cdts-def-footer</code>. It should be located after the <code>main</code> element on the page.</li>
+            </ul>
+            <pre>
+&lt;body vocab="https://schema.org/" typeof="WebPage"&gt;
+    &lt;div id="cdts-def-top"&gt;&lt;/div&gt;
+    &lt;main property="mainContentOfPage" typeof="WebPageElement" class="container"&gt;
+        ...
+        &lt;div id="cdts-def-preFooter"&gt;
+        &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;div id="cdts-def-footer"&gt;&lt;/div&gt;
+&lt;/body&gt;
+            </pre>
+            <div id="cdts-def-preFooter"></div>
+        </main>
+        <div id="cdts-def-footer"></div>
+    </body>
+</html>
