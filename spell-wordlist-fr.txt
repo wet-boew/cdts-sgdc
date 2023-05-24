@@ -18,9 +18,12 @@ collab
 connex
 Contactez-nous
 COPA
+CSS
+cdts.service.canada.ca
 cybersécurité
 developer.mozilla.org
 docs
+document.write
 DEC
 DMs
 DR
@@ -39,6 +42,7 @@ GC
 GCcampus
 GCintranet
 GCIntranet
+GCWeb
 GDA
 GEDS
 GCTools
@@ -60,6 +64,8 @@ Inuits
 iService
 intranet
 intranet.canada.ca
+JavaScript
+JSON
 jQuery
 l'AE
 l'assurance-emploi
@@ -106,6 +112,7 @@ T-P
 TPS
 TVH
 TVQ
+télécharger
 Understanding
 URL
 url
@@ -116,4 +123,5 @@ WET
 Wiki
 www
 www.w
+www.canada.ca
 www.google.ca

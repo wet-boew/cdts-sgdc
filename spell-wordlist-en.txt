@@ -22,6 +22,7 @@ GCintranet
 GCIntranet
 GCNetwork
 GCTools
+GCWeb
 GEDS
 GoC
 Gouvernement
@@ -32,6 +33,7 @@ https
 IntraWeb
 IPOC
 iService
+JSON
 jQuery
 Lifecycle
 Métis
