@@ -16,7 +16,6 @@ CAEC
 Canada.ca
 CSS
 collab
-common
 connex
 Contactez-nous
 COPA
@@ -40,8 +39,6 @@ EDSC
 EnviroTel
 ETD
 EVD
-eccc
-esdc
 GC
 GCcampus
 GCintranet
@@ -82,14 +79,12 @@ maSGE
 mozilla
 NS
 NAS
-null
 of
 ORT
 OutilsGC
 pangouvernementales
 pédia
 pré-contenu
-prod
 PeopleSoft
 Publicentre
 R-D
@@ -99,11 +94,7 @@ rediriger
 redirection
 RéseauGC
 RVD
-refFooter
-refTop
 SC
-server
-splash
 fr
 fra
 schools.com

@@ -32,32 +32,32 @@
             <p>Users have the ability to implement CDTS without having to use document.write. This sample page is intended for users who currently use CDTS and would like to convert their application to the new method that doesn't use document.write.</p>
             <h2>Implementation</h2>
             <h3>Section <code>&lt;head&gt;</code> references</h3>
-            <p>1. Add a link to the CDTS stylesheet appropriate to your situation. One of:</p>
+            <p>1. Add a link to the CDTS style sheet appropriate to your situation. One of:</p>
             <ul>
                 <li><code>cdts-styles.css</code>: The GCIntranet basic template</li>
-                <li><code>cdts-eccc-styles.css</code>: The GCIntranet <em>eccc</em> template</li>
-                <li><code>cdts-esdc-styles.css</code>: The GCIntranet <em>esdc</em> template</li>
+                <li><code>cdts-eccc-styles.css</code>: The GCIntranet <em>ECCC</em> template</li>
+                <li><code>cdts-esdc-styles.css</code>: The GCIntranet <em>ESDC</em> template</li>
                 <li><code>cdts-splash-styles.css</code>: The GCIntranet splash template</li>
             </ul>
             <p>2. Add the <code>script</code> element referencing the CDTS JavaScript file (<code>wet-[language].js</code> where [language] is either "en" or "fr"). CDTS is activated by specifying a <code>data-cdts-setup</code> attribute containing the CDTS configuration JSON object.</p>
             <p>3. Create a <code>&lt;noscript&gt;</code> section which will make your page look good if JavaScript is disabled. You will need to load a fall-back static file in the <code>&lt;noscript&gt;</code> section.</p>
             <p>The <strong>CDTS configuration object</strong> that is passed in the <code>data-cdts-setup</code> attribute should include the following properties:</p>
             <ul>
-                <li><code>cdnEnv</code> (OPTIONAL, defaults to "prod") - A string specifying the CDTS environment from which to load resources. One of:
+                <li><code>cdnEnv</code> (OPTIONAL, defaults to <code>"prod"</code>) - A string specifying the CDTS environment from which to load resources. One of:
                     <ul>
-                        <li>Hosting Environment: https://www.canada.ca<pre>"cdnEnv": "prod"</pre></li>
-                        <li>Hosting Environment: https://cdts.service.canada.ca<pre>"cdnEnv": "esdcprod"</pre></li>
+                        <li>Hosting Environment: <code>https://www.canada.ca</code><pre>"cdnEnv": "prod"</pre></li>
+                        <li>Hosting Environment: <code>https://cdts.service.canada.ca</code><pre>"cdnEnv": "esdcprod"</pre></li>
                     </ul>
                 </li>
-                <li><code>mode</code> (OPTIONAL, defaults to "common") - A string specifying which template mode to use. One of:
+                <li><code>mode</code> (OPTIONAL, defaults to <code>"common"</code>) - A string specifying which template mode to use. One of:
                     <ul>
                         <li>The GCIntranet basic template<pre>"mode": "common"</pre></li>
-                        <li>The GCIntranet <em>application</em> template<pre>"mode": "app"</pre></li>
-                        <li>The GCIntranet <em>server</em> template (typically used for error pages)<pre>"mode": "server"</pre></li>
-                        <li>The GCIntranet <em>splash</em> template (also must make sure the corresponding CSS <code>cdts-splash-styles.css</code> is used)<pre>"mode": "splash"</pre></li>
+                        <li>The GCIntranet <code><em>application</em></code> template<pre>"mode": "app"</pre></li>
+                        <li>The GCIntranet <code><em>server</em></code> template (typically used for error pages)<pre>"mode": "server"</pre></li>
+                        <li>The GCIntranet <code><em>splash</em></code> template (also must make sure the corresponding CSS <code>cdts-splash-styles.css</code> is used)<pre>"mode": "splash"</pre></li>
                     </ul>
                 </li>
-                <li><code>base</code> (OPTIONAL) - refTop and refFooter configurations go here, as well as the subTheme.</li>
+                <li><code>base</code> (OPTIONAL) - <code>refTop</code> and <code>refFooter</code> configurations go here, as well as the sub-theme.</li>
                 <ul><li><code>subTheme</code> (OPTIONAL, defaults to null/base theme) - A string specifying which sub-theme to use. If specified, possible values are <code>esdc</code>, <code>eccc</code> or <code>labour</code> (also must make sure the corresponding CSS <code>cdts-[subTheme]-styles.css</code> is used).</li></ul>
                 <li><code>top</code>, <code>preFooter</code>, <code>footer</code>, <code>secmenu</code>, <code>splash</code> (OPTIONAL) - Objects specifying the configuration of each section as needed. Refer to the corresponding section documentation below for details.</li>
             </ul>

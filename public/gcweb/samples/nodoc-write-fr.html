@@ -25,7 +25,7 @@
             templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
         -->
         <link rel="stylesheet" href="../cdts-styles.css">
-        <script type="text/javascript" src="../compiled/wet-fr.js" data-cdts-setup='{"cdnEnv": "esdcprod","base":{"exitSecureSite":{"exitScript":true,"displayModal":true,"exitURL":"http://www.google.ca","exitDomains":"www.esdc.gc.ca, www.jobbank.gc.ca, www.redseal.ca","displayModalForNewWindow":true}},"top":{"lngLinks":[{"href":"nodoc-write-en.html","lang":"fr","text":"Français"}]},"preFooter":{},"footer":{},"onCDTSPageFinalized":[]}'></script>
+        <script type="text/javascript" src="../compiled/wet-fr.js" data-cdts-setup='{"cdnEnv": "esdcprod","base":{"exitSecureSite":{"exitScript":true,"displayModal":true,"exitURL":"http://www.google.ca","exitDomains":"www.esdc.gc.ca, www.jobbank.gc.ca, www.redseal.ca","displayModalForNewWindow":true}},"top":{"lngLinks":[{"href":"nodoc-write-en.html","lang":"en","text":"English"}]},"preFooter":{},"footer":{},"onCDTSPageFinalized":[]}'></script>
         <noscript>
             <!-- Write closure fall-back static file -->
             <!-- refTop.html -->
@@ -54,21 +54,21 @@
             <p>3. Créer une section <code>&lt;noscript&gt;</code> ce qui permettra à votre page d’avoir la présentation voulue si JavaScript est désactivé. Vous devrez charger un fichier statique de repli dans la section <code>&lt;noscript&gt;</code>.</p>
             <p><strong>L'objet de configuration SGDC</strong> qui est passé dans l'attribut <code>data-cdts-setup</code> doit inclure les propriétés suivantes :</p>
             <ul>
-                <li><code>cdnEnv</code> (FACULTATIF, par défaut "prod") - Chaîne de caractères indiquant l'environnement SGDC à utiliser pour télécharger les ressources. Valeurs possibles:
+                <li><code>cdnEnv</code> (FACULTATIF, par défaut <code>"prod"</code>) - Chaîne de caractères indiquant l'environnement SGDC à utiliser pour télécharger les ressources. Valeurs possibles:
                     <ul>
-                        <li>Environnement hôte: https://www.canada.ca<pre>"cdnEnv": "prod"</pre></li>
-                        <li>Environnement hôte: https://cdts.service.canada.ca<pre>"cdnEnv": "esdcprod"</pre></li>
+                        <li>Environnement hôte: <code>https://www.canada.ca</code><pre>"cdnEnv": "prod"</pre></li>
+                        <li>Environnement hôte: <code>https://cdts.service.canada.ca</code><pre>"cdnEnv": "esdcprod"</pre></li>
                     </ul>
                 </li>
-                <li><code>mode</code> (FACULTATIF, par défaut "common") - Chaîne de caractères indiquant quel mode de gabarit à utiliser. Valeurs possibles:
+                <li><code>mode</code> (FACULTATIF, par défaut <code>"common"</code>) - Chaîne de caractères indiquant quel mode de gabarit à utiliser. Valeurs possibles:
                     <ul>
-                        <li>Le gabarit GCWeb de base<pre>"mode": "common"</pre></li>
-                        <li>Le gabarit GCWeb <em>application</em> (doit aussi s'assurer que le fichier CSS correspondant <code>cdts-app-styles.css</code> est utilisé)<pre>"mode": "app"</pre></li>
-                        <li>Le gabarit GCWeb <em>server</em> (utilisé typiquement pour les pages d'erreur)<pre>"mode": "server"</pre></li>
-                        <li>Le gabarit GCWeb <em>splash</em> (doit aussi s'assurer que le fichier CSS correspondant <code>cdts-splash-styles.css</code> est utilisé)<pre>"mode": "splash"</pre></li>
+                        <li>Le gabarit GCWeb de base<pre>"mode": <code>"common"</code></pre></li>
+                        <li>Le gabarit GCWeb <code><em>application</em></code> (doit aussi s'assurer que le fichier CSS correspondant <code>cdts-app-styles.css</code> est utilisé)<pre>"mode": "app"</pre></li>
+                        <li>Le gabarit GCWeb <code><em>server</em></code> (utilisé typiquement pour les pages d'erreur)<pre>"mode": "server"</pre></li>
+                        <li>Le gabarit GCWeb <code><em>splash</em></code> (doit aussi s'assurer que le fichier CSS correspondant <code>cdts-splash-styles.css</code> est utilisé)<pre>"mode": "splash"</pre></li>
                     </ul>
                 </li>
-                <li><code>base</code> (FACULTATIF) - Les configurations refTop et refFooter vont ici.</li>
+                <li><code>base</code> (FACULTATIF) - Les configurations <code></code>refTop</code> et <code>refFooter</code> vont ici.</li>
                 <li><code>top</code>, <code>preFooter</code>, <code>footer</code>, <code>secmenu</code>, <code>splash</code> (FACULTATIF) - Objets indiquant la configuration de chaque section, au besoin.</li>
             </ul>
             <pre>

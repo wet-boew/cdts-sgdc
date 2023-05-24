@@ -4,7 +4,6 @@ ATIP
 CDTS
 CDN
 canada
-cdts
 collab
 connex
 CPP
@@ -16,8 +15,6 @@ EBSCO
 ECCC
 eng
 EnviroTel
-eccc
-esdc
 ESDC
 GC
 GCcampus
@@ -51,10 +48,6 @@ PeopleSoft
 pre
 Publicentre
 RNS
-refFooter
-refTop
-subTheme
-stylesheet
 th
 transactional
 unclosed
