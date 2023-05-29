@@ -81,7 +81,7 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
 module.exports.testFileLinks = async function testFileLinks(directories, exceptionSyntaxLinks = [], exceptionHTTPLinks = [], exceptionIntranetLinks = []) {
     const ProxyAgent = (await import('https-proxy-agent')).HttpsProxyAgent;
 
-    const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|])/g;
+    const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|]|<)/g;
     const agent = new ProxyAgent('http://proxy.prv:80');
     const config = (process.env.DISABLE_PROXY) ? null : { httpsAgent: agent, proxy: false };
 
