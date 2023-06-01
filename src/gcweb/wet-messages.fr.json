@@ -333,10 +333,6 @@
         "source": "https://www.canada.ca/en/sr/srb.html",
         "target": "https://www.canada.ca/fr/sr/srb.html"
     },
-    "1f48daa3332ea1344168d351499a78f85b203318": {
-        "source": "All Contacts",
-        "target": "Toutes les coordonnées"
-    },
     "2592f1967e8002a2a3ab1c5fe4f440ba575c75fd": {
         "source": "Themes and topics",
         "target": "Thèmes et sujets"
@@ -369,10 +365,6 @@
         "source": "https://www.canada.ca/en/services/indigenous-peoples.html",
         "target": "https://www.canada.ca/fr/services/autochtones.html"
     },
-    "d6da618c2fb0c98ae342b5b12964b62740864561": {
-        "source": "https://www.canada.ca/en/services/veterans.html",
-        "target": "https://www.canada.ca/fr/services/veterans.html"
-    },
     "9a84c7c6d78041b49f6e06c5e933bdae1eb1d6ab": {
         "source": "https://www.canada.ca/en/services/youth.html",
         "target": "https://www.canada.ca/fr/services/jeunesse.html"
@@ -392,5 +384,13 @@
     "85dfa32c97d8618d1bea083609e2c8a29845abe5": {
         "source": "Account",
         "target": "Compte"
+    },
+    "18c69b983bda9a84a2ab5a3f9f6cb05e2724a41c": {
+        "source": "All contacts",
+        "target": "Toutes les coordonnées"
+    },
+    "55ae13721742e7c27ac8e8d59ddd1ec212ccfbd6": {
+        "source": "https://www.canada.ca/en/services/veterans-military.html",
+        "target": "https://www.canada.ca/fr/services/veterans-militaire.html"
     }
 }
