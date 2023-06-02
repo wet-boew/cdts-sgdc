@@ -296,14 +296,12 @@ if (pr.subTheme === 'eccc') {
         <nav role="navigation" id="wb-bc" property="breadcrumb">
             <h2><^- msg('You are here:') ^></h2>
             <div class="container">
-                <div class="row">
-                    <ol class="breadcrumb">
-                        <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
-                            const item=pr.breadcrumbs[breadcrumbIndex]; -%>
-                            <li><%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%><%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%><%= item.title %><%_ if (item.href != null) { -%></a><%_ } -%><%_ if (item.acronym != null) { -%></abbr><%_ } -%></li>
-                        <%_ } -%>
-                    </ol>
-                </div>
+                <ol class="breadcrumb">
+                    <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
+                        const item=pr.breadcrumbs[breadcrumbIndex]; -%>
+                        <li><%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%><%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%><%= item.title %><%_ if (item.href != null) { -%></a><%_ } -%><%_ if (item.acronym != null) { -%></abbr><%_ } -%></li>
+                    <%_ } -%>
+                </ol>
             </div>
         </nav>
     <%_ } -%>
