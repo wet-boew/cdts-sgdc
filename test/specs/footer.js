@@ -225,7 +225,7 @@ async function defaultFooterLinks(theme, lang){
     await expect(footerPage.footerLink17).toHaveHrefContaining('finance.html');
     await expect(footerPage.footerLink18).toHaveHrefContaining('science.html');
     await expect(footerPage.footerLink19).toHaveHrefContaining('indigenous-peoples.html');
-    await expect(footerPage.footerLink20).toHaveHrefContaining('veterans.html');
+    await expect(footerPage.footerLink20).toHaveHrefContaining('veterans-military.html');
     await expect(footerPage.footerLink21).toHaveHrefContaining('youth.html');
 }
 
