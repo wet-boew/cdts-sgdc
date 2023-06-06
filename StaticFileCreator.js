@@ -19,17 +19,17 @@ function createStaticFallbackFile(grunt, definition, language) {
     const distCompiledDirName = `${grunt.config('project.target')}/${definition.themeName}/${definition.themeVersion}/cdts/compiled`;
     const distStaticTargetDirName = `${grunt.config('project.target')}/${definition.themeName}/${definition.themeVersion}/cdts/static`;
     const wetFileName = `wet-${language || 'en'}.js`;
-    const languageSuffix = language? `-${language}`: '';
+    const languageSuffix = language ? `-${language}` : '';
     const targetFileName = `${distStaticTargetDirName}/${definition.fileBaseName}${languageSuffix}.html`;
 
     //---[ Get builder parameters
-    const builderParam = {...definition.builderFunctionParam};
+    const builderParam = { ...definition.builderFunctionParam };
     if (builderParam && builderParam.cdnEnv && definition.cdnEnvOverride) { //override cdnEnv if specified and we have an override
         builderParam.cdnEnv = definition.cdnEnvOverride;
     }
 
     //---[ Mock global variable available in browsers and needed by wet-[en|fr].js
-    const navigator = {language: 'en-CA',}; //eslint-disable-line
+    const navigator = { language: 'en-CA', }; //eslint-disable-line
 
     //---[ Load soy/wet functions
     //NOTE: Using eval on arbritrary files is a huge NO-NO, but we just generated these files and trust them
@@ -47,7 +47,7 @@ function createStaticFallbackFile(grunt, definition, language) {
     //---[ Validate HTML before we save
     const htmlValidate = new HtmlValidate(require('./htmlvalidator.conf.js'));
     const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
-    const report = htmlValidate.validateString(output);
+    const report = htmlValidate.validateStringSync(output);
     if ((!report.valid) || (report.warningCount > 0)) {
         grunt.log.error(`${targetFileName}: ${report.errorCount} error(s), ${report.warningCount} warning(s) reported:`);
         grunt.log.error(htmlValidateFormatReport(report.results));
@@ -56,7 +56,7 @@ function createStaticFallbackFile(grunt, definition, language) {
 
     //---[ Output to file
     if (!fs.existsSync(distStaticTargetDirName)) fs.mkdirSync(distStaticTargetDirName); //create target directory if it doesn't exist
-    fs.writeFileSync(targetFileName, output, {encoding: 'utf8'});
+    fs.writeFileSync(targetFileName, output, { encoding: 'utf8' });
 }
 
 module.exports = function generateStaticFile(grunt, themeName, definitionFileBasename, getStaticFileDefinition) {

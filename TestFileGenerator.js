@@ -32,7 +32,7 @@ function validateBuilderFunctions(content, theme, version) {
     const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
 
     function validateHTML(functionName, htmlContent) {
-        const report = htmlValidate.validateString(htmlContent);
+        const report = htmlValidate.validateStringSync(htmlContent);
         if ((!report.valid) || (report.warningCount > 0)) {
             console.error(`${functionName}: ${report.errorCount} error(s), ${report.warningCount} warning(s) reported: `);
             console.error(htmlValidateFormatReport(report.results));
