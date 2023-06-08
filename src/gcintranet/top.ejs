@@ -269,18 +269,16 @@ if (pr.subTheme === 'eccc') {
         <nav role="navigation" id="wb-bc" property="breadcrumb">
             <h2><^- msg('You are here:') ^></h2>
             <div class="container">
-                <div class="row">
-                    <ol class="breadcrumb">
-                        <%_ if (pr.breadcrumbs != null) { -%>
-                            <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
-                                const item=pr.breadcrumbs[breadcrumbIndex]; -%>
-                                <li><%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%><%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%><%= item.title %><%_ if (item.href != null) { -%></a><%_ } -%><%_ if (item.acronym != null) { -%></abbr><%_ } -%></li>
-                            <%_ } -%>
-                        <%_ } else { /* breadcrumbs IS null/undefined */ -%>
-                            <li><a href="<^- msg('https://intranet.canada.ca/index-eng.asp') ^>"><^- msg('Home') ^></a></li>
+                <ol class="breadcrumb">
+                    <%_ if (pr.breadcrumbs != null) { -%>
+                        <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
+                            const item=pr.breadcrumbs[breadcrumbIndex]; -%>
+                            <li><%_ if (item.acronym != null) { -%><abbr title="<%= item.acronym %>"><%_ } -%><%_ if (item.href != null) { -%><a href="<%- item.href %>"><%_ } -%><%= item.title %><%_ if (item.href != null) { -%></a><%_ } -%><%_ if (item.acronym != null) { -%></abbr><%_ } -%></li>
                         <%_ } -%>
-                    </ol>
-                </div>
+                    <%_ } else { /* breadcrumbs IS null/undefined */ -%>
+                        <li><a href="<^- msg('https://intranet.canada.ca/index-eng.asp') ^>"><^- msg('Home') ^></a></li>
+                    <%_ } -%>
+                </ol>
             </div>
         </nav>
     <%_ } -%>
