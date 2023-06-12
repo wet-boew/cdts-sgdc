@@ -19,13 +19,13 @@
 	font-size: .5em;
 }
 
-@media (min-width: 768) {
+@media (min-width: 768px) {
 	.cdts-splash {
 		font-size: .6em;
 	}
 }
 
-@media (min-width: 992) {
+@media (min-width: 992px) {
 	.cdts-splash {
 		font-size: .7em;
 	}
