@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v12.5.1 - 2023-01-04
+ * v13.3.0 - 2023-05-30
  *
  */
 /*!
@@ -5847,9 +5847,13 @@ a {
 		border: 0 !important; }
 	.dl-horizontal dt {
 		border-top: 1px solid #ccc;
+		-webkit-hyphens: auto;
+		    -ms-hyphens: auto;
+		        hyphens: auto;
 		padding: 10px 10px 10px 0;
 		text-align: left;
-		white-space: normal; }
+		white-space: normal;
+		word-break: break-word; }
 	.dl-horizontal dd {
 		border-top: 1px solid #ccc;
 		margin-bottom: 3px;
@@ -6478,7 +6482,7 @@ a.text-white:hover, a.text-white:focus {
 .wb-menu .menu > li a, .wb-menu .menu > li a:hover, .wb-menu .menu > li a:focus, .wb-menu .active > a {
 	text-decoration: none; }
 
-.wb-mltmd.video.waiting .display:after, .wb-enable .wb-twitter .twitter-timeline:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after, .wb-mltmd.video.waiting .display:before, .wb-enable .wb-twitter .twitter-timeline:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
+.wb-mltmd.video.waiting .display:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after, .wb-mltmd.video.waiting .display:before, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
 	bottom: 0;
 	content: " ";
 	height: 100px;
@@ -6489,15 +6493,15 @@ a.text-white:hover, a.text-white:focus {
 	top: 0;
 	width: 100px; }
 
-.wb-mltmd.video.waiting .display:after, .wb-enable .wb-twitter .twitter-timeline:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after {
+.wb-mltmd.video.waiting .display:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after {
 	z-index: 1; }
 
-.wb-mltmd.video.waiting .display:before, .wb-enable .wb-twitter .twitter-timeline:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
+.wb-mltmd.video.waiting .display:before, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
 	background: rgba(0, 0, 0, 0.7);
 	border-radius: 10px; }
 
 /* TODO: Use bootstrap placeholder when nested extends are supported */
-.wb-mltmd.video.waiting .display:after, .wb-enable .wb-twitter .twitter-timeline:after, .geomap-progress:after {
+.wb-mltmd.video.waiting .display:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .geomap-progress:after {
 	-webkit-animation-duration: 500ms;
 	        animation-duration: 500ms;
 	-webkit-animation-iteration-count: infinite;
@@ -8056,9 +8060,13 @@ a {
 		border: 0 !important; }
 	.dl-horizontal dt {
 		border-top: 1px solid #ccc;
+		-webkit-hyphens: auto;
+		    -ms-hyphens: auto;
+		        hyphens: auto;
 		padding: 10px 10px 10px 0;
 		text-align: left;
-		white-space: normal; }
+		white-space: normal;
+		word-break: break-word; }
 	.dl-horizontal dd {
 		border-top: 1px solid #ccc;
 		margin-bottom: 3px;
@@ -15021,6 +15029,15 @@ table.dataTable {
 		margin-right: 15px; }
 		.dataTables_wrapper .dataTables_filter input {
 			margin-left: .5em; }
+	.dataTables_wrapper.filterEmphasis.provisional .dataTables_filter {
+		background-color: #D9EDF7;
+		float: none;
+		margin-bottom: 7px;
+		padding: 10px; }
+	.dataTables_wrapper.filterEmphasis.provisional .dataTables_info {
+		padding-left: 7px; }
+		.dataTables_wrapper.filterEmphasis.provisional .dataTables_info:after {
+			content: ""; }
 	.dataTables_wrapper .dataTables_length {
 		display: inline-block;
 		margin-top: 5px; }
@@ -15378,23 +15395,42 @@ table.dataTable {
 	-webkit-transform: none;
 	        transform: none; }
 
+.wb-tgfltr-out {
+	display: none !important; }
+
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
-.wb-disable .wb-twitter .twitter-timeline {
-	text-indent: 0 !important; }
+.wb-twitter {
+	/* Align the loading icon relative to the center of the Twitter link in browsers that support :has() */
+	/* Display the loading icon as normal content */ }
+	.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) {
+		display: inline-block; }
+		.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::before {
+			left: 0;
+			right: 0; }
+		.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::after {
+			margin: auto; }
+	.wb-twitter a.twitter-timeline + .twitter-timeline-loading {
+		margin-top: 5px;
+		min-height: 100px;
+		min-width: 100px;
+		position: relative;
+		/* Align the loading icon leftwards by default */ }
+		.wb-twitter a.twitter-timeline + .twitter-timeline-loading::before {
+			right: auto; }
+		.wb-twitter a.twitter-timeline + .twitter-timeline-loading::after {
+			margin-left: calc((100px - 1em) / 2); }
 
-.wb-twitter .twitter-timeline {
-	display: block; }
-
-.wb-twitter iframe[style] {
-	width: 100% !important; }
-
-.wb-enable .wb-twitter .twitter-timeline {
-	min-height: 100px;
-	min-width: 100px;
-	position: relative; }
+[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading {
+	/* Align the loading icon rightwards by default */ }
+	[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading::before {
+		left: auto;
+		right: 0; }
+	[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading::after {
+		margin-left: auto;
+		margin-right: calc((100px - 1em) / 2); }
 
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
