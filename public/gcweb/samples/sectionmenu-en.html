@@ -1,65 +1,155 @@
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
-	<head>
-		<meta charset="utf-8">
-		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
-		<title>CDTS Sample - Section Menu</title>
-		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<!-- Meta data -->
-		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
-		<!-- Meta data-->
-		<!-- Load closure template scripts -->
-		<!--
-			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
-			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
+    <head>
+        <meta charset="utf-8">
+        <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+        <title>CDTS Sample - Section Menu</title>
+        <meta content="width=device-width,initial-scale=1" name="viewport">
+        <!-- Meta data -->
+        <meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+        <!-- Meta data-->
+        <!-- Load closure template scripts -->
+        <!--
+            Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
+            This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
 
-			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
-			cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
-			templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+            canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+            cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+            templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
 
-			To point to the run version:
+            To point to the run version:
 
-			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
-			cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
-			templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
-		-->
-		<script src="../compiled/soyutils.js"></script>
-		<script src="../compiled/wet-en.js"></script>
-		<noscript>
-			<!-- Write closure fall-back static file -->
-			<!-- refTop.html -->
-		</noscript>
-		<!-- Write closure template -->
-		<script>
-			document.write(wet.builder.refTop({
-				"cdnEnv": "esdcprod"
-			}));
-		</script>
-	</head>
-	<body vocab="https://schema.org/" typeof="WebPage">
-		<div id="def-top">
-			<!-- Write closure fall-back static file -->
-			<!-- top-en.html -->
-		</div>
-		<!-- Write closure template -->
-		<script>
-			var defTop = document.getElementById("def-top");
-			defTop.outerHTML = wet.builder.top({
-				"cdnEnv": "esdcprod",
-				"topSecMenu": true,
-				"lngLinks": [{
-					"lang": "fr",
-					"href": "sectionmenu-fr.html",
-					"text": "Français"
-				}]
-			});
-		</script>
-		<div class="container">
-			<div class="row">
-				<main property="mainContentOfPage" typeof="WebPageElement" class="col-md-9 col-md-push-3">
-					<h1 property="name" id="wb-cont">Section menu</h1>
-					<p>This sample page demonstrates how the section (left) menu is displayed and configured.</p>
+            canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+            cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+            templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+        -->
+        <script src="../compiled/soyutils.js"></script>
+        <script src="../compiled/wet-en.js"></script>
+        <noscript>
+            <!-- Write closure fall-back static file -->
+            <!-- refTop.html -->
+        </noscript>
+        <!-- Write closure template -->
+        <script>
+            document.write(wet.builder.refTop({
+                "cdnEnv": "esdcprod"
+            }));
+        </script>
+    </head>
+    <body vocab="https://schema.org/" typeof="WebPage">
+        <div id="def-top">
+            <!-- Write closure fall-back static file -->
+            <!-- top-en.html -->
+        </div>
+        <!-- Write closure template -->
+        <script>
+            var defTop = document.getElementById("def-top");
+            defTop.outerHTML = wet.builder.top({
+                "cdnEnv": "esdcprod",
+                "topSecMenu": true,
+                "lngLinks": [{
+                    "lang": "fr",
+                    "href": "sectionmenu-fr.html",
+                    "text": "Français"
+                }]
+            });
+        </script>
+        <div class="container">
+            <div class="row">
+                <nav class="wb-sec col-md-3" typeof="SiteNavigationElement" id="wb-sec">
+                    <!-- Write closure fall-back static file -->
+                    <!-- secMenu-en.html -->
+                </nav>
+                <!-- Write closure template -->
+                <script>
+                    var secondarymenu = document.getElementById("wb-sec");
+                    secondarymenu.innerHTML = wet.builder.secmenu({
+                        "sections": [{
+                            "sectionName": "[Topic - Local navigation]",
+                            "menuLinks": [{
+                                "href": "#",
+                                "text": "Link 1",
+                                "subLinks": [{
+                                    "subhref": "#11a",
+                                    "subtext": "Link 1.1 a)"
+                                }, {
+                                    "subhref": "#11b",
+                                    "subtext": "Link 1.1 b)"
+                                }, {
+                                    "subhref": "#11c",
+                                    "subtext": "Opens in a new window",
+                                    "newWindow": true
+                                }, {
+                                    "subhref": "#11d",
+                                    "subtext": "Link 1.1 d)"
+                                }]
+                            }, {
+                                "href": "#",
+                                "text": "Link 2"
+                            }, {
+                                "href": "#",
+                                "text": "Opens in a new window",
+                                "newWindow": true
+                            }, {
+                                "href": "#",
+                                "text": "Link 4"
+                            }]
+                        },{
+                            "sectionName": "Opens in a new window",
+                            "sectionLink": "#",
+                            "newWindow": true,
+                            "menuLinks": [{
+                                "href": "#",
+                                "text": "Link 1"
+                            }, {
+                                "href": "#",
+                                "text": "Link 2"
+                            }, {
+                                "href": "#",
+                                "text": "Link 3"
+                            }, {
+                                "href": "#",
+                                "text": "Link 4"
+                            }]
+                        },{
+                            // Rinse and repeat
+                            "sectionName": "Section name 3",
+                            "menuLinks": [{
+                                "href": "#",
+                                "text": "Link 1"
+                            }, {
+                                "href": "#",
+                                "text": "Link 2"
+                            }, {
+                                "href": "#",
+                                "text": "Link 3"
+                            }, {
+                                "href": "#",
+                                "text": "Link 4"
+                            }]
+                        },{
+                            // Rinse and repeat
+                            "sectionName": "Section name ... 27",
+                            "menuLinks": [{
+                                "href": "#",
+                                "text": "Link 1"
+                            }, {
+                                "href": "#",
+                                "text": "Link 2"
+                            }, {
+                                "href": "#",
+                                "text": "Link 3"
+                            }, {
+                                "href": "#",
+                                "text": "Link 4"
+                            }]
+                        }]
+                    });
+                </script>
+                <main property="mainContentOfPage" typeof="WebPageElement" class="col-md-9">
+                    <h1 property="name" id="wb-cont">Section menu</h1>
+                    <p>This sample page demonstrates how the section (left) menu is displayed and configured.</p>
                     <h2>Implementation</h2>
                     <p>In order to implement a section menu, there are a few modifications required.</p>
                     <p>In the <code>top</code> section, you need to set the parameter <code>topSecMenu</code> to true.</p>
@@ -70,13 +160,13 @@ defTop.outerHTML = wet.builder.top({
 ...
 });
                     </pre>
-                     <p>Add two unclosed <code>&lt;div&gt;</code> after the code above and immediately before the opening <code>&lt;main&gt;</code> element.
+                     <p>Add two unclosed <code>&lt;div&gt;</code> after the code above.
                     <ul>
                         <li>The first <code>&lt;div&gt;</code> must have a class named "container"</li>
                         <li>The second <code>&lt;div&gt;</code> must have a class named "row"</li>
                     </ul>
-                    <p>After closing the <code>&lt;main&gt;</code> element, you will need to add a <code>&lt;nav&gt;</code> element which should contain your static fallback code.</p>
-                    <p>After that will come the actual section menu. There are a few configuration options.</p>
+                    <p>You will need to add a <code>&lt;nav&gt;</code> element which should contain your static fallback code.</p>
+                    <p>After that will come the actual section menu, before the opening <code>&lt;main&gt;</code> element. There are a few configuration options.</p>
                     <ul>
                         <li><code class="wb-prettify">"sectionName"</code>:  This will be used to display the heading(s) of the section menu(s).</li>
                         <pre>
@@ -85,20 +175,20 @@ defTop.outerHTML = wet.builder.top({
                         <li><code class="wb-prettify">"menuLinks"</code>: This will be used for display the links in the menu.</li>
                         <pre>
 "menuLinks": [{
-	"href": "#",
-	"text": "Link 1"
+    "href": "#",
+    "text": "Link 1"
 }
                         </pre>
                         <li><code class="wb-prettify">"subLinks"</code>: This will be used for display the links in the menu. You can also add <code>"newWindow": true</code> if you want the link to open in a new window. </li>
                         <pre>
 "subLinks": [{
-	"subhref": "#",
-	"subtext": "Link 1",
-	"newWindow": true
+    "subhref": "#",
+    "subtext": "Link 1",
+    "newWindow": true
 }]
                         </pre>
                     </ul>
-                    <p>The last change will be to close the two <code>&lt;div&gt;</code> you previously opened. Here is the full snippet of code:</p>
+                    <p>The last change will be to close the two <code>&lt;div&gt;</code> you previously opened, immediately after the closing <code>&lt;main&gt;</code> element. Here is the full snippet of code:</p>
                     <pre>
 var secondarymenu = document.getElementById("wb-sec");
 secondarymenu.innerHTML = wet.builder.secmenu({
@@ -184,127 +274,37 @@ secondarymenu.innerHTML = wet.builder.secmenu({
     }]
 });
                     </pre>
-					<div id="def-preFooter">
-						<!-- Write closure fall-back static file -->
-						<!-- preFooter-en.html -->
-					</div>
-					<!-- Write closure template -->
-					<script>
-						var defPreFooter = document.getElementById("def-preFooter");
-						defPreFooter.outerHTML = wet.builder.preFooter({
-							"cdnEnv": "esdcprod",
-							"dateModified": "2021-05-25"
-						});
-					</script>
-				</main>
-				<nav class="wb-sec col-md-3 col-md-pull-9" typeof="SiteNavigationElement" id="wb-sec">
-					<!-- Write closure fall-back static file -->
-					<!-- secMenu-en.html -->
-				</nav>
-				<!-- Write closure template -->
-				<script>
-					var secondarymenu = document.getElementById("wb-sec");
-					secondarymenu.innerHTML = wet.builder.secmenu({
-						"sections": [{
-							"sectionName": "[Topic - Local navigation]",
-							"menuLinks": [{
-								"href": "#",
-								"text": "Link 1",
-								"subLinks": [{
-									"subhref": "#11a",
-									"subtext": "Link 1.1 a)"
-								}, {
-									"subhref": "#11b",
-									"subtext": "Link 1.1 b)"
-								}, {
-									"subhref": "#11c",
-									"subtext": "Opens in a new window",
-									"newWindow": true
-								}, {
-									"subhref": "#11d",
-									"subtext": "Link 1.1 d)"
-								}]
-							}, {
-								"href": "#",
-								"text": "Link 2"
-							}, {
-								"href": "#",
-								"text": "Opens in a new window",
-								"newWindow": true
-							}, {
-								"href": "#",
-								"text": "Link 4"
-							}]
-						},{
-							"sectionName": "Opens in a new window",
-							"sectionLink": "#",
-							"newWindow": true,
-							"menuLinks": [{
-								"href": "#",
-								"text": "Link 1"
-							}, {
-								"href": "#",
-								"text": "Link 2"
-							}, {
-								"href": "#",
-								"text": "Link 3"
-							}, {
-								"href": "#",
-								"text": "Link 4"
-							}]
-						},{
-							// Rinse and repeat
-							"sectionName": "Section name 3",
-							"menuLinks": [{
-								"href": "#",
-								"text": "Link 1"
-							}, {
-								"href": "#",
-								"text": "Link 2"
-							}, {
-								"href": "#",
-								"text": "Link 3"
-							}, {
-								"href": "#",
-								"text": "Link 4"
-							}]
-						},{
-							// Rinse and repeat
-							"sectionName": "Section name ... 27",
-							"menuLinks": [{
-								"href": "#",
-								"text": "Link 1"
-							}, {
-								"href": "#",
-								"text": "Link 2"
-							}, {
-								"href": "#",
-								"text": "Link 3"
-							}, {
-								"href": "#",
-								"text": "Link 4"
-							}]
-						}]
-					});
-				</script>
-			</div>
-		</div>
-		<div id="def-footer">
-			<!-- Write closure fall-back static file -->
-			<!-- footer-en.html -->
-		</div>
-		<!-- Write closure template -->
-		<script>
-			var defFooter = document.getElementById("def-footer");
-			defFooter.outerHTML = wet.builder.footer({
-				"cdnEnv": "esdcprod"
-			});
-		</script>
-		<!-- Write closure template -->
-		<script>
-			document.write(wet.builder.refFooter({
-				"cdnEnv": "esdcprod"
-			}));
-		</script>
-	</body>
+                    <div id="def-preFooter">
+                        <!-- Write closure fall-back static file -->
+                        <!-- preFooter-en.html -->
+                    </div>
+                    <!-- Write closure template -->
+                    <script>
+                        var defPreFooter = document.getElementById("def-preFooter");
+                        defPreFooter.outerHTML = wet.builder.preFooter({
+                            "cdnEnv": "esdcprod",
+                            "dateModified": "2021-05-25"
+                        });
+                    </script>
+                </main>
+            </div>
+        </div>
+        <div id="def-footer">
+            <!-- Write closure fall-back static file -->
+            <!-- footer-en.html -->
+        </div>
+        <!-- Write closure template -->
+        <script>
+            var defFooter = document.getElementById("def-footer");
+            defFooter.outerHTML = wet.builder.footer({
+                "cdnEnv": "esdcprod"
+            });
+        </script>
+        <!-- Write closure template -->
+        <script>
+            document.write(wet.builder.refFooter({
+                "cdnEnv": "esdcprod"
+            }));
+        </script>
+    </body>
 </html>
