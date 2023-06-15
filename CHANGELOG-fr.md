@@ -6,6 +6,7 @@
 - Ajout du support pour "Sub Resource Integrity (SRI)"
   - Le SGDC peut maintenant inclure les valeurs SRI lors de l'inclusion de sous-libraries et fichiers internes sur la page.  Ceci est contrôlé par le paramètre `sriEnabled` dans l'appel à "refTop", "refFooter" ou la nouvelle fonction "setup".
   - Pour les clients qui veulent utiliser SRI pour référencer le SGDC, les valeurs pour les fichiers publiques sont disponible pour [GCWeb](https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_1_0/cdts/SRI-INFO.md) et [GCIntranet](https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_1_0/cdts/SRI-INFO.md).
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.63
 
 ## v4.0.47
 

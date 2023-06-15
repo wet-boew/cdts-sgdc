@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v12.5.1 - 2023-01-04
+ * v13.3.0 - 2023-05-30
  *
  */
 /*
@@ -62,7 +62,11 @@ Left menu variables
  * @title: Mixins
  *
  */
+/* Screen xxs-max grid override for brand component */
+/* Display none important for print */
 /* Theme base styles */
+/* Sub-component: Increase text size for small devices like mobile */
+/* Sub-component: Increase text size for small devices like mobile */
 /*
   WET-BOEW
   @title: Helper - Global Placeholders
@@ -83,7 +87,7 @@ Left menu variables
 .wb-menu .menu > li a, .wb-menu .menu > li a:hover, .wb-menu .menu > li a:focus, .wb-menu .active > a {
 	text-decoration: none; }
 
-.wb-mltmd.video.waiting .display:after, .wb-enable .wb-twitter .twitter-timeline:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after, .wb-mltmd.video.waiting .display:before, .wb-enable .wb-twitter .twitter-timeline:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
+.wb-mltmd.video.waiting .display:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after, .wb-mltmd.video.waiting .display:before, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
 	bottom: 0;
 	content: " ";
 	height: 100px;
@@ -94,15 +98,15 @@ Left menu variables
 	top: 0;
 	width: 100px; }
 
-.wb-mltmd.video.waiting .display:after, .wb-enable .wb-twitter .twitter-timeline:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after {
+.wb-mltmd.video.waiting .display:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .geomap-progress:after, .wb-mltmd.video:not(.playing):not(.waiting) .display:after {
 	z-index: 1; }
 
-.wb-mltmd.video.waiting .display:before, .wb-enable .wb-twitter .twitter-timeline:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
+.wb-mltmd.video.waiting .display:before, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:before, .geomap-progress:before, .wb-mltmd.video:not(.playing):not(.waiting) .display:before {
 	background: rgba(0, 0, 0, 0.7);
 	border-radius: 10px; }
 
 /* TODO: Use bootstrap placeholder when nested extends are supported */
-.wb-mltmd.video.waiting .display:after, .wb-enable .wb-twitter .twitter-timeline:after, .geomap-progress:after {
+.wb-mltmd.video.waiting .display:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .geomap-progress:after {
 	-webkit-animation-duration: 500ms;
 	        animation-duration: 500ms;
 	-webkit-animation-iteration-count: infinite;
@@ -2069,9 +2073,13 @@ a {
 		border: 0 !important; }
 	.dl-horizontal dt {
 		border-top: 1px solid #ccc;
+		-webkit-hyphens: auto;
+		    -ms-hyphens: auto;
+		        hyphens: auto;
 		padding: 10px 10px 10px 0;
 		text-align: left;
-		white-space: normal; }
+		white-space: normal;
+		word-break: break-word; }
 	.dl-horizontal dd {
 		border-top: 1px solid #ccc;
 		margin-bottom: 3px;
@@ -4381,14 +4389,15 @@ details {
 	padding-right: 0px; }
 
 #wb-bc li:before {
-	position: relative;
-	top: -2px; }
+	content: "\e080";
+	padding: 0 4px 0 0;
+	position: relative; }
 
 #wb-bc li:first-child a {
 	padding-left: 0; }
 
 #wb-bc a {
-	padding: 5px 10px; }
+	padding: 5px 0; }
 
 /*
   WET-BOEW
@@ -4459,40 +4468,6 @@ header {
 		header .brand img {
 			margin-bottom: .375em; }
 
-/*
- * Mobile Chevron
- */
-#wb-glb-mn {
-	margin-top: 20px; }
-	#wb-glb-mn ul {
-		min-width: 150px; }
-		#wb-glb-mn ul.chvrn {
-			background: #26374a;
-			display: inline-block;
-			float: right;
-			height: 2.75em; }
-			#wb-glb-mn ul.chvrn li {
-				display: block;
-				padding-right: 0; }
-				#wb-glb-mn ul.chvrn li a {
-					color: #fff;
-					display: block;
-					font-size: 1.9em;
-					padding: 5px 20px 0 0; }
-			#wb-glb-mn ul.chvrn span .glyphicon-th-list {
-				padding-left: 12px;
-				top: 0; }
-			#wb-glb-mn ul.chvrn:before {
-				border-bottom: 1.375em solid transparent;
-				border-left: .6875em solid #f8f8f8;
-				border-top: 1.375em solid transparent;
-				content: " ";
-				display: block;
-				float: left;
-				height: 0;
-				position: relative;
-				width: 0; }
-
 /* IE Tweaks */
 .lt-ie9 header .brand a {
 	margin-top: 0; }
@@ -4502,18 +4477,6 @@ header {
 
 [dir=rtl] header .brand {
 	float: right; }
-
-[dir=rtl] #wb-glb-mn ul.chvrn {
-	padding-left: 1.5em;
-	padding-right: 0;
-	text-align: left; }
-	[dir=rtl] #wb-glb-mn ul.chvrn span .glyphicon-th-list {
-		padding-left: 0;
-		padding-right: 10px; }
-	[dir=rtl] #wb-glb-mn ul.chvrn:before {
-		border-left: 0;
-		border-right: 11px solid #f8f8f8;
-		float: right; }
 
 /* Home page banner */
 #hme-banner {
@@ -5188,6 +5151,40 @@ main .pagedetails {
 		#mb-pnl .sec-pnl summary {
 			color: #2e5576 !important; }
 
+/*
+ * Deprecated - Mobile menu popup style build with the megamenu (wb-menu) plugin (was: Mobile Chevron)
+ */
+#wb-glb-mn {
+	margin-top: 20px; }
+	#wb-glb-mn ul {
+		min-width: 150px; }
+		#wb-glb-mn ul.chvrn {
+			background: #26374a;
+			display: inline-block;
+			float: right;
+			height: 2.75em; }
+			#wb-glb-mn ul.chvrn li {
+				display: block;
+				padding-right: 0; }
+				#wb-glb-mn ul.chvrn li a {
+					color: #fff;
+					display: block;
+					font-size: 1.9em;
+					padding: 5px 20px 0 0; }
+			#wb-glb-mn ul.chvrn span .glyphicon-th-list {
+				padding-left: 12px;
+				top: 0; }
+			#wb-glb-mn ul.chvrn:before {
+				border-bottom: 1.375em solid transparent;
+				border-left: .6875em solid #f8f8f8;
+				border-top: 1.375em solid transparent;
+				content: " ";
+				display: block;
+				float: left;
+				height: 0;
+				position: relative;
+				width: 0; }
+
 [dir=rtl] #wb-sm .menu > li {
 	border-right: 1px solid #999; }
 
@@ -5211,6 +5208,18 @@ main .pagedetails {
 			border-right: 1em solid rgba(0, 0, 0, 0);
 			left: auto;
 			right: -1em; }
+
+[dir=rtl] #wb-glb-mn ul.chvrn {
+	padding-left: 1.5em;
+	padding-right: 0;
+	text-align: left; }
+	[dir=rtl] #wb-glb-mn ul.chvrn span .glyphicon-th-list {
+		padding-left: 0;
+		padding-right: 10px; }
+	[dir=rtl] #wb-glb-mn ul.chvrn:before {
+		border-left: 0;
+		border-right: 11px solid #f8f8f8;
+		float: right; }
 
 /*
  * Specific classes for authentication section which include Sign-on/Sign-off button and the Contextual Sign-in button.
@@ -10180,6 +10189,15 @@ table.dataTable {
 		margin-right: 15px; }
 		.dataTables_wrapper .dataTables_filter input {
 			margin-left: .5em; }
+	.dataTables_wrapper.filterEmphasis.provisional .dataTables_filter {
+		background-color: #D9EDF7;
+		float: none;
+		margin-bottom: 7px;
+		padding: 10px; }
+	.dataTables_wrapper.filterEmphasis.provisional .dataTables_info {
+		padding-left: 7px; }
+		.dataTables_wrapper.filterEmphasis.provisional .dataTables_info:after {
+			content: ""; }
 	.dataTables_wrapper .dataTables_length {
 		display: inline-block;
 		margin-top: 5px; }
@@ -10561,23 +10579,42 @@ Carousel
 	.carousel-s2 .wb-mltmd {
 		margin-top: 0; }
 
+.wb-tgfltr-out {
+	display: none !important; }
+
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
-.wb-disable .wb-twitter .twitter-timeline {
-	text-indent: 0 !important; }
+.wb-twitter {
+	/* Align the loading icon relative to the center of the Twitter link in browsers that support :has() */
+	/* Display the loading icon as normal content */ }
+	.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) {
+		display: inline-block; }
+		.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::before {
+			left: 0;
+			right: 0; }
+		.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::after {
+			margin: auto; }
+	.wb-twitter a.twitter-timeline + .twitter-timeline-loading {
+		margin-top: 5px;
+		min-height: 100px;
+		min-width: 100px;
+		position: relative;
+		/* Align the loading icon leftwards by default */ }
+		.wb-twitter a.twitter-timeline + .twitter-timeline-loading::before {
+			right: auto; }
+		.wb-twitter a.twitter-timeline + .twitter-timeline-loading::after {
+			margin-left: calc((100px - 1em) / 2); }
 
-.wb-twitter .twitter-timeline {
-	display: block; }
-
-.wb-twitter iframe[style] {
-	width: 100% !important; }
-
-.wb-enable .wb-twitter .twitter-timeline {
-	min-height: 100px;
-	min-width: 100px;
-	position: relative; }
+[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading {
+	/* Align the loading icon rightwards by default */ }
+	[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading::before {
+		left: auto;
+		right: 0; }
+	[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading::after {
+		margin-left: auto;
+		margin-right: calc((100px - 1em) / 2); }
 
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -11221,23 +11258,6 @@ ol-geolocate button {
 	padding: 0; }
 
 /*
- *
- * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
- * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- *
- * @title: Shared style between multiple components
- *
- */
-.gc-srvinfo p, .gc-drmt p, .gc-features p {
-	font-size: 17px;
-	line-height: 1.5em; }
-
-.gc-srvinfo h3, .gc-srvinfo h4, .gc-srvinfo h5, .gc-srvinfo h6, .gc-drmt h3, .gc-drmt h4, .gc-drmt h5, .gc-drmt h6, .gc-features h3, .gc-features h4, .gc-features h5, .gc-features h6 {
-	font-size: 1em;
-	margin-bottom: 5px;
-	margin-top: 23px; }
-
-/*
  * Components styles
  */
 .gc-dwnld .gc-dwnld-txt {
@@ -11614,6 +11634,23 @@ main .gc-rms-lngth img {
 .gc-nws a h4 {
 	font-size: 20px;
 	margin-top: 15px; }
+
+/*
+ *
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ *
+ * @title: GC Service and Information
+ *
+ */
+.gc-srvinfo p, .gc-drmt p {
+	font-size: 17px;
+	line-height: 1.5em; }
+
+.gc-srvinfo h3, .gc-srvinfo h4, .gc-srvinfo h5, .gc-srvinfo h6, .gc-drmt h3, .gc-drmt h4, .gc-drmt h5, .gc-drmt h6 {
+	font-size: 1em;
+	margin-bottom: 5px;
+	margin-top: 23px; }
 
 /*
  * Global small component style
@@ -12092,6 +12129,13 @@ fieldset.gc-chckbxrdio {
  */
 .gc-features {
 	margin-bottom: 15px; }
+	.gc-features p {
+		font-size: 17px;
+		line-height: 1.5em; }
+	.gc-features h3, .gc-features h4, .gc-features h5, .gc-features h6 {
+		font-size: 1em;
+		margin-bottom: 5px;
+		margin-top: 23px; }
 	.gc-features a:hover {
 		text-decoration: none; }
 	.gc-features img {
@@ -12600,141 +12644,117 @@ aside.features {
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  *
- *
- *	Provisional GC Subway map menu
 */
-.provisional {
-	/*** GC Subway mobile first styles ***/
-	/* Double H1 */ }
-	.provisional.gc-subway {
-		border-radius: 0px 6px 6px 0px;
-		border-right: 4px solid #26374a;
-		border-top: 4px solid #26374a;
-		margin-top: 38px; }
-		.provisional.gc-subway ul,
-		.provisional.gc-subway dl {
-			clear: both;
-			list-style: none;
-			padding-left: .57em;
-			padding-top: 10px;
+.gc-subway.provisional:not(.gc-subway-index) {
+	border: 4px solid #26374a;
+	border-radius: 6px;
+	margin: 2em 0 0 .5em;
+	padding-bottom: 1em;
+	position: relative; }
+	.gc-subway.provisional:not(.gc-subway-index) ul {
+		clear: both;
+		list-style: none;
+		margin-bottom: 0;
+		margin-left: -.685em;
+		padding-left: .5em; }
+		.gc-subway.provisional:not(.gc-subway-index) ul li {
+			border-left: 4px solid #26374a;
+			line-height: 1.25em;
+			padding-bottom: 1.25em;
+			padding-left: 1em;
 			position: relative; }
-			.provisional.gc-subway ul dt,
-			.provisional.gc-subway dl dt {
-				border-left: 4px solid #26374a;
-				padding: 0px 20px 3px 1em;
-				font-weight: normal; }
-				.provisional.gc-subway ul dt a::before,
-				.provisional.gc-subway dl dt a::before {
-					background-color: #fff;
+			.gc-subway.provisional:not(.gc-subway-index) ul li:last-child {
+				border-left-color: transparent;
+				padding-bottom: 0; }
+			.gc-subway.provisional:not(.gc-subway-index) ul li a {
+				display: inline-block; }
+				.gc-subway.provisional:not(.gc-subway-index) ul li a::before {
+					background-color: #26374a;
 					border: 3px solid #26374a;
 					border-radius: 50%;
+					-webkit-box-shadow: 0 0 0 10px #fff inset;
+					        box-shadow: 0 0 0 10px #fff inset;
 					content: "";
 					height: 1.2em;
-					left: 0em;
+					left: -.7em;
 					position: absolute;
-					-webkit-transition: width .2s, height .2s, left .2s, margin-top .2s;
-					transition: width .2s, height .2s, left .2s, margin-top .2s;
-					width: 1.3em; }
-				.provisional.gc-subway ul dt a.active,
-				.provisional.gc-subway dl dt a.active {
-					color: #333333;
-					text-decoration: none; }
-					.provisional.gc-subway ul dt a.active::before,
-					.provisional.gc-subway dl dt a.active::before {
-						background-color: #26374a; }
-					.provisional.gc-subway ul dt a.active:hover, .provisional.gc-subway ul dt a.active:focus,
-					.provisional.gc-subway dl dt a.active:hover,
-					.provisional.gc-subway dl dt a.active:focus {
-						color: #0535d2;
-						text-decoration: underline; }
-				.provisional.gc-subway ul dt a:not(.active):hover::before, .provisional.gc-subway ul dt a:not(.active):focus::before,
-				.provisional.gc-subway dl dt a:not(.active):hover::before,
-				.provisional.gc-subway dl dt a:not(.active):focus::before {
-					height: 1.5em;
-					left: -.1em;
-					margin-top: -.1em;
-					width: 1.5em; }
-				.provisional.gc-subway ul dt:last-of-type,
-				.provisional.gc-subway dl dt:last-of-type {
-					border-left: 5px solid transparent;
-					padding-bottom: 0; }
-			.provisional.gc-subway ul dd,
-			.provisional.gc-subway dl dd {
-				border-left: 4px solid #26374a;
-				line-height: inherit;
-				margin-bottom: 0px;
-				margin-top: -3px;
-				padding: 0px 20px 20px 1em; }
-				.provisional.gc-subway ul dd:last-child,
-				.provisional.gc-subway dl dd:last-child {
-					border-left: 5px solid transparent;
-					padding-bottom: 0; }
-			.provisional.gc-subway ul li,
-			.provisional.gc-subway dl li {
-				border-left: 4px solid #26374a;
-				padding: 0px 20px 30px 1em; }
-				.provisional.gc-subway ul li a::before,
-				.provisional.gc-subway dl li a::before {
-					background-color: #fff;
-					border: 3px solid #26374a;
-					border-radius: 50%;
-					content: "";
-					height: 1.2em;
-					left: 0.05em;
-					position: absolute;
-					-webkit-transition: width .2s, height .2s, left .2s, margin-top .2s;
-					transition: width .2s, height .2s, left .2s, margin-top .2s;
+					top: 0;
+					-webkit-transition: -webkit-box-shadow .25s ease;
+					transition: -webkit-box-shadow .25s ease;
+					transition: box-shadow .25s ease;
+					transition: box-shadow .25s ease, -webkit-box-shadow .25s ease;
 					width: 1.2em; }
-				.provisional.gc-subway ul li a.active,
-				.provisional.gc-subway dl li a.active {
-					color: #333333;
+				.gc-subway.provisional:not(.gc-subway-index) ul li a.active {
+					color: #333;
+					cursor: default;
 					text-decoration: none; }
-					.provisional.gc-subway ul li a.active::before,
-					.provisional.gc-subway dl li a.active::before {
-						background-color: #26374a; }
-					.provisional.gc-subway ul li a.active:hover, .provisional.gc-subway ul li a.active:focus,
-					.provisional.gc-subway dl li a.active:hover,
-					.provisional.gc-subway dl li a.active:focus {
-						color: #0535d2;
-						text-decoration: underline; }
-				.provisional.gc-subway ul li a:not(.active):hover::before, .provisional.gc-subway ul li a:not(.active):focus::before,
-				.provisional.gc-subway dl li a:not(.active):hover::before,
-				.provisional.gc-subway dl li a:not(.active):focus::before {
-					height: 1.5em;
-					left: -.1em;
-					margin-top: -.1em;
-					width: 1.5em; }
-				.provisional.gc-subway ul li::first-line,
-				.provisional.gc-subway dl li::first-line {
-					line-height: 1; }
-				.provisional.gc-subway ul li:last-child,
-				.provisional.gc-subway dl li:last-child {
-					border-bottom: 4px solid #26374a;
-					border-bottom-left-radius: 6px;
-					border-left: 4px solid #26374a; }
-				.provisional.gc-subway ul li ul,
-				.provisional.gc-subway dl li ul {
-					margin-top: 20px;
-					padding-left: .55em; }
-					.provisional.gc-subway ul li ul li:last-child,
-					.provisional.gc-subway dl li ul li:last-child {
-						border-bottom-width: 0px;
-						padding-bottom: 0px; }
-		.provisional.gc-subway h1 {
-			float: left; }
-	.provisional.gc-subway h1,
-	.provisional.gc-subway-section .gc-subway-h1 {
-		background-color: #fff;
-		border-bottom-width: 0px;
-		color: #555;
-		font-size: 1.3em;
-		margin-right: 20px;
-		margin-top: -19px;
-		padding: 0px 20px 10px 0px; }
+					.gc-subway.provisional:not(.gc-subway-index) ul li a.active::before {
+						-webkit-box-shadow: 0 0 0 10px #26374a inset;
+						        box-shadow: 0 0 0 10px #26374a inset; }
+					.gc-subway.provisional:not(.gc-subway-index) ul li a.active:hover, .gc-subway.provisional:not(.gc-subway-index) ul li a.active:focus {
+						color: #333;
+						text-decoration: none; }
+				.gc-subway.provisional:not(.gc-subway-index) ul li a:not(.active):hover::before, .gc-subway.provisional:not(.gc-subway-index) ul li a:not(.active):focus::before {
+					-webkit-box-shadow: 0 0 0 4px #fff inset;
+					        box-shadow: 0 0 0 4px #fff inset; }
+			.gc-subway.provisional:not(.gc-subway-index) ul li ul {
+				margin: 1em 0 0; }
+				.gc-subway.provisional:not(.gc-subway-index) ul li ul li:last-child {
+					padding-bottom: 0; }
+				.gc-subway.provisional:not(.gc-subway-index) ul li ul.noline li {
+					border-left-color: transparent; }
+					.gc-subway.provisional:not(.gc-subway-index) ul li ul.noline li::before {
+						display: none; }
+					.gc-subway.provisional:not(.gc-subway-index) ul li ul.noline li a.active::after {
+						background-color: #26374a;
+						content: "";
+						display: block;
+						height: 4px;
+						left: -1.75em;
+						position: absolute;
+						top: .5em;
+						width: 1.125em; }
 
-h1 ~ .provisional.gc-subway {
-	border-right: none;
-	border-top: none; }
+.gc-subway.provisional.gc-subway-index h2 {
+	position: static; }
+
+.gc-subway.provisional.gc-subway-index dl {
+	margin-left: .5em; }
+	.gc-subway.provisional.gc-subway-index dl dt, .gc-subway.provisional.gc-subway-index dl dd {
+		border-left: 4px solid #26374a;
+		font-weight: normal;
+		margin: 0;
+		padding-left: 1em;
+		position: relative; }
+		.gc-subway.provisional.gc-subway-index dl dt:last-of-type, .gc-subway.provisional.gc-subway-index dl dd:last-of-type {
+			border-left-color: transparent;
+			padding-bottom: 0; }
+	.gc-subway.provisional.gc-subway-index dl dt a::before {
+		background-color: #26374a;
+		border: 3px solid #26374a;
+		border-radius: 50%;
+		-webkit-box-shadow: 0 0 0 10px #fff inset;
+		        box-shadow: 0 0 0 10px #fff inset;
+		content: "";
+		height: 1.2em;
+		left: -.7em;
+		position: absolute;
+		top: 0;
+		-webkit-transition: -webkit-box-shadow .25s ease;
+		transition: -webkit-box-shadow .25s ease;
+		transition: box-shadow .25s ease;
+		transition: box-shadow .25s ease, -webkit-box-shadow .25s ease;
+		width: 1.2em; }
+	.gc-subway.provisional.gc-subway-index dl dd {
+		padding-bottom: 1.25em;
+		padding-top: .25em; }
+
+.gc-subway-section hgroup p {
+	display: none; }
+
+.gc-subway-pagination {
+	margin-bottom: 3em;
+	margin-top: 3em; }
 
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -13360,11 +13380,11 @@ table.dataTable.nws-tbl .label.label-success {
 .margin-top-medium {
 	margin-top: .75em; }
 
-.clearfix:before, .clearfix:after {
+.clearfix:before, .gc-subway-landmark-end:before, .clearfix:after, .gc-subway-landmark-end:after {
 	display: table;
 	content: " "; }
 
-.clearfix:after {
+.clearfix:after, .gc-subway-landmark-end:after {
 	clear: both; }
 
 .center-block {
@@ -13918,16 +13938,6 @@ Miscellaneous Utiliy CSS
 	max-width: max-content; }
 
 /*
- * GCWeb custom implementation
- *
- * Copy and rename the folder "variant-default" to "variant".
- * - the "variant" folder should not GIT conflict with your custom implementation when updating to the latest gcweb
- */
-/*
-  Variant - GCWeb custom implementation
-  @title: Default SCSS
- */
-/*
  Views
  */
 /* All screen views */
@@ -13961,8 +13971,6 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: All screen views
  */
-	.overlay-def .modal-header {
-		background: #2e5274; }
 	.wb-sl {
 		background: #26374a;
 		color: #fff;
@@ -13973,6 +13981,12 @@ Miscellaneous Utiliy CSS
 		.wb-sl:hover {
 			background-color: #444;
 			color: #fff; }
+	/*
+  WET-BOEW
+  @title: All screen views
+ */
+	.overlay-def .modal-header {
+		background: #2e5274; }
 	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -14058,11 +14072,7 @@ Miscellaneous Utiliy CSS
 		float: right;
 		margin-left: 100%;
 		margin-right: 0; }
-	/* Deprecated as v4.0.28 */
-	/*
-  Variant - GCWeb custom implementation
-  @title: All screen views
- */ }
+	/* Deprecated as v4.0.28 */ }
 
 /* Extra-small view and under */
 @media screen and (max-width: 767px) {
@@ -14070,6 +14080,14 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: Extra-small view and under (screen only)
  */
+	/*
+ Banner (small view and under)
+ */
+	header .brand img {
+		margin-top: 15px; }
+	header .brand object,
+	header .brand img {
+		max-height: 30px; }
 	/*
   WET-BOEW
   @title: Extra-small view and under (screen only)
@@ -14079,18 +14097,6 @@ Miscellaneous Utiliy CSS
 	.list-responsive > li {
 		clear: right;
 		width: 100%; }
-	/*
- Banner (small view and under)
- */
-	header .brand img {
-		margin-top: 15px; }
-	header .brand object,
-	header .brand img {
-		max-height: 30px; }
-	#wb-glb-mn {
-		margin-top: 20px; }
-		#wb-glb-mn ul.chvrn li a {
-			font-size: 1.7em; }
 	/*
   WET-BOEW
   @title: Extra-small view and under (screen only)
@@ -14103,6 +14109,10 @@ Miscellaneous Utiliy CSS
 	#wb-bnr + .gcweb-menu > [role=menu] {
 		margin-left: 0;
 		margin-right: 0; }
+	#wb-glb-mn {
+		margin-top: 20px; }
+		#wb-glb-mn ul.chvrn li a {
+			font-size: 1.7em; }
 	/*
  * Share/feedback-specific overrides (extra-small view and under)
  */
@@ -14172,11 +14182,7 @@ Miscellaneous Utiliy CSS
 			margin-top: 0;
 			padding-top: 15px; }
 		.cmpgn-sctns .sctn-desc {
-			margin-bottom: 10px; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Extra-small view and under (screen only)
- */ }
+			margin-bottom: 10px; } }
 
 /* Small view and under */
 @media screen and (max-width: 991px) {
@@ -14184,6 +14190,11 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: Small view and under (screen only)
  */
+	/*
+ Banner (small view and under)
+ */
+	header .brand img {
+		margin-top: 10px; }
 	/*
   WET-BOEW
   @title: Small view and under (screen only)
@@ -14194,28 +14205,6 @@ Miscellaneous Utiliy CSS
 		margin-top: .75em; }
 	h2, .h2 {
 		font-size: 1.6em; }
-	.gc-srvinfo p, .gc-drmt p, .gc-features p {
-		font-size: 19px; }
-	.home .home-most-requested li {
-		font-size: 19px; }
-	.home .home-your-gov {
-		background-image: none; }
-	/* PROVISIONAL features */
-	.provisional {
-		/* Contributors */ }
-		.provisional.gc-contributors h2, .provisional.gc-contributors ul {
-			display: block; }
-		.provisional.gc-contributors ul {
-			-webkit-padding-start: 20px;
-			        padding-inline-start: 20px; }
-			.provisional.gc-contributors ul li {
-				display: list-item;
-				margin-right: 0; }
-	/*
- Banner (small view and under)
- */
-	header .brand img {
-		margin-top: 10px; }
 	/*
   WET-BOEW
   @title: Small view and under (screen only)
@@ -14386,15 +14375,30 @@ Miscellaneous Utiliy CSS
 			border: 1px solid #26374a;
 			padding: 15px; }
 	/*
+  WET-BOEW
+  @title: Small view and under (screen only)
+  @desc:  Variable $screen-sm-max <= 991 px
+ */
+	.gc-features p {
+		font-size: 19px; }
+	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  *
- * Small view and under (screen only) - Variable $screen-sm-max <= 991 px
- *
- *	Provisional GC Subway map menu
+ * Small view and under (screen only) - Variable $screen-sm-max <= 991px
 */
-	.provisional.gc-subway dt, .provisional.gc-subway li {
-		max-width: initial; }
+	.gc-subway.provisional:not(.gc-subway-index) h1 {
+		background-color: #fff;
+		border-bottom: none;
+		color: #555;
+		float: left;
+		font-size: 1.3em;
+		margin-left: -.5em;
+		margin-right: .5em;
+		margin-top: -.75em;
+		padding: 0px 20px 10px 0px; }
+	.gc-subway.provisional:not(.gc-subway-index) ul {
+		padding-top: .25em; }
 	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -14507,20 +14511,43 @@ Miscellaneous Utiliy CSS
 		.wb-tabs.tabs-acc > ul {
 			display: none; }
 	/*
-  Variant - GCWeb custom implementation
+  WET-BOEW
   @title: Small view and under (screen only)
- */ }
+  @desc:  Variable $screen-sm-max <= 991 px
+ */
+	.gc-srvinfo p, .gc-drmt p {
+		font-size: 19px; }
+	/*
+  WET-BOEW
+  @title: Small view and under (screen only)
+  @desc:  Variable $screen-sm-max <= 991 px
+ */
+	.home .home-most-requested li {
+		font-size: 19px; }
+	.home .home-your-gov {
+		background-image: none; }
+	/*
+  WET-BOEW
+  @title: Small view and under (screen only)
+  @desc:  Variable $screen-sm-max <= 991 px
+ */
+	/* PROVISIONAL features */
+	.provisional {
+		/* Contributors */ }
+		.provisional.gc-contributors h2, .provisional.gc-contributors ul {
+			display: block; }
+		.provisional.gc-contributors ul {
+			-webkit-padding-start: 20px;
+			        padding-inline-start: 20px; }
+			.provisional.gc-contributors ul li {
+				display: list-item;
+				margin-right: 0; } }
 
 /* Medium view and under */
 @media screen and (max-width: 1199px) {
 	/*
   WET-BOEW
   @title: Medium view and under (screen only)
- */
-	/*
-  WET-BOEW
-  @title: Medium view and under (screen only)
-  @desc:  Variable $screen-md-max <= 1199px
  */
 	/*
  * Site menu (medium view and under)
@@ -14542,25 +14569,12 @@ Miscellaneous Utiliy CSS
  * Set a responsive with for the h1 in the Well header responsive
  */
 	.home .well.header-rwd h1 {
-		width: 55%; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Medium view and under (screen only)
- */ }
+		width: 55%; } }
 
 /* Large view and under */
 @media screen and (max-width: 1599px) {
 	/*
   WET-BOEW
-  @title: Large view and under (screen only)
- */
-	/*
-  WET-BOEW
-  @title: Large view and under (screen only)
-  @desc:  Variable $screen-lg-max <= 1599px
- */
-	/*
-  Variant - GCWeb custom implementation
   @title: Large view and under (screen only)
  */ }
 
@@ -14569,11 +14583,6 @@ Miscellaneous Utiliy CSS
 	/*
   WET-BOEW
   @title: Extra-small view and over (screen only)
- */
-	/*
-  WET-BOEW
-  @title: Extra-small view and over (screen only)
-  @desc:  Variable $screen-xs-min >= 480px
  */
 	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -14605,11 +14614,7 @@ Miscellaneous Utiliy CSS
 	.colcount-xs-4 {
 		-webkit-column-count: 4;
 		   -moz-column-count: 4;
-		        column-count: 4; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Extra-small view and over (screen only)
- */ }
+		        column-count: 4; } }
 
 /* Small view and over */
 @media screen and (min-width: 768px) {
@@ -14624,11 +14629,6 @@ Miscellaneous Utiliy CSS
 		padding-right: 10px; }
 		.form-inline .label-inline:last-child {
 			padding-right: 0; }
-	/*
-  WET-BOEW
-  @title: Small view and over (screen only)
-  @desc:  Variable $screen-sm-min >= 768px
- */
 	/*
   @title: Baseline styles for small breakpoint and over
 */
@@ -14754,11 +14754,7 @@ Miscellaneous Utiliy CSS
 		padding-left: 15px;
 		padding-right: 15px; }
 	.pr-sm-3 {
-		padding-right: 15px !important; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Small view and over (screen only)
- */ }
+		padding-right: 15px !important; } }
 
 /* Medium view and over */
 @media screen and (min-width: 992px) {
@@ -14772,22 +14768,6 @@ Miscellaneous Utiliy CSS
 		right: auto; }
 	.col-md-auto {
 		width: auto; }
-	/*
-  WET-BOEW
-  @title: Medium view and over (screen only)
-  @desc:  Variable $screen-md-min >= 992px
- */
-	/* PROVISIONAL features */
-	.provisional {
-		/* Contributors */
-		/* Follow us */ }
-		.provisional.gc-contributors ul li:first-child:before {
-			content: none; }
-		.provisional.gc-contributors ul li:before {
-			content: "\2022";
-			margin-right: .7em; }
-		.provisional.gc-followus h2 {
-			margin-top: 0 !important; }
 	/*
   @title: Baseline styles for medium breakpoint and over
 */
@@ -14885,44 +14865,69 @@ Miscellaneous Utiliy CSS
  Social Media Icons Medium View and over
 */
 	/*
- *
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  *
- *
- *	Provisional GC Subway map menu
+ * Medium view and over (screen only) - Variable $screen-md-min >= 992px
 */
+	/*** GC subway desktop styles ***/
+	.gc-subway.provisional:not(.gc-subway-index) {
+		border-color: transparent;
+		display: none; }
+		.gc-subway.provisional:not(.gc-subway-index).no-blink {
+			display: block; }
+		.wb-disable .gc-subway.provisional:not(.gc-subway-index) {
+			display: block; }
+		.gc-subway.provisional:not(.gc-subway-index) hgroup {
+			left: -.5em;
+			position: absolute;
+			top: -2em; }
+			.gc-subway.provisional:not(.gc-subway-index) hgroup h1 {
+				clip: rect(1px, 1px, 1px, 1px);
+				height: 1px;
+				margin: 0;
+				overflow: hidden;
+				position: absolute;
+				width: 1px; }
+		.gc-subway.provisional:not(.gc-subway-index) ul li:last-child:has(ul) {
+			border-left: 4px solid #26374a;
+			padding-bottom: 1.25em; }
+			.gc-subway.provisional:not(.gc-subway-index) ul li:last-child:has(ul)::after {
+				background-color: #26374a;
+				bottom: 0;
+				content: "";
+				height: 4px;
+				left: -.45em;
+				position: absolute;
+				width: .75em; }
+	.gc-subway-wrapper {
+		float: right;
+		width: calc(33.33% - .5em - 5px); }
+	.gc-subway-section {
+		padding-right: 30px;
+		width: 66.66%; }
+		.gc-subway-section hgroup:first-of-type h1 {
+			margin-top: 0; }
+		.gc-subway-section hgroup:first-of-type p {
+			display: block;
+			font-size: 1.25em;
+			margin-bottom: 0; }
+	/*
+  WET-BOEW
+  @title: Medium view and over (screen only)
+  @desc:  Variable $screen-md-min >= 992px
+ */
+	/* PROVISIONAL features */
 	.provisional {
-		/*** GC subway desktop styles ***/
-		/* Double H1 */ }
-		.provisional.gc-subway {
-			border-right: 0px;
-			border-top: 0px;
-			display: none;
-			margin-top: 25px;
-			padding-left: 15px; }
-			.provisional.gc-subway.no-blink {
-				display: block; }
-			.provisional.gc-subway .gc-subway-menu-nav {
-				float: right;
-				width: 33.33%; }
-			.provisional.gc-subway ul li:last-child {
-				border-bottom: 0px;
-				border-left: 4px solid transparent; }
-		.provisional.gc-subway-section {
-			padding-right: 15px;
-			width: 66.66%; }
-			.provisional.gc-subway-section h1, .provisional.gc-subway-section .gc-subway-h1 {
-				margin-top: 0px; }
-			.provisional.gc-subway-section .gc-subway-h1 {
-				font-family: Lato, sans-serif;
-				font-weight: inherit;
-				margin-bottom: 0px;
-				margin-right: 0px;
-				padding-bottom: 0px !important;
-				padding-left: 0px; }
-	.wb-disable .provisional.gc-subway {
-		display: block; }
+		/* Contributors */
+		/* Follow us */ }
+		.provisional.gc-contributors ul li:first-child:before {
+			content: none; }
+		.provisional.gc-contributors ul li:before {
+			content: "\2022";
+			margin-right: .7em; }
+		.provisional.gc-followus h2 {
+			margin-top: 0 !important; }
 	/*
   WET-BOEW
   @title: Proximity CSS - Medium view and over
@@ -14954,11 +14959,7 @@ Miscellaneous Utiliy CSS
 	.pstn-bttm-md {
 		position: absolute;
 		bottom: 0;
-		top: auto; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Medium view and over (screen only)
- */ }
+		top: auto; } }
 
 /* Large view and over */
 @media screen and (min-width: 1200px) {
@@ -14972,16 +14973,6 @@ Miscellaneous Utiliy CSS
 		clear: right; }
 	.col-lg-auto {
 		width: auto; }
-	/*
-  WET-BOEW
-  @title: Large view and over (screen only)
-  @desc:  Variable $screen-lg-min >= 1200px
- */
-	/* Make a simple list multi-column and responsive (overide _defaults.scss) */
-	.list-responsive > li {
-		width: 25%; }
-		.list-responsive > li:nth-child(4n+4) {
-			clear: right; }
 	/*
   @title: Baseline styles for large breakpoint and over
 */
@@ -14997,6 +14988,11 @@ Miscellaneous Utiliy CSS
 	ul.list-col-lg-4 > li {
 		-ms-flex-preferred-size: 25%;
 		    flex-basis: 25%; }
+	/* Make a simple list multi-column and responsive (overide _defaults.scss) */
+	.list-responsive > li {
+		width: 25%; }
+		.list-responsive > li:nth-child(4n+4) {
+			clear: right; }
 	.wb-filter .input-group {
 		max-width: 60%; }
 	/*
@@ -15058,11 +15054,7 @@ Miscellaneous Utiliy CSS
 	.pstn-bttm-lg {
 		position: absolute;
 		bottom: 0;
-		top: auto; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Large view and over (screen only)
- */ }
+		top: auto; } }
 
 /* Extra-extra-small view */
 @media screen and (max-width: 479px) {
@@ -15071,32 +15063,16 @@ Miscellaneous Utiliy CSS
   @title: Extra-extra-small view (screen only)
  */
 	/*
-  WET-BOEW
-  @title: Extra-extra-small view (screen only)
-  @desc:  Variable $screen-xxs-max <= 479px
- */
-	/* Embedding a Fluid Survey */
-	.gc-fld-srvy-container {
-		padding-bottom: 100%; }
-	#wb-srch input {
-		max-width: inherit; }
-	/*
  Banner (extra-extra-small view)
  */
-	header .brand.col-xs-5, #wb-glb-mn {
-		float: none !important;
-		width: auto !important; }
 	header .brand {
 		/* Solely for the purpose of having the previous header look decent */ }
+		header .brand.col-xs-5 {
+			float: none !important;
+			width: auto !important; }
 		header .brand object,
 		header .brand img {
 			padding-right: 0; }
-	#wb-glb-mn ul {
-		width: 100%; }
-		#wb-glb-mn ul.chvrn {
-			margin-left: auto; }
-			#wb-glb-mn ul.chvrn:before {
-				border: 0; }
 	/*
  * Site information (extra-extra-small view)
  */
@@ -15114,6 +15090,33 @@ Miscellaneous Utiliy CSS
 			-webkit-column-count: 1;
 			   -moz-column-count: 1;
 			        column-count: 1; }
+	/*
+ Menu (extra-extra-small view)
+ */
+	#wb-glb-mn {
+		float: none !important;
+		width: auto !important; }
+		#wb-glb-mn ul {
+			width: 100%; }
+			#wb-glb-mn ul.chvrn {
+				margin-left: auto; }
+				#wb-glb-mn ul.chvrn:before {
+					border: 0; }
+	/*
+  WET-BOEW
+  @title: Extra-extra-small view (screen only)
+  @desc:  Variable $screen-xxs-max <= 479px
+ */
+	#wb-srch input {
+		max-width: inherit; }
+	/*
+  WET-BOEW
+  @title: Extra-extra-small view (screen only)
+  @desc:  Variable $screen-xxs-max <= 479px
+ */
+	/* Embedding a Fluid Survey */
+	.gc-fld-srvy-container {
+		padding-bottom: 100%; }
 	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -15169,11 +15172,7 @@ Miscellaneous Utiliy CSS
 		visibility: hidden;
 		width: 0; }
 		.prm-flpr .wb-tabs.carousel-s2 [role="tablist"] li .tab-count .curr-count {
-			font-size: 1em; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Extra-extra-small view (screen only)
- */ }
+			font-size: 1em; } }
 
 /* Extra-small view */
 @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -15198,11 +15197,7 @@ Miscellaneous Utiliy CSS
  * Set a responsive with for the h1 in the Well header responsive
  */
 	.home .well.header-rwd h1 {
-		width: 59%; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Extra-small view (screen only)
- */ }
+		width: 59%; } }
 
 /* Small view */
 @media screen and (min-width: 768px) and (max-width: 991px) {
@@ -15216,11 +15211,6 @@ Miscellaneous Utiliy CSS
 		clear: right; }
 	/*
   WET-BOEW
-  @title: Small view (screen only)
-  @desc:  Variable $screen-sm-min-to-screen-sm-max >= 768px <= 991px
- */
-	/*
-  WET-BOEW
   @title: Search Small view and under (screen only)
  */
 	#wb-srch {
@@ -15230,11 +15220,7 @@ Miscellaneous Utiliy CSS
   @title: Small view (screen only)
  */
 	.cmpgn-sctns {
-		word-wrap: break-word; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Small view (screen only)
- */ }
+		word-wrap: break-word; } }
 
 /* Medium view */
 @media screen and (min-width: 992px) and (max-width: 1199px) {
@@ -15246,11 +15232,6 @@ Miscellaneous Utiliy CSS
 		clear: left; }
 	.clr-rght-md {
 		clear: right; }
-	/*
-  WET-BOEW
-  @title: Medium view (screen only)
-  @desc:  Variable $screen-md-min-to-screen-md-max >= 992px <= 1199px
- */
 	/*
   WET-BOEW
   @title: Medium view (screen only)
@@ -15298,10 +15279,6 @@ Miscellaneous Utiliy CSS
 	.lt-ie9 main.col-md-9 .sect-lnks {
 		width: 46%; }
 	/*
-  Variant - GCWeb custom implementation
-  @title: Medium view (screen only)
- */
-	/*
   WET-BOEW
   @title: Search medium view and over (screen only)
  */
@@ -15313,15 +15290,6 @@ Miscellaneous Utiliy CSS
 	/*
   WET-BOEW
   @title: Large view (screen only)
- */
-	/*
-  WET-BOEW
-  @title: Large view (screen only)
-  @desc:  Variable $screen-lg-min-to-lg-max >= 1200 px <= 1599 px
- */
-	/*
-  Variant - GCWeb custom implementation
-  @title: Large view (screen only)
  */ }
 
 /* Extra-large view */
@@ -15329,11 +15297,6 @@ Miscellaneous Utiliy CSS
 	/*
   WET-BOEW
   @title: Extra-large view (screen only)
- */
-	/*
-  WET-BOEW
-  @title: Extra-large view (screen only)
-  @desc:  Variable $screen-xl-min >= 1600px
  */
 	/*
   WET-BOEW
@@ -15350,11 +15313,7 @@ Miscellaneous Utiliy CSS
 	.colcount-xl-4 {
 		-webkit-column-count: 4;
 		   -moz-column-count: 4;
-		        column-count: 4; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Extra-large view (screen only)
- */ }
+		        column-count: 4; } }
 
 /* Print view */
 @media print {
@@ -15372,14 +15331,8 @@ Miscellaneous Utiliy CSS
   WET-BOEW
   @title: Print view
  */
-	.features, #wb-lng, #wb-glb-mn,
-	#wb-srch,
-	#wb-sm, #wb-info, .tofpg, .gcweb-menu, #wb-sec, .pagedetails details, .pagedetails .btn, .followus {
-		display: none !important; }
 	header .brand {
 		margin-bottom: 0; }
-	h1 {
-		margin-top: 0; }
 	/*
   WET-BOEW
   @title: Breadcrumb print CSS overrides
@@ -15391,18 +15344,40 @@ Miscellaneous Utiliy CSS
 	/*
  Site information (print view)
 */
+	#wb-info {
+		display: none !important; }
+	.tofpg {
+		display: none !important; }
 	/*
  Site menu (print view)
 */
+	#wb-sm, .gcweb-menu {
+		display: none !important; }
+	/* Deprecated - Mobile menu popup style build with the megamenu (wb-menu) plugin */
+	#wb-glb-mn {
+		display: none !important; }
+	/*
+ * Main content area (print view)
+ */
+	#wb-lng {
+		display: none !important; }
 	/*
  Search (print view)
  */
+	#wb-srch {
+		display: none !important; }
 	/*
  Secondary menu (print view)
 */
+	#wb-sec {
+		display: none !important; }
 	/*
  * Share/feedback-specific overrides (print view)
  */
+	.pagedetails details {
+		display: none !important; }
+	.pagedetails .btn {
+		display: none !important; }
 	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -15520,10 +15495,14 @@ Miscellaneous Utiliy CSS
  */
 	.gc-nttvs {
 		display: none; }
+	.features {
+		display: none !important; }
 	/* Deprecated as v4.0.28 */
 	/*
  Social Media Icons Print view
 */
+	.followus {
+		display: none !important; }
 	/*
  * There is no working example, probably not used
  */
@@ -15534,11 +15513,7 @@ Miscellaneous Utiliy CSS
   @title: Print view
  */
 	.cmpgn-sctns {
-		margin-top: 20px; }
-	/*
-  Variant - GCWeb custom implementation
-  @title: Print view
- */ }
+		margin-top: 20px; } }
 
 /* Testing WCAG Spacing */
 /*

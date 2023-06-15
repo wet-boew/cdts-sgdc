@@ -1,10 +1,10 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.56.5 - 2023-01-04
+ * v4.0.63 - 2023-05-30
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
-/*! @license DOMPurify 2.4.0 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.0/LICENSE */
+/*! @license DOMPurify 2.4.4 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.4/LICENSE */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -135,6 +135,7 @@
   var arrayPop = unapply(Array.prototype.pop);
   var arrayPush = unapply(Array.prototype.push);
   var stringToLowerCase = unapply(String.prototype.toLowerCase);
+  var stringToString = unapply(String.prototype.toString);
   var stringMatch = unapply(String.prototype.match);
   var stringReplace = unapply(String.prototype.replace);
   var stringIndexOf = unapply(String.prototype.indexOf);
@@ -201,7 +202,7 @@
     var property;
 
     for (property in object) {
-      if (apply(hasOwnProperty, object, [property])) {
+      if (apply(hasOwnProperty, object, [property]) === true) {
         newObject[property] = object[property];
       }
     }
@@ -261,6 +262,7 @@
   var MUSTACHE_EXPR = seal(/\{\{[\w\W]*|[\w\W]*\}\}/gm); // Specify template detection regex for SAFE_FOR_TEMPLATES mode
 
   var ERB_EXPR = seal(/<%[\w\W]*|[\w\W]*%>/gm);
+  var TMPLIT_EXPR = seal(/\${[\w\W]*}/gm);
   var DATA_ATTR = seal(/^data-[\-\w.\u00B7-\uFFFF]/); // eslint-disable-line no-useless-escape
 
   var ARIA_ATTR = seal(/^aria-[\-\w]+$/); // eslint-disable-line no-useless-escape
@@ -332,7 +334,7 @@
      */
 
 
-    DOMPurify.version = '2.4.0';
+    DOMPurify.version = '2.4.4';
     /**
      * Array of elements that DOMPurify removed during sanitation.
      * Empty if nothing was removed.
@@ -401,6 +403,7 @@
     DOMPurify.isSupported = typeof getParentNode === 'function' && implementation && typeof implementation.createHTMLDocument !== 'undefined' && documentMode !== 9;
     var MUSTACHE_EXPR$1 = MUSTACHE_EXPR,
         ERB_EXPR$1 = ERB_EXPR,
+        TMPLIT_EXPR$1 = TMPLIT_EXPR,
         DATA_ATTR$1 = DATA_ATTR,
         ARIA_ATTR$1 = ARIA_ATTR,
         IS_SCRIPT_OR_DATA$1 = IS_SCRIPT_OR_DATA,
@@ -461,6 +464,10 @@
     /* Decide if unknown protocols are okay */
 
     var ALLOW_UNKNOWN_PROTOCOLS = false;
+    /* Decide if self-closing tags in attributes are allowed.
+     * Usually removed due to a mXSS issue in jQuery 3.0 */
+
+    var ALLOW_SELF_CLOSE_IN_ATTR = true;
     /* Output should be safe for common template engines.
      * This means, DOMPurify removes data attributes, mustaches and ERB
      */
@@ -540,6 +547,10 @@
 
     var NAMESPACE = HTML_NAMESPACE;
     var IS_EMPTY_INPUT = false;
+    /* Allowed XHTML+XML namespaces */
+
+    var ALLOWED_NAMESPACES = null;
+    var DEFAULT_ALLOWED_NAMESPACES = addToSet({}, [MATHML_NAMESPACE, SVG_NAMESPACE, HTML_NAMESPACE], stringToString);
     /* Parsing of strict XHTML documents */
 
     var PARSER_MEDIA_TYPE;
@@ -583,13 +594,12 @@
       PARSER_MEDIA_TYPE = // eslint-disable-next-line unicorn/prefer-includes
       SUPPORTED_PARSER_MEDIA_TYPES.indexOf(cfg.PARSER_MEDIA_TYPE) === -1 ? PARSER_MEDIA_TYPE = DEFAULT_PARSER_MEDIA_TYPE : PARSER_MEDIA_TYPE = cfg.PARSER_MEDIA_TYPE; // HTML tags and attributes are not case-sensitive, converting to lowercase. Keeping XHTML as is.
 
-      transformCaseFunc = PARSER_MEDIA_TYPE === 'application/xhtml+xml' ? function (x) {
-        return x;
-      } : stringToLowerCase;
+      transformCaseFunc = PARSER_MEDIA_TYPE === 'application/xhtml+xml' ? stringToString : stringToLowerCase;
       /* Set configuration parameters */
 
       ALLOWED_TAGS = 'ALLOWED_TAGS' in cfg ? addToSet({}, cfg.ALLOWED_TAGS, transformCaseFunc) : DEFAULT_ALLOWED_TAGS;
       ALLOWED_ATTR = 'ALLOWED_ATTR' in cfg ? addToSet({}, cfg.ALLOWED_ATTR, transformCaseFunc) : DEFAULT_ALLOWED_ATTR;
+      ALLOWED_NAMESPACES = 'ALLOWED_NAMESPACES' in cfg ? addToSet({}, cfg.ALLOWED_NAMESPACES, stringToString) : DEFAULT_ALLOWED_NAMESPACES;
       URI_SAFE_ATTRIBUTES = 'ADD_URI_SAFE_ATTR' in cfg ? addToSet(clone(DEFAULT_URI_SAFE_ATTRIBUTES), // eslint-disable-line indent
       cfg.ADD_URI_SAFE_ATTR, // eslint-disable-line indent
       transformCaseFunc // eslint-disable-line indent
@@ -609,6 +619,8 @@
       ALLOW_DATA_ATTR = cfg.ALLOW_DATA_ATTR !== false; // Default true
 
       ALLOW_UNKNOWN_PROTOCOLS = cfg.ALLOW_UNKNOWN_PROTOCOLS || false; // Default false
+
+      ALLOW_SELF_CLOSE_IN_ATTR = cfg.ALLOW_SELF_CLOSE_IN_ATTR !== false; // Default true
 
       SAFE_FOR_TEMPLATES = cfg.SAFE_FOR_TEMPLATES || false; // Default false
 
@@ -772,7 +784,7 @@
 
       if (!parent || !parent.tagName) {
         parent = {
-          namespaceURI: HTML_NAMESPACE,
+          namespaceURI: NAMESPACE,
           tagName: 'template'
         };
       }
@@ -780,13 +792,17 @@
       var tagName = stringToLowerCase(element.tagName);
       var parentTagName = stringToLowerCase(parent.tagName);
 
+      if (!ALLOWED_NAMESPACES[element.namespaceURI]) {
+        return false;
+      }
+
       if (element.namespaceURI === SVG_NAMESPACE) {
         // The only way to switch from HTML namespace to SVG
         // is via <svg>. If it happens via any other tag, then
         // it should be killed.
         if (parent.namespaceURI === HTML_NAMESPACE) {
           return tagName === 'svg';
-        } // The only way to switch from MathML to SVG is via
+        } // The only way to switch from MathML to SVG is via`
         // svg if parent is either <annotation-xml> or MathML
         // text integration points.
 
@@ -834,9 +850,15 @@
 
 
         return !ALL_MATHML_TAGS[tagName] && (COMMON_SVG_AND_HTML_ELEMENTS[tagName] || !ALL_SVG_TAGS[tagName]);
+      } // For XHTML and XML documents that support custom namespaces
+
+
+      if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && ALLOWED_NAMESPACES[element.namespaceURI]) {
+        return true;
       } // The code should never reach this place (this means
       // that the element somehow got namespace that is not
-      // HTML, SVG or MathML). Return false just in case.
+      // HTML, SVG, MathML or allowed via ALLOWED_NAMESPACES).
+      // Return false just in case.
 
 
       return false;
@@ -920,7 +942,7 @@
         leadingWhitespace = matches && matches[0];
       }
 
-      if (PARSER_MEDIA_TYPE === 'application/xhtml+xml') {
+      if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && NAMESPACE === HTML_NAMESPACE) {
         // Root of XHTML doc must contain xmlns declaration (see https://www.w3.org/TR/xhtml1/normative.html#strict)
         dirty = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>' + dirty + '</body></html>';
       }
@@ -943,7 +965,7 @@
         doc = implementation.createDocument(NAMESPACE, 'template', null);
 
         try {
-          doc.documentElement.innerHTML = IS_EMPTY_INPUT ? '' : dirtyPayload;
+          doc.documentElement.innerHTML = IS_EMPTY_INPUT ? emptyHTML : dirtyPayload;
         } catch (_) {// Syntax error if dirtyPayload is invalid xml
         }
       }
@@ -983,7 +1005,7 @@
 
 
     var _isClobbered = function _isClobbered(elm) {
-      return elm instanceof HTMLFormElement && (typeof elm.nodeName !== 'string' || typeof elm.textContent !== 'string' || typeof elm.removeChild !== 'function' || !(elm.attributes instanceof NamedNodeMap) || typeof elm.removeAttribute !== 'function' || typeof elm.setAttribute !== 'function' || typeof elm.namespaceURI !== 'string' || typeof elm.insertBefore !== 'function');
+      return elm instanceof HTMLFormElement && (typeof elm.nodeName !== 'string' || typeof elm.textContent !== 'string' || typeof elm.removeChild !== 'function' || !(elm.attributes instanceof NamedNodeMap) || typeof elm.removeAttribute !== 'function' || typeof elm.setAttribute !== 'function' || typeof elm.namespaceURI !== 'string' || typeof elm.insertBefore !== 'function' || typeof elm.hasChildNodes !== 'function');
     };
     /**
      * _isNode
@@ -1125,6 +1147,7 @@
         content = currentNode.textContent;
         content = stringReplace(content, MUSTACHE_EXPR$1, ' ');
         content = stringReplace(content, ERB_EXPR$1, ' ');
+        content = stringReplace(content, TMPLIT_EXPR$1, ' ');
 
         if (currentNode.textContent !== content) {
           arrayPush(DOMPurify.removed, {
@@ -1262,7 +1285,7 @@
         /* Work around a security issue in jQuery 3.0 */
 
 
-        if (regExpTest(/\/>/i, value)) {
+        if (!ALLOW_SELF_CLOSE_IN_ATTR && regExpTest(/\/>/i, value)) {
           _removeAttribute(name, currentNode);
 
           continue;
@@ -1273,6 +1296,7 @@
         if (SAFE_FOR_TEMPLATES) {
           value = stringReplace(value, MUSTACHE_EXPR$1, ' ');
           value = stringReplace(value, ERB_EXPR$1, ' ');
+          value = stringReplace(value, TMPLIT_EXPR$1, ' ');
         }
         /* Is `value` valid for this attribute? */
 
@@ -1542,7 +1566,7 @@
           returnNode = body;
         }
 
-        if (ALLOWED_ATTR.shadowroot) {
+        if (ALLOWED_ATTR.shadowroot || ALLOWED_ATTR.shadowrootmod) {
           /*
             AdoptNode() is not used because internal state is not reset
             (e.g. the past names map of a HTMLFormElement), this is safe
@@ -1568,6 +1592,7 @@
       if (SAFE_FOR_TEMPLATES) {
         serializedHTML = stringReplace(serializedHTML, MUSTACHE_EXPR$1, ' ');
         serializedHTML = stringReplace(serializedHTML, ERB_EXPR$1, ' ');
+        serializedHTML = stringReplace(serializedHTML, TMPLIT_EXPR$1, ' ');
       }
 
       return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(serializedHTML) : serializedHTML;
@@ -1945,6 +1970,39 @@ jQuery.html = function( value ) {
  * Build: https://modernizr.com/download/#-elem_details-elem_progress_meter-mathml-cors-load-mq-css3-input-inputtypes-svg-cssclasses-csstransitions-fontface-backgroundsize-borderimage-teststyles-testprops-testallprops-hasevents-prefixes-domprefixes
  */
 ;window.Modernizr=function(e,t,n){function L(e){f.cssText=e}function A(e,t){return L(p.join(e+";")+(t||""))}function O(e,t){return typeof e===t}function M(e,t){return!!~(""+e).indexOf(t)}function _(e,t){for(var r in e){var i=e[r];if(!M(i,"-")&&f[i]!==n)return t=="pfx"?i:!0}return!1}function D(e,t,r){for(var i in e){var s=t[e[i]];if(s!==n)return r===!1?e[i]:O(s,"function")?s.bind(r||t):s}return!1}function P(e,t,n){var r=e.charAt(0).toUpperCase()+e.slice(1),i=(e+" "+v.join(r+" ")+r).split(" ");return O(t,"string")||O(t,"undefined")?_(i,t):(i=(e+" "+m.join(r+" ")+r).split(" "),D(i,t,n))}function H(){i.input=function(n){for(var r=0,i=n.length;r<i;r++)w[n[r]]=n[r]in l;return w.list&&(w.list=!!t.createElement("datalist")&&!!e.HTMLDataListElement),w}("autocomplete autofocus list placeholder max min multiple pattern required step".split(" ")),i.inputtypes=function(e){for(var r=0,i,s,u,a=e.length;r<a;r++)l.setAttribute("type",s=e[r]),i=l.type!=="text",i&&(l.value=c,l.style.cssText="position:absolute;visibility:hidden;",/^range$/.test(s)&&l.style.WebkitAppearance!==n?(o.appendChild(l),u=t.defaultView,i=u.getComputedStyle&&u.getComputedStyle(l,null).WebkitAppearance!=="textfield"&&l.offsetHeight!==0,o.removeChild(l)):/^(search|tel)$/.test(s)||(/^(url|email)$/.test(s)?i=l.checkValidity&&l.checkValidity()===!1:i=l.value!=c)),b[e[r]]=!!i;return b}("search tel url email datetime date month week time datetime-local number range color".split(" "))}var r="2.8.3",i={},s=!0,o=t.documentElement,u="modernizr",a=t.createElement(u),f=a.style,l=t.createElement("input"),c=":)",h={}.toString,p=" -webkit- -moz- -o- -ms- ".split(" "),d="Webkit Moz O ms",v=d.split(" "),m=d.toLowerCase().split(" "),g={svg:"http://www.w3.org/2000/svg"},y={},b={},w={},E=[],S=E.slice,x,T=function(e,n,r,i){var s,a,f,l,c=t.createElement("div"),h=t.body,p=h||t.createElement("body");if(parseInt(r,10))while(r--)f=t.createElement("div"),f.id=i?i[r]:u+(r+1),c.appendChild(f);return s=["&#173;",'<style id="s',u,'">',e,"</style>"].join(""),c.id=u,(h?c:p).innerHTML+=s,p.appendChild(c),h||(p.style.background="",p.style.overflow="hidden",l=o.style.overflow,o.style.overflow="hidden",o.appendChild(p)),a=n(c,e),h?c.parentNode.removeChild(c):(p.parentNode.removeChild(p),o.style.overflow=l),!!a},N=function(t){var n=e.matchMedia||e.msMatchMedia;if(n)return n(t)&&n(t).matches||!1;var r;return T("@media "+t+" { #"+u+" { position: absolute; } }",function(t){r=(e.getComputedStyle?getComputedStyle(t,null):t.currentStyle)["position"]=="absolute"}),r},C={}.hasOwnProperty,k;!O(C,"undefined")&&!O(C.call,"undefined")?k=function(e,t){return C.call(e,t)}:k=function(e,t){return t in e&&O(e.constructor.prototype[t],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(t){var n=this;if(typeof n!="function")throw new TypeError;var r=S.call(arguments,1),i=function(){if(this instanceof i){var e=function(){};e.prototype=n.prototype;var s=new e,o=n.apply(s,r.concat(S.call(arguments)));return Object(o)===o?o:s}return n.apply(t,r.concat(S.call(arguments)))};return i}),y.backgroundsize=function(){return P("backgroundSize")},y.borderimage=function(){return P("borderImage")},y.csstransitions=function(){return P("transition")},y.fontface=function(){var e;return T('@font-face {font-family:"font";src:url("https://")}',function(n,r){var i=t.getElementById("smodernizr"),s=i.sheet||i.styleSheet,o=s?s.cssRules&&s.cssRules[0]?s.cssRules[0].cssText:s.cssText||"":"";e=/src/i.test(o)&&o.indexOf(r.split(" ")[0])===0}),e},y.svg=function(){return!!t.createElementNS&&!!t.createElementNS(g.svg,"svg").createSVGRect};for(var B in y)k(y,B)&&(x=B.toLowerCase(),i[x]=y[B](),E.push((i[x]?"":"no-")+x));return i.input||H(),i.addTest=function(e,t){if(typeof e=="object")for(var r in e)k(e,r)&&i.addTest(r,e[r]);else{e=e.toLowerCase();if(i[e]!==n)return i;t=typeof t=="function"?t():t,typeof s!="undefined"&&s&&(o.className+=" "+(t?"":"no-")+e),i[e]=t}return i},L(""),a=l=null,i._version=r,i._prefixes=p,i._domPrefixes=m,i._cssomPrefixes=v,i.mq=N,i.testProp=function(e){return _([e])},i.testAllProps=P,i.testStyles=T,o.className=o.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(s?" js "+E.join(" "):""),i}(this,this.document),function(e,t,n){function r(e){return"[object Function]"==d.call(e)}function i(e){return"string"==typeof e}function s(){}function o(e){return!e||"loaded"==e||"complete"==e||"uninitialized"==e}function u(){var e=v.shift();m=1,e?e.t?h(function(){("c"==e.t?k.injectCss:k.injectJs)(e.s,0,e.a,e.x,e.e,1)},0):(e(),u()):m=0}function a(e,n,r,i,s,a,f){function l(t){if(!d&&o(c.readyState)&&(w.r=d=1,!m&&u(),c.onload=c.onreadystatechange=null,t)){"img"!=e&&h(function(){b.removeChild(c)},50);for(var r in T[n])T[n].hasOwnProperty(r)&&T[n][r].onload()}}var f=f||k.errorTimeout,c=t.createElement(e),d=0,g=0,w={t:r,s:n,e:s,a:a,x:f};1===T[n]&&(g=1,T[n]=[]),"object"==e?c.data=n:(c.src=n,c.type=e),c.width=c.height="0",c.onerror=c.onload=c.onreadystatechange=function(){l.call(this,g)},v.splice(i,0,w),"img"!=e&&(g||2===T[n]?(b.insertBefore(c,y?null:p),h(l,f)):T[n].push(c))}function f(e,t,n,r,s){return m=0,t=t||"j",i(e)?a("c"==t?E:w,e,t,this.i++,n,r,s):(v.splice(this.i++,0,e),1==v.length&&u()),this}function l(){var e=k;return e.loader={load:f,i:0},e}var c=t.documentElement,h=e.setTimeout,p=t.getElementsByTagName("script")[0],d={}.toString,v=[],m=0,g="MozAppearance"in c.style,y=g&&!!t.createRange().compareNode,b=y?c:p.parentNode,c=e.opera&&"[object Opera]"==d.call(e.opera),c=!!t.attachEvent&&!c,w=g?"object":c?"script":"img",E=c?"script":w,S=Array.isArray||function(e){return"[object Array]"==d.call(e)},x=[],T={},N={timeout:function(e,t){return t.length&&(e.timeout=t[0]),e}},C,k;k=function(e){function t(e){var e=e.split("!"),t=x.length,n=e.pop(),r=e.length,n={url:n,origUrl:n,prefixes:e},i,s,o;for(s=0;s<r;s++)o=e[s].split("="),(i=N[o.shift()])&&(n=i(n,o));for(s=0;s<t;s++)n=x[s](n);return n}function o(e,i,s,o,u){var a=t(e),f=a.autoCallback;a.url.split(".").pop().split("?").shift(),a.bypass||(i&&(i=r(i)?i:i[e]||i[o]||i[e.split("/").pop().split("?")[0]]),a.instead?a.instead(e,i,s,o,u):(T[a.url]?a.noexec=!0:T[a.url]=1,s.load(a.url,a.forceCSS||!a.forceJS&&"css"==a.url.split(".").pop().split("?").shift()?"c":n,a.noexec,a.attrs,a.timeout),(r(i)||r(f))&&s.load(function(){l(),i&&i(a.origUrl,u,o),f&&f(a.origUrl,u,o),T[a.url]=2})))}function u(e,t){function n(e,n){if(e){if(i(e))n||(f=function(){var e=[].slice.call(arguments);l.apply(this,e),c()}),o(e,f,t,0,u);else if(Object(e)===e)for(p in h=function(){var t=0,n;for(n in e)e.hasOwnProperty(n)&&t++;return t}(),e)e.hasOwnProperty(p)&&(!n&&!--h&&(r(f)?f=function(){var e=[].slice.call(arguments);l.apply(this,e),c()}:f[p]=function(e){return function(){var t=[].slice.call(arguments);e&&e.apply(this,t),c()}}(l[p])),o(e[p],f,t,p,u))}else!n&&c()}var u=!!e.test,a=e.load||e.both,f=e.callback||s,l=f,c=e.complete||s,h,p;n(u?e.yep:e.nope,!!a),a&&n(a)}var a,f,c=this.yepnope.loader;if(i(e))o(e,0,c,0);else if(S(e))for(a=0;a<e.length;a++)f=e[a],i(f)?o(f,0,c,0):S(f)?k(f):Object(f)===f&&u(f,c);else Object(e)===e&&u(e,c)},k.addPrefix=function(e,t){N[e]=t},k.addFilter=function(e){x.push(e)},k.errorTimeout=1e4,null==t.readyState&&t.addEventListener&&(t.readyState="loading",t.addEventListener("DOMContentLoaded",C=function(){t.removeEventListener("DOMContentLoaded",C,0),t.readyState="complete"},0)),e.yepnope=l(),e.yepnope.executeStack=u,e.yepnope.injectJs=function(e,n,r,i,a,f){var l=t.createElement("script"),c,d,i=i||k.errorTimeout;l.src=e;for(d in r)l.setAttribute(d,r[d]);n=f?u:n||s,l.onreadystatechange=l.onload=function(){!c&&o(l.readyState)&&(c=1,n(),l.onload=l.onreadystatechange=null)},h(function(){c||(c=1,n(1))},i),a?l.onload():p.parentNode.insertBefore(l,p)},e.yepnope.injectCss=function(e,n,r,i,o,a){var i=t.createElement("link"),f,n=a?u:n||s;i.href=e,i.rel="stylesheet",i.type="text/css";for(f in r)i.setAttribute(f,r[f]);o||(p.parentNode.insertBefore(i,p),h(n,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))},Modernizr.addTest("details",function(){var e=document,t=e.createElement("details"),n,r,i;return"open"in t?(r=e.body||function(){var t=e.documentElement;return n=!0,t.insertBefore(e.createElement("body"),t.firstElementChild||t.firstChild)}(),t.innerHTML="<summary>a</summary>b",t.style.display="block",r.appendChild(t),i=t.offsetHeight,t.open=!0,i=i!=t.offsetHeight,r.removeChild(t),n&&r.parentNode.removeChild(r),i):!1}),Modernizr.addTest("progressbar",function(){return document.createElement("progress").max!==undefined}),Modernizr.addTest("meter",function(){return document.createElement("meter").max!==undefined}),Modernizr.addTest("mathml",function(){var e=!1;if(document.createElementNS){var t="http://www.w3.org/1998/Math/MathML",n=document.createElement("div");n.style.position="absolute";var r=n.appendChild(document.createElementNS(t,"math")).appendChild(document.createElementNS(t,"mfrac"));r.appendChild(document.createElementNS(t,"mi")).appendChild(document.createTextNode("xx")),r.appendChild(document.createElementNS(t,"mi")).appendChild(document.createTextNode("yy")),document.body.appendChild(n),e=n.offsetHeight>n.offsetWidth}return e}),Modernizr.addTest("cors",!!(window.XMLHttpRequest&&"withCredentials"in new XMLHttpRequest));
+
+/**
+ * String.prototype.includes() polyfill
+ * @author Ricokola
+ * @license MIT
+ */
+if ( !String.prototype.includes ) {
+	String.prototype.includes = function( string ) {
+
+		return this.indexOf( string ) !== -1;
+
+	};
+}
+
+/**
+ * String.prototype.replaceAll() polyfill
+ * https://gomakethings.com/how-to-replace-a-section-of-a-string-with-another-one-with-vanilla-js/
+ * @author Chris Ferdinandi
+ * @license MIT
+ */
+if ( !String.prototype.replaceAll ) {
+	String.prototype.replaceAll = function( str, newStr ) {
+
+		// If a regex pattern
+		if ( Object.prototype.toString.call( str ).toLowerCase() === "[object regexp]" ) {
+			return this.replace( str, newStr );
+		}
+
+		// If a string
+		return this.replace( new RegExp( str, "g" ), newStr );
+
+	};
+}
 
 /**
  * @title WET-BOEW Vapour loader
@@ -2651,6 +2709,7 @@ wb.getData = function( element, dataName ) {
 			dataObj = JSON.parse( dataAttr );
 			$.data( elm, dataName, dataObj );
 		} catch ( error ) {
+			console.info( elm );
 			$.error( "Bad JSON array in data-" + dataName + " attribute" );
 		}
 	}
@@ -3940,8 +3999,8 @@ wb.findPotentialPII = function( str, scope, opts ) {
 			passport: /\b[A-Za-z]{2}[\s\\.-]*?\d{6}\b/ig, //canadian nr passport pattern
 			email: /\b(?:[a-zA-Z0-9_\-\\.]+)(?:@|%40)(?:[a-zA-Z0-9_\-\\.]+)\.(?:[a-zA-Z]{2,5})\b/ig, //email pattern
 			postalCode: /\b[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d\b/ig, //postal code pattern
-			username: /\b(?:(username|user)[:=][a-zA-Z0-9_\-\\.]+)\b/ig,
-			password: /\b(?:(password|pass)[:=][^\s#&]+)\b/ig
+			username: /(?:(username|user)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig,
+			password: /(?:(password|pass)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig
 		},
 		isFound = false,
 		txtMarker = opts && opts.replaceWith ? opts.replaceWith : "",
@@ -4122,26 +4181,6 @@ $.extend( $.expr[ ":" ], {
 } );
 
 } )( jQuery );
-
-/**
- * String.prototype.replaceAll() polyfill
- * https://gomakethings.com/how-to-replace-a-section-of-a-string-with-another-one-with-vanilla-js/
- * @author Chris Ferdinandi
- * @license MIT
- */
-if ( !String.prototype.replaceAll ) {
-	String.prototype.replaceAll = function( str, newStr ) {
-
-		// If a regex pattern
-		if ( Object.prototype.toString.call( str ).toLowerCase() === "[object regexp]" ) {
-			return this.replace( str, newStr );
-		}
-
-		// If a string
-		return this.replace( new RegExp( str, "g" ), newStr );
-
-	};
-}
 
 /**
  * @title WET-BOEW Add to calendar
@@ -6392,7 +6431,7 @@ var componentName = "wb-charts",
 
 				} else {
 
-					header = currentRowGroup.row[ rIndex ].header;
+					header = !reverseTblParsing ? dataCell.row.header : dataCell.col.header;
 
 					figurehtml = "<figure><figcaption>" +
 						header[ header.length - 1 ].elem.innerHTML +
@@ -7125,6 +7164,19 @@ $document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " ajax-fetched.w
 	 * continue
 	 */
 	return true;
+} );
+
+// Re-run WET for elements that have just been loaded if WET is already done initializing
+$document.on( contentUpdatedEvent, function( event ) {
+	if ( wb.isReady && !wb.isDisabled ) {
+		let updtElm = event.currentTarget;
+
+		$( updtElm )
+			.find( wb.allSelectors )
+			.addClass( "wb-init" )
+			.filter( ":not(#" + updtElm.id + " .wb-init .wb-init)" )
+			.trigger( "timerpoke.wb" );
+	}
 } );
 
 // Add the timerpoke to initialize the plugin
@@ -7870,26 +7922,26 @@ var componentName = "wb-eqht",
 			}
 			$elm = reattachElement( $anchor );
 
-			// set the top and tallest to the first element
-			rowTop = $children[ 0 ] ? $children[ 0 ].offsetTop : 0;
+			// set the top offset and tallest height to the first element
+			rowTop = $children[ 0 ] ? $children[ 0 ].getBoundingClientRect().top + window.pageYOffset : 0;
 			tallestHeight = $children[ 0 ] ? $children[ 0 ].offsetHeight : 0;
 
 			// first, the loop MUST be from start to end to work.
 			for ( j = 0; j < $children.length; j++ ) {
 				currentChild = $children[ j ];
 
-				currentChildTop = currentChild.offsetTop;
+				currentChildTop = currentChild.getBoundingClientRect().top + window.pageYOffset;
 				currentChildHeight = currentChild.offsetHeight;
 
 				if ( currentChildTop !== rowTop ) {
 
-					// as soon as we find an element not on this row (not the same offsetTop)
+					// as soon as we find an element not on this row (not the same top offset)
 					// we need to equalize each items in that row to align the next row.
 					equalize( row, tallestHeight );
 
 					// since the elements of the previous row was equalized
-					// we need to get the new offsetTop of the current element
-					currentChildTop = currentChild.offsetTop;
+					// we need to get the new top offset of the current element
+					currentChildTop = currentChild.getBoundingClientRect().top + window.pageYOffset;
 
 					// reset the row, rowTop and tallestHeight
 					row.length = 0;
@@ -8956,20 +9008,24 @@ var componentName = "wb-filter",
 		}
 	},
 	i18n, i18nText,
-	infoText,
 	wait,
 
 	init = function( event ) {
 		var elm = wb.init( event, componentName, selector ),
 			$elm, elmTagName, filterUI, prependUI,
 			settings, setDefault,
-			inptId, totalEntries;
+			itemsObserver,
+			inptId, totalEntries,
+			secSelector,
+			uiTemplate, uiInpt, uiInfo,
+			uiNbItems, uiTotal, uiInfoID;
 
 		if ( elm ) {
 			$elm = $( elm );
 			elmTagName = elm.nodeName;
+			uiInfoID = elm.id + "-info";
 
-			if ( [ "DIV", "SECTION", "ARTICLE" ].indexOf( elm.nodeName ) >= 0 ) {
+			if ( [ "DIV", "SECTION", "ARTICLE" ].indexOf( elmTagName ) >= 0 ) {
 				setDefault = defaults.grp;
 				prependUI = true;
 			} else if ( elmTagName === "TABLE" ) {
@@ -8991,8 +9047,6 @@ var componentName = "wb-filter",
 					filter_label: i18n( "fltr-lbl" ),
 					fltr_info: i18n( "fltr-info" )
 				};
-
-				infoText = i18nText.fltr_info;
 			}
 
 			Modernizr.addTest( "stringnormalize", "normalize" in String );
@@ -9006,31 +9060,68 @@ var componentName = "wb-filter",
 			if ( !elm.id ) {
 				elm.id = wb.getId();
 			}
-			inptId = elm.id + "-inpt";
 
-			totalEntries = $elm.find( ( settings.section || "" ) + " " + settings.selector ).length;
+			if ( settings.uiTemplate ) {
+				uiTemplate = document.querySelector( settings.uiTemplate );
+				uiInpt = uiTemplate.querySelector( "input[type=search]" );
 
-			filterUI = $( "<div class=\"input-group\">" +
-				"<label for=\"" + inptId + "\" class=\"input-group-addon\"><span class=\"glyphicon glyphicon-filter\" aria-hidden=\"true\"></span> " + i18nText.filter_label + "</label>" +
-				"<input id=\"" + inptId + "\" class=\"form-control " + inputClass + "\" data-" + dtNameFltrArea + "=\"" + elm.id + "\" aria-controls=\"" + elm.id + "\" type=\"search\">" +
-				"</div>" +
-				"<p aria-live=\"polite\" id=\"" + elm.id + "-info\">" + infoFormater( totalEntries, totalEntries ) + "</p>" );
+				if ( uiInpt ) {
+					uiInfo = uiTemplate.querySelector( ".wb-fltr-info" );
 
-			if ( settings.source ) {
-				$( settings.source ).prepend( filterUI );
-			} else if ( prependUI ) {
-				$elm.prepend( filterUI );
+					uiInpt.classList.add( inputClass );
+					uiInpt.setAttribute( "data-" + dtNameFltrArea, elm.id );
+					uiInpt.setAttribute( "aria-controls", elm.id );
+
+					if ( uiInfo ) {
+						uiInfoID = uiInfo.id || uiInfoID;
+						uiInfo.id = uiInfoID;
+						uiInfo.setAttribute( "role", "status" );
+					}
+				} else {
+					console.error( componentName + ": " + "an <input type=\"search\"> is required in your UI template." );
+				}
+
+				if ( settings.source ) {
+					console.warn( componentName + ": " + "the 'source' option is not compatible with the 'uiTemplate' option. If both options are defined, only 'uiTemplate' will be registered." );
+				}
 			} else {
-				$elm.before( filterUI );
+				inptId = elm.id + "-inpt";
+				filterUI = $( "<div class=\"input-group\">" +
+					"<label for=\"" + inptId + "\" class=\"input-group-addon\"><span class=\"glyphicon glyphicon-filter\" aria-hidden=\"true\"></span> " + i18nText.filter_label + "</label>" +
+					"<input id=\"" + inptId + "\" class=\"form-control " + inputClass + "\" data-" + dtNameFltrArea + "=\"" + elm.id + "\" aria-controls=\"" + elm.id + "\" type=\"search\">" +
+					"</div>" +
+					"<p role=\"status\" id=\"" + uiInfoID + "\">" + i18nText.fltr_info + "</p>" );
+
+				if ( settings.source ) {
+					$( settings.source ).prepend( filterUI );
+				} else if ( prependUI ) {
+					$elm.prepend( filterUI );
+				} else {
+					$elm.before( filterUI );
+				}
+			}
+
+			secSelector = ( settings.section || "" ) + " ";
+			totalEntries = $elm.find( secSelector + settings.selector ).length;
+			uiNbItems = document.querySelector( "#" + uiInfoID + " [data-nbitem]" );
+			uiTotal = document.querySelector( "#" + uiInfoID + " [data-total]" );
+
+			if ( uiNbItems ) {
+				uiNbItems.textContent = totalEntries;
+
+				itemsObserver = new MutationObserver( function() {
+					uiNbItems.textContent = $elm.find( secSelector + notFilterClassSel + settings.selector + visibleSelector ).length;
+				} );
+
+				itemsObserver.observe( elm, { attributes: true, subtree: true } );
+			}
+
+			if ( uiTotal ) {
+				uiTotal.textContent = totalEntries;
 			}
 
 			wb.ready( $elm, componentName );
 		}
-	},
-	infoFormater = function( nbItem, total ) {
-		return infoText.
-			replace( /_NBITEM_/g, nbItem ).
-			replace( /_TOTAL_/g, total );
 	},
 
 	/*
@@ -9126,8 +9217,6 @@ var componentName = "wb-filter",
 			fCallBack = filterCallback;
 		}
 		fCallBack.apply( this, arguments );
-
-		$( "#" + $elm.get( 0 ).id + "-info" ).html( infoFormater( $elm.find( secSelector + notFilterClassSel + settings.selector + visibleSelector ).length, itemsLength ) );
 	},
 	filterCallback = function( $field, $elm, settings ) {
 		var $sections =	$elm.find( settings.section + visibleSelector ),
@@ -9774,17 +9863,23 @@ var $document = wb.doc,
 	fetchEvent = component + ".wb",
 	jsonCache = { },
 	jsonCacheBacklog = { },
-	completeJsonFetch = function( callerId, refId, response, status, xhr, selector ) {
+	completeJsonFetch = function( callerId, refId, response, status, xhr, selector, fetchedOpts ) {
 		if ( !window.jsonpointer ) {
 
 			// JSON pointer library is loaded but not executed in memory yet, we need to wait a tick before to continue
 			setTimeout( function() {
-				completeJsonFetch( callerId, refId, response, status, xhr, selector );
+				completeJsonFetch( callerId, refId, response, status, xhr, selector, fetchedOpts );
 			}, 100 );
 			return false;
 		}
 		if ( selector ) {
-			response = jsonpointer.get( response, selector );
+			try {
+				response = jsonpointer.get( response, selector );
+			} catch ( ex ) {
+				console.error( "JSON fetch - Bad JSON selector: " + selector );
+				console.error( response );
+				console.error( $( "#" + callerId ).get( 0 ) );
+			}
 		}
 		$( "#" + callerId ).trigger( {
 			type: "json-fetched.wb",
@@ -9792,7 +9887,8 @@ var $document = wb.doc,
 				response: response,
 				status: status,
 				xhr: xhr,
-				refId: refId
+				refId: refId,
+				fetchedOpts: fetchedOpts
 			}
 		}, this );
 	};
@@ -9875,7 +9971,7 @@ $document.on( fetchEvent, function( event ) {
 					cachedResponse = jsonCache[ url ];
 
 					if ( cachedResponse ) {
-						completeJsonFetch( callerId, refId, cachedResponse, "success", undefined, selector );
+						completeJsonFetch( callerId, refId, cachedResponse, "success", undefined, selector, fetchOpts );
 						return;
 					} else {
 						if ( !jsonCacheBacklog[ url ] ) {
@@ -9922,7 +10018,7 @@ $document.on( fetchEvent, function( event ) {
 							}
 						}
 
-						completeJsonFetch( callerId, refId, response, status, xhr, selector );
+						completeJsonFetch( callerId, refId, response, status, xhr, selector, fetchOpts );
 
 						if ( jsonCacheBacklog[ url ] ) {
 							backlog = jsonCacheBacklog[ url ];
@@ -9931,7 +10027,7 @@ $document.on( fetchEvent, function( event ) {
 
 							for ( i = 0; i !== i_len; i += 1 ) {
 								i_cache = backlog[ i ];
-								completeJsonFetch( i_cache.callerId, i_cache.refId, response, status, xhr, i_cache.selector );
+								completeJsonFetch( i_cache.callerId, i_cache.refId, response, status, xhr, i_cache.selector, fetchOpts );
 							}
 						}
 
@@ -9943,7 +10039,8 @@ $document.on( fetchEvent, function( event ) {
 								xhr: xhr,
 								status: status,
 								error: error,
-								refId: refId
+								refId: refId,
+								fetchOpts: fetchOpts
 							}
 						}, this );
 					}, this );
@@ -11728,6 +11825,7 @@ var componentName = "wb-mltmd",
 
 		switch ( fn ) {
 		case "play":
+			this.object.wasMutedPlay = this.object.isMuted();
 			return this.object.playVideo();
 		case "pause":
 			return this.object.pauseVideo();
@@ -11745,7 +11843,13 @@ var componentName = "wb-mltmd",
 		case "setCurrentTime":
 			return this.object.seekTo( args, true );
 		case "getMuted":
-			return this.object.isMuted();
+			if ( !this.object.playedOnce && this.object.wasMutedPlay ) {
+				state = this.object.wasMutedPlay;
+				this.object.playedOnce = true;
+				return state;
+			} else {
+				return this.object.isMuted();
+			}
 		case "setMuted":
 			if ( args ) {
 				this.object.mute();
@@ -11754,7 +11858,7 @@ var componentName = "wb-mltmd",
 			}
 			setTimeout( function() {
 				$media.trigger( "volumechange" );
-			}, 50 );
+			}, ( wb.isReady ? 50 : 500 ) );
 			break;
 		case "getVolume":
 			return this.object.getVolume() / 100;
@@ -11796,13 +11900,24 @@ var componentName = "wb-mltmd",
 			timeline = function() {
 				$media.trigger( "timeupdate" );
 			},
-			$mltmPlayerElm;
+			$mltmPlayerElm,
+			mltmPlayerElm,
+			isMuted;
 
 		switch ( event.data ) {
-		case null:
+		case null: // init
 			$media
 				.trigger( "canplay" )
 				.trigger( "durationchange" );
+
+			// Put video on mute if the video is muted on init, run once
+			$mltmPlayerElm = $media.parentsUntil( selector ).parent();
+
+			// Mute the player, GUI
+			if ( $mltmPlayerElm.data( "putMutedOnInit" ) ) {
+				youTubeApi.call( $mltmPlayerElm.get( 0 ), "setMuted", true );
+				$mltmPlayerElm.data( "putMutedOnInit", false );
+			}
 			break;
 		case -1:
 			event.target.unMute();
@@ -11812,17 +11927,31 @@ var componentName = "wb-mltmd",
 			$media.trigger( "ended" );
 			media.timeline = clearInterval( media.timeline );
 			break;
-		case 1:
-			if ( media.dataset.L2 ) {
+		case 1: // play
 
-				// Reset the close caption state when iframe was reloaded
-				$mltmPlayerElm = $media.parentsUntil( selector ).parent();
-				youTubeApi.call( $mltmPlayerElm.get( 0 ), "setCaptionsVisible", $mltmPlayerElm.hasClass( captionClass ) );
+			// Get the media player
+			$mltmPlayerElm = $media.parentsUntil( selector ).parent();
+			mltmPlayerElm = $mltmPlayerElm.get( 0 );
+
+			// Need to be muted here
+			isMuted = mltmPlayerElm.player( "getMuted" );
+
+			// Reset the close caption state when iframe was reloaded
+			if ( media.dataset.L2 ) {
+				youTubeApi.call( mltmPlayerElm, "setCaptionsVisible", $mltmPlayerElm.hasClass( captionClass ) );
 			}
+
+			// Play
 			$media
 				.trigger( "canplay" )
 				.trigger( "play" )
 				.trigger( "playing" );
+
+			// Reset muted as needed because youtube onMute by default when playing
+			if ( isMuted ) {
+				youTubeApi.call( mltmPlayerElm, "setMuted", true );
+			}
+
 			media.timeline = setInterval( timeline, 250 );
 			break;
 		case 2:
@@ -11910,6 +12039,9 @@ $document.on( initializedEvent, selector, function( event ) {
 
 			// lets set the flag for the call back
 			data.youTubeId = url.params.v ? url.params.v : url.pathname.substr( 1 );
+
+			// Defaults config set on the video element
+			data.isInitMuted = $media.get( 0 ).muted;
 
 			if ( youTube.ready === false ) {
 				$document.one( youtubeReadyEvent, function() {
@@ -12082,6 +12214,12 @@ $document.on( renderUIEvent, selector, function( event, type, data ) {
 				"\", \"pnlId\": \"" + data.id + "-shr\"}'></div>" )
 				.insertBefore( $media.parent() )
 				.trigger( "wb-init.wb-share" );
+		}
+
+		if ( data.isInitMuted ) {
+			$this.data( "putMutedOnInit", true );
+		} else if ( !data.ytPlayer && this.object.muted ) {
+			$media.trigger( "volumechange" );
 		}
 
 		if ( data.captions === undef ) {
@@ -13784,7 +13922,7 @@ var componentName = "wb-share",
 				// Add an email mailto option
 				defaults.sites.email = {
 					name: i18nText.email,
-					url: "mailto:?to=&subject={t}&body={u}%0A{d}",
+					url: "mailto:?subject={t}&body={u}%0A{d}",
 					isMailto: true
 				};
 			}
@@ -14200,7 +14338,12 @@ var componentName = "wb-tables",
 				complete: function() {
 					var $elm = $( "#" + elmId ),
 						dataTableExt = $.fn.dataTableExt,
-						settings = wb.getData( $elm, componentName );
+						settings = wb.getData( $elm, componentName ) || {};
+
+					// Explicitly deactivate the paging for the filterEmphasis provisional feature/styling when not configured
+					if ( $elm.hasClass( "provisional" ) && $elm.hasClass( "filterEmphasis" ) ) {
+						settings.paging = settings.paging ? settings.paging : false;
+					}
 
 					/*
 					 * Extend sorting support
@@ -14325,23 +14468,29 @@ $document.on( "draw.dt", selector, function( event, settings ) {
 } );
 
 // Identify that initialization has completed
-$document.on( "init.dt", function( event ) {
+$document.on( "init.dt", selector, function( event ) {
 	var $elm = $( event.target ),
 		settings = $.extend( true, {}, defaults, window[ componentName ], wb.getData( $elm, componentName ) );
 
 	// Handle sorting/ordering
 	var ordering = ( settings && settings.ordering === false ) ? false : true;
 	if ( ordering ) {
-		$elm.find( "th" ).each( function() {
+		$elm.find( "thead th" ).each( function() {
 			var $th = $( this ),
 				label = ( $th.attr( "aria-sort" ) === "ascending" ) ? i18nText.aria.sortDescending : i18nText.aria.sortAscending;
-			if ( $th.attr( "data-orderable" ) !== "false" ) {
+			if ( ( $th.attr( "data-orderable" ) !== "false" ) && !( $th.hasClass( "sorting_disabled" ) ) ) {
 				$th.html( "<button type='button' aria-controls='" + $th.attr( "aria-controls" ) +  "' title='" + $th.text().replace( /'/g, "&#39;" ) + label + "'>" + $th.html() + "<span class='sorting-cnt'><span class='sorting-icons' aria-hidden='true'></span></span></button>" );
 				$th.removeAttr( "aria-label tabindex aria-controls" );
 			}
 		} );
 		$elm.attr( "aria-label", i18nText.tblFilterInstruction );
 	}
+
+	// Apply the filter emphasis style
+	if ( $elm.hasClass( "provisional" ) && $elm.hasClass( "filterEmphasis" ) ) {
+		$elm.parent().addClass( "provisional filterEmphasis" );
+	}
+
 	wb.ready( $( event.target ), componentName );
 } );
 
@@ -15540,6 +15689,272 @@ wb.add( selector );
 } )( jQuery, window, wb );
 
 /**
+ * @title WET-BOEW Tag filter
+ * @overview Filter based content tagging
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @duboisp
+ */
+( function( $, window, document, wb ) {
+"use strict";
+
+const componentName = "wb-tagfilter",
+	selector = ".provisional." + componentName,
+	selectorCtrl = "." + componentName + "-ctrl",
+	initEvent = "wb-init" + selector,
+	$document = wb.doc,
+	filterOutClass = "wb-tgfltr-out",
+
+	init = function( event ) {
+		const elm = wb.init( event, componentName, selector );
+
+		if ( elm ) {
+			elm.items = [];
+			elm.filters = {};
+			elm.activeFilters = [];
+
+			// Get all form inputs (radio buttons, checkboxes and select) within filters form
+			const filterControls = document.querySelectorAll( "#" + elm.id + " .wb-tagfilter-ctrl" ),
+				taggedItems = document.querySelectorAll( "#" + elm.id + " [data-wb-tags]" ),
+				taggedItemsWrapper = document.querySelector( "#" + elm.id + " .wb-tagfilter-items" );
+
+			if ( taggedItemsWrapper ) {
+				taggedItemsWrapper.id = taggedItemsWrapper.id || wb.getId(); // Ensure the element has an ID
+				taggedItemsWrapper.setAttribute( "aria-live", "polite" );
+			} else {
+				console.warn( componentName + ": You have to identify the wrapper of your tagged elements using the class 'wb-tagfilter-items'." );
+			}
+
+			// Handle filters
+			if ( filterControls.length ) {
+				elm.filters = buildFiltersObj( filterControls );
+
+				filterControls.forEach( function( item ) {
+					item.setAttribute( "aria-controls", taggedItemsWrapper.id );
+				} );
+			} else {
+				console.warn( componentName + ": You have no defined filter." );
+			}
+
+			// Handle tagged items
+			if ( taggedItems.length ) {
+				elm.items = buildTaggedItemsArr( taggedItems );
+			} else {
+				console.warn( componentName + ": You have no tagged items. Please add tags using the 'data-wb-tags' attribute." );
+			}
+
+			// Update list of visible items (in case of predefined filters)
+			update( elm );
+
+			wb.ready( $( elm ), componentName );
+		}
+	},
+
+	// Add every tagged item to an array of objects with their DOM ID, list of associated tags, and default isMatched attribute
+	buildTaggedItemsArr = function( taggedItems ) {
+		let taggedItemsArr = [];
+
+		taggedItems.forEach( function( taggedItem ) {
+			let tagsList = taggedItem.dataset.wbTags.split( " " );
+
+			if ( !taggedItem.id ) {
+				taggedItem.setAttribute( "id", wb.getId() );
+			}
+
+			taggedItemsArr.push( {
+				id: taggedItem.id,
+				tags: tagsList,
+				isMatched: true,
+				itemText: taggedItem.innerText.toLowerCase()
+			} );
+		} );
+
+		return taggedItemsArr;
+	},
+
+	// Build list of available filters using all filters grouped by filter name
+	buildFiltersObj = function( filterControls ) {
+		let filtersObj = {};
+
+		filterControls.forEach( function( control ) {
+			if ( !control.name ) {
+				console.error( componentName + ": Filter controls require an attribute 'name'." );
+			}
+
+			switch ( control.type ) {
+			case "checkbox":
+			case "radio":
+				if ( !( control.name in filtersObj ) ) {
+					filtersObj[ control.name ] = [ ];
+				}
+
+				filtersObj[ control.name ].push( {
+					isChecked: control.checked,
+					type: control.type,
+					value: control.value
+				} );
+
+				break;
+			case "select-one":
+				filtersObj[ control.name ] = [ {
+					type: control.type,
+					value: control.value
+				} ];
+				break;
+			}
+		} );
+
+		return filtersObj;
+	},
+
+	// Update array of active filters according to UI selected controls
+	refineFilters = function( instance ) {
+		instance.activeFilters = [ ]; // Clear active filters
+
+		for ( let filterGroupName in instance.filters ) {
+			let filterGroup = instance.filters[ filterGroupName ],
+				filterGroupChkCnt = filterGroup.filter( function( o ) {
+					return o.isChecked === true;
+				} ).length,
+				filterGroupActiveFilters = [ ];
+
+			switch ( filterGroup[ 0 ].type ) {
+			case "checkbox":
+				if ( filterGroupChkCnt > 0 ) {
+					filterGroup.forEach( function( filterItem ) {
+						if ( filterItem.isChecked ) {
+							filterGroupActiveFilters.push( filterItem.value );
+						}
+					} );
+				}
+				break;
+
+			case "radio":
+				if ( filterGroupChkCnt > 0 ) {
+					for ( let filterItem of filterGroup ) {
+						if ( filterItem.isChecked === true ) {
+							if ( filterItem.value !== "" ) {
+								filterGroupActiveFilters.push( filterItem.value );
+							}
+							break;
+						}
+					}
+				} else {
+					console.warn( componentName + ": Radio button groups must have a default selected value. If you want to display all items, add an option called \"All\" with an empty value." );
+				}
+				break;
+
+			case "select-one":
+				if ( filterGroup[ 0 ].value !== "" ) {
+					filterGroupActiveFilters.push( filterGroup[ 0 ].value );
+				}
+				break;
+			}
+
+			instance.activeFilters.push( filterGroupActiveFilters );
+		}
+	},
+
+	// Match tagged items to active filters and only return items that have an active filter in every filter group
+	matchItemsToFilters = function( instance ) {
+		let filtersGroups = instance.activeFilters.length;
+
+		instance.items.forEach( function( item ) {
+			let matchCount = 0;
+
+			instance.activeFilters.forEach( function( filterGroup ) {
+				if ( filterGroup.length === 0 ) {
+					matchCount++;
+				} else {
+					let itemIncludesFilter = filterGroup.filter( function( f ) {
+						return item.tags.includes( f );
+					} ).length;
+
+					if ( itemIncludesFilter ) {
+						matchCount++;
+					}
+				}
+			} );
+
+			matchCount === filtersGroups ? item.isMatched = true : item.isMatched = false;
+		} );
+	},
+
+	// Update list of visible items according to their "isMatched" property
+	updateDOMItems = function( instance ) {
+		const updatedItemsList = instance.items.forEach( function( item ) {
+			let domItem = instance.querySelector( "#" + item.id ),
+				matched = item.isMatched;
+
+			if ( matched ) {
+				if ( domItem.classList.contains( filterOutClass ) ) {
+					domItem.classList.remove( filterOutClass );
+				}
+			} else {
+				if ( !domItem.classList.contains( filterOutClass ) ) {
+					domItem.classList.add( filterOutClass );
+				}
+			}
+		} );
+
+		return updatedItemsList;
+	},
+
+	// Utility method to update stored active filters, update stored items and update visibility of tagged items
+	update = function( instance ) {
+		refineFilters( instance );
+		matchItemsToFilters( instance );
+		updateDOMItems( instance );
+	};
+
+// When a filter is updated
+$document.on( "change", selectorCtrl, function( event )  {
+	let control = event.currentTarget,
+		filterType = control.type,
+		filterName = control.name,
+		filterValue = control.value,
+		$elm = control.closest( selector ),
+		filterGroup = $elm.filters[ filterName ];
+
+	switch ( filterType ) {
+	case "checkbox":
+
+		// Update virtual filter to the new state
+		filterGroup.find( function( filter ) {
+			return filter.value === filterValue;
+		} ).isChecked = !!control.checked;
+		break;
+
+	case "radio":
+
+		// Set all virtual radio items to unchecked
+		filterGroup.forEach( function( filterItem ) {
+			filterItem.isChecked = false;
+		} );
+
+		// Set selected radio button's associated virtual filter to checked
+		filterGroup.find( function( filter ) {
+			return filter.value === filterValue;
+		} ).isChecked = true;
+		break;
+
+	case "select-one":
+
+		// Update virtual filter to the new value
+		filterGroup[ 0 ].value = filterValue;
+		break;
+	}
+
+	// Update list of visible items
+	update( $elm );
+} );
+
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+wb.add( selector );
+
+} )( jQuery, window, document, wb );
+
+/**
  * @title WET-BOEW Text highlighting
  * @overview Automatically highlights certain words on a Web page. The highlighted words can be selected via the query string.
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -16184,6 +16599,49 @@ var componentName = "wb-twitter",
 			protocol = wb.pageUrlParts.protocol;
 
 		if ( eventTarget ) {
+			const twitterLink = eventTarget.firstElementChild;
+
+			// Ignore IE11
+			// Note: Twitter's widget no longer supports it...
+			if ( wb.ie11 ) {
+				wb.ready( $( eventTarget ), componentName );
+				return;
+			}
+
+			// If the plugin container's first child element is a Twitter link...
+			if ( twitterLink && twitterLink.matches( "a.twitter-timeline" ) ) {
+				const loadingDiv = document.createElement( "div" );
+				let observer;
+
+				// Add a loading icon below the link
+				loadingDiv.className = "twitter-timeline-loading";
+				twitterLink.after( loadingDiv );
+
+				// Remove the loading icon after the timeline widget appears
+				// Note: Twitter's widget script removes "a.twitter-timeline" upon filling-in the timeline's content... at which point the loading icon is no longer useful
+				observer = new MutationObserver( function( mutations ) {
+
+					// Check for DOM mutations
+					mutations.forEach( function( mutation ) {
+
+						// Deal only with removed HTML nodes
+						mutation.removedNodes.forEach( function( removedNode ) {
+
+							// If the removed node was a Twitter link, remove its adjacent loading icon and stop observing
+							if ( removedNode === twitterLink && mutation.nextSibling === loadingDiv ) {
+								loadingDiv.remove();
+								observer.disconnect();
+							}
+						} );
+					} );
+				} );
+
+				// Observe changes to the plugin container's direct child elements
+				observer.observe( eventTarget, {
+					childList: true
+				} );
+			}
+
 			Modernizr.load( {
 				load: ( protocol.indexOf( "http" ) === -1 ? "http:" : protocol ) + "//platform.twitter.com/widgets.js",
 				complete: function() {
@@ -16522,6 +16980,11 @@ var componentName = "wb-data-json",
 						cached_value = jsonpointer.get( content, basePntr + j_cache.value );
 					}
 
+					// Go to the next mapping if the value of JSON node don't exist to ensure we keep the default text set in the template, but move ahead if empty or null
+					if ( cached_value === undefined ) {
+						continue;
+					}
+
 					// Placeholder text replacement if any
 					if ( j_cache.placeholder ) {
 						cached_textContent = cached_node.textContent || "";
@@ -16675,7 +17138,8 @@ var componentName = "wb-data-json",
 		loadJSON( elm, wbJsonConfig.url, refId );
 	};
 
-$document.on( "json-failed.wb", selector, function( ) {
+$document.on( "json-failed.wb", selector, function( event ) {
+	console.info( event.currentTarget );
 	throw "Bad JSON Fetched from url in " + componentName;
 } );
 
@@ -16749,7 +17213,9 @@ var componentName = "wb-disable",
 			noticeHeader = i18n( "disable-notice-h" ),
 			noticeBody = i18n( "disable-notice" ),
 			noticehtml = "<section",
-			noticehtmlend = "</a>.</p></section>";
+			noticehtmlend = "</a>.</p></section>",
+			canonicalUrl,
+			canonicalLink;
 
 		if ( elm ) {
 
@@ -16773,9 +17239,28 @@ var componentName = "wb-disable",
 						/* swallow error */
 					}
 
+					// Add canonical link if not already present
+					if ( !document.querySelector( "link[rel=canonical]" ) ) {
+
+						// Remove wbdisable from URL
+						canonicalUrl = window.location.href.replace( /&?wbdisable=true/gi, "" ).replace( "?&", "?" ).replace( "?#", "#" );
+
+						if ( canonicalUrl.indexOf( "?" ) === ( canonicalUrl.length - 1 ) ) {
+							canonicalUrl = canonicalUrl.replace( "?", "" );
+						}
+
+						canonicalLink = document.createElement( "link" );
+						canonicalLink.rel = "canonical";
+						canonicalLink.href = canonicalUrl;
+
+						document.head.appendChild( canonicalLink );
+					}
+
 					// Add notice and link to re-enable WET plugins and polyfills
-					noticehtml = noticehtml + " class='container-fluid bg-warning text-center mrgn-tp-sm py-4'><h2 class='mrgn-tp-0'>" + noticeHeader + "</h2><p>" + noticeBody + "</p><p><a rel='alternate' property='significantLink' href='" + nQuery + "wbdisable=false'>" + i18n( "wb-enable" ) + noticehtmlend;
+					let significantLinkId = wb.getId();
+					noticehtml = noticehtml + " class='container-fluid bg-warning text-center mrgn-tp-sm py-4'><h2 class='mrgn-tp-0'>" + noticeHeader + "</h2><p>" + noticeBody + "</p><p><a id='" + significantLinkId + "' rel='alternate' href='" + nQuery + "wbdisable=false'>" + i18n( "wb-enable" ) + noticehtmlend;
 					$( elm ).after( noticehtml );
+					document.querySelector( "#" + significantLinkId ).setAttribute( "property", "significantLink" );
 					return true;
 				} else {
 					$html.addClass( "wb-enable" );
@@ -16943,9 +17428,26 @@ var componentName = "wb-jsonmanager",
 	datasetCacheSettings = {},
 	dsDelayed = {},
 	dsPostponePatches = {},
+	dsFetching = {},
+	dsFetchIsArray = {},
+	dsFetchMerged = {},
 	$document = wb.doc,
 	defaults = {
 		ops: [
+			{
+				name: "patches",
+				fn: function( obj, key, tree ) {
+					var path = this.path,
+						patches = this.patches,
+						newTree = jsonpointer.get( tree, path );
+
+					patches.forEach( ( patchConf ) => {
+						patchConf.mainTree = tree;
+						patchConf.pathParent = path;
+						jsonpatch.apply( newTree, [ patchConf ] );
+					} );
+				}
+			},
 			{
 				name: "wb-count",
 				fn: function( obj, key, tree ) {
@@ -16954,14 +17456,14 @@ var componentName = "wb-jsonmanager",
 						filter = this.filter || [ ],
 						filternot = this.filternot || [ ];
 
-					if ( !$.isArray( filter ) ) {
+					if ( !Array.isArray( filter ) ) {
 						filter = [ filter ];
 					}
-					if ( !$.isArray( filternot ) ) {
+					if ( !Array.isArray( filternot ) ) {
 						filternot = [ filternot ];
 					}
 
-					if ( ( filter.length || filternot.length ) && $.isArray( countme ) ) {
+					if ( ( filter.length || filternot.length ) && Array.isArray( countme ) ) {
 
 						// Iterate in obj[key] / item and check if is true for the given path is any.
 						i_len = countme.length;
@@ -16971,38 +17473,32 @@ var componentName = "wb-jsonmanager",
 								len = len + 1;
 							}
 						}
-					} else if ( $.isArray( countme ) ) {
+					} else if ( Array.isArray( countme ) ) {
 						len = countme.length;
 					}
-					jsonpatch.apply( tree, [
-						{ op: "add", path: this.set, value: len }
-					] );
+					applyPatch( tree, "add", this.set, len );
 				}
 			},
 			{
 				name: "wb-first",
 				fn: function( obj, key, tree ) {
 					var currObj = obj[ key ];
-					if ( !$.isArray( currObj ) || currObj.length === 0 ) {
+					if ( !Array.isArray( currObj ) || currObj.length === 0 ) {
 						return;
 					}
 
-					jsonpatch.apply( tree, [
-						{ op: "add", path: this.set, value: currObj[ 0 ] }
-					] );
+					applyPatch( tree, "add", this.set, currObj[ 0 ] );
 				}
 			},
 			{
 				name: "wb-last",
 				fn: function( obj, key, tree ) {
 					var currObj = obj[ key ];
-					if ( !$.isArray( currObj ) || currObj.length === 0 ) {
+					if ( !Array.isArray( currObj ) || currObj.length === 0 ) {
 						return;
 					}
 
-					jsonpatch.apply( tree, [
-						{ op: "add", path: this.set, value: currObj[ currObj.length - 1 ] }
-					] );
+					applyPatch( tree, "add", this.set, currObj[ currObj.length - 1 ] );
 				}
 			},
 			{
@@ -17020,9 +17516,7 @@ var componentName = "wb-jsonmanager",
 						}
 					}
 
-					jsonpatch.apply( tree, [
-						{ op: "replace", path: this.path, value: prefix + val.toLocaleString( loc ) + suffix  }
-					] );
+					applyPatch( tree, "replace", this.path, prefix + val.toLocaleString( loc ) + suffix );
 				}
 			},
 			{
@@ -17031,13 +17525,9 @@ var componentName = "wb-jsonmanager",
 					var val = obj[ key ];
 
 					if ( !this.set ) {
-						jsonpatch.apply( tree, [
-							{ op: "replace", path: this.path, value: wb.decodeUTF8Base64( val ) }
-						] );
+						applyPatch( tree, "replace", this.path, wb.decodeUTF8Base64( val ) );
 					} else {
-						jsonpatch.apply( tree, [
-							{ op: "add", path: this.set, value: wb.decodeUTF8Base64( val ) }
-						] );
+						applyPatch( tree, "add", this.set, wb.decodeUTF8Base64( val ) );
 					}
 				}
 			},
@@ -17047,13 +17537,9 @@ var componentName = "wb-jsonmanager",
 					var val = obj[ key ];
 
 					if ( !this.set ) {
-						jsonpatch.apply( tree, [
-							{ op: "replace", path: this.path, value: wb.escapeHTML( val ) }
-						] );
+						applyPatch( tree, "replace", this.path, wb.escapeHTML( val ) );
 					} else {
-						jsonpatch.apply( tree, [
-							{ op: "add", path: this.set, value: wb.escapeHTML( val ) }
-						] );
+						applyPatch( tree, "add", this.set, wb.escapeHTML( val ) );
 					}
 				}
 			},
@@ -17061,13 +17547,9 @@ var componentName = "wb-jsonmanager",
 				name: "wb-toDateISO",
 				fn: function( obj, key, tree ) {
 					if ( !this.set ) {
-						jsonpatch.apply( tree, [
-							{ op: "replace", path: this.path, value: wb.date.toDateISO( obj[ key ] ) }
-						] );
+						applyPatch( tree, "replace", this.path, wb.date.toDateISO( obj[ key ] ) );
 					} else {
-						jsonpatch.apply( tree, [
-							{ op: "add", path: this.set, value: wb.date.toDateISO( obj[ key ] ) }
-						] );
+						applyPatch( tree, "add", this.set, wb.date.toDateISO( obj[ key ] ) );
 					}
 				}
 			},
@@ -17075,13 +17557,37 @@ var componentName = "wb-jsonmanager",
 				name: "wb-toDateTimeISO",
 				fn: function( obj, key, tree ) {
 					if ( !this.set ) {
-						jsonpatch.apply( tree, [
-							{ op: "replace", path: this.path, value: wb.date.toDateISO( obj[ key ], true ) }
-						] );
+						applyPatch( tree, "replace", this.path, wb.date.toDateISO( obj[ key ], true ) );
 					} else {
-						jsonpatch.apply( tree, [
-							{ op: "add", path: this.set, value: wb.date.toDateISO( obj[ key ], true ) }
-						] );
+						applyPatch( tree, "add", this.set, wb.date.toDateISO( obj[ key ], true ) );
+					}
+				}
+			},
+			{
+				name: "wb-swap",
+				fn: function( obj, key, tree ) {
+					var val = obj[ key ],
+						ref = this.ref,
+						mainTree = this.mainTree,
+						path = this.path,
+						newVal;
+
+					if ( val ) {
+						if ( Array.isArray( val ) ) {
+							val.forEach( ( item, i ) => {
+								item = item.replaceAll( "~", "~0" ).replaceAll( "/", "~1" ); // Escape slashed and tilde in val when the key is an IRI
+								newVal = mainTree ? jsonpointer.get( mainTree, ref + "/" + item ) : jsonpointer.get( tree, ref + "/" + item );
+								if ( newVal ) {
+									applyPatch( tree, "replace", path + "/" + i, newVal );
+								}
+							} );
+						} else if ( typeof val === "string" ) {
+							val = val.replaceAll( "~", "~0" ).replaceAll( "/", "~1" ); // Escape slashed and tilde in val when the key is an IRI
+							newVal = mainTree ? jsonpointer.get( mainTree, ref + "/" + val ) : jsonpointer.get( tree, ref + "/" + val );
+							if ( newVal ) {
+								applyPatch( tree, "replace", path, newVal );
+							}
+						}
 					}
 				}
 			}
@@ -17124,15 +17630,37 @@ var componentName = "wb-jsonmanager",
 						}
 					}
 				}
+			},
+			{
+				name: "wb-swap",
+				fn: function( arr ) {
+					arr.forEach( ( item, i ) => {
+						jsonpatch.apply( arr, [
+							{ op: "wb-swap", path: "/" + i + this.path, ref: this.ref, mainTree: this.mainTree }
+						] );
+					} );
+				}
+			},
+			{
+				name: "patches",
+				fn: function( arr ) {
+					arr.forEach( ( item, i ) => {
+						jsonpatch.apply( this.mainTree || arr, [
+							{ op: "patches", path: ( this.pathParent || "" ) + "/" + i + this.path, patches: this.patches }
+						] );
+					} );
+				}
 			}
 		],
 		opsRoot: [],
-		settings: { }
+		settings: { },
+		docMapKeys: { "referer": document.referrer, "locationHref": location.href }
 	},
 
 	// Add debug information after the JSON manager element
 	debugPrintOut = function( $elm, name, json, patches ) {
 		$elm.after( "<p lang=\"en\"><strong>JSON Manager Debug</strong> (" +  name + ")</p><ul lang=\"en\"><li>JSON: <pre><code>" + JSON.stringify( json ) + "</code></pre></li><li>Patches: <pre><code>" + JSON.stringify( patches ) + "</code></pre>" );
+		console.log( json );
 	},
 
 	/**
@@ -17149,7 +17677,8 @@ var componentName = "wb-jsonmanager",
 			jsSettings = window[ componentName ] || { },
 			ops, opsArray, opsRoot,
 			i, i_len, i_cache,
-			url, dsName;
+			url, urlActual, dsName,
+			fetchOpts = { };
 
 		if ( elm ) {
 			$elm = $( elm );
@@ -17158,9 +17687,12 @@ var componentName = "wb-jsonmanager",
 			Modernizr.load( {
 
 				// For loading multiple dependencies
-				load: "site!deps/json-patch" + wb.getMode() + ".js",
+				load: [
+					"site!deps/json-patch" + wb.getMode() + ".js",
+					"site!deps/jsonpointer" + wb.getMode() + ".js"
+				],
 				testReady: function() {
-					return window.jsonpatch;
+					return window.jsonpatch && window.jsonpointer;
 				},
 				complete: function() {
 					var elmData = wb.getData( $elm, componentName );
@@ -17193,7 +17725,6 @@ var componentName = "wb-jsonmanager",
 					}
 
 					dsName = elmData.name;
-
 					if ( !dsName || dsName in dsNameRegistered ) {
 						throw "Dataset name must be unique";
 					}
@@ -17203,36 +17734,196 @@ var componentName = "wb-jsonmanager",
 
 					if ( url ) {
 
-						// Fetch the JSON
-						$elm.trigger( {
-							type: "json-fetch.wb",
-							fetch: {
-								url: url,
+						url = typeof url === "string" ? [ url ] : url;
+						i_len = url.length;
+
+						dsFetching[ dsName ] = i_len;
+
+						for ( i = 0; i !== i_len; i++ ) {
+
+							urlActual = url[ i ];
+
+							// Fetch default configuration
+							fetchOpts = {
 								nocache: elmData.nocache,
 								nocachekey: elmData.nocachekey,
 								data: elmData.data,
 								contentType: elmData.contenttype,
 								method: elmData.method
+							};
+
+							// When the "url" is an extended configuration
+							if ( urlActual.url ) {
+								fetchOpts.savingPath = urlActual.path || "";
+								fetchOpts.url = urlActual.url;
+							} else {
+								fetchOpts.url = urlActual;
+							}
+
+							// Fetch the JSON
+							$elm.trigger( {
+								type: "json-fetch.wb",
+								fetch: fetchOpts
+							} );
+
+							// If the URL is a dataset, make it ready
+							if ( fetchOpts.url.charCodeAt( 0 ) === 35 && fetchOpts.url.charCodeAt( 1 ) === 91 ) {
+								wb.ready( $elm, componentName );
+							}
+						}
+					} else if ( !url && elmData.extractor ) {
+						$elm.trigger( {
+							type: "json-fetched.wb",
+							fetch: {
+								response: {}
 							}
 						} );
+						wb.ready( $elm, componentName );
 
-						// If the URL is a dataset, make it ready
-						if ( url.charCodeAt( 0 ) === 35 && url.charCodeAt( 1 ) === 91 ) {
-							wb.ready( $elm, componentName );
-						}
 					} else {
 
-						// Do an empty fetch to ensure jsonPointer is loaded and correctly initialized
 						$elm.trigger( {
 							type: "json-fetch.wb"
 						} );
 						wb.ready( $elm, componentName );
 					}
+
 				}
 			} );
 		}
 	},
+	extractData = function( elmObj ) {
 
+		var isGroup = false,
+			selectedTag,
+			targetTag,
+			lastIndex = [],
+			j_tag = "",
+			group = {},
+			arrMap = [],
+			node_children = [],
+			j_node = 0,
+			arrRepeatPath = [],
+			combineToObj = function( cur_obj ) {
+				if ( cur_obj.selector === j_tag ) {
+					if ( !lastIndex.includes( j_tag ) ) {
+						group[ cur_obj.path ] = cur_obj.attr && node_children[ j_node ].getAttributeNode( cur_obj.attr ) ?
+							node_children[ j_node ].getAttributeNode( cur_obj.attr ).textContent :
+							node_children[ j_node ].textContent;
+						lastIndex.push( j_tag );
+					}
+				}
+			},
+			manageObjDir = function( selector, selectedValue, json_return ) {
+				var arrPath = selector.path.split( "/" ).filter( Boolean );
+				if ( arrPath.length > 1 ) {
+					var pointer = "";
+					pointer = arrPath.pop();
+
+					if ( arrPath[ 0 ] && arrPath[ 0 ] !== "" ) {
+
+						if ( !json_return[ arrPath[ 0 ] ] && !arrRepeatPath.includes( arrPath[ 0 ] ) ) {
+							arrRepeatPath.push( arrPath[ 0 ] );
+							json_return[ arrPath[ 0 ] ] = {};
+						}
+						if ( selector.selectAll && !json_return[ arrPath[ 0 ] ] [ pointer ]  ) {
+							json_return[ arrPath[ 0 ] ] [ pointer ] = [];
+						}
+						if ( selector.selectAll ) {
+							json_return[ arrPath[ 0 ] ] [ pointer ].push( selectedValue );
+						} else {
+							json_return[ arrPath[ 0 ] ] [ pointer ] = selectedValue;
+						}
+
+					} else {
+
+						if ( selector.selectAll ) {
+							json_return[ arrPath[ 0 ] ].push( selectedValue );
+						} else {
+							json_return[ pointer ] = selectedValue;
+						}
+					}
+				} else {
+
+					if ( selector.selectAll ) {
+						if ( !json_return[ selectedTag.path ] ) {
+							json_return[ selectedTag.path ] = [];
+						}
+						json_return[ selectedTag.path ].push( selectedValue );
+					} else {
+						json_return[ selectedTag.path ] = selectedValue;
+					}
+				}
+			},
+			jsonSource = {};
+
+
+		for ( var tag = 0; tag <= elmObj.length - 1; tag++ ) {
+
+			selectedTag = elmObj[ tag ];
+
+			if ( !selectedTag.interface ) {
+
+				targetTag = document.querySelectorAll( selectedTag.selector || "" );
+				isGroup = selectedTag.extractor && selectedTag.extractor.length >= 1 ? true : false;
+
+				if ( selectedTag.selectAll ) {
+
+					for ( var i_node = 0; i_node <= targetTag.length - 1; i_node++ ) {
+
+						var selectedTagValue = selectedTag.attr && targetTag [ i_node ].getAttributeNode( selectedTag.attr ) ?
+							targetTag [ i_node ].getAttributeNode( selectedTag.attr ).textContent :
+							targetTag [ i_node ].textContent;
+
+						manageObjDir( selectedTag, selectedTagValue, jsonSource );
+					}
+				}
+
+				// extract from combined selectors and group the values e.g dt with dd
+				if ( isGroup ) {
+
+					jsonSource[ selectedTag.path ] = [];
+
+					node_children = targetTag[ 0 ].children;
+
+					var extractorLength = Object.keys( selectedTag.extractor ).length;
+
+					for ( j_node = 0; j_node <= node_children.length - 1; j_node++ ) {
+
+						j_tag = node_children[ j_node ].tagName.toLowerCase();
+
+						selectedTag.extractor.find( combineToObj );
+						if ( Object.keys( group ).length === extractorLength ) {
+							arrMap.push( group );
+							group = {};
+							lastIndex = [];
+						}
+					}
+					$.extend( jsonSource[ selectedTag.path ], arrMap );
+				}
+
+				if ( targetTag.length ) {
+					targetTag = selectedTag.attr && targetTag [ 0 ].getAttributeNode( selectedTag.attr ) ?
+						targetTag [ 0 ].getAttributeNode( selectedTag.attr ).textContent :
+						targetTag [ 0 ].textContent;
+				}
+
+			} else {
+
+				targetTag = defaults.docMapKeys[ selectedTag.interface ];
+
+				manageObjDir( selectedTag, targetTag, jsonSource );
+			}
+
+			if ( !selectedTag.selectAll  ) {
+				if ( isGroup === false ) {
+					manageObjDir( selectedTag, targetTag, jsonSource );
+				}
+			}
+		}
+
+		return jsonSource;
+	},
 
 	// Filtering a JSON
 	// Return true if trueness && falseness
@@ -17290,8 +17981,8 @@ var componentName = "wb-jsonmanager",
 				return b === null;
 			}
 			var i, l;
-			if ( $.isArray( a ) ) {
-				if (  $.isArray( b ) || a.length !== b.length ) {
+			if ( Array.isArray( a ) ) {
+				if (  Array.isArray( b ) || a.length !== b.length ) {
 					return false;
 				}
 				for ( i = 0, l = a.length; i < l; i++ ) {
@@ -17318,7 +18009,7 @@ var componentName = "wb-jsonmanager",
 	},
 	_objectKeys = function( obj ) {
 		var keys;
-		if ( $.isArray( obj ) ) {
+		if ( Array.isArray( obj ) ) {
 			keys = new Array( obj.length );
 			for ( var k = 0; k < keys.length; k++ ) {
 				keys[ k ] = "" + k;
@@ -17337,20 +18028,27 @@ var componentName = "wb-jsonmanager",
 		return keys;
 	},
 
+	// Utility function to apply a JSON patch
+	applyPatch = function( tree, op, path, value ) {
+		jsonpatch.apply( tree, [
+			{ op: op, path: path, value: value }
+		] );
+	},
+
 	// Create series of patches for filtering
 	getPatchesToFilter = function( JSONsource, filterPath, filterTrueness, filterFaslseness ) {
 		var filterObj,
 			i, i_len;
 
-		if ( !$.isArray( filterTrueness ) ) {
+		if ( !Array.isArray( filterTrueness ) ) {
 			filterTrueness = [ filterTrueness ];
 		}
-		if ( !$.isArray( filterFaslseness ) ) {
+		if ( !Array.isArray( filterFaslseness ) ) {
 			filterFaslseness = [ filterFaslseness ];
 		}
 
 		filterObj = jsonpointer.get( JSONsource, filterPath );
-		if ( $.isArray( filterObj ) ) {
+		if ( Array.isArray( filterObj ) ) {
 			i_len = filterObj.length - 1;
 			for ( i = i_len; i !== -1; i -= 1 ) {
 				if ( !filterPassJSON( filterObj[ i ], filterTrueness, filterFaslseness ) ) {
@@ -17406,31 +18104,85 @@ $document.on( "json-fetched.wb", selector, function( event ) {
 	var elm = event.target,
 		$elm = $( elm ),
 		settings,
+		fetchedOpts = event.fetch.fetchedOpts,
+		isReloading = elm.hasAttribute( reloadFlag ),
 		dsName,
 		JSONresponse = event.fetch.response,
-		isArrayResponse = $.isArray( JSONresponse ),
+		isArrayResponse,
 		resultSet,
 		i, i_len, i_cache, backlog, selector,
-		patches, filterTrueness, filterFaslseness, filterPath;
-
+		objIterator, savingPathSplit,
+		patches, filterTrueness, filterFaslseness, filterPath, extractor;
 
 	if ( elm === event.currentTarget ) {
-
 		settings = wb.getData( $elm, componentName );
-		dsName = "[" + settings.name + "]";
+
+		// Is the fetched JSON need to be wrap in another plain object
+		if ( fetchedOpts && fetchedOpts.savingPath ) {
+			savingPathSplit = fetchedOpts.savingPath.split( "/" );
+
+			for ( i = savingPathSplit.length - 1; i > 0; i-- ) {
+				if ( !savingPathSplit[ i ] ) {
+					continue;
+				}
+				objIterator = {};
+				objIterator[ savingPathSplit[ i ] ] = JSONresponse;
+				JSONresponse = objIterator;
+			}
+		}
+
+		// Determine if the response is an array
+		isArrayResponse = Array.isArray( JSONresponse );
+
+		// Ensure the response is an independant clone
+		if ( isArrayResponse ) {
+			JSONresponse = $.extend( true, [], JSONresponse );
+		} else {
+			JSONresponse = $.extend( true, {}, JSONresponse );
+		}
+
+		dsName = settings.name;
+		dsFetching[ dsName ]--;
+
+		// Ensure that we do have fetched and merged all urls everything before to move ahead
+		dsFetchIsArray[ dsName ] = dsFetchIsArray[ dsName ] ? dsFetchIsArray[ dsName ] : isArrayResponse;
+
+		if ( dsFetchIsArray[ dsName ] !== isArrayResponse ) {
+			throw "Can't merge, incompatible JSON type (array vs object)";
+		}
+
+		if ( !dsFetchMerged[ dsName ] ) {
+			dsFetchMerged[ dsName ] = JSONresponse;
+		} else if ( dsFetchMerged[ dsName ] && isArrayResponse ) {
+			dsFetchMerged[ dsName ] = dsFetchMerged[ dsName ].concat( JSONresponse );
+		} else {
+			dsFetchMerged[ dsName ] = $.extend( dsFetchMerged[ dsName ], JSONresponse );
+		}
+
+		// Quit and wait for the next fetch
+		if ( !isReloading && dsFetching[ dsName ] ) {
+			return;
+		}
+
+		JSONresponse = dsFetchMerged[ dsName ];
+
+		extractor = settings.extractor;
+		if ( extractor ) {
+			if ( !Array.isArray( extractor ) ) {
+				extractor = [ extractor ];
+			}
+			JSONresponse = $.extend( JSONresponse, extractData( extractor ) );
+
+		}
+
+		dsName = "[" + dsName + "]";
 		patches = settings.patches || [];
 		filterPath = settings.fpath;
 		filterTrueness = settings.filter || [];
 		filterFaslseness = settings.filternot || [];
 
-		if ( !$.isArray( patches ) ) {
+		if ( !Array.isArray( patches ) ) {
 			patches = [ patches ];
-		}
-
-		if ( isArrayResponse ) {
-			JSONresponse = $.extend( [], JSONresponse );
-		} else {
-			JSONresponse = $.extend( {}, JSONresponse );
 		}
 
 		// Apply a filtering
@@ -17438,13 +18190,15 @@ $document.on( "json-fetched.wb", selector, function( event ) {
 			JSONresponse = getPatchesToFilter( JSONresponse, filterPath, filterTrueness, filterFaslseness );
 		}
 
+		// Apply the wraproot
+		if ( settings.wraproot  ) {
+			i_cache = { };
+			i_cache[ settings.wraproot ] = JSONresponse;
+			JSONresponse = i_cache;
+		}
+
 		// Apply the patches
 		if ( patches.length ) {
-			if ( isArrayResponse && settings.wraproot ) {
-				i_cache = { };
-				i_cache[ settings.wraproot ] = JSONresponse;
-				JSONresponse = i_cache;
-			}
 			jsonpatch.apply( JSONresponse, patches );
 		}
 
@@ -17459,7 +18213,7 @@ $document.on( "json-fetched.wb", selector, function( event ) {
 		}
 		datasetCacheSettings[ dsName ] = settings;
 
-		if ( elm.hasAttribute( reloadFlag ) ) {
+		if ( isReloading ) {
 			elm.removeAttribute( reloadFlag );
 			i_cache = dsPostponePatches[ dsName ];
 			if ( i_cache ) {
@@ -17514,7 +18268,7 @@ $document.on( patchesEvent, selector, function( event ) {
 		delayedLst,
 		i, i_len, i_cache, pntrSelector;
 
-	if ( elm === event.currentTarget && $.isArray( patches ) ) {
+	if ( elm === event.currentTarget && Array.isArray( patches ) ) {
 		settings = wb.getData( $elm, componentName );
 
 		if ( !settings ) {
@@ -17534,7 +18288,7 @@ $document.on( patchesEvent, selector, function( event ) {
 
 		dsJSON = datasetCache[ dsName ];
 		if ( !isCumulative ) {
-			dsJSON = $.extend( true, ( $.isArray( dsJSON ) ? [] : {} ), dsJSON );
+			dsJSON = $.extend( true, ( Array.isArray( dsJSON ) ? [] : {} ), dsJSON );
 		}
 
 		// Apply a filtering
@@ -17656,7 +18410,7 @@ $document.on( "op.submit.wb-fieldflow", ".wb-fieldflow", function( event, data )
 		return true;
 	}
 
-	if ( !$.isArray( op ) ) {
+	if ( !Array.isArray( op ) ) {
 		ops = [];
 		ops.push( op );
 	} else {
@@ -17706,18 +18460,12 @@ var $document = wb.doc,
 					defaults,
 					wb.getData( $elm, componentName )
 				),
-				attrEngaged = "data-wb-engaged",
-				$buttons = $( "[type=submit]", $elm ),
 				multiple = typeof $elm.data( componentName + "-multiple" ) !== "undefined",
 				classToggle = settings.toggle || "hide",
 				selectorSuccess = settings.success,
 				selectorFailure = settings.failure || selectorSuccess;
-
-			// Set "clicked" attribute on element that initiated the form submit
-			$buttons.on( "click", function() {
-				$buttons.removeAttr( attrEngaged );
-				$( this ).attr( attrEngaged, "" );
-			} );
+			const attrBlocked = "data-wb-blocked",
+				attrSending = "data-wb-sending";
 
 			elm.addEventListener( "submit", function( e ) {
 
@@ -17726,24 +18474,30 @@ var $document = wb.doc,
 
 				//Check if the form use the validation plugin
 				if ( elm.parentElement.classList.contains( "wb-frmvld" ) ) {
+
+					// Block invalid forms and allow valid ones
 					if ( !$elm.valid() ) {
-						$( this ).attr( attrEngaged, true );
+						$( this ).attr( attrBlocked, "true" );
 					} else {
-						$buttons.removeAttr( attrEngaged );
-						$( this ).attr( attrEngaged, "" );
+						$( this ).removeAttr( attrBlocked );
 					}
 				}
 
-				if ( !$( this ).attr( attrEngaged ) ) {
+				// Submit the form unless it's blocked or currently being sent
+				if ( !$( this ).attr( attrBlocked ) && !$( this ).attr( attrSending ) ) {
 					var data = $elm.serializeArray(),
-						$btn = $( "[type=submit][name][" + attrEngaged + "]", $elm ),
+						btn = e.submitter,
 						$selectorSuccess = $( selectorSuccess ),
 						$selectorFailure = $( selectorFailure );
 
-					if ( $btn.length ) {
-						data.push( { name: $btn.attr( "name" ), value: $btn.val() } );
+					// Indicate that the form is currently being sent (to prevent multiple submissions in parallel)
+					$( this ).attr( attrSending, true );
+
+					// If the submit button contains a variable, add it to the form's paramaters
+					// Note: Submitting a form via Enter will act as if the FIRST submit button was pressed. Therefore, that button's variable will be added (as opposed to nothing). This is in line with default form submission behaviour.
+					if ( btn && btn.name ) {
+						data.push( { name: btn.name, value: btn.value } );
 					}
-					$( this ).attr( attrEngaged, true );
 
 					// Hide feedback messages
 					$selectorFailure.addClass( classToggle );
@@ -17765,12 +18519,13 @@ var $document = wb.doc,
 						} )
 						.always( function() {
 
-							// Make the form submittable again if multiple submits are allowed or hide
-							if ( multiple ) {
-								$elm.removeAttr( attrEngaged );
-							} else {
+							// Hide the form unless multiple submits are allowed
+							if ( !multiple ) {
 								$elm.addClass( classToggle );
 							}
+
+							// Remove the sending indicator now that submission is fully complete (i.e. HTTP response code has been received)
+							$elm.removeAttr( attrSending );
 						} );
 				}
 			} );
