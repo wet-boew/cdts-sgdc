@@ -2,11 +2,13 @@
 
 ## v4.1.0
 
-- Introduction d'une nouvelle façon de référencer le SGDC qui evite aux clients le besoin d'utiliser `document.write`, d'avoir à appeler plusieurs fonctions du SGDC et optionellement le besoin pour des scripts directs sur la page. La rétrocompatibilité aux fonctions séparées du SGDC est préservée. Pour plus de détails, consulter la documentation pour [GCWeb](https://cenw-wscoe.github.io/sgdc-cdts/docs/internet-fr.html) and [GCIntranet](https://cenw-wscoe.github.io/sgdc-cdts/docs/intranet-fr.html) ainsi que les pages d'examples correspondantes.
+- Introduction d'une nouvelle façon de référencer **OPTIONNEL** le SGDC qui evite aux clients le besoin d'utiliser `document.write`, d'avoir à appeler plusieurs fonctions du SGDC et optionellement le besoin pour des scripts directs sur la page. **La rétrocompatibilité aux fonctions séparées du SGDC est préservée.** Pour plus de détails, consulter la documentation pour [GCWeb](https://cenw-wscoe.github.io/sgdc-cdts/docs/internet-fr.html) and [GCIntranet](https://cenw-wscoe.github.io/sgdc-cdts/docs/intranet-fr.html) ainsi que les [pages d'examples correspondantes](https://github.com/wet-boew/cdts-sgdc/blob/master/public/gcweb/samples/nodoc-write-fr.html) (les autres exemples de pages utilisent toujours document.write et seront mis à jour plus tard).
 - Ajout du support pour "Sub Resource Integrity (SRI)"
   - Le SGDC peut maintenant inclure les valeurs SRI lors de l'inclusion de sous-libraries et fichiers internes sur la page.  Ceci est contrôlé par le paramètre `sriEnabled` dans l'appel à "refTop", "refFooter" ou la nouvelle fonction "setup".
   - Pour les clients qui veulent utiliser SRI pour référencer le SGDC, les valeurs pour les fichiers publiques sont disponible pour [GCWeb](https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_1_0/cdts/SRI-INFO.md) et [GCIntranet](https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_1_0/cdts/SRI-INFO.md).
-- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.63
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.63.
+- Modifications et optimisations internes
+- Corrections de bogues
 
 ## v4.0.47
 
