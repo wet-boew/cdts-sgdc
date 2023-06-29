@@ -97,6 +97,10 @@
         "source": "Name of Web application",
         "target": null
     },
+    "57f5f5efbc5990f5230aa95359042338b856707b": {
+        "source": "Menu",
+        "target": null
+    },
     "c6dc33865459206f14516ae374ff8dee59ab2595": {
         "source": "Header navigation menu",
         "target": null
@@ -123,10 +127,6 @@
     },
     "c50ae38e9169089f75cd27b845c09aefb4eca4d0": {
         "source": "and search",
-        "target": null
-    },
-    "57f5f5efbc5990f5230aa95359042338b856707b": {
-        "source": "Menu",
         "target": null
     },
     "11b5a68a90c1de36a7f61d1b289fa4a9e547c19a": {
