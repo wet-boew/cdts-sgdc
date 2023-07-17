@@ -29,7 +29,7 @@ wet.utilities.wetExitScript = function (displayModal, exitUrl, excludedDomains, 
 
     if (links != null) {
         for (var i = 0; i < links.length; i++) {
-            if (links[i].hasAttribute('href') && links[i].host !== window.location.host && excludedDomains.indexOf(links[i].host.toLowerCase().trim()) < 0) {
+            if (links[i].hasAttribute('href') && links[i].host !== window.location.host && excludedDomains.indexOf(links[i].host.toLowerCase().trim()) < 0 && !links[i].hasAttribute('cdts-exitscript-disabled')) {
                 if (exitUrl !== "undefined") {
                     links[i].href = encodeURI(exitUrl + (exitUrl.indexOf('?') < 0 ? "?" : "&") + "targetUrl=") + encodeURIComponent(links[i].href);
                 }

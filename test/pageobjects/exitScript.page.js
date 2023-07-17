@@ -15,6 +15,7 @@ class ExitScriptPage extends Page {
     get extLinkNewWin() { return $('ul.lst-spcd li:nth-child(2) a'); }
     get extLinkSameDomain() { return $('ul.lst-spcd li:nth-child(3) a'); }
     get extLinkExemptDomain() { return $('ul.lst-spcd li:nth-child(4) a'); }
+    get extLinkExemptAttribute() { return $('ul.lst-spcd li:nth-child(5) a'); }
     get menuBtn() { return $('button span.glyphicon-chevron-down'); }
     get menuBtnGCIntranet() { return $('ul.menu li:nth-child(1) a'); }
     get menuTrainingLink() { return $('#gc-mnu-jobs li:nth-child(4) a'); }
