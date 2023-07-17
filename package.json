@@ -37,7 +37,7 @@
     "grunt-contrib-cssmin": "^5.0.0",
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-eslint": "^24.2.0",
+    "grunt-eslint": "^24.3.0",
     "html-validate": "^8.0.5",
     "https-proxy-agent": "^7.0.0",
     "isbinaryfile": "^5.0.0"
