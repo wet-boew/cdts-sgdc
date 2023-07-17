@@ -76,6 +76,7 @@
                 <li><code class="wb-prettify">displayModalForNewWindow</code>: If set to true, will not display modal for links that open in new window</li>
 
             </ul>
+            <p>The attribute <code class="wb-prettify">cdts-exitscript-disabled</code> can be added to individual links to exempt it from exitscript.</p>
             <pre>
 document.write(wet.builder.refFooter({
 ...
@@ -112,6 +113,11 @@ document.write(wet.builder.refFooter({
 					<li>
 						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>
 						has his host name (developer.mozilla.org) in the exception list <code>exitDomains</code>.
+						You won't be redirect to <code>exiturl-en.html</code>.
+					</li>
+					<li>
+						This link <a href="https://www.canada.ca/" cdts-exitscript-disabled="true">https://www.canada.ca/</a>
+						has the attribute <code>cdts-exitscript-disabled</code> exempting it from exitscript.
 						You won't be redirect to <code>exiturl-en.html</code>.
 					</li>
 				</ul>

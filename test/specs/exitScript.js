@@ -5,7 +5,7 @@ require('../setup/basic.js');
 
 describe('ExitScript Tests - GCWeb', () => {
     const theme = 'gcweb';
-    
+
     generateTestFile('./test/html/gcweb/template-exitscript-en.html', 'gcweb', 'gcweb-exitscript-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
@@ -117,11 +117,11 @@ describe('ExitScript Tests - GCWeb', () => {
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca", "cdnEnv": "localhost"}'
     });
-    
+
     it('Straight forward path of exit script', async () => {
         await straightPath(theme);
         await straightPath_FR(theme);
-    });   
+    });
 
     it('Test default message and button labels', async () => {
         await testDefaultLabels(theme);
@@ -155,7 +155,7 @@ describe('ExitScript Tests - GCWeb', () => {
         await displayOff(theme);
         await displayOff_FR(theme);
     });
-    
+
     //To test if display is off for a link that opens in new window, uncomment below and run it manually
     /*it('Test display turned off for new window', async () => {
         await displayOffForNewWindow(theme);
@@ -182,6 +182,11 @@ describe('ExitScript Tests - GCWeb', () => {
         await exitScriptBackwardsCompatible(theme, 'fr');
     });
 
+    it('Test link with exempt attribute', async () => {
+        await exemptAttributeLink(theme, 'en');
+        await exemptAttributeLink(theme, 'fr');
+    });
+
     it('Accessibility', async () => {
         await accessibility(theme, 'en');
         await accessibility(theme, 'fr');
@@ -206,7 +211,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"exitSecureSite" : {"exitScript": true, "displayModal": true, "exitURL": "exiturl-fr.html", "exitMsg": "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?", "cancelMsg": "Arrêter", "yesMsg" : "Continuer", "targetWarning": "Attention: cela va s\'ouvrir dans une autre fenêtre!", "exitDomains" : "google.com, www.esdc.gc.ca, www.jobbank.gc.ca"}, "cdnEnv": "localhost"}'
     });
-    
+
     generateTestFile('./test/html/gcintranet/template-exitscript-en.html', 'gcintranet', 'gcintranet-exitscript-nomenu-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost", "siteMenu": false}',
@@ -322,7 +327,7 @@ describe('ExitScript Tests - GCIntranet', () => {
     it('Straight forward path of exit script', async () => {
         await straightPath(theme);
         await straightPath_FR(theme);
-    });    
+    });
 
     it('Test default message and button labels', async () => {
         await testDefaultLabels(theme);
@@ -356,7 +361,7 @@ describe('ExitScript Tests - GCIntranet', () => {
         await displayOff(theme);
         await displayOff_FR(theme);;
     });
-    
+
     //To test if display is off for a link that opens in new window, uncomment below and run it manually
     /*it('Test display turned off for new window', async () => {
         await displayOffForNewWindow(theme);
@@ -383,6 +388,11 @@ describe('ExitScript Tests - GCIntranet', () => {
         await exitScriptBackwardsCompatible(theme, 'fr');
     });
 
+    it('Test link with exempt attribute', async () => {
+        await exemptAttributeLink(theme, 'en');
+        await exemptAttributeLink(theme, 'fr');
+    });
+
     it('Accessibility', async () => {
         await accessibility(theme, 'en', 'nomenu');
         await accessibility(theme, 'fr', 'nomenu');
@@ -396,10 +406,10 @@ async function straightPath(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
-    
+
     await extLink.click();
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
@@ -413,7 +423,7 @@ async function testCustomLabels(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -435,7 +445,7 @@ async function testTargetMsg(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -462,7 +472,7 @@ async function displayOff(theme){
         const extLinkHref = await extLink.getAttribute('href');
         return extLinkHref === 'exiturl-en.html?targetUrl=https%3A%2F%2Fwww.google.ca%2F';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected href to be modified after 5s'
     });
     await extLink.click();
@@ -487,7 +497,7 @@ async function testDefaultLabels(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -507,7 +517,7 @@ async function noExitUrl(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -526,14 +536,14 @@ async function testExitScriptForMenuLinks(theme, lang){
         const extLinkClass = await menuTrainingLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
     await menuBtn.click();
     await menuTrainingLink.click();
     await (await exitScriptPage.exitScriptModal).waitForExist({timeout: 3000})
-    //await expect(exitScriptPage.exitScriptModal).toExist();    
+    //await expect(exitScriptPage.exitScriptModal).toExist();
 }
 
 async function testExitScriptForMenuLinksGCIntranet(theme, lang){
@@ -544,14 +554,14 @@ async function testExitScriptForMenuLinksGCIntranet(theme, lang){
         const extLinkClass = await menuNewsLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
     await menuBtn.click();
     await menuNewsLink.click();
     await (await exitScriptPage.exitScriptModal).waitForExist({timeout: 3000})
-    //await expect(exitScriptPage.exitScriptModal).toExist();    
+    //await expect(exitScriptPage.exitScriptModal).toExist();
 }
 
 async function exitScriptBackwardsCompatible(theme, lang){
@@ -561,14 +571,14 @@ async function exitScriptBackwardsCompatible(theme, lang){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
     await extLink.click();
 
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000});
-    
+
     if (lang === 'en') {
         await expect(exitScriptPage.modalText).toHaveTextContaining('This is a custom message');
         await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Sure');
@@ -578,7 +588,7 @@ async function exitScriptBackwardsCompatible(theme, lang){
         await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Continuer');
         await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Arrêter');
     }
-    
+
     await yesBtn.click();
     await expect(browser).toHaveUrlContaining('targetUrl');
 }
@@ -591,7 +601,7 @@ async function straightPath_FR(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -608,7 +618,7 @@ async function testCustomLabels_FR(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -631,7 +641,7 @@ async function testTargetMsg_FR(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -658,10 +668,10 @@ async function displayOff_FR(theme){
         const extLinkHref = await extLink.getAttribute('href');
         return extLinkHref === 'exiturl-fr.html?targetUrl=https%3A%2F%2Fwww.google.ca%2F';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected href to be modified after 5s'
     });
-    
+
     await extLink.click();
     await expect(browser).toHaveUrlContaining('exiturl-fr');
 }
@@ -684,10 +694,10 @@ async function testDefaultLabels_FR(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
-    
+
     await extLink.click();
     await (await exitScriptPage.modalText).waitForExist({timeout: 3000})
     await expect(exitScriptPage.modalText).toHaveTextContaining('Vous êtes sur le point de quitter un site sécurisé');
@@ -704,7 +714,7 @@ async function noExitUrl_FR(theme){
         const extLinkClass = await extLink.getAttribute('class');
         return extLinkClass === 'wb-exitscript';
     }, {
-        timeout: 5000, 
+        timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
     });
 
@@ -713,6 +723,13 @@ async function noExitUrl_FR(theme){
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
     await expect(browser).toHaveUrlContaining('google');
+}
+
+async function exemptAttributeLink(theme, lang){
+    await exitScriptPage.open(theme, lang);
+    const extLink = await exitScriptPage.extLinkExemptAttribute;
+    await extLink.click();
+    await expect(browser).toHaveUrlContaining('canada');
 }
 
 async function accessibility(theme, lang, variant) {
