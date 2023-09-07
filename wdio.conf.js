@@ -12,9 +12,9 @@ if (!process.env.DISABLE_PROXY) { //just a cheap way to disable this proxy setup
 // targetBrowser can be 'firefox', 'chrome' or 'MicrosoftEdge'
 const targetBrowser = process.env.TEST_BROWSER_NAME || 'firefox'; //NOTE: we could instead always test with both by adding a second "capabilities" below
 const drivers = {
-    chrome: { version: '102.0.5005.61' }, //https://chromedriver.chromium.org/
-    firefox: { version: '0.32.0' }, //https://github.com/mozilla/geckodriver/releases
-    chromiumedge: { version: '109.0.1518.14' }, // https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+    chrome: { version: '112.0.5615.49.101' }, //https://chromedriver.chromium.org/
+    firefox: { version: '0.33.0' }, //https://github.com/mozilla/geckodriver/releases
+    chromiumedge: { version: '114.0.1791.0' }, // https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
 };
 
 exports.config = {
