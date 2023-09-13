@@ -100,7 +100,7 @@ module.exports = function run(grunt) {
     grunt.registerTask('test-nobuild', 'Run tests on current build (USE WITH CAUTION, only use with known state of directories dist and tmp)', ['nobuild-warning', 'setenv', 'copy-test', 'connect', 'webdriver:maintests', 'test-links']);
 
     grunt.registerTask('nobuild-warning', 'Issue a warning on screen about using serve-nobuild', () => {
-        grunt.log.writeln('***** WARNING ***** When using "serve-nobuild", you have to be sure that the directories "dist" and "tmp" are in a known good state (as they would be after a build)');
+        grunt.log.writeln('***** WARNING ***** When using "serve-nobuild" or "test-nobuild", you have to be sure that the directories "dist" and "tmp" are in a known good state (as they would be after a build)');
         grunt.log.writeln('                If ./dist and ./tmp are not consistent with a proper build, you may experience unexpected runtime errors.');
     });
     grunt.registerTask('nowet-warning', 'Issue a warning on screen about using build-nowet', () => {
