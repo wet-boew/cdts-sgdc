@@ -10,6 +10,7 @@
     "serve": "grunt --stack serve --cdts_samples_cdnenv=localhost",
     "serve-nobuild": "grunt --stack serve-nobuild --cdts_samples_cdnenv=localhost",
     "test": "grunt --stack test --cdts_samples_cdnenv=localhost",
+    "test-nobuild": "grunt --stack test-nobuild --cdts_samples_cdnenv=localhost",
     "test-links": "grunt --stack test-links"
   },
   "author": "ESDC-EDSC",
