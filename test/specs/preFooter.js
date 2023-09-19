@@ -89,6 +89,22 @@ describe('Prefooter section tests for GCWeb', () => {
         refFooter: '{"cdnEnv": "localhost"}'
     });
 
+    generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-en', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"text": "Custom Contact", "url": "Custom url"}}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-fr', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"text": "Custom Contact", "url": "Custom url"}}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
     it('Feedback button exists', async () => {
         await feedbackBtnExists(theme, 'en');
         await feedbackBtnExists(theme, 'fr');
@@ -212,23 +228,17 @@ describe('PreFooter section tests for GCIntranet', () => {
 });
 
 async function feedbackBtnExists(theme, lang) {
-    await basicPage.open(theme, lang);
+    await preFooterPage.open(theme, lang);
     await expect(preFooterPage.feedbackBtn).toExist();
-    if (lang === 'en') {
-        await expect(preFooterPage.feedbackBtn).toHaveHrefContaining('https://www.canada.ca/en/report-problem.html');
-    }
-    else {
-        await expect(preFooterPage.feedbackBtn).toHaveHrefContaining('https://www.canada.ca/fr/signaler-probleme.html');
-    }
 }
 
 async function feedbackBtnDoesNotExist(theme, lang) {
-    await preFooterPage.open(theme, lang);
+    await basicPage.open(theme, lang);
     await expect(preFooterPage.feedbackBtn).not.toExist();
 }
 
 async function shareBtnExists(theme, lang) {
-    await basicPage.open(theme, lang);
+    await preFooterPage.open(theme, lang);
     const shareBtn = await preFooterPage.shareBtn;
     if (lang === 'en' ) { await expect(shareBtn).toHaveTextContaining('Share this page'); }
     else { await expect(shareBtn).toHaveTextContaining('Partagez cette page'); }
@@ -238,7 +248,7 @@ async function shareBtnExists(theme, lang) {
 }
 
 async function shareBtnDoesNotExist(theme, lang) {
-    await preFooterPage.open(theme, lang);
+    await basicPage.open(theme, lang);
     await expect(preFooterPage.shareBtn).not.toExist();
 }
 
@@ -270,8 +280,13 @@ async function pageDetailsDoNotExist(theme, lang) {
 }
 
 async function feedbackBtnCustomUrl(theme, lang) {
-    await preFooterPage.open(theme, lang, 'modifiedBtn');
-    await expect(preFooterPage.feedbackBtn).toHaveHrefContaining('google');
+    await preFooterPage.open(theme, lang, 'customContact');
+    const feedbackNoBtn = await preFooterPage.feedbackNoBtn;
+    await feedbackNoBtn.click();
+    const feedbackContactUsLink = await preFooterPage.feedbackContactUsLink;
+    await feedbackContactUsLink.click();
+    await expect(preFooterPage.feedbackContactLink).toHaveTextContaining('Custom Contact');
+    await expect(preFooterPage.feedbackContactLink).toHaveHrefContaining('Custom url');    
 }
 
 async function customShareModal(theme, lang) {
@@ -285,26 +300,23 @@ async function customShareModal(theme, lang) {
     await expect(preFooterPage.facebookBtn).toHaveTextContaining('Facebook');
     await expect(preFooterPage.linkedinBtn).toHaveTextContaining('LinkedIn');
     await expect(preFooterPage.twitterBtn).toHaveTextContaining('Twitter');
-
 }
 
 async function noPageDetails(theme, lang) {
-    await preFooterPage.open(theme, lang, 'pageDetails');
+    await basicPage.open(theme, lang, 'pageDetails');
     await expect(preFooterPage.pageDetails).not.toExist();
 }
 
 async function showShareClassDefault(theme, lang) {
     await preFooterPage.open(theme, lang, 'modifiedBtn');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-offset-2');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-offset-4');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-lg-offset-5');
+    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-sm-push-8');
+    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-md-push-9');
 }
 
 async function showShareClassModified(theme, lang) {
-    await preFooterPage.open(theme, lang, 'feedbackFalse');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-offset-8');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-offset-9');
-    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-lg-offset-5');
+    await preFooterPage.open(theme, lang, 'showShareTrue');
+    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-push-8');
+    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-push-9');
 }
 
 async function showShareTrue(theme, lang) {

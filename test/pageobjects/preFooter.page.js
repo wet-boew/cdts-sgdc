@@ -8,8 +8,8 @@ class PreFooterPage extends Page {
      * define selectors using getter methods
      */
 
-    get feedbackBtn() { return $('div.pagedetails a.btn-center'); }
-    get shareBtn() { return $('div.pagedetails a.shr-opn'); }
+    get feedbackBtn() { return $('#gc-pft'); }
+    get shareBtn() { return $('section.pagedetails a.shr-opn'); }
     get shareModal() { return $('#shr-pg0'); }
     get screenID() { return $('#wb-dtmd dt:first-child'); }
     get screenIDText() { return $('#wb-dtmd dd:first-of-type'); }
@@ -21,8 +21,11 @@ class PreFooterPage extends Page {
     get facebookBtn() { return $('ul.colcount-xs-2 a.facebook'); }
     get linkedinBtn() { return $('ul.colcount-xs-2 a.linkedin'); }
     get twitterBtn() { return $('ul.colcount-xs-2 a.twitter'); }
-    get pageDetails() { return $('div.pagedetails'); }
+    get pageDetails() { return $('section.pagedetails'); }
     get shareDiv() { return $('div.wb-share'); }
+    get feedbackNoBtn() { return $('fieldset.gc-pft-btns button:nth-child(2)'); }
+    get feedbackContactUsLink() { return $('section.pagedetails summary'); }
+    get feedbackContactLink() { return $('section.pagedetails details a'); }
 
     /**
     * Opens a sub page of the page

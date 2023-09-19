@@ -11,43 +11,37 @@
 -%>
 <%_ if (pr.showPostContent != false) { -%>
 <%_ } -%>
-<%_ if (pr.pagedetails != false) { -%>
-    <div class="pagedetails<%= (pr.isContainer != null)? ' container': '' %>">
-        <%_ if (pr.showFeedback != false || pr.showShare != false) { -%>
-            <div class="row">
-                <%_ if (pr.showFeedback != false) { -%>
-                    <%_ if (pr.showFeedback != null && pr.showFeedback != true) { -%>
-                        <div class="col-sm-6 col-md-5 col-lg-4">
-                            <a href="<%- pr.showFeedback %>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
-                        </div>
-                    <%_ } else { -%>
-                        <div class="col-sm-6 col-md-5 col-lg-4">
-                            <a href="<^- msg('https://www.canada.ca/en/report-problem.html') ^>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
-                        </div>
-                    <%_ } -%>
-                <%_ } -%>
-                <%_ if (pr.showShare != false) { -%>
-                    <%_ if (pr.showShare != null && Array.isArray(pr.showShare)) { -%>
-                        <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
-                    <%_ } else { -%>
-                        <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}'></div>
-                    <%_ } -%>
-                <%_ } -%>
+<section class="pagedetails">
+    <h2 class="wb-inv">Page details</h2>
+    <div class="row">
+        <%_ if (pr.showFeedback != null) { -%>
+            <div class="col-sm-8 col-md-9 col-lg-9">
+                <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.url %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>">
+                </div>
             </div>
         <%_ } -%>
-        <dl id="wb-dtmd">
-            <%_ if (pr.screenIdentifier != null) { -%>
-                <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
-                <dd property="identifier"><%= pr.screenIdentifier %></dd>
+        <%_ if (pr.showShare != null) { -%>
+            <%_ if (pr.showShare != null && Array.isArray(pr.showShare)) { -%>                    
+                <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback == null)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
+                <%_ } else { -%>
+                <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback == null)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}' ></div>
             <%_ } -%>
-            <%_ if (pr.dateModified != null) { -%>
-                <dt><^- msg('Date modified:') ^>&#32;</dt>
-                <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
-            <%_ } -%>
-            <%_ if (pr.versionIdentifier != null) { -%>
-                <dt><^- msg('Version:') ^>&#32;</dt>
-                <dd property="version"><%= pr.versionIdentifier %></dd>
-            <%_ } -%>
-        </dl>
+        <%_ } -%>
+        <div class="<%- (pr.showFeedback == null && pr.showShare != null)? 'col-sm-6 col-md-5 col-lg-4 col-sm-pull-4 col-md-pull-3' : 'col-xs-12' %>">
+            <dl id="wb-dtmd">
+                <%_ if (pr.screenIdentifier != null) { -%>
+                    <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
+                    <dd property="identifier"><%= pr.screenIdentifier %></dd>
+                <%_ } -%>
+                <%_ if (pr.dateModified != null) { -%>
+                    <dt><^- msg('Date modified:') ^>&#32;</dt>
+                    <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
+                <%_ } -%>
+                <%_ if (pr.versionIdentifier != null) { -%>
+                    <dt><^- msg('Version:') ^>&#32;</dt>
+                    <dd property="version"><%= pr.versionIdentifier %></dd>
+                <%_ } -%>
+            </dl>
+        </div>
     </div>
-<%_ } -%>
+</section>
