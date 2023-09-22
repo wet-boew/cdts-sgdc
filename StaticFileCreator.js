@@ -30,6 +30,12 @@ function createStaticFallbackFile(grunt, definition, language) {
 
     //---[ Mock global variable available in browsers and needed by wet-[en|fr].js
     const navigator = { language: 'en-CA', }; //eslint-disable-line
+    const document = { //eslint-disable-line
+        querySelector: function() { return null; }, //eslint-disable-line
+        head: {
+            querySelector: function() { return null; } //eslint-disable-line
+        }
+    };
 
     //---[ Load soy/wet functions
     //NOTE: Using eval on arbritrary files is a huge NO-NO, but we just generated these files and trust them

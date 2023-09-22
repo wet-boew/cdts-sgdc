@@ -92,6 +92,11 @@ function validateBuilderFunctions(content, theme, version) {
         querySelector: function querySelector() {
             return null;
         },
+        head: {
+            querySelector: function querySelector() {
+                return null;
+            }
+        }
     };
     const $ = function $() { //eslint-disable-line
         return ({

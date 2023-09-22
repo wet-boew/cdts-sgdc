@@ -12,7 +12,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": false, "showFeedback": false, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -20,7 +20,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-preFooter-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": false, "showFeedback": false, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -28,7 +28,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-modifiedBtn-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": {"enabled": true}, "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -36,7 +36,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-modifiedBtn-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": {"enabled": true}, "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -60,7 +60,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-feedbackFalse-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": false}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": false}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -68,7 +68,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-feedbackFalse-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": false}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": false}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -76,7 +76,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-showShareTrue-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showShare": true}',
+        preFooter: '{"cdnEnv": "localhost", "showShare": true, "showFeedback": true}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -84,7 +84,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-showShareTrue-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showShare": true}',
+        preFooter: '{"cdnEnv": "localhost", "showShare": true, "showFeedback": true}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -92,7 +92,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"text": "Custom Contact", "url": "Custom url"}}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "url": "Custom url"}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -100,7 +100,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"text": "Custom Contact", "url": "Custom url"}}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "url": "Custom url"}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -163,6 +163,11 @@ describe('Prefooter section tests for GCWeb', () => {
     it('Button showShare appears when set to true', async () => {
         await showShareTrue(theme, 'en');
         await showShareTrue(theme, 'fr');
+    });
+
+    it('Test backwards compatibility for the feedback tool when set to true', async () => {
+        await feedbackToolBackwardsComp(theme, 'en');
+        await feedbackToolBackwardsComp(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -238,7 +243,7 @@ async function feedbackBtnDoesNotExist(theme, lang) {
 }
 
 async function shareBtnExists(theme, lang) {
-    await preFooterPage.open(theme, lang);
+    await basicPage.open(theme, lang);
     const shareBtn = await preFooterPage.shareBtn;
     if (lang === 'en' ) { await expect(shareBtn).toHaveTextContaining('Share this page'); }
     else { await expect(shareBtn).toHaveTextContaining('Partagez cette page'); }
@@ -248,7 +253,7 @@ async function shareBtnExists(theme, lang) {
 }
 
 async function shareBtnDoesNotExist(theme, lang) {
-    await basicPage.open(theme, lang);
+    await preFooterPage.open(theme, lang);
     await expect(preFooterPage.shareBtn).not.toExist();
 }
 
@@ -314,7 +319,7 @@ async function showShareClassDefault(theme, lang) {
 }
 
 async function showShareClassModified(theme, lang) {
-    await preFooterPage.open(theme, lang, 'showShareTrue');
+    await basicPage.open(theme, lang);
     await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-push-8');
     await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-push-9');
 }
@@ -325,6 +330,11 @@ async function showShareTrue(theme, lang) {
     await shareBtn.click();
     await (await preFooterPage.shareModal).waitForExist({ timeout: 3000 })
     await expect(preFooterPage.shareModal).toExist();
+}
+
+async function feedbackToolBackwardsComp(theme, lang) {
+    await preFooterPage.open(theme, lang, 'showShareTrue');
+    await expect(preFooterPage.feedbackBtn).toExist();
 }
 
 async function accessibility(theme, lang) {

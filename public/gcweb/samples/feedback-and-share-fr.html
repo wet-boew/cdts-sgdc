@@ -6,6 +6,7 @@
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 		<title>Exemple SGDC - Commentaires et partage</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<meta name="dcterms.creator" content="[Nom du département]">
 		<!-- Meta data -->
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
 		<!-- Meta data-->
@@ -61,12 +62,21 @@
             <p>À partir de la version 4.2.0, SGDC remplace le bouton « Signaler un problème » par le nouvel outil de rétroaction de page fourni par WET. Par défaut, l'outil de commentaires sur la page ne sera pas affiché. Il faudra l'allumer. En outre, l'outil de rétroaction sur la page peut être personnalisé pour ajouter un lien de contact de votre choix.</p>
             <p>Pour plus d'informations, veuillez consulter la documentation WET <a href="https://wet-boew.github.io/GCWeb/sites/feedback/feedback-docs-fr.html">ici</a>.</p>
             <h3>Mise en oeuvre</h3>
-            <p>Cet outil de commentaires sur la page peut être ajouté et personnalisé dans la section <code>preFooter</code> de votre page.</p>
+            <p>Cet outil de commentaires sur la page peut être ajouté et personnalisé dans la section <code>preFooter</code> de votre page. Cet objet possède les propriétés suivantes auxquelles une valeur peut être affectée :</p>
+            <ul>
+                <li><code class="wb-prettify">enabled</code>: (OBLIGATOIRE) - Définissez sur true pour activer l'outil de rétroaction sur la page</li>
+                <li><code class="wb-prettify">text</code>: (FACULTATIF) - Définir un nom d'affichage pour votre lien de contact</li>
+                <li><code class="wb-prettify">url</code>:  (FACULTATIF) - Personnalisez le href de votre lien de contact</li>
+                <li><code class="wb-prettify">theme</code>:  (FACULTATIF) - Définir le thème de votre page</li>
+                <li><code class="wb-prettify">section</code>:  (FACULTATIF) - Définissez la section où réside votre page</li>
+            </ul>
             <p>Afficher l'outil de rétroaction sur la page</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
-    "showFeedback": true
+    "showFeedback": {
+        "enabled": true
+    }
 ...
 });
             </pre>
@@ -75,8 +85,9 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
     "showFeedback": {
-        "text": "Contact Name",
-        "url": "Contact URL"
+        "enabled": true,
+        "text": "Nom du contact",
+        "url": "URL de contact"
     }
 ...
 });
@@ -87,8 +98,9 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
     "showFeedback": {
-        "Theme": "Text defining the theme of your page",
-        "Section": "Text defining the section where your page resides"
+        "enabled": true,
+        "theme": "Texte définissant le thème de votre page",
+        "section": "Texte définissant la section où réside votre page"
     }
 ...
 	});
@@ -124,8 +136,11 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
 					"cdnEnv": "esdcprod",
-                    "showFeedback": "Custom URL here",
-                    "showShare": ["email", "facebook", "linkedin", "twitter"]
+                    "showFeedback": {
+                        "enabled": true
+                    },
+                    "showShare": ["email", "facebook", "linkedin", "twitter"],
+                    "dateModified": "2023-09-21"
 				});
 			</script>
 		</main>

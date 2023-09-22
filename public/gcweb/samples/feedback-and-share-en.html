@@ -6,6 +6,7 @@
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 		<title>CDTS Sample - Feedback and Share</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<meta name="dcterms.creator" content="[Department name]">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
 		<!-- Meta data-->
@@ -61,12 +62,21 @@
 			<p>As of v4.2.0, CDTS is replacing the 'Report a Problem' button with the new Page Feedback Tool provided by WET. By default, the page feedback tool will not be displayed. It will have to be turned on. Also, it can customized to add a contact link of your choosing.</p>
 			<p>For more information, please visit the WET documentation <a href="https://wet-boew.github.io/GCWeb/sites/feedback/feedback-docs-en.html">here</a>.</p>
             <h3>Implementation</h3>
-            <p>This page feedback tool can be added and customized in the <code>preFooter</code> section of your page.</p>
+            <p>This page feedback tool can be added and customized in the <code>preFooter</code> section of your page via the <code class="wb-prettify">showFeedback</code> object. This object has the following properties that can be assigned a value:</p>
+            <ul>
+                <li><code class="wb-prettify">enabled</code>: (MANDATORY) - Set to true to enable the Page Feedback Tool</li>
+                <li><code class="wb-prettify">text</code>: (OPTIONAL) - Set a display name of your contact link</li>
+                <li><code class="wb-prettify">url</code>:  (OPTIONAL) - Customize the href of your contact link</li>
+                <li><code class="wb-prettify">theme</code>:  (OPTIONAL) - Define the theme of your page</li>
+                <li><code class="wb-prettify">section</code>:  (OPTIONAL) - Define the section where your page resides</li>
+			</ul>
             <p>Show the page feedback tool</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
-    "showFeedback": true
+    "showFeedback": {
+        "enabled": true
+    }
 ...
 });
             </pre>
@@ -75,6 +85,7 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
     "showFeedback": {
+        "enabled": true,
         "text": "Contact Name",
         "url": "Contact URL"
     }
@@ -87,8 +98,9 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
     "showFeedback": {
-        "Theme": "Text defining the theme of your page",
-        "Section": "Text defining the section where your page resides"
+        "enabled": true,
+        "theme": "Text defining the theme of your page",
+        "section": "Text defining the section where your page resides"
     }
 ...
 });
@@ -124,8 +136,11 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
 					"cdnEnv": "esdcprod",
-                    "showFeedback": true,
-                    "showShare": ["email", "facebook", "linkedin", "twitter"]
+					"showFeedback": {
+						"enabled": true
+					},
+					"showShare": false,
+					"dateModified": "2023-09-21"
 				});
 			</script>
 		</main>
