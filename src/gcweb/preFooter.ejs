@@ -3,7 +3,7 @@
  * @param? dateModified The date the content was last modified.
  * @param? showPostContent Used to determine if the postcontent space will be displayed, off by default.
  * @param? showShare Used to determine if the share button will be displayed
- * @param? showFeedback Used to determine if the "Report a problem ..." button will be displayed or customized
+ * @param? showFeedback Used to determine if the Page Feedback Tool will be displayed or customized
  * @param? versionIdentifier Used instead of dateModified
  * @param? screenIdentifier Used to identify screens for users that need help
  * @param? pagedetails Used to determine if the pagedetails div will be displayed
@@ -34,7 +34,7 @@
     <div class="row">
         <%_ if (pr.showFeedback.enabled == true) { -%>
             <div class="col-sm-8 col-md-9 col-lg-9">
-                <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.url %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>"></div>
+                <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.href %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>"></div>
             </div>
         <%_ } -%>
         <%_ if (pr.showShare != false) { -%>

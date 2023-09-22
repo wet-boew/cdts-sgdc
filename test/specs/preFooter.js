@@ -92,7 +92,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "url": "Custom url"}}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "href": "Custom url"}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -100,7 +100,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "url": "Custom url"}}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "href": "Custom url"}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });

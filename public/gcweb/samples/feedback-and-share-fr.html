@@ -64,9 +64,9 @@
             <h3>Mise en oeuvre</h3>
             <p>Cet outil de commentaires sur la page peut être ajouté et personnalisé dans la section <code>preFooter</code> de votre page. Cet objet possède les propriétés suivantes auxquelles une valeur peut être affectée :</p>
             <ul>
-                <li><code class="wb-prettify">enabled</code>: (OBLIGATOIRE) - Définissez sur true pour activer l'outil de rétroaction sur la page</li>
+                <li><code class="wb-prettify">enabled</code>: (OBLIGATOIRE) - Définissez sur <code>true</code> pour activer l'outil de rétroaction sur la page</li>
                 <li><code class="wb-prettify">text</code>: (FACULTATIF) - Définir un nom d'affichage pour votre lien de contact</li>
-                <li><code class="wb-prettify">url</code>:  (FACULTATIF) - Personnalisez le href de votre lien de contact</li>
+                <li><code class="wb-prettify">href</code>:  (FACULTATIF) - Personnalisez l'url de votre lien de contact</li>
                 <li><code class="wb-prettify">theme</code>:  (FACULTATIF) - Définir le thème de votre page</li>
                 <li><code class="wb-prettify">section</code>:  (FACULTATIF) - Définissez la section où réside votre page</li>
             </ul>
@@ -87,7 +87,7 @@ defPreFooter.outerHTML = wet.builder.preFooter({
     "showFeedback": {
         "enabled": true,
         "text": "Nom du contact",
-        "url": "URL de contact"
+        "href": "URL de contact"
     }
 ...
 });
