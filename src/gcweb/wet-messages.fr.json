@@ -277,17 +277,9 @@
         "source": "About Canada.ca",
         "target": "À propos de Canada.ca"
     },
-    "1a0c4e17cf587221c1eb52d9b205afc3525a91a2": {
-        "source": "Report a problem on this page",
-        "target": "Signaler un problème sur cette page"
-    },
     "2256cc6ee2a5d077491a8a63ef76ac743c25d2d2": {
         "source": "Related links",
         "target": "Liens connexes"
-    },
-    "986cb5f9dca7df884d607aa87fda3bb06a81b8cf": {
-        "source": "https://www.canada.ca/en/report-problem.html",
-        "target": "https://www.canada.ca/fr/signaler-probleme.html"
     },
     "cf01481f626d5127ec7732fcbdb29504f08abefd": {
         "source": "Privacy",
@@ -396,5 +388,9 @@
     "19c1c7594d4bc2acc4042e6675bb35610d8a58bc": {
         "source": "https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html",
         "target": "https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-fr.html"
+    },
+    "0e7ff74db54b5c630623b52a2821238389becd98": {
+        "source": "Page details",
+        "target": "Détails de la page"
     }
 }
