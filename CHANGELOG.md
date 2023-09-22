@@ -2,7 +2,7 @@
 
 ## v4.2.0
 
-- Replacing the 'Report a problem button' with the new Page Feedback tool. The Page Feedback tool is optional and will be hidden unless it is set to true. Please visit the sample pages for more information. 
+- Replacing the 'Report a problem button' with the new Page Feedback tool. The Page Feedback tool is optional and will be hidden unless explicitly enabled and other conditions are met. Please visit the sample pages for more information. 
 
 ## v4.1.0
 

@@ -6,7 +6,7 @@
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 		<title>Exemple SGDC - Commentaires et partage</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
-		<meta name="dcterms.creator" content="[Nom du département]">
+		<meta name="dcterms.creator" content="[Department name / Nom du département]">
 		<!-- Meta data -->
 		<meta name="description" content="La Boîte à outils de l’expérience Web (BOEW) rassemble différents composants réutilisables et prêts-à-utiliser pour la conception et la mise à jour de sites Web innovateurs qui sont à la fois accessibles, conviviaux et interopérables. Tous ces composants réutilisables sont des logiciels libres mis à la disposition des ministères et des collectivités Web externes.">
 		<!-- Meta data-->
@@ -70,6 +70,8 @@
                 <li><code class="wb-prettify">theme</code>:  (FACULTATIF) - Définir le thème de votre page</li>
                 <li><code class="wb-prettify">section</code>:  (FACULTATIF) - Définissez la section où réside votre page</li>
             </ul>
+            <p><b>Note: </b>Votre page DOIT avoir les métadonnées suivantes définies pour que l'outil de rétroaction soit activé : <code>&lt;meta name="dcterms.creator" content="[Department name / Nom du département]"&gt;</code></p>
+            <p><b>Note: </b>Les valeurs pour le thème, la section et le nom du département doivent être les MÊMES pour l'anglais et le français.</p>
             <p>Afficher l'outil de rétroaction sur la page</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({
@@ -99,14 +101,12 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 ...
     "showFeedback": {
         "enabled": true,
-        "theme": "Texte définissant le thème de votre page",
-        "section": "Texte définissant la section où réside votre page"
+        "theme": "Text defining the theme of your page / Texte définissant le thème de votre page",
+        "section": "Text defining the section where your page resides / Texte définissant la section où réside votre page"
     }
 ...
 	});
             </pre>
-            <p><b>Note: </b>Vous pouvez définir les métadonnées suivantes : <code>&lt;meta name="dcterms.creator" content="[Department name]"&gt;</code></p>
-            <p><b>Note: </b>Les valeurs pour le thème, la section et le nom du département doivent être les MÊMES pour l'anglais et le français.</p>
             <h2>Partager</h2>
             <p>Le bouton « Partager cette page » est un moyen pour les utilisateurs de partager l'URL du site via les médias sociaux. Par défaut, ce bouton s'affiche avec la sélection par défaut des sites de réseaux sociaux. Vous pouvez personnaliser cette sélection ou simplement masquer le bouton.</p>
             <h3>Mise en oeuvre</h3>

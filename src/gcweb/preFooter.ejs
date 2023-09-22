@@ -30,7 +30,7 @@
     }
 -%>
 <%_ if (pr.pagedetails != false) { -%>
-    <section class="pagedetails">
+    <section class="pagedetails <%= (pr.isContainer != null)? ' container': '' %>">
         <h2 class="wb-inv">"<^- msg('Page details') ^>"</h2>
         <div class="row">
             <%_ if (pr.showFeedback.enabled == true) { -%>
