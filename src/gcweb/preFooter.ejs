@@ -23,6 +23,12 @@
             enabled: false
         }
     }
+    else if (typeof pr.showFeedback === 'string' || pr.showFeedback instanceof String){
+        pr.showFeedback = {
+            enabled: true,
+            legacyBtnUrl: pr.showFeedback
+        }
+    }
 
     //If showFeedback is enabled, checking for mandatory meta element
     if (pr.showFeedback.enabled == true && document.head.querySelector('meta[name="dcterms.creator"]') == null) {
@@ -35,7 +41,11 @@
         <div class="row">
             <%_ if (pr.showFeedback.enabled == true) { -%>
                 <div class="col-sm-8 col-md-9 col-lg-9">
-                    <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.href %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>"></div>
+                    <%_ if (pr.showFeedback.legacyBtnUrl != null) { -%>
+                        <a href="<%- pr.showFeedback.legacyBtnUrl %>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
+                    <%_ } else { -%>
+                        <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.href %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>"></div>
+                    <%_ } -%>
                 </div>
             <%_ } -%>
             <%_ if (pr.showShare != false) { -%>

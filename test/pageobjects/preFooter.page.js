@@ -26,6 +26,7 @@ class PreFooterPage extends Page {
     get feedbackNoBtn() { return $('fieldset.gc-pft-btns button:nth-child(2)'); }
     get feedbackContactUsLink() { return $('section.pagedetails summary'); }
     get feedbackContactLink() { return $('section.pagedetails details a'); }
+    get feedbackBtnLegacy() { return $('section.pagedetails a.btn-center'); }
 
     /**
     * Opens a sub page of the page

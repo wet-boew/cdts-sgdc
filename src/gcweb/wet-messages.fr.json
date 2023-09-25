@@ -392,5 +392,9 @@
     "0e7ff74db54b5c630623b52a2821238389becd98": {
         "source": "Page details",
         "target": "Détails de la page"
+    },
+    "1a0c4e17cf587221c1eb52d9b205afc3525a91a2": {
+        "source": "Report a problem on this page",
+        "target": "Signaler un problème sur cette page"
     }
 }

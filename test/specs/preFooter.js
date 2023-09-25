@@ -28,7 +28,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-modifiedBtn-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": {"enabled": true}, "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -36,7 +36,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-modifiedBtn-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": {"enabled": true}, "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": ["blogger", "diigo", "email", "facebook", "gmail", "linkedin", "myspace", "pinterest", "reddit", "tinyurl", "tumblr",  "twitter", "whatsapp", "yahoomail"], "showFeedback": "www.google.ca", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -135,9 +135,14 @@ describe('Prefooter section tests for GCWeb', () => {
         await pageDetailsDoNotExist(theme, 'fr');
     });
 
-    it('Feedback button with custom URL', async () => {
+    it('Legacy Feedback button with custom URL', async () => {
         await feedbackBtnCustomUrl(theme, 'en');
         await feedbackBtnCustomUrl(theme, 'fr');
+    });
+
+    it('Feedback button with contact URL', async () => {
+        await feedbackBtnContactUrl(theme, 'en');
+        await feedbackBtnContactUrl(theme, 'fr');
     });
 
     it('Share button with custom modal', async () => {
@@ -285,6 +290,11 @@ async function pageDetailsDoNotExist(theme, lang) {
 }
 
 async function feedbackBtnCustomUrl(theme, lang) {
+    await preFooterPage.open(theme, lang, 'modifiedBtn');
+    await expect(preFooterPage.feedbackBtnLegacy).toHaveHrefContaining('google'); 
+}
+
+async function feedbackBtnContactUrl(theme, lang) {
     await preFooterPage.open(theme, lang, 'customContact');
     const feedbackNoBtn = await preFooterPage.feedbackNoBtn;
     await feedbackNoBtn.click();
