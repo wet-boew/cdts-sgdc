@@ -2,7 +2,7 @@
 
 ## v4.2.0
 
-- Remplacement du bouton « Signaler un problème » par le nouvel outil de rétroaction sur la page. L'outil de rétroaction sur la page est facultatif et sera masqué à moins qu'il ne soit explicitement activéet d'autres conditions sont remplies. Veuillez visiter les exemples de pages pour plus d’informations.
+- Remplacement du bouton « Signaler un problème » par le nouvel outil de rétroaction sur la page. L'outil de rétroaction sur la page est facultatif et sera masqué à moins qu'il ne soit explicitement activé et que d'autres conditions sont remplies. Veuillez visiter les exemples de pages pour plus d’informations.
 
 ## v4.1.0
 

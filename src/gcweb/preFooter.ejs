@@ -31,7 +31,7 @@
     }
 
     //If showFeedback is enabled, checking for mandatory meta element
-    if (pr.showFeedback.enabled == true && document.head.querySelector('meta[name="dcterms.creator"]') == null) {
+    if (pr.showFeedback.enabled == true && document.head.querySelector('meta[name="dcterms.creator"]') == null && !pr.showFeedback.legacyBtnUrl) {
         pr.showFeedback.enabled = false;
     }
 -%>
