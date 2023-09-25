@@ -12,7 +12,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": false, "showFeedback": false, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -20,7 +20,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-preFooter-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": false, "showFeedback": false, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -60,7 +60,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-feedbackFalse-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": false}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": false}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -68,7 +68,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-feedbackFalse-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showFeedback": false}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": false}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -76,7 +76,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-showShareTrue-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showShare": true}',
+        preFooter: '{"cdnEnv": "localhost", "showShare": true, "showFeedback": true}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -84,7 +84,23 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-showShareTrue-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"cdnEnv": "localhost", "showShare": true}',
+        preFooter: '{"cdnEnv": "localhost", "showShare": true, "showFeedback": true}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-en', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "href": "Custom url"}}',
+        footer: '{"cdnEnv": "localhost"}',
+        refFooter: '{"cdnEnv": "localhost"}'
+    });
+
+    generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-customContact-fr', {
+        refTop: '{"cdnEnv": "localhost"}',
+        top: '{"cdnEnv": "localhost"}',
+        preFooter: '{"cdnEnv": "localhost", "showFeedback": {"enabled": true, "text": "Custom Contact", "href": "Custom url"}}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -119,9 +135,14 @@ describe('Prefooter section tests for GCWeb', () => {
         await pageDetailsDoNotExist(theme, 'fr');
     });
 
-    it('Feedback button with custom URL', async () => {
+    it('Legacy Feedback button with custom URL', async () => {
         await feedbackBtnCustomUrl(theme, 'en');
         await feedbackBtnCustomUrl(theme, 'fr');
+    });
+
+    it('Feedback button with contact URL', async () => {
+        await feedbackBtnContactUrl(theme, 'en');
+        await feedbackBtnContactUrl(theme, 'fr');
     });
 
     it('Share button with custom modal', async () => {
@@ -147,6 +168,11 @@ describe('Prefooter section tests for GCWeb', () => {
     it('Button showShare appears when set to true', async () => {
         await showShareTrue(theme, 'en');
         await showShareTrue(theme, 'fr');
+    });
+
+    it('Test backwards compatibility for the feedback tool when set to true', async () => {
+        await feedbackToolBackwardsComp(theme, 'en');
+        await feedbackToolBackwardsComp(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -212,18 +238,12 @@ describe('PreFooter section tests for GCIntranet', () => {
 });
 
 async function feedbackBtnExists(theme, lang) {
-    await basicPage.open(theme, lang);
+    await preFooterPage.open(theme, lang);
     await expect(preFooterPage.feedbackBtn).toExist();
-    if (lang === 'en') {
-        await expect(preFooterPage.feedbackBtn).toHaveHrefContaining('https://www.canada.ca/en/report-problem.html');
-    }
-    else {
-        await expect(preFooterPage.feedbackBtn).toHaveHrefContaining('https://www.canada.ca/fr/signaler-probleme.html');
-    }
 }
 
 async function feedbackBtnDoesNotExist(theme, lang) {
-    await preFooterPage.open(theme, lang);
+    await basicPage.open(theme, lang);
     await expect(preFooterPage.feedbackBtn).not.toExist();
 }
 
@@ -271,7 +291,17 @@ async function pageDetailsDoNotExist(theme, lang) {
 
 async function feedbackBtnCustomUrl(theme, lang) {
     await preFooterPage.open(theme, lang, 'modifiedBtn');
-    await expect(preFooterPage.feedbackBtn).toHaveHrefContaining('google');
+    await expect(preFooterPage.feedbackBtnLegacy).toHaveHrefContaining('google'); 
+}
+
+async function feedbackBtnContactUrl(theme, lang) {
+    await preFooterPage.open(theme, lang, 'customContact');
+    const feedbackNoBtn = await preFooterPage.feedbackNoBtn;
+    await feedbackNoBtn.click();
+    const feedbackContactUsLink = await preFooterPage.feedbackContactUsLink;
+    await feedbackContactUsLink.click();
+    await expect(preFooterPage.feedbackContactLink).toHaveTextContaining('Custom Contact');
+    await expect(preFooterPage.feedbackContactLink).toHaveHrefContaining('Custom url');    
 }
 
 async function customShareModal(theme, lang) {
@@ -285,26 +315,23 @@ async function customShareModal(theme, lang) {
     await expect(preFooterPage.facebookBtn).toHaveTextContaining('Facebook');
     await expect(preFooterPage.linkedinBtn).toHaveTextContaining('LinkedIn');
     await expect(preFooterPage.twitterBtn).toHaveTextContaining('Twitter');
-
 }
 
 async function noPageDetails(theme, lang) {
-    await preFooterPage.open(theme, lang, 'pageDetails');
+    await basicPage.open(theme, lang, 'pageDetails');
     await expect(preFooterPage.pageDetails).not.toExist();
 }
 
 async function showShareClassDefault(theme, lang) {
     await preFooterPage.open(theme, lang, 'modifiedBtn');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-offset-2');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-offset-4');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-lg-offset-5');
+    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-sm-push-8');
+    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-md-push-9');
 }
 
 async function showShareClassModified(theme, lang) {
-    await preFooterPage.open(theme, lang, 'feedbackFalse');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-offset-8');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-offset-9');
-    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-lg-offset-5');
+    await basicPage.open(theme, lang);
+    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-push-8');
+    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-push-9');
 }
 
 async function showShareTrue(theme, lang) {
@@ -313,6 +340,11 @@ async function showShareTrue(theme, lang) {
     await shareBtn.click();
     await (await preFooterPage.shareModal).waitForExist({ timeout: 3000 })
     await expect(preFooterPage.shareModal).toExist();
+}
+
+async function feedbackToolBackwardsComp(theme, lang) {
+    await preFooterPage.open(theme, lang, 'showShareTrue');
+    await expect(preFooterPage.feedbackBtn).toExist();
 }
 
 async function accessibility(theme, lang) {

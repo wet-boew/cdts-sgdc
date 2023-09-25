@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v13.3.0 - 2023-05-30
+ * v13.7.2 - 2023-08-29
  *
  */
 /*
@@ -2079,14 +2079,35 @@ a {
 		padding: 10px 10px 10px 0;
 		text-align: left;
 		white-space: normal;
+		width: 20ch;
 		word-break: break-word; }
 	.dl-horizontal dd {
 		border-top: 1px solid #ccc;
 		margin-bottom: 3px;
-		margin-left: 160px;
+		margin-left: 20ch;
 		padding: 10px 10px 10px 0; }
 	.dl-horizontal dt + dd {
-		padding-bottom: 0; } }
+		padding-bottom: 0; }
+	.dl-horizontal.dt-max {
+		display: grid;
+		grid-template-columns: minmax(-webkit-min-content, -webkit-min-content) auto;
+		grid-template-columns: minmax(min-content, min-content) auto; }
+		.dl-horizontal.dt-max dt {
+			-ms-hyphens: none;
+			-webkit-hyphens: none;
+			hyphens: none;
+			min-width: 20ch;
+			white-space: normal;
+			width: auto;
+			word-break: initial; }
+		.dl-horizontal.dt-max dd {
+			margin-left: 0; } }
+
+.dl-inline dt, .dl-inline dd {
+	display: inline; }
+
+.dl-inline dd + dt {
+	margin-left: 15px; }
 
 /*
  *  Abbreviations with title attributes
@@ -2284,14 +2305,16 @@ pre {
 	.row:after {
 		clear: both; }
 
-.row-no-gutters {
+.row-no-gutters, .no-js #gc-pft .row-no-gutters,
+.wb-disable #gc-pft .row-no-gutters {
 	margin-right: 0;
 	margin-left: 0; }
-	.row-no-gutters [class*="col-"] {
+	.row-no-gutters [class*="col-"], .no-js #gc-pft .row-no-gutters [class*="col-"], .wb-disable #gc-pft .row-no-gutters [class*="col-"] {
 		padding-right: 0;
 		padding-left: 0; }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .no-js #gc-pft .nojs-col-sm-12,
+.wb-disable #gc-pft .nojs-col-sm-12, .col-md-12, .col-lg-12 {
 	position: relative;
 	min-height: 1px;
 	padding-right: 15px;
@@ -2454,7 +2477,8 @@ pre {
 	margin-left: 100%; }
 
 @media (min-width: 768px) {
-	.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+	.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .no-js #gc-pft .nojs-col-sm-12,
+	.wb-disable #gc-pft .nojs-col-sm-12 {
 		float: left; }
 	.col-sm-1 {
 		width: 8.3333333333%; }
@@ -2478,7 +2502,8 @@ pre {
 		width: 83.3333333333%; }
 	.col-sm-11 {
 		width: 91.6666666667%; }
-	.col-sm-12 {
+	.col-sm-12, .no-js #gc-pft .nojs-col-sm-12,
+	.wb-disable #gc-pft .nojs-col-sm-12 {
 		width: 100%; }
 	.col-sm-pull-0 {
 		right: auto; }
@@ -4792,11 +4817,30 @@ main .pagedetails {
 		padding-top: 7px; }
 		.pagedetails .datemod #wb-dtmd {
 			margin-top: 0; }
-	.pagedetails .well {
-		margin-left: -1.1em;
-		margin-right: -1.1em; }
 	.pagedetails details {
 		margin-bottom: 0; }
+		.pagedetails details .well {
+			margin-left: -1.1em;
+			margin-right: -1.1em; }
+
+/*
+  @title: Page feedback tool - Base
+ */
+#gc-pft {
+	/* In noscript/basic HTML mode... */ }
+	#gc-pft details {
+		margin-bottom: 15px;
+		margin-top: 0; }
+	#gc-pft .gc-pft-no {
+		font-weight: 700; }
+	.no-js #gc-pft,
+	.wb-disable #gc-pft {
+		/* Disable row gutters (default selector isn't specific-enough) */
+		/* Make the legend full width */
+		/* Left-align the legend and yes/no buttons */ }
+		.no-js #gc-pft .nojs-text-left,
+		.wb-disable #gc-pft .nojs-text-left {
+			text-align: left; }
 
 /*
  * Site menu
@@ -5228,7 +5272,7 @@ main .pagedetails {
 	border-radius: 0px;
 	margin-top: 5px; }
 
-#wb-so a.btn:hover {
+#wb-so a.btn-primary:hover {
 	background-color: #444; }
 
 /*
@@ -10582,6 +10626,18 @@ Carousel
 .wb-tgfltr-out {
 	display: none !important; }
 
+.wb-tagfilter-noresult {
+	display: none; }
+
+.wb-tagfilter-items:not(:has([data-wb-tags]:not(.wb-tgfltr-out):not(.wb-fltr-out))) + .wb-tagfilter-noresult {
+	display: block; }
+
+.wb-tagfilter-items:has(+ .wb-tagfilter-noresult):not(:has([data-wb-tags]:not(.wb-tgfltr-out):not(.wb-fltr-out))) {
+	display: none; }
+
+html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfilter-noresult {
+	display: none !important; }
+
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
@@ -11257,22 +11313,31 @@ ol-geolocate button {
 	border: none;
 	padding: 0; }
 
+.wb-paginate-pager {
+	text-align: center; }
+	.wb-paginate-pager .paginate-prev::before,
+	.wb-paginate-pager .paginate-next::after {
+		font-family: "Glyphicons Halflings";
+		font-weight: 400;
+		line-height: 1em;
+		position: relative;
+		top: .1em; }
+	.wb-paginate-pager .paginate-prev::before {
+		content: "\e091";
+		margin-right: .5em; }
+	.wb-paginate-pager .paginate-next::after {
+		content: "\e092";
+		margin-left: .5em; }
+	.wb-paginate-pager li.active:nth-last-child(2) a {
+		border-bottom-right-radius: 4px;
+		border-top-right-radius: 4px; }
+
+html:not(.wb-disable) .wb-pgfltr-out {
+	display: none !important; }
+
 /*
  * Components styles
  */
-.gc-dwnld .gc-dwnld-txt {
-	text-decoration: underline; }
-	.gc-dwnld .gc-dwnld-txt:hover {
-		text-decoration: none; }
-	.gc-dwnld .gc-dwnld-txt span {
-		display: block; }
-
-.gc-dwnld .gc-dwnld-img {
-	margin-bottom: 0; }
-
-.gc-dwnld p {
-	margin-bottom: 0; }
-
 .gc-stp-stp {
 	border-bottom: solid 1px #ccc;
 	margin-bottom: 30px;
@@ -11620,6 +11685,19 @@ main .gc-rms-lngth img {
 				display: inline-block;
 				font-weight: 700;
 				margin-right: .7em; }
+
+.gc-dwnld .gc-dwnld-txt {
+	text-decoration: underline; }
+	.gc-dwnld .gc-dwnld-txt:hover {
+		text-decoration: none; }
+	.gc-dwnld .gc-dwnld-txt span {
+		display: block; }
+
+.gc-dwnld .gc-dwnld-img {
+	margin-bottom: 0; }
+
+.gc-dwnld p {
+	margin-bottom: 0; }
 
 /*
  *
@@ -12136,8 +12214,6 @@ fieldset.gc-chckbxrdio {
 		font-size: 1em;
 		margin-bottom: 5px;
 		margin-top: 23px; }
-	.gc-features a:hover {
-		text-decoration: none; }
 	.gc-features img {
 		width: 100%; }
 	.gc-features .well {
@@ -12772,17 +12848,22 @@ aside.features {
 
 /* Provisional featured link component */
 .gc-featured-link {
-	background-color: #355688; }
-	.gc-featured-link.provisional {
-		font-family: Lato, sans-serif;
-		opacity: .9;
-		padding-bottom: 15px;
-		padding-top: 15px; }
-		.gc-featured-link.provisional p:first-of-type {
-			font-weight: 700;
-			margin-bottom: 0px; }
-		.gc-featured-link.provisional p, .gc-featured-link.provisional a {
-			color: #fff; }
+	background-color: #355688;
+	color: #fff;
+	font-family: Lato, sans-serif;
+	opacity: .9;
+	padding-bottom: 15px;
+	padding-top: 15px; }
+	.gc-featured-link p:first-of-type {
+		margin-bottom: 0px; }
+	.gc-featured-link a {
+		color: #fff;
+		font-weight: 700; }
+	html:not(.wb-disable) .gc-featured-link[data-bg-color] {
+		background-color: transparent;
+		color: #333333; }
+		html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
+			color: #333333; }
 
 /* Provisional most requested component */
 .provisional.gc-most-requested {
@@ -13930,6 +14011,13 @@ button.bg-dark:hover, button.bg-dark:focus {
 	background-color: #1d2124; }
 
 /*
+Panels
+ */
+.panel:not(:has(.panel, .well)):has(.stretched-link):hover, .panel:not(:has(.panel, .well)):has(.stretched-link:focus), .well:not(:has(.panel, .well)):has(.stretched-link):hover, .well:not(:has(.panel, .well)):has(.stretched-link:focus) {
+	-webkit-box-shadow: 1px 5px 7px rgba(0, 0, 0, 0.15);
+	        box-shadow: 1px 5px 7px rgba(0, 0, 0, 0.15); }
+
+/*
 Miscellaneous Utiliy CSS
  */
 .max-content {
@@ -14814,6 +14902,12 @@ Miscellaneous Utiliy CSS
 		.wb-disable .gcweb-menu [role=menu] > li:nth-child(2n+3) {
 			clear: none; }
 	/*
+ * Share/feedback-specific overrides (medium view and over)
+ */
+	/* Add a larger top margin on the share button (only if its plugin has initialized) if adjacent to the page feedback tool. */
+	.pagedetails div:has(#gc-pft) + .wb-share-inited {
+		margin-top: 16px; }
+	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
@@ -15216,6 +15310,12 @@ Miscellaneous Utiliy CSS
 	#wb-srch {
 		margin-bottom: 15px; }
 	/*
+ * Share/feedback-specific overrides (small view and over)
+ */
+	/* Add a larger top margin on the share button (only if its plugin has initialized) if adjacent to the page feedback tool. */
+	.pagedetails div:has(#gc-pft) + .wb-share-inited {
+		margin-top: 29px; }
+	/*
   Campaign
   @title: Small view (screen only)
  */
@@ -15379,6 +15479,11 @@ Miscellaneous Utiliy CSS
 	.pagedetails .btn {
 		display: none !important; }
 	/*
+  @title: Page feedback tool - Print view
+ */
+	#gc-pft {
+		display: none !important; }
+	/*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
@@ -15531,3 +15636,18 @@ Miscellaneous Utiliy CSS
 
 .test-textSpacing p {
 	margin-bottom: 2em !important; }
+
+/*
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-eng.html / wet-boew.github.io/wet-boew/Licence-fra.html
+ */
+
+:root {
+	--supports-has: false;
+}
+
+@supports selector(:has(*)) {
+	:root {
+		--supports-has: true;
+	}
+}

@@ -3,7 +3,7 @@
  * @param? dateModified The date the content was last modified.
  * @param? showPostContent Used to determine if the postcontent space will be displayed, off by default.
  * @param? showShare Used to determine if the share button will be displayed
- * @param? showFeedback Used to determine if the "Report a problem ..." button will be displayed or customized
+ * @param? showFeedback Used to determine if the Page Feedback Tool will be displayed or customized
  * @param? versionIdentifier Used instead of dateModified
  * @param? screenIdentifier Used to identify screens for users that need help
  * @param? pagedetails Used to determine if the pagedetails div will be displayed
@@ -11,43 +11,66 @@
 -%>
 <%_ if (pr.showPostContent != false) { -%>
 <%_ } -%>
+<%_
+    //Preserving backwards compatibility with boolean values
+    if (pr.showFeedback === true) {
+        pr.showFeedback = {
+            enabled: true
+        }
+    }
+    else if (pr.showFeedback == null || pr.showFeedback === false) {
+        pr.showFeedback = {
+            enabled: false
+        }
+    }
+    else if (typeof pr.showFeedback === 'string' || pr.showFeedback instanceof String){
+        pr.showFeedback = {
+            enabled: true,
+            legacyBtnUrl: pr.showFeedback
+        }
+    }
+
+    //If showFeedback is enabled, checking for mandatory meta element
+    if (pr.showFeedback.enabled == true && document.head.querySelector('meta[name="dcterms.creator"]') == null && !pr.showFeedback.legacyBtnUrl) {
+        pr.showFeedback.enabled = false;
+    }
+-%>
 <%_ if (pr.pagedetails != false) { -%>
-    <div class="pagedetails<%= (pr.isContainer != null)? ' container': '' %>">
-        <%_ if (pr.showFeedback != false || pr.showShare != false) { -%>
-            <div class="row">
-                <%_ if (pr.showFeedback != false) { -%>
-                    <%_ if (pr.showFeedback != null && pr.showFeedback != true) { -%>
-                        <div class="col-sm-6 col-md-5 col-lg-4">
-                            <a href="<%- pr.showFeedback %>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
-                        </div>
+    <section class="pagedetails <%= (pr.isContainer != null)? ' container': '' %>">
+        <h2 class="wb-inv">"<^- msg('Page details') ^>"</h2>
+        <div class="row">
+            <%_ if (pr.showFeedback.enabled == true) { -%>
+                <div class="col-sm-8 col-md-9 col-lg-9">
+                    <%_ if (pr.showFeedback.legacyBtnUrl != null) { -%>
+                        <a href="<%- pr.showFeedback.legacyBtnUrl %>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
                     <%_ } else { -%>
-                        <div class="col-sm-6 col-md-5 col-lg-4">
-                            <a href="<^- msg('https://www.canada.ca/en/report-problem.html') ^>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
-                        </div>
+                        <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.href %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>"></div>
                     <%_ } -%>
+                </div>
+            <%_ } -%>
+            <%_ if (pr.showShare != false) { -%>
+                <%_ if (pr.showShare != null && Array.isArray(pr.showShare)) { -%>                    
+                    <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
+                <%_ } else { -%>
+                    <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}' ></div>
                 <%_ } -%>
-                <%_ if (pr.showShare != false) { -%>
-                    <%_ if (pr.showShare != null && Array.isArray(pr.showShare)) { -%>
-                        <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
-                    <%_ } else { -%>
-                        <div class="wb-share col-sm-4 col-md-3 col-sm-offset-<%- (pr.showFeedback != false)? '2' : '8' %> col-md-offset-<%- (pr.showFeedback != false)? '4' : '9' %><%- (pr.showFeedback != false)? ' col-lg-offset-5' : '' %>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}'></div>
+            <%_ } -%>
+            <div class="<%- (pr.showFeedback.enabled != true && pr.showShare != false)? 'col-sm-6 col-md-5 col-lg-4 col-sm-pull-4 col-md-pull-3' : 'col-xs-12' %>">
+                <dl id="wb-dtmd">
+                    <%_ if (pr.screenIdentifier != null) { -%>
+                        <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
+                        <dd property="identifier"><%= pr.screenIdentifier %></dd>
                     <%_ } -%>
-                <%_ } -%>
+                    <%_ if (pr.dateModified != null) { -%>
+                        <dt><^- msg('Date modified:') ^>&#32;</dt>
+                        <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
+                    <%_ } -%>
+                    <%_ if (pr.versionIdentifier != null) { -%>
+                        <dt><^- msg('Version:') ^>&#32;</dt>
+                        <dd property="version"><%= pr.versionIdentifier %></dd>
+                    <%_ } -%>
+                </dl>
             </div>
-        <%_ } -%>
-        <dl id="wb-dtmd">
-            <%_ if (pr.screenIdentifier != null) { -%>
-                <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
-                <dd property="identifier"><%= pr.screenIdentifier %></dd>
-            <%_ } -%>
-            <%_ if (pr.dateModified != null) { -%>
-                <dt><^- msg('Date modified:') ^>&#32;</dt>
-                <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
-            <%_ } -%>
-            <%_ if (pr.versionIdentifier != null) { -%>
-                <dt><^- msg('Version:') ^>&#32;</dt>
-                <dd property="version"><%= pr.versionIdentifier %></dd>
-            <%_ } -%>
-        </dl>
-    </div>
+        </div>
+    </section>
 <%_ } -%>

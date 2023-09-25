@@ -75,6 +75,7 @@ l'url
 l'URL
 MaPayeGC
 maSGE
+métadonnées
 mozilla
 NS
 NAS

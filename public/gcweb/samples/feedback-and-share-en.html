@@ -6,6 +6,7 @@
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
 		<title>CDTS Sample - Feedback and Share</title>
 		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<meta name="dcterms.creator" content="[Department name / Nom du département]">
 		<!-- Meta data -->
 		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
 		<!-- Meta data-->
@@ -56,27 +57,55 @@
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<h1 property="name" id="wb-cont">Feedback and Share</h1>
-			<p>This page will demonstrate how to enable/disable the Feedback Link, as well as how to use the feature to share the current page with some predefined Social Media applications.</p>
+			<p>This page will demonstrate how to enable the Page Feedback Tool, as well as how to use the feature to share the current page with some predefined Social Media applications.</p>
 			<h2>Feedback</h2>
-            <p>Specify the "Report a problem or mistake on this page" button of your page. By default this button is shown with the default Canada.ca URL. You can customize the URL or simply hide the button.</p>
+			<p>As of v4.2.0, CDTS is replacing the 'Report a Problem' button with the new Page Feedback Tool provided by WET. By default, the page feedback tool will not be displayed. It will have to be turned on. Also, it can customized to add a contact link of your choosing.</p>
+			<p>For more information, please visit the WET documentation <a href="https://wet-boew.github.io/GCWeb/sites/feedback/feedback-docs-en.html">here</a>.</p>
             <h3>Implementation</h3>
-            <p>This link can be customized in the <code>preFooter</code> section of your page.</p>
-            <p>Hide the button</p>
+            <p>This page feedback tool can be added and customized in the <code>preFooter</code> section of your page via the <code class="wb-prettify">showFeedback</code> object. This object has the following properties that can be assigned a value:</p>
+            <ul>
+                <li><code class="wb-prettify">enabled</code>: (MANDATORY) - Set to true to enable the Page Feedback Tool</li>
+                <li><code class="wb-prettify">text</code>: (OPTIONAL) - Set a display name of your contact link</li>
+                <li><code class="wb-prettify">href</code>:  (OPTIONAL) - Customize the url of your contact link</li>
+                <li><code class="wb-prettify">theme</code>:  (OPTIONAL) - Define the theme of your page</li>
+                <li><code class="wb-prettify">section</code>:  (OPTIONAL) - Define the section where your page resides</li>
+			</ul>
+            <p><b>Note: </b>Your page MUST have the following metadata defined for the feedback tool to be enabled: <code>&lt;meta name="dcterms.creator" content="[Department name / Nom du département]"&gt;</code></p>
+            <p><b>Note: </b>The values for Theme, Section and Department Name should be the SAME for English and French.</p>
+            <p>Show the page feedback tool</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
-    "showFeedback": false
+    "showFeedback": {
+        "enabled": true
+    }
 ...
 });
             </pre>
-            <p>Customize the URL</p>
+            <p>Customize the tool to add a contact link</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
-    "showFeedback": "Custom URL here"
+    "showFeedback": {
+        "enabled": true,
+        "text": "Contact Name",
+        "href": "Contact URL"
+    }
 ...
 });
 
+            </pre>
+            <p>Update the values of hidden input fields: Theme and Section</p>
+            <pre>
+defPreFooter.outerHTML = wet.builder.preFooter({
+...
+    "showFeedback": {
+        "enabled": true,
+        "theme": "Text defining the theme of your page / Texte définissant le thème de votre page",
+        "section": "Text defining the section where your page resides / Texte définissant la section où réside votre page"
+    }
+...
+});
             </pre>
             <h2>Share</h2>
             <p>The "Share This Page" button is a way for the users to share the URL of the site via Social Media. By default this button is shown with the default selection of social media sites. You can customize this selection or simply hide the button.</p>
@@ -107,8 +136,11 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
 					"cdnEnv": "esdcprod",
-                    "showFeedback": "Custom URL here",
-                    "showShare": ["email", "facebook", "linkedin", "twitter"]
+					"showFeedback": {
+						"enabled": true
+					},
+					"showShare": ["email", "facebook", "linkedin", "twitter"],
+					"dateModified": "2023-09-21"
 				});
 			</script>
 		</main>
