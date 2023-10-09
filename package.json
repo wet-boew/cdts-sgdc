@@ -17,7 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "@wdio/cli": "^8.16.11",
-    "@wdio/dot-reporter": "^8.16.17",
+    "@wdio/dot-reporter": "^8.16.22",
     "@wdio/junit-reporter": "^8.16.17",
     "@wdio/local-runner": "^8.16.18",
     "@wdio/mocha-framework": "^8.16.3",
