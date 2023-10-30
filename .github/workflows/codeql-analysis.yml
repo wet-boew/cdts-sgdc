@@ -36,7 +36,7 @@ jobs:
 
       # Since Javascript is not compiled, no real need to do a buld, but it doesn't hurt to make sure app actually builds first
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.x
           cache: npm
