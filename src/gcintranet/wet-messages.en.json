@@ -261,6 +261,14 @@
         "source": "<span class=\"bold-gc\">GC</span>intranet",
         "target": null
     },
+    "6fa25ec11095940211895447eed6bc5911d17358": {
+        "source": "https://iservice.prv/eng/imit/catalogue/gcxchange/index.shtml",
+        "target": null
+    },
+    "78fe556731ac994b12ed02af1985e573c26a199c": {
+        "source": "gcexchange",
+        "target": null
+    },
     "4715fce1fdbafc47a29ff9d0c1be459d8eafd034": {
         "source": "Language selection",
         "target": null

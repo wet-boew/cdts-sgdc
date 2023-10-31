@@ -25,6 +25,7 @@ class TopPage extends Page {
     get gcToolsModalLink3() { return $('section.modal-dialog li:nth-child(3) a'); }
     get gcToolsModalLink4() { return $('section.modal-dialog li:nth-child(4) a'); }
     get gcToolsModalLink5() { return $('section.modal-dialog li:nth-child(5) a'); }
+    get gcToolsModalLink6() { return $('section.modal-dialog li:nth-child(6) a'); }
     get intranetMenu() { return $('ul.menu'); }
     get search() {return $('#wb-srch'); }
     get transactBar() {return $('div.transactBar');}
