@@ -432,5 +432,13 @@
     "04f6175a59a7d9ac57d61277b75f3105938090cc": {
         "source": "ESDC/SC Intranet",
         "target": "EDSC/SC Intranet"
+    },
+    "6fa25ec11095940211895447eed6bc5911d17358": {
+        "source": "https://iservice.prv/eng/imit/catalogue/gcxchange/index.shtml",
+        "target": "https://iservice.prv/fra/giti/catalogue/gcechange/index.shtml"
+    },
+    "78fe556731ac994b12ed02af1985e573c26a199c": {
+        "source": "gcexchange",
+        "target": "gcéchange"
     }
 }
