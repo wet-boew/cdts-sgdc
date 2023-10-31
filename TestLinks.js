@@ -165,7 +165,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
                     let sendHEAD = true;
 
                     //canada.ca now ignores HEAD requests, which results in a long timeout, this is a quick and dirty way to go straight to GET
-                    if (validURL.host.endsWith('canada.ca')) {
+                    if (validURL.host.endsWith('canada.ca') || validURL.host.endsWith('.gc.ca')) {
                         sendHEAD = false;
                         sendGET = true;
                     }
