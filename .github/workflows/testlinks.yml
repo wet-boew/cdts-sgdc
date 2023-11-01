@@ -9,6 +9,7 @@ on:
       - "release-*"
   schedule:
     - cron: "30 11 * * 1"
+  workflow_dispatch:
 
 jobs:
   build:
