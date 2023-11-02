@@ -99,7 +99,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
     // pass ourselves off as Firefox and specify extra headers that are apparently now needed.
     config.headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
-        'Accept-Language': 'en-CA,en-US;q=0.7,en;q=0.3',
+        //'Accept-Language': 'en-CA,en-US;q=0.7,en;q=0.3',
         'Accept-Encoding': 'gzip, deflate, br',
         'Sec-Fetch-Dest': 'document',
         'Sec-Fetch-Mode': 'navigate',
