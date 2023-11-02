@@ -224,7 +224,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     const urls = [...new Set(matches)];
 
-    console.log("***** Validating links");
+    console.log("***** Validating links...");
     const totalErrorCount = await validateLinks(urls);
     const endTime = performance.now();
     console.log(`Done, validating links took ${endTime - startTime} milliseconds.`);
