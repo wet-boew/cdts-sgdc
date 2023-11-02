@@ -101,9 +101,9 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
         //'Accept-Language': 'en-CA,en-US;q=0.7,en;q=0.3',
         'Accept-Encoding': 'gzip, deflate, br',
-        //'Sec-Fetch-Dest': 'document',
-        //'Sec-Fetch-Mode': 'navigate',
-        //'Sec-Fetch-Site': 'none',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'cross-site',
         //'Sec-Fetch-User': '?1',
         timeout: 5000, //set timeout to 5s
     };
