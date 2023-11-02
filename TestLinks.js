@@ -10,6 +10,9 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
     //Includes links found on legacy templates, links that require credentials and partial URLs
     const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
         "https://recherche-search.gc.ca/", //skipping this link because it forbibs GET/HEAD
+        "https://www.canada.ca/en/sr/srb.html", //skipping this link because it gets rejected
+        "https://www.canada.ca/fr/sr/srb.html", //skipping this link because it gets rejected
+        "https://www.canada.ca/fr/services/entreprises/recherche.html", //skipping this link because it gets rejected
         "https://cdts.service.canada.ca/app/cls/WET",
         "https://cdts.service.canada.ca/rn/cls/WET",
         "https://ajax.googleapis.com/ajax/libs/",
