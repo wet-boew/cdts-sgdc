@@ -10,6 +10,9 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
     //Includes links found on legacy templates, links that require credentials and partial URLs
     const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
         "https://recherche-search.gc.ca/", //skipping this link because it forbibs GET/HEAD
+        "https://www.canada.ca/en/sr/srb.html", //skipping this link because it gets rejected
+        "https://www.canada.ca/fr/sr/srb.html", //skipping this link because it gets rejected
+        "https://www.canada.ca/fr/services/entreprises/recherche.html", //skipping this link because it gets rejected
         "https://cdts.service.canada.ca/app/cls/WET",
         "https://cdts.service.canada.ca/rn/cls/WET",
         "https://ajax.googleapis.com/ajax/libs/",
@@ -96,9 +99,15 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     // It seems canada.ca started ignoring connections with user agents they deem unacceptable,
     // resulting in timeouts for all canada.ca links.  To work around this, we'll
-    // pass ourselves off as Firefox.
+    // pass ourselves off as Firefox and specify extra headers that are apparently now needed.
     config.headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
+        //'Accept-Language': 'en-CA,en-US;q=0.7,en;q=0.3',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'cross-site',
+        //'Sec-Fetch-User': '?1',
         timeout: 5000, //set timeout to 5s
     };
 
@@ -223,7 +232,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     const urls = [...new Set(matches)];
 
-    console.log("***** Validating links");
+    console.log("***** Validating links:");
     const totalErrorCount = await validateLinks(urls);
     const endTime = performance.now();
     console.log(`Done, validating links took ${endTime - startTime} milliseconds.`);
