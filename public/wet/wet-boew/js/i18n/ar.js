@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "أغلقت تظهر السفلية"
 	},
 	"cc-err": "خطأ في تحميل تعليق مغلق",
+	fs: "Enter full screen",
 	adesc: {
 		on: "تمكين الوصف السمعي",
 		off: "تعطيل الوصف السمعي"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "الوظيفة الحالية:",
 	dur: "إجمالي الوقت:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "مشاركة",

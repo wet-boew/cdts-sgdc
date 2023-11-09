@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v13.7.2 - 2023-08-29
+ * v13.10.1 - 2023-11-08
  *
  */
 /*
@@ -1344,7 +1344,7 @@ main .glyphicon {
 
 /* latin */
 @font-face {
-	font-display: optional;
+	font-display: fallback;
 	font-family: "Lato";
 	font-style: italic;
 	font-weight: 400;
@@ -1380,7 +1380,7 @@ main .glyphicon {
 
 /* latin */
 @font-face {
-	font-display: optional;
+	font-display: fallback;
 	font-family: "Lato";
 	font-style: normal;
 	font-weight: 400;
@@ -9573,12 +9573,18 @@ body.wb-modal .modal-dialog summary {
 			color: #fff; }
 		.wb-mm-ctrls .btn[disabled]:hover {
 			background-color: transparent; }
+	.wb-mm-ctrls .fs {
+		display: none; }
+		.wb-mltmd[data-fullscreen-btn] .wb-mm-ctrls .fs {
+			display: block; }
 	.wb-mm-ctrls .frstpnl {
 		text-align: center;
 		width: 13em; }
 	.wb-mm-ctrls .lastpnl {
 		text-align: center;
 		width: 3em; }
+		.wb-mltmd[data-fullscreen-btn] .wb-mm-ctrls .lastpnl {
+			width: 6em; }
 	.wb-mm-ctrls .tline .wb-mm-tmln-crrnt:after {
 		content: " / ";
 		padding: 0 .5em; }
@@ -11338,11 +11344,6 @@ html:not(.wb-disable) .wb-pgfltr-out {
 /*
  * Components styles
  */
-.gc-stp-stp {
-	border-bottom: solid 1px #ccc;
-	margin-bottom: 30px;
-	margin-top: 15px; }
-
 .bg-gctheme {
 	background-color: #355688; }
 
@@ -12273,6 +12274,23 @@ aside.features {
 	.gc-prtts a p:last-child,
 	.gc-nttvs a p:last-child {
 		color: black; }
+
+/*
+ *
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ *
+ *
+ *	GC Step by step navigation
+*/
+.gc-stp-stp {
+	border-bottom: solid 1px #ccc;
+	margin-bottom: 30px;
+	margin-top: 15px; }
+	.gc-stp-stp ul:not(.col-md-12), .gc-stp-stp ol:not(.col-md-12) {
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 0; }
 
 /*
  * CSS used for the legacy/obselete code
@@ -14543,7 +14561,7 @@ Miscellaneous Utiliy CSS
 	.provisional.gc-table tbody + tbody > tr:first-of-type {
 		margin-top: 0.625em; }
 	.provisional.gc-table td {
-		display: block;
+		display: flow-root;
 		font-size: 1em;
 		text-align: right; }
 		.provisional.gc-table td::before {
@@ -14756,6 +14774,16 @@ Miscellaneous Utiliy CSS
 	.form-inline.gc-chckbxrdio .radio input[type="radio"],
 	.form-inline.gc-chckbxrdio .checkbox input[type="checkbox"] {
 		position: absolute; }
+	/*
+ *
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ *
+ *
+ *	GC Step by step navigation
+*/
+	.gc-stp-stp ul:not(.lst-spcd) li, .gc-stp-stp ol:not(.lst-spcd) li {
+		margin-bottom: 10px; }
 	/*
   WET-BOEW
   @title: Small view and over (screen only)

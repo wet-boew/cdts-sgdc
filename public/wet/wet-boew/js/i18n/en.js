@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Show closed captioning"
 	},
 	"cc-err": "Error loading closed captions",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Enable audio description",
 		off: "Disable audio description"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Current position:",
 	dur: "Total time:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Share",

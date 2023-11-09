@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Покажи Затворени надписи"
 	},
 	"cc-err": "Грешка при зареждане на затворени надписи",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Активиране на аудио описание",
 		off: "Изключване на аудио описание"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Позиция:",
 	dur: "Общо време:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Споделете",

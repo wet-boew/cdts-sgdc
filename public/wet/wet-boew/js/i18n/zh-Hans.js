@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "打开字幕"
 	},
 	"cc-err": "加载字母错误",
+	fs: "Enter full screen",
 	adesc: {
 		on: "使用音频描述",
 		off: "停止音频描述"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "现在位置：",
 	dur: "总时间：",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "分享",

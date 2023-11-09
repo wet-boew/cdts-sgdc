@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Hiện Đóng cửa phụ đề"
 	},
 	"cc-err": "Lỗi khi đang nạp chú thích đóng",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Kích hoạt tính năng mô tả âm thanh",
 		off: "Vô hiệu hoá mô tả âm thanh"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Chức vụ hiện tại:",
 	dur: "Tổng thời gian:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Chia",

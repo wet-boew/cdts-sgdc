@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Afficher le sous-titrage"
 	},
 	"cc-err": "Erreur dans le chargement des sous-titres",
+	fs: "Ouvrir plein écran",
 	adesc: {
 		on: "Activer l'audiodescription",
 		off: "Désactiver l'audiodescription"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Position actuelle :",
 	dur: "Temps total :",
 	msgYoutubeNotLoad: "La vidéo a éprouvé des problèmes de chargement",
-	msgYoutubeVdLoad: "Chargement de la vidéo youtube",
+	msgYoutubeVdLoad: "Chargement de la vidéo Youtube",
 
 	/* Share widget */
 	"shr-txt": "Partagez",

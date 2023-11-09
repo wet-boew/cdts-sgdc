@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Rādīt subtitrus"
 	},
 	"cc-err": "Kļūda lejuplādējot subtitrus",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Ieslēgt audio aprakstu",
 		off: "Izslēgt audio aprakstu"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Šobdrīdējā pozīcija:",
 	dur: "Kopējais laiks:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Ieteikt",

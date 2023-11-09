@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.67.2 - 2023-08-29
+ * v4.0.70.1 - 2023-11-08
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
 /*! @license DOMPurify 2.4.4 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.4/LICENSE */
@@ -2858,7 +2858,7 @@ wb.addSkipLink = function( text, attr, isBtn, isLast ) {
 
 } )( jQuery, wb );
 
-( function( wb ) {
+( function( wb, window ) {
 
 "use strict";
 
@@ -3832,7 +3832,70 @@ wb.string = {
 			str = "0" + str;
 		}
 		return str;
+	},
+
+	/*
+	 * Convert a base64 string into an ArrayBuffer (Note: this function are not fully UTF-8 supported and may create interoperability issue)
+	 * ref. https://www.isummation.com/blog/convert-arraybuffer-to-base64-string-and-vice-versa/
+	 * @memberof wb.string
+	 * @param {string} Base64 browser encoded
+	 * @return {ArrayBuffer} string converted into ArrayBuffer
+	 */
+	base64ToArrayBuffer: function( base64 ) {
+		var binary_string = window.atob( base64 ),
+			len = binary_string.length,
+			bytes = new Uint8Array( len ),
+			i;
+		for ( i = 0; i < len; i++ ) {
+			bytes[ i ] = binary_string.charCodeAt( i );
+		}
+		return bytes.buffer;
+	},
+
+	/*
+	 * Convert an ArrayBuffer into base64 string (Note: this function are not fully UTF-8 supported and may create interoperability issue)
+	 * ref. https://www.isummation.com/blog/convert-arraybuffer-to-base64-string-and-vice-versa/
+	 * @memberof wb.string
+	 * @param {ArrayBuffer}
+	 * @return {string} ArrayBuffer converted into base64 string
+	 */
+	arrayBufferToBase64: function( buffer ) {
+		var binary = "",
+			bytes = new Uint8Array( buffer ),
+			len = bytes.byteLength,
+			i;
+		for ( i = 0; i < len; i++ ) {
+			binary += String.fromCharCode( bytes[ i ] );
+		}
+		return window.btoa( binary );
+	},
+
+	/*
+	 * Convert an hexadecimal string into an ArrayBuffer
+	 * ref. https://stackoverflow.com/questions/38987784/how-to-convert-a-hexadecimal-string-to-uint8array-and-back-in-javascript/50868276#50868276
+	 * @memberof wb.string
+	 * @param {string} Encoded string in hexadecimal
+	 * @return {Uint8Array} Binary array buffer
+	 */
+	fromHexString: function( hexString ) {
+		return hexString === null ? null : Uint8Array.from( hexString.match( /.{1,2}/g ).map( function( byte ) {
+			return parseInt( byte, 16 );
+		} ) );
+	},
+
+	/*
+	 * Convert an ArrayBuffer into an hexadecimal string
+	 * ref. https://stackoverflow.com/questions/38987784/how-to-convert-a-hexadecimal-string-to-uint8array-and-back-in-javascript/50868276#50868276
+	 * @memberof wb.string
+	 * @param {Uint8Array} Binary array buffer
+	 * @return {string} Encoded string in hexadecimal
+	 */
+	toHexString: function( bytes ) {
+		return bytes.reduce( function( str, byte ) {
+			return str + byte.toString( 16 ).padStart( 2, "0" );
+		}, "" );
 	}
+
 };
 
 /*
@@ -3997,7 +4060,7 @@ wb.findPotentialPII = function( str, scope, opts ) {
 	var oRegEx = {
 			digits: /\d(?:[\s\-\\.\\/]?\d){8,}(?!\d)/ig, //9digits or more pattern
 			passport: /\b[A-Za-z]{2}[\s\\.-]*?\d{6}\b/ig, //canadian nr passport pattern
-			email: /\b(?:[a-zA-Z0-9_\-\\.]+)(?:@|%40)(?:[a-zA-Z0-9_\-\\.]+)\.(?:[a-zA-Z]{2,5})\b/ig, //email pattern
+			email: /\b(?:[a-zA-Z0-9_\-\\.]+)(?:@|%40|%2540)(?:[a-zA-Z0-9_\-\\.]+)\.(?:[a-zA-Z]{2,5})\b/ig, //email pattern
 			postalCode: /\b[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d\b/ig, //postal code pattern
 			username: /(?:(username|user)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig,
 			password: /(?:(password|pass)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig
@@ -4055,7 +4118,7 @@ wb.findPotentialPII = function( str, scope, opts ) {
 	return toClean && isFound ? str : isFound;
 };
 
-} )( wb );
+} )( wb, window );
 
 ( function( $, undef ) {
 "use strict";
@@ -4365,7 +4428,7 @@ wb.add( selector );
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  * @author WET Community
  */
-( function( $, wb ) {
+( function( $, wb, DOMPurify ) {
 "use strict";
 
 /*
@@ -4442,7 +4505,15 @@ $document.on( "ajax-fetch.wb", function( event ) {
 				fetchData.pointer = $( "<div id='" + wb.getId() + "' data-type='" + responseType + "'></div>" )
 					.append( responseType === "string" ? response : "" );
 
-				response = !xhr.responseJSON ? $( response ) : xhr.responseText;
+				if ( !xhr.responseJSON ) {
+					try {
+						response = $( response );
+					} catch ( e ) {
+						response = DOMPurify.sanitize( xhr.responseText );
+					}
+				} else {
+					response = xhr.responseText;
+				}
 
 				fetchData.response = response;
 				fetchData.hasSelector = !!selector;
@@ -4467,7 +4538,7 @@ $document.on( "ajax-fetch.wb", function( event ) {
 	}
 } );
 
-} )( jQuery, wb );
+} )( jQuery, wb, DOMPurify );
 
 /**
  * @title WET-BOEW Set background image
@@ -4783,16 +4854,6 @@ var componentName = "wb-calevt",
 			if ( !directLinking ) {
 				linkId = event.id || wb.getId();
 				event.id = linkId;
-
-				/*
-				 * Fixes IE tabbing error:
-				 * http://www.earthchronicle.com/ECv1point8/Accessibility01IEAnchoredKeyboardNavigation.aspx
-				 */
-
-				// TODO: Which versions of IE should this fix be limited to?
-				if ( wb.ie ) {
-					event.tabIndex = "-1";
-				}
 				href = "#" + linkId;
 			}
 
@@ -4878,14 +4939,6 @@ var componentName = "wb-calevt",
 	addEvents = function( year, month, $days ) {
 		var eventsList = this.events,
 			i, eLen, date, dayIndex, $day, $dayEvents, event, eventMonth;
-
-		// Fix required to make up with the IE z-index behaviour mismatch
-		// TODO: Move ot IE CSS? Which versions of IE should this fix be limited to?
-		if ( wb.ie ) {
-			for ( i = 0, eLen = $days.length; i !== eLen; i += 1 ) {
-				$days.eq( i ).css( "z-index", 31 - i );
-			}
-		}
 
 		/*
 		 * Determines for each event, if it occurs in the display month
@@ -7180,7 +7233,7 @@ $document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " ajax-fetched.w
 // Re-run WET for elements that have just been loaded if WET is already done initializing
 $document.on( contentUpdatedEvent, function( event ) {
 	if ( !wb.isDisabled ) {
-		let updtElm = event.currentTarget;
+		let updtElm = event.target;
 
 		$( updtElm )
 			.find( wb.allSelectors )
@@ -7523,13 +7576,6 @@ var imgClass,
 			}
 			img.src = matchedElm.getAttribute( "data-src" );
 			matchedElm.appendChild( img );
-
-			// Fixes bug with IE8 constraining the height of the image
-			// when the .img-responsive class is used.
-			if ( wb.ielt9 ) {
-				img.removeAttribute( "width" );
-				img.removeAttribute( "height" );
-			}
 
 		// No match and an image exists: delete it
 		} else if ( img ) {
@@ -8054,13 +8100,14 @@ wb.add( selector );
 * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
 * @author @ipaksc
 */
-( function( $, window, wb ) {
+( function( $, window, wb, crypto ) {
 "use strict";
 var componentName = "wb-exitscript",
 	selector = "." + componentName,
 	initEvent = "wb-init" + selector,
 	$document = wb.doc,
 	exiturlparam = componentName + "-urlparam",
+	keyForKeyHolder = componentName + "key",
 	moDalId = componentName + "-modal",
 	i18n,
 	i18nDict = {
@@ -8091,7 +8138,9 @@ var componentName = "wb-exitscript",
 			settings,
 			queryString = window.location.search,
 			urlParams = new URLSearchParams( queryString ),
-			originalURL = urlParams.get( "exturl" ),
+			counterInUrl = wb.string.fromHexString( urlParams.get( "exturl" ) ),
+			encryptedUrl = localStorage.getItem( componentName ),
+			jwt = JSON.parse( localStorage.getItem( keyForKeyHolder ) ),
 			$elm;
 		if ( elm ) {
 			$elm = $( elm );
@@ -8104,16 +8153,90 @@ var componentName = "wb-exitscript",
 
 			$elm.data( componentName, settings );
 
-			if ( settings.url ) {
-				$( this ).attr( "href", settings.url + "?exturl=" +  encodeURIComponent( this.href ) );
+			if ( settings.url && crypto ) {
+
+				crypto.subtle.generateKey(
+					{
+						name: "AES-CTR",
+						length: 256
+					},
+					true,
+					[ "encrypt", "decrypt" ]
+				).then( function( keyToEncryp ) {
+
+					var enc, messageEncoded, counter;
+
+					// Save the key in the anchor
+					crypto.subtle.exportKey( "jwk", keyToEncryp )
+						.then( function( exportedJwtKey ) {
+							elm[ keyForKeyHolder ] = exportedJwtKey;
+						} );
+
+					// Encrypt the URL
+					enc = new TextEncoder();
+					messageEncoded = enc.encode( elm.href );
+					counter = crypto.getRandomValues( new Uint8Array( 16 ) );
+					crypto.subtle.encrypt(
+						{
+							name: "AES-CTR",
+							counter: counter,
+							length: 64
+						},
+						keyToEncryp,
+						messageEncoded
+					).then( function( ciphertext ) {
+						elm[ componentName ] = ciphertext;
+					} );
+
+					// Change the link URL by passing the counter as a key
+					$elm.attr( "href", settings.url + "?exturl=" + wb.string.toHexString( counter ) );
+				} );
+
 			}
 
 			i18n = i18nDict[ wb.lang || "en" ];
 
 			// This conditional statement for a middle static exit page, to retrieve the URL to the non-secure site.
-			if ( $elm.hasClass( exiturlparam ) ) {
-				this.outerHTML = "<a href='" + originalURL + "'>" + originalURL + "</a>";
+			if ( $elm.hasClass( exiturlparam ) && encryptedUrl !== null && jwt !== null ) {
+
+				crypto.subtle.importKey(
+					"jwk",
+					jwt,
+					{
+						name: "AES-CTR",
+						length: 256
+					},
+					true,
+					[ "decrypt" ]
+				).then( function( key ) {
+
+					crypto.subtle.decrypt(
+						{
+							name: "AES-CTR",
+							counter: counterInUrl,
+							length: 64
+						},
+						key,
+						wb.string.base64ToArrayBuffer( encryptedUrl )
+					).then( function( decrypted ) {
+
+						var dec = new TextDecoder(),
+							urlToRedirect = dec.decode( decrypted );
+
+						// Check if the decrypted message is an valid URL and silently fail if the pattern don't match
+						if ( urlToRedirect.match( /^(http|https):\/\//g ) ) {
+							elm.outerHTML = "<a href='" + urlToRedirect + "'>" + urlToRedirect + "</a>";
+						}
+
+					} );
+				} );
+
 			}
+
+			// Remove the plugin data and ensure it is removed from the localstorage
+			localStorage.removeItem( componentName );
+			localStorage.removeItem( keyForKeyHolder );
+
 			wb.ready( $elm, componentName );
 		}
 	};
@@ -8187,6 +8310,11 @@ $document.on( "click", selector, function( event ) {
 
 		] );
 
+	} else if ( crypto && this[ componentName ] ) {
+
+		// Save to localstorage, the plugin init will ensure this data is only used once
+		localStorage.setItem( componentName, wb.string.arrayBufferToBase64( this[ componentName ] ) );
+		localStorage.setItem( keyForKeyHolder, JSON.stringify( this[ keyForKeyHolder ] ) );
 	}
 
 } );
@@ -8197,7 +8325,7 @@ $document.on( "timerpoke.wb " + initEvent, selector, init );
 // Add the timer poke to initialize the plugin
 wb.add( selector );
 
-} )( jQuery, window, wb );
+} )( jQuery, window, wb, crypto );
 
 /**
 * @title WET-BOEW Facebook embedded page
@@ -9873,7 +10001,7 @@ wb.add( selector );
  * @author @duboisp
  */
 /*global jsonpointer */
-( function( $, wb ) {
+( function( $, wb, DOMPurify ) {
 "use strict";
 
 /*
@@ -10057,6 +10185,7 @@ $document.on( fetchEvent, function( event ) {
 
 					} )
 					.fail( function( xhr, status, error ) {
+						xhr.responseText = DOMPurify.sanitize( xhr.responseText );
 						$( "#" + callerId ).trigger( {
 							type: "json-failed.wb",
 							fetch: {
@@ -10073,7 +10202,7 @@ $document.on( fetchEvent, function( event ) {
 	}
 } );
 
-} )( jQuery, wb );
+} )( jQuery, wb, DOMPurify );
 
 /**
  * @title WET-BOEW Lightbox
@@ -11474,6 +11603,7 @@ var componentName = "wb-mltmd",
 					cc_on: i18n( "cc", "on" ),
 					cc_off: i18n( "cc", "off" ),
 					cc_error: i18n( "cc-err" ),
+					fs: i18n( "fs" ),
 					mute_on: i18n( "mute", "on" ),
 					mute_off: i18n( "mute", "off" ),
 					duration: i18n( "dur" ),
@@ -11812,6 +11942,15 @@ var componentName = "wb-mltmd",
 			}
 			$this.trigger( captionsVisibleChangeEvent );
 			break;
+		case "fullscreen":
+			if ( this.object.requestFullscreen ) {
+				this.object.requestFullscreen();
+			} else if ( this.object.webkitRequestFullscreen ) { /* Safari */
+				this.object.webkitRequestFullscreen();
+			} else if ( this.object.msRequestFullscreen ) { /* IE11 */
+				this.object.msRequestFullscreen();
+			}
+			break;
 		case "getBuffering":
 			return this.object.buffering || false;
 		case "setBuffering":
@@ -11866,6 +12005,8 @@ var componentName = "wb-mltmd",
 			return this.object.getCurrentTime();
 		case "setCurrentTime":
 			return this.object.seekTo( args, true );
+		case "fullscreen":
+			return this.object.getIframe().requestFullscreen();
 		case "getMuted":
 			if ( !this.object.playedOnce && this.object.wasMutedPlay ) {
 				state = this.object.wasMutedPlay;
@@ -12052,6 +12193,7 @@ $document.on( initializedEvent, selector, function( event ) {
 
 		if ( settings !== undef ) {
 			data.shareUrl = settings.shareUrl;
+			data.fullscreen = settings.fullscreenBtn || false;
 		}
 
 		$this.addClass( type );
@@ -12117,10 +12259,6 @@ $document.on( initializedEvent, selector, function( event ) {
 
 			// Identify that initialization has completed
 			wb.ready( $this, componentName );
-		} else {
-
-			// Do nothing since IE8 support is no longer required
-			return;
 		}
 	}
 } );
@@ -12176,6 +12314,11 @@ $document.on( youtubeEvent, selector, function( event, data ) {
 
 		data.media = $media;
 		data.ytPlayer = ytPlayer;
+
+		// The fullscreen button is not visible by default because there are no controls when in full screen.
+		if ( data.fullscreen ) {
+			$this.attr( "data-fullscreen-btn", true );
+		}
 
 		// Detect if the YT player reloads, like when magnific Popup show the modal, because it moves the iframe
 		// and then the iframe gets refreshed and reloaded. So the issue is that the iframe stops emitting the event
@@ -12256,6 +12399,11 @@ $document.on( renderUIEvent, selector, function( event, type, data ) {
 		} else {
 			loadCaptionsInternal( $media, $( "#" + wb.jqEscape( captionsUrl.hash.substring( 1 ) ) ) );
 		}
+
+		// The fullscreen button is not visible by default because there are no controls when in full screen.
+		if ( data.fullscreen ) {
+			$this.attr( "data-fullscreen-btn", true );
+		}
 	}
 } );
 
@@ -12289,6 +12437,8 @@ $document.on( "click", selector, function( event ) {
 		this.player( "setCurrentTime", this.player( "getCurrentTime" ) + this.player( "getDuration" ) * 0.05 );
 	} else if ( className.includes( "cuepoint" ) ) {
 		$( this ).trigger( { type: "cuepoint", cuepoint: $target.data( "cuepoint" ) } );
+	} else if ( /fullscreen|fs/.test( className ) ) {
+		this.player( "fullscreen" );
 	}
 } );
 
@@ -12315,6 +12465,10 @@ $document.on( "keydown", dispCtrls, function( event ) {
 			// Mute/unmute if focused on the mute/unmute button or volume input.
 			if ( $( event.target ).hasClass( "mute" ) || event.target.nodeName === "INPUT" ) {
 				$playerTarget.find( ".mute" ).trigger( "click" );
+			} else if ( $( event.target ).hasClass( "fs" ) ) {
+
+				// Enter full screen if focused on the full screen button
+				$playerTarget.find( ".fs" ).trigger( "click" );
 			} else if ( $( event.target ).hasClass( "cc" ) ) {
 
 				// Show/hide captions if focused on the closed captions button.
@@ -18022,8 +18176,35 @@ var componentName = "wb-data-json",
 	};
 
 $document.on( "json-failed.wb", selector, function( event ) {
+
+	var elm = event.currentTarget,
+		$elm = $( elm ),
+		lstCall = $elm.data( dataQueue ),
+		fetchObj = event.fetch,
+		xhrResponse = fetchObj.xhr,
+		itmSettings = lstCall[ fetchObj.refId ],
+		failSettings = itmSettings.fail;
+
+	if ( failSettings ) {
+
+		// Mapping is always streamline because the data structure is a static object not an array
+		failSettings.streamline = true;
+
+		// apply the templaty to display an error message
+		applyTemplate( elm, failSettings, {
+			error: fetchObj.error.message || xhrResponse.statusText,
+			status: fetchObj.status,
+			url: fetchObj.fetchOpts.url,
+			response: {
+				text: xhrResponse.responseText || "",
+				status: xhrResponse.status,
+				statusText: xhrResponse.statusText
+			}
+		} );
+	}
+
 	console.info( event.currentTarget );
-	throw "Bad JSON Fetched from url in " + componentName;
+	console.error( "Error or bad JSON Fetched from url in " + componentName );
 } );
 
 // Load template polyfill
@@ -18144,7 +18325,7 @@ var componentName = "wb-disable",
 			}
 
 			try {
-				if ( wb.isDisabled || ( wb.ie && wb.ielt7 ) ) {
+				if ( wb.isDisabled || wb.ie ) {
 					$html.addClass( "wb-disable" );
 
 					try {
@@ -19031,34 +19212,6 @@ var componentName = "wb-jsonmanager",
 		return JSONsource;
 	};
 
-// IE dedicated patch to support ECMA-402 but limited to English and French number formatting
-if ( wb.ie ) {
-	Number.prototype.toLocaleString = function( locale ) {
-
-		var splitVal = this.toString().split( "." ),
-			integer = splitVal[ 0 ],
-			decimal = splitVal[ 1 ],
-			intLength = integer.length,
-			nbSection = intLength % 3 || 3,
-			strValue = integer.substr( 0, nbSection ),
-			isFrenchLoc = ( locale === "fr" ),
-			thousandSep = ( isFrenchLoc ? " " : "," ),
-			i;
-
-		for ( i = nbSection; i < intLength; i = i + 3 ) {
-			strValue = strValue + thousandSep + integer.substr( i, 3 );
-		}
-		if ( decimal.length ) {
-			if ( isFrenchLoc ) {
-				strValue = strValue + "," + decimal;
-			} else {
-				strValue = strValue + "." + decimal;
-			}
-		}
-		return strValue;
-	};
-}
-
 $document.on( "json-failed.wb", selector, function( event ) {
 	var elm = event.target,
 		$elm;
@@ -19531,7 +19684,7 @@ var $document = wb.doc,
 
 	init = function( event ) {
 		var elm = wb.init( event, componentName, selector ),
-			$elm, settings, $selectedElm;
+			$elm, settings, $selectedElm, valuesList;
 
 		if ( elm ) {
 			$elm = $( elm );
@@ -19543,22 +19696,39 @@ var $document = wb.doc,
 				wb.getData( $elm, componentName )
 			);
 
-			$selectedElm = settings.selector ? $( settings.selector, $elm ) : $elm.children();
+			if ( settings.attribute ) {
+				if ( settings.values && Array.isArray( settings.values ) ) {
+					valuesList = settings.values;
+					shuffleArray( valuesList );
+					elm.setAttribute( settings.attribute, valuesList[ 0 ] );
+				} else {
+					throw componentName + ": You must define the property \"values\" to an array of strings when \"attribute\" property is defined.";
+				}
+			} else {
+				$selectedElm = settings.selector ? $( settings.selector, $elm ) : $elm.children();
 
-			if ( !$selectedElm.length ) {
-				throw componentName + " selector setting is invalid or no children";
-			}
+				if ( !$selectedElm.length ) {
+					throw componentName + " selector setting is invalid or no children";
+				}
 
-			if ( settings.shuffle ) {
-				$selectedElm = wb.shuffleDOM( $selectedElm );
-			}
+				if ( settings.shuffle ) {
+					$selectedElm = wb.shuffleDOM( $selectedElm );
+				}
 
-			if ( settings.toggle ) {
-				$selectedElm = wb.pickElements( $selectedElm, settings.number );
-				$selectedElm.toggleClass( settings.toggle );
+				if ( settings.toggle ) {
+					$selectedElm = wb.pickElements( $selectedElm, settings.number );
+					$selectedElm.toggleClass( settings.toggle );
+				}
 			}
 
 			wb.ready( $elm, componentName );
+		}
+	},
+
+	shuffleArray = function( array ) {
+		for ( let i = array.length - 1; i > 0; i-- ) {
+			const j = Math.floor( Math.random() * ( i + 1 ) );
+			[ array[ i ], array[ j ] ] = [ array[ j ], array[ i ] ];
 		}
 	};
 

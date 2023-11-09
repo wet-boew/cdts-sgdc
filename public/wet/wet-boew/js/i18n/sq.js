@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Trego Mbyllur captioning"
 	},
 	"cc-err": "Captions Gabim gjatë ngarkimit të mbyllura",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Aktivizo përshkrimin audio",
 		off: "Disable përshkrimin audio"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Pozicioni aktual:",
 	dur: "Koha totale:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Share",

@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Zeige Untertitelung"
 	},
 	"cc-err": "Fehler beim Laden Untertiteln",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Aktivieren Sie Audio-Beschreibung",
 		off: "Deaktivieren Sie Audio-Beschreibung"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Aktuelle Position:",
 	dur: "Insgesamt benötigte Zeit",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Teilen",

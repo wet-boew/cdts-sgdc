@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Rodyti didžiųjų raidžių įjungimą"
 	},
 	"cc-err": "Klaida kraunant didžiųjų raidžių įjungimą",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Aktyvuoti audio aprašą",
 		off: "Išjungti audio aprašą"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Esama pozicija:",
 	dur: "Visas laikas:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Dalytis ",
