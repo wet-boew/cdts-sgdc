@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "ᐅᓂᒃᑳᑉ ᑕᐃᒎᓯᖏ ᓴᖅᑭᔮᕐᓕ"
 	},
 	"cc-err": "ᑕᒻᒪᕐᓂᖅᑕᖃᖅᑐᖅ ᑕᐃᒎᓯᖏᓐᓂ ᓴᕿᔮᖅᑎᑦᓯᓂᕐᒥ",
+	fs: "Enter full screen",
 	adesc: {
 		on: "ᑐᓴᖅᓴᐅᔾᔫᑉ ᐅᓂᒃᑳᕐᓂᖏᑦ ᐱᔪᓐᓇᖅᓯᑎᓪᓕ",
 		off: "ᑐᓴᖅᓴᐅᔾᔫᑉ ᐅᓂᒃᑳᕐᓂᖏᑦ ᓄᖅᑲᑎᓪᓕ"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "ᒫᓐᓇᐅᔪᖅ ᖃᓄᐃᓕᖓᓂᖓ:",
 	dur: "ᑕᑭᓂᖓ ᑲᑎᓪᓗᒍ:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "ᐊᓯᖕᓄᐊᕐᓗᒍ",

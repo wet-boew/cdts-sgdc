@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "쇼는 캡션 휴무"
 	},
 	"cc-err": "로드하는 중 오류가 발생 자막",
+	fs: "Enter full screen",
 	adesc: {
 		on: "오디오 설명을 사용",
 		off: "오디오 설명을 해제합니다"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "현재 위치 :",
 	dur: "총 시간",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "공유",

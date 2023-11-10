@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Ցուցադրել փակ կատալոներեն"
 	},
 	"cc-err": "Սխալի բեռնելիս փակ վերնագրեր",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Միացնել աուդիո նկարագրություն",
 		off: "Կասեցնել ձայնային նկարագրությունը"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Ներկայիս պաշտոնը:",
 	dur: "Ընդհանուր ժամանակը:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Կիսում",

@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Sýna lokuðum skýringartextum"
 	},
 	"cc-err": "Villa við að hlaða Skjátextar",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Virkja hljóð lýsingu",
 		off: "Gera hljóð lýsingu"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Núverandi staða:",
 	dur: "Samtals tími:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Deila",

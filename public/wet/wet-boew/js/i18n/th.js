@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "แสดงปิด captioning"
 	},
 	"cc-err": "ข้อผิดพลาดคำอธิบายปิดโหลด",
+	fs: "Enter full screen",
 	adesc: {
 		on: "เปิดใช้งานคำอธิบายเสียง",
 		off: "ปิดการใช้งานคำอธิบายเสียง"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "ตำแหน่งปัจจุบัน:",
 	dur: "รวมเวลา:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "แบ่งปัน",

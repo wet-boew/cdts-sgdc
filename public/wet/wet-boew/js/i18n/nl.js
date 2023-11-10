@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Bijschrift tonen"
 	},
 	"cc-err": "Fout bij het tonen van de bijschriften",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Audiobeschrijving activeren",
 		off: "Audiobeschrijving opheffen"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Huidige positie:",
 	dur: "Totale afspeelduur:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Deel",

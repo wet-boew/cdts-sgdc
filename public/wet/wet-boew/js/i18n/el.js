@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Εμφάνιση Κλειστό λεζάντες"
 	},
 	"cc-err": "Σφάλμα κατά τη φόρτωση κλειστά λεζάντες",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Ενεργοποίηση ήχου περιγραφή",
 		off: "Απενεργοποίηση ήχου περιγραφή"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Τρέχουσα θέση:",
 	dur: "Συνολικός χρόνος:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Κοινή χρήση",

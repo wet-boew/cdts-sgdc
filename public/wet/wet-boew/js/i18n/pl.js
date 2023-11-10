@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Pokaż podpisy"
 	},
 	"cc-err": "Błąd w ładowaniu podpisów",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Włącz informację audio",
 		off: "Wyłącz informację audio"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Aktualna pozycja:",
 	dur: "Czas całkowity:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Prześlij",

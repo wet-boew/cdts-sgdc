@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Zobrazit Skryté titulky"
 	},
 	"cc-err": "Chyba při načítání uzavřené titulky",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Povolit zvukový popis",
 		off: "Zakázat zvukový popis"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Aktuální pozice:",
 	dur: "Celkový čas:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Sdílet",

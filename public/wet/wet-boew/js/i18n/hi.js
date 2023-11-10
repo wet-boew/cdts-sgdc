@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "बंद कैप्शन दिखाएं"
 	},
 	"cc-err": "लोड करने में त्रुटि बंद कैप्शन",
+	fs: "Enter full screen",
 	adesc: {
 		on: "ऑडियो विवरण सक्षम",
 		off: "ऑडियो विवरण अक्षम"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "वर्तमान स्थिति:",
 	dur: "कुल समय:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "शेयर",

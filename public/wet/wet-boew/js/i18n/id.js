@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Tampilkan subtitel"
 	},
 	"cc-err": "Galat saat memuat subtitel",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Aktifkan deskripsi audio",
 		off: "Deskripsi audio diaktifkan"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Posisi saat ini:",
 	dur: "Total waktu:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Berbagi",

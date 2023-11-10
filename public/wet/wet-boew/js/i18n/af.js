@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Wys Gesluit byskrifte"
 	},
 	"cc-err": "Fout tydens die laai gesluit onderskrifte",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Aktiveer klank beskrywing",
 		off: "Deaktiveer audio-beskrywing"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Huidige posisie:",
 	dur: "Totale tyd:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Deel",

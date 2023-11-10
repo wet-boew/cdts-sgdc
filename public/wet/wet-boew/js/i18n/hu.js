@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Feliratozás bekapcsolása"
 	},
 	"cc-err": "Hiba a felirat betöltése közben",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Narráció bekapcsolása",
 		off: "Narráció kikapcsolása"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Jelenlegi pozíció:",
 	dur: "Összidő:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Oszd",

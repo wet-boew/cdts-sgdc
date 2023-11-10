@@ -88,14 +88,15 @@ wb.i18nDict = {
 		on: "Kapalı eklentileri göster"
 	},
 	"cc-err": "Kapalı eklenti yükleme hatası",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Sesli açıklama açık",
 		off: "Sesli açıklama kapalı"
 	},
 	pos: "Geçerli pozisyon:",
 	dur: "Toplam zaman:",
-	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeNotLoad: "Video yükleme sorunlarıyla karşılaştı",
+	msgYoutubeVdLoad: "Youtube videosu yükleniyor",
 
 	/* Share widget */
 	"shr-txt": "Paylaş",

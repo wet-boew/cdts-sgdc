@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Näita subtiitreid"
 	},
 	"cc-err": "Viga subtiitrite avamisel",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Luba audio kirjeldus",
 		off: "Sulge audio kirjeldus"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Praegune asukoht",
 	dur: "Kogu kestvus:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Jaga seda lehekülge",

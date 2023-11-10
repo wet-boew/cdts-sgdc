@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW) wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+		<title>CDTS Sample - Leaving a secure site</title>
+		<meta content="width=device-width,initial-scale=1" name="viewport">
+		<!-- Meta data -->
+		<meta name="description" content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+		<!-- Meta data-->
+		<!-- Load closure template scripts -->
+		<!--
+			Note: a relative path is being used in this sample. In order to incorporate the script tags in your code, use the following absolute path (depending on the choice of domain).
+			This path can be used for the following three file names: soyutils.js, wet-en.js, and wet-fr.js.
+
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/v4_0_43/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/app/cls/WET/gcweb/v4_0_44/cdts/compiled/[file name]
+
+			To point to the run version:
+
+			canada.ca: https://www.canada.ca/etc/designs/canada/cdts/gcweb/rn/cdts/compiled/[file name]
+			cdts.service.canada.ca: https://cdts.service.canada.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+			templates.service.gc.ca: https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/compiled/[file name]
+		-->
+		<script src="../compiled/soyutils.js"></script>
+		<script src="../compiled/wet-en.js"></script>
+		<noscript>
+		<!-- Write closure fall-back static file -->
+			<!-- refTop.html -->
+		</noscript>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refTop({
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</head>
+	<body vocab="https://schema.org/" typeof="WebPage">
+		<div id="def-top">
+			<!-- Write closure fall-back static file -->
+			<!-- top-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defTop = document.getElementById("def-top");
+			defTop.outerHTML = wet.builder.top({
+				"lngLinks": [{
+					"lang": "fr",
+					"href": "exitscript-redirect-fr.html",
+					"text": "Français"
+				}],
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
+			<h1 property="name" id="wb-cont">Leaving a secure site</h1>
+            <p>In certain scenarios (ex: secure sites) we want to notify the user that the link or action they have just performed will exit the current secured site/session and it is possible that data could be lost. The message allows the user to cancel or continue to the external site.</p>
+			<p>When enabled, this feature will:</p>
+            <ul>
+                <li>display the message to the user in the form of a modal window</li>
+                <li>display the message your application provides</li>
+                <li>allow your application to execute any clean up code (ex: close session, gracefully logout user etc...)</li>
+                <li>allow your application to exclude any domains from raising the warning</li>
+            </ul>
+            <h2>Implementation</h2>
+			<p>The exit script is added in the <code>refFooter</code> section of the page, via the <code class="wb-prettify">exitSecureSite</code> object. This object has the following properties that can be assigned a value:</p>
+            <ul>
+                <li><code class="wb-prettify">exitScript</code>: Set to true to enable the Exit Script functionality</li>
+                <li><code class="wb-prettify">displayModal</code>: Set to true to show the modal dialog warning the user is about to leave the secure site.</li>
+                <li><code class="wb-prettify">exitURL</code>: Set an url that you would like the user to redirect to. The user will NOT see a modal dialog warning the user is about to leave the secure site. This parameter will be ignored if <code>displayModal</code> is set to true</li>
+                <li><code class="wb-prettify">msgBoxHeader</code>: Customize the title of the modal dialog otherwise a default title will show</li>
+                <li><code class="wb-prettify">exitMsg</code>: Customize the message of the modal dialog</li>
+                <li><code class="wb-prettify">cancelMsg</code>: Customize the label on the cancel button</li>
+                <li><code class="wb-prettify">yesMsg</code>: Customize the label on the yes button</li>
+                <li><code class="wb-prettify">exitDomains</code>: A list of exempt domains that the exit script will not trigger for</li>
+                <li><code class="wb-prettify">targetWarning</code>: A warning to display to the user that the link will open in a new window. This will append the exit message</li>
+                <li><code class="wb-prettify">displayModalForNewWindow</code>: If set to true, will not display modal for links that open in new window</li>
+
+            </ul>
+            <p>The attribute <code class="wb-prettify">cdts-exitscript-disabled</code> can be added to individual links to exempt them from exit script.</p>
+            <pre>
+document.write(wet.builder.refFooter({
+...
+    "exitSecureSite" : {
+        exitScript: true,
+        exitURL: "exiturl-en.html",
+        exitDomains : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca",
+    }
+...
+}));
+            </pre>
+            <section>
+				<h2>Example</h2>
+                <p>The following examples are links that redirect.</p>				
+                <p>For examples with a modal dialog, please visit <a href="exitscript-en.html">here.</a></p>
+				<ul class="lst-spcd">
+					<li>
+						This link <a href="https://www.google.ca/">https://www.google.ca/</a>
+						has a host name (google.ca) different from yours.
+						You'll be redirected to <code>exiturl-en.html</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.html</code>.
+					</li>
+					<li>
+						This link <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a> will open in another window. 
+						You'll be redirected to <code>exiturl-en.html</code> page in a new window.
+					</li>
+					<li>
+						This link <a href="breadcrumbs-en.html">breadcrumbs-en.html</a> has the same host name as yours.
+						You won't be redirected to <code>exiturl-en.html</code>.
+					</li>
+					<li>
+						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>
+						has his host name (developer.mozilla.org) in the exception list <code>exitDomains</code>.
+						You won't be redirected to <code>exiturl-en.html</code>.
+					</li>
+					<li>
+						This link <a href="https://www.canada.ca/" cdts-exitscript-disabled="true">https://www.canada.ca/</a>
+						has the attribute <code>cdts-exitscript-disabled</code> exempting it from exit script.
+						You won't be redirected to <code>exiturl-en.html</code>.
+					</li>
+				</ul>
+			</section>
+			<div id="def-preFooter">
+				<!-- Write closure fall-back static file -->
+				<!-- preFooter-en.html -->
+			</div>
+			<!-- Write closure template -->
+			<script>
+				var defPreFooter = document.getElementById("def-preFooter");
+				defPreFooter.outerHTML = wet.builder.preFooter({
+					"dateModified": "2023-11-09",
+					"cdnEnv": "esdcprod"
+				});
+			</script>
+		</main>
+		<div id="def-footer">
+			<!-- Write closure fall-back static file -->
+			<!-- footer-en.html -->
+		</div>
+		<!-- Write closure template -->
+		<script>
+			var defFooter = document.getElementById("def-footer");
+			defFooter.outerHTML = wet.builder.footer({
+				"cdnEnv": "esdcprod"
+			});
+		</script>
+		<!-- Write closure template -->
+		<script>
+			document.write(wet.builder.refFooter({
+				"exitSecureSite" : {
+				    exitScript: true,
+				    exitURL: "exiturl-en.html",
+				    exitDomains : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
+				},
+				//"jqueryEnv" : "external",
+				//"webAnalytics" :false,
+				//"isApplication":true,
+				"cdnEnv": "esdcprod"
+			}));
+		</script>
+	</body>
+</html>

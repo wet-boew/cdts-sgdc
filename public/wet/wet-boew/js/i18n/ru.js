@@ -88,6 +88,7 @@ wb.i18nDict = {
 		on: "Показать Субтитры"
 	},
 	"cc-err": "Ошибка загрузки субтитров",
+	fs: "Enter full screen",
 	adesc: {
 		on: "Включить описание аудио",
 		off: "Отключить Описание аудио"
@@ -95,7 +96,7 @@ wb.i18nDict = {
 	pos: "Текущая позиция:",
 	dur: "Общее время:",
 	msgYoutubeNotLoad: "Video encountered loading issues",
-	msgYoutubeVdLoad: "Loading youtube video",
+	msgYoutubeVdLoad: "Loading Youtube video",
 
 	/* Share widget */
 	"shr-txt": "Поделиться",
