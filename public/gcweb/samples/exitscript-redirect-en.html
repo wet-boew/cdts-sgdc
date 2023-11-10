@@ -69,7 +69,7 @@
             <ul>
                 <li><code class="wb-prettify">exitScript</code>: Set to true to enable the Exit Script functionality</li>
                 <li><code class="wb-prettify">displayModal</code>: Set to true to show the modal dialog warning the user is about to leave the secure site.</li>
-                <li><code class="wb-prettify">exitURL</code>: Set an url that you would like the user to redirect to. The user will NOT see a modal dialog warning the user is about to leave the secure site</li>
+                <li><code class="wb-prettify">exitURL</code>: Set an url that you would like the user to redirect to. The user will NOT see a modal dialog warning the user is about to leave the secure site. This parameter will be ignored if <code>displayModal</code> is set to true</li>
                 <li><code class="wb-prettify">msgBoxHeader</code>: Customize the title of the modal dialog otherwise a default title will show</li>
                 <li><code class="wb-prettify">exitMsg</code>: Customize the message of the modal dialog</li>
                 <li><code class="wb-prettify">cancelMsg</code>: Customize the label on the cancel button</li>
@@ -86,11 +86,6 @@ document.write(wet.builder.refFooter({
     "exitSecureSite" : {
         exitScript: true,
         exitURL: "exiturl-en.html",
-        exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
-        cancelMsg: "Nope",
-        yesMsg : "Sure",
-        targetWarning: "Warning: This will open in another window!",
-        exitDomains : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
     }
 ...
 }));
@@ -155,11 +150,6 @@ document.write(wet.builder.refFooter({
 				"exitSecureSite" : {
 				    exitScript: true,
 				    exitURL: "exiturl-en.html",
-				    exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
-				    cancelMsg: "Nope",
-				    yesMsg: "Sure",
-				    targetWarning: "Warning: This will open in another window!",
-				    exitDomains : "developer.mozilla.org, www.esdc.gc.ca, www.jobbank.gc.ca"
 				},
 				//"jqueryEnv" : "external",
 				//"webAnalytics" :false,

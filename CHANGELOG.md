@@ -2,7 +2,7 @@
 
 ## v5.0.0
 - **IMPORTANT** **BREAKING CHANGE** Exitscript no longer uses targetUrl as part of the query string to pass the destination link. Please visit the [sample page](https://cdts.service.canada.ca/app/cls/WET/gcweb/v5_0_0/cdts/samples/exitscript-en.html) for all the details.
-- Replacing the 'Report a problem button' with the new Page Feedback tool. The Page Feedback tool is optional and will be hidden unless explicitly enabled and other conditions are met. Please visit the sample pages for more information. 
+- Replacing the 'Report a problem button' with the new Page Feedback tool. The Page Feedback tool is optional and will be hidden unless explicitly enabled and other conditions are met. Please visit the [sample page](https://cdts.service.canada.ca/app/cls/WET/gcweb/v5_0_0/cdts/samples/feedback-and-share-en.html) for more information. 
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.70.1.
 - Internal changes and optimizations
 - Bug fixes

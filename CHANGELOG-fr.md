@@ -2,8 +2,8 @@
 
 ## v5.0.0
 
-- **IMPORTANT** **BREAKING CHANGE** Exitscript n'utilise plus targetUrl dans le cadre de la chaîne de requête pour transmettre le lien de destination. Veuillez visiter la [page d'exemple](https://cdts.service.canada.ca/app/cls/WET/gcweb/v5_0_0/cdts/samples/exitscript-fr.html) pour tous les détails.
-- Remplacement du bouton « Signaler un problème » par le nouvel outil de rétroaction sur la page. L'outil de rétroaction sur la page est facultatif et sera masqué à moins qu'il ne soit explicitement activé et que d'autres conditions sont remplies. Veuillez visiter les exemples de pages pour plus d’informations.
+- **IMPORTANT** **RUPTURE DE COMPATIBILITÉ** Exitscript n'utilise plus targetUrl dans le cadre de la chaîne de requête pour transmettre le lien de destination. Veuillez visiter la [page d'exemple](https://cdts.service.canada.ca/app/cls/WET/gcweb/v5_0_0/cdts/samples/exitscript-fr.html) pour tous les détails.
+- Remplacement du bouton « Signaler un problème » par le nouvel outil de rétroaction sur la page. L'outil de rétroaction sur la page est facultatif et sera masqué à moins qu'il ne soit explicitement activé et que d'autres conditions sont remplies. Veuillez visiter la [page d'exemple](https://cdts.service.canada.ca/app/cls/WET/gcweb/v5_0_0/cdts/samples/feedback-and-share-fr.html) pour plus d’informations.
 - Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.70.1.
 - Modifications et optimisations internes
 - Corrections de bogues
