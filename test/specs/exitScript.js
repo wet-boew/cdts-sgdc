@@ -404,7 +404,7 @@ async function straightPath(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -414,14 +414,14 @@ async function straightPath(theme){
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('targetUrl');
+    await expect(browser).toHaveUrlContaining('google.ca');
 }
 async function testCustomLabels(theme){
     await exitScriptPage.open(theme, 'en');
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -443,7 +443,7 @@ async function testTargetMsg(theme){
     const extLink = await exitScriptPage.extLinkNewWin;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -470,7 +470,7 @@ async function displayOff(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkHref = await extLink.getAttribute('href');
-        return extLinkHref === 'exiturl-en.html?targetUrl=https%3A%2F%2Fwww.google.ca%2F';
+        return extLinkHref.includes('exiturl-en.html?exturl=');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected href to be modified after 5s'
@@ -495,7 +495,7 @@ async function testDefaultLabels(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -515,7 +515,7 @@ async function noExitUrl(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -534,7 +534,7 @@ async function testExitScriptForMenuLinks(theme, lang){
     const menuTrainingLink = await exitScriptPage.menuTrainingLink;
     await menuTrainingLink.waitUntil(async () => {
         const extLinkClass = await menuTrainingLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -552,7 +552,7 @@ async function testExitScriptForMenuLinksGCIntranet(theme, lang){
     const menuBtn = await exitScriptPage.menuBtnGCIntranet;
     await menuNewsLink.waitUntil(async () => {
         const extLinkClass = await menuNewsLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -569,7 +569,7 @@ async function exitScriptBackwardsCompatible(theme, lang){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -590,7 +590,7 @@ async function exitScriptBackwardsCompatible(theme, lang){
     }
 
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('targetUrl');
+    await expect(browser).toHaveUrlContaining('google');
 }
 
 //French
@@ -599,7 +599,7 @@ async function straightPath_FR(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -609,14 +609,14 @@ async function straightPath_FR(theme){
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('targetUrl');
+    await expect(browser).toHaveUrlContaining('google');
 }
 async function testCustomLabels_FR(theme){
     await exitScriptPage.open(theme, 'fr');
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -639,7 +639,7 @@ async function testTargetMsg_FR(theme){
     const extLink = await exitScriptPage.extLinkNewWin;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -666,7 +666,7 @@ async function displayOff_FR(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkHref = await extLink.getAttribute('href');
-        return extLinkHref === 'exiturl-fr.html?targetUrl=https%3A%2F%2Fwww.google.ca%2F';
+        return extLinkHref.includes('exiturl-fr.html?exturl=');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected href to be modified after 5s'
@@ -692,7 +692,7 @@ async function testDefaultLabels_FR(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
@@ -712,7 +712,7 @@ async function noExitUrl_FR(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass === 'wb-exitscript';
+        return extLinkClass.includes('wb-exitscript');
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'

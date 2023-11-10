@@ -56,7 +56,7 @@
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
 			<h1 property="name" id="wb-cont">Quitter un site sécurisé</h1>
-            <p>Dans certains scénarios (exemple: sites sécurisés), nous souhaitons informer l'utilisateur que le lien ou l'action qu'il vient d'effectuer va quitter le site / session sécurisé en cours et qu'il est possible que des données soient perdues. Le message permet à l'utilisateur d'annuler la redirection ou de poursuivre la redirection.</p>
+            <p>Dans certains scénarios (exemple: sites sécurisés), nous souhaitons informer l'utilisateur que le lien ou l'action qu'il vient d'effectuer va quitter le site / session sécurisé en cours et qu'il est possible que des données soient perdues. Le message permet à l'utilisateur d'annuler ou de continuer vers le site externe.</p>
 			<p>Lorsqu'elle est activée, cette fonction:</p>
             <ul>
                 <li>afficher le message à l'utilisateur sous la forme d'une fenêtre modale</li>
@@ -68,7 +68,8 @@
 			<p>La configuration est ajouté dans la section <code>refFooter</code> de la page. Cet objet possède les propriétés suivantes auxquelles une valeur peut être affectée :</p>
             <ul>
                 <li><code class="wb-prettify">exitScript</code>: Défini <code>true</code> pour activer la fonctionnalité Exit Script</li>
-                <li><code class="wb-prettify">displayModal</code>: Défini <code>true</code> pour afficher la boîte de dialogue modale avertissant que l'utilisateur est sur le point de quitter le site sécurisé. Sinon, passez directement au URL de sortie.</li>
+                <li><code class="wb-prettify">displayModal</code>: Défini <code>true</code> pour afficher la boîte de dialogue modale avertissant que l'utilisateur est sur le point de quitter le site sécurisé.</li>
+                <li><code class="wb-prettify">exitURL</code>: Définissez une URL vers laquelle vous souhaitez que l'utilisateur soit redirigé. L'utilisateur ne verra PAS de boîte de dialogue modale avertissant que l'utilisateur est sur le point de quitter le site sécurisé</li>
                 <li><code class="wb-prettify">msgBoxHeader</code>: Personnalisez le titre de la boîte de dialogue modale sinon un titre par défaut s'affichera</li>
                 <li><code class="wb-prettify">exitMsg</code>: Personnaliser le message de la boîte de dialogue modale</li>
                 <li><code class="wb-prettify">cancelMsg</code>: Personnalisez l'étiquette sur le bouton d'annulation</li>
@@ -85,7 +86,6 @@ document.write(wet.builder.refFooter({
     exitSecureSite : {
         exitScript: true,
         displayModal: true,
-        exitURL: "exiturl-fr.html",
         exitMsg: "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?",
         cancelMsg: "Arrêter",
         yesMsg : "Continuer",
@@ -97,11 +97,13 @@ document.write(wet.builder.refFooter({
             </pre>
             <section>
 				<h2>Exemple</h2>
+				<p>Les exemples suivants sont des liens qui affichent la boîte de dialogue modale.</p>
+				<p>Pour des exemples de redirection, veuillez visiter <a href="exitscript-redirect-fr.html">ici.</a></p>
 				<ul class="lst-spcd">
 					<li>
 						Ce lien <a href="https://www.google.ca/">https://www.google.ca/</a>
 						a un nom de domaine (google.ca) différent du vôtre.
-						Vous serez redirigé sur la page <code>exiturl-en.html</code> Vous serez redirigé sur la page <code>exitURL</code> contient la valeur <code>exiturl-en.html</code>.
+						Vous verrez une boîte de dialogue modale d’avertissement.
 					</li>
 					<li>
 						Ce lien <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a>
@@ -110,17 +112,17 @@ document.write(wet.builder.refFooter({
 					</li>
 					<li>
 						Ce lien <a href="breadcrumbs-en.html">breadcrumbs-en.html</a> a le même nom de domaine que le vôtre.
-						Vous ne serez pas redirigé vers <code>exiturl-en.html</code>.
+						Vous ne verrez pas de boîte de dialogue modale d'avertissement.
 					</li>
 					<li>
 						Ce lien <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>
 						a son nom d'hôte (developer.mozilla.org) dans la liste des exceptions <code>exitDomains</code>.
-						Vous ne serez pas redirigé vers <code>exiturl-en.html</code>.
+						Vous ne verrez pas de boîte de dialogue modale d'avertissement.
 					</li>
 					<li>
 						Ce lien <a href="https://www.canada.ca/" cdts-exitscript-disabled="true">https://www.canada.ca/</a>
 						a l'attribut <code>cdts-exitscript-disabled</code> l'exemptant de script.
-						Vous ne serez pas redirigé vers <code>exiturl-en.html</code>.
+						Vous ne verrez pas de boîte de dialogue modale d'avertissement.
 					</li>
 				</ul>
 			</section>
@@ -132,7 +134,7 @@ document.write(wet.builder.refFooter({
 			<script>
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
-					"dateModified": "2021-05-18",
+					"dateModified": "2023-11-09",
 					"cdnEnv": "esdcprod"
 				});
 			</script>
@@ -154,7 +156,7 @@ document.write(wet.builder.refFooter({
 				"exitSecureSite" : {
 				    exitScript: true,
 				    displayModal: true,
-				    exitURL: "exiturl-fr.html",
+				    //exitURL: "exiturl-fr.html",
 				    exitMsg: "Ceci est un message personnalisé. Vous êtes sur le point de quitter un site sécurisé, désirez-vous continuer?",
 				    cancelMsg: "Arrêter",
 				    yesMsg : "Continuer",

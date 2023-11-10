@@ -53,8 +53,14 @@
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
-			<h1 property="name" id="wb-cont">Content page</h1>
-			<p>You just got redirected here using our exit link script. You could decode the <code>targeUrl</code> parameter to access your original destination.</p>
+			<h1 property="name" id="wb-cont">Leaving a Secure Site Middle Page</h1>
+			<p>You just got redirected here using our exitscript.</p>
+			<p>Here is the original destination:</p>
+			<p><span class="wb-exitscript wb-exitscript-urlparam"></span></p>
+			<p>To retrieve the URL of the destination, simply add the following span and it will be replaced with the destination link.</p>
+			<pre>
+&lt;p&gt;&lt;span class="wb-exitscript wb-exitscript-urlparam"&gt;&lt;/span&gt;&lt;/p&gt;
+			</pre>
 			<div id="def-preFooter">
 				<!-- Write closure fall-back static file -->
 				<!-- preFooter-en.html -->
@@ -64,7 +70,7 @@
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
 					"cdnEnv": "prod",
-					"dateModified": "2021-11-17"
+					"dateModified": "2023-11-09"
 				});
 			</script>
 		</main>

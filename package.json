@@ -1,6 +1,6 @@
 {
   "name": "cdts-sgdc",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "translate": "grunt --stack i18n-ejs --cdts_samples_cdnenv=localhost",

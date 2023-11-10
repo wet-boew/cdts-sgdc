@@ -48,7 +48,7 @@
 			defTop.outerHTML = wet.builder.top({
 				"lngLinks": [{
 					"lang": "fr",
-					"href": "exitscript-fr.html",
+					"href": "exitscript-redirect-fr.html",
 					"text": "Français"
 				}],
 				"cdnEnv": "esdcprod"
@@ -85,7 +85,7 @@ document.write(wet.builder.refFooter({
 ...
     "exitSecureSite" : {
         exitScript: true,
-        displayModal: true,
+        exitURL: "exiturl-en.html",
         exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
         cancelMsg: "Nope",
         yesMsg : "Sure",
@@ -97,32 +97,31 @@ document.write(wet.builder.refFooter({
             </pre>
             <section>
 				<h2>Example</h2>
-				<p>The following examples are links that show the modal dialog.</p>
-				<p>For examples with redirect, please visit <a href="exitscript-redirect-en.html">here.</a></p>
+                <p>The following examples are links that redirect.</p>				
+                <p>For examples with a modal dialog, please visit <a href="exitscript-en.html">here.</a></p>
 				<ul class="lst-spcd">
 					<li>
 						This link <a href="https://www.google.ca/">https://www.google.ca/</a>
 						has a host name (google.ca) different from yours.
-						You will see a warning modal dialog. 
+						You'll be redirected to <code>exiturl-en.html</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.html</code>.
 					</li>
 					<li>
-						This link <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a>
-						will open in another window. Through the <code>targetWarning</code> parameter, you can set a message that will warn users that the link will open in another window.
-						This message will append the existing display message.
+						This link <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a> will open in another window. 
+						You'll be redirected to <code>exiturl-en.html</code> page in a new window.
 					</li>
 					<li>
 						This link <a href="breadcrumbs-en.html">breadcrumbs-en.html</a> has the same host name as yours.
-						You won't see a warning modal dialog.
+						You won't be redirected to <code>exiturl-en.html</code>.
 					</li>
 					<li>
 						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>
 						has his host name (developer.mozilla.org) in the exception list <code>exitDomains</code>.
-						You won't see a warning modal dialog.
+						You won't be redirected to <code>exiturl-en.html</code>.
 					</li>
 					<li>
 						This link <a href="https://www.canada.ca/" cdts-exitscript-disabled="true">https://www.canada.ca/</a>
 						has the attribute <code>cdts-exitscript-disabled</code> exempting it from exit script.
-						You won't see a warning modal dialog.
+						You won't be redirected to <code>exiturl-en.html</code>.
 					</li>
 				</ul>
 			</section>
@@ -155,8 +154,7 @@ document.write(wet.builder.refFooter({
 			document.write(wet.builder.refFooter({
 				"exitSecureSite" : {
 				    exitScript: true,
-				    displayModal: true,
-				    //exitURL: "exiturl-en.html",
+				    exitURL: "exiturl-en.html",
 				    exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				    cancelMsg: "Nope",
 				    yesMsg: "Sure",

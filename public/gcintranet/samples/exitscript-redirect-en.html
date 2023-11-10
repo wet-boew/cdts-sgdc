@@ -33,7 +33,7 @@
 		<!-- Write closure template -->
 		<script>
 			document.write(wet.builder.refTop({
-				"cdnEnv": "esdcprod"
+				"cdnEnv": "prod"
 			}));
 		</script>
 	</head>
@@ -48,10 +48,10 @@
 			defTop.outerHTML = wet.builder.top({
 				"lngLinks": [{
 					"lang": "fr",
-					"href": "exitscript-fr.html",
+					"href": "exitscript-redirect-fr.html",
 					"text": "Français"
 				}],
-				"cdnEnv": "esdcprod"
+				"cdnEnv": "prod"
 			});
 		</script>
 		<main property="mainContentOfPage" typeof="WebPageElement" class="container">
@@ -69,7 +69,7 @@
             <ul>
                 <li><code class="wb-prettify">exitScript</code>: Set to true to enable the Exit Script functionality</li>
                 <li><code class="wb-prettify">displayModal</code>: Set to true to show the modal dialog warning the user is about to leave the secure site.</li>
-                <li><code class="wb-prettify">exitURL</code>: Set an url that you would like the user to redirect to. The user will NOT see a modal dialog warning the user is about to leave the secure site</li>
+				<li><code class="wb-prettify">exitURL</code>: Set an url that you would like the user to redirect to. The user will NOT see a modal dialog warning the user is about to leave the secure site</li>
                 <li><code class="wb-prettify">msgBoxHeader</code>: Customize the title of the modal dialog otherwise a default title will show</li>
                 <li><code class="wb-prettify">exitMsg</code>: Customize the message of the modal dialog</li>
                 <li><code class="wb-prettify">cancelMsg</code>: Customize the label on the cancel button</li>
@@ -85,7 +85,7 @@ document.write(wet.builder.refFooter({
 ...
     "exitSecureSite" : {
         exitScript: true,
-        displayModal: true,
+        exitURL: "exiturl-en.html",
         exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
         cancelMsg: "Nope",
         yesMsg : "Sure",
@@ -97,32 +97,32 @@ document.write(wet.builder.refFooter({
             </pre>
             <section>
 				<h2>Example</h2>
-				<p>The following examples are links that show the modal dialog.</p>
-				<p>For examples with redirect, please visit <a href="exitscript-redirect-en.html">here.</a></p>
+                <p>The following examples are links that redirect.</p>				
+                <p>For examples with a modal dialog, please visit <a href="exitscript-en.html">here.</a></p>
 				<ul class="lst-spcd">
 					<li>
 						This link <a href="https://www.google.ca/">https://www.google.ca/</a>
 						has a host name (google.ca) different from yours.
-						You will see a warning modal dialog. 
+						You'll be redirected to <code>exiturl-en.html</code> page because the <code>exitURL</code> parameter contains the value <code>exiturl-en.html</code>.
 					</li>
 					<li>
 						This link <a target="_blank" href="https://www.w3schools.com">https://www.w3schools.com</a>
-						will open in another window. Through the <code>targetWarning</code> parameter, you can set a message that will warn users that the link will open in another window.
-						This message will append the existing display message.
+						will open in another window. 
+                        You'll be redirected to <code>exiturl-en.html</code> page in a new window.
 					</li>
 					<li>
 						This link <a href="breadcrumbs-en.html">breadcrumbs-en.html</a> has the same host name as yours.
-						You won't see a warning modal dialog.
+						You won't be redirected to <code>exiturl-en.html</code>.
 					</li>
 					<li>
 						This link <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG">https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>
 						has his host name (developer.mozilla.org) in the exception list <code>exitDomains</code>.
-						You won't see a warning modal dialog.
+						You won't be redirected to <code>exiturl-en.html</code>.
 					</li>
 					<li>
 						This link <a href="https://www.canada.ca/" cdts-exitscript-disabled="true">https://www.canada.ca/</a>
 						has the attribute <code>cdts-exitscript-disabled</code> exempting it from exit script.
-						You won't see a warning modal dialog.
+						You won't be redirected to <code>exiturl-en.html</code>.
 					</li>
 				</ul>
 			</section>
@@ -135,7 +135,7 @@ document.write(wet.builder.refFooter({
 				var defPreFooter = document.getElementById("def-preFooter");
 				defPreFooter.outerHTML = wet.builder.preFooter({
 					"dateModified": "2023-11-09",
-					"cdnEnv": "esdcprod"
+					"cdnEnv": "prod"
 				});
 			</script>
 		</main>
@@ -147,7 +147,7 @@ document.write(wet.builder.refFooter({
 		<script>
 			var defFooter = document.getElementById("def-footer");
 			defFooter.outerHTML = wet.builder.footer({
-				"cdnEnv": "esdcprod"
+				"cdnEnv": "prod"
 			});
 		</script>
 		<!-- Write closure template -->
@@ -155,8 +155,7 @@ document.write(wet.builder.refFooter({
 			document.write(wet.builder.refFooter({
 				"exitSecureSite" : {
 				    exitScript: true,
-				    displayModal: true,
-				    //exitURL: "exiturl-en.html",
+				    exitURL: "exiturl-en.html",
 				    exitMsg: "This is a custom message. You are about to leave a secure site, do you wish to continue?",
 				    cancelMsg: "Nope",
 				    yesMsg: "Sure",
@@ -166,7 +165,7 @@ document.write(wet.builder.refFooter({
 				//"jqueryEnv" : "external",
 				//"webAnalytics" :false,
 				//"isApplication":true,
-				"cdnEnv": "esdcprod"
+				"cdnEnv": "prod"
 			}));
 		</script>
 	</body>

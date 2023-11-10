@@ -30,9 +30,6 @@ wet.utilities.wetExitScript = function (displayModal, exitUrl, excludedDomains, 
     if (links != null) {
         for (var i = 0; i < links.length; i++) {
             if (links[i].hasAttribute('href') && links[i].host !== window.location.host && excludedDomains.indexOf(links[i].host.toLowerCase().trim()) < 0 && !links[i].hasAttribute('cdts-exitscript-disabled')) {
-                if (exitUrl !== "undefined") {
-                    links[i].href = encodeURI(exitUrl + (exitUrl.indexOf('?') < 0 ? "?" : "&") + "targetUrl=") + encodeURIComponent(links[i].href);
-                }
                 if (displayModal.toLowerCase() === "true") {
                     if (!(links[i].target === "_blank" && displayModalForNewWindow.toLowerCase() === "false")) {
                         links[i].classList.add('wb-exitscript');
@@ -42,6 +39,12 @@ wet.utilities.wetExitScript = function (displayModal, exitUrl, excludedDomains, 
                             links[i].setAttribute("data-wb-exitscript", '{"i18n": ' + myJSON + '}');
                         }
                     }
+                }
+                else if (exitUrl !== "undefined") {
+                    links[i].classList.add('wb-exitscript');
+                    //Empty object string will just have twe characters (opening and closing curly brackets)
+                    //TODO: Needs to be updated!
+                    links[i].setAttribute("data-wb-exitscript", '{"url": "' + exitUrl + '"}');
                 }
             }
         }
@@ -53,5 +56,6 @@ wet.utilities.cdtsApplyExitScriptToLinks = function (displayModal, exitUrl, excl
         wet.utilities.wetExitScriptScanLinks(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow);
         var placeholderLink = document.getElementById("cdts-exitscript-placeholder-link");
         if (placeholderLink) placeholderLink.parentElement.removeChild(placeholderLink);
+        $(".wb-exitscript").trigger("wb-init");
     });
 };
