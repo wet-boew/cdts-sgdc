@@ -318,7 +318,8 @@ async function customShareModal(theme, lang) {
 }
 
 async function noPageDetails(theme, lang) {
-    await basicPage.open(theme, lang, 'pageDetails');
+    await preFooterPage.open(theme, lang, 'pageDetails');
+    await expect(basicPage.search).toExist(); //Making sure page loads
     await expect(preFooterPage.pageDetails).not.toExist();
 }
 
