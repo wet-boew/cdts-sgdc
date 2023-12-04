@@ -9,11 +9,13 @@ Aide-mémoires
 Assurance-emploi
 assurez-vous
 Blogue
+Blogues
 BOEW
 breadcrumbs-en.html
 breadcrumbs-fr.html
 CAEC
 Canada.ca
+coaching
 collab
 connex
 Contactez-nous
@@ -21,6 +23,7 @@ COPA
 CSS
 cdts.service.canada.ca
 cybersécurité
+Cúram
 developer.mozilla.org
 docs
 document.write
@@ -71,6 +74,7 @@ jQuery
 l'AE
 l'assurance-emploi
 l'Intranet
+l’Ombuds
 l'ORL
 l'url
 l'URL
@@ -78,6 +82,7 @@ MaPayeGC
 maSGE
 métadonnées
 mozilla
+Microsoft
 NS
 NAS
 of

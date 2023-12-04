@@ -8,6 +8,7 @@ collab
 connex
 CPP
 cyber
+Cúram
 du
 DM
 DMs
@@ -17,6 +18,7 @@ ECCC
 eng
 EnviroTel
 ESDC
+ESDC's
 GC
 GCcampus
 GCintranet
