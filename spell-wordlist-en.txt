@@ -9,6 +9,7 @@ connex
 CPP
 cyber
 du
+DM
 DMs
 EI
 EBSCO
@@ -42,6 +43,7 @@ mozilla
 MPS
 myEMS
 MyGCPay
+Ombuds
 ORT
 Overpayment
 pedia
