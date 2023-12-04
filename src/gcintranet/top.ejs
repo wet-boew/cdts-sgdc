@@ -210,7 +210,7 @@ if (pr.subTheme === 'eccc') {
     </div>
     <%_ if (pr.siteMenu != false) { -%>
         <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
-            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '<^- msg('https://esdc.prv/includes/edsc-esdc_prv/wet4/en/mega_menu/esdcmenu-eng.html') ^>'%>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
+            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '/app/cls/WET/global/<^- msg('esdcmenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
                 <div class="container nvbar">
                     <h2><^- msg('Topics menu') ^></h2>
                     <div class="row">
