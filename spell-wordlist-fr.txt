@@ -74,7 +74,7 @@ jQuery
 l'AE
 l'assurance-emploi
 l'Intranet
-l’Ombuds
+l'Ombuds
 l'ORL
 l'url
 l'URL
