@@ -38,7 +38,14 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
         "https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/",
         "https://templates.service.gc.ca/app/",
         "https://intranet.canada.ca/images/GC",
-        "https://intranet.canada.ca/images/Instagram.png"]
+        "https://intranet.canada.ca/images/Instagram.png",
+        "https://csgc-scsc.service.gc.ca/p/p0100/p0000.aspx?lang=eng", //skipping this link because it returns a 401
+        "https://csgc-scsc.service.gc.ca/p/p0100/p0000.aspx?lang=fra", //skipping this link because it returns a 401
+        "https://edsc.prv/en/department/pses/2017/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+        "https://esdc.prv/en/service-canada/tismb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+        "https://esdc.prv/en/service-canada/tmb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+        "http://www.tbs-sct.gc.ca/pses-saff/2017-2/results-resultats/bq-pq/02/index-fra.aspx", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+        "https://www12.edsc.gc.ca/sgpe-pmps/h.4m.2@-eng.jsp"] //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
 
     const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
         "http://gcdirectory-gcannuaire.gc.ca/",
@@ -68,7 +75,8 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
         "http://agora.on",
         "https://gcintranet.tpsgc-pwgsc.gc.ca",
         "https://portal-portail.tbs-sct.gc.ca",
-        "https://nscc-cnas.pwgsc-tpsgc.gc.ca"]
+        "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
+        "https://dialogue.spprod.service.gc.ca"]
 
     const cdtsDirectories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
 
