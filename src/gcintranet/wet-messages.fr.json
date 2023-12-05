@@ -440,5 +440,9 @@
     "78fe556731ac994b12ed02af1985e573c26a199c": {
         "source": "gcexchange",
         "target": "gcéchange"
+    },
+    "f43ac2b672a1db811dd7168a1e7cc1add2fb79b0": {
+        "source": "esdcmenu-eng.html",
+        "target": "esdcmenu-fra.html"
     }
 }

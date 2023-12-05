@@ -8,7 +8,9 @@ collab
 connex
 CPP
 cyber
+Cúram
 du
+DM
 DMs
 EI
 EBSCO
@@ -16,6 +18,7 @@ ECCC
 eng
 EnviroTel
 ESDC
+ESDC's
 GC
 GCcampus
 GCintranet
@@ -42,6 +45,7 @@ mozilla
 MPS
 myEMS
 MyGCPay
+Ombuds
 ORT
 Overpayment
 pedia
