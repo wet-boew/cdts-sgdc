@@ -45,7 +45,13 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
         "https://esdc.prv/en/service-canada/tismb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
         "https://esdc.prv/en/service-canada/tmb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
         "http://www.tbs-sct.gc.ca/pses-saff/2017-2/results-resultats/bq-pq/02/index-fra.aspx", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
-        "https://www12.edsc.gc.ca/sgpe-pmps/h.4m.2@-eng.jsp"] //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+        "https://www12.edsc.gc.ca/sgpe-pmps/h.4m.2@-eng.jsp", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+        "https://www.canada.ca/en/services/business/grants.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
+        "https://www.canada.ca/en/services/business/bankruptcy.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
+        "https://www.canada.ca/en/services/business/federal-corporations.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
+        "https://www.canada.ca/fr/services/entreprises/subventions.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
+        "https://www.canada.ca/fr/services/entreprises/societes-de-regime-federal.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
+        "https://www.canada.ca/fr/services/entreprises/faillites.html"] //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
 
     const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
         "http://gcdirectory-gcannuaire.gc.ca/",
@@ -76,7 +82,8 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
         "https://gcintranet.tpsgc-pwgsc.gc.ca",
         "https://portal-portail.tbs-sct.gc.ca",
         "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
-        "https://dialogue.spprod.service.gc.ca"]
+        "https://dialogue.spprod.service.gc.ca",
+        "https://oas-sv-prodcc.bdm-mvp.az.esdc-edsc.cloud-nuage.gc.ca/"]
 
     const cdtsDirectories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
 
