@@ -27,6 +27,7 @@ GEDS
 GoC
 Gouvernement
 GST
+gcexchange
 HST
 html
 https

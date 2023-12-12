@@ -10,6 +10,9 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
     //Includes links found on legacy templates, links that require credentials and partial URLs
     const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
         "https://recherche-search.gc.ca/", //skipping this link because it forbibs GET/HEAD
+        "https://www.canada.ca/en/sr/srb.html", //skipping this link because it gets rejected
+        "https://www.canada.ca/fr/sr/srb.html", //skipping this link because it gets rejected
+        "https://www.canada.ca/fr/services/entreprises/recherche.html", //skipping this link because it gets rejected
         "https://cdts.service.canada.ca/app/cls/WET",
         "https://cdts.service.canada.ca/rn/cls/WET",
         "https://ajax.googleapis.com/ajax/libs/",
@@ -35,7 +38,27 @@ module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
         "https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/",
         "https://templates.service.gc.ca/app/",
         "https://intranet.canada.ca/images/GC",
-        "https://intranet.canada.ca/images/Instagram.png"]
+        "https://intranet.canada.ca/images/Instagram.png",
+        "https://esdc.prv/en/contact/index.shtml", //Skipping the following links as they are failing for v4.1.1 but are from an older release (v4.1.0).
+        "https://esdc.prv/fr/coordonnees/index.shtml",
+        "https://www.canada.ca/en/services/business/grants.html",
+        "https://www.canada.ca/en/services/business/federal-corporations.html",
+        "https://www.canada.ca/en/services/business/bankruptcy.html",
+        "https://www.canada.ca/fr/services/entreprises/subventions.html",
+        "https://www.canada.ca/fr/services/entreprises/societes-de-regime-federal.html",
+        "https://www.canada.ca/fr/services/entreprises/faillites.html",
+        "https://www.aadnc-aandc.gc.ca/eng/1461766373625/1461766394598",
+        "https://www.aadnc-aandc.gc.ca/fra/1461766373625/1461766394598",
+        "https://sage-geds.tpsgc-pwgsc.gc.ca/cgi-bin/direct500/eng/TE?FN=index.htm",
+        "https://edsc.prv/en/contact/index.shtml",
+        "https://sage-geds.tpsgc-pwgsc.gc.ca/cgi-bin/direct500/fra/TF?FN=index.htm",
+        "https://edsc.prv/fr/coordonnees/index.shtml",
+        "https://esdc.prv/en/service-canada/tismb/index.shtml",
+        "https://esdc.prv/en/service-canada/tmb/index.shtml",
+        "http://sgpe-pmps.prv/sgr-rms/h.4m.2@-eng.jsp",
+        "https://esdc.prv/fr/service-canada/dggt/index.shtml",
+        "https://esdc.prv/fr/service-canada/dgtgis/index.shtml",
+        "http://sgr-rms.prv/sgr-rms/h.4m.2@-fra.jsp"]
 
     const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
         "http://gcdirectory-gcannuaire.gc.ca/",
@@ -83,14 +106,30 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|]|<)/g;
     const agent = new ProxyAgent('http://proxy.prv:80');
-    const config = (process.env.DISABLE_PROXY) ? null : { httpsAgent: agent, proxy: false };
+    const config = (process.env.DISABLE_PROXY) ? {} : { httpsAgent: agent, proxy: false };
 
     let matches = [];
     let errorCount = 0;
+    let processedCount = 0;
+    const maxErrorCount = process.env.TESTLINKS_MAXERRORCOUNT || '20';
     let skippedSyntaxUrlCount = 0;
     let skippedIntranetUrlCount = 0;
     let successResponseUrlCount = 0;
     let skippedBinaryFileCount = 0;
+
+    // It seems canada.ca started ignoring connections with user agents they deem unacceptable,
+    // resulting in timeouts for all canada.ca links.  To work around this, we'll
+    // pass ourselves off as Firefox and specify extra headers that are apparently now needed.
+    config.headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/119.0',
+        //'Accept-Language': 'en-CA,en-US;q=0.7,en;q=0.3',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'cross-site',
+        //'Sec-Fetch-User': '?1',
+        timeout: 5000, //set timeout to 5s
+    };
 
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; //eslint-disable-line
 
@@ -129,6 +168,8 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     async function validateLinks(urls) {
         for (let i = 0; i < urls.length; i++) {
+            processedCount++;
+
             //Check if URL is in the exception list of syntax check and validation
             if (exceptionSyntaxLinks.some((l) => urls[i].startsWith(l))) {
                 skippedSyntaxUrlCount++;
@@ -149,12 +190,27 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
                         continue;
                     }
 
-                    try {
-                        const res = await axios.head(validURL.href, config); //eslint-disable-line no-await-in-loop
-                        checkAxiosResponse(res, validURL);
+                    let sendGET = false;
+                    let sendHEAD = true;
+
+                    //canada.ca now ignores HEAD requests, which results in a long timeout, this is a quick and dirty way to go straight to GET
+                    if (validURL.host.endsWith('canada.ca') || validURL.host.endsWith('.gc.ca')) {
+                        sendHEAD = false;
+                        sendGET = true;
                     }
-                    catch (headErr) {
-                        console.warn("Warning: " + validURL.href + " failed with a HEAD request. Retrying with a GET request. The error was: " + headErr);
+
+                    if (sendHEAD) {
+                        try {
+                            const res = await axios.head(validURL.href, config); //eslint-disable-line no-await-in-loop
+                            checkAxiosResponse(res, validURL);
+                        }
+                        catch (headErr) {
+                            console.warn("Warning: " + validURL.href + " failed with a HEAD request. Retrying with a GET request. The error was: " + headErr);
+                            sendGET = true; //since HEAD didn't work, we'll try GET
+                        }
+                    }
+
+                    if (sendGET) {
                         try {
                             const res = await axios.get(validURL.href, config); //eslint-disable-line no-await-in-loop
                             checkAxiosResponse(res, validURL);
@@ -169,6 +225,11 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
                     console.error("Error: An error occurred with URL: " + urls[i] + " " + err);
                     errorCount++;
                 }
+            }
+
+            if (errorCount >= maxErrorCount) {
+                console.error(`MAXIMUM NUMBER OF ERRORS REACHED (${errorCount}), ABORTING PROCESS.`);
+                break;
             }
         }
         return errorCount;
@@ -191,20 +252,21 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     const urls = [...new Set(matches)];
 
-    console.log("***** Validating links");
+    console.log("***** Validating links:");
     const totalErrorCount = await validateLinks(urls);
     const endTime = performance.now();
-    console.log(`Done, validating all the links took ${endTime - startTime} milliseconds.`);
-    console.log(urls.length + " unique URLs were found.");
+    console.log(`Done, validating links took ${endTime - startTime} milliseconds.`);
+    console.log(`${processedCount} URLs processed out of ${urls.length} unique URLs found.`);
     console.log(successResponseUrlCount + " URLs had a successful response.");
     console.log(skippedSyntaxUrlCount + " URLs were skipped because of their syntax.");
     console.log(skippedIntranetUrlCount + " URLs were skipped because they are intranet links.");
     console.log(skippedBinaryFileCount + " URLs were skipped because they are binary files.");
 
     if (totalErrorCount !== 0) {
-        console.error("Error: " + totalErrorCount + " error(s) were found when validating " + urls.length + " URLs.");
+        const errorMessage = `Error: ${totalErrorCount} error(s) were found when validating ${processedCount}/${urls.length} URLs.`;
+        console.error(errorMessage);
         if (!process.env.DISABLE_TESTLINKS_THROWONFAIL) {
-            throw new Error("Error: " + totalErrorCount + " error(s) were found when validating" + urls.length + " URLs.");
+            throw new Error(errorMessage);
         }
     }
     else {
