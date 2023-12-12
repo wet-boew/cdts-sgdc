@@ -1,5 +1,10 @@
 # CDTS Change Log
 
+## v4.1.1
+
+- Specific to GCIntranet Run Release: Adding a link to GCTools
+
+
 ## v4.1.0
 
 - Introducing a new **OPTIONAL** way for clients to reference CDTS that avoids the need for `document.write`, having to call multiple CDTS functions and optionally the need for inline scripts altogether. **Backwards compatibility to seperate CDTS functions was preserved.** For details, refer to documentation for [GCWeb](https://cenw-wscoe.github.io/sgdc-cdts/docs/internet-en.html) and [GCIntranet](https://cenw-wscoe.github.io/sgdc-cdts/docs/intranet-en.html) and [corresponding sample pages](https://github.com/wet-boew/cdts-sgdc/blob/master/public/gcweb/samples/nodoc-write-en.html) (other sample pages are still using document.write and will be updated later).

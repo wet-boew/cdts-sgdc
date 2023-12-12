@@ -1,5 +1,9 @@
 # SGDC : Journal des modifications
 
+## v4.1.1
+
+- Spécifique à la version GCIntranet Run : ajout d'un lien vers GCTools
+
 ## v4.1.0
 
 - Introduction d'une nouvelle façon de référencer **OPTIONNEL** le SGDC qui evite aux clients le besoin d'utiliser `document.write`, d'avoir à appeler plusieurs fonctions du SGDC et optionellement le besoin pour des scripts directs sur la page. **La rétrocompatibilité aux fonctions séparées du SGDC est préservée.** Pour plus de détails, consulter la documentation pour [GCWeb](https://cenw-wscoe.github.io/sgdc-cdts/docs/internet-fr.html) and [GCIntranet](https://cenw-wscoe.github.io/sgdc-cdts/docs/intranet-fr.html) ainsi que les [pages d'examples correspondantes](https://github.com/wet-boew/cdts-sgdc/blob/master/public/gcweb/samples/nodoc-write-fr.html) (les autres exemples de pages utilisent toujours document.write et seront mis à jour plus tard).
