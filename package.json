@@ -11,7 +11,8 @@
     "serve-nobuild": "grunt --stack serve-nobuild --cdts_samples_cdnenv=localhost",
     "test": "grunt --stack test --cdts_samples_cdnenv=localhost",
     "test-nobuild": "grunt --stack test-nobuild --cdts_samples_cdnenv=localhost",
-    "test-links": "grunt --stack test-links"
+    "test-links": "grunt --stack test-links",
+    "update-extfiles": "grunt --stack update-extfiles"
   },
   "author": "ESDC-EDSC",
   "license": "MIT",

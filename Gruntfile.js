@@ -2,6 +2,7 @@ const generateStaticFile = require('./StaticFileCreator.js');
 const { compileEJSModule, extractEJSModuleMessages, mergeLanguageFiles } = require('./EJSModuleGenerator.js');
 const { testCDTSFileLinks } = require('./TestLinks.js');
 const { writeFilesSRIHashes, getSRIHashes } = require('./SRIUtilities.js');
+const { downloadExternalResources } = require('./ExternalResGatherer.js');
 
 /// ************************************************************
 /// Optional command line options:
@@ -249,6 +250,13 @@ module.exports = function run(grunt) {
             }
         });
         return true;
+    });
+
+    grunt.registerTask('update-extfiles', 'Update external files (menus, footer) by downloading them from their source web sites.', function (target) { //eslint-disable-line
+        if (!target || target === 'all') {
+            const done = this.async();
+            downloadExternalResources().then(done).catch(() => done(false));
+        }
     });
 
     grunt.registerMultiTask('webdriver', 'run wdio test runner', async function (target) { //eslint-disable-line

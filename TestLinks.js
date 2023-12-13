@@ -4,86 +4,95 @@ const axios = require('axios');
 const { performance } = require('perf_hooks');
 const { isBinaryFileSync } = require('isbinaryfile');
 
+//Exception list (complete skip of validation)
+//Includes links found on legacy templates, links that require credentials and partial URLs
+const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
+    "https://recherche-search.gc.ca/", //skipping this link because it forbibs GET/HEAD
+    "https://www.canada.ca/en/sr/srb.html", //skipping this link because it gets rejected
+    "https://www.canada.ca/fr/sr/srb.html", //skipping this link because it gets rejected
+    "https://www.canada.ca/fr/services/entreprises/recherche.html", //skipping this link because it gets rejected
+    "https://cdts.service.canada.ca/app/cls/WET",
+    "https://cdts.service.canada.ca/rn/cls/WET",
+    "https://ajax.googleapis.com/ajax/libs/",
+    "https://s2tst-cdn-canada.sade-edap.prv",
+    "https://cdn-canada.services.gc.qat/",
+    "https://www.canada.ca/etc/designs/canada/cdts",
+    "https://dialogue/",
+    "http://dialogue/",
+    "https://mapayegc-mygcpay.tpsgc-pwgsc.gc.ca",
+    "https://intranet.ec.gc.ca",
+    "https://orl.prv",
+    "https://canada.pch.gc.ca/",
+    "http://forms-formulaires.prv",
+    "https://impact.prv/",
+    "http://hrsc-csrh.prv",
+    "http://offices-bureaux.prv",
+    "http://crt-orc.prv/",
+    "https://www.forces.gc.ca",
+    "https://www.google.ca/</a>",
+    "https://www.w3schools.com</a>",
+    "https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>",
+    "https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/",
+    "https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/",
+    "https://templates.service.gc.ca/app/",
+    "https://intranet.canada.ca/images/GC",
+    "https://intranet.canada.ca/images/Instagram.png",
+    "https://csgc-scsc.service.gc.ca/p/p0100/p0000.aspx?lang=eng", //skipping this link because it returns a 401
+    "https://csgc-scsc.service.gc.ca/p/p0100/p0000.aspx?lang=fra", //skipping this link because it returns a 401
+    "https://dialogue.spprod.service.gc.ca/", //sharepoint requiring authorization (401)
+    "https://esdc.prv/en/service-canada/tfwpd/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+    "https://esdc.prv/fr/service-canada/dggt/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-fra.html
+    "https://esdc.prv/fr/service-canada/dgtgis/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-fra.html
+    "https://edsc.prv/fr/service-canada/dgptet/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-fra.html
+    "https://edsc.prv/en/department/pses/2017/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+    "https://esdc.prv/en/service-canada/tismb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+    "https://esdc.prv/en/service-canada/tmb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+    "http://www.tbs-sct.gc.ca/pses-saff/2017-2/results-resultats/bq-pq/02/index-fra.aspx", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+    "https://www12.edsc.gc.ca/sgpe-pmps/h.4m.2@-eng.jsp", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
+    "https://www.canada.ca/en/services/business/grants.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
+    "https://www.canada.ca/en/services/business/bankruptcy.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
+    "https://www.canada.ca/en/services/business/federal-corporations.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
+    "https://www.canada.ca/fr/services/entreprises/subventions.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
+    "https://www.canada.ca/fr/services/entreprises/societes-de-regime-federal.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
+    "https://www.canada.ca/fr/services/entreprises/faillites.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
+    "https://can01.safelinks.protection.outlook.com",]; //skipping this commented out link in certain external files
+
+const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
+    "http://gcdirectory-gcannuaire.gc.ca/",
+    "http://dialogue",
+    "http://agora.on.prv/",
+    "http://labour.prv/",
+    "http://sgpe-pmps.prv/",
+    "http://crt-orc.prv/",
+    "http://ort.prv/",
+    "http://offices-bureaux.prv/",
+    "http://forms-formulaires.prv/",
+    "http://hrsc-csrh.prv/",
+    "http://travail.prv/",
+    "http://sgr-rms.prv/sgr-rms/",
+    "http://service-wiki.prv/",
+    "http://gcintranet.tpsgc-pwgsc.gc.ca/",
+    "http://blogs-blogues.prv/"]
+
+const exceptionCDTSIntranetLinks = ["https://intranet.canada.ca",
+    "https://gcconnex.gc.ca",
+    "https://www.gcpedia.gc.ca",
+    "https://gcdirectory",
+    "https://templates.service",
+    "https://gcannuaire-gcdirectory.gc.ca",
+    "https://kmt-ogc.service.gc.ca",
+    "http://agora.on",
+    "https://gcintranet.tpsgc-pwgsc.gc.ca",
+    "https://portal-portail.tbs-sct.gc.ca",
+    "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
+    "https://dialogue.spprod.service.gc.ca",
+    "https://oas-sv-prodcc.bdm-mvp.az.esdc-edsc.cloud-nuage.gc.ca/"]
+
+module.exports.exceptionCDTSSyntaxLinks = exceptionCDTSSyntaxLinks;
+module.exports.exceptionCDTSHTTPLinks = exceptionCDTSHTTPLinks;
+module.exports.exceptionCDTSIntranetLinks = exceptionCDTSIntranetLinks;
+
 module.exports.testCDTSFileLinks = async function testCDTSFileLinks() {
-
-    //Exception list (complete skip of validation)
-    //Includes links found on legacy templates, links that require credentials and partial URLs
-    const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}",
-        "https://recherche-search.gc.ca/", //skipping this link because it forbibs GET/HEAD
-        "https://www.canada.ca/en/sr/srb.html", //skipping this link because it gets rejected
-        "https://www.canada.ca/fr/sr/srb.html", //skipping this link because it gets rejected
-        "https://www.canada.ca/fr/services/entreprises/recherche.html", //skipping this link because it gets rejected
-        "https://cdts.service.canada.ca/app/cls/WET",
-        "https://cdts.service.canada.ca/rn/cls/WET",
-        "https://ajax.googleapis.com/ajax/libs/",
-        "https://s2tst-cdn-canada.sade-edap.prv",
-        "https://cdn-canada.services.gc.qat/",
-        "https://www.canada.ca/etc/designs/canada/cdts",
-        "https://dialogue/",
-        "http://dialogue/",
-        "https://mapayegc-mygcpay.tpsgc-pwgsc.gc.ca",
-        "https://intranet.ec.gc.ca",
-        "https://orl.prv",
-        "https://canada.pch.gc.ca/",
-        "http://forms-formulaires.prv",
-        "https://impact.prv/",
-        "http://hrsc-csrh.prv",
-        "http://offices-bureaux.prv",
-        "http://crt-orc.prv/",
-        "https://www.forces.gc.ca",
-        "https://www.google.ca/</a>",
-        "https://www.w3schools.com</a>",
-        "https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG</a>",
-        "https://templates.service.gc.ca/rn/cls/WET/gcweb/cdts/",
-        "https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/",
-        "https://templates.service.gc.ca/app/",
-        "https://intranet.canada.ca/images/GC",
-        "https://intranet.canada.ca/images/Instagram.png",
-        "https://csgc-scsc.service.gc.ca/p/p0100/p0000.aspx?lang=eng", //skipping this link because it returns a 401
-        "https://csgc-scsc.service.gc.ca/p/p0100/p0000.aspx?lang=fra", //skipping this link because it returns a 401
-        "https://edsc.prv/en/department/pses/2017/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
-        "https://esdc.prv/en/service-canada/tismb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
-        "https://esdc.prv/en/service-canada/tmb/index.shtml", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
-        "http://www.tbs-sct.gc.ca/pses-saff/2017-2/results-resultats/bq-pq/02/index-fra.aspx", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
-        "https://www12.edsc.gc.ca/sgpe-pmps/h.4m.2@-eng.jsp", //skipping this link because it is a broken link that has been commented out in esdcmenu-eng.html
-        "https://www.canada.ca/en/services/business/grants.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
-        "https://www.canada.ca/en/services/business/bankruptcy.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
-        "https://www.canada.ca/en/services/business/federal-corporations.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
-        "https://www.canada.ca/fr/services/entreprises/subventions.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
-        "https://www.canada.ca/fr/services/entreprises/societes-de-regime-federal.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
-        "https://www.canada.ca/fr/services/entreprises/faillites.html"] //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future. 
-
-    const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
-        "http://gcdirectory-gcannuaire.gc.ca/",
-        "http://dialogue",
-        "http://agora.on.prv/",
-        "http://labour.prv/",
-        "http://service-wiki.prv/",
-        "http://sgpe-pmps.prv/",
-        "http://crt-orc.prv/",
-        "http://ort.prv/",
-        "http://offices-bureaux.prv/",
-        "http://forms-formulaires.prv/",
-        "http://hrsc-csrh.prv/",
-        "http://travail.prv/",
-        "http://sgr-rms.prv/sgr-rms/",
-        "http://service-wiki.prv/",
-        "http://gcintranet.tpsgc-pwgsc.gc.ca/",
-        "http://blogs-blogues.prv/"]
-
-    const exceptionCDTSIntranetLinks = ["https://intranet.canada.ca",
-        "https://gcconnex.gc.ca",
-        "https://www.gcpedia.gc.ca",
-        "https://gcdirectory",
-        "https://templates.service",
-        "https://gcannuaire-gcdirectory.gc.ca",
-        "https://kmt-ogc.service.gc.ca",
-        "http://agora.on",
-        "https://gcintranet.tpsgc-pwgsc.gc.ca",
-        "https://portal-portail.tbs-sct.gc.ca",
-        "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
-        "https://dialogue.spprod.service.gc.ca",
-        "https://oas-sv-prodcc.bdm-mvp.az.esdc-edsc.cloud-nuage.gc.ca/"]
 
     const cdtsDirectories = ["./src/", "./public/common/", "./public/gcintranet/", "./public/gcweb/", "./public/global/"];
 
@@ -101,7 +110,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|]|<)/g;
     const agent = new ProxyAgent('http://proxy.prv:80');
-    const config = (process.env.DISABLE_PROXY) ? {} : { httpsAgent: agent, proxy: false };
+    const config = (process.env.DISABLE_PROXY) ? { timeout: 5000 } : { timeout: 5000, httpsAgent: agent, proxy: false };
 
     let matches = [];
     let errorCount = 0;
@@ -123,7 +132,6 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
         'Sec-Fetch-Mode': 'navigate',
         'Sec-Fetch-Site': 'cross-site',
         //'Sec-Fetch-User': '?1',
-        timeout: 5000, //set timeout to 5s
     };
 
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; //eslint-disable-line
@@ -179,8 +187,10 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
             else {
                 try {
                     const validURL = new URL(urls[i]);
+                    const urlIsIntranet = validURL.host.endsWith('.prv') || exceptionIntranetLinks.some((l) => validURL.href.startsWith(l));
+
                     //We can choose to skip testing for intranet links
-                    if (process.env.DISABLE_PROXY && ((validURL.host).endsWith('.prv') || exceptionIntranetLinks.some((l) => validURL.href.startsWith(l)))) {
+                    if (process.env.DISABLE_PROXY && urlIsIntranet) {
                         skippedIntranetUrlCount++;
                         continue;
                     }
@@ -196,7 +206,8 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
                     if (sendHEAD) {
                         try {
-                            const res = await axios.head(validURL.href, config); //eslint-disable-line no-await-in-loop
+                            // Make HEAD request (remove proxy agent for intRAnet links)
+                            const res = await axios.head(validURL.href, urlIsIntranet ? { ...config, httpsAgent: null } : config); //eslint-disable-line no-await-in-loop
                             checkAxiosResponse(res, validURL);
                         }
                         catch (headErr) {
@@ -207,7 +218,8 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
                     if (sendGET) {
                         try {
-                            const res = await axios.get(validURL.href, config); //eslint-disable-line no-await-in-loop
+                            // Make GET request (remove proxy agent for intRAnet links)
+                            const res = await axios.get(validURL.href, urlIsIntranet ? { ...config, httpsAgent: null } : config); //eslint-disable-line no-await-in-loop
                             checkAxiosResponse(res, validURL);
                         }
                         catch (getErr) {
