@@ -129,7 +129,7 @@ describe('Footer section tests for GCIntranet', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost", "siteMenu": false}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"showFeatures": true, "cdnEnv": "localhost"}',
+        footer: '{"showFeatures": true, "footerPath": "https://esdc.prv/_conf/assets/en/footer/esdcfooter-eng.html", "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
@@ -137,7 +137,7 @@ describe('Footer section tests for GCIntranet', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost", "siteMenu": false}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"showFeatures": true, "cdnEnv": "localhost"}',
+        footer: '{"showFeatures": true, "footerPath": "https://esdc.prv/_conf/assets/fr/footer/esdcfooter-fra.html", "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
@@ -159,6 +159,11 @@ describe('Footer section tests for GCIntranet', () => {
     it('Validate the default footer links', async () => {
         await defaultFooterLinksIntranet(theme, 'en');
         await defaultFooterLinksIntranet(theme, 'fr');
+    });
+
+    it('Validate custom footer', async () => {
+        await footerPath(theme, 'en');
+        await footerPath(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -274,6 +279,11 @@ async function termsPrivacyLink(theme, lang){
     await footerPage.open(theme, lang, 'contextualFooter');
     await expect(footerPage.footerBrandLink1).toHaveHrefContaining('customTermsLink');
     await expect(footerPage.footerBrandLink2).toHaveHrefContaining('customPrivacyLink');
+}
+
+async function footerPath(theme, lang){
+    await footerPage.open(theme, lang, 'showFeatures');
+    await expect(footerPage.customFooter).toHaveAttributeContaining('data-wb-ajax', 'esdcfooter')
 }
 
 async function accessibility(theme, lang) {
