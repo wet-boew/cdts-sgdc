@@ -1,10 +1,6 @@
 {
     "sourceLanguage": "en",
     "targetLanguage": "fr",
-    "2fa16d28ed7fad15a239bc54df29df9ad62d2799": {
-        "source": "https://esdc.prv/includes/edsc-esdc_prv/wet4/en/mega_menu/esdcmenu-eng.html",
-        "target": "https://esdc.prv/includes/edsc-esdc_prv/wet4/fr/mega_menu/esdcmenu-fra.html"
-    },
     "d63850c575d2c0b199adf4d5d69c015afcc392b3": {
         "source": "activities-footer-eng.html",
         "target": "activities-footer-fra.html"
@@ -345,10 +341,6 @@
         "source": "https://esdc.prv/en/news/index.shtml",
         "target": "https://esdc.prv/fr/nouvelles/index.shtml"
     },
-    "1069fa5d64acba79fe7feed0275ee90c4fd3f8bb": {
-        "source": "https://esdc.prv/en/contact/index.shtml",
-        "target": "https://esdc.prv/fr/coordonnees/index.shtml"
-    },
     "71061bebb2aee943268635510b2939eba9ddd062": {
         "source": "https://esdc.prv/en/stay_connected/index.shtml",
         "target": "https://esdc.prv/fr/restez_branche/index.shtml"
@@ -444,5 +436,9 @@
     "f43ac2b672a1db811dd7168a1e7cc1add2fb79b0": {
         "source": "esdcmenu-eng.html",
         "target": "esdcmenu-fra.html"
+    },
+    "11ab6acde444ac2d28be4c5131c974990f81f702": {
+        "source": "https://esdc.prv/en/feedback/index.shtml",
+        "target": "https://esdc.prv/fr/retroaction/index.shtml"
     }
 }
