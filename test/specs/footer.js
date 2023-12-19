@@ -129,7 +129,7 @@ describe('Footer section tests for GCIntranet', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost", "siteMenu": false}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"showFeatures": true, "footerPath": "https://esdc.prv/_conf/assets/en/footer/esdcfooter-eng.html", "cdnEnv": "localhost"}',
+        footer: '{"showFeatures": true, "footerPath": "/app/cls/WET/global/esdcfooter-eng.html", "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
@@ -137,7 +137,7 @@ describe('Footer section tests for GCIntranet', () => {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost", "siteMenu": false}',
         preFooter: '{"cdnEnv": "localhost"}',
-        footer: '{"showFeatures": true, "footerPath": "https://esdc.prv/_conf/assets/fr/footer/esdcfooter-fra.html", "cdnEnv": "localhost"}',
+        footer: '{"showFeatures": true, "footerPath": "/app/cls/WET/global/esdcfooter-fra.html", "cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
