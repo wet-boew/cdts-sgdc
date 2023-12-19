@@ -113,7 +113,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|]|<)/g;
     const agent = new ProxyAgent('http://proxy.prv:80');
-    const config = (process.env.DISABLE_PROXY) ? { timeout: 5000 } : { timeout: 5000, httpsAgent: agent, proxy: false };
+    const config = (process.env.DISABLE_PROXY) ? { timeout: 10000 } : { timeout: 5000, httpsAgent: agent, proxy: false };
 
     let matches = [];
     let errorCount = 0;
