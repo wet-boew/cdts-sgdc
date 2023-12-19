@@ -77,12 +77,15 @@ const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
 const exceptionCDTSIntranetLinks = ["https://intranet.canada.ca",
     "https://gcconnex.gc.ca",
     "https://www.gcpedia.gc.ca",
+    "http://www.gcpedia.gc.ca",
     "https://gcdirectory",
     "https://templates.service",
     "https://gcannuaire-gcdirectory.gc.ca",
+    "http://gcdirectory-gcannuaire.gc.ca",
     "https://kmt-ogc.service.gc.ca",
     "http://agora.on",
     "https://gcintranet.tpsgc-pwgsc.gc.ca",
+    "http://gcintranet.tpsgc-pwgsc.gc.ca",
     "https://portal-portail.tbs-sct.gc.ca",
     "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
     "https://dialogue.spprod.service.gc.ca",
@@ -110,7 +113,7 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     const regex = /http[s]?:\/\/.*?(?="|'|\s|\)|]|<)/g;
     const agent = new ProxyAgent('http://proxy.prv:80');
-    const config = (process.env.DISABLE_PROXY) ? { timeout: 5000 } : { timeout: 5000, httpsAgent: agent, proxy: false };
+    const config = (process.env.DISABLE_PROXY) ? { timeout: 10000 } : { timeout: 5000, httpsAgent: agent, proxy: false };
 
     let matches = [];
     let errorCount = 0;
