@@ -9,6 +9,7 @@ class FooterPage extends Page {
      */
 
     get footer() { return $('#transactFooter'); }
+    get customFooter() { return $('nav.wb-navcurr'); }
     get contextualFooter() { return $('div.gc-contextual'); }
     get contextualFooterLinks() { return $('div.gc-contextual ul'); }
     get footerContactLink() { return $('#wb-info nav li:nth-child(1) a'); }
