@@ -437,8 +437,8 @@
         "source": "https://iservice.prv/eng/imit/catalogue/gcxchange/index.shtml",
         "target": "https://iservice.prv/fra/giti/catalogue/gcechange/index.shtml"
     },
-    "78fe556731ac994b12ed02af1985e573c26a199c": {
-        "source": "gcexchange",
-        "target": "gcéchange"
+    "0ca3e700f4ad7f0a2cb04efdc52361be64516d04": {
+        "source": "<span class=\"bold-gc\">GC</span>Xchange",
+        "target": "<span class=\"bold-gc\">GC</span>Échange"
     }
 }
