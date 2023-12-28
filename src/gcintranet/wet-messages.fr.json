@@ -429,10 +429,6 @@
         "source": "https://iservice.prv/eng/imit/catalogue/gcxchange/index.shtml",
         "target": "https://iservice.prv/fra/giti/catalogue/gcechange/index.shtml"
     },
-    "78fe556731ac994b12ed02af1985e573c26a199c": {
-        "source": "gcexchange",
-        "target": "gcéchange"
-    },
     "f43ac2b672a1db811dd7168a1e7cc1add2fb79b0": {
         "source": "esdcmenu-eng.html",
         "target": "esdcmenu-fra.html"
@@ -440,5 +436,9 @@
     "11ab6acde444ac2d28be4c5131c974990f81f702": {
         "source": "https://esdc.prv/en/feedback/index.shtml",
         "target": "https://esdc.prv/fr/retroaction/index.shtml"
+    },
+    "0ca3e700f4ad7f0a2cb04efdc52361be64516d04": {
+        "source": "<span class=\"bold-gc\">GC</span>Xchange",
+        "target": "<span class=\"bold-gc\">GC</span>Échange"
     }
 }

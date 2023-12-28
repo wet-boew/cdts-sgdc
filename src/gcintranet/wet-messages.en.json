@@ -221,12 +221,20 @@
         "source": "<span class=\"bold-gc\">GC</span>Tools",
         "target": null
     },
-    "7a9879f753b1cbc91699f7633e02edd782afa127": {
-        "source": "https://gcconnex.gc.ca/splash/",
+    "6fa25ec11095940211895447eed6bc5911d17358": {
+        "source": "https://iservice.prv/eng/imit/catalogue/gcxchange/index.shtml",
         "target": null
     },
     "31c034b69abeaaaffe608be6bb5979005b8c4cbb": {
         "source": "GCTBannerOnclick-eng",
+        "target": null
+    },
+    "0ca3e700f4ad7f0a2cb04efdc52361be64516d04": {
+        "source": "<span class=\"bold-gc\">GC</span>Xchange",
+        "target": null
+    },
+    "7a9879f753b1cbc91699f7633e02edd782afa127": {
+        "source": "https://gcconnex.gc.ca/splash/",
         "target": null
     },
     "0d391295aae2a533bacbb9a9c2e6a120cc951528": {
@@ -259,14 +267,6 @@
     },
     "e765875a05aca0dfad86cb621edcef3491cb8d5a": {
         "source": "<span class=\"bold-gc\">GC</span>intranet",
-        "target": null
-    },
-    "6fa25ec11095940211895447eed6bc5911d17358": {
-        "source": "https://iservice.prv/eng/imit/catalogue/gcxchange/index.shtml",
-        "target": null
-    },
-    "78fe556731ac994b12ed02af1985e573c26a199c": {
-        "source": "gcexchange",
         "target": null
     },
     "4715fce1fdbafc47a29ff9d0c1be459d8eafd034": {
