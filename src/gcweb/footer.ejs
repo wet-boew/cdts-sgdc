@@ -8,7 +8,7 @@
  * @param? hideFooterMain Used to determine if the main footer will be displayed.
  * @param? hideFooterCorporate Used to determine if the corportate footer links will be displayed.
 -%>
-<footer id="wb-info">
+<footer role="contentinfo" id="wb-info">
     <h2 class="wb-inv"><^- msg('About this site') ^></h2>
     <%_ if (pr.contextualFooter != null) { -%>
         <div class="gc-contextual">
@@ -69,8 +69,8 @@
     <%_ } -%>
     <div class="gc-sub-footer">
         <div class="container d-flex align-items-center">
-            <nav>
-                <h3 class="wb-inv"><^- msg('Government of Canada Corporate') ^></h3>
+            <nav aria-labelledby="aboutGcweb">
+                <h3 class="wb-inv" id="aboutGcweb"><^- msg('Government of Canada Corporate') ^></h3>
                 <%_ if (pr.showFooter != false) { -%>
                     <ul>
                         <%_ if (pr.hideFooterCorporate != true) { -%>
