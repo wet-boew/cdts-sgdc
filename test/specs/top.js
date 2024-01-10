@@ -623,12 +623,12 @@ async function gcToolsLinks(theme) {
     await gcToolsLink.click();
     await (await topPage.gcToolsModalTitle).waitForExist({ timeout: 3000 })
     await expect(topPage.gcToolsModalTitle).toHaveTextContaining('GCTools');
-    await expect(topPage.gcToolsModalLink1).toHaveTextContaining('connex');
-    await expect(topPage.gcToolsModalLink2).toHaveTextContaining('pedia');
-    await expect(topPage.gcToolsModalLink3).toHaveTextContaining('directory');
-    await expect(topPage.gcToolsModalLink4).toHaveTextContaining('collab');
-    await expect(topPage.gcToolsModalLink5).toHaveTextContaining('intranet');
-    await expect(topPage.gcToolsModalLink6).toHaveTextContaining('gcexchange');
+    await expect(topPage.gcToolsModalLink1).toHaveTextContaining('Xchange');
+    await expect(topPage.gcToolsModalLink2).toHaveTextContaining('connex');
+    await expect(topPage.gcToolsModalLink3).toHaveTextContaining('pedia');
+    await expect(topPage.gcToolsModalLink4).toHaveTextContaining('directory');
+    await expect(topPage.gcToolsModalLink5).toHaveTextContaining('collab');
+    await expect(topPage.gcToolsModalLink6).toHaveTextContaining('intranet');
     await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
     await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
 }
@@ -640,12 +640,12 @@ async function gcToolsLinks_FR(theme) {
     await gcToolsLink.click();
     await (await topPage.gcToolsModalTitle).waitForExist({ timeout: 3000 })
     await expect(topPage.gcToolsModalTitle).toHaveTextContaining('OutilsGC');
-    await expect(topPage.gcToolsModalLink1).toHaveTextContaining('connex');
-    await expect(topPage.gcToolsModalLink2).toHaveTextContaining('pédia');
-    await expect(topPage.gcToolsModalLink3).toHaveTextContaining('annuaire');
-    await expect(topPage.gcToolsModalLink4).toHaveTextContaining('collab');
-    await expect(topPage.gcToolsModalLink5).toHaveTextContaining('intranet');
-    await expect(topPage.gcToolsModalLink6).toHaveTextContaining('gcéchange');
+    await expect(topPage.gcToolsModalLink1).toHaveTextContaining('Échange');
+    await expect(topPage.gcToolsModalLink2).toHaveTextContaining('connex');
+    await expect(topPage.gcToolsModalLink3).toHaveTextContaining('pédia');
+    await expect(topPage.gcToolsModalLink4).toHaveTextContaining('annuaire');
+    await expect(topPage.gcToolsModalLink5).toHaveTextContaining('collab');
+    await expect(topPage.gcToolsModalLink6).toHaveTextContaining('intranet');
     await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
     await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
 }
