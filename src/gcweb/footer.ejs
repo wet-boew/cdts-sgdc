@@ -30,8 +30,8 @@
     <%_ if (pr.showFooter != false && pr.hideFooterMain != true) { -%>
         <div id="transactFooter" class="gc-main-footer">
             <div class="container">
-                <nav>
-                    <h3><^- msg('Government of Canada') ^></h3>
+                <nav aria-labelledby="transactGcweb">
+                    <h3 id="transactGcweb"><^- msg('Government of Canada') ^></h3>
                     <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
                         <%_ if (pr.contactLinks != null && pr.contactLinks.length > 0) {
                             const link=pr.contactLinks[0]; -%>
