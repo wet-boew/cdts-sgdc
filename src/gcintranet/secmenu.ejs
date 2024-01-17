@@ -5,7 +5,7 @@
 <h2 id="wb-sec-h" class="wb-inv"><^- msg('Section menu') ^></h2>
 <%_ for (var sectionIndex=0; sectionIndex<pr.sections.length; sectionIndex++) { 
     const section=pr.sections[sectionIndex];-%>
-    <section class="list-group menu list-unstyled" aria-label="cdts-gcIntranetLink">
+    <section class="list-group menu list-unstyled">
         <h3><%_ if (section.sectionLink != null) { -%>
                 <%_ -%><a href="<%- section.sectionLink %>"<%- (section.newWindow==true)? ' target="_blank"  rel="noopener"': '' %>><%_ -%>
             <%_ } -%>
