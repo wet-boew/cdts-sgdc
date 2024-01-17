@@ -60,7 +60,7 @@ if (pr.subTheme === 'eccc') {
         <div id="app-brand">
             <div class="container">
                 <div class="row">
-                    <section class="<%- (pr.intranetTitle != null || pr.subTheme != null)? 'col-lg-6 col-md-6': 'col-lg-2 col-md-3' %> col-sm-9 col-xs-8">
+                    <section class="<%- (pr.intranetTitle != null || pr.subTheme != null)? 'col-lg-6 col-md-6': 'col-lg-2 col-md-3' %> col-sm-9 col-xs-8" aria-label="cdts-gcIntranetLink">
                         <div class="app-name<%- (pr.intranetTitle != null)? ' app-name-lg': '' %>">
                             <%_ if (pr.intranetTitle != null && pr.intranetTitle.length > 0) {
                                 const item=pr.intranetTitle[0]; -%>
@@ -82,7 +82,7 @@ if (pr.subTheme === 'eccc') {
                         </div>
                     </section>
                     <%_ if (pr.GCToolsModal == true) { -%>
-                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right">
+                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-label="cdts-gctoolsModalLinks">
                             <h2 class="wb-inv"><^- msg('GCTools links') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
@@ -108,7 +108,7 @@ if (pr.subTheme === 'eccc') {
                             </section>
                         </section>
                     <%_ } else if (pr.intranetTitle == null) { /* (...== null) is intentional, not (...!= null) */-%>
-                        <section id="wb-gctools" class="col-lg-6 visible-lg">
+                        <section id="wb-gctools" class="col-lg-6 visible-lg" aria-label="cdts-gctoolsLinks">
                             <div class="pull-left tool-link">
                                 <a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
                                 <^- msg('<span class="bold-gc">GC</span>connex') ^></a>
@@ -128,8 +128,8 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.lngLinks != null) { -%>
-                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': (pr.GCToolsModal == true)? '': 'lang-with-search'%>">
-                            <h2 class="wb-inv"><^- msg('Language selection') ^></h2>
+                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': (pr.GCToolsModal == true)? '': 'lang-with-search'%>" aria-labelledby="cdts-languageLinks">
+                            <h2 class="wb-inv" id="cdts-languageLinks"><^- msg('Language selection') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
@@ -143,8 +143,8 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.search != false) { -%>
-                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md">
-                            <h2><^- msg('Search') ^></h2>
+                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md" aria-labelledby="cdts-search">
+                            <h2 id="cdts-search"><^- msg('Search') ^></h2>
                             <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                                 const item=pr.customSearch[0]; -%>
                                 <form action="<%- (item.action != null)? item.action: '<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>' %>" method="<%= (item.method != null)? item.method: 'get' %>" name="<%= (item.name != null)? item.name: 'cse-search-box'%>" role="search" class="form-inline">
@@ -182,9 +182,9 @@ if (pr.subTheme === 'eccc') {
                             <%_ } -%>
                         </section>
                     <%_ } -%>
-                    <section id="wb-glb-mn" class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs">
+                    <section id="wb-glb-mn" class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" aria-labelledby="cdts-searchAndMenu">
                         <%_ var pluralSuffix = (pr.topSecMenu != null)? 's': ''; -%>
-                        <h2><%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%></h2>
+                        <h2 id="cdts-searchAndMenu"><%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%></h2>
                         <ul class="list-inline text-right chvrn">
                             <li><a href="#mb-pnl" title="<%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%>" aria-controls="mb-pnl" class="overlay-lnk" role="button">
                                 <%_ if (pr.search != false) { -%><span class="glyphicon glyphicon-search"><%_ } -%>
@@ -199,7 +199,7 @@ if (pr.subTheme === 'eccc') {
                 </div>
                 <%_ if (pr.GCToolsModal != true) { -%>
                     <div id="tools-sm" class="row<%- (pr.intranetTitle != null)? '': ' visible-md' %>">
-                        <section id="tool-container-sm" class="col-md-12 col-sm-12">
+                        <section id="tool-container-sm" class="col-md-12 col-sm-12" aria-label="cdts-gctoolsModalLinks">
                             <div class="pull-left tool-link"><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></div>
                             <div class="pull-left tool-link"><a href="<^- msg('https://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></div>
                             <div class="pull-left tool-link"><a href="<^- msg('https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></div>
@@ -251,7 +251,7 @@ if (pr.subTheme === 'eccc') {
         </div>
     </div>
     <%_ if (pr.menuLinks != null) { -%>
-        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
+        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-menuLinks">
             <div class="pnl-strt container nvbar">
                 <h2 class="wb-inv"><^- msg('Main navigation menu') ^></h2>
                 <div class="row">
@@ -289,13 +289,13 @@ if (pr.subTheme === 'eccc') {
             </div>
         </nav>
     <%_ } else if (pr.menuPath != null) { -%>
-        <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement"></nav>
+        <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-menuPath"></nav>
     <%_ } else { -%>
         <div id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('appmenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu hidden-sm hidden-xs"></div>
     <%_ } -%>
     <%_ if (pr.breadcrumbs != null) { -%>
-        <nav role="navigation" id="wb-bc" property="breadcrumb">
-            <h2><^- msg('You are here:') ^></h2>
+        <nav role="navigation" id="wb-bc" property="breadcrumb" aria-labelledby="cdts-breadcrumbs">
+            <h2 id="cdts-breadcrumbs"><^- msg('You are here:') ^></h2>
             <div class="container">
                 <ol class="breadcrumb">
                     <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
