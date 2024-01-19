@@ -440,5 +440,9 @@
     "0ca3e700f4ad7f0a2cb04efdc52361be64516d04": {
         "source": "<span class=\"bold-gc\">GC</span>Xchange",
         "target": "<span class=\"bold-gc\">GC</span>Échange"
+    },
+    "d8cde1c29b61c58e4ef757161e59991a22d66763": {
+        "source": "Activities and initiatives",
+        "target": "Activités et initiatives"
     }
 }

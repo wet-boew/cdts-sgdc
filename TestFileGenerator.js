@@ -159,7 +159,7 @@ module.exports = function generateTestFile(inputFilePath, theme, outputFileName,
         }
         return;
     }
-
+    console.log(`TestFileGenerator processing ${inputFilePath} -> ${theme}/${outputFileName}`);
     let data = fs.readFileSync(inputFilePath, 'utf8');
 
     if (data.match(/wet\.builder\.[\S]*[sS]etup\(/gm) !== null || data.match(setupAttributeRegex) !== null) {
@@ -197,8 +197,8 @@ module.exports = function generateTestFile(inputFilePath, theme, outputFileName,
         data = data.replace('"~' + Object.keys(sections)[i] + '~"', sections[Object.keys(sections)[i]]);
     }
 
+    fs.writeFileSync(filePath, data, 'utf8');
+
     //---[ Before writing data to disk, validate the output of the various 'wet.builder.*' functions.
     validateBuilderFunctions(data, theme, version);
-
-    fs.writeFileSync(filePath, data, 'utf8');
 }
