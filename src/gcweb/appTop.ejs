@@ -50,8 +50,8 @@
     <div id="wb-bnr" class="container">
         <div class="row">
             <%_ if (pr.lngLinks != null) { -%>
-                <section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right">
-                    <h2 class="wb-inv"><^- msg('Language selection') ^></h2>
+                <section id="wb-lng" class="col-xs-3 col-sm-12 pull-right text-right" aria-labelledby="cdts-languageLinks">
+                    <h2 class="wb-inv" id="cdts-languageLinks"><^- msg('Language selection') ^></h2>
                     <ul class="list-inline mrgn-bttm-0">
                         <%_ for (var linkIndex=0; linkIndex<pr.lngLinks.length; linkIndex++) {
                             const link=pr.lngLinks[linkIndex];-%>
@@ -74,9 +74,9 @@
             </div>
             <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                 const item=pr.customSearch[0]; -%>
-                <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4 visible-md visible-lg">
+                <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4 visible-md visible-lg" aria-labell="<^- msg('Search') ^>">
                     <h2><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h2>
-                    <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search">
+                    <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" aria-label="<^- msg('Search') ^>">
                         <div class="form-group wb-srch-qry">
                             <label for="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
                             <input id="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-srch-q form-control" name="<%= item.name != null? item.name: 'q' %>" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>">
@@ -99,7 +99,7 @@
         <div class="container">
             <div class="row">
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-                    <section class="col-xs-12 col-sm-7">
+                    <section class="col-xs-12 col-sm-7" aria-label="<^- msg('Name of Web application') ^>">
                 <%_ } else if (pr.headerMenu != null) { -%>
                     <section class="col-xs-12 col-sm-9 cdts-app-title-menu">
                 <%_ } else { -%>
@@ -138,7 +138,7 @@
                     </nav>
                 <%_ } -%>
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-                    <nav class="col-sm-5 hidden-xs hidden-print">
+                    <nav class="col-sm-5 hidden-xs hidden-print" aria-label="<^- msg('Account menu') ^>">
                         <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
                         <ul class="app-list-account list-unstyled">
                             <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
@@ -165,7 +165,7 @@
     <%_ if (pr.customSearch != null || pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true || pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
         <div class="app-bar-mb container visible-xs-block hidden-print">
             <%_ if (pr.customSearch != null || pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true) { -%>
-                <nav>
+                <nav aria-label="<^- msg('and search') ^>">
                     <h2 class="wb-inv"><%_ if (pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true) { -%>Menu<%= (pr.customSearch != null)? ' <^- msg('and search') ^>': ''%><%_ } else { -%><^- msg('Search') ^><%_ } -%></h2>
                     <ul class="app-list-main list-unstyled">
                         <%_ if (pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true) { -%><li class="wb-mb-links" id="wb-glb-mn"><a href="#mb-pnl" aria-controls="mb-pnl" class="btn overlay-lnk" role="button"><^- msg('Menu') ^></a><h2><^- msg('Menu') ^></h2></li><%_ } -%>
@@ -174,12 +174,12 @@
                     <div id="mb-pnl"></div>
                     <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                         const item=pr.customSearch[0]; -%>
-                        <section id="app-srch-mb" class="wb-overlay modal-content overlay-def wb-bar-t">
+                        <section id="app-srch-mb" class="wb-overlay modal-content overlay-def wb-bar-t" arial-label="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>">
                             <div class="modal-header">
                                 <h3 class="modal-title"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h3>
                             </div>
                             <div class="modal-body">
-                                <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" class="form-inline">
+                                <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" class="form-inline" aria-label="<^- msg('Search') ^>">
                                     <div class="input-group">
                                         <label for="<%= item.id != null? 'app-' + item.id: 'app-srch-q-mb' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
                                         <input placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>" id="<%= item.id != null? 'app-' + item.id: 'app-srch-q-mb' %>" class="app-srch-q-mb form-control" name="q" type="search" value="" size="27" maxlength="150">
@@ -198,7 +198,7 @@
                 </nav>
             <%_ } -%>
             <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-            <nav>
+            <nav aria-label="<^- msg('Account menu') ^>">
                 <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
                 <ul class="app-list-account list-unstyled">
                     <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
@@ -222,9 +222,9 @@
         </div>
 
         <%_ if (pr.menuLinks != null) { -%>
-            <nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="appNavMenu">
+            <nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Main navigation menu') ^>">
                 <div class="pnl-strt container nvbar">
-                    <h2 class="wb-inv" id="appNavMenu"><^- msg('Main navigation menu') ^></h2>
+                    <h2 class="wb-inv"><^- msg('Main navigation menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu" role="menubar">
                             <%_ for (var menuLinkIndex=0; menuLinkIndex<pr.menuLinks.length; menuLinkIndex++) {
@@ -256,8 +256,8 @@
         <%_ } -%>
     <%_ } -%>
     <%_ if (pr.breadcrumbs != null) { -%>
-        <nav id="wb-bc" property="breadcrumb">
-            <h2><^- msg('You are here:') ^></h2>
+        <nav id="wb-bc" property="breadcrumb" aria-labelledby="cdts-breadcrumb">
+            <h2 id="cdts-breadcrumb"><^- msg('You are here:') ^></h2>
             <div class="container">
                 <ol class="breadcrumb">
                     <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {

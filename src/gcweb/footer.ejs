@@ -13,8 +13,8 @@
     <%_ if (pr.contextualFooter != null) { -%>
         <div class="gc-contextual">
             <div class="container">
-                <nav>
-                    <h3><%= pr.contextualFooter.title %></h3>
+                <nav aria-labelledby="cdts-contextualFooter">
+                    <h3 id="cdts-contextualFooter"><%= pr.contextualFooter.title %></h3>
                     <%_ if (pr.contextualFooter.links != null) { -%>
                         <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
                             <%_ for (var footerIndex=0; footerIndex<(pr.contextualFooter.links.length > 3 ? 3 : pr.contextualFooter.links.length); footerIndex++) {

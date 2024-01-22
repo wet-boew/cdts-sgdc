@@ -8,20 +8,20 @@
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
 -%>
 <%_ if (pr.showFeatures == true) { -%>
-    <section class="ajaxed-in" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('activities-footer-eng.html') ^>"></section>
+    <section class="ajaxed-in" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('activities-footer-eng.html') ^>" aria-label="<^- msg('activities-footer-eng.html') ^>"></section>
 <%_ } -%>
 <footer role="contentinfo" id="wb-info">
     <%_ if (pr.footerSections != null) { -%>
-        <nav role="navigation" class="container wb-navcurr">
-            <h2 class="wb-inv"><^- msg('Related links') ^></h2>
+        <nav role="navigation" class="container wb-navcurr" aria-labelledby="cdts-relatedLinks">
+            <h2 class="wb-inv" id="cdts-relatedLinks"><^- msg('Related links') ^></h2>
             <div class="row">
                 <%_ for (var sectionIndex=0; sectionIndex<pr.footerSections.length; sectionIndex++) {
                     const footerSection=pr.footerSections[sectionIndex];-%>
                     <%_ if (footerSection.customFooterLinks != null) { -%>
                         <%_ if (sectionIndex < 3) { -%>
-                            <section class="col-md-3 col-sm-6 col-lg-3">
+                            <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="cdts-footerSectionLinks">
                                 <%_ if (footerSection.sectionName != null) { -%>
-                                    <h3><%= footerSection.sectionName %></h3>
+                                    <h3 id="cdts-footerSectionLinks"><%= footerSection.sectionName %></h3>
                                 <%_ } -%>
                                 <ul class="list-unstyled">
                                     <%_ for (var linkIndex=0; linkIndex<footerSection.customFooterLinks.length; linkIndex++) {

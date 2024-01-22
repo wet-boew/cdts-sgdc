@@ -58,7 +58,7 @@ if (pr.subTheme === 'eccc') {
         <div id="app-brand">
             <div class="container">
                 <div class="row">
-                    <section class="<%- (pr.intranetTitle != null || pr.subTheme != null)? 'col-lg-6 col-md-6': 'col-lg-2 col-md-3' %> col-sm-9 col-xs-8" aria-label="cdts-intranetTitle">
+                    <section class="<%- (pr.intranetTitle != null || pr.subTheme != null)? 'col-lg-6 col-md-6': 'col-lg-2 col-md-3' %> col-sm-9 col-xs-8" aria-label="<^- msg('intranet') ^>">
                         <div class="app-name<%- (pr.intranetTitle != null)? ' app-name-lg': '' %>">
                             <%_ if (pr.intranetTitle != null && pr.intranetTitle.length > 0) {
                                 const item=pr.intranetTitle[0]; -%>
@@ -80,8 +80,8 @@ if (pr.subTheme === 'eccc') {
                         </div>
                     </section>
                     <%_ if (pr.GCToolsModal == true) { -%>
-                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right">
-                            <h2 class="wb-inv"><^- msg('GCTools links') ^></h2>
+                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-labelledby="cdts-hiddenGcToolsLinks">
+                            <h2 class="wb-inv" id="cdts-hiddenGcToolsLinks"><^- msg('GCTools links') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
@@ -89,7 +89,7 @@ if (pr.subTheme === 'eccc') {
                                     </ul>
                                 </div>
                             </div>
-                            <section id="gctools" class="mfp-hide modal-dialog modal-content overlay-def" aria-label="cdts-intraGctools">
+                            <section id="gctools" class="mfp-hide modal-dialog modal-content overlay-def" aria-label="<^- msg('GC Tools') ^>">
                                 <header class="modal-header">
                                     <h2 class="modal-title"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
                                 </header>
@@ -106,7 +106,7 @@ if (pr.subTheme === 'eccc') {
                             </section>
                         </section>
                     <%_ } else if (pr.intranetTitle == null) { /* (...== null) is intentional, not (...!= null) */-%>
-                        <section id="wb-gctools" class="col-lg-6 visible-lg" aria-label="cdts-webGctools">
+                        <section id="wb-gctools" class="col-lg-6 visible-lg" aria-label="<^- msg('GCTools links') ^>">
                             <div class="pull-left tool-link">
                                 <a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
                                 <^- msg('<span class="bold-gc">GC</span>connex') ^></a>
@@ -126,8 +126,8 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.lngLinks != null) { -%>
-                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': (pr.subTheme == 'esdc' || pr.GCToolsModal == true)? '': 'lang-with-search'%>">
-                            <h2 class="wb-inv"><^- msg('Language selection') ^></h2>
+                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': (pr.subTheme == 'esdc' || pr.GCToolsModal == true)? '': 'lang-with-search'%>" aria-labelledby="cdts-languageSelection">
+                            <h2 class="wb-inv" id="cdts-languageSelection"><^- msg('Language selection') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
@@ -180,9 +180,9 @@ if (pr.subTheme === 'eccc') {
                             <%_ } -%>
                         </section>
                     <%_ } -%>
-                    <section id="wb-glb-mn" class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" aria-label="cdts-searchAndMenu">
+                    <section id="wb-glb-mn" class="wb-mb-links col-xs-4 col-sm-3 visible-sm visible-xs" aria-labelledby="cdts-menu">
                         <%_ var pluralSuffix = (pr.topSecMenu != null)? 's': ''; -%>
-                        <h2><%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%></h2>
+                        <h2 id="cdts-menu"><%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%></h2>
                         <ul class="list-inline text-right chvrn">
                             <li><a href="#mb-pnl" title="<%_ if (pr.search == false) { -%><^- msg('Menu') ^><%- pluralSuffix %><%_ } else { -%><^- msg('Search and menu') ^><%- pluralSuffix %><%_ } -%>" aria-controls="mb-pnl" class="overlay-lnk" role="button">
                                 <%_ if (pr.search != false) { -%><span class="glyphicon glyphicon-search"><%_ } -%>
@@ -210,7 +210,7 @@ if (pr.subTheme === 'eccc') {
     </div>
     <%_ if (pr.siteMenu != false) { -%>
         <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
-            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '/app/cls/WET/global/<^- msg('esdcmenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-esdcLabourMenu">
+            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '/app/cls/WET/global/<^- msg('esdcmenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-esdcLabourMenu" aria-label="<^- msg('Topics menu') ^>">
                 <div class="container nvbar">
                     <h2><^- msg('Topics menu') ^></h2>
                     <div class="row">
@@ -230,7 +230,7 @@ if (pr.subTheme === 'eccc') {
             </nav>
         <%_ } else if (pr.subTheme == 'eccc') { -%>
             <%# Todo: Change with eccc Menu -%>
-            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: wet.builder.environment(pr.cdnEnv) + 'cdts/ajax/<^- msg('sitemenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-ecccMenu">
+            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: wet.builder.environment(pr.cdnEnv) + 'cdts/ajax/<^- msg('sitemenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Topics menu') ^>">
                 <div class="container nvbar">
                     <h2><^- msg('Topics menu') ^></h2>
                     <div class="row">
@@ -251,7 +251,7 @@ if (pr.subTheme === 'eccc') {
                 </div>
             </nav>
         <%_ } else { -%>
-            <nav role="navigation" id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('sitemenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-webMenu">
+            <nav role="navigation" id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('sitemenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Topics menu') ^>">
                 <div class="container nvbar">
                     <h2><^- msg('Topics menu') ^></h2>
                     <div class="row">
@@ -267,8 +267,8 @@ if (pr.subTheme === 'eccc') {
         <%_ } -%>
     <%_ } -%>
     <%_ if (pr.breadcrumbs != false) { -%>
-        <nav role="navigation" id="wb-bc" property="breadcrumb" aria-label="cdts-breadcrumbTrail">
-            <h2><^- msg('You are here:') ^></h2>
+        <nav role="navigation" id="wb-bc" property="breadcrumb" aria-labelledby="cdts-breadcrumb">
+            <h2 id="cdts-breadcrumb"><^- msg('You are here:') ^></h2>
             <div class="container">
                 <ol class="breadcrumb">
                     <%_ if (pr.breadcrumbs != null) { -%>
