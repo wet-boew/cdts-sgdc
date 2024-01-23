@@ -29,7 +29,8 @@ function searchFunctionCalls(content) {
 
 function validateBuilderFunctions(content, theme, version) {
     const htmlValidate = new HtmlValidate(require('./htmlvalidator.conf.js')); //config path relative
-    const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
+    //const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
+    const htmlValidateFormatReport = formatterFactory('codeframe'); //possible formatters: checkstyle, codeframe, json, stylish, text
 
     function validateHTML(functionName, htmlContent) {
         const report = htmlValidate.validateStringSync(htmlContent);

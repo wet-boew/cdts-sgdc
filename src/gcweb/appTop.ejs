@@ -74,9 +74,9 @@
             </div>
             <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                 const item=pr.customSearch[0]; -%>
-                <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4 visible-md visible-lg" aria-labell="<^- msg('Search') ^>">
-                    <h2><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h2>
-                    <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" aria-label="<^- msg('Search') ^>">
+                <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4 visible-md visible-lg" aria-labelledby="cdts-webSearch">
+                    <h2 id="cdts-webSearch"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h2>
+                    <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" aria-label="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>">
                         <div class="form-group wb-srch-qry">
                             <label for="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
                             <input id="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-srch-q form-control" name="<%= item.name != null? item.name: 'q' %>" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>">
@@ -138,8 +138,8 @@
                     </nav>
                 <%_ } -%>
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-                    <nav class="col-sm-5 hidden-xs hidden-print" aria-label="<^- msg('Account menu') ^>">
-                        <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
+                    <nav class="col-sm-5 hidden-xs hidden-print" aria-labelledby="cdts-hiddenAccountMenu">
+                        <h2 class="wb-inv" id="cdts-hiddenAccountMenu"><^- msg('Account menu') ^></h2>
                         <ul class="app-list-account list-unstyled">
                             <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
                                 const item=pr.appSettings[0]; -%>
@@ -165,8 +165,8 @@
     <%_ if (pr.customSearch != null || pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true || pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
         <div class="app-bar-mb container visible-xs-block hidden-print">
             <%_ if (pr.customSearch != null || pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true) { -%>
-                <nav aria-label="<^- msg('and search') ^>">
-                    <h2 class="wb-inv"><%_ if (pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true) { -%>Menu<%= (pr.customSearch != null)? ' <^- msg('and search') ^>': ''%><%_ } else { -%><^- msg('Search') ^><%_ } -%></h2>
+                <nav aria-labelledby="cdts-menuAndSearch">
+                    <h2 class="wb-inv" id="cdts-menuAndSearch"><%_ if (pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true) { -%>Menu<%= (pr.customSearch != null)? ' <^- msg('and search') ^>': ''%><%_ } else { -%><^- msg('Search') ^><%_ } -%></h2>
                     <ul class="app-list-main list-unstyled">
                         <%_ if (pr.menuPath != null || pr.menuLinks != null || pr.topSecMenu == true) { -%><li class="wb-mb-links" id="wb-glb-mn"><a href="#mb-pnl" aria-controls="mb-pnl" class="btn overlay-lnk" role="button"><^- msg('Menu') ^></a><h2><^- msg('Menu') ^></h2></li><%_ } -%>
                         <%_ if (pr.customSearch != null) { -%><li><a href="#app-srch-mb" title="<^- msg('Search') ^>" aria-controls="app-srch-mb" class="btn overlay-lnk" role="button"><span class="glyphicon-search glyphicon" aria-hidden="true"></span><span class="wb-inv"><^- msg('Search') ^></span></a></li><%_ } -%>
@@ -198,8 +198,8 @@
                 </nav>
             <%_ } -%>
             <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-            <nav aria-label="<^- msg('Account menu') ^>">
-                <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
+            <nav aria-labelledby="cdts-accountMenu">
+                <h2 class="wb-inv" id="cdts-accountMenu"><^- msg('Account menu') ^></h2>
                 <ul class="app-list-account list-unstyled">
                     <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
                         const item=pr.appSettings[0]; -%>

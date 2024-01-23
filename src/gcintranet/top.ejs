@@ -53,7 +53,7 @@ if (pr.subTheme === 'eccc') {
         <%_ } -%>
     </ul>
 </nav>
-<header role="banner">
+<header role="banner" aria-label="Intranet Banner">
     <div id="wb-bnr">
         <div id="app-brand">
             <div class="container">
@@ -80,8 +80,8 @@ if (pr.subTheme === 'eccc') {
                         </div>
                     </section>
                     <%_ if (pr.GCToolsModal == true) { -%>
-                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-labelledby="cdts-hiddenGcToolsLinks">
-                            <h2 class="wb-inv" id="cdts-hiddenGcToolsLinks"><^- msg('GCTools links') ^></h2>
+                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-labelledby="cdts-gcToolsLinks">
+                            <h2 class="wb-inv" id="cdts-gcToolsLinks"><^- msg('GCTools links') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
@@ -90,8 +90,8 @@ if (pr.subTheme === 'eccc') {
                                 </div>
                             </div>
                             <section id="gctools" class="mfp-hide modal-dialog modal-content overlay-def" aria-label="<^- msg('GC Tools') ^>">
-                                <header class="modal-header">
-                                    <h2 class="modal-title"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
+                                <header class="modal-header" aria-labelledby="cdts-gcToolsModal">
+                                    <h2 class="modal-title" id="cdts-gcToolsModal"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
                                 </header>
                                 <div class="modal-body">
                                     <ul class="list-unstyled lst-spcd">
@@ -210,7 +210,7 @@ if (pr.subTheme === 'eccc') {
     </div>
     <%_ if (pr.siteMenu != false) { -%>
         <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
-            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '/app/cls/WET/global/<^- msg('esdcmenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-esdcLabourMenu" aria-label="<^- msg('Topics menu') ^>">
+            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '/app/cls/WET/global/<^- msg('esdcmenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Topics menu') ^>">
                 <div class="container nvbar">
                     <h2><^- msg('Topics menu') ^></h2>
                     <div class="row">
