@@ -143,8 +143,8 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.search != false) { -%>
-                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md" aria-labelledby="cdts-search">
-                            <h2 id="cdts-search"><^- msg('Search') ^></h2>
+                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md" aria-labelledby="cdts-gcintranetSearch">
+                            <h2 id="cdts-gcintranetSearch"><^- msg('Search') ^></h2>
                             <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                                 const item=pr.customSearch[0]; -%>
                                 <form action="<%- (item.action != null)? item.action: '<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>' %>" method="<%= (item.method != null)? item.method: 'get' %>" name="<%= (item.name != null)? item.name: 'cse-search-box'%>" role="search" class="form-inline">

@@ -19,9 +19,9 @@
                     const footerSection=pr.footerSections[sectionIndex];-%>
                     <%_ if (footerSection.customFooterLinks != null) { -%>
                         <%_ if (sectionIndex < 3) { -%>
-                            <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="<%= footerSection.sectionName %>">
+                            <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="<%= (footerSection.sectionName).replaceAll(/\s/g,'') %>">
                                 <%_ if (footerSection.sectionName != null) { -%>
-                                    <h3 id="<%= footerSection.sectionName %>"><%= footerSection.sectionName %></h3>
+                                    <h3 id="<%= (footerSection.sectionName).replaceAll(/\s/g,'') %>"><%= footerSection.sectionName %></h3>
                                 <%_ } -%>
                                 <ul class="list-unstyled">
                                     <%_ for (var linkIndex=0; linkIndex<footerSection.customFooterLinks.length; linkIndex++) {
@@ -32,9 +32,9 @@
                             </section>
                         <%_ } -%>
                     <%_ } else if (sectionIndex == 0) { /*For backward compatibility */ -%>
-                        <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="<%= footerSection.sectionName %>">
+                        <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="cdts-sectionName">
                             <%_ if (footerSection.sectionName != null) { -%>
-                                <h3 id="<%= footerSection.sectionName %>"><%= footerSection.sectionName %></h3>
+                                <h3 id="cdts-sectionName"><%= footerSection.sectionName %></h3>
                             <%_ } -%>
                             <ul class="list-unstyled">
                                 <%_ for (var linkIndex=0; linkIndex<pr.footerSections.length; linkIndex++) {
@@ -57,8 +57,8 @@
                         </ul>
                     </section>
                 <%_ } else if (pr.subTheme == 'eccc') { -%>
-                    <section class="col-md-3 col-sm-6 col-lg-3">
-                        <h3><^- msg('Contact Us') ^></h3>
+                    <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="cdts-contactUs">
+                        <h3 id="cdts-contactUs"><^- msg('Contact Us') ^></h3>
                         <ul class="list-unstyled">
                             <li><a href="#"><^- msg('EnviroTel') ^></a></li>
                             <li><a href="#"><^- msg('GEDS') ^></a></li>
