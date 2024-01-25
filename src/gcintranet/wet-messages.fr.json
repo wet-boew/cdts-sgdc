@@ -448,5 +448,9 @@
     "5a4356b4e754ea9c3775e8c156860a6e18ab6b54": {
         "source": "GC Tools",
         "target": "Outils GC"
+    },
+    "26c01e70a337f208f56dae1c3bc18f60c4bff453": {
+        "source": "Footer",
+        "target": "Pied de page"
     }
 }

@@ -26,6 +26,7 @@ class AppFooterPage extends Page {
     get customFooterLinkTextSubTheme() { return $('//footer[@id="wb-info"]/nav/h2/following-sibling::div/section[4]/h3'); }
     get cssScriptESDC() { return $('//head/link[contains(@href, "/cdts/esdc.css")] | //head/link[contains(@href, "cdts-esdc-styles.css")] | //head/link[contains(@href, "cdts-labour-styles.css")]'); }
     get cssScriptECCC() { return $('//head/link[contains(@href, "/cdts/eccc.css")] | //head/link[contains(@href, "cdts-eccc-styles.css")]'); }
+    get footerSectionIntranet() { return $('//footer/nav/div/section[@class="col-md-3 col-sm-6 col-lg-3"]')}
 
     /**
     * Opens a sub page of the page
