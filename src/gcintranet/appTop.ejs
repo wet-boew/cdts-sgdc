@@ -60,7 +60,7 @@ if (pr.subTheme === 'eccc') {
         <div id="app-brand">
             <div class="container">
                 <div class="row">
-                    <section class="<%- (pr.intranetTitle != null || pr.subTheme != null)? 'col-lg-6 col-md-6': 'col-lg-2 col-md-3' %> col-sm-9 col-xs-8" aria-label="cdts-intranetTitle">
+                    <section class="<%- (pr.intranetTitle != null || pr.subTheme != null)? 'col-lg-6 col-md-6': 'col-lg-2 col-md-3' %> col-sm-9 col-xs-8" aria-label="<^- msg('GC') ^><^- msg('intranet') ^>">
                         <div class="app-name<%- (pr.intranetTitle != null)? ' app-name-lg': '' %>">
                             <%_ if (pr.intranetTitle != null && pr.intranetTitle.length > 0) {
                                 const item=pr.intranetTitle[0]; -%>
@@ -82,8 +82,8 @@ if (pr.subTheme === 'eccc') {
                         </div>
                     </section>
                     <%_ if (pr.GCToolsModal == true) { -%>
-                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-label="cdts-gctoolsModalLinks">
-                            <h2 class="wb-inv"><^- msg('GCTools links') ^></h2>
+                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-labelledby="cdts-hiddenGctools">
+                            <h2 class="wb-inv" id="cdts-hiddenGctools"><^- msg('GCTools links') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
@@ -108,7 +108,7 @@ if (pr.subTheme === 'eccc') {
                             </section>
                         </section>
                     <%_ } else if (pr.intranetTitle == null) { /* (...== null) is intentional, not (...!= null) */-%>
-                        <section id="wb-gctools" class="col-lg-6 visible-lg" aria-label="cdts-gctoolsLinks">
+                        <section id="wb-gctools" class="col-lg-6 visible-lg" aria-label="<^- msg('GC Tools') ^>">
                             <div class="pull-left tool-link">
                                 <a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>">
                                 <^- msg('<span class="bold-gc">GC</span>connex') ^></a>
@@ -128,7 +128,7 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.lngLinks != null) { -%>
-                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': (pr.GCToolsModal == true)? '': 'lang-with-search'%>" aria-label="cdts-languageLinks">
+                        <section id="wb-lng" class="<%- (pr.intranetTitle != null && pr.GCToolsModal != true)? 'mrgn-bttm-md col-md-offset-1 col-lg-offset-2 ': '' %>col-md-1 hidden-sm hidden-xs text-right <%- (pr.search == false)? 'lang-no-search': (pr.GCToolsModal == true)? '': 'lang-with-search'%>" aria-labelledby="cdts-languageLinks">
                             <h2 class="wb-inv" id="cdts-languageLinks"><^- msg('Language selection') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
@@ -143,8 +143,8 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.search != false) { -%>
-                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md" aria-labelledby="cdts-gcintranetSearch">
-                            <h2 id="cdts-gcintranetSearch"><^- msg('Search') ^></h2>
+                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md" aria-labelledby="cdts-hiddenSearch">
+                            <h2 id="cdts-hiddenSearch"><^- msg('Search') ^></h2>
                             <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                                 const item=pr.customSearch[0]; -%>
                                 <form action="<%- (item.action != null)? item.action: '<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>' %>" method="<%= (item.method != null)? item.method: 'get' %>" name="<%= (item.name != null)? item.name: 'cse-search-box'%>" role="search" class="form-inline">
@@ -199,7 +199,7 @@ if (pr.subTheme === 'eccc') {
                 </div>
                 <%_ if (pr.GCToolsModal != true) { -%>
                     <div id="tools-sm" class="row<%- (pr.intranetTitle != null)? '': ' visible-md' %>">
-                        <section id="tool-container-sm" class="col-md-12 col-sm-12" aria-label="cdts-gctoolsModalLinks">
+                        <section id="tool-container-sm" class="col-md-12 col-sm-12" aria-label="<^- msg('GCTools links') ^>">
                             <div class="pull-left tool-link"><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></div>
                             <div class="pull-left tool-link"><a href="<^- msg('https://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></div>
                             <div class="pull-left tool-link"><a href="<^- msg('https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></div>

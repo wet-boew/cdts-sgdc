@@ -5,6 +5,10 @@
         "source": "activities-footer-eng.html",
         "target": null
     },
+    "d8cde1c29b61c58e4ef757161e59991a22d66763": {
+        "source": "Activities and initiatives",
+        "target": null
+    },
     "2256cc6ee2a5d077491a8a63ef76ac743c25d2d2": {
         "source": "Related links",
         "target": null
@@ -273,6 +277,10 @@
         "source": "<span class=\"bold-gc\">GC</span>intranet",
         "target": null
     },
+    "5a4356b4e754ea9c3775e8c156860a6e18ab6b54": {
+        "source": "GC Tools",
+        "target": null
+    },
     "4715fce1fdbafc47a29ff9d0c1be459d8eafd034": {
         "source": "Language selection",
         "target": null
@@ -321,10 +329,6 @@
         "source": "You are here:",
         "target": null
     },
-    "d8cde1c29b61c58e4ef757161e59991a22d66763": {
-        "source": "Activities and initiatives",
-        "target": null
-    },
     "0052b2c1760a4b2697c109bc3a864419bf33ecd2": {
         "source": "https://intranet.canada.ca/contact-eng.asp",
         "target": null
@@ -367,10 +371,6 @@
     },
     "a9e50663b70c0c99152b5f17c92340ab938b80c7": {
         "source": "Section menu",
-        "target": null
-    },
-    "5a4356b4e754ea9c3775e8c156860a6e18ab6b54": {
-        "source": "GC Tools",
         "target": null
     },
     "f43ac2b672a1db811dd7168a1e7cc1add2fb79b0": {
