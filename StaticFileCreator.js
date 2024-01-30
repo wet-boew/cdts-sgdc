@@ -57,7 +57,7 @@ function createStaticFallbackFile(grunt, definition, language) {
 
     //---[ Validate HTML before we save
     const htmlValidate = new HtmlValidate(require('./htmlvalidator.conf.js'));
-    const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
+    const htmlValidateFormatReport = formatterFactory('codeframe'); //possible formatters: checkstyle, codeframe, json, stylish, text
     const report = htmlValidate.validateStringSync(output);
     if ((!report.valid) || (report.warningCount > 0)) {
         grunt.log.error(`${targetFileName}: ${report.errorCount} error(s), ${report.warningCount} warning(s) reported:`);

@@ -101,9 +101,9 @@
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
                     <section class="col-xs-12 col-sm-7" aria-label="<^- msg('Name of Web application') ^>">
                 <%_ } else if (pr.headerMenu != null) { -%>
-                    <section class="col-xs-12 col-sm-9 cdts-app-title-menu">
+                    <section class="col-xs-12 col-sm-9 cdts-app-title-menu" aria-label="<^- msg('Name of Web application') ^>">
                 <%_ } else { -%>
-                    <section class="col-xs-12">
+                    <section class="col-xs-12" aria-label="<^- msg('Name of Web application') ^>">
                 <%_ } -%>
                 <%_ if (pr.appName != null && pr.appName.length > 0) {
                     const item=pr.appName[0]; -%>

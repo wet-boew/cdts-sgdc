@@ -251,7 +251,7 @@ if (pr.subTheme === 'eccc') {
         </div>
     </div>
     <%_ if (pr.menuLinks != null) { -%>
-        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-menuLinks">
+        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Main navigation menu') ^>">
             <div class="pnl-strt container nvbar">
                 <h2 class="wb-inv"><^- msg('Main navigation menu') ^></h2>
                 <div class="row">
@@ -289,7 +289,7 @@ if (pr.subTheme === 'eccc') {
             </div>
         </nav>
     <%_ } else if (pr.menuPath != null) { -%>
-        <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="cdts-menuPath"></nav>
+        <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Application menu') ^>"></nav>
     <%_ } else { -%>
         <div id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('appmenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu hidden-sm hidden-xs"></div>
     <%_ } -%>

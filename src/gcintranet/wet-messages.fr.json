@@ -452,5 +452,9 @@
     "26c01e70a337f208f56dae1c3bc18f60c4bff453": {
         "source": "Footer",
         "target": "Pied de page"
+    },
+    "4fd0ed7e7a474d24b9db775b6bf8fa2727beaa1d": {
+        "source": "Application menu",
+        "target": "Menu de l'application"
     }
 }
