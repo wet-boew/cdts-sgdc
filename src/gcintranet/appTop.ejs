@@ -55,7 +55,7 @@ if (pr.subTheme === 'eccc') {
         <%_ } -%>
     </ul>
 </nav>
-<header role="banner">
+<header role="banner" aria-label="<^- msg('GCintranet header') ^>">
     <div id="wb-bnr">
         <div id="app-brand">
             <div class="container">
@@ -82,8 +82,8 @@ if (pr.subTheme === 'eccc') {
                         </div>
                     </section>
                     <%_ if (pr.GCToolsModal == true) { -%>
-                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-labelledby="cdts-hiddenGctools">
-                            <h2 class="wb-inv" id="cdts-hiddenGctools"><^- msg('GCTools links') ^></h2>
+                        <section id="gctoolsSection" class="<%- (pr.intranetTitle != null)? 'col-lg-2': 'col-lg-6' %><%- (pr.search == false)? ' col-md-offset-3': ''%> col-md-1 hidden-sm hidden-xs text-right" aria-labelledby="cdts-hiddenGctoolsLinks">
+                            <h2 class="wb-inv" id="cdts-hiddenGctoolsLinks"><^- msg('GCTools links') ^></h2>
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-inline margin-bottom-none gcbarlng">
@@ -91,9 +91,9 @@ if (pr.subTheme === 'eccc') {
                                     </ul>
                                 </div>
                             </div>
-                            <section id="gctools" class="mfp-hide modal-dialog modal-content overlay-def">
-                                <header class="modal-header">
-                                    <h2 class="modal-title"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
+                            <section id="gctools" class="mfp-hide modal-dialog modal-content overlay-def" aria-label="<^- msg('Hidden GCTools popup content') ^>">
+                                <header class="modal-header" aria-labelledby="cdts-gctoolsPopupHeader">
+                                    <h2 class="modal-title" id="cdts-gctoolsPopupHeader"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
                                 </header>
                                 <div class="modal-body">
                                     <ul class="list-unstyled lst-spcd">

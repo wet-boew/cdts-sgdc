@@ -205,6 +205,10 @@
         "source": "Skip to section menu",
         "target": null
     },
+    "baab55ac4da1ff0e442b592dda1b4a9b16e8e1f4": {
+        "source": "GCintranet header",
+        "target": null
+    },
     "99a3e18460e703b6b52b26b4155c66c3e3ba24bc": {
         "source": "GC",
         "target": null
@@ -227,6 +231,10 @@
     },
     "25aa56e71e6dea4190f7e3ae2e7f1e780c1ea0a3": {
         "source": "<span class=\"bold-gc\">GC</span>Tools",
+        "target": null
+    },
+    "21e65c3c23066632e286af17a46dc6431bfea8ab": {
+        "source": "Hidden GCTools popup content",
         "target": null
     },
     "6fa25ec11095940211895447eed6bc5911d17358": {

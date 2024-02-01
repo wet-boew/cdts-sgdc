@@ -456,5 +456,13 @@
     "4fd0ed7e7a474d24b9db775b6bf8fa2727beaa1d": {
         "source": "Application menu",
         "target": "Menu de l'application"
+    },
+    "baab55ac4da1ff0e442b592dda1b4a9b16e8e1f4": {
+        "source": "GCintranet header",
+        "target": "En-tête GCintranet"
+    },
+    "21e65c3c23066632e286af17a46dc6431bfea8ab": {
+        "source": "Hidden GCTools popup content",
+        "target": "Le contenu contextuel GCTools masqué"
     }
 }
