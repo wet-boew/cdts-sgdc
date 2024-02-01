@@ -461,8 +461,8 @@
         "source": "GCintranet header",
         "target": "En-tête GCintranet"
     },
-    "21e65c3c23066632e286af17a46dc6431bfea8ab": {
-        "source": "Hidden GCTools popup content",
-        "target": "Le contenu contextuel GCTools masqué"
+    "e6c08df891206ab48e50e3539af1d87363b593e3": {
+        "source": "GCTools section",
+        "target": "Section Outils GC"
     }
 }
