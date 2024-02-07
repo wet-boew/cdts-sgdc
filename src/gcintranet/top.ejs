@@ -53,7 +53,7 @@ if (pr.subTheme === 'eccc') {
         <%_ } -%>
     </ul>
 </nav>
-<header role="banner" aria-label="Intranet Banner">
+<header role="banner" aria-label="<^- msg('Intranet Banner') ^>">
     <div id="wb-bnr">
         <div id="app-brand">
             <div class="container">
@@ -141,8 +141,8 @@ if (pr.subTheme === 'eccc') {
                         </section>
                     <%_ } -%>
                     <%_ if (pr.search != false) { -%>
-                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md" aria-label="cdts-search">
-                            <h2><^- msg('Search') ^></h2>
+                        <section id="wb-srch" class="col-lg-3 col-md-4 hidden-sm hidden-xs search-md" aria-labelledby="cdts-search">
+                            <h2 id="cdts-search"><^- msg('Search') ^></h2>
                             <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
                                 const item=pr.customSearch[0]; -%>
                                 <form action="<%- (item.action != null)? item.action: '<^- msg('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx') ^>' %>" method="<%= (item.method != null)? item.method: 'get' %>" name="<%= (item.name != null)? item.name: 'cse-search-box'%>" role="search" class="form-inline">
@@ -197,7 +197,7 @@ if (pr.subTheme === 'eccc') {
                 </div>
                 <%_ if (pr.GCToolsModal != true) { -%>
                     <div id="tools-sm" class="row<%- (pr.intranetTitle != null)? '': ' visible-md' %>">
-                        <section id="tool-container-sm" class="col-md-12 col-sm-12" aria-label="cdts-tools">
+                        <section id="tool-container-sm" class="col-md-12 col-sm-12" aria-label="<^- msg('GC Tools') ^>">
                             <div class="pull-left tool-link"><a href="<^- msg('https://gcconnex.gc.ca/splash/') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>connex') ^></a></div>
                             <div class="pull-left tool-link"><a href="<^- msg('https://www.gcpedia.gc.ca/wiki/?setlang=en') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>pedia') ^></a></div>
                             <div class="pull-left tool-link"><a href="<^- msg('https://gcdirectory-gcannuaire.gc.ca/en/GCD/?pgid=002') ^>" class="<^- msg('GCTBannerOnclick-eng') ^>"><^- msg('<span class="bold-gc">GC</span>directory') ^></a></div>
