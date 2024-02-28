@@ -18,10 +18,10 @@ class AppTopPage extends Page {
     get langLinkIntranet() { return $('section.lang-no-search a'); }
     get search() {return $('#wb-srch-q'); }
     get menuLinks() {return $('div.nvbar'); }
-    get menuLink1() {return $('div.nvbar ul li:nth-child(1) a'); }
-    get menuLink2() {return $('div.nvbar ul li:nth-child(2) a'); }
-    get menuLink2Abbr() {return $('div.nvbar ul li:nth-child(2) abbr'); }
-    get menuLink3() {return $('div.nvbar ul li:nth-child(3) abbr'); }
+    get menuLink1() {return $('nav > div.nvbar ul li:nth-child(1) a[href="#"]'); }
+    get menuLink2() {return $('nav > div.nvbar ul li:nth-child(2) a[href="#"]'); }
+    get menuLink2Abbr() {return $('nav > div.nvbar ul li:nth-child(2) a[href="#"] abbr'); }
+    get menuLink3() {return $('nav > div.nvbar ul li:nth-child(3) a[href="#"] abbr'); }
     get menuSubLink1() {return $('div.nvbar ul li:nth-child(1) ul li:nth-child(1) a'); }
     get menuSubLink1Abbr() {return $('div.nvbar ul li:nth-child(1) ul li:nth-child(1) abbr'); }
     get menuSubLink2() {return $('div.nvbar ul li:nth-child(3) ul li:nth-child(1) abbr'); }

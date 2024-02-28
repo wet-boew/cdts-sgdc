@@ -660,7 +660,7 @@ async function menuExistsUsingPath(theme, lang){
 
 async function menuDoesNotExist(theme, lang){
     await basicPage.open(theme, lang, 'app');
-    await expect(appTopPage.menuLinks1).not.toExist();
+    await expect(appTopPage.menuLink1).not.toExist();
 }
 
 async function breadcrumbsExist(theme){
