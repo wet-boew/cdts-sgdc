@@ -401,28 +401,20 @@
         "source": "Application menu",
         "target": "Menu de l'application"
     },
-    "32a81f0e50f1707a800cb747fcccc527f6dc0bd3": {
-        "source": "Application Search",
-        "target": "Recherche de l'application"
+    "394d95b2f4889cff8f10f25de0f0ded7068e32de": {
+        "source": "Information Banner",
+        "target": "Bannière d'information"
     },
-    "04f64416e81d58b4370c341b9dad48567c058e9f": {
-        "source": "Enter Search Criteria",
-        "target": "Entrez les critères de recherche"
+    "0eb5ed506e4923c28d7f4a8aa69efe99b3ad75d1": {
+        "source": "Information",
+        "target": "Information"
     },
-    "1b11927165d524f390cf506603ce1954e9328507": {
-        "source": "Hidden Account menu",
-        "target": "Menu compte masqué"
+    "b291beb8793f4f3308c463951165dad483715a6c": {
+        "source": "Application",
+        "target": "Application"
     },
-    "b9ed4d3f767502a5a2d7accc300f7d3bca531528": {
-        "source": "Info background",
-        "target": "Arrière-plan de renseignements"
-    },
-    "394ff0854e04312b74d6e66e842c922a57d46bc0": {
-        "source": "Header background",
-        "target": "Le fond de l'en-tête"
-    },
-    "fbe4fbceb306983b8ba26aace9d291ecee0b86e0": {
-        "source": "Government of Canada header",
-        "target": "En-tête du gouvernement du Canada"
+    "763a7b2777f9a6e9bc4b33c3a4350867def6f1d3": {
+        "source": "Search Criteria",
+        "target": "Critères de recherche"
     }
 }

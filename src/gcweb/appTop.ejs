@@ -25,8 +25,8 @@
     </ul>
 </nav>
 <%_ if (pr.infoBanner != null) { -%>
-    <header aria-label="<^- msg('Header background') ^>">
-        <section class="bg-info" aria-label="<^- msg('Info background') ^>">
+    <header aria-label="<^- msg('Information Banner') ^>">
+        <section class="bg-info" aria-label="<^- msg('Information') ^>">
             <div class="container">
                 <%_ if (pr.infoBanner.mainHTML != null) { -%>
                     <p class="cdts-banner-text"><%- pr.infoBanner.mainHTML %></p>
@@ -46,7 +46,7 @@
         </section>
     </header>
 <%_ } -%>
-<header aria-label="<^- msg('Government of Canada header') ^>">
+<header aria-label="<^- msg('Government of Canada') ^>">
     <div id="wb-bnr" class="container">
         <div class="row">
             <%_ if (pr.lngLinks != null) { -%>
@@ -76,7 +76,7 @@
                 const item=pr.customSearch[0]; -%>
                 <section id="wb-srch" class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-12 col-sm-5 col-md-4 visible-md visible-lg" aria-labelledby="cdts-topSearch">
                     <h2 id="cdts-topSearch"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h2>
-                    <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" aria-label="<^- msg('Search Canada.ca') ^>">
+                    <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" aria-label="<^- msg('Search Criteria') ^>">
                         <div class="form-group wb-srch-qry">
                             <label for="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
                             <input id="<%= item.id != null? item.id: 'wb-srch-q' %>" class="wb-srch-q form-control" name="<%= item.name != null? item.name: 'q' %>" type="search" value="" size="34" maxlength="170" placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>">
@@ -99,11 +99,11 @@
         <div class="container">
             <div class="row">
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-                    <section class="col-xs-12 col-sm-7" aria-label="<^- msg('Name of Web application') ^>">
+                    <section class="col-xs-12 col-sm-7" aria-label="<^- msg('Application') ^>">
                 <%_ } else if (pr.headerMenu != null) { -%>
-                    <section class="col-xs-12 col-sm-9 cdts-app-title-menu" aria-label="<^- msg('Name of Web application') ^>">
+                    <section class="col-xs-12 col-sm-9 cdts-app-title-menu" aria-label="<^- msg('Application') ^>">
                 <%_ } else { -%>
-                    <section class="col-xs-12" aria-label="<^- msg('Name of Web application') ^>">
+                    <section class="col-xs-12" aria-label="<^- msg('Application') ^>">
                 <%_ } -%>
                 <%_ if (pr.appName != null && pr.appName.length > 0) {
                     const item=pr.appName[0]; -%>
@@ -117,8 +117,8 @@
                         <ul><li id="wb-glb-mn"><a href="#mb-pnl"></a><h2><^- msg('Menu') ^></h2></li></ul>
                         <div id="mb-pnl"></div>
                     </div>
-                    <nav id="cdts-header-menu" data-trgt="mb-pnl" class="cdts-menu-rectangle wb-menu" typeof="SiteNavigationElement" aria-labelledby="cdts-headerMenu">
-                        <h2 class="wb-inv" id="cdts-headerMenu"><^- msg('Header navigation menu') ^></h2>
+                    <nav id="cdts-header-menu" data-trgt="mb-pnl" class="cdts-menu-rectangle wb-menu" typeof="SiteNavigationElement" aria-labelledby="appNavMenu">
+                        <h2 class="wb-inv" id="appNavMenu"><^- msg('Header navigation menu') ^></h2>
                         <ul class="list-inline menu" role="menubar">
                             <li role="none" class="cdts-menu-list-width">
                             <a href="#" class="cdts-menu-label item" role="menuitem" aria-haspopup="true"><span class="glyphicon glyphicon-user cdts-menu-icon"></span><%= (pr.headerMenu.text == null)? ' <^- msg('Account') ^>': pr.headerMenu.text %><span class="glyphicon glyphicon-chevron-down cdts-menu-chevron"></span><span class="glyphicon glyphicon-chevron-up cdts-menu-chevron-up"></span></a>
@@ -138,8 +138,8 @@
                     </nav>
                 <%_ } -%>
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-                    <nav class="col-sm-5 hidden-xs hidden-print" aria-label="<^- msg('Hidden Account menu') ^>">
-                        <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
+                    <nav class="col-sm-5 hidden-xs hidden-print" aria-labelledby="cdts-hiddenAccountMenu">
+                        <h2 class="wb-inv" is="cdts-hiddenAccountMenu"><^- msg('Account menu') ^></h2>
                         <ul class="app-list-account list-unstyled">
                             <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
                                 const item=pr.appSettings[0]; -%>
@@ -173,13 +173,13 @@
                     </ul>
                     <div id="mb-pnl"></div>
                     <%_ if (pr.customSearch != null && pr.customSearch.length > 0) {
-                        const item=pr.customSearch[0]; -%>
-                        <section id="app-srch-mb" class="wb-overlay modal-content overlay-def wb-bar-t" aria-label="<^- msg('Application Search') ^>">
+                        const item=pr.customSearch[0]; -%><%#using aria-label instead of aria-labelledby because the VALUE of the label must be unique and we already have another search, we're adding a period to make it unique-%>
+                        <section id="app-srch-mb" class="wb-overlay modal-content overlay-def wb-bar-t" aria-label="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>.">
                             <div class="modal-header">
-                                <h3 class="modal-title"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h3>
+                                <h3 class="modal-title" id="cdts-appSearch"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></h3>
                             </div>
                             <div class="modal-body">
-                                <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" class="form-inline" aria-label="<^- msg('Enter Search Criteria') ^>">
+                                <form action="<%= item.action %>" method="<%= item.method %>" name="cse-search-box" role="search" class="form-inline" aria-label="<^- msg('Search Criteria') ^>.">
                                     <div class="input-group">
                                         <label for="<%= item.id != null? 'app-' + item.id: 'app-srch-q-mb' %>" class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %></label>
                                         <input placeholder="<^- msg('Search') ^><%= item.placeholder != null? ' ' + item.placeholder: '' %>" id="<%= item.id != null? 'app-' + item.id: 'app-srch-q-mb' %>" class="app-srch-q-mb form-control" name="q" type="search" value="" size="27" maxlength="150">
@@ -198,8 +198,8 @@
                 </nav>
             <%_ } -%>
             <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-            <nav aria-label="<^- msg('Account menu') ^>">
-                <h2 class="wb-inv"><^- msg('Account menu') ^></h2>
+            <nav aria-labelledby="cdts-accountMenu">
+                <h2 class="wb-inv" id="cdts-accountMenu"><^- msg('Account menu') ^></h2>
                 <ul class="app-list-account list-unstyled">
                     <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
                         const item=pr.appSettings[0]; -%>
@@ -223,8 +223,8 @@
 
         <%_ if (pr.menuLinks != null) { -%>
             <nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Main navigation menu') ^>">
-                <div class="pnl-strt container nvbar">
-                    <h2 class="wb-inv"><^- msg('Main navigation menu') ^></h2>
+                <div class="pnl-strt container nvbar" aria-labelledby="appNavMenu">
+                    <h2 class="wb-inv" id="appNavMenu"><^- msg('Main navigation menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu" role="menubar">
                             <%_ for (var menuLinkIndex=0; menuLinkIndex<pr.menuLinks.length; menuLinkIndex++) {

@@ -251,9 +251,9 @@ if (pr.subTheme === 'eccc') {
         </div>
     </div>
     <%_ if (pr.menuLinks != null) { -%>
-        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Main navigation menu') ^>">
+        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
             <div class="pnl-strt container nvbar">
-                <h2 class="wb-inv"><^- msg('Main navigation menu') ^></h2>
+                <h2 class="wb-inv" aria-labelledby="cdts-mainMenu"><^- msg('Main navigation menu') ^></h2>
                 <div class="row">
                     <ul class="list-inline menu" role="menubar">
                         <%_ for (var menuLinkIndex=0; menuLinkIndex<pr.menuLinks.length; menuLinkIndex++) {

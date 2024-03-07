@@ -27,18 +27,18 @@
                 </div>
             </div>
             <div class="row cdts-splash">
-                <section class="col-xs-6 text-right" lang="en" aria-label="cdts-enGovCanada">
+                <section class="col-xs-6 text-right" lang="en" aria-labelledby="cdts-governmentOfCanada">
                     <%_ if (pr.nameEng != null) { -%>
-                        <h2><%= pr.nameEng %></h2>
+                        <h2 id="cdts-governmentOfCanada"><%= pr.nameEng %></h2>
                     <%_ } else { -%>
-                        <h2 class="wb-inv">Government of Canada</h2>
+                        <h2 class="wb-inv" id="cdts-governmentOfCanada">Government of Canada</h2>
                     <%_ } -%>
                 </section>
-                <section class="col-xs-6" lang="fr" aria-label="cdts-frGovCanada">
+                <section class="col-xs-6" lang="fr" aria-labelledby="cdts-gouvernementDuCanada">
                     <%_ if (pr.nameFra != null) { -%>
-                        <h2><%= pr.nameFra %></h2>
+                        <h2 id="cdts-gouvernementDuCanada"><%= pr.nameFra %></h2>
                     <%_ } else { -%>
-                        <h2 class="wb-inv">Gouvernement du Canada</h2>
+                        <h2 class="wb-inv" id="cdts-gouvernementDuCanada">Gouvernement du Canada</h2>
                     <%_ } -%>
                 </section>
             </div>

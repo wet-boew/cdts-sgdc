@@ -210,9 +210,9 @@ if (pr.subTheme === 'eccc') {
     </div>
     <%_ if (pr.siteMenu != false) { -%>
         <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
-            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '/app/cls/WET/global/<^- msg('esdcmenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Topics menu') ^>">
+            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: '/app/cls/WET/global/<^- msg('esdcmenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="cdts-topicsMenu">
                 <div class="container nvbar">
-                    <h2><^- msg('Topics menu') ^></h2>
+                    <h2 id="cdts-topicsMenu"><^- msg('Topics menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu">
                             <%_ if (pr.hidePlaceholderMenu == true) { -%>
@@ -230,9 +230,9 @@ if (pr.subTheme === 'eccc') {
             </nav>
         <%_ } else if (pr.subTheme == 'eccc') { -%>
             <%# Todo: Change with eccc Menu -%>
-            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: wet.builder.environment(pr.cdnEnv) + 'cdts/ajax/<^- msg('sitemenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Topics menu') ^>">
+            <nav role="navigation" id="wb-sm" data-wb-ajax='{"url": "<%- (pr.menuPath != null)? pr.menuPath: wet.builder.environment(pr.cdnEnv) + 'cdts/ajax/<^- msg('sitemenu-eng.html') ^>' %>", "type": "replace", "nocache": true }' data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="cdts-topicsMenu">
                 <div class="container nvbar">
-                    <h2><^- msg('Topics menu') ^></h2>
+                    <h2 id="cdts-topicsMenu"><^- msg('Topics menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu">
                             <%_ if (pr.hidePlaceholderMenu == true) { -%>
@@ -251,9 +251,9 @@ if (pr.subTheme === 'eccc') {
                 </div>
             </nav>
         <%_ } else { -%>
-            <nav role="navigation" id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('sitemenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Topics menu') ^>">
+            <nav role="navigation" id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('sitemenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="cdts-topicsMenu">
                 <div class="container nvbar">
-                    <h2><^- msg('Topics menu') ^></h2>
+                    <h2 id="cdts-topicsMenu"><^- msg('Topics menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu">
                             <li><a href="<^- msg('https://intranet.canada.ca/psc-fsc/index-eng.asp') ^>"><^- msg('News') ^></a></li>
