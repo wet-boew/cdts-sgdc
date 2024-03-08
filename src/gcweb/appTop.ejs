@@ -139,7 +139,7 @@
                 <%_ } -%>
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
                     <nav class="col-sm-5 hidden-xs hidden-print" aria-labelledby="cdts-hiddenAccountMenu">
-                        <h2 class="wb-inv" is="cdts-hiddenAccountMenu"><^- msg('Account menu') ^></h2>
+                        <h2 class="wb-inv" id="cdts-hiddenAccountMenu"><^- msg('Account menu') ^></h2>
                         <ul class="app-list-account list-unstyled">
                             <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
                                 const item=pr.appSettings[0]; -%>
