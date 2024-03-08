@@ -138,7 +138,8 @@
                     </nav>
                 <%_ } -%>
                 <%_ if (pr.appSettings != null || pr.signOut != null || pr.signIn != null) { -%>
-                    <nav class="col-sm-5 hidden-xs hidden-print" aria-labelledby="cdts-hiddenAccountMenu">
+                <%#using aria-label instead of aria-labelledby because the VALUE of the label must be unique and we already have another search, we're adding a period to make it unique-%>
+                    <nav class="col-sm-5 hidden-xs hidden-print" aria-label="<^- msg('Account menu') ^>.">
                         <h2 class="wb-inv" id="cdts-hiddenAccountMenu"><^- msg('Account menu') ^></h2>
                         <ul class="app-list-account list-unstyled">
                             <%_ if (pr.appSettings != null && pr.appSettings.length > 0) {
