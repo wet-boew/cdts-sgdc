@@ -8,7 +8,7 @@
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
 -%>
 <%_ if (pr.showFeatures == true) { -%>
-    <section class="ajaxed-in" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('activities-footer-eng.html') ^>" aria-label="<^- msg('Activities and initiatives') ^>"></section>
+    <section class="ajaxed-in" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('activities-footer-eng.html') ^>"></section>
 <%_ } -%>
 <footer role="contentinfo" id="wb-info">
     <%_ if (pr.footerSections != null) { -%>
@@ -20,10 +20,10 @@
                     <%_ if (footerSection.customFooterLinks != null) { -%>
                         <%_ if (sectionIndex < 3) { -%>
                                 <%_ if (footerSection.sectionName != null) { -%>
-                                    <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="cdts-footerSection<%= sectionIndex %>">
-                                    <h3 id="cdts-footerSection<%= sectionIndex %>"><%= footerSection.sectionName %></h3>
+                                    <section class="col-md-3 col-sm-6 col-lg-3">
+                                    <h3><%= footerSection.sectionName %></h3>
                                 <%_ } else { -%>
-                                    <section class="col-md-3 col-sm-6 col-lg-3" aria-label="<^- msg('Footer') ^>">
+                                    <section class="col-md-3 col-sm-6 col-lg-3">
                                 <%_ } -%>
                                 <ul class="list-unstyled">
                                     <%_ for (var linkIndex=0; linkIndex<footerSection.customFooterLinks.length; linkIndex++) {
@@ -35,10 +35,10 @@
                         <%_ } -%>
                     <%_ } else if (sectionIndex == 0) { /*For backward compatibility */ -%>
                             <%_ if (footerSection.sectionName != null) { -%>
-                                <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="cdts-footerSection">
-                                <h3 id="cdts-footerSection"><%= footerSection.sectionName %></h3>
+                                <section class="col-md-3 col-sm-6 col-lg-3">
+                                <h3><%= footerSection.sectionName %></h3>
                             <%_ } else { -%>
-                                <section class="col-md-3 col-sm-6 col-lg-3" aria-label="<^- msg('Footer') ^>">
+                                <section class="col-md-3 col-sm-6 col-lg-3">
                             <%_ } -%>
                             <ul class="list-unstyled">
                                 <%_ for (var linkIndex=0; linkIndex<pr.footerSections.length; linkIndex++) {
@@ -50,8 +50,8 @@
                     <%_ } -%>
                 <%_ } -%>
                 <%_ if (pr.subTheme == 'esdc' || pr.subTheme == 'labour') { -%>
-                    <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="cdts-sectionCorporate">
-                        <h3 id="cdts-sectionCorporate"><^- msg('Corporate') ^></h3>
+                    <section class="col-md-3 col-sm-6 col-lg-3">
+                        <h3><^- msg('Corporate') ^></h3>
                         <ul class="list-unstyled">
                             <li><a href="<^- msg('https://esdc.prv/en/branches_regions/index.shtml') ^>"><^- msg('ESDC/SC Intranet') ^></a></li>
                             <li><a href="<^- msg('https://esdc.prv/en/news/index.shtml') ^>"><^- msg('News') ^></a></li>
@@ -61,8 +61,8 @@
                         </ul>
                     </section>
                 <%_ } else if (pr.subTheme == 'eccc') { -%>
-                    <section class="col-md-3 col-sm-6 col-lg-3" aria-labelledby="cdts-contactUs">
-                        <h3 id="cdts-contactUs"><^- msg('Contact Us') ^></h3>
+                    <section class="col-md-3 col-sm-6 col-lg-3">
+                        <h3><^- msg('Contact Us') ^></h3>
                         <ul class="list-unstyled">
                             <li><a href="#"><^- msg('EnviroTel') ^></a></li>
                             <li><a href="#"><^- msg('GEDS') ^></a></li>

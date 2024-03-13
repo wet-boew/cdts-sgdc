@@ -73,10 +73,6 @@
         "source": "Information Banner",
         "target": null
     },
-    "0eb5ed506e4923c28d7f4a8aa69efe99b3ad75d1": {
-        "source": "Information",
-        "target": null
-    },
     "9b0c2133d530bdd7b3b7e239c94faf83a2097da9": {
         "source": "Government of Canada",
         "target": null
@@ -103,10 +99,6 @@
     },
     "763a7b2777f9a6e9bc4b33c3a4350867def6f1d3": {
         "source": "Search Criteria",
-        "target": null
-    },
-    "b291beb8793f4f3308c463951165dad483715a6c": {
-        "source": "Application",
         "target": null
     },
     "63f3f0da3e2031cedf938ea18363e51a893e095d": {

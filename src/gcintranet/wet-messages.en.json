@@ -5,16 +5,8 @@
         "source": "activities-footer-eng.html",
         "target": null
     },
-    "d8cde1c29b61c58e4ef757161e59991a22d66763": {
-        "source": "Activities and initiatives",
-        "target": null
-    },
     "2256cc6ee2a5d077491a8a63ef76ac743c25d2d2": {
         "source": "Related links",
-        "target": null
-    },
-    "26c01e70a337f208f56dae1c3bc18f60c4bff453": {
-        "source": "Footer",
         "target": null
     },
     "1d8b1236d7b70a9ca73929aa23ac4bfd96450bb1": {
@@ -233,10 +225,6 @@
         "source": "<span class=\"bold-gc\">GC</span>Tools",
         "target": null
     },
-    "e6c08df891206ab48e50e3539af1d87363b593e3": {
-        "source": "GCTools section",
-        "target": null
-    },
     "6fa25ec11095940211895447eed6bc5911d17358": {
         "source": "https://iservice.prv/eng/imit/catalogue/gcxchange/index.shtml",
         "target": null
@@ -283,10 +271,6 @@
     },
     "e765875a05aca0dfad86cb621edcef3491cb8d5a": {
         "source": "<span class=\"bold-gc\">GC</span>intranet",
-        "target": null
-    },
-    "5a4356b4e754ea9c3775e8c156860a6e18ab6b54": {
-        "source": "GC Tools",
         "target": null
     },
     "4715fce1fdbafc47a29ff9d0c1be459d8eafd034": {
