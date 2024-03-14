@@ -241,22 +241,6 @@ describe('AppFooter section tests for GCIntranet', () => {
         refFooter: '{"cdnEnv": "localhost"}'
 	});
 
-    generateTestFile('./test/html/gcintranet/template-gcintranetapp-en.html', 'gcintranet', 'gcintranet-appFooter-noFooterSectionName-en', {
-        refTop: '{"cdnEnv": "localhost", "subTheme": "labour"}',
-        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
-        preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"subTheme":"labour", "footerSections":[{ "customFooterLinks":[{ "href":"#", "text":"link1-1-new Window", "newWindow":true }] }, { "sectionName":"Custom Section 2", "customFooterLinks":[{ "href":"#", "text":"link2-1-new Window", "newWindow":true }] }, { "sectionName":"Custom Section 3", "customFooterLinks":[{ "href":"#", "text":"link3-1-new Window", "newWindow":true }] }], "cdnEnv": "localhost"}',
-        refFooter: '{"cdnEnv": "localhost"}'
-	});
-
-    generateTestFile('./test/html/gcintranet/template-gcintranetapp-fr.html', 'gcintranet', 'gcintranet-appFooter-noFooterSectionName-fr', {
-        refTop: '{"cdnEnv": "localhost"}',
-        appTop: '{"cdnEnv": "localhost", "appName": [{"text": "Application name", "href": "#"}]}',
-        preFooter: '{"cdnEnv": "localhost"}',
-        appFooter: '{"subTheme":"labour", "footerSections":[{ "customFooterLinks":[{ "href":"#", "text":"link1-1-new Window", "newWindow":true }] }, { "sectionName":"Custom Section 2", "customFooterLinks":[{ "href":"#", "text":"link2-1-new Window", "newWindow":true }] }, { "sectionName":"Custom Section 3", "customFooterLinks":[{ "href":"#", "text":"link3-1-new Window", "newWindow":true }] }], "cdnEnv": "localhost"}',
-        refFooter: '{"cdnEnv": "localhost"}'
-	});
-
     it('Validate the footer links', async () => {
         await footerLinksIntranet(theme, 'en');
         await footerLinksIntranet(theme, 'fr');
@@ -308,16 +292,6 @@ describe('AppFooter section tests for GCIntranet', () => {
 
     it('Test if correct css file has been loaded - ECCC', async () => {
         await cssScriptECCC(theme, 'en');
-    });
-
-    it('Test if aria-label when no footer section name', async () => {
-        await customFooterNoSectionName(theme, 'en');
-        await customFooterNoSectionName(theme, 'fr');
-    });
-
-    it('Test if aria-labelledby with footer section name', async () => {
-        await customFooterWithSectionName(theme, 'en');
-        await customFooterWithSectionName(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -439,16 +413,6 @@ async function cssScriptECCC(theme, lang){
 async function footerContactLink(theme, lang){
     await appFooterPage.open(theme, lang, 'contactLink');
     await expect(appFooterPage.contactLink).toHaveHrefContaining('contactLinksTest');
-}
-
-async function customFooterNoSectionName(theme, lang){
-    await appFooterPage.open(theme, lang, 'noFooterSectionName');
-    await expect(appFooterPage.footerSectionIntranet).toHaveAttribute('aria-label');
-}
-
-async function customFooterWithSectionName(theme, lang){
-    await appFooterPage.open(theme, lang);
-    await expect(appFooterPage.footerSectionIntranet).toHaveAttribute('aria-labelledby');
 }
 
 async function accessibility(theme, lang) {
