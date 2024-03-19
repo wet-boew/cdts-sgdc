@@ -34,11 +34,9 @@
                             </section>
                         <%_ } -%>
                     <%_ } else if (sectionIndex == 0) { /*For backward compatibility */ -%>
+                        <section class="col-md-3 col-sm-6 col-lg-3">
                             <%_ if (footerSection.sectionName != null) { -%>
-                                <section class="col-md-3 col-sm-6 col-lg-3">
                                 <h3><%= footerSection.sectionName %></h3>
-                            <%_ } else { -%>
-                                <section class="col-md-3 col-sm-6 col-lg-3">
                             <%_ } -%>
                             <ul class="list-unstyled">
                                 <%_ for (var linkIndex=0; linkIndex<pr.footerSections.length; linkIndex++) {

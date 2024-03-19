@@ -197,8 +197,8 @@
         "source": "Skip to section menu",
         "target": null
     },
-    "baab55ac4da1ff0e442b592dda1b4a9b16e8e1f4": {
-        "source": "GCintranet header",
+    "5b82747d146bcb033f073f1c4465847546261d56": {
+        "source": "Intranet Banner",
         "target": null
     },
     "99a3e18460e703b6b52b26b4155c66c3e3ba24bc": {
@@ -367,10 +367,6 @@
     },
     "a9e50663b70c0c99152b5f17c92340ab938b80c7": {
         "source": "Section menu",
-        "target": null
-    },
-    "5b82747d146bcb033f073f1c4465847546261d56": {
-        "source": "Intranet Banner",
         "target": null
     },
     "f43ac2b672a1db811dd7168a1e7cc1add2fb79b0": {

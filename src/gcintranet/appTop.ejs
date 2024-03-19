@@ -55,7 +55,7 @@ if (pr.subTheme === 'eccc') {
         <%_ } -%>
     </ul>
 </nav>
-<header role="banner" aria-label="<^- msg('GCintranet header') ^>">
+<header role="banner" aria-label="<^- msg('Intranet Banner') ^>">
     <div id="wb-bnr">
         <div id="app-brand">
             <div class="container">
@@ -294,8 +294,8 @@ if (pr.subTheme === 'eccc') {
         <div id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('appmenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu hidden-sm hidden-xs"></div>
     <%_ } -%>
     <%_ if (pr.breadcrumbs != null) { -%>
-        <nav role="navigation" id="wb-bc" property="breadcrumb" aria-labelledby="breadcrumbPosition">
-            <h2 id="breadcrumbPosition"><^- msg('You are here:') ^></h2>
+        <nav role="navigation" id="wb-bc" property="breadcrumb" aria-labelledby="cdts-breadcrumbPosition">
+            <h2 id="cdts-breadcrumbPosition"><^- msg('You are here:') ^></h2>
             <div class="container">
                 <ol class="breadcrumb">
                     <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {

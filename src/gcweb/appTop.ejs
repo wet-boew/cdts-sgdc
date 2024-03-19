@@ -223,8 +223,8 @@
         </div>
 
         <%_ if (pr.menuLinks != null) { -%>
-            <nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Main navigation menu') ^>">
-                <div class="pnl-strt container nvbar" aria-labelledby="appNavMenu">
+            <nav id="wb-sm" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="appNavMenu">
+                <div class="pnl-strt container nvbar">
                     <h2 class="wb-inv" id="appNavMenu"><^- msg('Main navigation menu') ^></h2>
                     <div class="row">
                         <ul class="list-inline menu" role="menubar">
@@ -257,8 +257,8 @@
         <%_ } -%>
     <%_ } -%>
     <%_ if (pr.breadcrumbs != null) { -%>
-        <nav id="wb-bc" property="breadcrumb" aria-labelledby="breadcrumbPosition">
-            <h2 id="breadcrumbPosition"><^- msg('You are here:') ^></h2>
+        <nav id="wb-bc" property="breadcrumb" aria-labelledby="cdts-breadcrumbPosition">
+            <h2 id="cdts-breadcrumbPosition"><^- msg('You are here:') ^></h2>
             <div class="container">
                 <ol class="breadcrumb">
                     <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {
