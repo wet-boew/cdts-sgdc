@@ -19,11 +19,9 @@
                     const footerSection=pr.footerSections[sectionIndex];-%>
                     <%_ if (footerSection.customFooterLinks != null) { -%>
                         <%_ if (sectionIndex < 3) { -%>
+                            <section class="col-md-3 col-sm-6 col-lg-3">
                                 <%_ if (footerSection.sectionName != null) { -%>
-                                    <section class="col-md-3 col-sm-6 col-lg-3">
                                     <h3><%= footerSection.sectionName %></h3>
-                                <%_ } else { -%>
-                                    <section class="col-md-3 col-sm-6 col-lg-3">
                                 <%_ } -%>
                                 <ul class="list-unstyled">
                                     <%_ for (var linkIndex=0; linkIndex<footerSection.customFooterLinks.length; linkIndex++) {
