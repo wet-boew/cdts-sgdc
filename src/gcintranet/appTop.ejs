@@ -55,7 +55,7 @@ if (pr.subTheme === 'eccc') {
         <%_ } -%>
     </ul>
 </nav>
-<header role="banner">
+<header role="banner" aria-label="<^- msg('Intranet Banner') ^>">
     <div id="wb-bnr">
         <div id="app-brand">
             <div class="container">
@@ -92,8 +92,8 @@ if (pr.subTheme === 'eccc') {
                                 </div>
                             </div>
                             <section id="gctools" class="mfp-hide modal-dialog modal-content overlay-def">
-                                <header class="modal-header">
-                                    <h2 class="modal-title"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
+                                <header class="modal-header" aria-labelledby="cdts-gctoolsPopupHeader">
+                                    <h2 class="modal-title" id="cdts-gctoolsPopupHeader"><^- msg('<span class="bold-gc">GC</span>Tools') ^></h2>
                                 </header>
                                 <div class="modal-body">
                                     <ul class="list-unstyled lst-spcd">
@@ -251,9 +251,9 @@ if (pr.subTheme === 'eccc') {
         </div>
     </div>
     <%_ if (pr.menuLinks != null) { -%>
-        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
+        <nav role="navigation" id="wb-smapp" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-labelledby="cdts-mainMenu">
             <div class="pnl-strt container nvbar">
-                <h2 class="wb-inv"><^- msg('Main navigation menu') ^></h2>
+                <h2 class="wb-inv" id="cdts-mainMenu"><^- msg('Main navigation menu') ^></h2>
                 <div class="row">
                     <ul class="list-inline menu" role="menubar">
                         <%_ for (var menuLinkIndex=0; menuLinkIndex<pr.menuLinks.length; menuLinkIndex++) {
@@ -289,13 +289,13 @@ if (pr.subTheme === 'eccc') {
             </div>
         </nav>
     <%_ } else if (pr.menuPath != null) { -%>
-        <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement"></nav>
+        <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Application menu') ^>"></nav>
     <%_ } else { -%>
         <div id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('appmenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu hidden-sm hidden-xs"></div>
     <%_ } -%>
     <%_ if (pr.breadcrumbs != null) { -%>
-        <nav role="navigation" id="wb-bc" property="breadcrumb">
-            <h2><^- msg('You are here:') ^></h2>
+        <nav role="navigation" id="wb-bc" property="breadcrumb" aria-labelledby="cdts-breadcrumbPosition">
+            <h2 id="cdts-breadcrumbPosition"><^- msg('You are here:') ^></h2>
             <div class="container">
                 <ol class="breadcrumb">
                     <%_ for (var breadcrumbIndex=0; breadcrumbIndex<pr.breadcrumbs.length; breadcrumbIndex++) {

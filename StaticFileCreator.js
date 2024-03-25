@@ -50,9 +50,14 @@ function createStaticFallbackFile(grunt, definition, language) {
     output = defaultContentFilter(grunt, output, definition, language, targetFileName);
     if (definition.filterContent) output = definition.filterContent(grunt, output, definition, language, targetFileName);
 
+    //---[ Output to file
+    //NOTE: Generate the files before validating the HTML, for troubleshooting
+    if (!fs.existsSync(distStaticTargetDirName)) fs.mkdirSync(distStaticTargetDirName); //create target directory if it doesn't exist
+    fs.writeFileSync(targetFileName, output, { encoding: 'utf8' });
+
     //---[ Validate HTML before we save
     const htmlValidate = new HtmlValidate(require('./htmlvalidator.conf.js'));
-    const htmlValidateFormatReport = formatterFactory('stylish'); //possible formatters: checkstyle, codeframe, json, stylish, text
+    const htmlValidateFormatReport = formatterFactory('codeframe'); //possible formatters: checkstyle, codeframe, json, stylish, text
     const report = htmlValidate.validateStringSync(output);
     if ((!report.valid) || (report.warningCount > 0)) {
         grunt.log.error(`${targetFileName}: ${report.errorCount} error(s), ${report.warningCount} warning(s) reported:`);
@@ -60,9 +65,7 @@ function createStaticFallbackFile(grunt, definition, language) {
         if (report.errorCount > 0) throw new Error('HTML validator error reported, aborting.');
     }
 
-    //---[ Output to file
-    if (!fs.existsSync(distStaticTargetDirName)) fs.mkdirSync(distStaticTargetDirName); //create target directory if it doesn't exist
-    fs.writeFileSync(targetFileName, output, { encoding: 'utf8' });
+   
 }
 
 module.exports = function generateStaticFile(grunt, themeName, definitionFileBasename, getStaticFileDefinition) {

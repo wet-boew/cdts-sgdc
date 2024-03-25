@@ -27,7 +27,7 @@
 <%_ if (pr.exitSecureSite != null) { -%>
     <%_ if (pr.exitSecureSite.exitScript == true) { -%>
         <%# This is a placeholder link to trigger the WET exitscript intialization in the event the no external link is present on the page -%>
-        <a href="#" id="cdts-exitscript-placeholder-link" aria-hidden="true" class="wb-exitscript cdts-hidden">Exit Link</a>
+        <a href="#" id="cdts-exitscript-placeholder-link" hidden class="wb-exitscript cdts-hidden">Exit Link</a>
         <%# When is "setup" mode, we avoid inserting an inline script element to support clients who want to use Content-Security-Policy -%>
         <%_ if (wet.utilities.isCDTSSetupMode()) {
             wet.utilities.addSetupCompletitionListener(function() {

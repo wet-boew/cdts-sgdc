@@ -12,8 +12,8 @@
 <%_ } -%>
 <footer role="contentinfo" id="wb-info">
     <%_ if (pr.footerSections != null) { -%>
-        <nav role="navigation" class="container wb-navcurr">
-            <h2 class="wb-inv"><^- msg('Related links') ^></h2>
+        <nav role="navigation" class="container wb-navcurr" aria-labelledby="cdts-relatedLinks">
+            <h2 class="wb-inv" id="cdts-relatedLinks"><^- msg('Related links') ^></h2>
             <div class="row">
                 <%_ for (var sectionIndex=0; sectionIndex<pr.footerSections.length; sectionIndex++) {
                     const footerSection=pr.footerSections[sectionIndex];-%>

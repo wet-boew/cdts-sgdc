@@ -69,16 +69,20 @@
         "source": "Skip to section menu",
         "target": null
     },
+    "394d95b2f4889cff8f10f25de0f0ded7068e32de": {
+        "source": "Information Banner",
+        "target": null
+    },
+    "9b0c2133d530bdd7b3b7e239c94faf83a2097da9": {
+        "source": "Government of Canada",
+        "target": null
+    },
     "4715fce1fdbafc47a29ff9d0c1be459d8eafd034": {
         "source": "Language selection",
         "target": null
     },
     "661af3b693584fedac8c5a35bda9d636a3aa9689": {
         "source": "sig-blk-en.svg",
-        "target": null
-    },
-    "9b0c2133d530bdd7b3b7e239c94faf83a2097da9": {
-        "source": "Government of Canada",
         "target": null
     },
     "b858a87c07b04c4568f51b0dce655f78d73c02b3": {
@@ -91,6 +95,10 @@
     },
     "bce06414177f72ab70e6387b6af9f8ceef0d6049": {
         "source": "Search",
+        "target": null
+    },
+    "763a7b2777f9a6e9bc4b33c3a4350867def6f1d3": {
+        "source": "Search Criteria",
         "target": null
     },
     "63f3f0da3e2031cedf938ea18363e51a893e095d": {
@@ -131,6 +139,10 @@
     },
     "11b5a68a90c1de36a7f61d1b289fa4a9e547c19a": {
         "source": "Main navigation menu",
+        "target": null
+    },
+    "4fd0ed7e7a474d24b9db775b6bf8fa2727beaa1d": {
+        "source": "Application menu",
         "target": null
     },
     "a902791b8ecb6e346f745709cdd2db1287db6fa5": {

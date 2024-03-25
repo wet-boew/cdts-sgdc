@@ -396,5 +396,25 @@
     "1a0c4e17cf587221c1eb52d9b205afc3525a91a2": {
         "source": "Report a problem on this page",
         "target": "Signaler un problème sur cette page"
+    },
+    "4fd0ed7e7a474d24b9db775b6bf8fa2727beaa1d": {
+        "source": "Application menu",
+        "target": "Menu de l'application"
+    },
+    "394d95b2f4889cff8f10f25de0f0ded7068e32de": {
+        "source": "Information Banner",
+        "target": "Bannière d'information"
+    },
+    "0eb5ed506e4923c28d7f4a8aa69efe99b3ad75d1": {
+        "source": "Information",
+        "target": "Information"
+    },
+    "b291beb8793f4f3308c463951165dad483715a6c": {
+        "source": "Application",
+        "target": "Application"
+    },
+    "763a7b2777f9a6e9bc4b33c3a4350867def6f1d3": {
+        "source": "Search Criteria",
+        "target": "Critères de recherche"
     }
 }
