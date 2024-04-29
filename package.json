@@ -39,7 +39,7 @@
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-eslint": "^24.3.0",
-    "html-validate": "^8.18.1",
+    "html-validate": "^8.18.2",
     "https-proxy-agent": "^7.0.4",
     "isbinaryfile": "^5.0.2"
   }
