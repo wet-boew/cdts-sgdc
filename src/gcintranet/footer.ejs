@@ -2,27 +2,32 @@
  * This is all of the html to be included after existing page content.
  * @param? showFeatures Used to determine if the "GoC activities and initiatives" section will be displayed.
  * @param? contactLinks Used to override the Contact link in the footer.
+ * @param? footerPath Local path for footer.
 -%>
 <%_ if (pr.showFeatures == true) { -%>
     <section class="ajaxed-in" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('activities-footer-eng.html') ^>"></section>
 <%_ } -%>
 <footer role="contentinfo" id="wb-info">
-    <nav role="navigation" class="container wb-navcurr">
-        <h2 class="wb-inv"><^- msg('About government') ^></h2>
-        <ul class="list-unstyled colcount-sm-2 colcount-md-4">
-            <%_ if (pr.contactLinks != null) { -%>
-                <%_ for (var linkIndex=0; linkIndex<pr.contactLinks.length; linkIndex++) {
-                    const link=pr.contactLinks[linkIndex];-%>
-                    <li><a href="<%- link.href %>" <%- (link.newWindow==true)? ' target="_blank"': '' %>><%= link.text %></a></li>
+    <%_ if (pr.footerPath != null) { -%>
+        <nav role="navigation" class="container visible-sm visible-md visible-lg wb-navcurr" data-wb-ajax='{"url": "<%- pr.footerPath %>", "type": "replace", "nocache": true}'></nav>
+    <%_ } else  { -%>
+        <nav role="navigation" class="container wb-navcurr">
+            <h2 class="wb-inv"><^- msg('About government') ^></h2>
+            <ul class="list-unstyled colcount-sm-2 colcount-md-4">
+                <%_ if (pr.contactLinks != null) { -%>
+                    <%_ for (var linkIndex=0; linkIndex<pr.contactLinks.length; linkIndex++) {
+                        const link=pr.contactLinks[linkIndex];-%>
+                        <li><a href="<%- link.href %>" <%- (link.newWindow==true)? ' target="_blank"': '' %>><%= link.text %></a></li>
+                    <%_ } -%>
+                <%_ } else { -%>
+                    <li><a href="<^- msg('https://intranet.canada.ca/contact-eng.asp') ^>"><^- msg('Contact us') ^></a></li>
                 <%_ } -%>
-            <%_ } else { -%>
-                <li><a href="<^- msg('https://intranet.canada.ca/contact-eng.asp') ^>"><^- msg('Contact us') ^></a></li>
-            <%_ } -%>
-            <li><a href="<^- msg('https://intranet.canada.ca/ict-oci/index-eng.asp') ^>"><^- msg('About GCTools') ^></a></li>
-            <li><a href="<^- msg('https://www.canada.ca/en.html') ^>"><^- msg('Canada.ca') ^></a></li>
-            <li><a href="<^- msg('https://intranet.canada.ca/terms-avis-eng.asp') ^>"><^- msg('Terms and conditions') ^></a></li>
-        </ul>
-    </nav>
+                <li><a href="<^- msg('https://intranet.canada.ca/ict-oci/index-eng.asp') ^>"><^- msg('About GCTools') ^></a></li>
+                <li><a href="<^- msg('https://www.canada.ca/en.html') ^>"><^- msg('Canada.ca') ^></a></li>
+                <li><a href="<^- msg('https://intranet.canada.ca/terms-avis-eng.asp') ^>"><^- msg('Terms and conditions') ^></a></li>
+            </ul>
+        </nav>
+    <%_ } -%>
     <div class="brand">
         <div class="container">
             <div class="row">
