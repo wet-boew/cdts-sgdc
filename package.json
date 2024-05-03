@@ -17,6 +17,7 @@
   "author": "ESDC-EDSC",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.1.1",
     "@wdio/cli": "^8.36.1",
     "@wdio/dot-reporter": "^8.36.1",
     "@wdio/junit-reporter": "^8.36.1",
@@ -29,6 +30,7 @@
     "ejs-lint": "^2.0.0",
     "eslint": "^9.1.1",
     "global-agent": "^3.0.0",
+    "globals": "^15.1.0",
     "grunt": "^1.6.1",
     "grunt-cli": "^1.4.3",
     "grunt-contrib-clean": "^2.0.1",
@@ -38,7 +40,7 @@
     "grunt-contrib-cssmin": "^5.0.0",
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-eslint": "^24.3.0",
+    "grunt-eslint": "^25.0.0",
     "html-validate": "^8.18.2",
     "https-proxy-agent": "^7.0.4",
     "isbinaryfile": "^5.0.2"

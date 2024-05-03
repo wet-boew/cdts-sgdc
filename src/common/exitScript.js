@@ -2,7 +2,7 @@
 if (typeof wet == 'undefined') { var wet = {}; } //eslint-disable-line
 if (typeof wet.utilities == 'undefined') { wet.utilities = {}; } //eslint-disable-line
 
-wet.utilities.wetExitScriptScanLinks = function(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
+wet.utilities.wetExitScriptScanLinks = function (displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
     var links = document.getElementsByTagName('a');
     wet.utilities.wetExitScript(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow, links);
 }
@@ -52,7 +52,7 @@ wet.utilities.wetExitScript = function (displayModal, exitUrl, excludedDomains, 
 };
 
 wet.utilities.cdtsApplyExitScriptToLinks = function (displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow) {
-    $(document).on("wb-ready.wb", function (event) { //eslint-disable-line
+    $(document).on("wb-ready.wb", function (event) {
         wet.utilities.wetExitScriptScanLinks(displayModal, exitUrl, excludedDomains, exitMsg, yesMsg, cancelMsg, msgBoxHeader, targetWarning, displayModalForNewWindow);
         var placeholderLink = document.getElementById("cdts-exitscript-placeholder-link");
         if (placeholderLink) placeholderLink.parentElement.removeChild(placeholderLink);
