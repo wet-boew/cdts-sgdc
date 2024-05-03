@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop,no-inner-declarations */
+/* eslint-disable no-await-in-loop */
 /*
   External Resource Gatherer
 

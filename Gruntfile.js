@@ -384,9 +384,7 @@ module.exports = function run(grunt) {
         eslint: {
             target: ['*.js', 'src', 'public'],
             options: {
-                extensions: ['.js'],
                 overrideConfig: {
-                    ignorePatterns: ['public/wet'],
                 },
             },
         },

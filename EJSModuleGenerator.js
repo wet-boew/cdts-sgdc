@@ -1,4 +1,4 @@
-/* eslint-disable no-await-in-loop,no-inner-declarations */
+/* eslint-disable no-await-in-loop */
 /**
   This module contains functions to process a group of "ejs" template files into a single js file that can be used in the browser.
   (bascially creating an output similar to what the old SOY closure compiler used to produce).
@@ -131,7 +131,7 @@ module.exports.compileEJSModule = async function compileEJSModule(srcDirPath, tr
     //---[ Get header if file exists
     const headerFilename = `${srcDirPath}/wet-header.js`;
     if (await fileExists(headerFilename)) {
-        output += await fs.promises.readFile(headerFilename, 'utf8'); // eslint-disable-line require-atomic-updates
+        output += await fs.promises.readFile(headerFilename, 'utf8');
     }
 
     //---[ Compile/add each ejs file found
@@ -165,7 +165,7 @@ module.exports.compileEJSModule = async function compileEJSModule(srcDirPath, tr
                     .replace(_MATCH_HTML, encode_char);
         };
         /*eslint-enable*/
-        /* eslint-disable no-await-in-loop,no-inner-declarations */
+        /* eslint-disable no-await-in-loop */
 
         //---[ Lint EJS input
         const lintingResult = await ejsLint(localizedTemplate, { delimiter: '%' });
