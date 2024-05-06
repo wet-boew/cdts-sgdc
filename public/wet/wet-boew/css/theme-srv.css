@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v13.10.1 - 2023-11-08
+ * v15.0.0 - 2024-05-01
  *
  */
 /*!
@@ -5819,6 +5819,19 @@ button.close {
  *  Firefox-safe line height on input[type="reset|button|submit"]
  */
 /*
+  WET-BOEW
+  @title: Bootstrap overrides for WET-BOEW - normalize.css
+ */
+/*
+ *	Restore user agent's "native" link outline styles
+ *	Prevents outlines from getting removed when the :focus pseudo-class is paired with :active and/or :hover
+ *	Matches normalize 6.0.0+'s default behaviour
+ */
+a:active,
+a:hover {
+	outline: revert; }
+
+/*
 	WET-BOEW
 	@title: Bootstrap overrides for WET-BOEW - Core CSS
  */
@@ -6021,8 +6034,14 @@ caption {
 	font-weight: bold;
 	text-align: center; }
 
-.table-responsive > .table, th, td {
-	white-space: normal; }
+@media screen and (max-width: 767px) {
+	.table-responsive > .table > thead > tr > th,
+	.table-responsive > .table > thead > tr > td,
+	.table-responsive > .table > tbody > tr > th,
+	.table-responsive > .table > tbody > tr > td,
+	.table-responsive > .table > tfoot > tr > th,
+	.table-responsive > .table > tfoot > tr > td {
+		white-space: initial; } }
 
 /*
 	WET-BOEW
@@ -6491,10 +6510,10 @@ a.text-white:hover, a.text-white:focus {
 .pager.disabled, .pagination > li.disabled,
 .pager > li.disabled, [dir=rtl] .pagination [rel="prev"]:before,
 [dir=rtl] .pager [rel="prev"]:before, [dir=rtl] .pagination [rel="next"]:after,
-[dir=rtl] .pager [rel="next"]:after, #wb-bc li:first-child:before, [dir=rtl] #wb-bc li:first-child:before, #mb-pnl .modal-body h2, table.dataTable thead .sorting-icons, table.dataTable thead .sorting_asc_disabled .sorting-icons:before, table.dataTable thead .sorting_desc_disabled .sorting-icons:after, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, [dir=rtl] .dataTables_wrapper .dataTables_paginate .paginate_button.previous:before, [dir=rtl] .dataTables_wrapper .dataTables_paginate .paginate_button.next:after, [dir=rtl] .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .wb-tabs.carousel-s1 [role="tablist"] > li, .wb-tabs.carousel-s2 [role="tablist"] > li {
+[dir=rtl] .pager [rel="next"]:after, #wb-bc li:first-child:before, [dir=rtl] #wb-bc li:first-child:before, #mb-pnl .modal-body h2, table.dataTable thead .sorting-icons, table.dataTable thead .sorting_asc_disabled .sorting-icons:before, table.dataTable thead .sorting_desc_disabled .sorting-icons:after, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, [dir=rtl] .dataTables_wrapper .dataTables_paginate .paginate_button.previous:before, [dir=rtl] .dataTables_wrapper .dataTables_paginate .paginate_button.next:after, [dir=rtl] .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .wb-tabs.carousel-s1 [role="tablist"] > li, .wb-tabs.carousel-s2 [role="tablist"] > li, .wb-twitter .wb-twitter-notice-start, .wb-twitter .wb-twitter-notice-end {
 	display: none; }
 
-.wb-menu .sm.open li, .wb-disable .wb-tabs > details, .wb-disable .wb-tabs > .tabpanels > details {
+.wb-menu .sm.open li, .wb-disable .wb-tabs > details, .wb-disable .wb-tabs > .tabpanels > details, .wb-twitter .wb-twitter-notice-start[tabindex] {
 	display: block; }
 
 .wb-disable .mfp-hide, .wb-disable #wb-srch, .wb-disable #wb-sm, .wb-disable #wb-sec, .wb-disable #wb-info, .wb-disable .wb-overlay {
@@ -6724,6 +6743,19 @@ table {
 td,
 th {
 	padding: 0; }
+
+/*
+  WET-BOEW
+  @title: Bootstrap overrides for WET-BOEW - normalize.css
+ */
+/*
+ *	Restore user agent's "native" link outline styles
+ *	Prevents outlines from getting removed when the :focus pseudo-class is paired with :active and/or :hover
+ *	Matches normalize 6.0.0+'s default behaviour
+ */
+a:active,
+a:hover {
+	outline: revert; }
 
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
@@ -9532,6 +9564,25 @@ select[multiple].input-lg,
 	.form-horizontal .form-group-sm .control-label {
 		padding-top: 6px;
 		font-size: 14px; } }
+
+/*
+	WET-BOEW
+	@title: Bootstrap overrides for WET-BOEW - Core CSS - table
+ */
+caption {
+	color: #333;
+	font-size: 1.1em;
+	font-weight: bold;
+	text-align: center; }
+
+@media screen and (max-width: 767px) {
+	.table-responsive > .table > thead > tr > th,
+	.table-responsive > .table > thead > tr > td,
+	.table-responsive > .table > tbody > tr > th,
+	.table-responsive > .table > tbody > tr > td,
+	.table-responsive > .table > tfoot > tr > th,
+	.table-responsive > .table > tfoot > tr > td {
+		white-space: initial; } }
 
 /*
 	WET-BOEW
@@ -13237,7 +13288,7 @@ button.close {
 	WET-BOEW
 	@title: Accessibility Additions to WET-BOEW - Site template
  */
-.wb-sl, #wb-lng h2, #wb-glb-mn h2, #wb-srch h2, #wb-srch label, #wb-sm h2, #wb-bc h2, #wb-sec h2, #wb-info h2, #mb-pnl h3, .wb-calevt-cal .cal-days td ul, .wb-fnote dt, #mb-pnl .srch-pnl label, .wb-invisible, .wb-inv, .wb-show-onfocus {
+.wb-sl, #wb-lng h2, #wb-glb-mn h2, #wb-srch h2, #wb-srch label, #wb-sm h2, #wb-bc h2, #wb-sec h2, #wb-info h2, #mb-pnl h3, .wb-calevt-cal .cal-days td ul, .wb-fnote dt, #mb-pnl .srch-pnl label, .wb-twitter .wb-twitter-skip a, .wb-twitter .wb-twitter-notice-end[tabindex], .wb-twitter .wb-twitter-notice-start[tabindex], .wb-invisible, .wb-inv, .wb-show-onfocus {
 	clip: rect(1px, 1px, 1px, 1px);
 	height: 1px;
 	margin: 0;
@@ -13245,7 +13296,7 @@ button.close {
 	position: absolute;
 	width: 1px; }
 
-.wb-sl:focus, .wb-disable .wb-slc .wb-sl, .wb-show-onfocus:focus {
+.wb-sl:focus, .wb-disable .wb-slc .wb-sl, .wb-twitter .wb-twitter-skip a:focus, .wb-twitter .wb-twitter-notice-end:focus[tabindex], .wb-show-onfocus:focus {
 	clip: rect(auto, auto, auto, auto);
 	height: inherit;
 	margin: inherit;
@@ -15462,16 +15513,59 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
+/*
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ */
+/*
+ * HOW TO USE THIS FILE
+ * Use this file to override Bootstrap variables and WET custom variables.
+ * If there is a Bootstrap variable not shown here that you want to override, go to "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables" to view the variables that you can override. Simply copy and paste the variable and its applicable section (if applicable) from the Bootstrap file into this override file and override the variables as applicable.
+ */
+.wb-twitter .wb-twitter-skip a, .wb-twitter .wb-twitter-notice-end[tabindex] {
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	font-weight: 700;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	left: 0;
+	min-height: 77px;
+	outline-offset: -6px;
+	padding: 3px 12px;
+	right: 0; }
+	.wb-twitter .wb-twitter-skip a:focus, .wb-twitter .wb-twitter-notice-end:focus[tabindex] {
+		height: auto;
+		margin: 0;
+		position: absolute; }
+	.wb-twitter .wb-twitter-skip a span, .wb-twitter .wb-twitter-notice-end[tabindex] span {
+		overflow-wrap: break-word;
+		width: 100%; }
+
 .wb-twitter {
+	position: relative;
 	/* Align the loading icon relative to the center of the Twitter link in browsers that support :has() */
-	/* Display the loading icon as normal content */ }
+	/* Display the loading icon as normal content */
+	/* Prevent the iframe from getting too wide */
+	/* When the iframe gets populated, Twitter's third party widget script injects a style attribute with a width in pixels... but it sometimes gets wider than its container (causing skip links to look misaligned). This sets min/max widths to avoid that behaviour and avoid truncating content if the iframe gets too narrow. */
+	/* The timeline's minimum widths are documented in https://developer.twitter.com/en/docs/twitter-for-websites/timelines/overview's Dimensions section... went with the narrowest width that works in practice. */
+	/* Make focus outline rings rounded and scroll horizontally if the inner iframe gets too narrow to fit */
+	/* Completely hide the start notice initially... */
+	/* Completely hide the end notice initially... */ }
 	.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) {
-		display: inline-block; }
+		display: inline-block;
+		/* Counteract the iframe width fix (see below) to prevent the loading icon from shifting sideways when the empty iframe first appears */ }
 		.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::before {
 			left: 0;
 			right: 0; }
 		.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::after {
 			margin: auto; }
+		.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) iframe {
+			min-width: 0; }
 	.wb-twitter a.twitter-timeline + .twitter-timeline-loading {
 		margin-top: 5px;
 		min-height: 100px;
@@ -15482,6 +15576,46 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 			right: auto; }
 		.wb-twitter a.twitter-timeline + .twitter-timeline-loading::after {
 			margin-left: calc((100px - 1em) / 2); }
+	.wb-twitter iframe {
+		max-width: 100%;
+		min-width: 224px; }
+	.wb-twitter .twitter-timeline-rendered {
+		border-radius: 12px;
+		overflow-x: auto; }
+	.wb-twitter .wb-twitter-notice-start {
+		/* setfocus.wb() automatically adds a tabindex="-1" attribute to the end notice if a skip to start link gets activated */
+		/* When that happens, the start notice gets unveiled as invisible content to make it focusable (hidden elements can't receive focus programmatically) */
+		/* The notice reverts to hidden upon losing focus (plugin removes tabindex attribute) to hide it from screen readers */ }
+		.wb-twitter .wb-twitter-notice-start[tabindex] {
+			/* Add a fake outline to the nearby iframe container */ }
+			.wb-twitter .wb-twitter-notice-start[tabindex]:focus + .wb-twitter-skip-end + .twitter-timeline-rendered {
+				outline-style: auto; }
+	.wb-twitter .wb-twitter-skip {
+		margin-bottom: 0;
+		text-align: center; }
+		.wb-twitter .wb-twitter-skip.wb-twitter-skip-end a:focus {
+			border-top-left-radius: 12px;
+			border-top-right-radius: 12px;
+			top: 0; }
+		.wb-twitter .wb-twitter-skip.wb-twitter-skip-start a:focus {
+			border-bottom-right-radius: 12px;
+			border-bottom-left-radius: 12px;
+			bottom: 0; }
+		.wb-twitter .wb-twitter-skip a {
+			background-color: #000;
+			color: #FFF; }
+	.wb-twitter .wb-twitter-notice-end {
+		/* setfocus.wb() automatically adds a tabindex="-1" attribute to the end notice if a skip to end link gets activated */
+		/* When that happens, the end notice gets unveiled as invisible content to make it focusable (hidden elements can't receive focus programmatically) */
+		/* The notice reverts to hidden upon losing focus (plugin removes tabindex attribute) to hide it from screen readers */ }
+		.wb-twitter .wb-twitter-notice-end[tabindex] {
+			border-bottom-right-radius: 12px;
+			border-bottom-left-radius: 12px;
+			background-color: #FFF;
+			border: 1px solid #CFD9DE;
+			bottom: 0;
+			color: #000;
+			text-align: center; }
 
 [dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading {
 	/* Align the loading icon rightwards by default */ }
@@ -15572,6 +15706,15 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 /**
  * GeoMap
  */
+.wb-geomap.legend-label-only .geomap-lgnd-layer:has(> div > ul > li:only-child) {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex; }
+	.wb-geomap.legend-label-only .geomap-lgnd-layer:has(> div > ul > li:only-child) label {
+		margin-right: 5px; }
+	.wb-geomap.legend-label-only .geomap-lgnd-layer:has(> div > ul > li:only-child) .geomap-legend-symbol-text {
+		display: none; }
+
 .wb-geomap-map {
 	outline: 1px solid #ccc;
 	overflow: hidden;
@@ -16563,6 +16706,14 @@ html:not(.wb-disable) .wb-pgfltr-out {
 		padding-left: 0; }
 		[class*=colcount-].list-unstyled li {
 			margin-left: 0; }
+
+/* Disallow column breaks inside list column items */
+.colcount-no-break > dd,
+.colcount-no-break > dt,
+.colcount-no-break > li, dl.colcount-no-break > div {
+	-webkit-column-break-inside: avoid;
+	   -moz-column-break-inside: avoid;
+	        break-inside: avoid-column; }
 
 .colcount-xxs-2 {
 	-webkit-column-count: 2;
