@@ -1,5 +1,11 @@
 # SGDC : Journal des modifications
 
+## v5.0.1
+
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.79.
+- Modifications et optimisations internes
+- Corrections de bogues
+
 ## v5.0.0
 
 - **IMPORTANT** **RUPTURE DE COMPATIBILITÉ** Exitscript n'utilise plus targetUrl dans le cadre de la chaîne de requête pour transmettre le lien de destination. Veuillez visiter la [page d'exemple](https://cdts.service.canada.ca/app/cls/WET/gcweb/v5_0_0/cdts/samples/exitscript-fr.html) pour tous les détails.

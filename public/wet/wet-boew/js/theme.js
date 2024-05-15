@@ -1,7 +1,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v13.10.1 - 2023-11-08
+ * v15.0.0 - 2024-05-01
  *
  */( function( $, document, wb ) {
 "use strict";
@@ -76,7 +76,7 @@ wb.add( selector );
 
 var $document = wb.doc,
 	componentName = "gc-featured-link",
-	selector = ".provisional." + componentName,
+	selector = "." + componentName,
 	initEvent = "wb-init " + selector,
 	white = "#FFFFFF",
 	black = "#000000",
@@ -194,11 +194,11 @@ var $document = wb.doc,
 				}
 			} else {
 				$navH1 = $( "h1", $elm );
+				$navH1.get( 0 ).id = $navH1.get( 0 ).id || wb.getId();
 
 				// Add skip link to sections list
 				if ( $navH1 ) {
-					$navH1.id = $navH1.id || wb.getId(); // Ensure the element has an ID
-					wb.addSkipLink( wb.i18n( "skip-prefix" ) + " " + $navH1.text(), { href: "#" + $navH1.id } );
+					wb.addSkipLink( wb.i18n( "skip-prefix" ) + " " + $navH1.text(), { href: "#" + $navH1.get( 0 ).id } );
 				}
 
 				// Wrap all content until it hits either: ".pagedetails", or "".gc-subway-support"
@@ -293,6 +293,7 @@ var $document = wb.doc,
 		"removeClass",
 		"tblfilter",
 		"withInput",
+		"selectInput",
 		"run"
 	].join( "." + actionEvent + " " ) + "." + actionEvent,
 
@@ -676,6 +677,20 @@ var $document = wb.doc,
 		}
 
 	},
+	selectInputAct = function( event, data ) {
+		var sourceElm = document.querySelector( data.source ) || event.currentTarget,
+			inputs;
+
+		inputs = sourceElm.querySelectorAll( "[value=\"" + data.value + "\"]" );
+
+		inputs.forEach( input => {
+			if ( input.nodeName === "OPTION" ) {
+				input.setAttribute( "selected", true );
+			} else if ( input.nodeName === "INPUT" ) {
+				input.setAttribute( "checked", true );
+			}
+		} );
+	},
 	patchFixArray = function( patchArray, val, basePointer ) {
 
 		var i, i_len = patchArray.length, i_cache,
@@ -841,6 +856,9 @@ $document.on( actionMngEvent, selector, function( event, data ) {
 			break;
 		case "patch":
 			patchAct( event, data );
+			break;
+		case "selectInput":
+			selectInputAct( event, data );
 			break;
 		case "mapfilter":
 			geomapAOIAct( event, data );
@@ -2363,7 +2381,7 @@ var componentName = "wb-fieldflow",
 			} else {
 
 				// We have a group of sub-items, the cur_itm are a group
-				selectOut += "<optgroup label='" + cur_itm.label + "'>";
+				selectOut += "<optgroup label='" + wb.escapeAttribute( stripHtml( cur_itm.label ) ) + "'>";
 				j_len = cur_itm.group.length;
 				for ( j = 0; j !== j_len; j += 1 ) {
 					selectOut += buildSelectOption( cur_itm.group[ j ] );
@@ -2506,7 +2524,7 @@ var componentName = "wb-fieldflow",
 		var arrItems = $items.get(),
 			i, i_len = arrItems.length, itmCached,
 			itmLabel, itmValue, grpItem,
-			j, j_len, childNodes, firstNode, childNode, $childNode, childNodeID,
+			j, j_len, childNodes, firstNode, firstElmNode, childNode, $childNode, childNodeID,
 			parsedItms = [],
 			actions;
 
@@ -2518,6 +2536,7 @@ var componentName = "wb-fieldflow",
 			itmLabel = "";
 
 			firstNode = itmCached.firstChild;
+			firstElmNode = itmCached.firstElementChild;
 			childNodes = itmCached.childNodes;
 			j_len = childNodes.length;
 
@@ -2527,10 +2546,10 @@ var componentName = "wb-fieldflow",
 
 			actions = [];
 
-			// Is firstNode an anchor?
-			if ( firstNode.nodeName === "A" ) {
-				itmValue = firstNode.getAttribute( "href" );
-				itmLabel = $( firstNode ).html();
+			// Is firstElmNode an anchor?
+			if ( firstElmNode && firstElmNode.nodeName === "A" ) {
+				itmValue = firstElmNode.getAttribute( "href" );
+				itmLabel = $( firstElmNode ).html().trim();
 				j_len = 1; // Force following elements to be ignored
 
 				actions.push( {
@@ -2573,7 +2592,12 @@ var componentName = "wb-fieldflow",
 			}
 
 			if ( !itmLabel ) {
-				itmLabel = firstNode.nodeValue;
+				const $itmCachedClean = $( itmCached ).clone();
+
+				// Remove nested structure in grouping (ul) and nesting (.wb-fieldflow-sub) scenarios
+				$itmCachedClean.children( "ul, .wb-fieldflow-sub" ).remove();
+
+				itmLabel = $itmCachedClean.html().trim();
 			}
 
 			// Set an id on the element
@@ -2592,7 +2616,7 @@ var componentName = "wb-fieldflow",
 		return parsedItms;
 	},
 	buildSelectOption = function( data ) {
-		var label = data.label,
+		var label = stripHtml( data.label ),
 			out = "<option value='" + wb.escapeAttribute( label ) + "'";
 
 		out += buildDataAttribute( data );
@@ -2620,7 +2644,7 @@ var componentName = "wb-fieldflow",
 		var fieldID = wb.getId(),
 			labelTxt = data.label,
 			label = "<label for='" + fieldID + "'>",
-			input = "<input id='" + fieldID + "' type='" + inputType + "' name='" + fieldName + "' value='" + wb.escapeAttribute( labelTxt ) + "'" + buildDataAttribute( data ),
+			input = "<input id='" + fieldID + "' type='" + inputType + "' name='" + fieldName + "' value='" + wb.escapeAttribute( stripHtml( labelTxt ) ) + "'" + buildDataAttribute( data ),
 			tag = !isInline && isGcChckbxrdio ? "li" : "div",
 			out = "<" + tag + " class='" + inputType;
 
@@ -2644,6 +2668,12 @@ var componentName = "wb-fieldflow",
 		out += "</label>" + "</" + tag + ">";
 
 		return out;
+	},
+
+	// Strip HTML markup from strings
+	// Created by Chris Coyier via CSS-Tricks (https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/)
+	stripHtml = function( str ) {
+		return str.replace( /(<([^>]+)>)/gi, "" );
 	};
 
 $document.on( resetActionEvent, selector + ", ." + subComponentName, function( event ) {
@@ -4102,3 +4132,9 @@ $document.on( "timerpoke.wb " + initEvent, selector, init );
 wb.add( selector );
 
 } )( jQuery, wb );
+
+// If GC-ministers, GC-institution, and Services & information are present and the page doesn't already have "page-type-ilp" class
+if ( document.querySelector( ".gc-minister" ) && !document.body.classList.contains( "page-type-ilp" ) && document.querySelector( ".gc-srvinfo" ) && document.querySelector( ".list-unstyled.bold-content.mrgn-tp-lg.lst-spcd-2.colcount-md-2" ) ) {
+	document.body.classList.add( "page-type-ilp" );
+	console.warn( "It seems that this page is an institutional landing page. However, the <body> element is missing the \"page-type-ilp\" CSS class. It has been added for your convenience, but please make sure you follow the technical guidance: https://wet-boew.github.io/GCWeb/templates/institutional-landing/institutional-landing-doc-en.html" );
+}

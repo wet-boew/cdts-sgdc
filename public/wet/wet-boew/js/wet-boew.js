@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.70.1 - 2023-11-08
+ * v4.0.79 - 2024-05-01
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
 /*! @license DOMPurify 2.4.4 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.4/LICENSE */
@@ -2608,7 +2608,7 @@ Modernizr.load( [
 					if ( isTrident ) {
 
 						// Load an ES6 polyfill
-						Modernizr.load( "timeout=500!https://polyfill.io/v3/polyfill.min.js?features=es6" );
+						Modernizr.load( "timeout=500!https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" );
 
 						// Specify the CDN's font URL
 						// Note: IE11 is unable to resolve this on its own
@@ -4652,7 +4652,12 @@ var $document = wb.doc,
 
 		for ( link in optimizedLink ) {
 			elm = document.getElementById( link );
-			elm.style.backgroundImage = "url(" + optimizedLink[ link ] + ")";
+
+			if ( optimizedLink[ link ] === "https://wet-boew.github.io/vocab/wb/utilities#no-image" ) {
+				elm.style.backgroundImage = "none";
+			} else {
+				elm.style.backgroundImage = "url(" + optimizedLink[ link ] + ")";
+			}
 		}
 	};
 
@@ -4753,8 +4758,20 @@ var componentName = "wb-calevt",
 		year = settings.year;
 		month = settings.month;
 
-		minDate = events.minDate;
-		maxDate = events.maxDate;
+		if ( $elm.data( "calevtMinDate" ) ) {
+			minDate = getLocaleDate( $elm.data( "calevtMinDate" ) );
+		}
+		if ( $elm.data( "calevtMaxDate" ) ) {
+			maxDate = getLocaleDate( $elm.data( "calevtMaxDate" ) );
+		}
+
+		if ( !minDate || ( events.minDate < minDate ) ) {
+			minDate = events.minDate;
+		}
+		if ( !maxDate || ( events.maxDate > maxDate ) ) {
+			maxDate = events.maxDate;
+		}
+
 		minDateTime = minDate.getTime();
 		maxDateTime = maxDate.getTime();
 
@@ -5010,6 +5027,16 @@ var componentName = "wb-calevt",
 					.attr( "tabindex", "-1" );
 			}
 		}, 5 );
+	},
+
+	getLocaleDate = function( dateString ) {
+		var date = new Date(),
+			dateComponents = dateString.split( "-" );
+
+		dateComponents[ 1 ] = dateComponents[ 1 ] - 1;	// Convert to zero-based month
+		date.setFullYear( dateComponents[ 0 ], dateComponents[ 1 ], dateComponents[ 2 ] );
+
+		return date;
 	};
 
 // Bind the init event of the plugin
@@ -9593,329 +9620,338 @@ var componentName = "wb-frmvld",
 			}
 
 			Modernizr.load( {
-
-				// For loading multiple dependencies
-				both: [
-					"site!deps/jquery.validate" + modeJS,
-					"site!deps/additional-methods" + modeJS
-				],
+				load: [ "site!deps/jquery.validate" + modeJS ],
 				testReady: function() {
-					return ( $.validator && $.validator.methods.bic );
+					return ( $.validator );
 				},
 				complete: function() {
-					var $elm = $( "#" + elmId ),
-						$form = $elm.find( "form" ),
-						formDOM = $form.get( 0 ),
-						formId = $form.attr( "id" ),
-						labels = formDOM.getElementsByTagName( "label" ),
-						submitted = false,
-						errorFormId = "errors-" + ( !formId ? "default" : formId ),
-						settings = $.extend(
-							true,
-							{},
-							defaults,
-							window[ componentName ],
-							wb.getData( $elm, componentName )
-						),
-						summaryHeading = settings.hdLvl,
-						i, len, validator;
+					Modernizr.load( {
 
-					if ( wb.lang === "fr" ) {
+						// For loading multiple dependencies
+						load: [ "site!deps/additional-methods" + modeJS ],
+						testReady: function() {
+							return ( $.validator.methods.bic );
+						},
+						complete: function() {
+							var $elm = $( "#" + elmId ),
+								$form = $elm.find( "form" ),
+								formDOM = $form.get( 0 ),
+								formId = $form.attr( "id" ),
+								labels = formDOM.getElementsByTagName( "label" ),
+								submitted = false,
+								errorFormId = "errors-" + ( !formId ? "default" : formId ),
+								settings = $.extend(
+									true,
+									{},
+									defaults,
+									window[ componentName ],
+									wb.getData( $elm, componentName )
+								),
+								summaryHeading = settings.hdLvl,
+								i, len, validator;
 
-						// alphanumeric regex is changed to allow french characters;
-						$.validator.addMethod( "alphanumeric", function( value, element ) {
-							return this.optional( element ) || /^[a-zàâçéèêëîïôûùüÿæœ0-9_]+$/i.test( value );
-						}, "Letters, numbers, and underscores only please." );
+							if ( wb.lang === "fr" ) {
 
-						// error french text is adjusted to remove the word "spaces"
-						$.extend( $.validator.messages, {
-							alphanumeric: "Veuillez fournir seulement des lettres, nombres et soulignages."
-						} );
-					}
+								// alphanumeric regex is changed to allow french characters;
+								$.validator.addMethod( "alphanumeric", function( value, element ) {
+									return this.optional( element ) || /^[a-zàâçéèêëîïôûùüÿæœ0-9_]+$/i.test( value );
+								}, "Letters, numbers, and underscores only please." );
 
-					// Append the aria-live region (for provide message updates to screen readers)
-					$elm.append( "<div class='arialive wb-inv' aria-live='polite' aria-relevant='all'></div>" );
-
-					// Add space to the end of the labels (so separation between label and error when CSS turned off)
-					len = labels.length;
-					for ( i = 0; i !== len; i += 1 ) {
-						labels[ i ].innerHTML += " ";
-					}
-
-					// Hide "required" label text in older forms from screen readers
-					// Prevents redundant "required" announcements on semantically-required fields whose labels mention they're required
-					$form.find( "strong.required:not([aria-hidden='true'])" ).each( function() {
-						const $requiredText = $( this ),
-							$label = $requiredText.closest( "label" ),
-							fieldId = $label.attr( "for" );
-						let $field = fieldId ? $( "#" + fieldId ) : $label.find( ":input" ).first();
-
-						// If the label's field has yet to be found, look for fields that refer to the label via aria-labelledby
-						if ( !$field.length ) {
-							const labelId = $label.attr( "id" ) || $requiredText.closest( "id" );
-							$field = $form.find( "[aria-labelledby~='" + labelId + "']:input" ).first();
-						}
-
-						// Hide the "required" text if its field is semantically-required
-						if ( $field.is( "[required], [aria-required='true']" ) ) {
-							$requiredText.attr( "aria-hidden", "true" );
-						}
-					} );
-
-					// The jQuery validation plug-in in action
-					validator = $form.validate( {
-						meta: "validate",
-						focusInvalid: false,
-						ignore: settings.ignore,
-
-						// Set the element which will wrap the inline error messages
-						errorElement: "strong",
-
-						// Location for the inline error messages
-						// In this case we will place them in the associated label element
-						errorPlacement: function( $error, $element ) {
-							var type = $element.attr( "type" ),
-								group = $element.attr( "data-rule-require_from_group" ),
-								$fieldset, $legend;
-
-							$error.data( "element-id", $element.attr( "id" ) );
-							if ( type ) {
-								type = type.toLowerCase();
-								if ( type === "radio" || type === "checkbox" ) {
-									$fieldset = $element.closest( "fieldset" );
-									if ( $fieldset.length !== 0 ) {
-										$legend = $fieldset.find( "legend" ).first();
-										if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
-											$error.appendTo( $legend );
-											return;
-										}
-									}
-								}
+								// error french text is adjusted to remove the word "spaces"
+								$.extend( $.validator.messages, {
+									alphanumeric: "Veuillez fournir seulement des lettres, nombres et soulignages."
+								} );
 							}
 
-							if ( group ) {
-								$fieldset = $element.closest( "fieldset" );
-								if ( $fieldset.length !== 0 ) {
-									$legend = $fieldset.find( "legend" ).first();
-									if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
-										var $strong = $legend.find( "strong.error" ),
-											id = $legend.attr( "id" );
+							// Append the aria-live region (for provide message updates to screen readers)
+							$elm.append( "<div class='arialive wb-inv' aria-live='polite' aria-relevant='all'></div>" );
 
-										if ( $strong.length > 0 ) {
-											$strong.remove();
+							// Add space to the end of the labels (so separation between label and error when CSS turned off)
+							len = labels.length;
+							for ( i = 0; i !== len; i += 1 ) {
+								labels[ i ].innerHTML += " ";
+							}
+
+							// Hide "required" label text in older forms from screen readers
+							// Prevents redundant "required" announcements on semantically-required fields whose labels mention they're required
+							$form.find( "strong.required:not([aria-hidden='true'])" ).each( function() {
+								const $requiredText = $( this ),
+									$label = $requiredText.closest( "label" ),
+									fieldId = $label.attr( "for" );
+								let $field = fieldId ? $( "#" + fieldId ) : $label.find( ":input" ).first();
+
+								// If the label's field has yet to be found, look for fields that refer to the label via aria-labelledby
+								if ( !$field.length ) {
+									const labelId = $label.attr( "id" ) || $requiredText.closest( "id" );
+									$field = $form.find( "[aria-labelledby~='" + labelId + "']:input" ).first();
+								}
+
+								// Hide the "required" text if its field is semantically-required
+								if ( $field.is( "[required], [aria-required='true']" ) ) {
+									$requiredText.attr( "aria-hidden", "true" );
+								}
+							} );
+
+							// The jQuery validation plug-in in action
+							validator = $form.validate( {
+								meta: "validate",
+								focusInvalid: false,
+								ignore: settings.ignore,
+
+								// Set the element which will wrap the inline error messages
+								errorElement: "strong",
+
+								// Location for the inline error messages
+								// In this case we will place them in the associated label element
+								errorPlacement: function( $error, $element ) {
+									var type = $element.attr( "type" ),
+										group = $element.attr( "data-rule-require_from_group" ),
+										$fieldset, $legend;
+
+									$error.data( "element-id", $element.attr( "id" ) );
+									if ( type ) {
+										type = type.toLowerCase();
+										if ( type === "radio" || type === "checkbox" ) {
+											$fieldset = $element.closest( "fieldset" );
+											if ( $fieldset.length !== 0 ) {
+												$legend = $fieldset.find( "legend" ).first();
+												if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
+													$error.appendTo( $legend );
+													return;
+												}
+											}
 										}
+									}
 
-										if ( !id ) {
-											id = "required-group-" + idCount;
-											idCount += 1;
+									if ( group ) {
+										$fieldset = $element.closest( "fieldset" );
+										if ( $fieldset.length !== 0 ) {
+											$legend = $fieldset.find( "legend" ).first();
+											if ( $legend.length !== 0 && $fieldset.find( "input[name='" + $element.attr( "name" ) + "']" ) !== 1 ) {
+												var $strong = $legend.find( "strong.error" ),
+													id = $legend.attr( "id" );
 
-											$legend.attr( "id", id );
+												if ( $strong.length > 0 ) {
+													$strong.remove();
+												}
+
+												if ( !id ) {
+													id = "required-group-" + idCount;
+													idCount += 1;
+
+													$legend.attr( "id", id );
+												}
+
+												$error.data( "element-id", id );
+												$error.attr( "id", id );
+												$error.appendTo( $legend );
+
+												return;
+											}
 										}
+									}
 
-										$error.data( "element-id", id );
-										$error.attr( "id", id );
-										$error.appendTo( $legend );
-
+									//Std If we have a label and the input field is inside the label
+									// need to add a css-implicite-input
+									if ( $form.find( "label" ).find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ).length > 0 ) {
+										$error.insertBefore( $form.find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ) );
 										return;
 									}
-								}
-							}
 
-							//Std If we have a label and the input field is inside the label
-							// need to add a css-implicite-input
-							if ( $form.find( "label" ).find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ).length > 0 ) {
-								$error.insertBefore( $form.find( ".wb-server-error + input.css-implicite-input[name='" + $element.attr( "name" ) + "']" ) );
-								return;
-							}
+									$error.appendTo( $form.find( "label[for='" + $element.attr( "id" ) + "']" ) );
+									return;
+								},
 
-							$error.appendTo( $form.find( "label[for='" + $element.attr( "id" ) + "']" ) );
-							return;
-						},
+								// Create our error summary that will appear before the form
+								showErrors: function( errorMap ) {
+									this.defaultShowErrors();
+									var $errors = $form.find( ".wb-server-error, strong.error" ).filter( ":not(:hidden)" ),
+										$errorfields = $form.find( "input.error, select.error, textarea.error" ),
+										prefixStart = "<span class='prefix'>" + i18nText.error + "&#160;",
+										prefixEnd = i18nText.colon + " </span>",
+										separator = i18nText.hyphen,
+										ariaLive = $form.closest( ".wb-frmvld" ).find( ".arialive" )[ 0 ],
+										$summaryContainer, summary, key, i, len, $error, prefix, $fieldName, $fieldset, label, labelString;
 
-						// Create our error summary that will appear before the form
-						showErrors: function( errorMap ) {
-							this.defaultShowErrors();
-							var $errors = $form.find( ".wb-server-error, strong.error" ).filter( ":not(:hidden)" ),
-								$errorfields = $form.find( "input.error, select.error, textarea.error" ),
-								prefixStart = "<span class='prefix'>" + i18nText.error + "&#160;",
-								prefixEnd = i18nText.colon + " </span>",
-								separator = i18nText.hyphen,
-								ariaLive = $form.parent().find( ".arialive" )[ 0 ],
-								$summaryContainer, summary, key, i, len, $error, prefix, $fieldName, $fieldset, label, labelString;
+									// Correct the colouring of fields that are no longer invalid
+									$form
+										.find( ".has-error [aria-invalid=false]" )
+										.closest( ".has-error" )
+										.removeClass( "has-error" );
 
-							// Correct the colouring of fields that are no longer invalid
-							$form
-								.find( ".has-error [aria-invalid=false]" )
-								.closest( ".has-error" )
-								.removeClass( "has-error" );
+									if ( $errors.length !== 0 ) {
 
-							if ( $errors.length !== 0 ) {
-
-								// Post process
-								summary = "<" + summaryHeading + ">" +
-									i18nText.formNotSubmitted + $errors.length +
-									(
-										$errors.length !== 1 ?
-											i18nText.errorsFound :
-											i18nText.errorFound
-									) + "</" + summaryHeading + "><ul>";
-								$errorfields
-									.closest( ".form-group" )
-									.addClass( "has-error" );
-								len = $errors.length;
-								for ( i = 0; i !== len; i += 1 ) {
-									$error = $errors.eq( i );
-									prefix = prefixStart + ( i + 1 ) + prefixEnd;
-									$fieldName = $error.closest( "label" ).find( ".field-name" );
-
-									// Try to find the field name in the legend (if one exists)
-									if ( $fieldName.length === 0 ) {
-										$fieldset = $error.closest( "fieldset" );
-										if ( $fieldset.length !== 0 ) {
-											$fieldName = $fieldset.find( "legend .field-name" );
-										}
-									}
-
-									$error.find( "span.prefix" ).detach();
-
-									//Verify if it is a wb-server-error
-									if ( $errors[ i ].classList.contains( "wb-server-error" ) ) {
-										if ( $errors[ i ].id ) {
-											var myParent = document.getElementById( $errors[ i ].id ).parentElement;
-											if ( myParent === null ) {
-												summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-											} else {
-												if ( myParent.hasAttribute( "for" ) && myParent.getAttribute( "for" ).length > 0 ) {
-													summary += "<li><a href='#" + myParent.getAttribute( "for" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-												} else {
-													if ( myParent.getElementsByTagName( "input" )[ 0 ] && myParent.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) {
-														summary += "<li><a href='#" + myParent.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-													} else {
-														if ( myParent.tagName === ( "LEGEND" ) && ( myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "checkbox" || myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "radio" && myParent.parentElement.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) ) {
-															summary += "<li><a href='#" + myParent.parentElement.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-														} else {
-															summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
-														}
-													}
-												}
-											}
-											$error.html( "<strong>" + prefix + $error.text() + "</strong>" );
-										}
-									} else {
-										summary += "<li><a href='#" + $error.data( "element-id" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + "</a></li>";
-										$error.html( "<span class='label label-danger'>" + prefix + $error.text() + "</span>" );
-									}
-								}
-								summary += "</ul>";
-
-								if ( !submitted ) {
-
-									// Update the aria-live region as necessary
-									i = 0;
-									for ( key in errorMap ) {
-										if ( Object.prototype.hasOwnProperty.call( errorMap, key ) ) {
-											i += 1;
-											break;
-										}
-									}
-									if ( i !== 0 ) {
+										// Post process
+										summary = "<" + summaryHeading + ">" +
+											i18nText.formNotSubmitted + $errors.length +
+											(
+												$errors.length !== 1 ?
+													i18nText.errorsFound :
+													i18nText.errorFound
+											) + "</" + summaryHeading + "><ul>";
+										$errorfields
+											.closest( ".form-group" )
+											.addClass( "has-error" );
 										len = $errors.length;
 										for ( i = 0; i !== len; i += 1 ) {
-											label = $errors[ i ].parentNode;
-											if ( label.getAttribute( "for" ) === key ) {
-												labelString = label.innerHTML;
-												if ( labelString !== ariaLive.innerHTML ) {
-													ariaLive.innerHTML = labelString;
+											$error = $errors.eq( i );
+											prefix = prefixStart + ( i + 1 ) + prefixEnd;
+											$fieldName = $error.closest( "label" ).find( ".field-name" );
+
+											// Try to find the field name in the legend (if one exists)
+											if ( $fieldName.length === 0 ) {
+												$fieldset = $error.closest( "fieldset" );
+												if ( $fieldset.length !== 0 ) {
+													$fieldName = $fieldset.find( "legend .field-name" );
 												}
-												break;
+											}
+
+											$error.find( "span.prefix" ).detach();
+
+											//Verify if it is a wb-server-error
+											if ( $errors[ i ].classList.contains( "wb-server-error" ) ) {
+												if ( $errors[ i ].id ) {
+													var myParent = document.getElementById( $errors[ i ].id ).parentElement;
+													if ( myParent === null ) {
+														summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+													} else {
+														if ( myParent.hasAttribute( "for" ) && myParent.getAttribute( "for" ).length > 0 ) {
+															summary += "<li><a href='#" + myParent.getAttribute( "for" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+														} else {
+															if ( myParent.getElementsByTagName( "input" )[ 0 ] && myParent.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) {
+																summary += "<li><a href='#" + myParent.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+															} else {
+																if ( myParent.tagName === ( "LEGEND" ) && ( myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "checkbox" || myParent.parentElement.getElementsByTagName( "input" )[ 0 ].type === "radio" && myParent.parentElement.getElementsByTagName( "input" )[ 0 ].name.length > 0 ) ) {
+																	summary += "<li><a href='#" + myParent.parentElement.getElementsByTagName( "input" )[ 0 ].id + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+																} else {
+																	summary += "<li><a>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + separator + i18nText.errorCorrect + "</a></li>";
+																}
+															}
+														}
+													}
+													$error.html( "<strong>" + prefix + $error.text() + "</strong>" );
+												}
+											} else {
+												summary += "<li><a href='#" + $error.data( "element-id" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + "</a></li>";
+												$error.html( "<span class='label label-danger'>" + prefix + $error.text() + "</span>" );
 											}
 										}
-									} else if ( ariaLive.innerHTML.length !== 0 ) {
+										summary += "</ul>";
+
+										if ( !submitted ) {
+
+											// Update the aria-live region as necessary
+											i = 0;
+											for ( key in errorMap ) {
+												if ( Object.prototype.hasOwnProperty.call( errorMap, key ) ) {
+													i += 1;
+													break;
+												}
+											}
+											if ( i !== 0 ) {
+												len = $errors.length;
+												for ( i = 0; i !== len; i += 1 ) {
+													label = $errors[ i ].parentNode;
+													if ( label.getAttribute( "for" ) === key ) {
+														labelString = label.innerHTML;
+														if ( labelString !== ariaLive.innerHTML ) {
+															ariaLive.innerHTML = labelString;
+														}
+														break;
+													}
+												}
+											} else if ( ariaLive.innerHTML.length !== 0 ) {
+												ariaLive.innerHTML = "";
+											}
+										}
+
+										// Delay updating the summary container in case a summary link was clicked
+										setTimeout( function() {
+											$summaryContainer = $form.find( "#" + errorFormId );
+
+											// Output our error summary and place it in the error container
+											// Create our container if one doesn't already exist
+											if ( $summaryContainer.length === 0 ) {
+												$summaryContainer = $( "<section id='" + errorFormId + "' class='alert alert-danger' tabindex='-1'>" + summary + "</section>" ).prependTo( $form );
+											} else {
+												$summaryContainer.empty().append( summary );
+											}
+
+											// Put focus on the error if the errors are generated by an attempted form submission
+											if ( submitted ) {
+
+												// Assign focus to $summaryContainer
+												$summaryContainer.trigger( setFocusEvent );
+												submitted = false;
+											}
+										}, 100 );
+									} else {
+
+										// Update the aria-live region as necessary
+										if ( ariaLive.innerHTML.length !== 0 ) {
+											ariaLive.innerHTML = "";
+										}
+										$form.find( "#" + errorFormId ).detach();
+									}
+								},
+
+								/* End of showErrors() */
+
+								invalidHandler: function() {
+									submitted = true;
+								}
+
+							} ); /* end of validate() */
+
+							/* fixes validation issue (see PR #7913) */
+							$form.on( "change", "input[type=date], input[type=file], select", function() {
+								$form.validate().element( this );
+							} );
+
+							// Clear the form and remove error messages on reset
+							$document.on( "click", selector + " input[type=reset]", function( event ) {
+								var which = event.which,
+									ariaLive;
+
+								// Ignore middle/right mouse buttons
+								if ( !which || which === 1 ) {
+									validator.resetForm();
+									$( "#" + errorFormId ).detach();
+
+									ariaLive = $form.closest( ".wb-frmvld" ).find( ".arialive" )[ 0 ];
+									if ( ariaLive.innerHTML.length !== 0 ) {
 										ariaLive.innerHTML = "";
 									}
+
+									// Correct the colouring of fields that are no longer invalid
+									$form.find( ".has-error" ).removeClass( "has-error" );
 								}
+							} );
 
-								// Delay updating the summary container in case a summary link was clicked
-								setTimeout( function() {
-									$summaryContainer = $form.find( "#" + errorFormId );
-
-									// Output our error summary and place it in the error container
-									// Create our container if one doesn't already exist
-									if ( $summaryContainer.length === 0 ) {
-										$summaryContainer = $( "<section id='" + errorFormId + "' class='alert alert-danger' tabindex='-1'>" + summary + "</section>" ).prependTo( $form );
-									} else {
-										$summaryContainer.empty().append( summary );
+							//Trigger validation on wb-server-error
+							$form.find( ".wb-server-error" ).filter( ":not( :hidden )" ).parent().each( function() {
+								if ( this.attributes.for && this.attributes.for.value.length > 0 ) {
+									$form.validate().element( $( "[id =" + this.attributes.for.value + "]" ) );
+								} else if ( $( this ).find( "input" )[ 0 ] ) {
+									$form.validate().element( $( this ).find( "input" )[ 0 ] );
+								} else if ( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] ) {
+									if ( $( this ).find( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ].id ) ) {
+										$form.validate().element( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] );
 									}
-
-									// Put focus on the error if the errors are generated by an attempted form submission
-									if ( submitted ) {
-
-										// Assign focus to $summaryContainer
-										$summaryContainer.trigger( setFocusEvent );
-										submitted = false;
+								} else if ( $( this ).next( ".radio-inline, .checkbox-inline, .label-inline" ).children( "input" )[ 0 ] ) {
+									if ( $( this ).find( $( this ).next( ".radio-inline, .checkbox-inline, .label-inline" ).children( "input" )[ 0 ].id ) ) {
+										$form.validate().element( $( this ).next( ".radio-inline, .checkbox-inline, .label-inline" ).children( "input" )[ 0 ] );
 									}
-								}, 100 );
-							} else {
-
-								// Update the aria-live region as necessary
-								if ( ariaLive.innerHTML.length !== 0 ) {
-									ariaLive.innerHTML = "";
 								}
-								$form.find( "#" + errorFormId ).detach();
-							}
-						},
+							} );
 
-						/* End of showErrors() */
+							// Tell the i18n file to execute to run any $.validator extends
+							$form.trigger( "formLanguages.wb" );
 
-						invalidHandler: function() {
-							submitted = true;
-						}
-
-					} ); /* end of validate() */
-
-					/* fixes validation issue (see PR #7913) */
-					$form.on( "change", "input[type=date], input[type=file], select", function() {
-						$form.validate().element( this );
-					} );
-
-					// Clear the form and remove error messages on reset
-					$document.on( "click", selector + " input[type=reset]", function( event ) {
-						var which = event.which,
-							ariaLive;
-
-						// Ignore middle/right mouse buttons
-						if ( !which || which === 1 ) {
-							validator.resetForm();
-							$( "#" + errorFormId ).detach();
-
-							ariaLive = $form.parent().find( ".arialive" )[ 0 ];
-							if ( ariaLive.innerHTML.length !== 0 ) {
-								ariaLive.innerHTML = "";
-							}
-
-							// Correct the colouring of fields that are no longer invalid
-							$form.find( ".has-error" ).removeClass( "has-error" );
+							// Identify that initialization has completed
+							wb.ready( $( eventTarget ), componentName );
 						}
 					} );
-
-					//Trigger validation on wb-server-error
-					$form.find( ".wb-server-error" ).filter( ":not( :hidden )" ).parent().each( function() {
-						if ( this.attributes.for && this.attributes.for.value.length > 0 ) {
-							$( "form" ).validate().element( $( "[id =" + this.attributes.for.value + "]" ) );
-						} else if ( $( this ).find( "input" )[ 0 ] ) {
-							$( "form" ).validate().element( $( this ).find( "input" )[ 0 ] );
-						} else if ( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] ) {
-							if ( $( this ).find( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input " )[ 0 ].id ) ) {
-								$( "form" ).validate().element( $( this ).next( ".radio, .checkbox" ).children( "label" ).children( "input" )[ 0 ] );
-							}
-						}
-					} );
-
-					// Tell the i18n file to execute to run any $.validator extends
-					$form.trigger( "formLanguages.wb" );
-
-					// Identify that initialization has completed
-					wb.ready( $( eventTarget ), componentName );
 				}
 			} );
 		}
@@ -14822,6 +14858,53 @@ var componentName = "wb-tables",
 				}
 			} );
 		}
+	},
+	updatePaginationMarkup = function( $pagination, setFocusOnId ) {
+
+		var ol = document.createElement( "OL" ),
+			li = document.createElement( "LI" ),
+			paginate_buttons = $pagination.find( ".paginate_button" ),
+			navFocusOnId;
+
+		if ( $pagination.length === 0 ) {
+			return;
+		}
+
+		// Set the element to get the focus upon navigation
+		navFocusOnId = setFocusOnId || $pagination.get( 0 ).id;
+
+		// Update Pagination List
+		for ( var i = 0; i < paginate_buttons.length; i++ ) {
+			var item = li.cloneNode( true );
+			item.appendChild( paginate_buttons[ i ] );
+			ol.appendChild( item );
+		}
+
+		ol.className = "pagination mrgn-tp-0 mrgn-bttm-0";
+		$pagination.empty();
+		$pagination.append( ol );
+
+		// Update the aria-pressed properties on the pagination buttons
+		// Should be pushed upstream to DataTables
+		$pagination.find( ".paginate_button" )
+			.attr( {
+				"href": "#" + navFocusOnId
+			} )
+
+			// This is required to override the datatable.js (v1.10.13) behavior to cancel the event propagation on anchor element.
+			.on( "keypress", function( evn ) {
+				if ( evn.keyCode === 13 ) {
+					window.location = evn.target.href;
+				}
+			} )
+
+			.not( ".previous, .next" )
+			.attr( "aria-pressed", "false" )
+			.html( function( index, oldHtml ) {
+				return "<span class='wb-inv'>" + i18nText.paginate.page + " </span>" + oldHtml;
+			} )
+			.filter( ".current" )
+			.attr( "aria-pressed", "true" );
 	};
 
 // Bind the init event of the plugin
@@ -14831,12 +14914,11 @@ $document.on( "timerpoke.wb " + initEvent, selector, init );
 $document.on( "draw.dt", selector, function( event, settings ) {
 	var $elm = $( event.target ),
 		pagination = $elm.next( ".bottom" ).find( "div:first-child" ),
+		pagination_top = $elm.prevAll( ".top" ).find( "div.dataTables_paginate" ),
 		paginate_buttons = $elm.next( ".bottom" ).find( ".paginate_button" ),
 		pbLength = paginate_buttons.length,
 		pHasLF = pagination.find( ".last, .first" ).length === 2,
-		pHasPN = pagination.find( ".previous, .next" ).length === 2,
-		ol = document.createElement( "OL" ),
-		li = document.createElement( "LI" );
+		pHasPN = pagination.find( ".previous, .next" ).length === 2;
 
 	// Handle sorting/ordering
 	var order = $elm.dataTable( { "retrieve": true } ).api().order();
@@ -14868,43 +14950,15 @@ $document.on( "draw.dt", selector, function( event, settings ) {
 		)
 	) {
 		pagination.addClass( "hidden" );
+		pagination_top.addClass( "hidden" );
 	} else {
 
 		// Make sure Pagination is visible
 		pagination.removeClass( "hidden" );
+		pagination_top.removeClass( "hidden" );
 
-		// Update Pagination List
-		for ( var i = 0; i < paginate_buttons.length; i++ ) {
-			var item = li.cloneNode( true );
-			item.appendChild( paginate_buttons[ i ] );
-			ol.appendChild( item );
-		}
-
-		ol.className = "pagination mrgn-tp-0 mrgn-bttm-0";
-		pagination.empty();
-		pagination.append( ol );
-
-		// Update the aria-pressed properties on the pagination buttons
-		// Should be pushed upstream to DataTables
-		$elm.next( ".bottom" ).find( ".paginate_button" )
-			.attr( {
-				"href": "#" + $elm.get( 0 ).id
-			} )
-
-			// This is required to override the datatable.js (v1.10.13) behavior to cancel the event propagation on anchor element.
-			.on( "keypress", function( evn ) {
-				if ( evn.keyCode === 13 ) {
-					window.location = evn.target.href;
-				}
-			} )
-
-			.not( ".previous, .next" )
-			.attr( "aria-pressed", "false" )
-			.html( function( index, oldHtml ) {
-				return "<span class='wb-inv'>" + i18nText.paginate.page + " </span>" + oldHtml;
-			} )
-			.filter( ".current" )
-			.attr( "aria-pressed", "true" );
+		updatePaginationMarkup( pagination, $elm.get( 0 ).id );
+		updatePaginationMarkup( pagination_top );
 	}
 
 	// Identify that the table has been updated
@@ -15112,8 +15166,12 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 
 			// Verifies if regex was preset, if not preset use 'contains value' as default
 			if ( !$regex ) {
-				$value = $value.replace( /\s/g, "\\s*" );
-				$regex = "(" + $value + ")";
+				if ( $elm[ 0 ].getAttribute( "data-exact" ) ) {
+					$regex = "^" + $value + "$";
+				} else {
+					$value = $value.replace( /\s/g, "\\s*" );
+					$regex = "(" + $value + ")";
+				}
 			}
 
 			$datatable.column( $column ).search( $regex, true );
@@ -17067,6 +17125,7 @@ var componentName = "wb-twitter",
 	selector = "." + componentName,
 	initEvent = "wb-init" + selector,
 	$document = wb.doc,
+	i18n, i18nText,
 
 	/**
 	 * @method init
@@ -17081,7 +17140,7 @@ var componentName = "wb-twitter",
 			protocol = wb.pageUrlParts.protocol;
 
 		if ( eventTarget ) {
-			const twitterLink = eventTarget.firstElementChild;
+			const twitterLink = eventTarget.querySelector( "a.twitter-timeline" );
 
 			// Ignore IE11
 			// Note: Twitter's widget no longer supports it...
@@ -17090,37 +17149,98 @@ var componentName = "wb-twitter",
 				return;
 			}
 
-			// If the plugin container's first child element is a Twitter link...
-			if ( twitterLink && twitterLink.matches( "a.twitter-timeline" ) ) {
+			// Process the Twitter link
+			if ( twitterLink ) {
 				const loadingDiv = document.createElement( "div" );
 				let observer;
+
+				// Only initialize the i18nText once
+				if ( !i18nText ) {
+					i18n = wb.i18n;
+					i18nText = {
+						startNotice: i18n( "twitter-start-notice" ),
+						endNotice: i18n( "twitter-end-notice" ),
+						skipEnd: i18n( "twitter-skip-end" ),
+						skipStart: i18n( "twitter-skip-start" ),
+						timelineTitle: i18n( "twitter-timeline-title" )
+					};
+				}
+
+				// Set Chinese (Simplfified)'s language code to "zh-cn"
+				// If the link doesn't specify a widget language and its "in-page" language code is "zh-Hans"...
+				// Notes:
+				// -WET uses "zh-Hans", Twitter uses "zh-ch" and falls back to English if the former is used
+				// -Language code sourced from https://developer.twitter.com/en/docs/twitter-for-websites/supported-languages
+				if ( !twitterLink.dataset.lang && twitterLink.closest( "[lang='zh-Hans']" ) ) {
+					twitterLink.dataset.lang = "zh-cn";
+				}
+
+				// Match the Facebook page plugin's default height
+				// If data-height is set to "fb-page" OR the widget has a tweet limit and lacks a custom height...
+				// Notes:
+				// -Counteracts enormous default widget heights that can reach tens of thousands of pixels without a scrollbar
+				// -Timeline widgets stopped honouring tweet limits on July 21, 2023 and began showing up to 100 tweets at a time ("verified" accounts only)
+				// -Facebook page plugin's default height is documented in https://developers.facebook.com/docs/plugins/page-plugin#settings
+				if ( twitterLink.dataset.height === "fb-page" || ( twitterLink.dataset.tweetLimit && !twitterLink.dataset.height ) ) {
+					twitterLink.dataset.height = "500";
+				}
+
+				// Add a "do not track" parameter (i.e. data-dnt="true" attribute) unless it's already been set
+				// Note: Covered in https://developer.twitter.com/en/docs/twitter-for-websites/webpage-properties
+				if ( !twitterLink.dataset.dnt ) {
+					twitterLink.dataset.dnt = "true";
+				}
 
 				// Add a loading icon below the link
 				loadingDiv.className = "twitter-timeline-loading";
 				twitterLink.after( loadingDiv );
 
-				// Remove the loading icon after the timeline widget appears
-				// Note: Twitter's widget script removes "a.twitter-timeline" upon filling-in the timeline's content... at which point the loading icon is no longer useful
+				// Observe DOM mutations
 				observer = new MutationObserver( function( mutations ) {
-
-					// Check for DOM mutations
 					mutations.forEach( function( mutation ) {
+						switch ( mutation.type ) {
 
-						// Deal only with removed HTML nodes
-						mutation.removedNodes.forEach( function( removedNode ) {
+						// Check for attribute changes
+						case "attributes": {
+							const mutationTarget = mutation.target;
 
-							// If the removed node was a Twitter link, remove its adjacent loading icon and stop observing
-							if ( removedNode === twitterLink && mutation.nextSibling === loadingDiv ) {
-								loadingDiv.remove();
-								observer.disconnect();
+							// Override the timeline iframe's title right after Twitter's widget script adds it
+							// Note: The timeline's iframe title is English-only and written in title case ("Twitter Timeline")... This replaces it with an i18n version written in sentence case.
+							if ( mutationTarget.nodeName === "IFRAME" && mutationTarget.title !== i18nText.timelineTitle ) {
+								mutationTarget.title = i18nText.timelineTitle;
 							}
-						} );
+							break;
+						}
+
+						// Check for node removals
+						case "childList": {
+							mutation.removedNodes.forEach( function( removedNode ) {
+
+								// If the removed node was a Twitter link, remove its adjacent loading icon, add skip links and stop observing
+								// Note: Twitter's widget script removes "a.twitter-timeline" upon displaying the timeline iframe's content... at which point the loading icon is no longer useful
+								if ( removedNode === twitterLink && mutation.nextSibling === loadingDiv ) {
+									const iframeContainer = loadingDiv.previousElementSibling;
+
+									loadingDiv.remove();
+									addSkipLinks( iframeContainer );
+
+									// The following 2 lines were added as a workaround in Safari where the iFrame is not displayed
+									eventTarget.style.opacity = 1;
+									eventTarget.style.opacity = "";
+
+									observer.disconnect();
+								}
+							} );
+						}
+						}
 					} );
 				} );
 
-				// Observe changes to the plugin container's direct child elements
+				// Observe changes to the plugin container's child elements and title attributes
 				observer.observe( eventTarget, {
-					childList: true
+					attributeFilter: [ "title" ],
+					childList: true,
+					subtree: true
 				} );
 			}
 
@@ -17133,6 +17253,102 @@ var componentName = "wb-twitter",
 				}
 			} );
 		}
+	},
+
+	// Add skip links immediately before and after the timeline widget
+	// Note: Verified account timelines may contain several hundred interactive elements... this provides a mechanism to spare keyboard-only users from needing to tab through everything to move past the widget.
+	addSkipLinks = function( iframeContainer ) {
+		const timelineIframe = iframeContainer.getElementsByTagName( "iframe" )[ 0 ];
+		const username = getTwitterUsername( timelineIframe.src );
+		const noticeClass = componentName + "-" + "notice";
+		const skipClass = componentName + "-" + "skip";
+		const startText = "start";
+		const endText = "end";
+		let startNotice;
+		let endNotice;
+		let skipToEndLink;
+		let skipToStartLink;
+
+		// Abort if Twitter username is falsy
+		// Note: Unlikely to happen unless the username doesn't exist... in which case Twitter's third party widget script will have already failed and triggered an exception by this point
+		if ( !username ) {
+			return;
+		}
+
+		// Add a start of timeline notice
+		startNotice = createNotice( i18nText.startNotice, username, timelineIframe.id, noticeClass, startText );
+		iframeContainer.before( startNotice );
+
+		// Add an end of timeline notice
+		endNotice = createNotice( i18nText.endNotice, username, timelineIframe.id, noticeClass, endText );
+		iframeContainer.after( endNotice );
+
+		// Add a skip to end link
+		skipToEndLink = createSkipLink( i18nText.skipEnd, username, endNotice.id, skipClass, endText );
+		startNotice.after( skipToEndLink );
+
+		// Add a skip to start link
+		skipToStartLink = createSkipLink( i18nText.skipStart, username, startNotice.id, skipClass, startText );
+		endNotice.before( skipToStartLink );
+	},
+
+	// Extract a Twitter username from the iframe's timeline URL
+	getTwitterUsername = function( iframeSrc ) {
+		let username = iframeSrc.match( /\/screen-name\/([^?]+)/ );
+		username = username ? username[ 1 ] : null;
+
+		return username;
+	},
+
+	// Create a timeline notice
+	createNotice = function( textTemplate, username, iframeId, noticeClass, position ) {
+		const spanElm = document.createElement( "span" );
+		const pElm = document.createElement( "p" );
+
+		spanElm.innerHTML = textTemplate.replace( "%username%", username );
+
+		pElm.id = iframeId + "-" + position;
+		pElm.className = noticeClass + "-" + position;
+		pElm.prepend( spanElm );
+
+		// Hide the notice upon losing focus
+		// Removes its tabindex attribute to make its CSS hide it from screen readers
+		pElm.addEventListener( "blur", function( e ) {
+			e.target.removeAttribute( "tabindex" );
+		} );
+
+		return pElm;
+	},
+
+	// Create a skip link
+	createSkipLink = function( textTemplate, username, linkDestId, skipClass, linkDir ) {
+		const spanElm = document.createElement( "span" );
+		const aElm = document.createElement( "a" );
+		const pElm = document.createElement( "p" );
+
+		spanElm.innerHTML = textTemplate.replace( "%username%", username );
+
+		aElm.href = "#" + linkDestId;
+		aElm.prepend( spanElm );
+
+		// Focus onto the destination of a clicked link
+		$( aElm ).on( "click", function( event ) {
+			const currentTarget = event.currentTarget;
+			const linkDestId = "#" + wb.jqEscape( currentTarget.getAttribute( "href" ).substring( 1 ) );
+			const $linkDest = $document.find( linkDestId );
+
+			// Assign focus to the link's destination
+			// Note: The focus event's scrolling behaviour is more graceful than "jumping" to an anchor link's destination
+			$linkDest.trigger( "setfocus.wb" );
+
+			// Don't engage normal link navigation behaviour (i.e. "jumping" to the link destination, changing address/navigation history)
+			return false;
+		} );
+
+		pElm.className = skipClass + " " + skipClass + "-" + linkDir;
+		pElm.prepend( aElm );
+
+		return pElm;
 	};
 
 $document.on( "timerpoke.wb " + initEvent, selector, init );
