@@ -24,6 +24,10 @@ The first step of releasing will be to update WET to the latest version.
     - wet-boew/js
 6. Now that WET has been updated, run all the tests locally. Also, go through all the samples pages manually and visually inspect each page. When everything looks ready, commit and push your code, open a pull request and submit for review.
 
+## Update the menu and footer files
+
+Update the external files (menus, footer) by downloading them from their source web sites. Go to the root of your CDTS directory, open git-bash and run `npm run update-extfiles`. Commit and push these changes.
+
 ## Update the Changelog
 
 Update the changelog with all the fixes and changes that were done for that release. Commit and push your change, open a pull request and submit for review. Once the PR is merged, the release can now be done.
