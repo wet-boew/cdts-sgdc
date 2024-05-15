@@ -26,7 +26,7 @@ The first step of releasing will be to update WET to the latest version.
 
 ## Update the menu and footer files
 
-Update the external files (menus, footer) by downloading them from their source web sites. Go to the root of your CDTS directory, open git-bash and run `npm run update-extfiles`. Commit and push these changes.
+Update the external files (menus, footer) by downloading them from their source web sites. Go to the root of your CDTS directory, open git-bash and run `npm run update-extfiles`. Run `npm run test` to make sure no errors have been introduced with the updated links. Commit and push these changes.
 
 ## Update the Changelog
 
