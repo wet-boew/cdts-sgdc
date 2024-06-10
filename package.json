@@ -20,7 +20,7 @@
     "@eslint/js": "^9.4.0",
     "@wdio/cli": "^8.38.1",
     "@wdio/dot-reporter": "^8.38.0",
-    "@wdio/junit-reporter": "^8.38.0",
+    "@wdio/junit-reporter": "^8.38.2",
     "@wdio/local-runner": "^8.38.0",
     "@wdio/mocha-framework": "^8.38.2",
     "@wdio/spec-reporter": "^8.38.2",
