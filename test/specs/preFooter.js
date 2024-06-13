@@ -314,7 +314,7 @@ async function customShareModal(theme, lang) {
     await expect(preFooterPage.emailBtn).toHaveTextContaining('Email');
     await expect(preFooterPage.facebookBtn).toHaveTextContaining('Facebook');
     await expect(preFooterPage.linkedinBtn).toHaveTextContaining('LinkedIn');
-    await expect(preFooterPage.twitterBtn).toHaveTextContaining('Twitter');
+    await expect(preFooterPage.twitterBtn).toHaveTextContaining('X');
 }
 
 async function noPageDetails(theme, lang) {

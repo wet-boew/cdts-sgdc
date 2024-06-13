@@ -42,7 +42,7 @@ function validateBuilderFunctions(content, theme, version) {
             }
         }
 
-        if (htmlContent.match(/\/\/(?<!:\/\/)(?<!"\/\/)/gm) || htmlContent.includes('/*')) {
+        if (htmlContent.match(/\/\/(?<!:\/\/)(?<!"\/\/)(?<!"sha512-\S*)/gm) || htmlContent.includes('/*')) {
             console.error(`${functionName}: HTML content should not contain stray '//' or '/*' strings. HTML content: [${htmlContent}]`);
             throw new Error('Encountered invalid HTML content, aborting.');
         }
