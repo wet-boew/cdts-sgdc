@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v15.0.0 - 2024-05-01
+ * v15.2.0 - 2024-05-29
  *
  */
 /*!
@@ -14877,9 +14877,15 @@ ol.linenums {
 	width: 32px;
 	height: 32px; }
 
-.shr-pg .yahoomail:before {
+.shr-pg .x:before {
 	background-image: url(../../wet-boew/assets/sprites_share.png);
 	background-position: -32px -96px;
+	width: 32px;
+	height: 32px; }
+
+.shr-pg .yahoomail:before {
+	background-image: url(../../wet-boew/assets/sprites_share.png);
+	background-position: -64px -96px;
 	width: 32px;
 	height: 32px; }
 
@@ -16294,6 +16300,43 @@ ol-geolocate button {
 	.wb-paginate-pager li.active:nth-last-child(2) a {
 		border-bottom-right-radius: 4px;
 		border-top-right-radius: 4px; }
+	.wb-paginate-pager li.active:nth-last-child(2) button {
+		border-bottom-right-radius: 4px;
+		border-top-right-radius: 4px; }
+	.wb-paginate-pager .pagination > li.active > button {
+		cursor: default;
+		outline-offset: -2px; }
+	.wb-paginate-pager .pagination > li > button {
+		background-color: #eaebed;
+		border: 1px solid #dcdee1;
+		color: #335075;
+		margin-bottom: .5em;
+		margin-left: -1px;
+		padding: 10px 16px;
+		position: relative; }
+		.wb-paginate-pager .pagination > li > button:hover, .wb-paginate-pager .pagination > li > button:focus {
+			background-color: #d4d6da;
+			border-color: #bbbfc5;
+			z-index: 2; }
+		.wb-paginate-pager .pagination > li > button:focus {
+			outline: 5px auto -webkit-focus-ring-color;
+			outline-offset: -2px; }
+	.wb-paginate-pager .pagination > li.disabled + li > button {
+		border-bottom-left-radius: 4px;
+		border-top-left-radius: 4px; }
+	.wb-paginate-pager .pagination > li:first-child > button {
+		border-bottom-left-radius: 4px;
+		border-top-left-radius: 4px;
+		margin-left: 0; }
+	.wb-paginate-pager .pagination > li:last-child > button {
+		border-bottom-right-radius: 4px;
+		border-top-right-radius: 4px; }
+	.wb-paginate-pager .pagination > .active > button, .wb-paginate-pager .pagination > .active > button:focus, .wb-paginate-pager .pagination > .active > button:hover {
+		background-color: #2572b4;
+		border-color: #2572b4;
+		color: #fff;
+		cursor: default;
+		z-index: 3; }
 
 html:not(.wb-disable) .wb-pgfltr-out {
 	display: none !important; }

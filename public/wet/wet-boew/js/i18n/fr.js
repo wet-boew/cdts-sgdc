@@ -190,11 +190,11 @@ wb.i18nDict = {
 	tbFilterInst: "Ce tableau offre une fonctionnalité de triage via les boutons situés dans la ligne d'entêtes de colonnes avec seulement une instance visible à la fois.",
 
 	/* Twitter embedded timeline */
-	"twitter-start-notice": "Commencement du fil Twitter de @%username%",
-	"twitter-end-notice": "Fin du fil Twitter de @%username%",
-	"twitter-skip-end": "Passer à la fin du fil Twitter de @%username%",
-	"twitter-skip-start": "Passer au commencement du fil Twitter de @%username%",
-	"twitter-timeline-title": "Fil Twitter",
+	"twitter-start-notice": "Commencement du fil X de @%username%",
+	"twitter-end-notice": "Fin du fil X de @%username%",
+	"twitter-skip-end": "Passer à la fin du fil X de @%username%",
+	"twitter-skip-start": "Passer au commencement du fil X de @%username%",
+	"twitter-timeline-title": "Fil X",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",

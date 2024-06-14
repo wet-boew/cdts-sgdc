@@ -1,7 +1,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v15.0.0 - 2024-05-01
+ * v15.2.0 - 2024-05-29
  *
  */( function( $, document, wb ) {
 "use strict";
@@ -144,6 +144,47 @@ var $document = wb.doc,
 		contrastRatio = ( Math.max( luminance1, luminance2 ) + 0.05 ) / ( Math.min( luminance1, luminance2 ) + 0.05 );
 
 		return contrastRatio.toFixed( 2 );
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, window, wb );
+
+( function( $, window, wb ) {
+"use strict";
+
+var $document = wb.doc,
+	componentName = "followus",
+	selector = "." + componentName,
+	initEvent = "wb-init " + selector,
+
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
+
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector );
+
+		if ( elm && event.currentTarget === event.target ) {
+
+			var twitterElm = elm.querySelector( ".twitter .wb-inv" );
+
+			// Replacing "Twitter" with "X"
+			if ( twitterElm ) {
+				twitterElm.innerHTML = twitterElm.innerHTML.replace( "Twitter", "X" );
+			}
+
+			// Identify that initialization has completed
+			wb.ready( $( elm ), componentName );
+		}
 	};
 
 // Bind the init event of the plugin
