@@ -24,7 +24,7 @@
     "@wdio/local-runner": "^8.39.1",
     "@wdio/mocha-framework": "^8.39.0",
     "@wdio/spec-reporter": "^8.39.0",
-    "axe-core": "^4.9.1",
+    "axe-core": "^4.10.0",
     "axios": "^1.7.3",
     "ejs": "^3.1.10",
     "ejs-lint": "^2.0.0",
