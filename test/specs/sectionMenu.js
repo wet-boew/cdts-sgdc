@@ -86,13 +86,13 @@ async function sectionMenuExists(theme, lang){
 
 async function menuLinks(theme, lang){
     await sectionMenuPage.open(theme, lang);
-    await expect(sectionMenuPage.menuLink).toHaveTextContaining('Link 1');
+    await expect(sectionMenuPage.menuLink).toHaveText(expect.stringContaining('Link 1'));
     await expect(sectionMenuPage.menuLinkNewWindow).toHaveAttribute('target', '_blank')
 }
 
 async function subLinks(theme, lang){
     await sectionMenuPage.open(theme, lang);
-    await expect(sectionMenuPage.subLink).toHaveTextContaining('Link 1.1 a)');
+    await expect(sectionMenuPage.subLink).toHaveText(expect.stringContaining('Link 1.1 a)'));
 }
 
 async function linkOpensInNewWindow(theme, lang){
@@ -102,9 +102,9 @@ async function linkOpensInNewWindow(theme, lang){
 
 async function validateSections(theme, lang){
     await sectionMenuPage.open(theme, lang);
-    await expect(sectionMenuPage.secondSectionLink).toHaveTextContaining('Opens in a new window');
-    await expect(sectionMenuPage.secondSectionLinkNewWin).toHaveAttributeContaining('target', '_blank');
-    await expect(sectionMenuPage.thirdSectionText).toHaveTextContaining('Section name 3');
+    await expect(sectionMenuPage.secondSectionLink).toHaveText(expect.stringContaining('Opens in a new window'));
+    await expect(sectionMenuPage.secondSectionLinkNewWin).toHaveAttribute('target', expect.stringContaining('_blank'));
+    await expect(sectionMenuPage.thirdSectionText).toHaveText(expect.stringContaining('Section name 3'));
 }
 
 async function skipLinkExists(theme, lang){

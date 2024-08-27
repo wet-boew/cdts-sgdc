@@ -179,87 +179,87 @@ async function showFooterFalse(theme, lang){
 
 async function footerBrandLinks(theme, lang){
     await footerPage.open(theme, lang);
-    await expect(footerPage.termsLink).toHaveHrefContaining('termsLinkTest');
-    await expect(footerPage.privacyLink).toHaveHrefContaining('privacyLinkTest');
+    await expect(footerPage.termsLink).toHaveHref(expect.stringContaining('termsLinkTest'));
+    await expect(footerPage.privacyLink).toHaveHref(expect.stringContaining('privacyLinkTest'));
 }
 
 async function footerContactLink(theme, lang){
     await basicPage.open(theme, lang);
     if (theme === 'gcweb'){
-        await expect(footerPage.footerContactLink).toHaveHrefContaining('contact.html');
+        await expect(footerPage.footerContactLink).toHaveHref(expect.stringContaining('contact.html'));
     }
     else{
         if (lang ==='en') {
-            await expect(footerPage.footerContactLink).toHaveHrefContaining('contact-eng');
-            await expect(footerPage.footerContactLink).toHaveTextContaining('Contact us');
+            await expect(footerPage.footerContactLink).toHaveHref(expect.stringContaining('contact-eng'));
+            await expect(footerPage.footerContactLink).toHaveText(expect.stringContaining('Contact us'));
         } else {
-            await expect(footerPage.footerContactLink).toHaveHrefContaining('contact-fra');
-            await expect(footerPage.footerContactLink).toHaveTextContaining('Communiquez avec nous');
+            await expect(footerPage.footerContactLink).toHaveHref(expect.stringContaining('contact-fra'));
+            await expect(footerPage.footerContactLink).toHaveText(expect.stringContaining('Communiquez avec nous'));
         }
     }
 }
 
 async function footerCustomizedContactLink(theme, lang){
     await footerPage.open(theme, lang, 'customizedContact');
-    await expect(footerPage.footerContactLink).toHaveHrefContaining('contactLinksTest');
+    await expect(footerPage.footerContactLink).toHaveHref(expect.stringContaining('contactLinksTest'));
 }
 
 async function footerCustomizedContactLinkGC(theme, lang){
     await footerPage.open(theme, lang);
-    await expect(footerPage.footerContactLink).toHaveHrefContaining('contactLinksTest');
-    await expect(footerPage.footerContactLink).toHaveTextContaining('Customized Contact');
+    await expect(footerPage.footerContactLink).toHaveHref(expect.stringContaining('contactLinksTest'));
+    await expect(footerPage.footerContactLink).toHaveText(expect.stringContaining('Customized Contact'));
 }
 
 async function defaultFooterLinks(theme, lang){
     await footerPage.open(theme, lang, 'customizedContact');
-    await expect(footerPage.footerLink2).toHaveHrefContaining('dept.html');
-    await expect(footerPage.footerLink3).toHaveHrefContaining('system.html');
-    await expect(footerPage.footerLink4).toHaveHrefContaining('jobs.html');
-    await expect(footerPage.footerLink5).toHaveHrefContaining('immigration');
-    await expect(footerPage.footerLink6).toHaveHrefContaining('travel.gc.ca');
-    await expect(footerPage.footerLink7).toHaveHrefContaining('business.html');
-    await expect(footerPage.footerLink8).toHaveHrefContaining('benefits.html');
-    await expect(footerPage.footerLink9).toHaveHrefContaining('health.html');
-    await expect(footerPage.footerLink10).toHaveHrefContaining('taxes.html');
-    await expect(footerPage.footerLink11).toHaveHrefContaining('environment.html');
-    await expect(footerPage.footerLink12).toHaveHrefContaining('defence.html');
-    await expect(footerPage.footerLink13).toHaveHrefContaining('culture.html');
-    await expect(footerPage.footerLink14).toHaveHrefContaining('policing.html');
-    await expect(footerPage.footerLink15).toHaveHrefContaining('transport.html');
-    await expect(footerPage.footerLink16).toHaveHrefContaining('international.gc.ca');
-    await expect(footerPage.footerLink17).toHaveHrefContaining('finance.html');
-    await expect(footerPage.footerLink18).toHaveHrefContaining('science.html');
-    await expect(footerPage.footerLink19).toHaveHrefContaining('indigenous-peoples.html');
-    await expect(footerPage.footerLink20).toHaveHrefContaining('veterans-military.html');
-    await expect(footerPage.footerLink21).toHaveHrefContaining('youth.html');
+    await expect(footerPage.footerLink2).toHaveHref(expect.stringContaining('dept.html'));
+    await expect(footerPage.footerLink3).toHaveHref(expect.stringContaining('system.html'));
+    await expect(footerPage.footerLink4).toHaveHref(expect.stringContaining('jobs.html'));
+    await expect(footerPage.footerLink5).toHaveHref(expect.stringContaining('immigration'));
+    await expect(footerPage.footerLink6).toHaveHref(expect.stringContaining('travel.gc.ca'));
+    await expect(footerPage.footerLink7).toHaveHref(expect.stringContaining('business.html'));
+    await expect(footerPage.footerLink8).toHaveHref(expect.stringContaining('benefits.html'));
+    await expect(footerPage.footerLink9).toHaveHref(expect.stringContaining('health.html'));
+    await expect(footerPage.footerLink10).toHaveHref(expect.stringContaining('taxes.html'));
+    await expect(footerPage.footerLink11).toHaveHref(expect.stringContaining('environment.html'));
+    await expect(footerPage.footerLink12).toHaveHref(expect.stringContaining('defence.html'));
+    await expect(footerPage.footerLink13).toHaveHref(expect.stringContaining('culture.html'));
+    await expect(footerPage.footerLink14).toHaveHref(expect.stringContaining('policing.html'));
+    await expect(footerPage.footerLink15).toHaveHref(expect.stringContaining('transport.html'));
+    await expect(footerPage.footerLink16).toHaveHref(expect.stringContaining('international.gc.ca'));
+    await expect(footerPage.footerLink17).toHaveHref(expect.stringContaining('finance.html'));
+    await expect(footerPage.footerLink18).toHaveHref(expect.stringContaining('science.html'));
+    await expect(footerPage.footerLink19).toHaveHref(expect.stringContaining('indigenous-peoples.html'));
+    await expect(footerPage.footerLink20).toHaveHref(expect.stringContaining('veterans-military.html'));
+    await expect(footerPage.footerLink21).toHaveHref(expect.stringContaining('youth.html'));
 }
 
 async function defaultFooterBrandLinks(theme, lang){
     await footerPage.open(theme, lang, 'customizedContact');
-    await expect(footerPage.footerBrandLink1).toHaveHrefContaining('social.html');
-    await expect(footerPage.footerBrandLink2).toHaveHrefContaining('mobile.html');
-    await expect(footerPage.footerBrandLink3).toHaveHrefContaining('about.html');
-    await expect(footerPage.footerBrandLink4).toHaveHrefContaining('terms.html');
-    await expect(footerPage.footerBrandLink5).toHaveHrefContaining('privacy.html');
+    await expect(footerPage.footerBrandLink1).toHaveHref(expect.stringContaining('social.html'));
+    await expect(footerPage.footerBrandLink2).toHaveHref(expect.stringContaining('mobile.html'));
+    await expect(footerPage.footerBrandLink3).toHaveHref(expect.stringContaining('about.html'));
+    await expect(footerPage.footerBrandLink4).toHaveHref(expect.stringContaining('terms.html'));
+    await expect(footerPage.footerBrandLink5).toHaveHref(expect.stringContaining('privacy.html'));
 }
 
 async function footerShowFeatures(theme, lang){
     await footerPage.open(theme, lang, 'showFeatures');
-    if (lang =='en') { await expect(footerPage.footerFeatures).toHaveTextContaining('Activities and initiatives'); }
-    else { await expect(footerPage.footerFeatures).toHaveTextContaining('Activités et initiatives'); }
+    if (lang =='en') { await expect(footerPage.footerFeatures).toHaveText(expect.stringContaining('Activities and initiatives')); }
+    else { await expect(footerPage.footerFeatures).toHaveText(expect.stringContaining('Activités et initiatives')); }
 }
 
 async function defaultFooterLinksIntranet(theme, lang){
     await footerPage.open(theme, lang);
     if (lang =='en') {
-        await expect(footerPage.footerLinkIntranet2).toHaveHrefContaining('https://intranet.canada.ca/ict-oci/index-eng.asp');
-        await expect(footerPage.footerLinkIntranet3).toHaveHrefContaining('https://www.canada.ca/en.html');
-        await expect(footerPage.footerLinkIntranet4).toHaveHrefContaining('https://intranet.canada.ca/terms-avis-eng.asp');
+        await expect(footerPage.footerLinkIntranet2).toHaveHref(expect.stringContaining('https://intranet.canada.ca/ict-oci/index-eng.asp'));
+        await expect(footerPage.footerLinkIntranet3).toHaveHref(expect.stringContaining('https://www.canada.ca/en.html'));
+        await expect(footerPage.footerLinkIntranet4).toHaveHref(expect.stringContaining('https://intranet.canada.ca/terms-avis-eng.asp'));
     }
     else {
-        await expect(footerPage.footerLinkIntranet2).toHaveHrefContaining('https://intranet.canada.ca/ict-oci/index-fra.asp');
-        await expect(footerPage.footerLinkIntranet3).toHaveHrefContaining('https://www.canada.ca/fr.html');
-        await expect(footerPage.footerLinkIntranet4).toHaveHrefContaining('https://intranet.canada.ca/terms-avis-fra.asp');
+        await expect(footerPage.footerLinkIntranet2).toHaveHref(expect.stringContaining('https://intranet.canada.ca/ict-oci/index-fra.asp'));
+        await expect(footerPage.footerLinkIntranet3).toHaveHref(expect.stringContaining('https://www.canada.ca/fr.html'));
+        await expect(footerPage.footerLinkIntranet4).toHaveHref(expect.stringContaining('https://intranet.canada.ca/terms-avis-fra.asp'));
     }
 }
 
@@ -277,13 +277,13 @@ async function mainCorporateFooter(theme, lang){
 
 async function termsPrivacyLink(theme, lang){
     await footerPage.open(theme, lang, 'contextualFooter');
-    await expect(footerPage.footerBrandLink1).toHaveHrefContaining('customTermsLink');
-    await expect(footerPage.footerBrandLink2).toHaveHrefContaining('customPrivacyLink');
+    await expect(footerPage.footerBrandLink1).toHaveHref(expect.stringContaining('customTermsLink'));
+    await expect(footerPage.footerBrandLink2).toHaveHref(expect.stringContaining('customPrivacyLink'));
 }
 
 async function footerPath(theme, lang){
     await footerPage.open(theme, lang, 'showFeatures');
-    await expect(footerPage.customFooter).toHaveAttributeContaining('data-wb-ajax', 'esdcfooter')
+    await expect(footerPage.customFooter).toHaveAttribute('data-wb-ajax', expect.stringContaining('esdcfooter'));
 }
 
 async function accessibility(theme, lang) {

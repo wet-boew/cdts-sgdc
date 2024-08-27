@@ -117,17 +117,17 @@ describe('refTop section tests for GCIntranet', () => {
 
 async function analyticsStaging() {
     await refTopPage.open('staging');
-    await expect(refTopPage.analyticsScript).toHaveAttributeContaining('src', 'caacec67651710193d2331efef325107c23a0145/satelliteLib-92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24-staging');
+    await expect(refTopPage.analyticsScript).toHaveAttribute('src', expect.stringContaining('caacec67651710193d2331efef325107c23a0145/satelliteLib-92fcbbc24eeebb654a3dfbe688ed2dfe10a53e24-staging'));
 }
 
 async function analyticsProd() {
     await refTopPage.open('prod');
-    await expect(refTopPage.analyticsScript).toHaveAttributeContaining('src', 'caacec67651710193d2331efef325107c23a0145/satelliteLib-c2082deaf69c358c641c5eb20f94b615dd606662');
+    await expect(refTopPage.analyticsScript).toHaveAttribute('src', expect.stringContaining('caacec67651710193d2331efef325107c23a0145/satelliteLib-c2082deaf69c358c641c5eb20f94b615dd606662'));
 }
 
 async function analyticsCustom() {
     await refTopPage.open('custom');
-    await expect(refTopPage.analyticsScript).toHaveAttributeContaining('src', 'launch-EN11c0261481f74c56b7656937bbd995e9');
+    await expect(refTopPage.analyticsScript).toHaveAttribute('src', expect.stringContaining('launch-EN11c0261481f74c56b7656937bbd995e9'));
 }
 
 function performTests(wet, theme = '') {

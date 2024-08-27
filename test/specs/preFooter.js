@@ -250,8 +250,8 @@ async function feedbackBtnDoesNotExist(theme, lang) {
 async function shareBtnExists(theme, lang) {
     await basicPage.open(theme, lang);
     const shareBtn = await preFooterPage.shareBtn;
-    if (lang === 'en' ) { await expect(shareBtn).toHaveTextContaining('Share this page'); }
-    else { await expect(shareBtn).toHaveTextContaining('Partagez cette page'); }
+    if (lang === 'en' ) { await expect(shareBtn).toHaveText(expect.stringContaining('Share this page')); }
+    else { await expect(shareBtn).toHaveText(expect.stringContaining('Partagez cette page')); }
     await shareBtn.click();
     await (await preFooterPage.shareModal).waitForExist({ timeout: 3000 })
     //await expect(preFooterPage.shareModal).toExist();
@@ -264,22 +264,22 @@ async function shareBtnDoesNotExist(theme, lang) {
 
 async function pageDetailsExist(theme) {
     await preFooterPage.open(theme, 'en');
-    await expect(preFooterPage.screenID).toHaveTextContaining('Screen Identifier:');
-    await expect(preFooterPage.screenIDText).toHaveTextContaining('012345678');
-    await expect(preFooterPage.dateModified).toHaveTextContaining('Date modified:');
-    await expect(preFooterPage.dateModifiedText).toHaveTextContaining('2020-09-11');
-    await expect(preFooterPage.version).toHaveTextContaining('Version:');
-    await expect(preFooterPage.versionText).toHaveTextContaining('0123456789');
+    await expect(preFooterPage.screenID).toHaveText(expect.stringContaining('Screen Identifier:'));
+    await expect(preFooterPage.screenIDText).toHaveText(expect.stringContaining('012345678'));
+    await expect(preFooterPage.dateModified).toHaveText(expect.stringContaining('Date modified:'));
+    await expect(preFooterPage.dateModifiedText).toHaveText(expect.stringContaining('2020-09-11'));
+    await expect(preFooterPage.version).toHaveText(expect.stringContaining('Version:'));
+    await expect(preFooterPage.versionText).toHaveText(expect.stringContaining('0123456789'));
 }
 
 async function pageDetailsExistFR(theme) {
     await preFooterPage.open(theme, 'fr');
-    await expect(preFooterPage.screenID).toHaveTextContaining("Identificateur d'écran :");
-    await expect(preFooterPage.screenIDText).toHaveTextContaining('012345678');
-    await expect(preFooterPage.dateModified).toHaveTextContaining('Date de modification :');
-    await expect(preFooterPage.dateModifiedText).toHaveTextContaining('2020-09-11');
-    await expect(preFooterPage.version).toHaveTextContaining('Version :');
-    await expect(preFooterPage.versionText).toHaveTextContaining('0123456789');
+    await expect(preFooterPage.screenID).toHaveText(expect.stringContaining("Identificateur d'écran :"));
+    await expect(preFooterPage.screenIDText).toHaveText(expect.stringContaining('012345678'));
+    await expect(preFooterPage.dateModified).toHaveText(expect.stringContaining('Date de modification :'));
+    await expect(preFooterPage.dateModifiedText).toHaveText(expect.stringContaining('2020-09-11'));
+    await expect(preFooterPage.version).toHaveText(expect.stringContaining('Version :'));
+    await expect(preFooterPage.versionText).toHaveText(expect.stringContaining('0123456789'));
 }
 
 async function pageDetailsDoNotExist(theme, lang) {
@@ -291,7 +291,7 @@ async function pageDetailsDoNotExist(theme, lang) {
 
 async function feedbackBtnCustomUrl(theme, lang) {
     await preFooterPage.open(theme, lang, 'modifiedBtn');
-    await expect(preFooterPage.feedbackBtnLegacy).toHaveHrefContaining('google'); 
+    await expect(preFooterPage.feedbackBtnLegacy).toHaveHref(expect.stringContaining('google')); 
 }
 
 async function feedbackBtnContactUrl(theme, lang) {
@@ -300,8 +300,8 @@ async function feedbackBtnContactUrl(theme, lang) {
     await feedbackNoBtn.click();
     const feedbackContactUsLink = await preFooterPage.feedbackContactUsLink;
     await feedbackContactUsLink.click();
-    await expect(preFooterPage.feedbackContactLink).toHaveTextContaining('Custom Contact');
-    await expect(preFooterPage.feedbackContactLink).toHaveHrefContaining('Custom url');    
+    await expect(preFooterPage.feedbackContactLink).toHaveText(expect.stringContaining('Custom Contact'));
+    await expect(preFooterPage.feedbackContactLink).toHaveHref(expect.stringContaining('Custom url'));    
 }
 
 async function customShareModal(theme, lang) {
@@ -311,10 +311,10 @@ async function customShareModal(theme, lang) {
     await shareBtn.click();
 
     await (await preFooterPage.emailBtn).waitForExist({ timeout: 3000 })
-    await expect(preFooterPage.emailBtn).toHaveTextContaining('Email');
-    await expect(preFooterPage.facebookBtn).toHaveTextContaining('Facebook');
-    await expect(preFooterPage.linkedinBtn).toHaveTextContaining('LinkedIn');
-    await expect(preFooterPage.twitterBtn).toHaveTextContaining('X');
+    await expect(preFooterPage.emailBtn).toHaveText(expect.stringContaining('Email'));
+    await expect(preFooterPage.facebookBtn).toHaveText(expect.stringContaining('Facebook'));
+    await expect(preFooterPage.linkedinBtn).toHaveText(expect.stringContaining('LinkedIn'));
+    await expect(preFooterPage.twitterBtn).toHaveText(expect.stringContaining('X'));
 }
 
 async function noPageDetails(theme, lang) {
@@ -325,14 +325,14 @@ async function noPageDetails(theme, lang) {
 
 async function showShareClassDefault(theme, lang) {
     await preFooterPage.open(theme, lang, 'modifiedBtn');
-    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-sm-push-8');
-    await expect(preFooterPage.shareDiv).not.toHaveElementClassContaining('col-md-push-9');
+    await expect(preFooterPage.shareDiv).not.toHaveElementClass(expect.stringContaining('col-sm-push-8'));
+    await expect(preFooterPage.shareDiv).not.toHaveElementClass(expect.stringContaining('col-md-push-9'));
 }
 
 async function showShareClassModified(theme, lang) {
     await basicPage.open(theme, lang);
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-sm-push-8');
-    await expect(preFooterPage.shareDiv).toHaveElementClassContaining('col-md-push-9');
+    await expect(preFooterPage.shareDiv).toHaveElementClass(expect.stringContaining('col-sm-push-8'));
+    await expect(preFooterPage.shareDiv).toHaveElementClass(expect.stringContaining('col-md-push-9'));
 }
 
 async function showShareTrue(theme, lang) {
