@@ -597,8 +597,8 @@ describe('AppTop section tests for GCIntranet', () => {
 
 async function settingsBtnExists(theme, lang){
     await appTopPage.open(theme, lang);
-    if (lang === 'en') { await expect(appTopPage.settingsBtn).toHaveTextContaining('Account settings'); }
-    else { await expect(appTopPage.settingsBtn).toHaveTextContaining('Paramètres du compte'); }
+    if (lang === 'en') { await expect(appTopPage.settingsBtn).toHaveText(expect.stringContaining('Account settings')); }
+    else { await expect(appTopPage.settingsBtn).toHaveText(expect.stringContaining('Paramètres du compte')); }
 }
 
 async function settingsBtnDoesNotExist(theme, lang){
@@ -608,26 +608,26 @@ async function settingsBtnDoesNotExist(theme, lang){
 
 async function signinBtnExists(lang){
     await appTopPage.open('gcweb', lang);
-    if (lang === 'en') { await expect(appTopPage.signinBtn).toHaveTextContaining('Sign in'); }
-    else { await expect(appTopPage.signinBtn).toHaveTextContaining('Ouvrir une session'); }
+    if (lang === 'en') { await expect(appTopPage.signinBtn).toHaveText(expect.stringContaining('Sign in')); }
+    else { await expect(appTopPage.signinBtn).toHaveText(expect.stringContaining('Ouvrir une session')); }
 }
 
 async function signOutBtnExists(lang){
     await appTopPage.open('gcweb', lang, 'signOut');
-    if (lang === 'en') { await expect(appTopPage.signOutBtn).toHaveTextContaining('Sign out'); }
-    else { await expect(appTopPage.signOutBtn).toHaveTextContaining('Fermer la session'); }
+    if (lang === 'en') { await expect(appTopPage.signOutBtn).toHaveText(expect.stringContaining('Sign out')); }
+    else { await expect(appTopPage.signOutBtn).toHaveText(expect.stringContaining('Fermer la session')); }
 }
 
 async function signinBtnExistsIntranet(lang){
     await appTopPage.open('gcintranet', lang);
-    if (lang === 'en') { await expect(appTopPage.signOffBtnIntranet).toHaveTextContaining('Sign in'); }
-    else { await expect(appTopPage.signOffBtnIntranet).toHaveTextContaining('Connexion'); }
+    if (lang === 'en') { await expect(appTopPage.signOffBtnIntranet).toHaveText(expect.stringContaining('Sign in')); }
+    else { await expect(appTopPage.signOffBtnIntranet).toHaveText(expect.stringContaining('Connexion')); }
 }
 
 async function signOutBtnExistsIntranet(lang){
     await appTopPage.open('gcintranet', lang, 'signOut');
-    if (lang === 'en') { await expect(appTopPage.signOffBtnIntranet).toHaveTextContaining('Sign out'); }
-    else { await expect(appTopPage.signOffBtnIntranet).toHaveTextContaining('Déconnexion'); }
+    if (lang === 'en') { await expect(appTopPage.signOffBtnIntranet).toHaveText(expect.stringContaining('Sign out')); }
+    else { await expect(appTopPage.signOffBtnIntranet).toHaveText(expect.stringContaining('Déconnexion')); }
 }
 
 async function signinBtnDoesNotExist(theme, lang){
@@ -641,13 +641,13 @@ async function menuExists(theme, lang){
     await expect(appTopPage.menuLinks).toExist();
     await expect(appTopPage.menuLink1).toExist();
     await expect(appTopPage.menuLink2).toExist();
-    await expect(appTopPage.menuLink2).toHaveAttributeContaining('target', '_blank');
+    await expect(appTopPage.menuLink2).toHaveAttribute('target', expect.stringContaining('_blank'));
     await expect(appTopPage.menuLink2Abbr).not.toExist();
     await expect(appTopPage.menuSubLink).toExist();
-    await expect(appTopPage.menuSubLink).toHaveAttributeContaining('target', '_blank');
+    await expect(appTopPage.menuSubLink).toHaveAttribute('target', expect.stringContaining('_blank'));
     await expect(appTopPage.menuSubLink1Abbr).not.toExist();
-    await expect(appTopPage.menuSubLink2).toHaveAttributeContaining('title', 'Test acronym');
-    await expect(appTopPage.menuLink3).toHaveAttributeContaining('title', 'Test acronym');
+    await expect(appTopPage.menuSubLink2).toHaveAttribute('title', expect.stringContaining('Test acronym'));
+    await expect(appTopPage.menuLink3).toHaveAttribute('title', expect.stringContaining('Test acronym'));
 }
 
 async function menuExistsUsingPath(theme, lang){
@@ -665,12 +665,12 @@ async function menuDoesNotExist(theme, lang){
 
 async function breadcrumbsExist(theme){
     await appTopPage.open(theme, 'en');
-    await expect(appTopPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
+    await expect(appTopPage.cdtsBreadCrumb).toHaveText(expect.stringContaining('CDTS'));
 }
 
 async function breadcrumbsExist_FR(theme){
     await appTopPage.open(theme, 'fr');
-    await expect(appTopPage.cdtsBreadCrumb).toHaveTextContaining('SGDC');
+    await expect(appTopPage.cdtsBreadCrumb).toHaveText(expect.stringContaining('SGDC'));
 }
 
 async function breadcrumbsDoNotExist(theme, lang){
@@ -681,32 +681,32 @@ async function breadcrumbsDoNotExist(theme, lang){
 async function langLinksExist(theme){
     await appTopPage.open(theme, 'en');
     if (theme === 'gcweb') {
-        await expect(appTopPage.langLinkText).toHaveTextContaining('Français');
+        await expect(appTopPage.langLinkText).toHaveText(expect.stringContaining('Français'));
         const langLink = await appTopPage.langLink;
         await langLink.click();
     }
     else {
-        await expect(appTopPage.langLinkTextIntranet).toHaveTextContaining('Français');
-        await expect(topPage.wbLang).toHaveElementClassContaining('lang-no-search')
+        await expect(appTopPage.langLinkTextIntranet).toHaveText(expect.stringContaining('Français'));
+        await expect(topPage.wbLang).toHaveElementClass(expect.stringContaining('lang-no-search'));
         const langLink = await appTopPage.langLinkTextIntranet;
         await langLink.click();
     }
-    await expect(browser).toHaveUrlContaining('-fr');
+    await expect(browser).toHaveUrl(expect.stringContaining('-fr'));
 }
 
 async function langLinksExist_FR(theme){
     await appTopPage.open(theme, 'fr');
     if (theme === 'gcweb') {
-        expect(appTopPage.langLinkText).toHaveTextContaining('English');
+        expect(appTopPage.langLinkText).toHaveText(expect.stringContaining('English'));
         const langLink = await appTopPage.langLink;
         await langLink.click();
     }
     else {
-        await expect(appTopPage.langLinkTextIntranet).toHaveTextContaining('English');
+        await expect(appTopPage.langLinkTextIntranet).toHaveText(expect.stringContaining('English'));
         const langLink = await appTopPage.langLinkTextIntranet;
         await langLink.click();
     }
-    await expect(browser).toHaveUrlContaining('-en');
+    await expect(browser).toHaveUrl(expect.stringContaining('-en'));
 }
 
 async function searchExists(theme, lang){
@@ -738,9 +738,9 @@ async function secureIconDoesNotExist(theme, lang){
 
 async function titleCustomized(theme, lang){
     await appTopPage.open(theme, lang, 'customizedTitle');
-    await expect(appTopPage.intranetText).toHaveTextContaining('Bold');
-    await expect(appTopPage.intranetTitle).toHaveTextContaining('CustomTitle');
-    await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Acronym')
+    await expect(appTopPage.intranetText).toHaveText(expect.stringContaining('Bold'));
+    await expect(appTopPage.intranetTitle).toHaveText(expect.stringContaining('CustomTitle'));
+    await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Acronym'));
 }
 
 async function skipLinkExists(theme, lang){
@@ -755,64 +755,64 @@ async function skipSecLinkDoesNotExist(theme, lang, page){
 
 async function validSectionClass(theme, lang){
     await appTopPage.open(theme, lang);
-    await expect(appTopPage.sectionClass).toHaveElementClassContaining('col-sm-7');
+    await expect(appTopPage.sectionClass).toHaveElementClass(expect.stringContaining('col-sm-7'));
 }
 
 async function validSectionClassBtnDoesNotExist(theme, lang){
     await appTopPage.open(theme, lang, 'externalLinkMenu');
-    await expect(appTopPage.sectionClass).not.toHaveElementClassContaining('col-sm-7');
+    await expect(appTopPage.sectionClass).not.toHaveElementClass(expect.stringContaining('col-sm-7'));
 }
 
 async function testAppName(theme, lang){
     await appTopPage.open(theme, lang);
-    if (lang == 'en'){ await expect(appTopPage.appNameH2).toHaveTextContaining('Name of Web application'); }
-    else { await expect(appTopPage.appNameH2).toHaveTextContaining('Nom de l\'application Web'); }
-    await expect(appTopPage.appNameAnchor).toHaveTextContaining('Application name');
+    if (lang == 'en'){ await expect(appTopPage.appNameH2).toHaveText(expect.stringContaining('Name of Web application')); }
+    else { await expect(appTopPage.appNameH2).toHaveText(expect.stringContaining('Nom de l\'application Web')); }
+    await expect(appTopPage.appNameAnchor).toHaveText(expect.stringContaining('Application name'));
 }
 
 async function customSearchExists(theme, lang){
     if (theme == 'gcweb') {
         await appTopPage.open(theme, lang);
-        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search Canada.ca');
+        await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Search Canada.ca'));
     }
     else {
         await appTopPage.open(theme, lang, 'signOut');
-        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search');
+        await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Search'));
     }
     await expect(topPage.customSearch).toExist();
-    await expect(topPage.customSearchLabel).toHaveTextContaining('Search Canada.ca');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('name', 'customName');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Search Canada.ca');
-    await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('name', 'cdn');
-    await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('value', 'canada');
+    await expect(topPage.customSearchLabel).toHaveText(expect.stringContaining('Search Canada.ca'));
+    await expect(topPage.customSearchInput).toHaveAttribute('name', expect.stringContaining('customName'));
+    await expect(topPage.customSearchInput).toHaveAttribute('placeholder', expect.stringContaining('Search Canada.ca'));
+    await expect(topPage.customSearchHiddenInput).toHaveAttribute('name', expect.stringContaining('cdn'));
+    await expect(topPage.customSearchHiddenInput).toHaveAttribute('value', expect.stringContaining('canada'));
     await expect(topPage.customSearchBtn).toExist();
 }
 
 async function customSearchExists_FR(theme, lang){
     if (theme == 'gcweb') {
         await appTopPage.open(theme, lang);
-        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Rechercher Canada.ca');
+        await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Rechercher Canada.ca'));
     }
     else {
         await appTopPage.open(theme, lang, 'signOut');
-        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Recherche');
+        await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Recherche'));
     }
     await expect(topPage.customSearch).toExist();
-    await expect(topPage.customSearchLabel).toHaveTextContaining('Rechercher Canada.ca');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('name', 'customName');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Rechercher Canada.ca');
-    await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('name', 'cdn');
-    await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('value', 'canada');
+    await expect(topPage.customSearchLabel).toHaveText(expect.stringContaining('Rechercher Canada.ca'));
+    await expect(topPage.customSearchInput).toHaveAttribute('name', expect.stringContaining('customName'));
+    await expect(topPage.customSearchInput).toHaveAttribute('placeholder', expect.stringContaining('Rechercher Canada.ca'));
+    await expect(topPage.customSearchHiddenInput).toHaveAttribute('name', expect.stringContaining('cdn'));
+    await expect(topPage.customSearchHiddenInput).toHaveAttribute('value', expect.stringContaining('canada'));
     await expect(topPage.customSearchBtn).toExist();
 }
 
 async function customSearchDefaultValues(theme, lang){
     if (theme == 'gcweb') { await appTopPage.open(theme, lang, 'externalLinkMenu'); }
     else { await appTopPage.open(theme, lang, 'customSearchDefault'); }
-    await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search');
-    await expect(topPage.customSearchLabel).toHaveTextContaining('Search');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('name', 'q');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Search');
+    await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Search'));
+    await expect(topPage.customSearchLabel).toHaveText(expect.stringContaining('Search'));
+    await expect(topPage.customSearchInput).toHaveAttribute('name', expect.stringContaining('q'));
+    await expect(topPage.customSearchInput).toHaveAttribute('placeholder', expect.stringContaining('Search'));
     if (theme != 'gcweb') {
         await expect(topPage.customSearchHiddenInput).toExist(); //default hidden inputs should be generated
     }
@@ -825,10 +825,10 @@ async function customSearchDefaultValues_FR(theme, lang){
     else {
         await appTopPage.open(theme, lang, 'customSearchDefault');
     }
-    await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Recherche');
-    await expect(topPage.customSearchLabel).toHaveTextContaining('Recherche');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('name', 'q');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Recherche');
+    await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Recherche'));
+    await expect(topPage.customSearchLabel).toHaveText(expect.stringContaining('Recherche'));
+    await expect(topPage.customSearchInput).toHaveAttribute('name', expect.stringContaining('q'));
+    await expect(topPage.customSearchInput).toHaveAttribute('placeholder', expect.stringContaining('Recherche'));
     if (theme != 'gcweb') {
         await expect(topPage.customSearchHiddenInput).toExist(); //default hidden inputs should be generated
     }
@@ -836,30 +836,30 @@ async function customSearchDefaultValues_FR(theme, lang){
 
 async function sectionClass(theme, lang) {
     await appTopPage.open(theme, lang);
-    await expect(topPage.sectionClass).toHaveElementClassContaining('col-lg-2 col-md-3 col-sm-9 col-xs-8')
+    await expect(topPage.sectionClass).toHaveElementClass(expect.stringContaining('col-lg-2 col-md-3 col-sm-9 col-xs-8'));
 }
 
 async function sectionClassNoTitle(theme, lang) {
     await appTopPage.open(theme, lang, 'customizedTitle');
-    await expect(topPage.sectionClass).toHaveElementClassContaining('col-lg-6 col-md-6 col-sm-9 col-xs-8')
+    await expect(topPage.sectionClass).toHaveElementClass(expect.stringContaining('col-lg-6 col-md-6 col-sm-9 col-xs-8'));
 }
 
 async function titleNotCustomized(theme, lang){
     await basicPage.open(theme, lang);
-    await expect(basicPage.intranetText).toHaveTextContaining('GC');
-    await expect(basicPage.intranetTitle).toHaveTextContaining('GC intranet');
-    await expect(basicPage.intranetTitle).toHaveHrefContaining('https://intranet.canada.ca/index');
+    await expect(basicPage.intranetText).toHaveText(expect.stringContaining('GC'));
+    await expect(basicPage.intranetTitle).toHaveText(expect.stringContaining('GC intranet'));
+    await expect(basicPage.intranetTitle).toHaveHref(expect.stringContaining('https://intranet.canada.ca/index'));
     await expect(appTopPage.intranetTitleAbbr).not.toExist();
 }
 
 async function gcToolsSectionClass(theme, lang) {
     await appTopPage.open(theme, lang, 'externalLinkMenu');
-    await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-6 col-md-1 hidden-sm hidden-xs text-right')
+    await expect(topPage.gcToolsSection).toHaveElementClass(expect.stringContaining('col-lg-6 col-md-1 hidden-sm hidden-xs text-right'));
 }
 
 async function gcToolsSectionClassSearchFalse(theme, lang) {
     await appTopPage.open(theme, lang, 'customizedTitle');
-    await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right')
+    await expect(topPage.gcToolsSection).toHaveElementClass(expect.stringContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right'));
 }
 
 async function wbGCTools(theme, lang) {
@@ -869,52 +869,52 @@ async function wbGCTools(theme, lang) {
 
 async function langWithSearchClass(theme, lang) {
     await appTopPage.open(theme, lang, 'langWithSearch');
-    await expect(topPage.wbLang).toHaveElementClassContaining('lang-with-search');
+    await expect(topPage.wbLang).toHaveElementClass(expect.stringContaining('lang-with-search'));
 }
 
 async function langSearchClass(theme, lang) {
     await appTopPage.open(theme, lang, 'externalLinkMenu');
-    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
-    await expect(topPage.wbLang).not.toHaveElementClassContaining('mrgn-bttm-md');
+    await expect(topPage.wbLang).not.toHaveElementClass(expect.stringContaining('lang-with-search'));
+    await expect(topPage.wbLang).not.toHaveElementClass(expect.stringContaining('mrgn-bttm-md'));
 }
 
 async function langSearchTitleClass(theme, lang) {
     await appTopPage.open(theme, lang, 'signOut');
-    await expect(topPage.wbLang).toHaveElementClassContaining('mrgn-bttm-md col-md-offset-1 col-lg-offset-2 col-md-1 hidden-sm hidden-xs text-right');
+    await expect(topPage.wbLang).toHaveElementClass(expect.stringContaining('mrgn-bttm-md col-md-offset-1 col-lg-offset-2 col-md-1 hidden-sm hidden-xs text-right'));
 }
 
 async function gcAppBannerClass(theme, lang) {
     await appTopPage.open(theme, lang);
-    await expect(appTopPage.gcAppBannerClass).toHaveElementClassContaining('gc-intra-br');
+    await expect(appTopPage.gcAppBannerClass).toHaveElementClass(expect.stringContaining('gc-intra-br'));
 }
 
 async function gcAppBannerSubthemeClass(theme, lang) {
     await appTopPage.open(theme, lang, 'esdcPreConfigured');
-    await expect(appTopPage.gcAppBannerClass).toHaveElementClassContaining('gc-app-br');
-    await expect(appTopPage.gcAppBannerSTTL).toHaveElementClassContaining('col-md-10');
+    await expect(appTopPage.gcAppBannerClass).toHaveElementClass(expect.stringContaining('gc-app-br'));
+    await expect(appTopPage.gcAppBannerSTTL).toHaveElementClass(expect.stringContaining('col-md-10'));
 }
 
 async function gcAppBannerSTTLClass(theme, lang) {
     await basicPage.open(theme, lang, 'app');
-    await expect(appTopPage.gcAppBannerSTTL).toHaveElementClassContaining('col-md-12');
+    await expect(appTopPage.gcAppBannerSTTL).toHaveElementClass(expect.stringContaining('col-md-12'));
 }
 
 async function testAppNameIntranet(theme, lang){
     await appTopPage.open(theme, lang);
-    await expect(appTopPage.appNameIntranet).toHaveTextContaining('Application Name');
+    await expect(appTopPage.appNameIntranet).toHaveText(expect.stringContaining('Application Name'));
 }
 
 async function testAppNameAbbrIntranet(theme, lang){
     await appTopPage.open(theme, lang, 'externalLinkMenu');
-    await expect(appTopPage.appNameAbbrIntranet).toHaveAttributeContaining('title', 'Acronym')
+    await expect(appTopPage.appNameAbbrIntranet).toHaveAttribute('title', expect.stringContaining('Acronym'));
 }
 
 async function gcToolsLinksStandard(theme, lang){
     await basicPage.open(theme, lang, 'app');
-    await expect(basicPage.gcToolsModalLinks1).toHaveHrefContaining('gcconnex');
-    await expect(basicPage.gcToolsModalLinks2).toHaveHrefContaining('gcpedia');
-    await expect(basicPage.gcToolsModalLinks3).toHaveHrefContaining('gcdirectory');
-    await expect(basicPage.gcToolsModalLinks4).toHaveHrefContaining('gccollab');
+    await expect(basicPage.gcToolsModalLinks1).toHaveHref(expect.stringContaining('gcconnex'));
+    await expect(basicPage.gcToolsModalLinks2).toHaveHref(expect.stringContaining('gcpedia'));
+    await expect(basicPage.gcToolsModalLinks3).toHaveHref(expect.stringContaining('gcdirectory'));
+    await expect(basicPage.gcToolsModalLinks4).toHaveHref(expect.stringContaining('gccollab'));
 }
 
 async function defaultMenu(theme, lang){
@@ -924,37 +924,37 @@ async function defaultMenu(theme, lang){
 
 async function subThemeESDCPreConfigured(theme, lang) {
     await appTopPage.open(theme, lang, 'esdcPreConfigured');
-    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
-    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    await expect(topPage.intranetTitle).toHaveText(expect.stringContaining('Intranet'));
+    await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx'));
     await expect(topPage.gcToolsLink).toExist();
     if (lang == 'en') {
-        await expect(topPage.intranetText).toHaveTextContaining('ESDC/SC');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('ESDC/SC'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Employment and Social Development Canada'));
     } else {
-        await expect(topPage.intranetText).toHaveTextContaining('EDSC/SC');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('EDSC/SC'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Emploi et Développement social Canada'));
     }
 }
 
 async function subThemeECCCPreConfigured(theme, lang) {
     await appTopPage.open(theme, lang, 'ecccPreConfigured');
-    await expect(topPage.intranetText).toHaveTextContaining('ECCC');
-    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
-    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.ec.gc.ca/default.asp');
+    await expect(topPage.intranetText).toHaveText(expect.stringContaining('ECCC'));
+    await expect(topPage.intranetTitle).toHaveText(expect.stringContaining('Intranet'));
+    await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://intranet.ec.gc.ca/default.asp'));
     await expect(topPage.gcToolsLink).toExist();
 }
 
 async function subThemeLabourPreConfigured(theme, lang) {
     await appTopPage.open(theme, lang, 'labourPreConfigured');
-    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
-    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    await expect(topPage.intranetTitle).toHaveText(expect.stringContaining('Intranet'));
+    await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx'));
     await expect(topPage.gcToolsLink).toExist();
     if (lang == 'en') {
-        await expect(topPage.intranetText).toHaveTextContaining('Labour Program');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('Labour Program'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Employment and Social Development Canada'));
     } else {
-        await expect(topPage.intranetText).toHaveTextContaining('Programme du travail');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('Programme du travail'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Emploi et Développement social Canada'));
     }
 }
 
@@ -969,11 +969,11 @@ async function bannerTrue(theme, lang) {
 async function bannerAllConfigurations(theme, lang) {
     await appTopPage.open(theme, lang, 'banner');
     await expect(appTopPage.banner).toExist();
-    await expect(appTopPage.bannerText).toHaveTextContaining('We\'ve made some changes to improve your experience with My Service Canada Account');
-    await expect(appTopPage.bannerLink).toHaveTextContaining('Learn more about the beta version');
-    await expect(appTopPage.bannerLink).toHaveHref('https://www.google.ca/');
-    await expect(appTopPage.bannerButton).toHaveTextContaining('Try beta version');
-    await expect(appTopPage.bannerButton).toHaveHref('https://www.google.ca/');
+    await expect(appTopPage.bannerText).toHaveText(expect.stringContaining('We\'ve made some changes to improve your experience with My Service Canada Account'));
+    await expect(appTopPage.bannerLink).toHaveText(expect.stringContaining('Learn more about the beta version'));
+    await expect(appTopPage.bannerLink).toHaveHref(expect.stringContaining('https://www.google.ca/'));
+    await expect(appTopPage.bannerButton).toHaveText(expect.stringContaining('Try beta version'));
+    await expect(appTopPage.bannerButton).toHaveHref(expect.stringContaining('https://www.google.ca/'));
 }
 
 async function headerMenu(theme, lang) {

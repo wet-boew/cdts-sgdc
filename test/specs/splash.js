@@ -72,28 +72,28 @@ describe('Splash page tests for GCIntranet', () => {
 
 async function btnLinks(theme){
     await splashPage.open(theme);
-    await expect(splashPage.enBtnLink).toHaveHrefContaining('canada.ca/en');
-    await expect(splashPage.frBtnLink).toHaveHrefContaining('canada.ca/fr');
+    await expect(splashPage.enBtnLink).toHaveHref(expect.stringContaining('canada.ca/en'));
+    await expect(splashPage.frBtnLink).toHaveHref(expect.stringContaining('canada.ca/fr'));
 }
 
 async function termLinks(theme){
     await splashPage.open(theme);
-    await expect(splashPage.enTermLink).toHaveHrefContaining('terms.html');
-    await expect(splashPage.frTermLink).toHaveHrefContaining('avis.html');
+    await expect(splashPage.enTermLink).toHaveHref(expect.stringContaining('terms.html'));
+    await expect(splashPage.frTermLink).toHaveHref(expect.stringContaining('avis.html'));
 }
 
 async function bodyContent(theme){
     await splashPage.open(theme);
-    await expect(splashPage.enContent).toHaveTextContaining('Shrink your window');
-    await expect(splashPage.frContent).toHaveTextContaining('Rapetisser votre');
+    await expect(splashPage.enContent).toHaveText(expect.stringContaining('Shrink your window'));
+    await expect(splashPage.frContent).toHaveText(expect.stringContaining('Rapetisser votre'));
 }
 
 async function noContent(theme){
     await splashPage.open(theme, 'noText');
-    await expect(splashPage.enContent).toHaveAttributeContaining('class', 'wb-inv');
-    await expect(splashPage.enContent).toHaveTextContaining('Government of Canada');
-    await expect(splashPage.frContent).toHaveAttributeContaining('class', 'wb-inv');
-    await expect(splashPage.frContent).toHaveTextContaining('Gouvernement du Canada');
+    await expect(splashPage.enContent).toHaveAttribute('class', expect.stringContaining('wb-inv'));
+    await expect(splashPage.enContent).toHaveText(expect.stringContaining('Government of Canada'));
+    await expect(splashPage.frContent).toHaveAttribute('class', expect.stringContaining('wb-inv'));
+    await expect(splashPage.frContent).toHaveText(expect.stringContaining('Gouvernement du Canada'));
 }
 
 async function accessibility(theme) {

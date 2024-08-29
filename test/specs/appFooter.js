@@ -303,48 +303,48 @@ describe('AppFooter section tests for GCIntranet', () => {
 async function footerLinks(theme, lang){
     await appFooterPage.open(theme, lang);
     await expect(appFooterPage.footerGCWeb).toExist();
-    await expect(appFooterPage.footerLinkGCWeb).toHaveTextContaining('Portal footer link 1');
-    await expect(appFooterPage.footerLinkGCWeb).not.toHaveAttributeContaining('target', '_blank'); //first link should not have attribute
-    await expect(appFooterPage.footerLinkNewWin).toHaveAttributeContaining('target', '_blank'); //only third link should have the attribute
-    if (lang == 'en') { await expect(appFooterPage.footerLinkNewWinSpan).toHaveTextContaining('This link will open in a new window'); }
-    else { await expect(appFooterPage.footerLinkNewWinSpan).toHaveTextContaining('Ce lien ouvrira dans une nouvelle fenêtre'); }
-    await expect(appFooterPage.footerTitle).toHaveTextContaining('Title');
+    await expect(appFooterPage.footerLinkGCWeb).toHaveText(expect.stringContaining('Portal footer link 1'));
+    await expect(appFooterPage.footerLinkGCWeb).not.toHaveAttribute('target', expect.stringContaining('_blank')); //first link should not have attribute
+    await expect(appFooterPage.footerLinkNewWin).toHaveAttribute('target', expect.stringContaining('_blank')); //only third link should have the attribute
+    if (lang == 'en') { await expect(appFooterPage.footerLinkNewWinSpan).toHaveText(expect.stringContaining('This link will open in a new window')); }
+    else { await expect(appFooterPage.footerLinkNewWinSpan).toHaveText(expect.stringContaining('Ce lien ouvrira dans une nouvelle fenêtre')); }
+    await expect(appFooterPage.footerTitle).toHaveText(expect.stringContaining('Title'));
 }
 
 async function footerLinksIntranet(theme, lang){
     await appFooterPage.open(theme, lang);
     await expect(appFooterPage.footer).toExist();
-    await expect(appFooterPage.footerLink).toHaveTextContaining('Portal footer link 1');
-    await expect(appFooterPage.footerLink).not.toHaveAttributeContaining('target', '_blank'); //first link should not have attribute
-    await expect(appFooterPage.footerLinkNewWinIntranet).toHaveAttributeContaining('target', '_blank');
+    await expect(appFooterPage.footerLink).toHaveText(expect.stringContaining('Portal footer link 1'));
+    await expect(appFooterPage.footerLink).not.toHaveAttribute('target', expect.stringContaining('_blank')); //first link should not have attribute
+    await expect(appFooterPage.footerLinkNewWinIntranet).toHaveAttribute('target', expect.stringContaining('_blank'));
     await expect(appFooterPage.footerSectionName).toExist();
-    if (lang == 'en') { await expect(appFooterPage.footerLinkNewWinSpanIntranet).toHaveTextContaining('This link will open in a new window'); }
-    else { await expect(appFooterPage.footerLinkNewWinSpanIntranet).toHaveTextContaining('Ce lien ouvrira dans une nouvelle fenêtre'); }
+    if (lang == 'en') { await expect(appFooterPage.footerLinkNewWinSpanIntranet).toHaveText(expect.stringContaining('This link will open in a new window')); }
+    else { await expect(appFooterPage.footerLinkNewWinSpanIntranet).toHaveText(expect.stringContaining('Ce lien ouvrira dans une nouvelle fenêtre')); }
 }
 
 async function footerLinksGlobal(theme, lang){
     await appFooterPage.open(theme, lang, 'global');
     await expect(appFooterPage.footer).toExist();
-    if (lang === 'en') { await expect(appFooterPage.footerLink).toHaveTextContaining('News'); }
-    else { await expect(appFooterPage.footerLink).toHaveTextContaining('Nouvelles'); }
+    if (lang === 'en') { await expect(appFooterPage.footerLink).toHaveText(expect.stringContaining('News')); }
+    else { await expect(appFooterPage.footerLink).toHaveText(expect.stringContaining('Nouvelles')); }
 }
 
 async function footerBrandLinks(theme, lang){
     await appFooterPage.open(theme, lang);
-    await expect(appFooterPage.contactLink).toHaveHrefContaining('contactLinksTest');
-    await expect(appFooterPage.contactLink).toHaveAttributeContaining('target', '_blank');
-    await expect(appFooterPage.termsLink).toHaveHrefContaining('termsLinkTest');
-    await expect(appFooterPage.termsLink).toHaveAttributeContaining('target', '_blank');
-    await expect(appFooterPage.privacyLink).toHaveHrefContaining('privacyLinkTest');
-    await expect(appFooterPage.privacyLink).toHaveAttributeContaining('target', '_blank');
+    await expect(appFooterPage.contactLink).toHaveHref(expect.stringContaining('contactLinksTest'));
+    await expect(appFooterPage.contactLink).toHaveAttribute('target', expect.stringContaining('_blank'));
+    await expect(appFooterPage.termsLink).toHaveHref(expect.stringContaining('termsLinkTest'));
+    await expect(appFooterPage.termsLink).toHaveAttribute('target', expect.stringContaining('_blank'));
+    await expect(appFooterPage.privacyLink).toHaveHref(expect.stringContaining('privacyLinkTest'));
+    await expect(appFooterPage.privacyLink).toHaveAttribute('target', expect.stringContaining('_blank'));
 }
 
 async function footerBrandLinksDoNotOpenNewWin(theme, lang, page){
     await appFooterPage.open(theme, lang, page);
-    await expect(appFooterPage.contactLink).not.toHaveAttributeContaining('target', '_blank');
-    await expect(appFooterPage.termsLink).not.toHaveAttributeContaining('target', '_blank');
-    await expect(appFooterPage.privacyLink).not.toHaveAttributeContaining('target', '_blank');
-    await expect(appFooterPage.footerLinkNewWin).not.toHaveAttributeContaining('target', '_blank');
+    await expect(appFooterPage.contactLink).not.toHaveAttribute('target', expect.stringContaining('_blank'));
+    await expect(appFooterPage.termsLink).not.toHaveAttribute('target', expect.stringContaining('_blank'));
+    await expect(appFooterPage.privacyLink).not.toHaveAttribute('target', expect.stringContaining('_blank'));
+    await expect(appFooterPage.footerLinkNewWin).not.toHaveAttribute('target', expect.stringContaining('_blank'));
 }
 
 async function footerLinksNotExist(theme, lang){
@@ -356,48 +356,48 @@ async function footerDefaultBrandLinks(theme, lang){
     await basicPage.open(theme, lang, 'app');
     await expect(appFooterPage.contactLink).not.toExist();
     if (lang === 'en'){
-        await expect(appFooterPage.termsLink).toHaveHrefContaining('terms.html');
-        await expect(appFooterPage.privacyLink).toHaveHrefContaining('privacy.html');
+        await expect(appFooterPage.termsLink).toHaveHref(expect.stringContaining('terms.html'));
+        await expect(appFooterPage.privacyLink).toHaveHref(expect.stringContaining('privacy.html'));
     } else{
-        await expect(appFooterPage.termsLink).toHaveHrefContaining('avis.html');
-        await expect(appFooterPage.privacyLink).toHaveHrefContaining('confidentialite.html');
+        await expect(appFooterPage.termsLink).toHaveHref(expect.stringContaining('avis.html'));
+        await expect(appFooterPage.privacyLink).toHaveHref(expect.stringContaining('confidentialite.html'));
     }
 }
 
 async function footerSubTheme(theme, lang, page){
     await appFooterPage.open(theme, lang, page);
-    await expect(appFooterPage.footer).toHaveAttributeContaining('data-wb-ajax', 'global/esdcfooter')
+    await expect(appFooterPage.footer).toHaveAttribute('data-wb-ajax', expect.stringContaining('global/esdcfooter'));
 }
 
 async function footerShowFeatures(theme, lang){
     await appFooterPage.open(theme, lang);
-    if (lang =='en') { await expect(footerPage.footerFeatures).toHaveTextContaining('Activities and initiatives'); }
-    else { await expect(footerPage.footerFeatures).toHaveTextContaining('Activités et initiatives'); }
+    if (lang =='en') { await expect(footerPage.footerFeatures).toHaveText(expect.stringContaining('Activities and initiatives')); }
+    else { await expect(footerPage.footerFeatures).toHaveText(expect.stringContaining('Activités et initiatives')); }
 }
 
 async function customFooterLinks(theme, lang){
     await appFooterPage.open(theme, lang, 'customFooterLinks');
     await expect(appFooterPage.customFooterLinkClass).toExist();
-    await expect(appFooterPage.customFooterLinkText).toHaveTextContaining('Custom Section 1');
-    await expect(appFooterPage.customFooterLink).toHaveAttributeContaining('target', '_blank');
+    await expect(appFooterPage.customFooterLinkText).toHaveText(expect.stringContaining('Custom Section 1'));
+    await expect(appFooterPage.customFooterLink).toHaveAttribute('target', expect.stringContaining('_blank'));
 }
 
 async function customFooterLinksSubTheme(theme, lang, page){
     await appFooterPage.open(theme, lang, page);
     await expect(appFooterPage.customFooterLinkClass).toExist();
-    await expect(appFooterPage.customFooterLinkText).toHaveTextContaining('Custom Section 1');
-    await expect(appFooterPage.customFooterLink).toHaveAttributeContaining('target', '_blank');
-    if (lang == 'en') { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Corporate'); }
-    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Ministère'); }
+    await expect(appFooterPage.customFooterLinkText).toHaveText(expect.stringContaining('Custom Section 1'));
+    await expect(appFooterPage.customFooterLink).toHaveAttribute('target', expect.stringContaining('_blank'));
+    if (lang == 'en') { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveText(expect.stringContaining('Corporate')); }
+    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveText(expect.stringContaining('Ministère')); }
 }
 
 async function customFooterLinksECCC(theme, lang){
     await appFooterPage.open(theme, lang, 'ecccCustomFooterLinks');
     await expect(appFooterPage.customFooterLinkClass).toExist();
-    await expect(appFooterPage.customFooterLinkText).toHaveTextContaining('Custom Section 1');
-    await expect(appFooterPage.customFooterLink).toHaveAttributeContaining('target', '_blank');
-    if (lang == 'en') { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Contact Us'); }
-    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveTextContaining('Communiquez avec nous'); }
+    await expect(appFooterPage.customFooterLinkText).toHaveText(expect.stringContaining('Custom Section 1'));
+    await expect(appFooterPage.customFooterLink).toHaveAttribute('target', expect.stringContaining('_blank'));
+    if (lang == 'en') { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveText(expect.stringContaining('Contact Us')); }
+    else { await expect(appFooterPage.customFooterLinkTextSubTheme).toHaveText(expect.stringContaining('Communiquez avec nous')); }
 }
 
 async function cssScript(theme, lang, page){
@@ -412,7 +412,7 @@ async function cssScriptECCC(theme, lang){
 
 async function footerContactLink(theme, lang){
     await appFooterPage.open(theme, lang, 'contactLink');
-    await expect(appFooterPage.contactLink).toHaveHrefContaining('contactLinksTest');
+    await expect(appFooterPage.contactLink).toHaveHref(expect.stringContaining('contactLinksTest'));
 }
 
 async function accessibility(theme, lang) {

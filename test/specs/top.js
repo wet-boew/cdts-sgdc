@@ -511,17 +511,17 @@ describe('Top section tests for GCIntranet', () => {
 
 async function breadcrumbsExist(theme) {
     await topPage.open(theme, 'en');
-    if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
-    if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
-    await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
+    if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveText(expect.stringContaining('CDTS'));
+    if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttribute('title', expect.stringContaining('Canada.ca'));
+    await expect(topPage.cdtsBreadCrumb).toHaveAttribute('title', expect.stringContaining('Centrally Deployed Templates Solution'));
     await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html');
 }
 
 async function breadcrumbsExist_FR(theme) {
     await topPage.open(theme, 'fr');
-    if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
-    if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Canada.ca');
-    await expect(topPage.cdtsBreadCrumb).toHaveAttributeContaining('title', 'Centrally Deployed Templates Solution');
+    if (theme == 'gcweb') await expect(topPage.cdtsBreadCrumb).toHaveText(expect.stringContaining('CDTS'));
+    if (theme == 'gcintranet') await expect(topPage.canBreadCrumbAbbr).toHaveAttribute('title', expect.stringContaining('Canada.ca'));
+    await expect(topPage.cdtsBreadCrumb).toHaveAttribute('title', expect.stringContaining('Centrally Deployed Templates Solution'));
     await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html');
 }
 
@@ -538,7 +538,7 @@ async function breadcrumbsDoNotExist(theme, lang) {
 
 async function breadcrumbHref(theme, lang) {
     await topPage.open(theme, lang, 'customSearchDefault');
-    await expect(topPage.canBreadCrumbAbbr).toHaveAttributeContaining('title', 'Test Canada.ca');
+    await expect(topPage.canBreadCrumbAbbr).toHaveAttribute('title', expect.stringContaining('Test Canada.ca'));
     if (lang == 'en') { await expect(basicPage.canBreadCrumb).toHaveHref('http://www.canada.ca') }
     else { await expect(basicPage.canBreadCrumb).toHaveHref('http://www.canada.ca') }
 }
@@ -547,61 +547,61 @@ async function defaultBreadcrumb(theme, lang) {
     await topPage.open(theme, lang);
     if (lang == 'en') { await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/en.html'); }
     else { await expect(topPage.canBreadCrumb).toHaveHref('https://www.canada.ca/fr.html'); }
-    await expect(topPage.cdtsBreadCrumb).toHaveTextContaining('CDTS');
+    await expect(topPage.cdtsBreadCrumb).toHaveText(expect.stringContaining('CDTS'));
 }
 
 async function defaultBreadcrumbIntranet(theme, lang) {
     await basicPage.open(theme, lang);
     if (lang == 'en') {
         await expect(topPage.canBreadCrumb).toHaveHref('https://intranet.canada.ca/index-eng.asp');
-        await expect(topPage.canBreadCrumb).toHaveTextContaining('Home');
+        await expect(topPage.canBreadCrumb).toHaveText(expect.stringContaining('Home'));
     }
     else {
         await expect(topPage.canBreadCrumb).toHaveHref('https://intranet.canada.ca/index-fra.asp');
-        await expect(topPage.canBreadCrumb).toHaveTextContaining('Accueil');
+        await expect(topPage.canBreadCrumb).toHaveText(expect.stringContaining('Accueil'));
     }
 }
 
 async function escapedTextAllowsHTMLEntities(theme) {
     await topPage.open(theme, 'en');
     if (theme === "gcweb") {
-        await expect(topPage.langLinkText).toHaveTextContaining('Français');
+        await expect(topPage.langLinkText).toHaveText(expect.stringContaining('Français'));
     }
     else {
-        await expect(topPage.langLinkTextIntranet).toHaveTextContaining('Français');
+        await expect(topPage.langLinkTextIntranet).toHaveText(expect.stringContaining('Français'));
     }
 }
 
 async function langLinksExist(theme) {
     await topPage.open(theme, 'en');
     if (theme === "gcweb") {
-        await expect(topPage.langLinkText).toHaveTextContaining('Français');
+        await expect(topPage.langLinkText).toHaveText(expect.stringContaining('Français'));
         const langLink = await topPage.langLink;
         await langLink.click();
     }
     else {
-        await expect(topPage.langLinkTextIntranet).toHaveTextContaining('Français');
-        await expect(topPage.wbLang).toHaveElementClassContaining('lang-no-search')
+        await expect(topPage.langLinkTextIntranet).toHaveText(expect.stringContaining('Français'));
+        await expect(topPage.wbLang).toHaveElementClass(expect.stringContaining('lang-no-search'));
         const langLink = await topPage.langLinkIntranet;
         await langLink.click();
     }
-    await expect(browser).toHaveUrlContaining('-fr');
+    await expect(browser).toHaveUrl(expect.stringContaining('-fr'));
 }
 
 async function langLinksExist_FR(theme) {
     await topPage.open(theme, 'fr');
     if (theme === "gcweb") {
-        expect(topPage.langLinkText).toHaveTextContaining('English');
+        expect(topPage.langLinkText).toHaveText(expect.stringContaining('English'));
         const langLink = await topPage.langLink;
         await langLink.click();
     }
     else {
-        await expect(topPage.langLinkTextIntranet).toHaveTextContaining('English');
-        await expect(topPage.wbLang).toHaveElementClassContaining('lang-no-search')
+        await expect(topPage.langLinkTextIntranet).toHaveText(expect.stringContaining('English'));
+        await expect(topPage.wbLang).toHaveElementClass(expect.stringContaining('lang-no-search'));
         const langLink = await topPage.langLinkIntranet;
         await langLink.click();
     }
-    await expect(browser).toHaveUrlContaining('-en');
+    await expect(browser).toHaveUrl(expect.stringContaining('-en'));
 }
 
 async function langLinksDoNotExist(theme, lang) {
@@ -611,9 +611,9 @@ async function langLinksDoNotExist(theme, lang) {
 
 async function titleCustomized(theme, lang) {
     await topPage.open(theme, lang);
-    await expect(topPage.intranetText).toHaveTextContaining('Bold');
-    await expect(topPage.intranetTitle).toHaveTextContaining('CustomTitle');
-    await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada')
+    await expect(topPage.intranetText).toHaveText(expect.stringContaining('Bold'));
+    await expect(topPage.intranetTitle).toHaveText(expect.stringContaining('CustomTitle'));
+    await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Employment and Social Development Canada'));
 }
 
 async function gcToolsLinks(theme) {
@@ -622,15 +622,15 @@ async function gcToolsLinks(theme) {
     const gcToolsLink = await topPage.gcToolsLink;
     await gcToolsLink.click();
     await (await topPage.gcToolsModalTitle).waitForExist({ timeout: 3000 })
-    await expect(topPage.gcToolsModalTitle).toHaveTextContaining('GCTools');
-    await expect(topPage.gcToolsModalLink1).toHaveTextContaining('Xchange');
-    await expect(topPage.gcToolsModalLink2).toHaveTextContaining('connex');
-    await expect(topPage.gcToolsModalLink3).toHaveTextContaining('pedia');
-    await expect(topPage.gcToolsModalLink4).toHaveTextContaining('directory');
-    await expect(topPage.gcToolsModalLink5).toHaveTextContaining('collab');
-    await expect(topPage.gcToolsModalLink6).toHaveTextContaining('intranet');    
-    await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
-    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
+    await expect(topPage.gcToolsModalTitle).toHaveText(expect.stringContaining('GCTools'));
+    await expect(topPage.gcToolsModalLink1).toHaveText(expect.stringContaining('Xchange'));
+    await expect(topPage.gcToolsModalLink2).toHaveText(expect.stringContaining('connex'));
+    await expect(topPage.gcToolsModalLink3).toHaveText(expect.stringContaining('pedia'));
+    await expect(topPage.gcToolsModalLink4).toHaveText(expect.stringContaining('directory'));
+    await expect(topPage.gcToolsModalLink5).toHaveText(expect.stringContaining('collab'));
+    await expect(topPage.gcToolsModalLink6).toHaveText(expect.stringContaining('intranet'));    
+    await expect(topPage.gcToolsSection).toHaveElementClass(expect.stringContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right'));
+    await expect(topPage.wbLang).not.toHaveElementClass(expect.stringContaining('lang-with-search'));
 }
 
 async function gcToolsLinks_FR(theme) {
@@ -639,15 +639,15 @@ async function gcToolsLinks_FR(theme) {
     const gcToolsLink = await topPage.gcToolsLink;
     await gcToolsLink.click();
     await (await topPage.gcToolsModalTitle).waitForExist({ timeout: 3000 })
-    await expect(topPage.gcToolsModalTitle).toHaveTextContaining('OutilsGC');
-    await expect(topPage.gcToolsModalLink1).toHaveTextContaining('Échange');
-    await expect(topPage.gcToolsModalLink2).toHaveTextContaining('connex');
-    await expect(topPage.gcToolsModalLink3).toHaveTextContaining('pédia');
-    await expect(topPage.gcToolsModalLink4).toHaveTextContaining('annuaire');
-    await expect(topPage.gcToolsModalLink5).toHaveTextContaining('collab');
-    await expect(topPage.gcToolsModalLink6).toHaveTextContaining('intranet');    
-    await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right');
-    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
+    await expect(topPage.gcToolsModalTitle).toHaveText(expect.stringContaining('OutilsGC'));
+    await expect(topPage.gcToolsModalLink1).toHaveText(expect.stringContaining('Échange'));
+    await expect(topPage.gcToolsModalLink2).toHaveText(expect.stringContaining('connex'));
+    await expect(topPage.gcToolsModalLink3).toHaveText(expect.stringContaining('pédia'));
+    await expect(topPage.gcToolsModalLink4).toHaveText(expect.stringContaining('annuaire'));
+    await expect(topPage.gcToolsModalLink5).toHaveText(expect.stringContaining('collab'));
+    await expect(topPage.gcToolsModalLink6).toHaveText(expect.stringContaining('intranet'));    
+    await expect(topPage.gcToolsSection).toHaveElementClass(expect.stringContaining('col-lg-2 col-md-offset-3 col-md-1 hidden-sm hidden-xs text-right'));
+    await expect(topPage.wbLang).not.toHaveElementClass(expect.stringContaining('lang-with-search'));
 }
 
 async function searchDoesNotExist(theme, lang) {
@@ -658,14 +658,14 @@ async function searchDoesNotExist(theme, lang) {
 async function subThemeESDCMenu(theme, lang) {
     await topPage.open(theme, lang);
     await expect(topPage.intranetMenu).toHaveChildren(7);
-    await expect(topPage.intranetMenu).toHaveTextContaining('This is a test menu!');
+    await expect(topPage.intranetMenu).toHaveText(expect.stringContaining('This is a test menu!'));
 }
 
 async function titleNotCustomized(theme, lang) {
     await basicPage.open(theme, lang);
-    await expect(basicPage.intranetText).toHaveTextContaining('GC');
-    await expect(basicPage.intranetTitle).toHaveTextContaining('GC intranet');
-    await expect(basicPage.intranetTitle).toHaveHrefContaining('https://intranet.canada.ca/index');
+    await expect(basicPage.intranetText).toHaveText(expect.stringContaining('GC'));
+    await expect(basicPage.intranetTitle).toHaveText(expect.stringContaining('GC intranet'));
+    await expect(basicPage.intranetTitle).toHaveHref(expect.stringContaining('https://intranet.canada.ca/index'));
     await expect(topPage.intranetTitleAbbr).not.toExist();
 }
 
@@ -722,47 +722,47 @@ async function menuDoesNotExist(theme, lang, page = '') {
 async function customSearchExists(theme, lang) {
     if (theme == 'gcweb') {
         await topPage.open(theme, lang, 'siteMenuTrue');
-        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search Canada.ca');
+        await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Search Canada.ca'));
     }
     else {
         await topPage.open(theme, lang, 'nomenu');
-        await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search');
+        await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Search'));
     }
     await expect(topPage.customSearch).toExist();
-    await expect(topPage.customSearchLabel).toHaveTextContaining('Search Canada.ca');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('name', 'customName');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Search Canada.ca');
-    await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('name', 'cdn');
-    await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('value', 'canada');
+    await expect(topPage.customSearchLabel).toHaveText(expect.stringContaining('Search Canada.ca'));
+    await expect(topPage.customSearchInput).toHaveAttribute('name', expect.stringContaining('customName'));
+    await expect(topPage.customSearchInput).toHaveAttribute('placeholder', expect.stringContaining('Search Canada.ca'));
+    await expect(topPage.customSearchHiddenInput).toHaveAttribute('name', expect.stringContaining('cdn'));
+    await expect(topPage.customSearchHiddenInput).toHaveAttribute('value', expect.stringContaining('canada'));
     await expect(topPage.customSearchBtn).toExist();
 }
 
 async function customSearchDefaultValues(theme, lang) {
     await topPage.open(theme, lang, 'customSearchDefault');
-    await expect(topPage.customSearchPlaceholder).toHaveTextContaining('Search');
-    await expect(topPage.customSearchLabel).toHaveTextContaining('Search');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('name', 'q');
-    await expect(topPage.customSearchInput).toHaveAttributeContaining('placeholder', 'Search');
+    await expect(topPage.customSearchPlaceholder).toHaveText(expect.stringContaining('Search'));
+    await expect(topPage.customSearchLabel).toHaveText(expect.stringContaining('Search'));
+    await expect(topPage.customSearchInput).toHaveAttribute('name', expect.stringContaining('q'));
+    await expect(topPage.customSearchInput).toHaveAttribute('placeholder', expect.stringContaining('Search'));
     if (theme == 'gcweb') { await expect(topPage.customSearchHiddenInput).not.toExist(); }
     else {
-        await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('name', 'a');
-        await expect(topPage.customSearchHiddenInput).toHaveAttributeContaining('value', 's');
+        await expect(topPage.customSearchHiddenInput).toHaveAttribute('name', expect.stringContaining('a'));
+        await expect(topPage.customSearchHiddenInput).toHaveAttribute('value', expect.stringContaining('s'));
     }
 }
 
 async function sectionClass(theme, lang) {
     await topPage.open(theme, lang, 'customSearchDefault');
-    await expect(topPage.sectionClass).toHaveElementClassContaining('col-lg-2 col-md-3 col-sm-9 col-xs-8')
+    await expect(topPage.sectionClass).toHaveElementClass(expect.stringContaining('col-lg-2 col-md-3 col-sm-9 col-xs-8'));
 }
 
 async function sectionClassNoTitle(theme, lang) {
     await topPage.open(theme, lang);
-    await expect(topPage.sectionClass).toHaveElementClassContaining('col-lg-6 col-md-6 col-sm-9 col-xs-8')
+    await expect(topPage.sectionClass).toHaveElementClass(expect.stringContaining('col-lg-6 col-md-6 col-sm-9 col-xs-8'));
 }
 
 async function gcToolsSectionClass(theme, lang) {
     await topPage.open(theme, lang, 'nomenu');
-    await expect(topPage.gcToolsSection).toHaveElementClassContaining('col-lg-6 col-md-1 hidden-sm hidden-xs text-right')
+    await expect(topPage.gcToolsSection).toHaveElementClass(expect.stringContaining('col-lg-6 col-md-1 hidden-sm hidden-xs text-right'));
 }
 
 async function wbGCTools(theme, lang) {
@@ -772,19 +772,19 @@ async function wbGCTools(theme, lang) {
 
 async function langSearchClass(theme, lang) {
     await topPage.open(theme, lang, 'nomenu');
-    await expect(topPage.wbLang).toHaveElementClassContaining('lang-with-search');
-    await expect(topPage.wbLang).not.toHaveElementClassContaining('mrgn-bttm-md');
+    await expect(topPage.wbLang).toHaveElementClass(expect.stringContaining('lang-with-search'));
+    await expect(topPage.wbLang).not.toHaveElementClass(expect.stringContaining('mrgn-bttm-md'));
 }
 
 async function langSearchClass(theme, lang) {
     await topPage.open(theme, lang, 'wblng');
-    await expect(topPage.wbLang).toHaveElementClassContaining('mrgn-bttm-md col-md-offset-1 col-lg-offset-2 col-md-1 hidden-sm hidden-xs text-right');
+    await expect(topPage.wbLang).toHaveElementClass(expect.stringContaining('mrgn-bttm-md col-md-offset-1 col-lg-offset-2 col-md-1 hidden-sm hidden-xs text-right'));
 }
 
 async function searchExistsIntranet(theme, lang) {
     await basicPage.open(theme, lang);
-    if (lang == 'en') { await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx'); }
-    else { await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.canada.ca/search-recherche/query-recherche-fra.aspx'); }
+    if (lang == 'en') { await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://intranet.canada.ca/search-recherche/query-recherche-eng.aspx')); }
+    else { await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://intranet.canada.ca/search-recherche/query-recherche-fra.aspx')); }
 }
 
 async function menuPath(theme, lang) {
@@ -799,38 +799,38 @@ async function menuPathDefault(theme, lang) {
 
 async function subThemeESDCPreConfigured(theme, lang) {
     await topPage.open(theme, lang, 'esdcPreConfigured');
-    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
-    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
-    await expect(topPage.wbLang).not.toHaveElementClassContaining('lang-with-search');
+    await expect(topPage.intranetTitle).toHaveText(expect.stringContaining('Intranet'));
+    await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx'));
+    await expect(topPage.wbLang).not.toHaveElementClass(expect.stringContaining('lang-with-search'));
     await expect(topPage.gcToolsLink).toExist();
     if (lang == 'en') {
-        await expect(topPage.intranetText).toHaveTextContaining('ESDC/SC');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('ESDC/SC'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Employment and Social Development Canada'));
     } else {
-        await expect(topPage.intranetText).toHaveTextContaining('EDSC/SC');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('EDSC/SC'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Emploi et Développement social Canada'));
     }
 }
 
 async function subThemeECCCPreConfigured(theme, lang) {
     await topPage.open(theme, lang, 'ecccPreConfigured');
-    await expect(topPage.intranetText).toHaveTextContaining('ECCC');
-    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
-    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://intranet.ec.gc.ca/default.asp');
+    await expect(topPage.intranetText).toHaveText(expect.stringContaining('ECCC'));
+    await expect(topPage.intranetTitle).toHaveText(expect.stringContaining('Intranet'));
+    await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://intranet.ec.gc.ca/default.asp'));
     await expect(topPage.gcToolsLink).toExist();
 }
 
 async function subThemeLabourPreConfigured(theme, lang) {
     await topPage.open(theme, lang, 'labourPreConfigured');
-    await expect(topPage.intranetTitle).toHaveTextContaining('Intranet');
-    await expect(topPage.searchAction).toHaveAttributeContaining('action', 'https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx');
+    await expect(topPage.intranetTitle).toHaveText(expect.stringContaining('Intranet'));
+    await expect(topPage.searchAction).toHaveAttribute('action', expect.stringContaining('https://esdc.prv/cgi-bin/rhdcc-hrsdc/recherche-search.aspx'));
     await expect(topPage.gcToolsLink).toExist();
     if (lang == 'en') {
-        await expect(topPage.intranetText).toHaveTextContaining('Labour Program');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Employment and Social Development Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('Labour Program'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Employment and Social Development Canada'));
     } else {
-        await expect(topPage.intranetText).toHaveTextContaining('Programme du travail');
-        await expect(topPage.intranetTitleAbbr).toHaveAttributeContaining('title', 'Emploi et Développement social Canada');
+        await expect(topPage.intranetText).toHaveText(expect.stringContaining('Programme du travail'));
+        await expect(topPage.intranetTitleAbbr).toHaveAttribute('title', expect.stringContaining('Emploi et Développement social Canada'));
     }
 }
 

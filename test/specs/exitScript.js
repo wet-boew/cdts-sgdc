@@ -414,7 +414,7 @@ async function straightPath(theme){
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('google.ca');
+    await expect(browser).toHaveUrl(expect.stringContaining('google.ca'));
 }
 async function testCustomLabels(theme){
     await exitScriptPage.open(theme, 'en');
@@ -429,14 +429,14 @@ async function testCustomLabels(theme){
 
     await extLink.click();
     await (await exitScriptPage.modalText).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.modalText).toHaveTextContaining('This is a custom message');
-    await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Sure');
-    await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Nope');
+    await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining('This is a custom message'));
+    await expect(exitScriptPage.modalYesBtn).toHaveText(expect.stringContaining('Sure'));
+    await expect(exitScriptPage.modalCancelBtn).toHaveText(expect.stringContaining('Nope'));
 
     const cancelBtn = await exitScriptPage.modalCancelBtn;
     await cancelBtn.click();
     await (await exitScriptPage.pageTitle).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.pageTitle).toHaveTextContaining('Leaving a secure site');
+    await expect(exitScriptPage.pageTitle).toHaveText(expect.stringContaining('Leaving a secure site'));
 }
 async function testTargetMsg(theme){
     await exitScriptPage.open(theme, 'en');
@@ -451,19 +451,19 @@ async function testTargetMsg(theme){
 
     await extLink.click();
     await (await exitScriptPage.modalText).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.modalText).toHaveTextContaining('Warning: This will open in another window!');
+    await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining('Warning: This will open in another window!'));
 }
 async function sameDomainLink(theme){
     await exitScriptPage.open(theme, 'en');
     const extLink = await exitScriptPage.extLinkSameDomain;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('breadcrumbs-en');
+    await expect(browser).toHaveUrl(expect.stringContaining('breadcrumbs-en'));
 }
 async function exemptDomainLink(theme){
     await exitScriptPage.open(theme, 'en');
     const extLink = await exitScriptPage.extLinkExemptDomain;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 async function displayOff(theme){
     await exitScriptPage.open(theme, 'en', 'noDisplay');
@@ -476,19 +476,19 @@ async function displayOff(theme){
         timeoutMsg: 'Expected href to be modified after 5s'
     });
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('exiturl-en');
+    await expect(browser).toHaveUrl(expect.stringContaining('exiturl-en'));
 }
 async function displayOffForNewWindow(theme){
     await exitScriptPage.open(theme, 'en', 'noDisplayNewWindow');
     const extLink = await exitScriptPage.extLinkNewWin;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('noDisplayNewWindow');
+    await expect(browser).toHaveUrl(expect.stringContaining('noDisplayNewWindow'));
 }
 async function exitScriptNotEnabled(theme){
     await exitScriptPage.open(theme, 'en', 'disabled');
     const extLink = await exitScriptPage.extLink;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 async function testDefaultLabels(theme){
     await exitScriptPage.open(theme, 'en', 'noCustomMsg');
@@ -503,9 +503,9 @@ async function testDefaultLabels(theme){
 
     await extLink.click();
     await (await exitScriptPage.modalText).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.modalText).toHaveTextContaining('You are about to leave a secure site');
-    await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Yes');
-    await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Cancel');
+    await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining('You are about to leave a secure site'));
+    await expect(exitScriptPage.modalYesBtn).toHaveText(expect.stringContaining('Yes'));
+    await expect(exitScriptPage.modalCancelBtn).toHaveText(expect.stringContaining('Cancel'));
 
     const btnPrimary = await exitScriptPage.modalCancelBtn;
     await btnPrimary.click()
@@ -525,7 +525,7 @@ async function noExitUrl(theme){
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 
 async function testExitScriptForMenuLinks(theme, lang){
@@ -580,17 +580,17 @@ async function exitScriptBackwardsCompatible(theme, lang){
     await yesBtn.waitForExist({timeout: 3000});
 
     if (lang === 'en') {
-        await expect(exitScriptPage.modalText).toHaveTextContaining('This is a custom message');
-        await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Sure');
-        await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Nope');
+        await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining('This is a custom message'));
+        await expect(exitScriptPage.modalYesBtn).toHaveText(expect.stringContaining('Sure'));
+        await expect(exitScriptPage.modalCancelBtn).toHaveText(expect.stringContaining('Nope'));
     } else {
-        await expect(exitScriptPage.modalText).toHaveTextContaining('Ceci est un message personnalisé');
-        await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Continuer');
-        await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Arrêter');
+        await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining('Ceci est un message personnalisé'));
+        await expect(exitScriptPage.modalYesBtn).toHaveText(expect.stringContaining('Continuer'));
+        await expect(exitScriptPage.modalCancelBtn).toHaveText(expect.stringContaining('Arrêter'));
     }
 
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 
 //French
@@ -609,7 +609,7 @@ async function straightPath_FR(theme){
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 async function testCustomLabels_FR(theme){
     await exitScriptPage.open(theme, 'fr');
@@ -624,15 +624,15 @@ async function testCustomLabels_FR(theme){
 
     await extLink.click();
     await (await exitScriptPage.modalText).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.modalText).toHaveTextContaining('Ceci est un message personnalisé');
-    await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Continuer');
-    await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Arrêter');
+    await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining('Ceci est un message personnalisé'));
+    await expect(exitScriptPage.modalYesBtn).toHaveText(expect.stringContaining('Continuer'));
+    await expect(exitScriptPage.modalCancelBtn).toHaveText(expect.stringContaining('Arrêter'));
 
     const cancelBtn = await exitScriptPage.modalCancelBtn;
     await cancelBtn.waitForExist({timeout: 3000})
     await cancelBtn.click();
     await (await exitScriptPage.pageTitle).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.pageTitle).toHaveTextContaining('Quitter un site sécurisé');
+    await expect(exitScriptPage.pageTitle).toHaveText(expect.stringContaining('Quitter un site sécurisé'));
 }
 async function testTargetMsg_FR(theme){
     await exitScriptPage.open(theme, 'fr');
@@ -647,19 +647,19 @@ async function testTargetMsg_FR(theme){
 
     await extLink.click();
     await (await exitScriptPage.modalText).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.modalText).toHaveTextContaining(`Attention: cela va s'ouvrir dans une autre fenêtre`);
+    await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining(`Attention: cela va s'ouvrir dans une autre fenêtre`));
 }
 async function sameDomainLink_FR(theme){
     await exitScriptPage.open(theme, 'fr');
     const extLink = await exitScriptPage.extLinkSameDomain;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('breadcrumbs-fr');
+    await expect(browser).toHaveUrl(expect.stringContaining('breadcrumbs-fr'));
 }
 async function exemptDomainLink_FR(theme){
     await exitScriptPage.open(theme, 'fr');
     const extLink = await exitScriptPage.extLinkExemptDomain;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 async function displayOff_FR(theme){
     await exitScriptPage.open(theme, 'fr', 'noDisplay');
@@ -673,19 +673,19 @@ async function displayOff_FR(theme){
     });
 
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('exiturl-fr');
+    await expect(browser).toHaveUrl(expect.stringContaining('exiturl-fr'));
 }
 async function displayOffForNewWindow_FR(theme){
     await exitScriptPage.open(theme, 'fr', 'noDisplayNewWindow');
     const extLink = await exitScriptPage.extLinkNewWin;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('noDisplayNewWindow');
+    await expect(browser).toHaveUrl(expect.stringContaining('noDisplayNewWindow'));
 }
 async function exitScriptNotEnabled_FR(theme){
     await exitScriptPage.open(theme, 'fr', 'disabled');
     const extLink = await exitScriptPage.extLink;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 async function testDefaultLabels_FR(theme){
     await exitScriptPage.open(theme, 'fr', 'noCustomMsg');
@@ -700,9 +700,9 @@ async function testDefaultLabels_FR(theme){
 
     await extLink.click();
     await (await exitScriptPage.modalText).waitForExist({timeout: 3000})
-    await expect(exitScriptPage.modalText).toHaveTextContaining('Vous êtes sur le point de quitter un site sécurisé');
-    await expect(exitScriptPage.modalYesBtn).toHaveTextContaining('Oui');
-    await expect(exitScriptPage.modalCancelBtn).toHaveTextContaining('Annuler');
+    await expect(exitScriptPage.modalText).toHaveText(expect.stringContaining('Vous êtes sur le point de quitter un site sécurisé'));
+    await expect(exitScriptPage.modalYesBtn).toHaveText(expect.stringContaining('Oui'));
+    await expect(exitScriptPage.modalCancelBtn).toHaveText(expect.stringContaining('Annuler'));
 
     const cancelBtn = await exitScriptPage.modalCancelBtn;
     await cancelBtn.click();
@@ -722,14 +722,14 @@ async function noExitUrl_FR(theme){
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
-    await expect(browser).toHaveUrlContaining('google');
+    await expect(browser).toHaveUrl(expect.stringContaining('google'));
 }
 
 async function exemptAttributeLink(theme, lang){
     await exitScriptPage.open(theme, lang);
     const extLink = await exitScriptPage.extLinkExemptAttribute;
     await extLink.click();
-    await expect(browser).toHaveUrlContaining('canada');
+    await expect(browser).toHaveUrl(expect.stringContaining('canada'));
 }
 
 async function accessibility(theme, lang, variant) {
