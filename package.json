@@ -22,7 +22,7 @@
     "@wdio/dot-reporter": "^9.0.4",
     "@wdio/junit-reporter": "^9.0.8",
     "@wdio/local-runner": "^9.0.7",
-    "@wdio/mocha-framework": "^9.0.6",
+    "@wdio/mocha-framework": "^9.0.8",
     "@wdio/spec-reporter": "^9.0.8",
     "axe-core": "^4.10.0",
     "axios": "^1.7.7",
