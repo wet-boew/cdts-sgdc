@@ -10,7 +10,8 @@ if (!process.env.DISABLE_PROXY) { //just a cheap way to disable this proxy setup
 }
 
 // targetBrowser can be 'firefox', 'chrome' or 'MicrosoftEdge'
-const targetBrowser = process.env.TEST_BROWSER_NAME || 'firefox'; //NOTE: we could instead always test with both by adding a second "capabilities" below
+// switching to Chrome as default browser due to a broken Firefox update
+const targetBrowser = process.env.TEST_BROWSER_NAME || 'chrome'; //NOTE: we could instead always test with both by adding a second "capabilities" below
 // const drivers = {
 //     chrome: { version: '119.0.6045.105' }, //https://chromedriver.chromium.org/
 //     firefox: { version: '0.33.0' }, //https://github.com/mozilla/geckodriver/releases
@@ -81,7 +82,7 @@ exports.config = {
         'goog:chromeOptions': {
             // to run chrome headless the following flags are required
             // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
-            args: ['--start-maximized'], //['--headless', '--disable-gpu'],
+            args: ['--start-maximized', '-headless'], //['--disable-gpu'],
         },
 
         acceptInsecureCerts: true,
