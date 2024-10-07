@@ -184,3 +184,7 @@ border-color: #101823; }
 #wb-sec li a:focus  {
     background: #243850 !important; /* #7f1322 in gctheme */
 }
+
+#wb-sm h2.wb-inv {
+    color: #fff
+}
