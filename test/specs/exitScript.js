@@ -404,7 +404,7 @@ async function straightPath(theme){
     const extLink = await exitScriptPage.extLink;
     await extLink.waitUntil(async () => {
         const extLinkClass = await extLink.getAttribute('class');
-        return extLinkClass.includes('wb-exitscript');
+        return extLinkClass?.includes('wb-exitscript') || false;
     }, {
         timeout: 5000,
         timeoutMsg: 'Expected class to be wb-exitscript after 5s'
