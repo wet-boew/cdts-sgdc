@@ -27,7 +27,7 @@
     "axe-core": "^4.10.2",
     "axios": "^1.7.7",
     "ejs": "^3.1.10",
-    "ejs-lint": "^2.0.0",
+    "ejs-lint": "^2.0.1",
     "eslint": "^9.14.0",
     "global-agent": "^3.0.0",
     "globals": "^15.11.0",
