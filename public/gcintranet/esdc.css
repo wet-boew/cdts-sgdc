@@ -188,3 +188,7 @@ border-color: #101823; }
 #wb-sm h2.wb-inv {
     color: #fff
 }
+
+#info-pnl {
+    display: none
+}

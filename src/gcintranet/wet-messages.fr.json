@@ -173,10 +173,6 @@
         "source": "https://www.canada.ca/en.html",
         "target": "https://www.canada.ca/fr.html"
     },
-    "8e153eebdea15ba070f36a605224fda3ae6300ef": {
-        "source": "Help and Important Notices",
-        "target": "Aide et avis importants"
-    },
     "49daaf3fded771275b2a6b52a4ebc1cf7829df24": {
         "source": "esdcfooter-eng.html",
         "target": "esdcfooter-fra.html"
@@ -345,10 +341,6 @@
         "source": "https://esdc.prv/en/stay_connected/index.shtml",
         "target": "https://esdc.prv/fr/restez_branche/index.shtml"
     },
-    "b1c32100348229f0b66c3ceba26fc75f41f58911": {
-        "source": "https://edsc.prv/en/help.shtml",
-        "target": "https://edsc.prv/fr/aide.shtml"
-    },
     "8d12437949e4425e3739fdb7a008fc2a29f8299f": {
         "source": "https://intranet.ec.gc.ca/default.asp?lang=En",
         "target": "https://intranet.ec.gc.ca/default.asp?lang=fr"
@@ -468,5 +460,13 @@
     "5b82747d146bcb033f073f1c4465847546261d56": {
         "source": "Intranet Banner",
         "target": "Bannière intranet"
+    },
+    "3c1e068e37dca7903dd9ccc7bc3200de50c8192e": {
+        "source": "https://esdc.prv/en/terms_conditions.shtml",
+        "target": "https://esdc.prv/fr/avis.shtml"
+    },
+    "894031ed8d341b5ecab5e23002585055f0b7ee4d": {
+        "source": "Terms and Conditions",
+        "target": "Avis"
     }
 }

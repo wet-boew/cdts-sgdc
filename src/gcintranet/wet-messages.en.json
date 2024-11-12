@@ -49,12 +49,12 @@
         "source": "Stay Connected",
         "target": null
     },
-    "b1c32100348229f0b66c3ceba26fc75f41f58911": {
-        "source": "https://edsc.prv/en/help.shtml",
+    "3c1e068e37dca7903dd9ccc7bc3200de50c8192e": {
+        "source": "https://esdc.prv/en/terms_conditions.shtml",
         "target": null
     },
-    "8e153eebdea15ba070f36a605224fda3ae6300ef": {
-        "source": "Help and Important Notices",
+    "894031ed8d341b5ecab5e23002585055f0b7ee4d": {
+        "source": "Terms and Conditions",
         "target": null
     },
     "9ad0ccff7c60872356cb74b82694782be79ba338": {
@@ -133,12 +133,12 @@
         "source": "Government of Canada",
         "target": null
     },
-    "af9d5a302c5423a656f859b7b5a353fd8b879361": {
-        "source": "Top of Page",
-        "target": null
-    },
     "4c4e7125a283fe6001b1e525ac5d08dc54f39bbd": {
         "source": "Symbol of the Government of Canada",
+        "target": null
+    },
+    "af9d5a302c5423a656f859b7b5a353fd8b879361": {
+        "source": "Top of Page",
         "target": null
     },
     "8d12437949e4425e3739fdb7a008fc2a29f8299f": {

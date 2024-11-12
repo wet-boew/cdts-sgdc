@@ -14,10 +14,10 @@ const { exceptionCDTSHTTPLinks } = require('./TestLinks');
 
 
 const defaultResourceList = [
-    { targetFilePath: ['./public/global/esdcmenu-eng.html', './public/global/esdcmenu1-eng.html'], url: 'https://esdc.prv/_conf/assets/en/mega_menu/esdcmenu-eng.html', sourcePageUrl: ['https://esdc.prv/js/esdc-template_js_en.js', 'https://esdc.prv/en/index.shtml'] },
-    { targetFilePath: ['./public/global/esdcmenu-fra.html', './public/global/esdcmenu1-fra.html'], url: 'https://esdc.prv/_conf/assets/fr/mega_menu/esdcmenu-fra.html', sourcePageUrl: ['https://esdc.prv/js/esdc-template_js_fr.js', 'https://esdc.prv/fr/index.shtml'] },
-    { targetFilePath: './public/global/esdcfooter-eng.html', url: 'https://esdc.prv/_conf/assets/en/footer/esdcfooter-eng.html', sourcePageUrl: ['https://esdc.prv/js/esdc-template_js_en.js', 'https://esdc.prv/en/index.shtml'] },
-    { targetFilePath: './public/global/esdcfooter-fra.html', url: 'https://esdc.prv/_conf/assets/fr/footer/esdcfooter-fra.html', sourcePageUrl: ['https://esdc.prv/js/esdc-template_js_fr.js', 'https://esdc.prv/fr/index.shtml'] },
+    { targetFilePath: ['./public/global/esdcmenu-eng.html', './public/global/esdcmenu1-eng.html'], url: 'https://esdc.prv/_conf/assets/en/mega_menu/esdcmenu-eng.html', sourcePageUrl: ['https://esdc.prv/js/template.js', 'https://esdc.prv/en/index.shtml'] },
+    { targetFilePath: ['./public/global/esdcmenu-fra.html', './public/global/esdcmenu1-fra.html'], url: 'https://esdc.prv/_conf/assets/fr/mega_menu/esdcmenu-fra.html', sourcePageUrl: ['https://esdc.prv/js/template.js', 'https://esdc.prv/fr/index.shtml'] },
+    { targetFilePath: './public/global/esdcfooter-eng.html', url: 'https://esdc.prv/_conf/assets/en/footer/esdcfooter-eng.html', sourcePageUrl: ['https://esdc.prv/js/template.js', 'https://esdc.prv/en/index.shtml'] },
+    { targetFilePath: './public/global/esdcfooter-fra.html', url: 'https://esdc.prv/_conf/assets/fr/footer/esdcfooter-fra.html', sourcePageUrl: ['https://esdc.prv/js/template.js', 'https://esdc.prv/fr/index.shtml'] },
     { targetFilePath: './public/gcintranet/ajax/sitemenu-eng.html', url: 'https://intranet.canada.ca/wet/sitemenu-eng.html', sourcePageUrl: 'https://intranet.canada.ca/index-eng.asp' },
     { targetFilePath: './public/gcintranet/ajax/sitemenu-fra.html', url: 'https://intranet.canada.ca/wet/sitemenu-fra.html', sourcePageUrl: 'https://intranet.canada.ca/index-fra.asp' },
 ];
