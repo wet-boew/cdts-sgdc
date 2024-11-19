@@ -1,5 +1,11 @@
 # SGDC : Journal des modifications
 
+## v5.0.3
+
+- Correctifs d'accessibilité et de conception réactive pour GCIntranet
+- Modifications et optimisations internes
+- Corrections de bogues
+
 ## v5.0.2
 
 - Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.81.
