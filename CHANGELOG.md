@@ -1,5 +1,9 @@
 # CDTS Change Log
 
+## v5.0.3
+- Internal changes and optimizations
+- Bug fixes
+
 ## v5.0.2
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.81.
 
