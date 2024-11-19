@@ -1,6 +1,7 @@
 # CDTS Change Log
 
 ## v5.0.3
+- Accessibility and responsive design fixes for GCIntranet
 - Internal changes and optimizations
 - Bug fixes
 

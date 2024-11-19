@@ -2,6 +2,7 @@
 
 ## v5.0.3
 
+- Correctifs d'accessibilité et de conception réactive pour GCIntranet
 - Modifications et optimisations internes
 - Corrections de bogues
 
