@@ -17,7 +17,7 @@
   "author": "ESDC-EDSC",
   "license": "MIT",
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
+    "@eslint/js": "^9.17.0",
     "@wdio/cli": "^9.4.1",
     "@wdio/dot-reporter": "^9.2.14",
     "@wdio/junit-reporter": "^9.2.14",
