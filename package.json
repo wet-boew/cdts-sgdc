@@ -30,7 +30,7 @@
     "ejs-lint": "^2.0.1",
     "eslint": "^9.17.0",
     "global-agent": "^3.0.0",
-    "globals": "^15.13.0",
+    "globals": "^15.14.0",
     "grunt": "^1.6.1",
     "grunt-cli": "^1.5.0",
     "grunt-contrib-clean": "^2.0.1",
