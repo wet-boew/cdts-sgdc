@@ -433,29 +433,9 @@
         "source": "<span class=\"bold-gc\">GC</span>Xchange",
         "target": "<span class=\"bold-gc\">GC</span>Échange"
     },
-    "d8cde1c29b61c58e4ef757161e59991a22d66763": {
-        "source": "Activities and initiatives",
-        "target": "Activités et initiatives"
-    },
-    "5a4356b4e754ea9c3775e8c156860a6e18ab6b54": {
-        "source": "GC Tools",
-        "target": "Outils GC"
-    },
-    "26c01e70a337f208f56dae1c3bc18f60c4bff453": {
-        "source": "Footer",
-        "target": "Pied de page"
-    },
     "4fd0ed7e7a474d24b9db775b6bf8fa2727beaa1d": {
         "source": "Application menu",
         "target": "Menu de l'application"
-    },
-    "baab55ac4da1ff0e442b592dda1b4a9b16e8e1f4": {
-        "source": "GCintranet header",
-        "target": "En-tête GCintranet"
-    },
-    "e6c08df891206ab48e50e3539af1d87363b593e3": {
-        "source": "GCTools section",
-        "target": "Section Outils GC"
     },
     "5b82747d146bcb033f073f1c4465847546261d56": {
         "source": "Intranet Banner",
