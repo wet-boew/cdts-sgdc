@@ -1,10 +1,10 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.81 - 2024-05-29
+ * v4.0.84 - 2025-01-15
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
-/*! @license DOMPurify 2.4.4 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.4/LICENSE */
+/*! @license DOMPurify 3.1.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.1.7/LICENSE */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -12,304 +12,284 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.DOMPurify = factory());
 })(this, (function () { 'use strict';
 
-  function _typeof(obj) {
-    "@babel/helpers - typeof";
-
-    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-      return typeof obj;
-    } : function (obj) {
-      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    }, _typeof(obj);
-  }
-
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-
-    return _setPrototypeOf(o, p);
-  }
-
-  function _isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
-
-    try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function _construct(Parent, args, Class) {
-    if (_isNativeReflectConstruct()) {
-      _construct = Reflect.construct;
-    } else {
-      _construct = function _construct(Parent, args, Class) {
-        var a = [null];
-        a.push.apply(a, args);
-        var Constructor = Function.bind.apply(Parent, a);
-        var instance = new Constructor();
-        if (Class) _setPrototypeOf(instance, Class.prototype);
-        return instance;
-      };
-    }
-
-    return _construct.apply(null, arguments);
-  }
-
-  function _toConsumableArray(arr) {
-    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-  }
-
-  function _arrayWithoutHoles(arr) {
-    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-  }
-
-  function _iterableToArray(iter) {
-    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
-  }
-
-  function _unsupportedIterableToArray(o, minLen) {
-    if (!o) return;
-    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-    var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(o);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-  }
-
-  function _arrayLikeToArray(arr, len) {
-    if (len == null || len > arr.length) len = arr.length;
-
-    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
-
-  function _nonIterableSpread() {
-    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-  }
-
-  var hasOwnProperty = Object.hasOwnProperty,
-      setPrototypeOf = Object.setPrototypeOf,
-      isFrozen = Object.isFrozen,
-      getPrototypeOf = Object.getPrototypeOf,
-      getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-  var freeze = Object.freeze,
-      seal = Object.seal,
-      create = Object.create; // eslint-disable-line import/no-mutable-exports
-
-  var _ref = typeof Reflect !== 'undefined' && Reflect,
-      apply = _ref.apply,
-      construct = _ref.construct;
-
-  if (!apply) {
-    apply = function apply(fun, thisValue, args) {
-      return fun.apply(thisValue, args);
-    };
-  }
-
+  const {
+    entries,
+    setPrototypeOf,
+    isFrozen,
+    getPrototypeOf,
+    getOwnPropertyDescriptor
+  } = Object;
+  let {
+    freeze,
+    seal,
+    create
+  } = Object; // eslint-disable-line import/no-mutable-exports
+  let {
+    apply,
+    construct
+  } = typeof Reflect !== 'undefined' && Reflect;
   if (!freeze) {
     freeze = function freeze(x) {
       return x;
     };
   }
-
   if (!seal) {
     seal = function seal(x) {
       return x;
     };
   }
-
-  if (!construct) {
-    construct = function construct(Func, args) {
-      return _construct(Func, _toConsumableArray(args));
+  if (!apply) {
+    apply = function apply(fun, thisValue, args) {
+      return fun.apply(thisValue, args);
     };
   }
+  if (!construct) {
+    construct = function construct(Func, args) {
+      return new Func(...args);
+    };
+  }
+  const arrayForEach = unapply(Array.prototype.forEach);
+  const arrayPop = unapply(Array.prototype.pop);
+  const arrayPush = unapply(Array.prototype.push);
+  const stringToLowerCase = unapply(String.prototype.toLowerCase);
+  const stringToString = unapply(String.prototype.toString);
+  const stringMatch = unapply(String.prototype.match);
+  const stringReplace = unapply(String.prototype.replace);
+  const stringIndexOf = unapply(String.prototype.indexOf);
+  const stringTrim = unapply(String.prototype.trim);
+  const objectHasOwnProperty = unapply(Object.prototype.hasOwnProperty);
+  const regExpTest = unapply(RegExp.prototype.test);
+  const typeErrorCreate = unconstruct(TypeError);
 
-  var arrayForEach = unapply(Array.prototype.forEach);
-  var arrayPop = unapply(Array.prototype.pop);
-  var arrayPush = unapply(Array.prototype.push);
-  var stringToLowerCase = unapply(String.prototype.toLowerCase);
-  var stringToString = unapply(String.prototype.toString);
-  var stringMatch = unapply(String.prototype.match);
-  var stringReplace = unapply(String.prototype.replace);
-  var stringIndexOf = unapply(String.prototype.indexOf);
-  var stringTrim = unapply(String.prototype.trim);
-  var regExpTest = unapply(RegExp.prototype.test);
-  var typeErrorCreate = unconstruct(TypeError);
+  /**
+   * Creates a new function that calls the given function with a specified thisArg and arguments.
+   *
+   * @param {Function} func - The function to be wrapped and called.
+   * @returns {Function} A new function that calls the given function with a specified thisArg and arguments.
+   */
   function unapply(func) {
     return function (thisArg) {
       for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         args[_key - 1] = arguments[_key];
       }
-
       return apply(func, thisArg, args);
     };
   }
+
+  /**
+   * Creates a new function that constructs an instance of the given constructor function with the provided arguments.
+   *
+   * @param {Function} func - The constructor function to be wrapped and called.
+   * @returns {Function} A new function that constructs an instance of the given constructor function with the provided arguments.
+   */
   function unconstruct(func) {
     return function () {
       for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
         args[_key2] = arguments[_key2];
       }
-
       return construct(func, args);
     };
   }
-  /* Add properties to a lookup table */
 
-  function addToSet(set, array, transformCaseFunc) {
-    transformCaseFunc = transformCaseFunc ? transformCaseFunc : stringToLowerCase;
-
+  /**
+   * Add properties to a lookup table
+   *
+   * @param {Object} set - The set to which elements will be added.
+   * @param {Array} array - The array containing elements to be added to the set.
+   * @param {Function} transformCaseFunc - An optional function to transform the case of each element before adding to the set.
+   * @returns {Object} The modified set with added elements.
+   */
+  function addToSet(set, array) {
+    let transformCaseFunc = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : stringToLowerCase;
     if (setPrototypeOf) {
       // Make 'in' and truthy checks like Boolean(set.constructor)
       // independent of any properties defined on Object.prototype.
       // Prevent prototype setters from intercepting set as a this value.
       setPrototypeOf(set, null);
     }
-
-    var l = array.length;
-
+    let l = array.length;
     while (l--) {
-      var element = array[l];
-
+      let element = array[l];
       if (typeof element === 'string') {
-        var lcElement = transformCaseFunc(element);
-
+        const lcElement = transformCaseFunc(element);
         if (lcElement !== element) {
           // Config presets (e.g. tags.js, attrs.js) are immutable.
           if (!isFrozen(array)) {
             array[l] = lcElement;
           }
-
           element = lcElement;
         }
       }
-
       set[element] = true;
     }
-
     return set;
   }
-  /* Shallow clone an object */
 
-  function clone(object) {
-    var newObject = create(null);
-    var property;
-
-    for (property in object) {
-      if (apply(hasOwnProperty, object, [property]) === true) {
-        newObject[property] = object[property];
+  /**
+   * Clean up an array to harden against CSPP
+   *
+   * @param {Array} array - The array to be cleaned.
+   * @returns {Array} The cleaned version of the array
+   */
+  function cleanArray(array) {
+    for (let index = 0; index < array.length; index++) {
+      const isPropertyExist = objectHasOwnProperty(array, index);
+      if (!isPropertyExist) {
+        array[index] = null;
       }
     }
+    return array;
+  }
 
+  /**
+   * Shallow clone an object
+   *
+   * @param {Object} object - The object to be cloned.
+   * @returns {Object} A new object that copies the original.
+   */
+  function clone(object) {
+    const newObject = create(null);
+    for (const [property, value] of entries(object)) {
+      const isPropertyExist = objectHasOwnProperty(object, property);
+      if (isPropertyExist) {
+        if (Array.isArray(value)) {
+          newObject[property] = cleanArray(value);
+        } else if (value && typeof value === 'object' && value.constructor === Object) {
+          newObject[property] = clone(value);
+        } else {
+          newObject[property] = value;
+        }
+      }
+    }
     return newObject;
   }
-  /* IE10 doesn't support __lookupGetter__ so lets'
-   * simulate it. It also automatically checks
-   * if the prop is function or getter and behaves
-   * accordingly. */
 
+  /**
+   * This method automatically checks if the prop is function or getter and behaves accordingly.
+   *
+   * @param {Object} object - The object to look up the getter function in its prototype chain.
+   * @param {String} prop - The property name for which to find the getter function.
+   * @returns {Function} The getter function found in the prototype chain or a fallback function.
+   */
   function lookupGetter(object, prop) {
     while (object !== null) {
-      var desc = getOwnPropertyDescriptor(object, prop);
-
+      const desc = getOwnPropertyDescriptor(object, prop);
       if (desc) {
         if (desc.get) {
           return unapply(desc.get);
         }
-
         if (typeof desc.value === 'function') {
           return unapply(desc.value);
         }
       }
-
       object = getPrototypeOf(object);
     }
-
-    function fallbackValue(element) {
-      console.warn('fallback value for', element);
+    function fallbackValue() {
       return null;
     }
-
     return fallbackValue;
   }
 
-  var html$1 = freeze(['a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'content', 'data', 'datalist', 'dd', 'decorator', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'element', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meter', 'nav', 'nobr', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'select', 'shadow', 'small', 'source', 'spacer', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']); // SVG
+  const html$1 = freeze(['a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'content', 'data', 'datalist', 'dd', 'decorator', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'element', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meter', 'nav', 'nobr', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'select', 'shadow', 'small', 'source', 'spacer', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']);
 
-  var svg$1 = freeze(['svg', 'a', 'altglyph', 'altglyphdef', 'altglyphitem', 'animatecolor', 'animatemotion', 'animatetransform', 'circle', 'clippath', 'defs', 'desc', 'ellipse', 'filter', 'font', 'g', 'glyph', 'glyphref', 'hkern', 'image', 'line', 'lineargradient', 'marker', 'mask', 'metadata', 'mpath', 'path', 'pattern', 'polygon', 'polyline', 'radialgradient', 'rect', 'stop', 'style', 'switch', 'symbol', 'text', 'textpath', 'title', 'tref', 'tspan', 'view', 'vkern']);
-  var svgFilters = freeze(['feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG', 'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode', 'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting', 'feSpotLight', 'feTile', 'feTurbulence']); // List of SVG elements that are disallowed by default.
+  // SVG
+  const svg$1 = freeze(['svg', 'a', 'altglyph', 'altglyphdef', 'altglyphitem', 'animatecolor', 'animatemotion', 'animatetransform', 'circle', 'clippath', 'defs', 'desc', 'ellipse', 'filter', 'font', 'g', 'glyph', 'glyphref', 'hkern', 'image', 'line', 'lineargradient', 'marker', 'mask', 'metadata', 'mpath', 'path', 'pattern', 'polygon', 'polyline', 'radialgradient', 'rect', 'stop', 'style', 'switch', 'symbol', 'text', 'textpath', 'title', 'tref', 'tspan', 'view', 'vkern']);
+  const svgFilters = freeze(['feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feDropShadow', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG', 'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode', 'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting', 'feSpotLight', 'feTile', 'feTurbulence']);
+
+  // List of SVG elements that are disallowed by default.
   // We still need to know them so that we can do namespace
   // checks properly in case one wants to add them to
   // allow-list.
+  const svgDisallowed = freeze(['animate', 'color-profile', 'cursor', 'discard', 'font-face', 'font-face-format', 'font-face-name', 'font-face-src', 'font-face-uri', 'foreignobject', 'hatch', 'hatchpath', 'mesh', 'meshgradient', 'meshpatch', 'meshrow', 'missing-glyph', 'script', 'set', 'solidcolor', 'unknown', 'use']);
+  const mathMl$1 = freeze(['math', 'menclose', 'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded', 'mphantom', 'mroot', 'mrow', 'ms', 'mspace', 'msqrt', 'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd', 'mtext', 'mtr', 'munder', 'munderover', 'mprescripts']);
 
-  var svgDisallowed = freeze(['animate', 'color-profile', 'cursor', 'discard', 'fedropshadow', 'font-face', 'font-face-format', 'font-face-name', 'font-face-src', 'font-face-uri', 'foreignobject', 'hatch', 'hatchpath', 'mesh', 'meshgradient', 'meshpatch', 'meshrow', 'missing-glyph', 'script', 'set', 'solidcolor', 'unknown', 'use']);
-  var mathMl$1 = freeze(['math', 'menclose', 'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded', 'mphantom', 'mroot', 'mrow', 'ms', 'mspace', 'msqrt', 'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd', 'mtext', 'mtr', 'munder', 'munderover']); // Similarly to SVG, we want to know all MathML elements,
+  // Similarly to SVG, we want to know all MathML elements,
   // even those that we disallow by default.
+  const mathMlDisallowed = freeze(['maction', 'maligngroup', 'malignmark', 'mlongdiv', 'mscarries', 'mscarry', 'msgroup', 'mstack', 'msline', 'msrow', 'semantics', 'annotation', 'annotation-xml', 'mprescripts', 'none']);
+  const text = freeze(['#text']);
 
-  var mathMlDisallowed = freeze(['maction', 'maligngroup', 'malignmark', 'mlongdiv', 'mscarries', 'mscarry', 'msgroup', 'mstack', 'msline', 'msrow', 'semantics', 'annotation', 'annotation-xml', 'mprescripts', 'none']);
-  var text = freeze(['#text']);
+  const html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'pattern', 'placeholder', 'playsinline', 'popover', 'popovertarget', 'popovertargetaction', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'wrap', 'xmlns', 'slot']);
+  const svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'amplitude', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'exponent', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'slope', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'tablevalues', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
+  const mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnsalign', 'columnlines', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lspace', 'lquote', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
+  const xml = freeze(['xlink:href', 'xml:id', 'xlink:title', 'xml:space', 'xmlns:xlink']);
 
-  var html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'pattern', 'placeholder', 'playsinline', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'xmlns', 'slot']);
-  var svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
-  var mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnsalign', 'columnlines', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lspace', 'lquote', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
-  var xml = freeze(['xlink:href', 'xml:id', 'xlink:title', 'xml:space', 'xmlns:xlink']);
-
-  var MUSTACHE_EXPR = seal(/\{\{[\w\W]*|[\w\W]*\}\}/gm); // Specify template detection regex for SAFE_FOR_TEMPLATES mode
-
-  var ERB_EXPR = seal(/<%[\w\W]*|[\w\W]*%>/gm);
-  var TMPLIT_EXPR = seal(/\${[\w\W]*}/gm);
-  var DATA_ATTR = seal(/^data-[\-\w.\u00B7-\uFFFF]/); // eslint-disable-line no-useless-escape
-
-  var ARIA_ATTR = seal(/^aria-[\-\w]+$/); // eslint-disable-line no-useless-escape
-
-  var IS_ALLOWED_URI = seal(/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i // eslint-disable-line no-useless-escape
+  // eslint-disable-next-line unicorn/better-regex
+  const MUSTACHE_EXPR = seal(/\{\{[\w\W]*|[\w\W]*\}\}/gm); // Specify template detection regex for SAFE_FOR_TEMPLATES mode
+  const ERB_EXPR = seal(/<%[\w\W]*|[\w\W]*%>/gm);
+  const TMPLIT_EXPR = seal(/\${[\w\W]*}/gm);
+  const DATA_ATTR = seal(/^data-[\-\w.\u00B7-\uFFFF]/); // eslint-disable-line no-useless-escape
+  const ARIA_ATTR = seal(/^aria-[\-\w]+$/); // eslint-disable-line no-useless-escape
+  const IS_ALLOWED_URI = seal(/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i // eslint-disable-line no-useless-escape
   );
-  var IS_SCRIPT_OR_DATA = seal(/^(?:\w+script|data):/i);
-  var ATTR_WHITESPACE = seal(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g // eslint-disable-line no-control-regex
+  const IS_SCRIPT_OR_DATA = seal(/^(?:\w+script|data):/i);
+  const ATTR_WHITESPACE = seal(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205F\u3000]/g // eslint-disable-line no-control-regex
   );
-  var DOCTYPE_NAME = seal(/^html$/i);
+  const DOCTYPE_NAME = seal(/^html$/i);
+  const CUSTOM_ELEMENT = seal(/^[a-z][.\w]*(-[.\w]+)+$/i);
 
-  var getGlobal = function getGlobal() {
+  var EXPRESSIONS = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    MUSTACHE_EXPR: MUSTACHE_EXPR,
+    ERB_EXPR: ERB_EXPR,
+    TMPLIT_EXPR: TMPLIT_EXPR,
+    DATA_ATTR: DATA_ATTR,
+    ARIA_ATTR: ARIA_ATTR,
+    IS_ALLOWED_URI: IS_ALLOWED_URI,
+    IS_SCRIPT_OR_DATA: IS_SCRIPT_OR_DATA,
+    ATTR_WHITESPACE: ATTR_WHITESPACE,
+    DOCTYPE_NAME: DOCTYPE_NAME,
+    CUSTOM_ELEMENT: CUSTOM_ELEMENT
+  });
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
+  const NODE_TYPE = {
+    element: 1,
+    attribute: 2,
+    text: 3,
+    cdataSection: 4,
+    entityReference: 5,
+    // Deprecated
+    entityNode: 6,
+    // Deprecated
+    progressingInstruction: 7,
+    comment: 8,
+    document: 9,
+    documentType: 10,
+    documentFragment: 11,
+    notation: 12 // Deprecated
+  };
+  const getGlobal = function getGlobal() {
     return typeof window === 'undefined' ? null : window;
   };
+
   /**
    * Creates a no-op policy for internal use only.
    * Don't export this function outside this module!
-   * @param {?TrustedTypePolicyFactory} trustedTypes The policy factory.
-   * @param {Document} document The document object (to determine policy name suffix)
-   * @return {?TrustedTypePolicy} The policy created (or null, if Trusted Types
-   * are not supported).
+   * @param {TrustedTypePolicyFactory} trustedTypes The policy factory.
+   * @param {HTMLScriptElement} purifyHostElement The Script element used to load DOMPurify (to determine policy name suffix).
+   * @return {TrustedTypePolicy} The policy created (or null, if Trusted Types
+   * are not supported or creating the policy failed).
    */
-
-
-  var _createTrustedTypesPolicy = function _createTrustedTypesPolicy(trustedTypes, document) {
-    if (_typeof(trustedTypes) !== 'object' || typeof trustedTypes.createPolicy !== 'function') {
+  const _createTrustedTypesPolicy = function _createTrustedTypesPolicy(trustedTypes, purifyHostElement) {
+    if (typeof trustedTypes !== 'object' || typeof trustedTypes.createPolicy !== 'function') {
       return null;
-    } // Allow the callers to control the unique policy name
-    // by adding a data-tt-policy-suffix to the script element with the DOMPurify.
-    // Policy creation with duplicate names throws in Trusted Types.
-
-
-    var suffix = null;
-    var ATTR_NAME = 'data-tt-policy-suffix';
-
-    if (document.currentScript && document.currentScript.hasAttribute(ATTR_NAME)) {
-      suffix = document.currentScript.getAttribute(ATTR_NAME);
     }
 
-    var policyName = 'dompurify' + (suffix ? '#' + suffix : '');
-
+    // Allow the callers to control the unique policy name
+    // by adding a data-tt-policy-suffix to the script element with the DOMPurify.
+    // Policy creation with duplicate names throws in Trusted Types.
+    let suffix = null;
+    const ATTR_NAME = 'data-tt-policy-suffix';
+    if (purifyHostElement && purifyHostElement.hasAttribute(ATTR_NAME)) {
+      suffix = purifyHostElement.getAttribute(ATTR_NAME);
+    }
+    const policyName = 'dompurify' + (suffix ? '#' + suffix : '');
     try {
       return trustedTypes.createPolicy(policyName, {
-        createHTML: function createHTML(html) {
+        createHTML(html) {
           return html;
         },
-        createScriptURL: function createScriptURL(scriptUrl) {
+        createScriptURL(scriptUrl) {
           return scriptUrl;
         }
       });
@@ -321,115 +301,113 @@
       return null;
     }
   };
-
   function createDOMPurify() {
-    var window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getGlobal();
+    let window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getGlobal();
+    const DOMPurify = root => createDOMPurify(root);
 
-    var DOMPurify = function DOMPurify(root) {
-      return createDOMPurify(root);
-    };
     /**
      * Version label, exposed for easier checks
      * if DOMPurify is up to date or not
      */
+    DOMPurify.version = '3.1.7';
 
-
-    DOMPurify.version = '2.4.4';
     /**
      * Array of elements that DOMPurify removed during sanitation.
      * Empty if nothing was removed.
      */
-
     DOMPurify.removed = [];
-
-    if (!window || !window.document || window.document.nodeType !== 9) {
+    if (!window || !window.document || window.document.nodeType !== NODE_TYPE.document) {
       // Not running in a browser, provide a factory function
       // so that you can pass your own Window
       DOMPurify.isSupported = false;
       return DOMPurify;
     }
+    let {
+      document
+    } = window;
+    const originalDocument = document;
+    const currentScript = originalDocument.currentScript;
+    const {
+      DocumentFragment,
+      HTMLTemplateElement,
+      Node,
+      Element,
+      NodeFilter,
+      NamedNodeMap = window.NamedNodeMap || window.MozNamedAttrMap,
+      HTMLFormElement,
+      DOMParser,
+      trustedTypes
+    } = window;
+    const ElementPrototype = Element.prototype;
+    const cloneNode = lookupGetter(ElementPrototype, 'cloneNode');
+    const remove = lookupGetter(ElementPrototype, 'remove');
+    const getNextSibling = lookupGetter(ElementPrototype, 'nextSibling');
+    const getChildNodes = lookupGetter(ElementPrototype, 'childNodes');
+    const getParentNode = lookupGetter(ElementPrototype, 'parentNode');
 
-    var originalDocument = window.document;
-    var document = window.document;
-    var DocumentFragment = window.DocumentFragment,
-        HTMLTemplateElement = window.HTMLTemplateElement,
-        Node = window.Node,
-        Element = window.Element,
-        NodeFilter = window.NodeFilter,
-        _window$NamedNodeMap = window.NamedNodeMap,
-        NamedNodeMap = _window$NamedNodeMap === void 0 ? window.NamedNodeMap || window.MozNamedAttrMap : _window$NamedNodeMap,
-        HTMLFormElement = window.HTMLFormElement,
-        DOMParser = window.DOMParser,
-        trustedTypes = window.trustedTypes;
-    var ElementPrototype = Element.prototype;
-    var cloneNode = lookupGetter(ElementPrototype, 'cloneNode');
-    var getNextSibling = lookupGetter(ElementPrototype, 'nextSibling');
-    var getChildNodes = lookupGetter(ElementPrototype, 'childNodes');
-    var getParentNode = lookupGetter(ElementPrototype, 'parentNode'); // As per issue #47, the web-components registry is inherited by a
+    // As per issue #47, the web-components registry is inherited by a
     // new document created via createHTMLDocument. As per the spec
     // (http://w3c.github.io/webcomponents/spec/custom/#creating-and-passing-registries)
     // a new empty registry is used when creating a template contents owner
     // document, so we use that as our parent document to ensure nothing
     // is inherited.
-
     if (typeof HTMLTemplateElement === 'function') {
-      var template = document.createElement('template');
-
+      const template = document.createElement('template');
       if (template.content && template.content.ownerDocument) {
         document = template.content.ownerDocument;
       }
     }
+    let trustedTypesPolicy;
+    let emptyHTML = '';
+    const {
+      implementation,
+      createNodeIterator,
+      createDocumentFragment,
+      getElementsByTagName
+    } = document;
+    const {
+      importNode
+    } = originalDocument;
+    let hooks = {};
 
-    var trustedTypesPolicy = _createTrustedTypesPolicy(trustedTypes, originalDocument);
-
-    var emptyHTML = trustedTypesPolicy ? trustedTypesPolicy.createHTML('') : '';
-    var _document = document,
-        implementation = _document.implementation,
-        createNodeIterator = _document.createNodeIterator,
-        createDocumentFragment = _document.createDocumentFragment,
-        getElementsByTagName = _document.getElementsByTagName;
-    var importNode = originalDocument.importNode;
-    var documentMode = {};
-
-    try {
-      documentMode = clone(document).documentMode ? document.documentMode : {};
-    } catch (_) {}
-
-    var hooks = {};
     /**
      * Expose whether this browser supports running the full DOMPurify.
      */
+    DOMPurify.isSupported = typeof entries === 'function' && typeof getParentNode === 'function' && implementation && implementation.createHTMLDocument !== undefined;
+    const {
+      MUSTACHE_EXPR,
+      ERB_EXPR,
+      TMPLIT_EXPR,
+      DATA_ATTR,
+      ARIA_ATTR,
+      IS_SCRIPT_OR_DATA,
+      ATTR_WHITESPACE,
+      CUSTOM_ELEMENT
+    } = EXPRESSIONS;
+    let {
+      IS_ALLOWED_URI: IS_ALLOWED_URI$1
+    } = EXPRESSIONS;
 
-    DOMPurify.isSupported = typeof getParentNode === 'function' && implementation && typeof implementation.createHTMLDocument !== 'undefined' && documentMode !== 9;
-    var MUSTACHE_EXPR$1 = MUSTACHE_EXPR,
-        ERB_EXPR$1 = ERB_EXPR,
-        TMPLIT_EXPR$1 = TMPLIT_EXPR,
-        DATA_ATTR$1 = DATA_ATTR,
-        ARIA_ATTR$1 = ARIA_ATTR,
-        IS_SCRIPT_OR_DATA$1 = IS_SCRIPT_OR_DATA,
-        ATTR_WHITESPACE$1 = ATTR_WHITESPACE;
-    var IS_ALLOWED_URI$1 = IS_ALLOWED_URI;
     /**
      * We consider the elements and attributes below to be safe. Ideally
      * don't add any new ones but feel free to remove unwanted ones.
      */
 
     /* allowed element names */
+    let ALLOWED_TAGS = null;
+    const DEFAULT_ALLOWED_TAGS = addToSet({}, [...html$1, ...svg$1, ...svgFilters, ...mathMl$1, ...text]);
 
-    var ALLOWED_TAGS = null;
-    var DEFAULT_ALLOWED_TAGS = addToSet({}, [].concat(_toConsumableArray(html$1), _toConsumableArray(svg$1), _toConsumableArray(svgFilters), _toConsumableArray(mathMl$1), _toConsumableArray(text)));
     /* Allowed attribute names */
+    let ALLOWED_ATTR = null;
+    const DEFAULT_ALLOWED_ATTR = addToSet({}, [...html, ...svg, ...mathMl, ...xml]);
 
-    var ALLOWED_ATTR = null;
-    var DEFAULT_ALLOWED_ATTR = addToSet({}, [].concat(_toConsumableArray(html), _toConsumableArray(svg), _toConsumableArray(mathMl), _toConsumableArray(xml)));
     /*
      * Configure how DOMPUrify should handle custom elements and their attributes as well as customized built-in elements.
      * @property {RegExp|Function|null} tagNameCheck one of [null, regexPattern, predicate]. Default: `null` (disallow any custom elements)
      * @property {RegExp|Function|null} attributeNameCheck one of [null, regexPattern, predicate]. Default: `null` (disallow any attributes not on the allow list)
      * @property {boolean} allowCustomizedBuiltInElements allow custom elements derived from built-ins if they pass CUSTOM_ELEMENT_HANDLING.tagNameCheck. Default: `false`.
      */
-
-    var CUSTOM_ELEMENT_HANDLING = Object.seal(Object.create(null, {
+    let CUSTOM_ELEMENT_HANDLING = Object.seal(create(null, {
       tagNameCheck: {
         writable: true,
         configurable: false,
@@ -449,59 +427,65 @@
         value: false
       }
     }));
+
     /* Explicitly forbidden tags (overrides ALLOWED_TAGS/ADD_TAGS) */
+    let FORBID_TAGS = null;
 
-    var FORBID_TAGS = null;
     /* Explicitly forbidden attributes (overrides ALLOWED_ATTR/ADD_ATTR) */
+    let FORBID_ATTR = null;
 
-    var FORBID_ATTR = null;
     /* Decide if ARIA attributes are okay */
+    let ALLOW_ARIA_ATTR = true;
 
-    var ALLOW_ARIA_ATTR = true;
     /* Decide if custom data attributes are okay */
+    let ALLOW_DATA_ATTR = true;
 
-    var ALLOW_DATA_ATTR = true;
     /* Decide if unknown protocols are okay */
+    let ALLOW_UNKNOWN_PROTOCOLS = false;
 
-    var ALLOW_UNKNOWN_PROTOCOLS = false;
     /* Decide if self-closing tags in attributes are allowed.
      * Usually removed due to a mXSS issue in jQuery 3.0 */
+    let ALLOW_SELF_CLOSE_IN_ATTR = true;
 
-    var ALLOW_SELF_CLOSE_IN_ATTR = true;
     /* Output should be safe for common template engines.
      * This means, DOMPurify removes data attributes, mustaches and ERB
      */
+    let SAFE_FOR_TEMPLATES = false;
 
-    var SAFE_FOR_TEMPLATES = false;
+    /* Output should be safe even for XML used within HTML and alike.
+     * This means, DOMPurify removes comments when containing risky content.
+     */
+    let SAFE_FOR_XML = true;
+
     /* Decide if document with <html>... should be returned */
+    let WHOLE_DOCUMENT = false;
 
-    var WHOLE_DOCUMENT = false;
     /* Track whether config is already set on this instance of DOMPurify. */
+    let SET_CONFIG = false;
 
-    var SET_CONFIG = false;
     /* Decide if all elements (e.g. style, script) must be children of
      * document.body. By default, browsers might move them to document.head */
+    let FORCE_BODY = false;
 
-    var FORCE_BODY = false;
     /* Decide if a DOM `HTMLBodyElement` should be returned, instead of a html
      * string (or a TrustedHTML object if Trusted Types are supported).
      * If `WHOLE_DOCUMENT` is enabled a `HTMLHtmlElement` will be returned instead
      */
+    let RETURN_DOM = false;
 
-    var RETURN_DOM = false;
     /* Decide if a DOM `DocumentFragment` should be returned, instead of a html
      * string  (or a TrustedHTML object if Trusted Types are supported) */
+    let RETURN_DOM_FRAGMENT = false;
 
-    var RETURN_DOM_FRAGMENT = false;
     /* Try to return a Trusted Type object instead of a string, return a string in
      * case Trusted Types are not supported  */
+    let RETURN_TRUSTED_TYPE = false;
 
-    var RETURN_TRUSTED_TYPE = false;
     /* Output should be free from DOM clobbering attacks?
      * This sanitizes markups named with colliding, clobberable built-in DOM APIs.
      */
+    let SANITIZE_DOM = true;
 
-    var SANITIZE_DOM = true;
     /* Achieve full DOM Clobbering protection by isolating the namespace of named
      * properties and JS variables, mitigating attacks that abuse the HTML/DOM spec rules.
      *
@@ -515,326 +499,309 @@
      * Namespace isolation is implemented by prefixing `id` and `name` attributes
      * with a constant string, i.e., `user-content-`
      */
+    let SANITIZE_NAMED_PROPS = false;
+    const SANITIZE_NAMED_PROPS_PREFIX = 'user-content-';
 
-    var SANITIZE_NAMED_PROPS = false;
-    var SANITIZE_NAMED_PROPS_PREFIX = 'user-content-';
     /* Keep element content when removing element? */
+    let KEEP_CONTENT = true;
 
-    var KEEP_CONTENT = true;
     /* If a `Node` is passed to sanitize(), then performs sanitization in-place instead
      * of importing it into a new Document and returning a sanitized copy */
+    let IN_PLACE = false;
 
-    var IN_PLACE = false;
     /* Allow usage of profiles like html, svg and mathMl */
+    let USE_PROFILES = {};
 
-    var USE_PROFILES = {};
     /* Tags to ignore content of when KEEP_CONTENT is true */
+    let FORBID_CONTENTS = null;
+    const DEFAULT_FORBID_CONTENTS = addToSet({}, ['annotation-xml', 'audio', 'colgroup', 'desc', 'foreignobject', 'head', 'iframe', 'math', 'mi', 'mn', 'mo', 'ms', 'mtext', 'noembed', 'noframes', 'noscript', 'plaintext', 'script', 'style', 'svg', 'template', 'thead', 'title', 'video', 'xmp']);
 
-    var FORBID_CONTENTS = null;
-    var DEFAULT_FORBID_CONTENTS = addToSet({}, ['annotation-xml', 'audio', 'colgroup', 'desc', 'foreignobject', 'head', 'iframe', 'math', 'mi', 'mn', 'mo', 'ms', 'mtext', 'noembed', 'noframes', 'noscript', 'plaintext', 'script', 'style', 'svg', 'template', 'thead', 'title', 'video', 'xmp']);
     /* Tags that are safe for data: URIs */
+    let DATA_URI_TAGS = null;
+    const DEFAULT_DATA_URI_TAGS = addToSet({}, ['audio', 'video', 'img', 'source', 'image', 'track']);
 
-    var DATA_URI_TAGS = null;
-    var DEFAULT_DATA_URI_TAGS = addToSet({}, ['audio', 'video', 'img', 'source', 'image', 'track']);
     /* Attributes safe for values like "javascript:" */
-
-    var URI_SAFE_ATTRIBUTES = null;
-    var DEFAULT_URI_SAFE_ATTRIBUTES = addToSet({}, ['alt', 'class', 'for', 'id', 'label', 'name', 'pattern', 'placeholder', 'role', 'summary', 'title', 'value', 'style', 'xmlns']);
-    var MATHML_NAMESPACE = 'http://www.w3.org/1998/Math/MathML';
-    var SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
-    var HTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
+    let URI_SAFE_ATTRIBUTES = null;
+    const DEFAULT_URI_SAFE_ATTRIBUTES = addToSet({}, ['alt', 'class', 'for', 'id', 'label', 'name', 'pattern', 'placeholder', 'role', 'summary', 'title', 'value', 'style', 'xmlns']);
+    const MATHML_NAMESPACE = 'http://www.w3.org/1998/Math/MathML';
+    const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+    const HTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
     /* Document namespace */
+    let NAMESPACE = HTML_NAMESPACE;
+    let IS_EMPTY_INPUT = false;
 
-    var NAMESPACE = HTML_NAMESPACE;
-    var IS_EMPTY_INPUT = false;
     /* Allowed XHTML+XML namespaces */
+    let ALLOWED_NAMESPACES = null;
+    const DEFAULT_ALLOWED_NAMESPACES = addToSet({}, [MATHML_NAMESPACE, SVG_NAMESPACE, HTML_NAMESPACE], stringToString);
 
-    var ALLOWED_NAMESPACES = null;
-    var DEFAULT_ALLOWED_NAMESPACES = addToSet({}, [MATHML_NAMESPACE, SVG_NAMESPACE, HTML_NAMESPACE], stringToString);
     /* Parsing of strict XHTML documents */
+    let PARSER_MEDIA_TYPE = null;
+    const SUPPORTED_PARSER_MEDIA_TYPES = ['application/xhtml+xml', 'text/html'];
+    const DEFAULT_PARSER_MEDIA_TYPE = 'text/html';
+    let transformCaseFunc = null;
 
-    var PARSER_MEDIA_TYPE;
-    var SUPPORTED_PARSER_MEDIA_TYPES = ['application/xhtml+xml', 'text/html'];
-    var DEFAULT_PARSER_MEDIA_TYPE = 'text/html';
-    var transformCaseFunc;
     /* Keep a reference to config to pass to hooks */
+    let CONFIG = null;
 
-    var CONFIG = null;
     /* Ideally, do not touch anything below this line */
-
     /* ______________________________________________ */
 
-    var formElement = document.createElement('form');
-
-    var isRegexOrFunction = function isRegexOrFunction(testValue) {
+    const formElement = document.createElement('form');
+    const isRegexOrFunction = function isRegexOrFunction(testValue) {
       return testValue instanceof RegExp || testValue instanceof Function;
     };
+
     /**
      * _parseConfig
      *
      * @param  {Object} cfg optional config literal
      */
     // eslint-disable-next-line complexity
-
-
-    var _parseConfig = function _parseConfig(cfg) {
+    const _parseConfig = function _parseConfig() {
+      let cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       if (CONFIG && CONFIG === cfg) {
         return;
       }
+
       /* Shield configuration object from tampering */
-
-
-      if (!cfg || _typeof(cfg) !== 'object') {
+      if (!cfg || typeof cfg !== 'object') {
         cfg = {};
       }
+
       /* Shield configuration object from prototype pollution */
-
-
       cfg = clone(cfg);
-      PARSER_MEDIA_TYPE = // eslint-disable-next-line unicorn/prefer-includes
-      SUPPORTED_PARSER_MEDIA_TYPES.indexOf(cfg.PARSER_MEDIA_TYPE) === -1 ? PARSER_MEDIA_TYPE = DEFAULT_PARSER_MEDIA_TYPE : PARSER_MEDIA_TYPE = cfg.PARSER_MEDIA_TYPE; // HTML tags and attributes are not case-sensitive, converting to lowercase. Keeping XHTML as is.
+      PARSER_MEDIA_TYPE =
+      // eslint-disable-next-line unicorn/prefer-includes
+      SUPPORTED_PARSER_MEDIA_TYPES.indexOf(cfg.PARSER_MEDIA_TYPE) === -1 ? DEFAULT_PARSER_MEDIA_TYPE : cfg.PARSER_MEDIA_TYPE;
 
+      // HTML tags and attributes are not case-sensitive, converting to lowercase. Keeping XHTML as is.
       transformCaseFunc = PARSER_MEDIA_TYPE === 'application/xhtml+xml' ? stringToString : stringToLowerCase;
-      /* Set configuration parameters */
 
-      ALLOWED_TAGS = 'ALLOWED_TAGS' in cfg ? addToSet({}, cfg.ALLOWED_TAGS, transformCaseFunc) : DEFAULT_ALLOWED_TAGS;
-      ALLOWED_ATTR = 'ALLOWED_ATTR' in cfg ? addToSet({}, cfg.ALLOWED_ATTR, transformCaseFunc) : DEFAULT_ALLOWED_ATTR;
-      ALLOWED_NAMESPACES = 'ALLOWED_NAMESPACES' in cfg ? addToSet({}, cfg.ALLOWED_NAMESPACES, stringToString) : DEFAULT_ALLOWED_NAMESPACES;
-      URI_SAFE_ATTRIBUTES = 'ADD_URI_SAFE_ATTR' in cfg ? addToSet(clone(DEFAULT_URI_SAFE_ATTRIBUTES), // eslint-disable-line indent
-      cfg.ADD_URI_SAFE_ATTR, // eslint-disable-line indent
+      /* Set configuration parameters */
+      ALLOWED_TAGS = objectHasOwnProperty(cfg, 'ALLOWED_TAGS') ? addToSet({}, cfg.ALLOWED_TAGS, transformCaseFunc) : DEFAULT_ALLOWED_TAGS;
+      ALLOWED_ATTR = objectHasOwnProperty(cfg, 'ALLOWED_ATTR') ? addToSet({}, cfg.ALLOWED_ATTR, transformCaseFunc) : DEFAULT_ALLOWED_ATTR;
+      ALLOWED_NAMESPACES = objectHasOwnProperty(cfg, 'ALLOWED_NAMESPACES') ? addToSet({}, cfg.ALLOWED_NAMESPACES, stringToString) : DEFAULT_ALLOWED_NAMESPACES;
+      URI_SAFE_ATTRIBUTES = objectHasOwnProperty(cfg, 'ADD_URI_SAFE_ATTR') ? addToSet(clone(DEFAULT_URI_SAFE_ATTRIBUTES),
+      // eslint-disable-line indent
+      cfg.ADD_URI_SAFE_ATTR,
+      // eslint-disable-line indent
       transformCaseFunc // eslint-disable-line indent
       ) // eslint-disable-line indent
       : DEFAULT_URI_SAFE_ATTRIBUTES;
-      DATA_URI_TAGS = 'ADD_DATA_URI_TAGS' in cfg ? addToSet(clone(DEFAULT_DATA_URI_TAGS), // eslint-disable-line indent
-      cfg.ADD_DATA_URI_TAGS, // eslint-disable-line indent
+      DATA_URI_TAGS = objectHasOwnProperty(cfg, 'ADD_DATA_URI_TAGS') ? addToSet(clone(DEFAULT_DATA_URI_TAGS),
+      // eslint-disable-line indent
+      cfg.ADD_DATA_URI_TAGS,
+      // eslint-disable-line indent
       transformCaseFunc // eslint-disable-line indent
       ) // eslint-disable-line indent
       : DEFAULT_DATA_URI_TAGS;
-      FORBID_CONTENTS = 'FORBID_CONTENTS' in cfg ? addToSet({}, cfg.FORBID_CONTENTS, transformCaseFunc) : DEFAULT_FORBID_CONTENTS;
-      FORBID_TAGS = 'FORBID_TAGS' in cfg ? addToSet({}, cfg.FORBID_TAGS, transformCaseFunc) : {};
-      FORBID_ATTR = 'FORBID_ATTR' in cfg ? addToSet({}, cfg.FORBID_ATTR, transformCaseFunc) : {};
-      USE_PROFILES = 'USE_PROFILES' in cfg ? cfg.USE_PROFILES : false;
+      FORBID_CONTENTS = objectHasOwnProperty(cfg, 'FORBID_CONTENTS') ? addToSet({}, cfg.FORBID_CONTENTS, transformCaseFunc) : DEFAULT_FORBID_CONTENTS;
+      FORBID_TAGS = objectHasOwnProperty(cfg, 'FORBID_TAGS') ? addToSet({}, cfg.FORBID_TAGS, transformCaseFunc) : {};
+      FORBID_ATTR = objectHasOwnProperty(cfg, 'FORBID_ATTR') ? addToSet({}, cfg.FORBID_ATTR, transformCaseFunc) : {};
+      USE_PROFILES = objectHasOwnProperty(cfg, 'USE_PROFILES') ? cfg.USE_PROFILES : false;
       ALLOW_ARIA_ATTR = cfg.ALLOW_ARIA_ATTR !== false; // Default true
-
       ALLOW_DATA_ATTR = cfg.ALLOW_DATA_ATTR !== false; // Default true
-
       ALLOW_UNKNOWN_PROTOCOLS = cfg.ALLOW_UNKNOWN_PROTOCOLS || false; // Default false
-
       ALLOW_SELF_CLOSE_IN_ATTR = cfg.ALLOW_SELF_CLOSE_IN_ATTR !== false; // Default true
-
       SAFE_FOR_TEMPLATES = cfg.SAFE_FOR_TEMPLATES || false; // Default false
-
+      SAFE_FOR_XML = cfg.SAFE_FOR_XML !== false; // Default true
       WHOLE_DOCUMENT = cfg.WHOLE_DOCUMENT || false; // Default false
-
       RETURN_DOM = cfg.RETURN_DOM || false; // Default false
-
       RETURN_DOM_FRAGMENT = cfg.RETURN_DOM_FRAGMENT || false; // Default false
-
       RETURN_TRUSTED_TYPE = cfg.RETURN_TRUSTED_TYPE || false; // Default false
-
       FORCE_BODY = cfg.FORCE_BODY || false; // Default false
-
       SANITIZE_DOM = cfg.SANITIZE_DOM !== false; // Default true
-
       SANITIZE_NAMED_PROPS = cfg.SANITIZE_NAMED_PROPS || false; // Default false
-
       KEEP_CONTENT = cfg.KEEP_CONTENT !== false; // Default true
-
       IN_PLACE = cfg.IN_PLACE || false; // Default false
-
-      IS_ALLOWED_URI$1 = cfg.ALLOWED_URI_REGEXP || IS_ALLOWED_URI$1;
+      IS_ALLOWED_URI$1 = cfg.ALLOWED_URI_REGEXP || IS_ALLOWED_URI;
       NAMESPACE = cfg.NAMESPACE || HTML_NAMESPACE;
-
+      CUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || {};
       if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck)) {
         CUSTOM_ELEMENT_HANDLING.tagNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck;
       }
-
       if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck)) {
         CUSTOM_ELEMENT_HANDLING.attributeNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck;
       }
-
       if (cfg.CUSTOM_ELEMENT_HANDLING && typeof cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements === 'boolean') {
         CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements = cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements;
       }
-
       if (SAFE_FOR_TEMPLATES) {
         ALLOW_DATA_ATTR = false;
       }
-
       if (RETURN_DOM_FRAGMENT) {
         RETURN_DOM = true;
       }
+
       /* Parse profile info */
-
-
       if (USE_PROFILES) {
-        ALLOWED_TAGS = addToSet({}, _toConsumableArray(text));
+        ALLOWED_TAGS = addToSet({}, text);
         ALLOWED_ATTR = [];
-
         if (USE_PROFILES.html === true) {
           addToSet(ALLOWED_TAGS, html$1);
           addToSet(ALLOWED_ATTR, html);
         }
-
         if (USE_PROFILES.svg === true) {
           addToSet(ALLOWED_TAGS, svg$1);
           addToSet(ALLOWED_ATTR, svg);
           addToSet(ALLOWED_ATTR, xml);
         }
-
         if (USE_PROFILES.svgFilters === true) {
           addToSet(ALLOWED_TAGS, svgFilters);
           addToSet(ALLOWED_ATTR, svg);
           addToSet(ALLOWED_ATTR, xml);
         }
-
         if (USE_PROFILES.mathMl === true) {
           addToSet(ALLOWED_TAGS, mathMl$1);
           addToSet(ALLOWED_ATTR, mathMl);
           addToSet(ALLOWED_ATTR, xml);
         }
       }
+
       /* Merge configuration parameters */
-
-
       if (cfg.ADD_TAGS) {
         if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
           ALLOWED_TAGS = clone(ALLOWED_TAGS);
         }
-
         addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);
       }
-
       if (cfg.ADD_ATTR) {
         if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
           ALLOWED_ATTR = clone(ALLOWED_ATTR);
         }
-
         addToSet(ALLOWED_ATTR, cfg.ADD_ATTR, transformCaseFunc);
       }
-
       if (cfg.ADD_URI_SAFE_ATTR) {
         addToSet(URI_SAFE_ATTRIBUTES, cfg.ADD_URI_SAFE_ATTR, transformCaseFunc);
       }
-
       if (cfg.FORBID_CONTENTS) {
         if (FORBID_CONTENTS === DEFAULT_FORBID_CONTENTS) {
           FORBID_CONTENTS = clone(FORBID_CONTENTS);
         }
-
         addToSet(FORBID_CONTENTS, cfg.FORBID_CONTENTS, transformCaseFunc);
       }
+
       /* Add #text in case KEEP_CONTENT is set to true */
-
-
       if (KEEP_CONTENT) {
         ALLOWED_TAGS['#text'] = true;
       }
+
       /* Add html, head and body to ALLOWED_TAGS in case WHOLE_DOCUMENT is true */
-
-
       if (WHOLE_DOCUMENT) {
         addToSet(ALLOWED_TAGS, ['html', 'head', 'body']);
       }
+
       /* Add tbody to ALLOWED_TAGS in case tables are permitted, see #286, #365 */
-
-
       if (ALLOWED_TAGS.table) {
         addToSet(ALLOWED_TAGS, ['tbody']);
         delete FORBID_TAGS.tbody;
-      } // Prevent further manipulation of configuration.
+      }
+      if (cfg.TRUSTED_TYPES_POLICY) {
+        if (typeof cfg.TRUSTED_TYPES_POLICY.createHTML !== 'function') {
+          throw typeErrorCreate('TRUSTED_TYPES_POLICY configuration option must provide a "createHTML" hook.');
+        }
+        if (typeof cfg.TRUSTED_TYPES_POLICY.createScriptURL !== 'function') {
+          throw typeErrorCreate('TRUSTED_TYPES_POLICY configuration option must provide a "createScriptURL" hook.');
+        }
+
+        // Overwrite existing TrustedTypes policy.
+        trustedTypesPolicy = cfg.TRUSTED_TYPES_POLICY;
+
+        // Sign local variables required by `sanitize`.
+        emptyHTML = trustedTypesPolicy.createHTML('');
+      } else {
+        // Uninitialized policy, attempt to initialize the internal dompurify policy.
+        if (trustedTypesPolicy === undefined) {
+          trustedTypesPolicy = _createTrustedTypesPolicy(trustedTypes, currentScript);
+        }
+
+        // If creating the internal policy succeeded sign internal variables.
+        if (trustedTypesPolicy !== null && typeof emptyHTML === 'string') {
+          emptyHTML = trustedTypesPolicy.createHTML('');
+        }
+      }
+
+      // Prevent further manipulation of configuration.
       // Not available in IE8, Safari 5, etc.
-
-
       if (freeze) {
         freeze(cfg);
       }
-
       CONFIG = cfg;
     };
+    const MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, ['mi', 'mo', 'mn', 'ms', 'mtext']);
+    const HTML_INTEGRATION_POINTS = addToSet({}, ['annotation-xml']);
 
-    var MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, ['mi', 'mo', 'mn', 'ms', 'mtext']);
-    var HTML_INTEGRATION_POINTS = addToSet({}, ['foreignobject', 'desc', 'title', 'annotation-xml']); // Certain elements are allowed in both SVG and HTML
+    // Certain elements are allowed in both SVG and HTML
     // namespace. We need to specify them explicitly
     // so that they don't get erroneously deleted from
     // HTML namespace.
+    const COMMON_SVG_AND_HTML_ELEMENTS = addToSet({}, ['title', 'style', 'font', 'a', 'script']);
 
-    var COMMON_SVG_AND_HTML_ELEMENTS = addToSet({}, ['title', 'style', 'font', 'a', 'script']);
     /* Keep track of all possible SVG and MathML tags
      * so that we can perform the namespace checks
      * correctly. */
+    const ALL_SVG_TAGS = addToSet({}, [...svg$1, ...svgFilters, ...svgDisallowed]);
+    const ALL_MATHML_TAGS = addToSet({}, [...mathMl$1, ...mathMlDisallowed]);
 
-    var ALL_SVG_TAGS = addToSet({}, svg$1);
-    addToSet(ALL_SVG_TAGS, svgFilters);
-    addToSet(ALL_SVG_TAGS, svgDisallowed);
-    var ALL_MATHML_TAGS = addToSet({}, mathMl$1);
-    addToSet(ALL_MATHML_TAGS, mathMlDisallowed);
     /**
-     *
-     *
      * @param  {Element} element a DOM element whose namespace is being checked
      * @returns {boolean} Return false if the element has a
      *  namespace that a spec-compliant parser would never
      *  return. Return true otherwise.
      */
+    const _checkValidNamespace = function _checkValidNamespace(element) {
+      let parent = getParentNode(element);
 
-    var _checkValidNamespace = function _checkValidNamespace(element) {
-      var parent = getParentNode(element); // In JSDOM, if we're inside shadow DOM, then parentNode
+      // In JSDOM, if we're inside shadow DOM, then parentNode
       // can be null. We just simulate parent in this case.
-
       if (!parent || !parent.tagName) {
         parent = {
           namespaceURI: NAMESPACE,
           tagName: 'template'
         };
       }
-
-      var tagName = stringToLowerCase(element.tagName);
-      var parentTagName = stringToLowerCase(parent.tagName);
-
+      const tagName = stringToLowerCase(element.tagName);
+      const parentTagName = stringToLowerCase(parent.tagName);
       if (!ALLOWED_NAMESPACES[element.namespaceURI]) {
         return false;
       }
-
       if (element.namespaceURI === SVG_NAMESPACE) {
         // The only way to switch from HTML namespace to SVG
         // is via <svg>. If it happens via any other tag, then
         // it should be killed.
         if (parent.namespaceURI === HTML_NAMESPACE) {
           return tagName === 'svg';
-        } // The only way to switch from MathML to SVG is via`
+        }
+
+        // The only way to switch from MathML to SVG is via`
         // svg if parent is either <annotation-xml> or MathML
         // text integration points.
-
-
         if (parent.namespaceURI === MATHML_NAMESPACE) {
           return tagName === 'svg' && (parentTagName === 'annotation-xml' || MATHML_TEXT_INTEGRATION_POINTS[parentTagName]);
-        } // We only allow elements that are defined in SVG
+        }
+
+        // We only allow elements that are defined in SVG
         // spec. All others are disallowed in SVG namespace.
-
-
         return Boolean(ALL_SVG_TAGS[tagName]);
       }
-
       if (element.namespaceURI === MATHML_NAMESPACE) {
         // The only way to switch from HTML namespace to MathML
         // is via <math>. If it happens via any other tag, then
         // it should be killed.
         if (parent.namespaceURI === HTML_NAMESPACE) {
           return tagName === 'math';
-        } // The only way to switch from SVG to MathML is via
+        }
+
+        // The only way to switch from SVG to MathML is via
         // <math> and HTML integration points
-
-
         if (parent.namespaceURI === SVG_NAMESPACE) {
           return tagName === 'math' && HTML_INTEGRATION_POINTS[parentTagName];
-        } // We only allow elements that are defined in MathML
+        }
+
+        // We only allow elements that are defined in MathML
         // spec. All others are disallowed in MathML namespace.
-
-
         return Boolean(ALL_MATHML_TAGS[tagName]);
       }
-
       if (element.namespaceURI === HTML_NAMESPACE) {
         // The only way to switch from SVG to HTML is via
         // HTML integration points, and from MathML to HTML
@@ -842,59 +809,51 @@
         if (parent.namespaceURI === SVG_NAMESPACE && !HTML_INTEGRATION_POINTS[parentTagName]) {
           return false;
         }
-
         if (parent.namespaceURI === MATHML_NAMESPACE && !MATHML_TEXT_INTEGRATION_POINTS[parentTagName]) {
           return false;
-        } // We disallow tags that are specific for MathML
+        }
+
+        // We disallow tags that are specific for MathML
         // or SVG and should never appear in HTML namespace
-
-
         return !ALL_MATHML_TAGS[tagName] && (COMMON_SVG_AND_HTML_ELEMENTS[tagName] || !ALL_SVG_TAGS[tagName]);
-      } // For XHTML and XML documents that support custom namespaces
+      }
 
-
+      // For XHTML and XML documents that support custom namespaces
       if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && ALLOWED_NAMESPACES[element.namespaceURI]) {
         return true;
-      } // The code should never reach this place (this means
+      }
+
+      // The code should never reach this place (this means
       // that the element somehow got namespace that is not
       // HTML, SVG, MathML or allowed via ALLOWED_NAMESPACES).
       // Return false just in case.
-
-
       return false;
     };
+
     /**
      * _forceRemove
      *
      * @param  {Node} node a DOM node
      */
-
-
-    var _forceRemove = function _forceRemove(node) {
+    const _forceRemove = function _forceRemove(node) {
       arrayPush(DOMPurify.removed, {
         element: node
       });
-
       try {
         // eslint-disable-next-line unicorn/prefer-dom-node-remove
-        node.parentNode.removeChild(node);
+        getParentNode(node).removeChild(node);
       } catch (_) {
-        try {
-          node.outerHTML = emptyHTML;
-        } catch (_) {
-          node.remove();
-        }
+        remove(node);
       }
     };
+
     /**
      * _removeAttribute
      *
      * @param  {String} name an Attribute name
      * @param  {Node} node a DOM node
      */
-
-
-    var _removeAttribute = function _removeAttribute(name, node) {
+    const _removeAttribute = function _removeAttribute(name, node) {
       try {
         arrayPush(DOMPurify.removed, {
           attribute: node.getAttributeNode(name),
@@ -906,9 +865,9 @@
           from: node
         });
       }
+      node.removeAttribute(name);
 
-      node.removeAttribute(name); // We void attribute values for unremovable "is"" attributes
-
+      // We void attribute values for unremovable "is"" attributes
       if (name === 'is' && !ALLOWED_ATTR[name]) {
         if (RETURN_DOM || RETURN_DOM_FRAGMENT) {
           try {
@@ -921,103 +880,92 @@
         }
       }
     };
+
     /**
      * _initDocument
      *
      * @param  {String} dirty a string of dirty markup
      * @return {Document} a DOM, filled with the dirty markup
      */
-
-
-    var _initDocument = function _initDocument(dirty) {
+    const _initDocument = function _initDocument(dirty) {
       /* Create a HTML document */
-      var doc;
-      var leadingWhitespace;
-
+      let doc = null;
+      let leadingWhitespace = null;
       if (FORCE_BODY) {
         dirty = '<remove></remove>' + dirty;
       } else {
         /* If FORCE_BODY isn't used, leading whitespace needs to be preserved manually */
-        var matches = stringMatch(dirty, /^[\r\n\t ]+/);
+        const matches = stringMatch(dirty, /^[\r\n\t ]+/);
         leadingWhitespace = matches && matches[0];
       }
-
       if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && NAMESPACE === HTML_NAMESPACE) {
         // Root of XHTML doc must contain xmlns declaration (see https://www.w3.org/TR/xhtml1/normative.html#strict)
         dirty = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>' + dirty + '</body></html>';
       }
-
-      var dirtyPayload = trustedTypesPolicy ? trustedTypesPolicy.createHTML(dirty) : dirty;
+      const dirtyPayload = trustedTypesPolicy ? trustedTypesPolicy.createHTML(dirty) : dirty;
       /*
        * Use the DOMParser API by default, fallback later if needs be
        * DOMParser not work for svg when has multiple root element.
        */
-
       if (NAMESPACE === HTML_NAMESPACE) {
         try {
           doc = new DOMParser().parseFromString(dirtyPayload, PARSER_MEDIA_TYPE);
         } catch (_) {}
       }
+
       /* Use createHTMLDocument in case DOMParser is not available */
-
-
       if (!doc || !doc.documentElement) {
         doc = implementation.createDocument(NAMESPACE, 'template', null);
-
         try {
           doc.documentElement.innerHTML = IS_EMPTY_INPUT ? emptyHTML : dirtyPayload;
-        } catch (_) {// Syntax error if dirtyPayload is invalid xml
+        } catch (_) {
+          // Syntax error if dirtyPayload is invalid xml
         }
       }
-
-      var body = doc.body || doc.documentElement;
-
+      const body = doc.body || doc.documentElement;
       if (dirty && leadingWhitespace) {
         body.insertBefore(document.createTextNode(leadingWhitespace), body.childNodes[0] || null);
       }
+
       /* Work on whole document or just its body */
-
-
       if (NAMESPACE === HTML_NAMESPACE) {
         return getElementsByTagName.call(doc, WHOLE_DOCUMENT ? 'html' : 'body')[0];
       }
-
       return WHOLE_DOCUMENT ? doc.documentElement : body;
     };
+
     /**
-     * _createIterator
+     * Creates a NodeIterator object that you can use to traverse filtered lists of nodes or elements in a document.
      *
-     * @param  {Document} root document/fragment to create iterator for
-     * @return {Iterator} iterator instance
+     * @param  {Node} root The root element or node to start traversing on.
+     * @return {NodeIterator} The created NodeIterator
      */
-
-
-    var _createIterator = function _createIterator(root) {
-      return createNodeIterator.call(root.ownerDocument || root, root, // eslint-disable-next-line no-bitwise
-      NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT, null, false);
+    const _createNodeIterator = function _createNodeIterator(root) {
+      return createNodeIterator.call(root.ownerDocument || root, root,
+      // eslint-disable-next-line no-bitwise
+      NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT | NodeFilter.SHOW_PROCESSING_INSTRUCTION | NodeFilter.SHOW_CDATA_SECTION, null);
     };
+
     /**
      * _isClobbered
      *
      * @param  {Node} elm element to check for clobbering attacks
      * @return {Boolean} true if clobbered, false if safe
      */
-
-
-    var _isClobbered = function _isClobbered(elm) {
+    const _isClobbered = function _isClobbered(elm) {
       return elm instanceof HTMLFormElement && (typeof elm.nodeName !== 'string' || typeof elm.textContent !== 'string' || typeof elm.removeChild !== 'function' || !(elm.attributes instanceof NamedNodeMap) || typeof elm.removeAttribute !== 'function' || typeof elm.setAttribute !== 'function' || typeof elm.namespaceURI !== 'string' || typeof elm.insertBefore !== 'function' || typeof elm.hasChildNodes !== 'function');
     };
+
     /**
-     * _isNode
+     * Checks whether the given object is a DOM node.
      *
-     * @param  {Node} obj object to check whether it's a DOM node
+     * @param  {Node} object object to check whether it's a DOM node
      * @return {Boolean} true is object is a DOM node
      */
-
-
-    var _isNode = function _isNode(object) {
-      return _typeof(Node) === 'object' ? object instanceof Node : object && _typeof(object) === 'object' && typeof object.nodeType === 'number' && typeof object.nodeName === 'string';
+    const _isNode = function _isNode(object) {
+      return typeof Node === 'function' && object instanceof Node;
     };
+
     /**
      * _executeHook
      * Execute user configurable hooks
@@ -1026,17 +974,15 @@
      * @param  {Node} currentNode node to work on with the hook
      * @param  {Object} data additional hook parameters
      */
-
-
-    var _executeHook = function _executeHook(entryPoint, currentNode, data) {
+    const _executeHook = function _executeHook(entryPoint, currentNode, data) {
       if (!hooks[entryPoint]) {
         return;
       }
-
-      arrayForEach(hooks[entryPoint], function (hook) {
+      arrayForEach(hooks[entryPoint], hook => {
         hook.call(DOMPurify, currentNode, data, CONFIG);
       });
     };
+
     /**
      * _sanitizeElements
      *
@@ -1047,108 +993,93 @@
      * @param   {Node} currentNode to check for permission to exist
      * @return  {Boolean} true if node was killed, false if left alive
      */
+    const _sanitizeElements = function _sanitizeElements(currentNode) {
+      let content = null;
 
-
-    var _sanitizeElements = function _sanitizeElements(currentNode) {
-      var content;
       /* Execute a hook if present */
-
       _executeHook('beforeSanitizeElements', currentNode, null);
+
       /* Check if element is clobbered or can clobber */
-
-
       if (_isClobbered(currentNode)) {
         _forceRemove(currentNode);
-
         return true;
       }
-      /* Check if tagname contains Unicode */
 
-
-      if (regExpTest(/[\u0080-\uFFFF]/, currentNode.nodeName)) {
-        _forceRemove(currentNode);
-
-        return true;
-      }
       /* Now let's check the element's type and name */
+      const tagName = transformCaseFunc(currentNode.nodeName);
 
-
-      var tagName = transformCaseFunc(currentNode.nodeName);
       /* Execute a hook if present */
-
       _executeHook('uponSanitizeElement', currentNode, {
-        tagName: tagName,
+        tagName,
         allowedTags: ALLOWED_TAGS
       });
+
       /* Detect mXSS attempts abusing namespace confusion */
-
-
-      if (currentNode.hasChildNodes() && !_isNode(currentNode.firstElementChild) && (!_isNode(currentNode.content) || !_isNode(currentNode.content.firstElementChild)) && regExpTest(/<[/\w]/g, currentNode.innerHTML) && regExpTest(/<[/\w]/g, currentNode.textContent)) {
+      if (currentNode.hasChildNodes() && !_isNode(currentNode.firstElementChild) && regExpTest(/<[/\w]/g, currentNode.innerHTML) && regExpTest(/<[/\w]/g, currentNode.textContent)) {
         _forceRemove(currentNode);
-
         return true;
       }
-      /* Mitigate a problem with templates inside select */
 
-
-      if (tagName === 'select' && regExpTest(/<template/i, currentNode.innerHTML)) {
+      /* Remove any occurrence of processing instructions */
+      if (currentNode.nodeType === NODE_TYPE.progressingInstruction) {
         _forceRemove(currentNode);
-
         return true;
       }
+
+      /* Remove any kind of possibly harmful comments */
+      if (SAFE_FOR_XML && currentNode.nodeType === NODE_TYPE.comment && regExpTest(/<[/\w]/g, currentNode.data)) {
+        _forceRemove(currentNode);
+        return true;
+      }
+
       /* Remove element if anything forbids its presence */
-
-
       if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
         /* Check if we have a custom element to handle */
-        if (!FORBID_TAGS[tagName] && _basicCustomElementTest(tagName)) {
-          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) return false;
-          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) return false;
-        }
-        /* Keep content except for bad-listed elements */
-
-
-        if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
-          var parentNode = getParentNode(currentNode) || currentNode.parentNode;
-          var childNodes = getChildNodes(currentNode) || currentNode.childNodes;
-
-          if (childNodes && parentNode) {
-            var childCount = childNodes.length;
-
-            for (var i = childCount - 1; i >= 0; --i) {
-              parentNode.insertBefore(cloneNode(childNodes[i], true), getNextSibling(currentNode));
-            }
+        if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) {
+            return false;
+          }
+          if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) {
+            return false;
           }
         }
 
+        /* Keep content except for bad-listed elements */
+        if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
+          const parentNode = getParentNode(currentNode) || currentNode.parentNode;
+          const childNodes = getChildNodes(currentNode) || currentNode.childNodes;
+          if (childNodes && parentNode) {
+            const childCount = childNodes.length;
+            for (let i = childCount - 1; i >= 0; --i) {
+              const childClone = cloneNode(childNodes[i], true);
+              childClone.__removalCount = (currentNode.__removalCount || 0) + 1;
+              parentNode.insertBefore(childClone, getNextSibling(currentNode));
+            }
+          }
+        }
         _forceRemove(currentNode);
-
         return true;
       }
+
       /* Check whether element has a valid namespace */
-
-
       if (currentNode instanceof Element && !_checkValidNamespace(currentNode)) {
         _forceRemove(currentNode);
-
         return true;
       }
 
-      if ((tagName === 'noscript' || tagName === 'noembed') && regExpTest(/<\/no(script|embed)/i, currentNode.innerHTML)) {
+      /* Make sure that older browsers don't get fallback-tag mXSS */
+      if ((tagName === 'noscript' || tagName === 'noembed' || tagName === 'noframes') && regExpTest(/<\/no(script|embed|frames)/i, currentNode.innerHTML)) {
         _forceRemove(currentNode);
-
         return true;
       }
+
       /* Sanitize element content to be template-safe */
-
-
-      if (SAFE_FOR_TEMPLATES && currentNode.nodeType === 3) {
+      if (SAFE_FOR_TEMPLATES && currentNode.nodeType === NODE_TYPE.text) {
         /* Get the element's text content */
         content = currentNode.textContent;
-        content = stringReplace(content, MUSTACHE_EXPR$1, ' ');
-        content = stringReplace(content, ERB_EXPR$1, ' ');
-        content = stringReplace(content, TMPLIT_EXPR$1, ' ');
-
+        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
+          content = stringReplace(content, expr, ' ');
+        });
         if (currentNode.textContent !== content) {
           arrayPush(DOMPurify.removed, {
             element: currentNode.cloneNode()
@@ -1156,13 +1087,12 @@
           currentNode.textContent = content;
         }
       }
+
       /* Execute a hook if present */
-
-
       _executeHook('afterSanitizeElements', currentNode, null);
-
       return false;
     };
+
     /**
      * _isValidAttribute
      *
@@ -1172,47 +1102,46 @@
      * @return {Boolean} Returns true if `value` is valid, otherwise false.
      */
     // eslint-disable-next-line complexity
-
-
-    var _isValidAttribute = function _isValidAttribute(lcTag, lcName, value) {
+    const _isValidAttribute = function _isValidAttribute(lcTag, lcName, value) {
       /* Make sure attribute cannot clobber */
       if (SANITIZE_DOM && (lcName === 'id' || lcName === 'name') && (value in document || value in formElement)) {
         return false;
       }
+
       /* Allow valid data-* attributes: At least one character after "-"
           (https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
           XML-compatible (https://html.spec.whatwg.org/multipage/infrastructure.html#xml-compatible and http://www.w3.org/TR/xml/#d0e804)
           We don't need to check the value; it's always URI safe. */
-
-
-      if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR$1, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR$1, lcName)) ; else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
-        if ( // First condition does a very basic check if a) it's basically a valid custom element tagname AND
+      if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR, lcName)) ; else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
+        if (
+        // First condition does a very basic check if a) it's basically a valid custom element tagname AND
         // b) if the tagName passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
         // and c) if the attribute name passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.attributeNameCheck
-        _basicCustomElementTest(lcTag) && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, lcTag) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(lcTag)) && (CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.attributeNameCheck, lcName) || CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.attributeNameCheck(lcName)) || // Alternative, second condition checks if it's an `is`-attribute, AND
+        _isBasicCustomElement(lcTag) && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, lcTag) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(lcTag)) && (CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.attributeNameCheck, lcName) || CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.attributeNameCheck(lcName)) ||
+        // Alternative, second condition checks if it's an `is`-attribute, AND
         // the value passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
         lcName === 'is' && CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, value) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(value))) ; else {
           return false;
         }
         /* Check value is safe. First, is attr inert? If so, is safe */
-
-      } else if (URI_SAFE_ATTRIBUTES[lcName]) ; else if (regExpTest(IS_ALLOWED_URI$1, stringReplace(value, ATTR_WHITESPACE$1, ''))) ; else if ((lcName === 'src' || lcName === 'xlink:href' || lcName === 'href') && lcTag !== 'script' && stringIndexOf(value, 'data:') === 0 && DATA_URI_TAGS[lcTag]) ; else if (ALLOW_UNKNOWN_PROTOCOLS && !regExpTest(IS_SCRIPT_OR_DATA$1, stringReplace(value, ATTR_WHITESPACE$1, ''))) ; else if (!value) ; else {
+      } else if (URI_SAFE_ATTRIBUTES[lcName]) ; else if (regExpTest(IS_ALLOWED_URI$1, stringReplace(value, ATTR_WHITESPACE, ''))) ; else if ((lcName === 'src' || lcName === 'xlink:href' || lcName === 'href') && lcTag !== 'script' && stringIndexOf(value, 'data:') === 0 && DATA_URI_TAGS[lcTag]) ; else if (ALLOW_UNKNOWN_PROTOCOLS && !regExpTest(IS_SCRIPT_OR_DATA, stringReplace(value, ATTR_WHITESPACE, ''))) ; else if (value) {
         return false;
-      }
-
+      } else ;
       return true;
     };
+
     /**
-     * _basicCustomElementCheck
+     * _isBasicCustomElement
      * checks if at least one dash is included in tagName, and it's not the first char
      * for more sophisticated checking see https://github.com/sindresorhus/validate-element-name
+     *
      * @param {string} tagName name of the tag of the node to sanitize
+     * @returns {boolean} Returns true if the tag name meets the basic criteria for a custom element, otherwise false.
      */
-
-
-    var _basicCustomElementTest = function _basicCustomElementTest(tagName) {
-      return tagName.indexOf('-') > 0;
+    const _isBasicCustomElement = function _isBasicCustomElement(tagName) {
+      return tagName !== 'annotation-xml' && stringMatch(tagName, CUSTOM_ELEMENT);
     };
+
     /**
      * _sanitizeAttributes
      *
@@ -1223,120 +1152,112 @@
      *
      * @param  {Node} currentNode to sanitize
      */
-
-
-    var _sanitizeAttributes = function _sanitizeAttributes(currentNode) {
-      var attr;
-      var value;
-      var lcName;
-      var l;
+    const _sanitizeAttributes = function _sanitizeAttributes(currentNode) {
       /* Execute a hook if present */
-
       _executeHook('beforeSanitizeAttributes', currentNode, null);
+      const {
+        attributes
+      } = currentNode;
 
-      var attributes = currentNode.attributes;
       /* Check if we have attributes; if not we might have a text node */
-
       if (!attributes) {
         return;
       }
-
-      var hookEvent = {
+      const hookEvent = {
         attrName: '',
         attrValue: '',
         keepAttr: true,
         allowedAttributes: ALLOWED_ATTR
       };
-      l = attributes.length;
+      let l = attributes.length;
+
       /* Go backwards over all attributes; safely remove bad ones */
-
       while (l--) {
-        attr = attributes[l];
-        var _attr = attr,
-            name = _attr.name,
-            namespaceURI = _attr.namespaceURI;
-        value = name === 'value' ? attr.value : stringTrim(attr.value);
-        lcName = transformCaseFunc(name);
-        /* Execute a hook if present */
+        const attr = attributes[l];
+        const {
+          name,
+          namespaceURI,
+          value: attrValue
+        } = attr;
+        const lcName = transformCaseFunc(name);
+        let value = name === 'value' ? attrValue : stringTrim(attrValue);
 
+        /* Execute a hook if present */
         hookEvent.attrName = lcName;
         hookEvent.attrValue = value;
         hookEvent.keepAttr = true;
         hookEvent.forceKeepAttr = undefined; // Allows developers to see this is a property they can set
-
         _executeHook('uponSanitizeAttribute', currentNode, hookEvent);
-
         value = hookEvent.attrValue;
-        /* Did the hooks approve of the attribute? */
 
+        /* Did the hooks approve of the attribute? */
         if (hookEvent.forceKeepAttr) {
           continue;
         }
+
         /* Remove attribute */
-
-
         _removeAttribute(name, currentNode);
+
         /* Did the hooks approve of the attribute? */
-
-
         if (!hookEvent.keepAttr) {
           continue;
         }
+
         /* Work around a security issue in jQuery 3.0 */
-
-
         if (!ALLOW_SELF_CLOSE_IN_ATTR && regExpTest(/\/>/i, value)) {
           _removeAttribute(name, currentNode);
-
           continue;
         }
+
         /* Sanitize attribute content to be template-safe */
-
-
         if (SAFE_FOR_TEMPLATES) {
-          value = stringReplace(value, MUSTACHE_EXPR$1, ' ');
-          value = stringReplace(value, ERB_EXPR$1, ' ');
-          value = stringReplace(value, TMPLIT_EXPR$1, ' ');
+          arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
+            value = stringReplace(value, expr, ' ');
+          });
         }
+
         /* Is `value` valid for this attribute? */
-
-
-        var lcTag = transformCaseFunc(currentNode.nodeName);
-
+        const lcTag = transformCaseFunc(currentNode.nodeName);
         if (!_isValidAttribute(lcTag, lcName, value)) {
           continue;
         }
+
         /* Full DOM Clobbering protection via namespace isolation,
          * Prefix id and name attributes with `user-content-`
          */
-
-
         if (SANITIZE_NAMED_PROPS && (lcName === 'id' || lcName === 'name')) {
           // Remove the attribute with this value
-          _removeAttribute(name, currentNode); // Prefix the value and later re-create the attribute with the sanitized value
+          _removeAttribute(name, currentNode);
 
-
+          // Prefix the value and later re-create the attribute with the sanitized value
           value = SANITIZE_NAMED_PROPS_PREFIX + value;
         }
+
+        /* Work around a security issue with comments inside attributes */
+        if (SAFE_FOR_XML && regExpTest(/((--!?|])>)|<\/(style|title)/i, value)) {
+          _removeAttribute(name, currentNode);
+          continue;
+        }
+
         /* Handle attributes that require Trusted Types */
-
-
-        if (trustedTypesPolicy && _typeof(trustedTypes) === 'object' && typeof trustedTypes.getAttributeType === 'function') {
+        if (trustedTypesPolicy && typeof trustedTypes === 'object' && typeof trustedTypes.getAttributeType === 'function') {
           if (namespaceURI) ; else {
             switch (trustedTypes.getAttributeType(lcTag, lcName)) {
               case 'TrustedHTML':
-                value = trustedTypesPolicy.createHTML(value);
-                break;
-
+                {
+                  value = trustedTypesPolicy.createHTML(value);
+                  break;
+                }
               case 'TrustedScriptURL':
-                value = trustedTypesPolicy.createScriptURL(value);
-                break;
+                {
+                  value = trustedTypesPolicy.createScriptURL(value);
+                  break;
+                }
             }
           }
         }
+
         /* Handle invalid data-* attribute set by try-catching it */
-
-
         try {
           if (namespaceURI) {
             currentNode.setAttributeNS(namespaceURI, name, value);
@@ -1344,134 +1265,106 @@
             /* Fallback to setAttribute() for browser-unrecognized namespaces e.g. "x-schema". */
             currentNode.setAttribute(name, value);
           }
-
-          arrayPop(DOMPurify.removed);
+          if (_isClobbered(currentNode)) {
+            _forceRemove(currentNode);
+          } else {
+            arrayPop(DOMPurify.removed);
+          }
         } catch (_) {}
       }
+
       /* Execute a hook if present */
-
-
       _executeHook('afterSanitizeAttributes', currentNode, null);
     };
+
     /**
      * _sanitizeShadowDOM
      *
      * @param  {DocumentFragment} fragment to iterate over recursively
      */
+    const _sanitizeShadowDOM = function _sanitizeShadowDOM(fragment) {
+      let shadowNode = null;
+      const shadowIterator = _createNodeIterator(fragment);
 
-
-    var _sanitizeShadowDOM = function _sanitizeShadowDOM(fragment) {
-      var shadowNode;
-
-      var shadowIterator = _createIterator(fragment);
       /* Execute a hook if present */
-
-
       _executeHook('beforeSanitizeShadowDOM', fragment, null);
-
       while (shadowNode = shadowIterator.nextNode()) {
         /* Execute a hook if present */
         _executeHook('uponSanitizeShadowNode', shadowNode, null);
+
         /* Sanitize tags and elements */
-
-
         if (_sanitizeElements(shadowNode)) {
           continue;
         }
+
         /* Deep shadow DOM detected */
-
-
         if (shadowNode.content instanceof DocumentFragment) {
           _sanitizeShadowDOM(shadowNode.content);
         }
+
         /* Check attributes, sanitize if necessary */
-
-
         _sanitizeAttributes(shadowNode);
       }
+
       /* Execute a hook if present */
-
-
       _executeHook('afterSanitizeShadowDOM', fragment, null);
     };
+
     /**
      * Sanitize
      * Public method providing core sanitation functionality
      *
      * @param {String|Node} dirty string or DOM node
-     * @param {Object} configuration object
+     * @param {Object} cfg object
      */
     // eslint-disable-next-line complexity
-
-
     DOMPurify.sanitize = function (dirty) {
-      var cfg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var body;
-      var importedNode;
-      var currentNode;
-      var oldNode;
-      var returnNode;
+      let cfg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      let body = null;
+      let importedNode = null;
+      let currentNode = null;
+      let returnNode = null;
       /* Make sure we have a string to sanitize.
         DO NOT return early, as this will return the wrong type if
         the user has requested a DOM object rather than a string */
-
       IS_EMPTY_INPUT = !dirty;
-
       if (IS_EMPTY_INPUT) {
         dirty = '<!-->';
       }
+
       /* Stringify, in case dirty is an object */
-
-
       if (typeof dirty !== 'string' && !_isNode(dirty)) {
-        // eslint-disable-next-line no-negated-condition
-        if (typeof dirty.toString !== 'function') {
-          throw typeErrorCreate('toString is not a function');
-        } else {
+        if (typeof dirty.toString === 'function') {
           dirty = dirty.toString();
-
           if (typeof dirty !== 'string') {
             throw typeErrorCreate('dirty is not a string, aborting');
           }
+        } else {
+          throw typeErrorCreate('toString is not a function');
         }
       }
-      /* Check we can run. Otherwise fall back or ignore */
 
-
+      /* Return dirty HTML if DOMPurify cannot run */
       if (!DOMPurify.isSupported) {
-        if (_typeof(window.toStaticHTML) === 'object' || typeof window.toStaticHTML === 'function') {
-          if (typeof dirty === 'string') {
-            return window.toStaticHTML(dirty);
-          }
-
-          if (_isNode(dirty)) {
-            return window.toStaticHTML(dirty.outerHTML);
-          }
-        }
-
         return dirty;
       }
+
       /* Assign config vars */
-
-
       if (!SET_CONFIG) {
         _parseConfig(cfg);
       }
+
       /* Clean up removed elements */
-
-
       DOMPurify.removed = [];
-      /* Check if dirty is correctly typed for IN_PLACE */
 
+      /* Check if dirty is correctly typed for IN_PLACE */
       if (typeof dirty === 'string') {
         IN_PLACE = false;
       }
-
       if (IN_PLACE) {
         /* Do some early pre-sanitization to avoid unsafe root nodes */
         if (dirty.nodeName) {
-          var tagName = transformCaseFunc(dirty.nodeName);
-
+          const tagName = transformCaseFunc(dirty.nodeName);
           if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
             throw typeErrorCreate('root node is forbidden and cannot be sanitized in-place');
           }
@@ -1481,8 +1374,7 @@
            elements being stripped by the parser */
         body = _initDocument('<!---->');
         importedNode = body.ownerDocument.importNode(dirty, true);
-
-        if (importedNode.nodeType === 1 && importedNode.nodeName === 'BODY') {
+        if (importedNode.nodeType === NODE_TYPE.element && importedNode.nodeName === 'BODY') {
           /* Node is already a body, use as is */
           body = importedNode;
         } else if (importedNode.nodeName === 'HTML') {
@@ -1493,71 +1385,54 @@
         }
       } else {
         /* Exit directly if we have nothing to do */
-        if (!RETURN_DOM && !SAFE_FOR_TEMPLATES && !WHOLE_DOCUMENT && // eslint-disable-next-line unicorn/prefer-includes
+        if (!RETURN_DOM && !SAFE_FOR_TEMPLATES && !WHOLE_DOCUMENT &&
+        // eslint-disable-next-line unicorn/prefer-includes
         dirty.indexOf('<') === -1) {
           return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(dirty) : dirty;
         }
+
         /* Initialize the document to work on */
-
-
         body = _initDocument(dirty);
-        /* Check we have a DOM node from the data */
 
+        /* Check we have a DOM node from the data */
         if (!body) {
           return RETURN_DOM ? null : RETURN_TRUSTED_TYPE ? emptyHTML : '';
         }
       }
+
       /* Remove first element node (ours) if FORCE_BODY is set */
-
-
       if (body && FORCE_BODY) {
         _forceRemove(body.firstChild);
       }
+
       /* Get node iterator */
+      const nodeIterator = _createNodeIterator(IN_PLACE ? dirty : body);
 
-
-      var nodeIterator = _createIterator(IN_PLACE ? dirty : body);
       /* Now start iterating over the created document */
-
-
       while (currentNode = nodeIterator.nextNode()) {
-        /* Fix IE's strange behavior with manipulated textNodes #89 */
-        if (currentNode.nodeType === 3 && currentNode === oldNode) {
-          continue;
-        }
         /* Sanitize tags and elements */
-
-
         if (_sanitizeElements(currentNode)) {
           continue;
         }
+
         /* Shadow DOM detected, sanitize it */
-
-
         if (currentNode.content instanceof DocumentFragment) {
           _sanitizeShadowDOM(currentNode.content);
         }
+
         /* Check attributes, sanitize if necessary */
-
-
         _sanitizeAttributes(currentNode);
-
-        oldNode = currentNode;
       }
 
-      oldNode = null;
       /* If we sanitized `dirty` in-place, return it. */
-
       if (IN_PLACE) {
         return dirty;
       }
+
       /* Return sanitized string or DOM */
-
-
       if (RETURN_DOM) {
         if (RETURN_DOM_FRAGMENT) {
           returnNode = createDocumentFragment.call(body.ownerDocument);
-
           while (body.firstChild) {
             // eslint-disable-next-line unicorn/prefer-dom-node-append
             returnNode.appendChild(body.firstChild);
@@ -1565,8 +1440,7 @@
         } else {
           returnNode = body;
         }
-
-        if (ALLOWED_ATTR.shadowroot || ALLOWED_ATTR.shadowrootmod) {
+        if (ALLOWED_ATTR.shadowroot || ALLOWED_ATTR.shadowrootmode) {
           /*
             AdoptNode() is not used because internal state is not reset
             (e.g. the past names map of a HTMLFormElement), this is safe
@@ -1576,73 +1450,66 @@
           */
           returnNode = importNode.call(originalDocument, returnNode, true);
         }
-
         return returnNode;
       }
+      let serializedHTML = WHOLE_DOCUMENT ? body.outerHTML : body.innerHTML;
 
-      var serializedHTML = WHOLE_DOCUMENT ? body.outerHTML : body.innerHTML;
       /* Serialize doctype if allowed */
-
       if (WHOLE_DOCUMENT && ALLOWED_TAGS['!doctype'] && body.ownerDocument && body.ownerDocument.doctype && body.ownerDocument.doctype.name && regExpTest(DOCTYPE_NAME, body.ownerDocument.doctype.name)) {
         serializedHTML = '<!DOCTYPE ' + body.ownerDocument.doctype.name + '>\n' + serializedHTML;
       }
+
       /* Sanitize final string template-safe */
-
-
       if (SAFE_FOR_TEMPLATES) {
-        serializedHTML = stringReplace(serializedHTML, MUSTACHE_EXPR$1, ' ');
-        serializedHTML = stringReplace(serializedHTML, ERB_EXPR$1, ' ');
-        serializedHTML = stringReplace(serializedHTML, TMPLIT_EXPR$1, ' ');
+        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
+          serializedHTML = stringReplace(serializedHTML, expr, ' ');
+        });
       }
-
       return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(serializedHTML) : serializedHTML;
     };
+
     /**
      * Public method to set the configuration once
      * setConfig
      *
      * @param {Object} cfg configuration object
      */
-
-
-    DOMPurify.setConfig = function (cfg) {
+    DOMPurify.setConfig = function () {
+      let cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       _parseConfig(cfg);
-
       SET_CONFIG = true;
     };
+
     /**
      * Public method to remove the configuration
      * clearConfig
      *
      */
-
-
     DOMPurify.clearConfig = function () {
       CONFIG = null;
       SET_CONFIG = false;
     };
+
     /**
      * Public method to check if an attribute value is valid.
      * Uses last set config, if any. Otherwise, uses config defaults.
      * isValidAttribute
      *
-     * @param  {string} tag Tag name of containing element.
-     * @param  {string} attr Attribute name.
-     * @param  {string} value Attribute value.
+     * @param  {String} tag Tag name of containing element.
+     * @param  {String} attr Attribute name.
+     * @param  {String} value Attribute value.
      * @return {Boolean} Returns true if `value` is valid. Otherwise, returns false.
      */
-
-
     DOMPurify.isValidAttribute = function (tag, attr, value) {
       /* Initialize shared config vars if necessary. */
       if (!CONFIG) {
         _parseConfig({});
       }
-
-      var lcTag = transformCaseFunc(tag);
-      var lcName = transformCaseFunc(attr);
+      const lcTag = transformCaseFunc(tag);
+      const lcName = transformCaseFunc(attr);
       return _isValidAttribute(lcTag, lcName, value);
     };
+
     /**
      * AddHook
      * Public method to add DOMPurify hooks
@@ -1650,16 +1517,14 @@
      * @param {String} entryPoint entry point for the hook to add
      * @param {Function} hookFunction function to execute
      */
-
-
     DOMPurify.addHook = function (entryPoint, hookFunction) {
       if (typeof hookFunction !== 'function') {
         return;
       }
-
       hooks[entryPoint] = hooks[entryPoint] || [];
       arrayPush(hooks[entryPoint], hookFunction);
     };
+
     /**
      * RemoveHook
      * Public method to remove a DOMPurify hook at a given entryPoint
@@ -1668,40 +1533,33 @@
      * @param {String} entryPoint entry point for the hook to remove
      * @return {Function} removed(popped) hook
      */
-
-
     DOMPurify.removeHook = function (entryPoint) {
       if (hooks[entryPoint]) {
         return arrayPop(hooks[entryPoint]);
       }
     };
+
     /**
      * RemoveHooks
      * Public method to remove all DOMPurify hooks at a given entryPoint
      *
      * @param  {String} entryPoint entry point for the hooks to remove
      */
-
-
     DOMPurify.removeHooks = function (entryPoint) {
       if (hooks[entryPoint]) {
         hooks[entryPoint] = [];
       }
     };
+
     /**
      * RemoveAllHooks
      * Public method to remove all DOMPurify hooks
-     *
      */
-
-
     DOMPurify.removeAllHooks = function () {
       hooks = {};
     };
-
     return DOMPurify;
   }
-
   var purify = createDOMPurify();
 
   return purify;
@@ -1781,12 +1639,8 @@ Test: jQuery.extend
  *
  * This is almost verbatim copied from jQuery 3.4.0.
  *
- * Only two minor changes have been made:
- * - The call to isFunction() is changed to jQuery.isFunction().
- * - The two calls to Array.isArray() is changed to jQuery.isArray().
+ * Now compatible with jQuery 4.
  *
- * The above two changes ensure compatibility with all older jQuery versions
- * (1.4.4 - 3.3.1) and older browser versions (e.g., IE8).
  */
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
@@ -1805,7 +1659,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 	}
 
 	// Handle case when target is a string or something (possible in deep copy)
-	if ( typeof target !== "object" && !jQuery.isFunction( target ) ) {
+	if ( typeof target !== "object" && typeof target !== "function" ) {
 		target = {};
 	}
 
@@ -1833,11 +1687,11 @@ jQuery.extend = jQuery.fn.extend = function() {
 
 				// Recurse if we're merging plain objects or arrays
 				if ( deep && copy && ( jQuery.isPlainObject( copy ) ||
-					( copyIsArray = jQuery.isArray( copy ) ) ) ) {
+					( copyIsArray = Array.isArray( copy ) ) ) ) {
 					src = target[ name ];
 
 					// Ensure proper type for the source value
-					if ( copyIsArray && !jQuery.isArray( src ) ) {
+					if ( copyIsArray && !Array.isArray( src ) ) {
 						clone = [];
 					} else if ( !copyIsArray && !jQuery.isPlainObject( src ) ) {
 						clone = {};
@@ -2212,6 +2066,12 @@ var getUrlParts = function( url ) {
 		ignoreHashChange: false,
 		initQueue: 0,
 
+		// Checks if the element <details> is supported natively.
+		// Vérifier si l'élément <details> est supporté nativement.
+		supportsDetails: function() {
+			return "open" in document.createElement( "details" );
+		},
+
 		getPath: function( property ) {
 			return Object.prototype.hasOwnProperty.call( this, property ) ? this[ property ] : undef;
 		},
@@ -2221,7 +2081,32 @@ var getUrlParts = function( url ) {
 		},
 
 		getId: function() {
-			return "wb-auto-" + ( seed += 1 );
+			var idPrefix = "wb-auto-",
+				ids,
+				numberCandidate,
+				numbers = [];
+
+			// Check for conflicting hardcoded IDs the first time an ID is requested
+			if ( !seed ) {
+				ids = document.querySelectorAll( "[id^='" + idPrefix + "']" );
+
+				// Loop through elements whose IDs begin with the prefix
+				ids.forEach( function( currentElm ) {
+					numberCandidate = currentElm.id.substring( idPrefix.length );
+
+					// Verify whether the ID ends with a conflicting number and add it to an array
+					if ( numberCandidate.search( /^\d+$/ ) !== -1 ) {
+						numbers.push( numberCandidate );
+					}
+
+					console.error( "wb.getId: ID '" + currentElm.id + "' isn't supposed to be hardcoded in the page. Please remove it or change its prefix to something different than '" + idPrefix + "'." );
+				} );
+
+				// Set the seed to the array's highest number (will be incremented later)
+				seed = numbers.length ? Math.max.apply( null, numbers ) : seed;
+			}
+
+			return idPrefix + ( seed += 1 );
 		},
 
 		init: function( event, componentName, selector, noAutoId ) {
@@ -2253,6 +2138,7 @@ var getUrlParts = function( url ) {
 		},
 
 		ready: function( $elm, componentName, context ) {
+
 			if ( $elm ) {
 
 				// Trigger any nested elements (excluding nested within nested)
@@ -2264,6 +2150,7 @@ var getUrlParts = function( url ) {
 
 				// Identify that the component is ready
 				$elm.trigger( "wb-ready." + componentName, context );
+
 				this.initQueue -= 1;
 			} else {
 				this.doc.trigger( "wb-ready." + componentName, context );
@@ -2271,8 +2158,13 @@ var getUrlParts = function( url ) {
 
 			// Identify that global initialization is complete
 			if ( !this.isReady && this.isStarted && this.initQueue < 1 ) {
+
+				// Create DOM event
+				const DOMevent = new Event( "wet-boew-ready" );
+
 				this.isReady = true;
 				this.doc.trigger( "wb-ready.wb" );
+				this.doc[ 0 ].dispatchEvent( DOMevent ); // Trigger native DOM event
 			}
 		},
 
@@ -2415,22 +2307,22 @@ var getUrlParts = function( url ) {
 					( typeof mixin === "string" && mixin !== "" ) << 2;
 
 			switch ( truthiness ) {
-			case 1:
+				case 1:
 
-				// only key was provided
-				return dictionary[ key ];
+					// only key was provided
+					return dictionary[ key ];
 
-			case 3:
+				case 3:
 
-				// key and state were provided
-				return dictionary[ key ][ state ];
+					// key and state were provided
+					return dictionary[ key ][ state ];
 
-			case 7:
+				case 7:
 
-				// key, state, and mixin were provided
-				return dictionary[ key ][ state ].replace( "[MIXIN]", mixin );
-			default:
-				return "";
+					// key, state, and mixin were provided
+					return dictionary[ key ][ state ].replace( "[MIXIN]", mixin );
+				default:
+					return "";
 			}
 		},
 
@@ -2544,7 +2436,7 @@ wb.modernizrLoad = Modernizr.load;
 Modernizr.load = function( options ) {
 	var i, i_len, i_cache,
 		testReady, complete;
-	if ( !$.isArray( options ) ) {
+	if ( !Array.isArray( options ) ) {
 		options = [ options ];
 	}
 	i_len = options.length;
@@ -3948,15 +3840,15 @@ wb.date = {
 		var dateConstructor = dateValue.constructor;
 
 		switch ( dateConstructor ) {
-		case Date:
-			return dateConstructor;
-		case Array:
-			return new Date( dateValue[ 0 ], dateValue[ 1 ], dateValue[ 2 ] );
-		case Number:
-		case String:
-			return new Date( dateValue );
-		default:
-			return typeof dateValue === "object" ? new Date( dateValue.year, dateValue.month, dateValue.date ) : NaN;
+			case Date:
+				return dateConstructor;
+			case Array:
+				return new Date( dateValue[ 0 ], dateValue[ 1 ], dateValue[ 2 ] );
+			case Number:
+			case String:
+				return new Date( dateValue );
+			default:
+				return typeof dateValue === "object" ? new Date( dateValue.year, dateValue.month, dateValue.date ) : NaN;
 		}
 	},
 
@@ -4085,11 +3977,65 @@ wb.findPotentialPII = function( str, scope, opts ) {
 		return false;
 	}
 	var oRegEx = {
-			digits: /\d(?:[\s\-\\.\\/]?\d){8,}(?!\d)/ig, //9digits or more pattern
-			passport: /\b[A-Za-z]{2}[\s\\.-]*?\d{6}\b/ig, //canadian nr passport pattern
-			email: /\b(?:[a-zA-Z0-9_\-\\.]+)(?:@|%40|%2540)(?:[a-zA-Z0-9_\-\\.]+)\.(?:[a-zA-Z]{2,5})\b/ig, //email pattern
-			postalCode: /\b[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d\b/ig, //postal code pattern
+
+			/*
+			* Digits:
+			* 9 digits or more
+			*/
+			digits: /\d(?:[\s\-\\.\\/]?\d){8,}(?!\d)/ig,
+
+			/*
+			* Phone:
+			* Any international phone number format
+			*/
+			phone: /\+?(\d{1,3})?[-._\s]?(\(?\d{3}\)?)[-._\s]?(\d{3})[-._\s]?(\d{4})/ig,
+
+			/*
+			* Passport:
+			* 2 letters followed by either a " ", a "/", a ".", or a "-" any amount of times, followed by 6 digits
+			*/
+			passport: /\b[A-Za-z]{2}[\s\\.-]*?\d{6}\b/ig,
+
+			/*
+			* Email:
+			* valid email format
+			*/
+			email: /\b(?:[a-zA-Z0-9_\-\\.]+)(?:@|%40|%2540)(?:[a-zA-Z0-9_\-\\.]+)\.(?:[a-zA-Z]{2,5})\b/ig,
+
+			/*
+			* Loose email:
+			* email address that has one or more whitespaces before the "@" sign and either a "." or "," after the domain name
+			*/
+			looseEmail: /([a-zA-Z0-9_\-.]+)\s*@([\sa-zA-Z0-9_\-.]+)[.,]([a-zA-Z]{1,5})/g,
+
+			/*
+			* Loose email 2:
+			* matches probable email format that the user tried to hide
+			* any amount of letters, numbers, ".", "_", "%", "+", or "-", followed by 0 or 1 whitespace,
+			* followed by "@", followed by 0 or 1 whitespace, followed by "gmail", "outlook", "hotmail", or "yahoo".
+			*/
+			looseEmail2: /([a-zA-Z0-9._%+-]+)\s?@\s?(gmail|outlook|icloud|hotmail|yahoo)(\s?\.?\s?(com|ca))?/ig,
+
+			/*
+			* Postal code:
+			* valid Canadian postal code
+			*/
+			postalCode: /\b[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d\b/ig,
+
+			/*
+			* Usename:
+			* "username" or "user",
+			* followed by a colon or an equals sign,
+			* followed by any character that is not a " " or a "&"
+			*/
 			username: /(?:(username|user)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig,
+
+			/*
+			* Password:
+			* "password" or "pass",
+			* ollowed by a ":" or a "=",
+			* followed by any character that is not a " " or a "&"
+			*/
 			password: /(?:(password|pass)[%20]?([:=]|(%EF%BC%9A))[^\s&]*)/ig
 		},
 		isFound = false,
@@ -4222,13 +4168,13 @@ function focusable( element, isTabIndexNotNaN, visibility ) {
 		return !!img && visible( img );
 	}
 	if ( visibility ) {
-		return ( /input|select|textarea|button|object/.test( nodeName ) ? !element.disabled :
+		return ( /input|select|textarea|button|object|summary/.test( nodeName ) ? !element.disabled :
 			nodeName === "a" ?
 				element.href || isTabIndexNotNaN :
 				isTabIndexNotNaN ) &&
 		visible( element ); /* the element and all of its ancestors must be visible */
 	} else {
-		return ( /input|select|textarea|button|object/.test( nodeName ) ? !element.disabled :
+		return ( /input|select|textarea|button|object|summary/.test( nodeName ) ? !element.disabled :
 			nodeName === "a" ?
 				element.href || isTabIndexNotNaN :
 				isTabIndexNotNaN );
@@ -4344,50 +4290,50 @@ var componentName = "wb-addcal",
 			for ( i = 0; i < i_len; i++ ) {
 				prop_cache = properties[ i ];
 				switch ( prop_cache.getAttribute( "property" ) ) {
-				case "name":
+					case "name":
 
-					// If the property=name is inside an element with typeof=Place defined
-					if ( $( prop_cache ).parentsUntil( ( "." + componentName ), "[typeof=Place]" ).length ) {
-						event_details.placeName = prop_cache.textContent;
-					} else {
-						event_details.name = prop_cache.textContent;
-					}
-					break;
-				case "description":
-					event_details.description = prop_cache.textContent.replace( /(\r\n|\n|\r)/gm, " " );
-					break;
-				case "startDate":
-					event_details.sDate = dtToISOString( $( "time[property='startDate']", $elm ) );
-					break;
-				case "endDate":
-					event_details.eDate = dtToISOString( $( "time[property='endDate']", $elm ) );
-					break;
-				case "location":
+						// If the property=name is inside an element with typeof=Place defined
+						if ( $( prop_cache ).parentsUntil( ( "." + componentName ), "[typeof=Place]" ).length ) {
+							event_details.placeName = prop_cache.textContent;
+						} else {
+							event_details.name = prop_cache.textContent;
+						}
+						break;
+					case "description":
+						event_details.description = prop_cache.textContent.replace( /(\r\n|\n|\r)/gm, " " );
+						break;
+					case "startDate":
+						event_details.sDate = dtToISOString( $( "time[property='startDate']", $elm ) );
+						break;
+					case "endDate":
+						event_details.eDate = dtToISOString( $( "time[property='endDate']", $elm ) );
+						break;
+					case "location":
 
-					// If the location doesn't have typeof defined OR has typeof=VirtualLocation without URL inside.
-					if ( !prop_cache.getAttribute( "typeof" ) || ( prop_cache.getAttribute( "typeof" ) === "VirtualLocation" && !$( prop_cache ).find( "[property=url]" ).length ) ) {
-						event_details.placeName = prop_cache.textContent;
-					}
-					break;
-				case "streetAddress":
-					event_details.placeAddress = prop_cache.textContent;
-					break;
-				case "addressLocality":
-					event_details.placeLocality = prop_cache.textContent;
-					break;
-				case "addressRegion":
-					event_details.placeRegion = prop_cache.textContent;
-					break;
-				case "postalCode":
-					event_details.placePostalCode = prop_cache.textContent;
-					break;
-				case "url":
+						// If the location doesn't have typeof defined OR has typeof=VirtualLocation without URL inside.
+						if ( !prop_cache.getAttribute( "typeof" ) || ( prop_cache.getAttribute( "typeof" ) === "VirtualLocation" && !$( prop_cache ).find( "[property=url]" ).length ) ) {
+							event_details.placeName = prop_cache.textContent;
+						}
+						break;
+					case "streetAddress":
+						event_details.placeAddress = prop_cache.textContent;
+						break;
+					case "addressLocality":
+						event_details.placeLocality = prop_cache.textContent;
+						break;
+					case "addressRegion":
+						event_details.placeRegion = prop_cache.textContent;
+						break;
+					case "postalCode":
+						event_details.placePostalCode = prop_cache.textContent;
+						break;
+					case "url":
 
-					// If the property=url is inside a property=location
-					if ( $( prop_cache ).parentsUntil( ( "." + componentName ), "[property=location]" ).length ) {
-						event_details.placeName = prop_cache.textContent;
-					}
-					break;
+						// If the property=url is inside a property=location
+						if ( $( prop_cache ).parentsUntil( ( "." + componentName ), "[property=location]" ).length ) {
+							event_details.placeName = prop_cache.textContent;
+						}
+						break;
 				}
 			}
 
@@ -5078,16 +5024,16 @@ $document.on( "timerpoke.wb " + initEvent + " wb-redraw" + selector, selector, f
 		calendarId = event.currentTarget.dataset.calevtSrc;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "wb-redraw":
-		$( "#" + calendarId + " .wb-clndr" ).remove();
-		processEvents( $elm );
-		$elm.trigger( "wb-updated" + selector );
-		break;
+		case "wb-redraw":
+			$( "#" + calendarId + " .wb-clndr" ).remove();
+			processEvents( $elm );
+			$elm.trigger( "wb-updated" + selector );
+			break;
 	}
 } );
 
@@ -5112,18 +5058,18 @@ $document.on( "focusin focusout keydown", selectorEvent + " .cal-evt", function(
 		$link;
 
 	switch ( eventType ) {
-	case "focusin":
-		showEvents.call( event.target );
-		break;
-	case "focusout":
-		hideEvents.call( event.target );
-		break;
-	case "keydown":
-		$link = $( event.target );
-		if ( ( event.which === 13 || event.which === 32 ) && $link.hasClass( "cal-evt" ) ) {
-			$( event.target ).next().find( "a:first" ).trigger( setFocusEvent );
-		}
-		break;
+		case "focusin":
+			showEvents.call( event.target );
+			break;
+		case "focusout":
+			hideEvents.call( event.target );
+			break;
+		case "keydown":
+			$link = $( event.target );
+			if ( ( event.which === 13 || event.which === 32 ) && $link.hasClass( "cal-evt" ) ) {
+				$( event.target ).next().find( "a:first" ).trigger( setFocusEvent );
+			}
+			break;
 	}
 } );
 
@@ -5132,24 +5078,24 @@ $document.on( "keydown", selectorEvent + " td > ul li", function( event ) {
 		$toFocus, $itemParent;
 
 	switch ( event.which ) {
-	case 38:
-		$toFocus = $item.prev().find( "a" );
-		if ( $toFocus.length === 0 ) {
-			$toFocus = $item.siblings( ":last" ).find( "a" );
-		}
-		$toFocus.trigger( setFocusEvent );
-		break;
-	case 40:
-		$toFocus = $item.next().find( "a" );
-		if ( $toFocus.length === 0 ) {
-			$toFocus = $item.siblings( ":first" ).find( "a" );
-		}
-		$toFocus.trigger( setFocusEvent );
-		break;
-	case 27:
-		$itemParent = $item.closest( "td" ).children( "a" );
-		$itemParent.trigger( setFocusEvent );
-		break;
+		case 38:
+			$toFocus = $item.prev().find( "a" );
+			if ( $toFocus.length === 0 ) {
+				$toFocus = $item.siblings( ":last" ).find( "a" );
+			}
+			$toFocus.trigger( setFocusEvent );
+			break;
+		case 40:
+			$toFocus = $item.next().find( "a" );
+			if ( $toFocus.length === 0 ) {
+				$toFocus = $item.siblings( ":first" ).find( "a" );
+			}
+			$toFocus.trigger( setFocusEvent );
+			break;
+		case 27:
+			$itemParent = $item.closest( "td" ).children( "a" );
+			$itemParent.trigger( setFocusEvent );
+			break;
 	}
 } );
 
@@ -5392,14 +5338,14 @@ var i18nText,
 
 		return i18nText.format.replace( /\{ddd\}|\{d\}|\{M\}|\{Y\}/g, function( match ) {
 			switch ( match ) {
-			case "{ddd}":
-				return textWeekDayNames[ parseInt( date.getDay(), 10 ) ];
-			case "{d}":
-				return parseInt( date.getDate(), 10 );
-			case "{M}":
-				return textMonthNames[ parseInt( date.getMonth(), 10 ) ];
-			case "{Y}":
-				return date.getFullYear();
+				case "{ddd}":
+					return textWeekDayNames[ parseInt( date.getDay(), 10 ) ];
+				case "{d}":
+					return parseInt( date.getDate(), 10 );
+				case "{M}":
+					return textMonthNames[ parseInt( date.getMonth(), 10 ) ];
+				case "{Y}":
+					return date.getFullYear();
 			}
 		} );
 	};
@@ -5472,14 +5418,14 @@ $document.on( "change", selector, function( event ) {
 		year, month;
 
 	switch ( target.className ) {
-	case "cal-year":
-		year = parseInt( target.value, 10 );
-		month = calendar.lib.month;
-		break;
-	case "cal-month":
-		year = calendar.lib.year;
-		month = parseInt( target.value, 10 );
-		break;
+		case "cal-year":
+			year = parseInt( target.value, 10 );
+			month = calendar.lib.month;
+			break;
+		case "cal-month":
+			year = calendar.lib.year;
+			month = parseInt( target.value, 10 );
+			break;
 	}
 
 	$( calendar ).trigger( {
@@ -5527,21 +5473,21 @@ $document.on( "keydown", selector, function( event ) {
 		//Key binding for the entire calendar
 		switch ( which ) {
 
-		//page up
-		case 33:
-			date.setDate( minDate.getDate() );
+			//page up
+			case 33:
+				date.setDate( minDate.getDate() );
 
-			//page down
-			/* falls through */
-		case 34:
-			modifier = ( which === 33 ? -1 : 1 );
+				//page down
+				/* falls through */
+			case 34:
+				modifier = ( which === 33 ? -1 : 1 );
 
-			if ( event.ctrlKey || event.shiftKey || event.altKey ) {
-				date.setYear( date.getFullYear() + modifier );
-			} else {
-				date.setMonth( date.getMonth() + modifier );
-			}
-			break;
+				if ( event.ctrlKey || event.shiftKey || event.altKey ) {
+					date.setYear( date.getFullYear() + modifier );
+				} else {
+					date.setMonth( date.getMonth() + modifier );
+				}
+				break;
 		}
 
 		//Key binding for navigating calendar days
@@ -5553,27 +5499,27 @@ $document.on( "keydown", selector, function( event ) {
 
 			switch ( which ) {
 
-			// end / home
-			case 35:
-				date.setDate( lastDay );
-				break;
-			case 36:
-				date.setDate( 1 );
-				break;
+				// end / home
+				case 35:
+					date.setDate( lastDay );
+					break;
+				case 36:
+					date.setDate( 1 );
+					break;
 
-			// left / up / right / down arrows
-			case 37:
-				date.setDate( day - 1 );
-				break;
-			case 38:
-				date.setDate( day - 7 );
-				break;
-			case 39:
-				date.setDate( day + 1 );
-				break;
-			case 40:
-				date.setDate( day + 7 );
-				break;
+				// left / up / right / down arrows
+				case 37:
+					date.setDate( day - 1 );
+					break;
+				case 38:
+					date.setDate( day - 7 );
+					break;
+				case 39:
+					date.setDate( day + 1 );
+					break;
+				case 40:
+					date.setDate( day + 7 );
+					break;
 			}
 		}
 
@@ -6796,22 +6742,22 @@ $document.on( "timerpoke.wb " + initEvent + " " + tableParsingCompleteEvent, sel
 
 	switch ( eventType ) {
 
-	/*
-	 * Init
-	 */
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		/*
+		 * Init
+		 */
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	/*
-	 * Data table parsed
-	 */
-	case "parsecomplete":
-		if ( event.currentTarget === elm ) {
-			createCharts( $( elm ) );
-		}
-		break;
+		/*
+		 * Data table parsed
+		 */
+		case "parsecomplete":
+			if ( event.currentTarget === elm ) {
+				createCharts( $( elm ) );
+			}
+			break;
 	}
 
 	/*
@@ -7129,7 +7075,7 @@ var componentName = "wb-data-ajax",
 			nocachekey: ajxInfo.nocachekey
 		};
 
-		// Detect CORS requests
+		// Detect CORS requests.
 		if ( settings && ( url.substr( 0, 4 ) === "http" || url.substr( 0, 2 ) === "//" ) ) {
 			urlParts = wb.getUrlParts( url );
 			if ( ( wb.pageUrlParts.protocol !== urlParts.protocol || wb.pageUrlParts.host !== urlParts.host ) && ( !Modernizr.cors || settings.forceCorsFallback ) ) {
@@ -7197,7 +7143,7 @@ var componentName = "wb-data-ajax",
 			i, i_len;
 
 		if ( referer ) {
-			if ( !$.isArray( referer ) ) {
+			if ( !Array.isArray( referer ) ) {
 				refers = [];
 				refers.push( referer );
 			} else {
@@ -7209,7 +7155,7 @@ var componentName = "wb-data-ajax",
 			for ( i = 0; i !== i_len; i += 1 ) {
 				regHttpRef = new RegExp( refers[ i ] );
 				if ( regHttpRef.test( httpRef ) ) {
-					if ( $.isArray( url ) && url.length === i_len ) {
+					if ( Array.isArray( url ) && url.length === i_len ) {
 						return url[ i ];
 					} else {
 						return url;
@@ -7276,19 +7222,19 @@ $document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " ajax-fetched.w
 
 	switch ( event.type ) {
 
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
-	case "wb-update":
-		ajax( event );
-		break;
-	default:
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
+		case "wb-update":
+			ajax( event );
+			break;
+		default:
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === eventTarget ) {
-			ajxFetched( eventTarget, event.fetch );
-		}
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === eventTarget ) {
+				ajxFetched( eventTarget, event.fetch );
+			}
 	}
 
 	/*
@@ -7527,18 +7473,18 @@ $document.on( "timerpoke.wb " + initEvent + " " + scrollEvent, selector, functio
 		eventType = event.type;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "scroll":
+		case "scroll":
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === eventTarget ) {
-			onInView( $( eventTarget ) );
-		}
-		break;
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === eventTarget ) {
+				onInView( $( eventTarget ) );
+			}
+			break;
 	}
 
 	/*
@@ -7630,7 +7576,10 @@ var imgClass,
 		// Loop over the data-media elements and find matching media queries
 		for ( i = 0, len = sources.length; i !== len; i += 1 ) {
 			media = sources[ i ].getAttribute( "data-media" );
-			if ( !media || Modernizr.mq( media ) ) {
+
+			// Check if the media query matches or if no media query is defined.
+			// Vérifie si le media query correspond ou si aucun media query n'est défini.
+			if ( !media || window.matchMedia( media ).matches ) {
 				matches.push( sources[ i ] );
 			}
 		}
@@ -7661,18 +7610,18 @@ $document.on( "timerpoke.wb " + initEvent + " " + picturefillEvent, selector, fu
 		eventType = event.type;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "picfill":
+		case "picfill":
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === eventTarget ) {
-			picturefill( eventTarget );
-		}
-		break;
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === eventTarget ) {
+				picturefill( eventTarget );
+			}
+			break;
 	}
 } );
 
@@ -8138,15 +8087,15 @@ var componentName = "wb-eqht",
 			anchorRel = $elm.data( "anchorRel" );
 
 		switch ( anchorRel ) {
-		case "prev":
-			$anchor.after( $elm );
-			break;
-		case "next":
-			$anchor.before( $elm );
-			break;
-		case "parent":
-			$anchor.append( $elm );
-			break;
+			case "prev":
+				$anchor.after( $elm );
+				break;
+			case "next":
+				$anchor.before( $elm );
+				break;
+			case "parent":
+				$anchor.append( $elm );
+				break;
 		}
 
 		return $elm;
@@ -8601,13 +8550,13 @@ $document.on( mobileEvent + " " + iconEvent, selector, function( event, data ) {
 	// Filter out any events triggered by descendants
 	if ( event.currentTarget === eventTarget ) {
 		switch ( event.type ) {
-		case "mobile":
-			mobile( eventTarget, event, data );
-			break;
+			case "mobile":
+				mobile( eventTarget, event, data );
+				break;
 
-		case "icon":
-			icon( eventTarget, event, data );
-			break;
+			case "icon":
+				icon( eventTarget, event, data );
+				break;
 		}
 	}
 
@@ -9095,32 +9044,32 @@ $document.on( "ajax-fetched.wb data-ready.wb-feeds", selector + " " + feedLinkSe
 	if ( event.currentTarget === eventTarget ) {
 		$emlRss = $( eventTarget ).parentsUntil( selector ).parent();
 		switch ( event.type ) {
-		case "ajax-fetched":
-			responseRaw = event.fetch.response;
-			if ( typeof responseRaw === "string" ) {
-				response = JSON.parse( responseRaw ); // Assuming we have fetch a JSON document, try to parse it.
-			} else {
-				response = responseRaw.get( 0 ); // fetched an HTML or XML document which has been parsed by jQuery and sanitized by DomPurify
-			}
-			if ( response.documentElement ) {
-				limit = getLimit( $emlRss[ Object.keys( $emlRss )[ 0 ] ] );
-				data = corsEntry( response, limit );
-			} else if ( response.query ) {
-				results = response.query.results;
-				if ( !results ) {
-					data = results.item; // Flicker feeds
-					if ( !Array.isArray( data ) ) {
-						data = [ data ];
+			case "ajax-fetched":
+				responseRaw = event.fetch.response;
+				if ( typeof responseRaw === "string" ) {
+					response = JSON.parse( responseRaw ); // Assuming we have fetch a JSON document, try to parse it.
+				} else {
+					response = responseRaw.get( 0 ); // fetched an HTML or XML document which has been parsed by jQuery and sanitized by DomPurify
+				}
+				if ( response.documentElement ) {
+					limit = getLimit( $emlRss[ Object.keys( $emlRss )[ 0 ] ] );
+					data = corsEntry( response, limit );
+				} else if ( response.query ) {
+					results = response.query.results;
+					if ( !results ) {
+						data = results.item; // Flicker feeds
+						if ( !Array.isArray( data ) ) {
+							data = [ data ];
+						}
+					} else {
+						data = [];
 					}
 				} else {
-					data = [];
+					data = ( response.responseData ) ? response.responseData.feed.entries : response.items || response.feed.entry;
 				}
-			} else {
-				data = ( response.responseData ) ? response.responseData.feed.entries : response.items || response.feed.entry;
-			}
-			break;
-		default:
-			data = event.feedsData;
+				break;
+			default:
+				data = event.feedsData;
 		}
 
 		// Identify that initialization has completed
@@ -9377,26 +9326,26 @@ var componentName = "wb-filter",
 
 		switch ( filterType ) {
 
-		case "and":
-			words = filterQueryParser( filter );
-			if ( words ) {
-				wordRegExFilter = ".*";
-				i_len = words.length;
-				for ( i = 0; i < i_len; i++ ) {
-					wordRegExFilter = wordRegExFilter + ( "(?=.*" + words[ i ] + ")" );
+			case "and":
+				words = filterQueryParser( filter );
+				if ( words ) {
+					wordRegExFilter = ".*";
+					i_len = words.length;
+					for ( i = 0; i < i_len; i++ ) {
+						wordRegExFilter = wordRegExFilter + ( "(?=.*" + words[ i ] + ")" );
+					}
 				}
-			}
-			break;
+				break;
 
-		case "or": // If one word fall back on default
-			words = filterQueryParser( filter );
-			if ( words ) {
-				wordRegExFilter =  words.join( "|" );
-			}
-			break;
+			case "or": // If one word fall back on default
+				words = filterQueryParser( filter );
+				if ( words ) {
+					wordRegExFilter =  words.join( "|" );
+				}
+				break;
 
-		default:
-			break;
+			default:
+				break;
 
 		}
 
@@ -9681,6 +9630,7 @@ var componentName = "wb-frmvld",
 								formId = $form.attr( "id" ),
 								labels = formDOM.getElementsByTagName( "label" ),
 								submitted = false,
+								showSummary = false,
 								errorFormId = "errors-" + ( !formId ? "default" : formId ),
 								settings = $.extend(
 									true,
@@ -9711,7 +9661,7 @@ var componentName = "wb-frmvld",
 							// Add space to the end of the labels (so separation between label and error when CSS turned off)
 							len = labels.length;
 							for ( i = 0; i !== len; i += 1 ) {
-								labels[ i ].innerHTML += " ";
+								labels[ i ].insertAdjacentHTML( "beforeend", " " );
 							}
 
 							// Hide "required" label text in older forms from screen readers
@@ -9813,7 +9763,7 @@ var componentName = "wb-frmvld",
 										prefixEnd = i18nText.colon + " </span>",
 										separator = i18nText.hyphen,
 										ariaLive = $form.closest( ".wb-frmvld" ).find( ".arialive" )[ 0 ],
-										$summaryContainer, summary, key, i, len, $error, prefix, $fieldName, $fieldset, label, labelString;
+										$summaryContainer, summary, key, i, len, $error, prefix, $fieldName, $fieldset, label, labelString, el;
 
 									// Correct the colouring of fields that are no longer invalid
 									$form
@@ -9873,6 +9823,9 @@ var componentName = "wb-frmvld",
 													}
 													$error.html( "<strong>" + prefix + $error.text() + "</strong>" );
 												}
+
+												//Force display of summary if wb-server-error present.
+												showSummary = true;
 											} else {
 												summary += "<li><a href='#" + $error.data( "element-id" ) + "'>" + prefix + ( $fieldName.length !== 0 ? $fieldName.html() + separator : "" ) + $error.text() + "</a></li>";
 												$error.html( "<span class='label label-danger'>" + prefix + $error.text() + "</span>" );
@@ -9895,9 +9848,14 @@ var componentName = "wb-frmvld",
 												for ( i = 0; i !== len; i += 1 ) {
 													label = $errors[ i ].parentNode;
 													if ( label.getAttribute( "for" ) === key ) {
-														labelString = label.innerHTML;
-														if ( labelString !== ariaLive.innerHTML ) {
-															ariaLive.innerHTML = labelString;
+														el = document.getElementById( key );
+														if ( el.matches( ":focus" ) ) {
+															ariaLive.innerHTML = "";
+														} else {
+															labelString = label.innerHTML;
+															if ( labelString !== ariaLive.innerHTML ) {
+																ariaLive.innerHTML = labelString;
+															}
 														}
 														break;
 													}
@@ -9906,38 +9864,40 @@ var componentName = "wb-frmvld",
 												ariaLive.innerHTML = "";
 											}
 										}
+										if ( showSummary ) {
 
-										// Delay updating the summary container in case a summary link was clicked
-										setTimeout( function() {
-											$summaryContainer = $form.find( "#" + errorFormId );
+											// Delay updating the summary container in case a summary link was clicked
+											setTimeout( function() {
+												$summaryContainer = $form.find( "#" + errorFormId );
 
-											// Output our error summary and place it in the error container
-											// Create our container if one doesn't already exist
-											if ( $summaryContainer.length === 0 ) {
-												$summaryContainer = $( "<section id='" + errorFormId + "' class='alert alert-danger' tabindex='-1'>" + summary + "</section>" ).prependTo( $form );
+												// Output our error summary and place it in the error container
+												// Create our container if one doesn't already exist
+												if ( $summaryContainer.length === 0 ) {
+													$summaryContainer = $( "<section id='" + errorFormId + "' class='alert alert-danger' tabindex='-1'>" + summary + "</section>" ).prependTo( $form );
 
-												// Replace current error summary content only if it is different
-												// from the incoming error summary content
-											} else if ( $summaryContainer.html() !== summary.replace( /'/g, "\"" ).replace( /&#160;/g, "&nbsp;" ) ) {
+													// Replace current error summary content only if it is different
+													// from the incoming error summary content
+												} else if ( $summaryContainer.html() !== summary.replace( /'/g, "\"" ).replace( /&#160;/g, "&nbsp;" ) ) {
 
-												// if the summary container is currently focused then
-												// we will focus the last element in the summary
-												// since we recreate the error list on blur/change
-												var $isFocused = $summaryContainer.find( "a" ).is( ":focus" );
-												$summaryContainer.empty().append( summary );
-												if ( $isFocused ) {
-													$summaryContainer.find( "a" ).last().trigger( "focus" );
+													// if the summary container is currently focused then
+													// we will focus the last element in the summary
+													// since we recreate the error list on blur/change
+													var $isFocused = $summaryContainer.find( "a" ).is( ":focus" );
+													$summaryContainer.empty().append( summary );
+													if ( $isFocused ) {
+														$summaryContainer.find( "a" ).last().trigger( "focus" );
+													}
 												}
-											}
 
-											// Put focus on the error if the errors are generated by an attempted form submission
-											if ( submitted ) {
+												// Put focus on the error if the errors are generated by an attempted form submission
+												if ( submitted ) {
 
-												// Assign focus to $summaryContainer
-												$summaryContainer.trigger( setFocusEvent );
-												submitted = false;
-											}
-										}, 100 );
+													// Assign focus to $summaryContainer
+													$summaryContainer.trigger( setFocusEvent );
+													submitted = false;
+												}
+											}, 100 );
+										}
 									} else {
 
 										// Update the aria-live region as necessary
@@ -9945,6 +9905,7 @@ var componentName = "wb-frmvld",
 											ariaLive.innerHTML = "";
 										}
 										$form.find( "#" + errorFormId ).detach();
+										showSummary = false;
 									}
 								},
 
@@ -9952,6 +9913,7 @@ var componentName = "wb-frmvld",
 
 								invalidHandler: function() {
 									submitted = true;
+									showSummary = true;
 								}
 
 							} ); /* end of validate() */
@@ -10316,6 +10278,11 @@ var componentName = "wb-lbx",
 	modalHideSelector = "#wb-tphp, body > header, body > main, body > footer",
 	$document = wb.doc,
 	callbacks, i18n, i18nText,
+	defaults = {
+
+		// exclude 'times' from screen reader with aria-hidden span
+		closeMarkup: "<button type='button' class='mfp-close'><span class='mfp-close' aria-hidden='true'>&times;</span><span class='wb-inv'>%title%</span></button>"
+	},
 
 	/**
 	 * @method init
@@ -10417,7 +10384,7 @@ var componentName = "wb-lbx",
 			i18nText = {
 				close: i18n( "close" ),
 				oClose: i18n( "overlay-close" ),
-				tClose: i18n( "overlay-close" ) + i18n( "space" ) + i18n( "esc-key" ),
+				tClose: i18n( "close" ) + i18n( "space" ) + i18n( "overlay-close" ) + i18n( "space" ) + i18n( "esc-key" ),
 				tLoading: i18n( "load" ),
 				gallery: {
 					tPrev: i18n( "prv-l" ),
@@ -10442,7 +10409,7 @@ var componentName = "wb-lbx",
 						$container = $wrap.find( ".mfp-container" ),
 						$containerParent = $container.parent(),
 						$modal = $wrap.find( ".modal-dialog" ),
-						$buttons = $wrap.find( ".mfp-close, .mfp-arrow" ),
+						$buttons = $wrap.find( ".mfp-arrow" ),
 						len = $buttons.length,
 						i, button;
 
@@ -10567,7 +10534,7 @@ var componentName = "wb-lbx",
 			complete: function() {
 
 				// Set the dependency i18nText only once
-				$.extend( true, $.magnificPopup.defaults, i18nText );
+				$.extend( true, $.magnificPopup.defaults, i18nText, defaults );
 
 				$document.trigger( dependenciesLoadedEvent );
 			}
@@ -10590,7 +10557,7 @@ var componentName = "wb-lbx",
 				}
 
 				overlayCloseFtr = "<button type='button' class='btn btn-sm btn-primary pull-left " + closeClassFtr +
-					"' title='" + spanTextFtr + "'>" +
+					"'>" +
 					closeTextFtr +
 					"<span class='wb-inv'>" + spanTextFtr + "</span></button>";
 
@@ -10605,7 +10572,7 @@ var componentName = "wb-lbx",
 
 		$wrap.on( "keydown", function( e ) {
 			if ( e.which === 9 ) {
-				var tabbable = $wrap.find( ".mfp-container :tabbable:visible" ),
+				var tabbable = $wrap.find( ".mfp-container :tabbable" ),
 					firstTabbable = tabbable.first()[ 0 ],
 					lastTabbable = tabbable.last()[ 0 ],
 					currentFocus = $( document.activeElement )[ 0 ];
@@ -11216,26 +11183,26 @@ $document.on( "timerpoke.wb " + initEvent + " ajax-fetched.wb ajax-failed.wb", s
 		elm, $elm;
 
 	switch ( eventType ) {
-	case "ajax-fetched":
-	case "ajax-failed":
-		elm = event.target;
+		case "ajax-fetched":
+		case "ajax-failed":
+			elm = event.target;
 
-		// Filter out any events triggered by descendants
-		if ( event.currentTarget === elm ) {
-			$elm = $( elm );
+			// Filter out any events triggered by descendants
+			if ( event.currentTarget === elm ) {
+				$elm = $( elm );
 
-			// Only replace the menu if there isn't an error
-			onAjaxLoaded(
-				$elm,
-				eventType === "ajax-fetched" ? event.fetch.pointer : $elm
-			);
-		}
-		return false;
+				// Only replace the menu if there isn't an error
+				onAjaxLoaded(
+					$elm,
+					eventType === "ajax-fetched" ? event.fetch.pointer : $elm
+				);
+			}
+			return false;
 
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 	}
 
 	/*
@@ -12006,62 +11973,62 @@ var componentName = "wb-mltmd",
 		var $this, method;
 
 		switch ( fn ) {
-		case "play":
-			try {
-				this.object.play();
-			} catch ( ex ) {
-				this.object.doPlay();
-			}
-			break;
-		case "pause":
-			try {
-				this.object.pause();
-			} catch ( ex ) {
-				this.object.doPause();
-			}
-			break;
-		case "getCaptionsVisible":
-			return $( this ).hasClass( captionClass );
-		case "setCaptionsVisible":
-			$this = $( this );
-			if ( args ) {
-				$this.addClass( captionClass );
-			} else {
-				$this.removeClass( captionClass );
-			}
-			$this.trigger( captionsVisibleChangeEvent );
-			break;
-		case "fullscreen":
-			if ( this.object.requestFullscreen ) {
-				this.object.requestFullscreen();
-			} else if ( this.object.webkitRequestFullscreen ) { /* Safari */
-				this.object.webkitRequestFullscreen();
-			} else if ( this.object.msRequestFullscreen ) { /* IE11 */
-				this.object.msRequestFullscreen();
-			}
-			break;
-		case "getBuffering":
-			return this.object.buffering || false;
-		case "setBuffering":
-			this.object.buffering = args;
-			break;
-		case "getPreviousTime":
-			return this.object.previousTime;
-		case "setPreviousTime":
-			this.object.previousTime = args;
-			break;
-		default:
-			method = fn.charAt( 3 ).toLowerCase() + fn.substr( 4 );
-			switch ( fn.substr( 0, 3 ) ) {
-			case "get":
-				return typeof this.object[ method ] !== "function" ?
-					this.object[ method ] :
-					this.object[ method ]();
-			case "set":
-				typeof this.object[ method ] !== "function" ?
-					this.object[ method ] = args :
-					this.object[ fn ]( args );
-			}
+			case "play":
+				try {
+					this.object.play();
+				} catch ( ex ) {
+					this.object.doPlay();
+				}
+				break;
+			case "pause":
+				try {
+					this.object.pause();
+				} catch ( ex ) {
+					this.object.doPause();
+				}
+				break;
+			case "getCaptionsVisible":
+				return $( this ).hasClass( captionClass );
+			case "setCaptionsVisible":
+				$this = $( this );
+				if ( args ) {
+					$this.addClass( captionClass );
+				} else {
+					$this.removeClass( captionClass );
+				}
+				$this.trigger( captionsVisibleChangeEvent );
+				break;
+			case "fullscreen":
+				if ( this.object.requestFullscreen ) {
+					this.object.requestFullscreen();
+				} else if ( this.object.webkitRequestFullscreen ) { /* Safari */
+					this.object.webkitRequestFullscreen();
+				} else if ( this.object.msRequestFullscreen ) { /* IE11 */
+					this.object.msRequestFullscreen();
+				}
+				break;
+			case "getBuffering":
+				return this.object.buffering || false;
+			case "setBuffering":
+				this.object.buffering = args;
+				break;
+			case "getPreviousTime":
+				return this.object.previousTime;
+			case "setPreviousTime":
+				this.object.previousTime = args;
+				break;
+			default:
+				method = fn.charAt( 3 ).toLowerCase() + fn.substr( 4 );
+				switch ( fn.substr( 0, 3 ) ) {
+					case "get":
+						return typeof this.object[ method ] !== "function" ?
+							this.object[ method ] :
+							this.object[ method ]();
+					case "set":
+						typeof this.object[ method ] !== "function" ?
+							this.object[ method ] = args :
+							this.object[ fn ]( args );
+				}
 		}
 	},
 
@@ -12076,70 +12043,70 @@ var componentName = "wb-mltmd",
 			state;
 
 		switch ( fn ) {
-		case "play":
-			this.object.wasMutedPlay = this.object.isMuted();
-			return this.object.playVideo();
-		case "pause":
-			return this.object.pauseVideo();
-		case "getPaused":
-			state = this.object.getPlayerState();
-			return state === -1 || state === 0 || state === 2 || state === 5;
-		case "getPlayed":
-			return this.object.getPlayerState() > -1;
-		case "getEnded":
-			return this.object.getPlayerState() === 0;
-		case "getDuration":
-			return this.object.getDuration();
-		case "getCurrentTime":
-			return this.object.getCurrentTime();
-		case "setCurrentTime":
-			return this.object.seekTo( args, true );
-		case "fullscreen":
-			return this.object.getIframe().requestFullscreen();
-		case "getMuted":
-			if ( !this.object.playedOnce && this.object.wasMutedPlay ) {
-				state = this.object.wasMutedPlay;
-				this.object.playedOnce = true;
-				return state;
-			} else {
-				return this.object.isMuted();
-			}
-		case "setMuted":
-			if ( args ) {
-				this.object.mute();
-			} else {
-				this.object.unMute();
-			}
-			setTimeout( function() {
-				$media.trigger( "volumechange" );
-			}, ( wb.isReady ? 50 : 500 ) );
-			break;
-		case "getVolume":
-			return this.object.getVolume() / 100;
-		case "setVolume":
-			this.object.setVolume( args * 100 );
-			setTimeout( function() {
-				$media.trigger( "volumechange" );
-			}, 50 );
-			break;
-		case "getCaptionsVisible":
-			return $( this ).hasClass( captionClass );
-		case "setCaptionsVisible":
-			if ( args ) {
-				$( this ).addClass( captionClass );
-				try {
-					this.object.loadModule( "cc" );
-					this.object.setOption( "cc", "track", { languageCode: this.object.getOption( "cc", "tracklist" )[ 0 ].languageCode } );
-				} catch ( e ) {
-					this.object.loadModule( "captions" );
-					this.object.setOption( "captions", "track", { languageCode: this.object.getOption( "captions", "tracklist" )[ 0 ].languageCode } );
+			case "play":
+				this.object.wasMutedPlay = this.object.isMuted();
+				return this.object.playVideo();
+			case "pause":
+				return this.object.pauseVideo();
+			case "getPaused":
+				state = this.object.getPlayerState();
+				return state === -1 || state === 0 || state === 2 || state === 5;
+			case "getPlayed":
+				return this.object.getPlayerState() > -1;
+			case "getEnded":
+				return this.object.getPlayerState() === 0;
+			case "getDuration":
+				return this.object.getDuration();
+			case "getCurrentTime":
+				return this.object.getCurrentTime();
+			case "setCurrentTime":
+				return this.object.seekTo( args, true );
+			case "fullscreen":
+				return this.object.getIframe().requestFullscreen();
+			case "getMuted":
+				if ( !this.object.playedOnce && this.object.wasMutedPlay ) {
+					state = this.object.wasMutedPlay;
+					this.object.playedOnce = true;
+					return state;
+				} else {
+					return this.object.isMuted();
 				}
-			} else {
-				$( this ).removeClass( captionClass );
-				this.object.unloadModule( "cc" );
-				this.object.unloadModule( "captions" );
-			}
-			$media.trigger( "ccvischange" );
+			case "setMuted":
+				if ( args ) {
+					this.object.mute();
+				} else {
+					this.object.unMute();
+				}
+				setTimeout( function() {
+					$media.trigger( "volumechange" );
+				}, ( wb.isReady ? 50 : 500 ) );
+				break;
+			case "getVolume":
+				return this.object.getVolume() / 100;
+			case "setVolume":
+				this.object.setVolume( args * 100 );
+				setTimeout( function() {
+					$media.trigger( "volumechange" );
+				}, 50 );
+				break;
+			case "getCaptionsVisible":
+				return $( this ).hasClass( captionClass );
+			case "setCaptionsVisible":
+				if ( args ) {
+					$( this ).addClass( captionClass );
+					try {
+						this.object.loadModule( "cc" );
+						this.object.setOption( "cc", "track", { languageCode: this.object.getOption( "cc", "tracklist" )[ 0 ].languageCode } );
+					} catch ( e ) {
+						this.object.loadModule( "captions" );
+						this.object.setOption( "captions", "track", { languageCode: this.object.getOption( "captions", "tracklist" )[ 0 ].languageCode } );
+					}
+				} else {
+					$( this ).removeClass( captionClass );
+					this.object.unloadModule( "cc" );
+					this.object.unloadModule( "captions" );
+				}
+				$media.trigger( "ccvischange" );
 		}
 	},
 
@@ -12159,62 +12126,62 @@ var componentName = "wb-mltmd",
 			isMuted;
 
 		switch ( event.data ) {
-		case null: // init
-			$media
-				.trigger( "canplay" )
-				.trigger( "durationchange" );
+			case null: // init
+				$media
+					.trigger( "canplay" )
+					.trigger( "durationchange" );
 
-			// Put video on mute if the video is muted on init, run once
-			$mltmPlayerElm = $media.parentsUntil( selector ).parent();
+				// Put video on mute if the video is muted on init, run once
+				$mltmPlayerElm = $media.parentsUntil( selector ).parent();
 
-			// Mute the player, GUI
-			if ( $mltmPlayerElm.data( "putMutedOnInit" ) ) {
-				youTubeApi.call( $mltmPlayerElm.get( 0 ), "setMuted", true );
-				$mltmPlayerElm.data( "putMutedOnInit", false );
-			}
-			break;
-		case -1:
-			event.target.unMute();
-			$media.trigger( "durationchange" );
-			break;
-		case 0:
-			$media.trigger( "ended" );
-			media.timeline = clearInterval( media.timeline );
-			break;
-		case 1: // play
+				// Mute the player, GUI
+				if ( $mltmPlayerElm.data( "putMutedOnInit" ) ) {
+					youTubeApi.call( $mltmPlayerElm.get( 0 ), "setMuted", true );
+					$mltmPlayerElm.data( "putMutedOnInit", false );
+				}
+				break;
+			case -1:
+				event.target.unMute();
+				$media.trigger( "durationchange" );
+				break;
+			case 0:
+				$media.trigger( "ended" );
+				media.timeline = clearInterval( media.timeline );
+				break;
+			case 1: // play
 
-			// Get the media player
-			$mltmPlayerElm = $media.parentsUntil( selector ).parent();
-			mltmPlayerElm = $mltmPlayerElm.get( 0 );
+				// Get the media player
+				$mltmPlayerElm = $media.parentsUntil( selector ).parent();
+				mltmPlayerElm = $mltmPlayerElm.get( 0 );
 
-			// Need to be muted here
-			isMuted = mltmPlayerElm.player( "getMuted" );
+				// Need to be muted here
+				isMuted = mltmPlayerElm.player( "getMuted" );
 
-			// Reset the close caption state when iframe was reloaded
-			if ( media.dataset.L2 ) {
-				youTubeApi.call( mltmPlayerElm, "setCaptionsVisible", $mltmPlayerElm.hasClass( captionClass ) );
-			}
+				// Reset the close caption state when iframe was reloaded
+				if ( media.dataset.L2 ) {
+					youTubeApi.call( mltmPlayerElm, "setCaptionsVisible", $mltmPlayerElm.hasClass( captionClass ) );
+				}
 
-			// Play
-			$media
-				.trigger( "canplay" )
-				.trigger( "play" )
-				.trigger( "playing" );
+				// Play
+				$media
+					.trigger( "canplay" )
+					.trigger( "play" )
+					.trigger( "playing" );
 
-			// Reset muted as needed because youtube onMute by default when playing
-			if ( isMuted ) {
-				youTubeApi.call( mltmPlayerElm, "setMuted", true );
-			}
+				// Reset muted as needed because youtube onMute by default when playing
+				if ( isMuted ) {
+					youTubeApi.call( mltmPlayerElm, "setMuted", true );
+				}
 
-			media.timeline = setInterval( timeline, 250 );
-			break;
-		case 2:
-			$media.trigger( "pause" );
-			media.timeline = clearInterval( media.timeline );
-			break;
-		case 3:
-			media.timeline = clearInterval( media.timeline );
-			break;
+				media.timeline = setInterval( timeline, 250 );
+				break;
+			case 2:
+				$media.trigger( "pause" );
+				media.timeline = clearInterval( media.timeline );
+				break;
+			case 3:
+				media.timeline = clearInterval( media.timeline );
+				break;
 		}
 	},
 
@@ -12549,46 +12516,46 @@ $document.on( "keydown", dispCtrls, function( event ) {
 
 	if ( !( event.ctrlKey || event.altKey || event.metaKey ) ) {
 		switch ( which ) {
-		case 32:
+			case 32:
 
-			// Mute/unmute if focused on the mute/unmute button or volume input.
-			if ( $( event.target ).hasClass( "mute" ) || event.target.nodeName === "INPUT" ) {
-				$playerTarget.find( ".mute" ).trigger( "click" );
-			} else if ( $( event.target ).hasClass( "fs" ) ) {
+				// Mute/unmute if focused on the mute/unmute button or volume input.
+				if ( $( event.target ).hasClass( "mute" ) || event.target.nodeName === "INPUT" ) {
+					$playerTarget.find( ".mute" ).trigger( "click" );
+				} else if ( $( event.target ).hasClass( "fs" ) ) {
 
-				// Enter full screen if focused on the full screen button
-				$playerTarget.find( ".fs" ).trigger( "click" );
-			} else if ( $( event.target ).hasClass( "cc" ) ) {
+					// Enter full screen if focused on the full screen button
+					$playerTarget.find( ".fs" ).trigger( "click" );
+				} else if ( $( event.target ).hasClass( "cc" ) ) {
 
-				// Show/hide captions if focused on the closed captions button.
-				$playerTarget.find( ".cc" ).trigger( "click" );
-			} else {
+					// Show/hide captions if focused on the closed captions button.
+					$playerTarget.find( ".cc" ).trigger( "click" );
+				} else {
 
-				// Play/pause if focused on anything else (i.e. the video itself, play/pause button or progress bar).
-				$playerTarget.find( ".playpause" ).trigger( "click" );
-			}
-			break;
+					// Play/pause if focused on anything else (i.e. the video itself, play/pause button or progress bar).
+					$playerTarget.find( ".playpause" ).trigger( "click" );
+				}
+				break;
 
-		case 37:
-			playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) - this.parentNode.player( "getDuration" ) * 0.05 );
-			break;
+			case 37:
+				playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) - this.parentNode.player( "getDuration" ) * 0.05 );
+				break;
 
-		case 39:
-			playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) + this.parentNode.player( "getDuration" ) * 0.05 );
-			break;
+			case 39:
+				playerTarget.player( "setCurrentTime", this.parentNode.player( "getCurrentTime" ) + this.parentNode.player( "getDuration" ) * 0.05 );
+				break;
 
-		case 38:
-			volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 + step;
-			playerTarget.player( "setVolume", volume < 1 ? volume : 1 );
-			break;
+			case 38:
+				volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 + step;
+				playerTarget.player( "setVolume", volume < 1 ? volume : 1 );
+				break;
 
-		case 40:
-			volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 - step;
-			playerTarget.player( "setVolume", volume > 0 ? volume : 0 );
-			break;
+			case 40:
+				volume = Math.round( playerTarget.player( "getVolume" ) * 100 ) / 100 - step;
+				playerTarget.player( "setVolume", volume > 0 ? volume : 0 );
+				break;
 
-		default:
-			return true;
+			default:
+				return true;
 		}
 		return false;
 	}
@@ -12622,129 +12589,129 @@ $document.on( multimediaEvents, selector, function( event, simulated ) {
 		invEnd = "</span>",
 		currentTime, $button, $slider, buttonData, isPlay, isMuted, isCCVisible, skipTo, volume;
 	switch ( eventType ) {
-	case "playing":
-	case "pause":
-	case "ended":
-		isPlay = eventType === "playing";
-		$button = $this.find( ".playpause" );
-		buttonData = $button.data( "state-" + ( isPlay ? "off" : "on" ) );
-		if ( isPlay ) {
-			$this.addClass( "playing" );
-			$this.find( ".progress" ).addClass( "active" );
-		} else {
-			if ( eventType === "ended" ) {
-				this.loading = clearTimeout( this.loading );
+		case "playing":
+		case "pause":
+		case "ended":
+			isPlay = eventType === "playing";
+			$button = $this.find( ".playpause" );
+			buttonData = $button.data( "state-" + ( isPlay ? "off" : "on" ) );
+			if ( isPlay ) {
+				$this.addClass( "playing" );
+				$this.find( ".progress" ).addClass( "active" );
+			} else {
+				if ( eventType === "ended" ) {
+					this.loading = clearTimeout( this.loading );
+				}
+				$this.removeClass( "playing" );
 			}
-			$this.removeClass( "playing" );
-		}
-		$button
-			.attr( "title", buttonData )
-			.children( "span" )
-			.toggleClass( "glyphicon-play", !isPlay )
-			.toggleClass( "glyphicon-pause", isPlay )
-			.html( invStart + buttonData + invEnd );
-		break;
+			$button
+				.attr( "title", buttonData )
+				.children( "span" )
+				.toggleClass( "glyphicon-play", !isPlay )
+				.toggleClass( "glyphicon-pause", isPlay )
+				.html( invStart + buttonData + invEnd );
+			break;
 
-	case "volumechange":
-		isMuted = eventTarget.player( "getMuted" );
-		$button = $this.find( ".mute" );
-		buttonData = $button.data( "state-" + ( isMuted ? "off" : "on" ) );
-		volume = eventTarget.player( "getVolume" ) * 100;
-		$button
-			.attr( {
-				title: buttonData,
-				"aria-pressed": isMuted
-			} )
-			.children( "span" )
-			.toggleClass( "glyphicon-volume-up", !isMuted )
-			.toggleClass( "glyphicon-volume-off", isMuted )
-			.html( invStart + buttonData + invEnd );
-		$slider = $this.find( "input[type='range']" );
-		$slider[ 0 ].value = isMuted ? 0 : volume;
-		$slider.trigger( "wb-update.wb-slider" );
-		break;
+		case "volumechange":
+			isMuted = eventTarget.player( "getMuted" );
+			$button = $this.find( ".mute" );
+			buttonData = $button.data( "state-" + ( isMuted ? "off" : "on" ) );
+			volume = eventTarget.player( "getVolume" ) * 100;
+			$button
+				.attr( {
+					title: buttonData,
+					"aria-pressed": isMuted
+				} )
+				.children( "span" )
+				.toggleClass( "glyphicon-volume-up", !isMuted )
+				.toggleClass( "glyphicon-volume-off", isMuted )
+				.html( invStart + buttonData + invEnd );
+			$slider = $this.find( "input[type='range']" );
+			$slider[ 0 ].value = isMuted ? 0 : volume;
+			$slider.trigger( "wb-update.wb-slider" );
+			break;
 
-	case "timeupdate":
-		currentTime = eventTarget.player( "getCurrentTime" );
-		$this.find( "progress" )
-			.attr(
-				"value",
-				Math.round( currentTime / eventTarget.player( "getDuration" ) * 1000 ) / 10
-			).trigger( "wb-update.wb-progress" );
+		case "timeupdate":
+			currentTime = eventTarget.player( "getCurrentTime" );
+			$this.find( "progress" )
+				.attr(
+					"value",
+					Math.round( currentTime / eventTarget.player( "getDuration" ) * 1000 ) / 10
+				).trigger( "wb-update.wb-progress" );
 
-		$this.find( ".wb-mm-tmln-crrnt span:nth-child(2)" )
-			.text( formatTime( currentTime ) );
+			$this.find( ".wb-mm-tmln-crrnt span:nth-child(2)" )
+				.text( formatTime( currentTime ) );
 
-		if ( $this.hasClass( captionClass ) && $.data( eventTarget, "captions" ) !== undef ) {
-			updateCaptions(
-				$this.find( ".wb-mm-cc" ),
-				currentTime,
-				$.data( eventTarget, "captions" )
-			);
-		}
-		break;
-
-	case "durationchange":
-		$this.find( ".wb-mm-tmln-ttl span:nth-child(2)" )
-			.text( formatTime( eventTarget.player( "getDuration" ) ) );
-
-		// Skip to pointer from the querystring
-		skipTo = wb.pageUrlParts.params[ event.target.id ];
-		if ( skipTo ) {
-			skipTo = parseTime( skipTo );
-			eventTarget.player( "setCurrentTime", skipTo );
-		}
-		break;
-
-	case "ccloaded":
-		if ( eventNamespace === componentName ) {
-			$.data( eventTarget, "captions", event.captions );
-		}
-		break;
-
-	case "ccloadfail":
-		if ( eventNamespace === componentName ) {
-			if ( !$this.hasClass( "errmsg" ) ) {
-				$this.addClass( "cc_on errmsg" )
-					.find( ".wb-mm-cc" )
-					.append( "<div>" + i18nText.cc_error + "</div>" )
-					.end()
-					.find( ".cc" )
-					.attr( "disabled", "" )
-					.removeAttr( "aria-pressed" );
+			if ( $this.hasClass( captionClass ) && $.data( eventTarget, "captions" ) !== undef ) {
+				updateCaptions(
+					$this.find( ".wb-mm-cc" ),
+					currentTime,
+					$.data( eventTarget, "captions" )
+				);
 			}
-		}
-		break;
+			break;
 
-	case "ccvischange":
-		if ( eventNamespace === componentName ) {
-			isCCVisible = eventTarget.player( "getCaptionsVisible" );
-			$button = $this.find( ".cc" );
-			buttonData = $button.data( "state-" + ( isCCVisible ? "off" : "on" ) );
-			$button.attr( {
-				title: buttonData,
-				"aria-pressed": isCCVisible
-			} ).children( "span" ).html( invStart + buttonData + invEnd );
-		}
-		break;
+		case "durationchange":
+			$this.find( ".wb-mm-tmln-ttl span:nth-child(2)" )
+				.text( formatTime( eventTarget.player( "getDuration" ) ) );
 
-	case "waiting":
-		if ( !simulated ) {
-			$document.off( "progress", selector );
-		}
-		this.loading = setTimeout( function() {
-			$this.addClass( "waiting" );
-		}, 500 );
-		break;
+			// Skip to pointer from the querystring
+			skipTo = wb.pageUrlParts.params[ event.target.id ];
+			if ( skipTo ) {
+				skipTo = parseTime( skipTo );
+				eventTarget.player( "setCurrentTime", skipTo );
+			}
+			break;
 
-	case "canplay":
-	case "seeked":
-		this.loading = clearTimeout( this.loading );
-		$this.removeClass( "waiting" );
-		break;
-	case "cuepoint":
-		eventTarget.player( "setCurrentTime", parseTime( event.cuepoint ) );
-		break;
+		case "ccloaded":
+			if ( eventNamespace === componentName ) {
+				$.data( eventTarget, "captions", event.captions );
+			}
+			break;
+
+		case "ccloadfail":
+			if ( eventNamespace === componentName ) {
+				if ( !$this.hasClass( "errmsg" ) ) {
+					$this.addClass( "cc_on errmsg" )
+						.find( ".wb-mm-cc" )
+						.append( "<div>" + i18nText.cc_error + "</div>" )
+						.end()
+						.find( ".cc" )
+						.attr( "disabled", "" )
+						.removeAttr( "aria-pressed" );
+				}
+			}
+			break;
+
+		case "ccvischange":
+			if ( eventNamespace === componentName ) {
+				isCCVisible = eventTarget.player( "getCaptionsVisible" );
+				$button = $this.find( ".cc" );
+				buttonData = $button.data( "state-" + ( isCCVisible ? "off" : "on" ) );
+				$button.attr( {
+					title: buttonData,
+					"aria-pressed": isCCVisible
+				} ).children( "span" ).html( invStart + buttonData + invEnd );
+			}
+			break;
+
+		case "waiting":
+			if ( !simulated ) {
+				$document.off( "progress", selector );
+			}
+			this.loading = setTimeout( function() {
+				$this.addClass( "waiting" );
+			}, 500 );
+			break;
+
+		case "canplay":
+		case "seeked":
+			this.loading = clearTimeout( this.loading );
+			$this.removeClass( "waiting" );
+			break;
+		case "cuepoint":
+			eventTarget.player( "setCurrentTime", parseTime( event.cuepoint ) );
+			break;
 	}
 } );
 
@@ -13120,52 +13087,52 @@ $document.on( "timerpoke.wb " + initEvent + " keydown open" + selector +
 		overlay, $focusable, index, length;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "open":
-		if ( eventTurrentTarget === eventTarget ) {
-			openOverlay( overlayId, event.noFocus );
-		}
-		break;
-
-	case "close":
-		if ( eventTurrentTarget === eventTarget ) {
-			closeOverlay( overlayId, event.noFocus );
-		}
-		break;
-
-	default:
-		overlay = document.getElementById( overlayId );
-
-		switch ( which ) {
-
-		// Tab key
-		case 9:
-
-			// No special tab handling when ignoring outside activity
-			if ( overlay.className.indexOf( ignoreOutsideClass ) === -1 ) {
-				$focusable = $( overlay ).find( ":focusable:not([tabindex='-1'])" );
-				length = $focusable.length;
-				index = $focusable.index( event.target ) + ( event.shiftKey ? -1 : 1 );
-
-				if ( index === -1 || index === length ) {
-					event.preventDefault();
-					$focusable.eq( index === -1 ? length - 1 : 0 )
-						.trigger( setFocusEvent );
-				}
+		case "open":
+			if ( eventTurrentTarget === eventTarget ) {
+				openOverlay( overlayId, event.noFocus );
 			}
 			break;
 
-		// Escape key
-		case 27:
-			if ( !event.isDefaultPrevented() ) {
-				closeOverlay( overlayId, false, true );
+		case "close":
+			if ( eventTurrentTarget === eventTarget ) {
+				closeOverlay( overlayId, event.noFocus );
 			}
 			break;
-		}
+
+		default:
+			overlay = document.getElementById( overlayId );
+
+			switch ( which ) {
+
+				// Tab key
+				case 9:
+
+					// No special tab handling when ignoring outside activity
+					if ( overlay.className.indexOf( ignoreOutsideClass ) === -1 ) {
+						$focusable = $( overlay ).find( ":tabbable" );
+						length = $focusable.length;
+						index = $focusable.index( event.target ) + ( event.shiftKey ? -1 : 1 );
+
+						if ( index === -1 || index === length ) {
+							event.preventDefault();
+							$focusable.eq( index === -1 ? length - 1 : 0 )
+								.trigger( setFocusEvent );
+						}
+					}
+					break;
+
+				// Escape key
+				case 27:
+					if ( !event.isDefaultPrevented() ) {
+						closeOverlay( overlayId, false, true );
+					}
+					break;
+			}
 	}
 } );
 
@@ -13364,15 +13331,15 @@ const componentName = "wb-paginate",
 
 			// Setup configurations
 			switch ( elmTagName ) {
-			case "UL":
-				setDefault = defaults.lst;
-				break;
-			case "TABLE":
-				setDefault = defaults.tbl;
-				break;
-			default:
-				setDefault = defaults.grp;
-				break;
+				case "UL":
+					setDefault = defaults.lst;
+					break;
+				case "TABLE":
+					setDefault = defaults.tbl;
+					break;
+				default:
+					setDefault = defaults.grp;
+					break;
 			}
 
 			elm.id = elm.id || wb.getId();
@@ -13596,6 +13563,235 @@ $document.on( "timerpoke.wb " + initEvent, selector, init );
 wb.add( selector );
 
 } )( jQuery, window, document, wb );
+
+/**
+ * @title WET-BOEW wb-pii-scrub
+ * @overview This plugin delete Personal Identifiable Information (PII) from the flagged form fields before form submit
+ * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ * @author @polmih, @duboisp, @GormFrank
+ **/
+( function( $, wb ) {
+"use strict";
+
+var $document = wb.doc,
+	componentName = "wb-pii-scrub",
+	selector = "." + componentName,
+	initEvent = "wb-init" + selector,
+	attrPIIBlocked = "data-wb-pii-blocked",
+	attrScrubField = "data-scrub-field",
+	attrScrubSubmit = "data-scrub-submit",
+	piiModalID = componentName + "-modal",
+	defaults = {
+		scrubChar: "********"
+	},
+	i18n, i18nText,
+
+	init = function( event ) {
+		var elm = wb.init( event, componentName, selector ),
+			$elm = $( elm );
+
+		if ( elm ) {
+			var settings = elm.getAttribute( "data-" + componentName );
+
+			// Initialize i18n strings
+			if ( !i18nText ) {
+				i18n = wb.i18n;
+				i18nText = {
+					header: i18n( "pii-header" ),
+					intro: i18n( "pii-intro" ),
+					viewMore: i18n( "pii-view-more" ),
+					viewMoreInfo: i18n( "pii-view-more-info" ),
+					confirmBtn: i18n( "pii-yes-btn" ),
+					cancelBtn: i18n( "pii-cancel-btn" ),
+					redacted: i18n( "redacted" )
+				};
+			}
+
+			// Parse settings defined on element
+			if ( settings ) {
+				settings = JSON.parse( settings );
+			}
+
+			// Initialize settings
+			elm.settings = { ...defaults, ...settings };
+
+			// Ensure the form has an ID
+			elm.id = elm.id ? elm.id : wb.getId();
+
+			// Block form submission for Postback forms by default
+			elm.setAttribute( attrPIIBlocked, "true" );
+
+			elm.addEventListener( "submit", function( event ) {
+				event.preventDefault(); // This is needed because of the setTimeout
+
+				// Go through form values
+				checkFormValues( elm );
+
+				// Check if form has validation errors before showing PII popup or submitting
+				setTimeout( function() {
+					let errorElm = elm.querySelector( ".error .label.label-danger" );
+
+					if ( !errorElm ) {
+
+						// Open modal
+						if ( elm.PIIFields.length > 0 ) {
+							generateModal( elm );
+
+							$( "#" + piiModalID ).trigger( "open.wb-lbx", [
+								[ {
+									src: "#" + piiModalID,
+									type: "inline"
+								} ],
+								true
+							] );
+						} else {
+							if ( elm.classList.contains( "wb-postback" ) ) {
+								$( elm ).trigger( "wb-postback.submit", { event } );
+							} else {
+								elm.submit();
+							}
+						}
+					}
+				}, 50 );
+			} );
+
+			wb.ready( $elm, componentName );
+		}
+	},
+
+	/*
+	* Log all PII positive fields inside the form's "PIIFields" property
+	* @param form: a reference to the form containing PII fields
+	*/
+	checkFormValues = function( form ) {
+		let fieldsToScrub = form.querySelectorAll( "[" + attrScrubField + "]" );
+
+		form.PIIFields = [];
+
+		// identify form elements that were assigned to be scrubbed
+		fieldsToScrub.forEach( ( field ) => {
+
+			// If the field contains PII add field to list
+			if ( wb.findPotentialPII( field.value, false ) ) {
+				let fieldLabel = form.querySelector( "[for=" + field.id + "] > span.field-name" ),
+					fieldLabelText = fieldLabel ? fieldLabel.innerText : form.querySelector( "[for=" + field.id + "]" ).innerText,
+					scrubbedFieldValue = wb.findPotentialPII( field.value, true, { replaceWith: form.settings.scrubChar } ),
+					scrubValHTML = wb.findPotentialPII( field.value, true, { replaceWith: "<span role='img' aria-label='" + i18nText.redacted + "'>" + form.settings.scrubChar + "</span>" } ); // Todo add i18n
+
+				form.PIIFields.push( {
+					elm: field,
+					scrubVal: scrubbedFieldValue,
+					scrubValHTML: scrubValHTML,
+					label: fieldLabelText
+				} );
+			}
+		} );
+
+		if ( form.PIIFields.length === 1 ) {
+			document.getElementById( form.PIIFields[ 0 ].elm.id ).focus();
+		}
+
+		// If PII is found, block Postback form submission
+		form.PIIFields.length > 0 ? form.setAttribute( attrPIIBlocked, "true" ) : form.setAttribute( attrPIIBlocked, "false" );
+	},
+
+	/*
+	* Scrub all PII positive fields
+	* @param form: a reference to the form containing PII fields
+	*/
+	scrubFormValues = function( form ) {
+
+		// Scrub the value of each PII positive fields
+		form.PIIFields.forEach( ( field ) => {
+			field.elm.value = field.scrubVal;
+		} );
+
+		// Clear PII fields as their value has been replaced by the scrubbed value
+		form.PIIFields = [];
+	},
+
+	/*
+	* Generate the modal UI
+	* @param form: a reference to the form containing PII fields
+	*/
+	generateModal = function( form ) {
+		let piiModalFields = "",
+			piiModal = document.createElement( "section" ),
+			moreInfoContent = form.settings.moreInfo ? form.settings.moreInfo : i18nText.viewMoreInfo,
+			modalTemplate = form.querySelector( "template" + form.settings.modalTemplate );
+
+		// Destroy modal if present
+		if ( document.getElementById( piiModalID ) ) {
+			document.getElementById( piiModalID ).remove();
+		}
+
+		// Generate PII fields list
+		if ( form.PIIFields.length > 1 ) {
+			piiModalFields += "<dl>";
+			form.PIIFields.forEach( ( field ) => {
+				piiModalFields += "<dt>" + field.label + "</dt><dd class=\"well well-sm\">" + field.scrubValHTML.replace( /\n/g, "<br>" ) + "</dd>";
+			} );
+			piiModalFields += "</dl>";
+		} else {
+			piiModalFields += "<div class=\"well well-sm\">" + form.PIIFields[ 0 ].scrubValHTML.replace( /\n/g, "<br>" ) + "</div>";
+		}
+
+		piiModal.id = piiModalID;
+		piiModal.className = "modal-dialog modal-content overlay-def";
+		piiModal.setAttribute( "data-form", form.id );
+
+		if ( modalTemplate ) {
+			piiModal.appendChild( modalTemplate.content.cloneNode( true ) );
+		} else {
+			piiModal.innerHTML = `<header class="modal-header">
+					<h2 class="modal-title">${ i18nText.header }</h2>
+				</header>
+				<div class="modal-body">
+					<p>${ i18nText.intro }</p>
+					${ piiModalFields }
+					<details class="mrgn-tp-md">
+						<summary>${ i18nText.viewMore }</summary>
+						${ moreInfoContent }
+					</details>
+				</div>
+				<div class="modal-footer">
+					<div class="row">
+						<div class="col-xs-12 col-sm-5 mrgn-tp-sm"><button type="button" class="btn btn-link btn-block popup-modal-dismiss">${ i18nText.cancelBtn }</button></div>
+						<div class="col-xs-12 col-sm-7 mrgn-tp-sm"><button type="button" class="btn btn-primary btn-block popup-modal-dismiss" ${ attrScrubSubmit }>${ i18nText.confirmBtn }</button></div>
+					</div>
+				</div>`;
+		}
+
+		// Using jQuery here to pass the content through DOMpurify
+		$( "body" ).append( piiModal );
+
+		// Add PII fields HTML if using a custom UI template
+		if ( modalTemplate ) {
+			$( "#" + piiModalID + " [data-scrub-modal-fields]" ).html( piiModalFields );
+		}
+	};
+
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
+
+// Scrub the form fields on click of the "Confirm" button
+$document.on( "click", "#" + piiModalID + " [" + attrScrubSubmit + "]", function( event ) {
+	let modal = document.getElementById( piiModalID ),
+		form = document.getElementById( modal.dataset.form );
+
+	scrubFormValues( form );
+
+	if ( form.classList.contains( "wb-postback" ) ) {
+		$( form ).trigger( "wb-postback.submit", { event } );
+	} else {
+		form.submit();
+	}
+} );
+
+// Add the timer poke to initialize the plugin
+wb.add( selector );
+
+} )( jQuery, wb );
 
 /**
  * @title WET-BOEW Prettify Plugin
@@ -13916,10 +14112,12 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 		reactionTime: 180000,		/* default confirmation period of 3 minutes */
 		sessionalive: 1200000,		/* default keepalive period of 20 minutes */
 		refreshCallbackUrl: null,	/* refresh callback if using AJAX keepalive (no default) */
-		logouturl: "./",			/* logout URL once the session has expired */
+		logouturl: "./",			/* logout URL to end the session */
+		signInUrl: null,			/* sign-in URL once the session has expired */
 		refreshOnClick: true,		/* refresh session if user clicks on the page */
 		refreshLimit: 120000,		/* default period of 2 minutes (ajax calls happen only once during this period) */
 		method: "POST",				/* the request method to use */
+		textOverrides: null,		/* text overrides (no default) */
 		additionalData: null,		/* additional data to send with the request */
 		refreshCallback: function( response ) {	/* callback function used to check the server response */
 			return response.replace( /\s/g, "" ) === "true";
@@ -13954,15 +14152,28 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 			// Only initialize the i18nText once
 			if ( !i18nText ) {
 				i18n = wb.i18n;
-				i18nText = {
-					buttonContinue: i18n( "st-btn-cont" ),
-					buttonEnd: i18n( "st-btn-end" ),
-					buttonSignin: i18n( "tmpl-signin" ),
-					timeoutBegin: i18n( "st-to-msg-bgn" ),
-					timeoutEnd: i18n( "st-to-msg-end" ),
-					timeoutTitle: i18n( "st-msgbx-ttl" ),
-					timeoutAlready: i18n( "st-alrdy-to-msg" )
-				};
+				const textOverrides = settings.textOverrides;
+				if ( textOverrides ) {
+					i18nText = {
+						buttonContinue: Object.hasOwn( textOverrides, "buttonContinue" ) ? DOMPurify.sanitize( textOverrides.buttonContinue ) : i18n( "st-btn-cont" ),
+						buttonEnd: Object.hasOwn( textOverrides, "buttonEnd" ) ? DOMPurify.sanitize( textOverrides.buttonEnd ) : i18n( "st-btn-end" ),
+						buttonSignin: Object.hasOwn( textOverrides, "buttonSignin" ) ? DOMPurify.sanitize( textOverrides.buttonSignin ) : i18n( "tmpl-signin" ),
+						timeoutBegin: i18n( "st-to-msg-bgn" ),
+						timeoutEnd: Object.hasOwn( textOverrides, "timeoutEnd" ) ? DOMPurify.sanitize( textOverrides.timeoutEnd ) : i18n( "st-to-msg-end" ),
+						timeoutTitle: i18n( "st-msgbx-ttl" ),
+						timeoutAlready: Object.hasOwn( textOverrides, "timeoutAlready" ) ? DOMPurify.sanitize( textOverrides.timeoutAlready ) : i18n( "st-alrdy-to-msg" )
+					};
+				} else {
+					i18nText = {
+						buttonContinue: i18n( "st-btn-cont" ),
+						buttonEnd: i18n( "st-btn-end" ),
+						buttonSignin: i18n( "tmpl-signin" ),
+						timeoutBegin: i18n( "st-to-msg-bgn" ),
+						timeoutEnd: i18n( "st-to-msg-end" ),
+						timeoutTitle: i18n( "st-msgbx-ttl" ),
+						timeoutAlready: i18n( "st-alrdy-to-msg" )
+					};
+				}
 			}
 
 			onReady = function() {
@@ -14198,7 +14409,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 
 		// Negative confirmation or the user took too long; logout
 		} else {
-			window.location.href = settings.logouturl;
+			window.location.href = settings.signInUrl ? settings.signInUrl : settings.logouturl;
 		}
 	},
 
@@ -14306,22 +14517,22 @@ inactivityEvent + " " + resetEvent, selector, function( event, settings ) {
 	var eventType = event.type;
 
 	switch ( eventType ) {
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	case "keepalive":
-		keepalive( event, settings );
-		break;
+		case "keepalive":
+			keepalive( event, settings );
+			break;
 
-	case "inactivity":
-		inactivity( event, settings );
-		break;
+		case "inactivity":
+			inactivity( event, settings );
+			break;
 
-	case "reset":
-		reset( event, settings );
-		break;
+		case "reset":
+			reset( event, settings );
+			break;
 	}
 } );
 
@@ -14390,6 +14601,10 @@ var componentName = "wb-share",
 			blogger: {
 				name: "Blogger",
 				url: "https://www.blogger.com/blog_this.pyra?t=&amp;u={u}&amp;n={t}"
+			},
+			bluesky: {
+				name: "Bluesky",
+				url: "https://bsky.app/intent/compose?text={t}+{u}"
 			},
 			diigo: {
 				name: "Diigo",
@@ -15227,19 +15442,19 @@ $document.on( "submit", ".wb-tables-filter", function( event ) {
 
 				// Adjust regex based on advanced options
 				switch ( $aoType ) {
-				case "both":
-					$regex = "(" + $value + ").*";
-					break;
-				case "either":
-					$regex = "^(" + $value + ")$";
-					break;
-				case "and":
-					$regex = ( $value.indexOf( "|" ) > -1 ) ? "^(" + $value + "|[,\\s])(" + $value + "|[,\\s])+$" : "(" + $value + ")";
-					break;
-				case "any":
-				default:
-					$regex = "(" + $value + ")";
-					break;
+					case "both":
+						$regex = "(" + $value + ").*";
+						break;
+					case "either":
+						$regex = "^(" + $value + ")$";
+						break;
+					case "and":
+						$regex = ( $value.indexOf( "|" ) > -1 ) ? "^(" + $value + "|[,\\s])(" + $value + "|[,\\s])+$" : "(" + $value + ")";
+						break;
+					case "any":
+					default:
+						$regex = "(" + $value + ")";
+						break;
 				}
 			}
 		} else {
@@ -15488,7 +15703,7 @@ var componentName = "wb-tabs",
 					isOpen = !!$panel.attr( open );
 
 					if ( isSmallView ) {
-						if ( !Modernizr.details ) {
+						if ( !wb.supportsDetails ) {
 							$panel.toggleClass( "open", isOpen );
 						}
 					} else {
@@ -15496,8 +15711,7 @@ var componentName = "wb-tabs",
 							role: "tabpanel",
 							open: open
 						} );
-						$panel.addClass( ( Modernizr.details ? "" :  open + " " ) +
-							"fade " + ( isOpen ? "in" : "noheight out wb-inv" ) );
+						$panel.addClass( ( wb.supportsDetails ? "" : open + " " ) + "fade " + ( isOpen ? "in" : "noheight out wb-inv" ) );
 					}
 
 					tablist += "<li" + ( isOpen ? " class='active'" : "" ) +
@@ -16026,35 +16240,35 @@ $document.on( "timerpoke.wb " + initEvent + " " + shiftEvent + " " + selectEvent
 	// Filter out any events triggered by descendants
 	if ( eventCurrentTarget === eventTarget ) {
 		switch ( event.type ) {
-		case "timerpoke":
-			$elm = $( eventTarget );
-			if ( !$elm.hasClass( componentName + "-inited" ) ) {
+			case "timerpoke":
+				$elm = $( eventTarget );
+				if ( !$elm.hasClass( componentName + "-inited" ) ) {
+					init( event );
+				} else if ( $elm.hasClass( "playing" ) ) {
+					onTimerPoke( $elm );
+				}
+				break;
+
+			/*
+			 * Init
+			 */
+			case "wb-init":
 				init( event );
-			} else if ( $elm.hasClass( "playing" ) ) {
-				onTimerPoke( $elm );
-			}
-			break;
+				break;
 
-		/*
-		 * Init
-		 */
-		case "wb-init":
-			init( event );
-			break;
+			/*
+			 * Change tab panels by a delta
+			 */
+			case "wb-shift":
+				onShift( event, $( eventTarget ) );
+				break;
 
-		/*
-		 * Change tab panels by a delta
-		 */
-		case "wb-shift":
-			onShift( event, $( eventTarget ) );
-			break;
-
-		/*
-		 * Select a specific tab panel
-		 */
-		case "wb-select":
-			onSelect( event.id );
-			break;
+			/*
+			 * Select a specific tab panel
+			 */
+			case "wb-select":
+				onSelect( event.id );
+				break;
 		}
 	}
 
@@ -16371,25 +16585,25 @@ const componentName = "wb-tagfilter",
 			}
 
 			switch ( control.type ) {
-			case "checkbox":
-			case "radio":
-				if ( !( control.name in filtersObj ) ) {
-					filtersObj[ control.name ] = [ ];
-				}
+				case "checkbox":
+				case "radio":
+					if ( !( control.name in filtersObj ) ) {
+						filtersObj[ control.name ] = [ ];
+					}
 
-				filtersObj[ control.name ].push( {
-					isChecked: control.checked,
-					type: control.type,
-					value: control.value
-				} );
+					filtersObj[ control.name ].push( {
+						isChecked: control.checked,
+						type: control.type,
+						value: control.value
+					} );
 
-				break;
-			case "select-one":
-				filtersObj[ control.name ] = [ {
-					type: control.type,
-					value: control.value
-				} ];
-				break;
+					break;
+				case "select-one":
+					filtersObj[ control.name ] = [ {
+						type: control.type,
+						value: control.value
+					} ];
+					break;
 			}
 		} );
 
@@ -16408,36 +16622,36 @@ const componentName = "wb-tagfilter",
 				filterGroupActiveFilters = [ ];
 
 			switch ( filterGroup[ 0 ].type ) {
-			case "checkbox":
-				if ( filterGroupChkCnt > 0 ) {
-					filterGroup.forEach( function( filterItem ) {
-						if ( filterItem.isChecked ) {
-							filterGroupActiveFilters.push( filterItem.value );
-						}
-					} );
-				}
-				break;
-
-			case "radio":
-				if ( filterGroupChkCnt > 0 ) {
-					for ( let filterItem of filterGroup ) {
-						if ( filterItem.isChecked === true ) {
-							if ( filterItem.value !== "" ) {
+				case "checkbox":
+					if ( filterGroupChkCnt > 0 ) {
+						filterGroup.forEach( function( filterItem ) {
+							if ( filterItem.isChecked ) {
 								filterGroupActiveFilters.push( filterItem.value );
 							}
-							break;
-						}
+						} );
 					}
-				} else {
-					console.warn( componentName + ": Radio button groups must have a default selected value. If you want to display all items, add an option called \"All\" with an empty value." );
-				}
-				break;
+					break;
 
-			case "select-one":
-				if ( filterGroup[ 0 ].value !== "" ) {
-					filterGroupActiveFilters.push( filterGroup[ 0 ].value );
-				}
-				break;
+				case "radio":
+					if ( filterGroupChkCnt > 0 ) {
+						for ( let filterItem of filterGroup ) {
+							if ( filterItem.isChecked === true ) {
+								if ( filterItem.value !== "" ) {
+									filterGroupActiveFilters.push( filterItem.value );
+								}
+								break;
+							}
+						}
+					} else {
+						console.warn( componentName + ": Radio button groups must have a default selected value. If you want to display all items, add an option called \"All\" with an empty value." );
+					}
+					break;
+
+				case "select-one":
+					if ( filterGroup[ 0 ].value !== "" ) {
+						filterGroupActiveFilters.push( filterGroup[ 0 ].value );
+					}
+					break;
 			}
 
 			instance.activeFilters.push( filterGroupActiveFilters );
@@ -16508,32 +16722,32 @@ $document.on( "change", selectorCtrl, function( event )  {
 		filterGroup = elm.filters[ filterName ];
 
 	switch ( filterType ) {
-	case "checkbox":
+		case "checkbox":
 
-		// Update virtual filter to the new state
-		filterGroup.find( function( filter ) {
-			return filter.value === filterValue;
-		} ).isChecked = !!control.checked;
-		break;
+			// Update virtual filter to the new state
+			filterGroup.find( function( filter ) {
+				return filter.value === filterValue;
+			} ).isChecked = !!control.checked;
+			break;
 
-	case "radio":
+		case "radio":
 
-		// Set all virtual radio items to unchecked
-		filterGroup.forEach( function( filterItem ) {
-			filterItem.isChecked = false;
-		} );
+			// Set all virtual radio items to unchecked
+			filterGroup.forEach( function( filterItem ) {
+				filterItem.isChecked = false;
+			} );
 
-		// Set selected radio button's associated virtual filter to checked
-		filterGroup.find( function( filter ) {
-			return filter.value === filterValue;
-		} ).isChecked = true;
-		break;
+			// Set selected radio button's associated virtual filter to checked
+			filterGroup.find( function( filter ) {
+				return filter.value === filterValue;
+			} ).isChecked = true;
+			break;
 
-	case "select-one":
+		case "select-one":
 
-		// Update virtual filter to the new value
-		filterGroup[ 0 ].value = filterValue;
-		break;
+			// Update virtual filter to the new value
+			filterGroup[ 0 ].value = filterValue;
+			break;
 	}
 
 	// Update list of visible items
@@ -16545,7 +16759,7 @@ $document.on( "wb-contentupdated", selector, function( event, data )  {
 		supportsHas = window.getComputedStyle( document.documentElement ).getPropertyValue( "--supports-has" ); // Get "--supports-has" CSS property
 
 	// Reinitialize tagfilter if content on the page has been updated by another plugin
-	if ( data.source !== componentName ) {
+	if ( data && data.source !== componentName ) {
 		if ( wait ) {
 			clearTimeout( wait );
 		}
@@ -16613,7 +16827,7 @@ var componentName = "wb-txthl",
 
 		if ( elm ) {
 			if ( event.txthl ) {
-				searchCriteria = $.isArray( event.txthl ) ? event.txthl.join( "|" ) : event.txthl;
+				searchCriteria = Array.isArray( event.txthl ) ? event.txthl.join( "|" ) : event.txthl;
 			} else if ( params && params.txthl ) {
 				searchCriteria = decodeURIComponent(
 					wb.pageUrlParts.params.txthl
@@ -17104,18 +17318,18 @@ $document.on( "timerpoke.wb " + initEvent + " " + toggleEvent +
 	var eventType = event.type;
 
 	switch ( eventType ) {
-	case "click":
-		click( event );
-		break;
+		case "click":
+			click( event );
+			break;
 
-	case "toggle":
-		toggle( event, data );
-		break;
+		case "toggle":
+			toggle( event, data );
+			break;
 
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 	}
 } );
 
@@ -17136,35 +17350,35 @@ $document.on( "keydown", selectorTab, function( event ) {
 
 		switch ( which ) {
 
-		// End
-		case 35:
-			$newPanel = $group.last();
-			break;
-
-		// Home
-		case 36:
-			$newPanel = $group.first();
-			break;
-
-		// Left / up arrow
-		case 37:
-		case 38:
-			if ( index === 0 ) {
+			// End
+			case 35:
 				$newPanel = $group.last();
-			} else {
-				$newPanel = $group.eq( index - 1 );
-			}
-			break;
+				break;
 
-		// Right / down arrow
-		case 39:
-		case 40:
-			if ( index === $group.length - 1 ) {
+			// Home
+			case 36:
 				$newPanel = $group.first();
-			} else {
-				$newPanel = $group.eq( index + 1 );
-			}
-			break;
+				break;
+
+			// Left / up arrow
+			case 37:
+			case 38:
+				if ( index === 0 ) {
+					$newPanel = $group.last();
+				} else {
+					$newPanel = $group.eq( index - 1 );
+				}
+				break;
+
+			// Right / down arrow
+			case 39:
+			case 40:
+				if ( index === $group.length - 1 ) {
+					$newPanel = $group.first();
+				} else {
+					$newPanel = $group.eq( index + 1 );
+				}
+				break;
 		}
 
 		$newPanel
@@ -17289,40 +17503,40 @@ var componentName = "wb-twitter",
 					mutations.forEach( function( mutation ) {
 						switch ( mutation.type ) {
 
-						// Check for attribute changes
-						case "attributes": {
-							const mutationTarget = mutation.target;
+							// Check for attribute changes
+							case "attributes": {
+								const mutationTarget = mutation.target;
 
-							// Override the timeline iframe's title right after Twitter's widget script adds it
-							// Notes:
-							// -The timeline's iframe title is English-only, uses "Twitter" and is written in title case ("Twitter Timeline")... This replaces it with an i18n version that uses "X" and is written in sentence case.
-							// -Only proceed if the i18n variable is a string... otherwise this'll trigger an infinite loop of attribute mutations
-							if ( mutationTarget.nodeName === "IFRAME" && mutationTarget.title !== i18nText.timelineTitle && typeof i18nText.timelineTitle === "string" ) {
-								mutationTarget.title = i18nText.timelineTitle;
-							}
-							break;
-						}
-
-						// Check for node removals
-						case "childList": {
-							mutation.removedNodes.forEach( function( removedNode ) {
-
-								// If the removed node was a Twitter link, remove its adjacent loading icon, add skip links and stop observing
-								// Note: Twitter's widget script removes "a.twitter-timeline" upon displaying the timeline iframe's content... at which point the loading icon is no longer useful
-								if ( removedNode === twitterLink && mutation.nextSibling === loadingDiv ) {
-									const iframeContainer = loadingDiv.previousElementSibling;
-
-									loadingDiv.remove();
-									addSkipLinks( iframeContainer );
-
-									// The following 2 lines were added as a workaround in Safari where the iFrame is not displayed
-									eventTarget.style.opacity = 1;
-									eventTarget.style.opacity = "";
-
-									observer.disconnect();
+								// Override the timeline iframe's title right after Twitter's widget script adds it
+								// Notes:
+								// -The timeline's iframe title is English-only, uses "Twitter" and is written in title case ("Twitter Timeline")... This replaces it with an i18n version that uses "X" and is written in sentence case.
+								// -Only proceed if the i18n variable is a string... otherwise this'll trigger an infinite loop of attribute mutations
+								if ( mutationTarget.nodeName === "IFRAME" && mutationTarget.title !== i18nText.timelineTitle && typeof i18nText.timelineTitle === "string" ) {
+									mutationTarget.title = i18nText.timelineTitle;
 								}
-							} );
-						}
+								break;
+							}
+
+							// Check for node removals
+							case "childList": {
+								mutation.removedNodes.forEach( function( removedNode ) {
+
+									// If the removed node was a Twitter link, remove its adjacent loading icon, add skip links and stop observing
+									// Note: Twitter's widget script removes "a.twitter-timeline" upon displaying the timeline iframe's content... at which point the loading icon is no longer useful
+									if ( removedNode === twitterLink && mutation.nextSibling === loadingDiv ) {
+										const iframeContainer = loadingDiv.previousElementSibling;
+
+										loadingDiv.remove();
+										addSkipLinks( iframeContainer );
+
+										// The following 2 lines were added as a workaround in Safari where the iFrame is not displayed
+										eventTarget.style.opacity = 1;
+										eventTarget.style.opacity = "";
+
+										observer.disconnect();
+									}
+								} );
+							}
 						}
 					} );
 				} );
@@ -17558,7 +17772,7 @@ var componentName = "wb-data-json",
 
 			if ( jsondata && jsondata.url ) {
 				lstCall.push( jsondata );
-			} else if ( jsondata && $.isArray( jsondata ) ) {
+			} else if ( jsondata && Array.isArray( jsondata ) ) {
 				i_len = jsondata.length;
 				for ( i = 0; i !== i_len; i += 1 ) {
 					lstCall.push( jsondata[ i ] );
@@ -17734,12 +17948,12 @@ var componentName = "wb-data-json",
 
 
 		// if content is object, transform into array @id and @value
-		if ( !$.isArray( content ) ) {
+		if ( !Array.isArray( content ) ) {
 			if ( typeof content !== "object" ) {
 				content = [ content ];
 			} else {
 				content = $.map( content, function( val, index ) {
-					if ( val && typeof val === "object" && !$.isArray( val ) ) {
+					if ( val && typeof val === "object" && !Array.isArray( val ) ) {
 						if ( !val[ "@id" ] ) {
 							val[ "@id" ] = index;
 						}
@@ -17908,7 +18122,7 @@ var componentName = "wb-data-json",
 	functionForTest = {
 
 		"fn:isArray": function( value ) {
-			return $.isArray( value );
+			return Array.isArray( value );
 		},
 
 		"fn:isLiteral": function( value ) {
@@ -17931,7 +18145,7 @@ var componentName = "wb-data-json",
 
 			if ( tp === "@json" ) {
 				return "rdf:JSON";
-			} else if ( $.isArray( tp ) && tp.indexOf( "@json" ) !== -1 ) {
+			} else if ( Array.isArray( tp ) && tp.indexOf( "@json" ) !== -1 ) {
 				tp[ tp.indexOf( "@json" ) ] = "rdf:JSON";
 			}
 
@@ -17969,7 +18183,7 @@ var componentName = "wb-data-json",
 			if ( guessType && guessType !== "undefined" ) {
 				if ( guessType === "@json" ) {
 					guessType = "rdf:JSON";
-				} else if ( $.isArray( guessType ) && guessType.indexOf( "@json" ) !== -1 ) {
+				} else if ( Array.isArray( guessType ) && guessType.indexOf( "@json" ) !== -1 ) {
 					guessType[ guessType.indexOf( "@json" ) ] = "rdf:JSON";
 				}
 			}
@@ -17985,7 +18199,7 @@ var componentName = "wb-data-json",
 					guessType = [ "xsd:double", "rdfs:Literal" ];
 				} else if ( typeof value === "undefined" ) {
 					guessType = "undefined";
-				} else if ( $.isArray( value ) ) {
+				} else if ( Array.isArray( value ) ) {
 					guessType = "rdfs:Container";
 				} else {
 
@@ -18005,9 +18219,9 @@ var componentName = "wb-data-json",
 		"softEq": function( value, expect ) {
 			var i, i_len;
 
-			if ( $.isArray( value ) && !$.isArray( expect ) && value.indexOf( expect ) !== -1 ) {
+			if ( Array.isArray( value ) && !Array.isArray( expect ) && value.indexOf( expect ) !== -1 ) {
 				return true;
-			} else if ( $.isArray( value ) &&  $.isArray( expect ) ) {
+			} else if ( Array.isArray( value ) &&  Array.isArray( expect ) ) {
 				i_len = expect.length;
 				for ( i = 0; i !== i_len; i++ ) {
 					if ( value.indexOf( expect[ i ] ) ) {
@@ -18051,15 +18265,15 @@ var componentName = "wb-data-json",
 				return false;
 			}
 
-			if ( $.isArray( value ) && !$.isArray( expect ) && value.indexOf( expect ) !== -1 ) {
+			if ( Array.isArray( value ) && !Array.isArray( expect ) && value.indexOf( expect ) !== -1 ) {
 				return true;
-			} else if ( $.isArray( value ) &&  $.isArray( expect ) ) {
+			} else if ( Array.isArray( value ) &&  Array.isArray( expect ) ) {
 				for ( i = 0; i !== expect.length; i++ ) {
 					if ( value.indexOf( expect[ i ] ) ) {
 						return true;
 					}
 				}
-			} else if ( !$.isArray( value ) &&  $.isArray( expect ) && expect.indexOf( value ) !== -1  ) {
+			} else if ( !Array.isArray( value ) &&  Array.isArray( expect ) && expect.indexOf( value ) !== -1  ) {
 				return true;
 			} else if ( value === expect ) {
 				return true;
@@ -18122,7 +18336,7 @@ var componentName = "wb-data-json",
 
 
 		// Is content an array? then iterate the content
-		if ( $.isArray( content ) ) {
+		if ( Array.isArray( content ) ) {
 
 
 			dataIterator( clone, content, mappingConfig, clone );
@@ -18150,7 +18364,7 @@ var componentName = "wb-data-json",
 		if ( !mapping ) {
 			mapping = [ {} ];
 		}
-		if ( !$.isArray( mapping ) ) {
+		if ( !Array.isArray( mapping ) ) {
 			mapping = [ mapping ];
 		}
 		mapping_len = mapping.length;
@@ -18215,7 +18429,7 @@ var componentName = "wb-data-json",
 
 			// Do the cache value contain special @type
 			if ( cached_value && cached_value[ "@value" ] && cached_value[ "@type" ] ) {
-				if ( !$.isArray( cached_value[ "@type" ] ) ) {
+				if ( !Array.isArray( cached_value[ "@type" ] ) ) {
 					cached_value[ "@type" ] = [ cached_value[ "@type" ] ];
 				}
 				cached_value_is_IRI = cached_value[ "@type" ].indexOf( "@id" ) !== -1;
@@ -18224,7 +18438,7 @@ var componentName = "wb-data-json",
 			}
 
 			// Action the value
-			if ( $.isArray( cached_value ) && ( j_cache.mapping || j_cache.queryall ) ) {
+			if ( Array.isArray( cached_value ) && ( j_cache.mapping || j_cache.queryall ) ) {
 
 				// Deep dive into the content if a mapping exist
 				dataIterator( cached_node, cached_value, j_cache );
@@ -18405,46 +18619,46 @@ var componentName = "wb-data-json",
 	//
 	_equalsJSON = function( a, b ) {
 		switch ( typeof a ) {
-		case "undefined":
-			return false;
-		case "boolean":
-		case "string":
-		case "number":
-			return a === b;
-		case "object":
-			if ( a === null ) {
-				return b === null;
-			}
-			var i, l;
-			if ( $.isArray( a ) ) {
-				if (  !$.isArray( b ) || a.length !== b.length ) {
+			case "undefined":
+				return false;
+			case "boolean":
+			case "string":
+			case "number":
+				return a === b;
+			case "object":
+				if ( a === null ) {
+					return b === null;
+				}
+				var i, l;
+				if ( Array.isArray( a ) ) {
+					if (  !Array.isArray( b ) || a.length !== b.length ) {
+						return false;
+					}
+					for ( i = 0, l = a.length; i < l; i++ ) {
+						if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
+							return false;
+						}
+					}
+					return true;
+				}
+				var bKeys = _objectKeys( b ),
+					bLength = bKeys.length;
+				if ( _objectKeys( a ).length !== bLength ) {
 					return false;
 				}
-				for ( i = 0, l = a.length; i < l; i++ ) {
+				for ( i in a ) {
 					if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
 						return false;
 					}
 				}
 				return true;
-			}
-			var bKeys = _objectKeys( b ),
-				bLength = bKeys.length;
-			if ( _objectKeys( a ).length !== bLength ) {
+			default:
 				return false;
-			}
-			for ( i in a ) {
-				if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
-					return false;
-				}
-			}
-			return true;
-		default:
-			return false;
 		}
 	},
 	_objectKeys = function( obj ) {
 		var keys;
-		if ( $.isArray( obj ) ) {
+		if ( Array.isArray( obj ) ) {
 			keys = new Array( obj.length );
 			for ( var k = 0; k < keys.length; k++ ) {
 				keys[ k ] = "" + k;
@@ -18524,16 +18738,16 @@ $document.on( "timerpoke.wb " + initEvent + " " + updateEvent + " json-fetched.w
 	if ( event.currentTarget === event.target ) {
 		switch ( event.type ) {
 
-		case "timerpoke":
-		case "wb-init":
-			init( event );
-			break;
-		case "wb-update":
-			jsonUpdate( event );
-			break;
-		default:
-			jsonFetched( event );
-			break;
+			case "timerpoke":
+			case "wb-init":
+				init( event );
+				break;
+			case "wb-update":
+				jsonUpdate( event );
+				break;
+			default:
+				jsonFetched( event );
+				break;
 		}
 	}
 
@@ -18759,7 +18973,8 @@ var $document = wb.doc,
 // Bind the setfocus event
 $document.on( setFocusEvent, function( event ) {
 	if ( event.namespace === "wb" ) {
-		var $elm = $( event.target ),
+		var elm = event.target,
+			$elm = $( elm ),
 			$closedParents = $elm.not( "summary" ).parents( "details, [role='tabpanel']" ),
 			$closedPanels, $closedPanel, len, i;
 
@@ -18779,20 +18994,41 @@ $document.on( setFocusEvent, function( event ) {
 			}
 		}
 
-		// Set the tabindex to -1 (as needed) to ensure the element is focusable
-		$elm
-			.filter( ":not([tabindex], a[href], button, input, textarea, select)" )
-			.attr( "tabindex", "-1" );
-
 		// Assigns focus to an element (delay allows for revealing of hidden content)
 		setTimeout( function() {
+			let addedTabIndexAttr = false;
+
 			$elm.trigger( "focus" );
 
-			var $topBar = $( ".wb-bar-t[aria-hidden=false]" );
+			// If the element hasn't gained focus, retry with a tabindex attribute...
+			if ( elm !== document.activeElement && elm.getAttribute( "tabindex" ) === null ) {
 
-			// Ensure the top bar overlay does not conceal the focus target
-			if ( $topBar.length !== 0 ) {
-				document.documentElement.scrollTop -= $topBar.outerHeight();
+				// Add a tabindex="-1" attribute and keep track of it for later
+				elm.setAttribute( "tabindex", "-1" );
+				addedTabIndexAttr = true;
+
+				// Try re-focusing
+				$elm.trigger( "focus" );
+			}
+
+			// If the element has gained focus...
+			if ( elm === document.activeElement ) {
+				const $topBar = $( ".wb-bar-t[aria-hidden=false]" );
+
+				// Ensure the top bar overlay does not conceal the focus target
+				if ( $topBar.length !== 0 ) {
+					document.documentElement.scrollTop -= $topBar.outerHeight();
+				}
+			} else {
+
+				// Remove the element's tabindex attribute (no point in keeping it if it didn't help)
+				if ( addedTabIndexAttr ) {
+					elm.removeAttribute( "tabindex" );
+				}
+
+				// Show a console error
+				console.error( setFocusEvent + ": Unable to focus onto the destination element... maybe it's hidden?" );
+				console.error( elm );
 			}
 
 			return $elm;
@@ -19429,41 +19665,41 @@ var componentName = "wb-jsonmanager",
 	// Utility function to compare two JSON value
 	_equalsJSON = function( a, b ) {
 		switch ( typeof a ) {
-		case "undefined":
-			return false;
-		case "boolean":
-		case "string":
-		case "number":
-			return a === b;
-		case "object":
-			if ( a === null ) {
-				return b === null;
-			}
-			var i, l;
-			if ( Array.isArray( a ) ) {
-				if (  Array.isArray( b ) || a.length !== b.length ) {
+			case "undefined":
+				return false;
+			case "boolean":
+			case "string":
+			case "number":
+				return a === b;
+			case "object":
+				if ( a === null ) {
+					return b === null;
+				}
+				var i, l;
+				if ( Array.isArray( a ) ) {
+					if (  Array.isArray( b ) || a.length !== b.length ) {
+						return false;
+					}
+					for ( i = 0, l = a.length; i < l; i++ ) {
+						if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
+							return false;
+						}
+					}
+					return true;
+				}
+				var bKeys = _objectKeys( b ),
+					bLength = bKeys.length;
+				if ( _objectKeys( a ).length !== bLength ) {
 					return false;
 				}
-				for ( i = 0, l = a.length; i < l; i++ ) {
+				for ( i = 0; i < bLength; i++ ) {
 					if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
 						return false;
 					}
 				}
 				return true;
-			}
-			var bKeys = _objectKeys( b ),
-				bLength = bKeys.length;
-			if ( _objectKeys( a ).length !== bLength ) {
+			default:
 				return false;
-			}
-			for ( i = 0; i < bLength; i++ ) {
-				if ( !_equalsJSON( a[ i ], b[ i ] ) ) {
-					return false;
-				}
-			}
-			return true;
-		default:
-			return false;
 		}
 	},
 	_objectKeys = function( obj ) {
@@ -19896,6 +20132,7 @@ var $document = wb.doc,
 				selectorSuccess = settings.success,
 				selectorFailure = settings.failure || selectorSuccess;
 			const attrBlocked = "data-wb-blocked",
+				attrPIIBlocked = "data-wb-pii-blocked",
 				attrSending = "data-wb-sending";
 
 			elm.addEventListener( "submit", function( e ) {
@@ -19915,50 +20152,54 @@ var $document = wb.doc,
 				}
 
 				// Submit the form unless it's blocked or currently being sent
-				if ( !$( this ).attr( attrBlocked ) && !$( this ).attr( attrSending ) ) {
-					var data = $elm.serializeArray(),
-						btn = e.submitter,
-						$selectorSuccess = $( selectorSuccess ),
-						$selectorFailure = $( selectorFailure );
-
-					// Indicate that the form is currently being sent (to prevent multiple submissions in parallel)
-					$( this ).attr( attrSending, true );
-
-					// If the submit button contains a variable, add it to the form's paramaters
-					// Note: Submitting a form via Enter will act as if the FIRST submit button was pressed. Therefore, that button's variable will be added (as opposed to nothing). This is in line with default form submission behaviour.
-					if ( btn && btn.name ) {
-						data.push( { name: btn.name, value: btn.value } );
-					}
-
-					// Hide feedback messages
-					$selectorFailure.addClass( classToggle );
-					$selectorSuccess.addClass( classToggle );
-
-					// Send the form through ajax and ignore the response body.
-					$.ajax( {
-						type: this.method,
-						url: this.action,
-						data: $.param( data )
-					} )
-						.done( function() {
-							$elm.trigger( successEvent );
-							$selectorSuccess.removeClass( classToggle );
-						} )
-						.fail( function( response ) {
-							$elm.trigger( failEvent, response );
-							$selectorFailure.removeClass( classToggle );
-						} )
-						.always( function() {
-
-							// Hide the form unless multiple submits are allowed
-							if ( !multiple ) {
-								$elm.addClass( classToggle );
-							}
-
-							// Remove the sending indicator now that submission is fully complete (i.e. HTTP response code has been received)
-							$elm.removeAttr( attrSending );
-						} );
+				if ( !$( this ).attr( attrBlocked ) && !$( this ).attr( attrSending ) && !$( this ).attr( attrPIIBlocked ) ) {
+					$elm.trigger( componentName + ".submit", { e } );
 				}
+			} );
+
+			$elm.on( componentName + ".submit", function( event, submitEvent ) {
+				var data = $elm.serializeArray(),
+					btn = submitEvent.submitter,
+					$selectorSuccess = $( selectorSuccess ),
+					$selectorFailure = $( selectorFailure );
+
+				// Indicate that the form is currently being sent (to prevent multiple submissions in parallel)
+				$( this ).attr( attrSending, true );
+
+				// If the submit button contains a variable, add it to the form's paramaters
+				// Note: Submitting a form via Enter will act as if the FIRST submit button was pressed. Therefore, that button's variable will be added (as opposed to nothing). This is in line with default form submission behaviour.
+				if ( btn && btn.name ) {
+					data.push( { name: btn.name, value: btn.value } );
+				}
+
+				// Hide feedback messages
+				$selectorFailure.addClass( classToggle );
+				$selectorSuccess.addClass( classToggle );
+
+				// Send the form through ajax and ignore the response body.
+				$.ajax( {
+					type: this.method,
+					url: this.action,
+					data: $.param( data )
+				} )
+					.done( function() {
+						$elm.trigger( successEvent );
+						$selectorSuccess.removeClass( classToggle );
+					} )
+					.fail( function( response ) {
+						$elm.trigger( failEvent, response );
+						$selectorFailure.removeClass( classToggle );
+					} )
+					.always( function() {
+
+						// Hide the form unless multiple submits are allowed
+						if ( !multiple ) {
+							$elm.addClass( classToggle );
+						}
+
+						// Remove the sending indicator now that submission is fully complete (i.e. HTTP response code has been received)
+						$elm.removeAttr( attrSending );
+					} );
 			} );
 
 			wb.ready( $( elm ), componentName );
@@ -20190,22 +20431,22 @@ $document.on( "timerpoke.wb " + initEvent + " " + tableParsingCompleteEvent, sel
 
 	switch ( event.type ) {
 
-	/*
-	 * Init
-	 */
-	case "timerpoke":
-	case "wb-init":
-		init( event );
-		break;
+		/*
+		 * Init
+		 */
+		case "timerpoke":
+		case "wb-init":
+			init( event );
+			break;
 
-	/*
-	 * Data table parsed
-	 */
-	case "parsecomplete":
-		if ( event.currentTarget === eventTarget ) {
-			zebraTable( $( eventTarget ) );
-		}
-		break;
+		/*
+		 * Data table parsed
+		 */
+		case "parsecomplete":
+			if ( event.currentTarget === eventTarget ) {
+				zebraTable( $( eventTarget ) );
+			}
+			break;
 	}
 
 	/*
