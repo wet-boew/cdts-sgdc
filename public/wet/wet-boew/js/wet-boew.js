@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.84 - 2025-01-15
+ * v4.0.84.1 - 2025-01-28
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
 /*! @license DOMPurify 3.1.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.1.7/LICENSE */
@@ -4191,18 +4191,10 @@ function visible( element ) {
 		.length;
 }
 
-$.extend( $.expr[ ":" ], {
-	data: $.expr.createPseudo ? $.expr.createPseudo( function( dataName ) {
-		return function( elem ) {
-			return !!$.data( elem, dataName );
-		};
-	} ) :
-
-	// support: jQuery <1.8
-
-		function( elem, i, match ) {
-			return !!$.data( elem, match[ 3 ] );
-		},
+$.extend( $.expr.pseudos, {
+	data: function( elem, index, match ) {
+		return !!$.data( elem, match[ 3 ] );
+	},
 	focusable: function( element ) {
 		return focusable( element, !isNaN( $.attr( element, "tabindex" ) ), true );
 	},
@@ -20159,7 +20151,7 @@ var $document = wb.doc,
 
 			$elm.on( componentName + ".submit", function( event, submitEvent ) {
 				var data = $elm.serializeArray(),
-					btn = submitEvent.submitter,
+					btn = submitEvent.e.submitter,
 					$selectorSuccess = $( selectorSuccess ),
 					$selectorFailure = $( selectorFailure );
 
