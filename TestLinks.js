@@ -55,7 +55,10 @@ const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts
     "https://www.canada.ca/fr/services/entreprises/subventions.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
     "https://www.canada.ca/fr/services/entreprises/societes-de-regime-federal.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
     "https://www.canada.ca/fr/services/entreprises/faillites.html", //TODO: Temporary skipping this link until it is fixed on Canada.ca. To be removed in the future.
-    "https://can01.safelinks.protection.outlook.com",]; //skipping this commented out link in certain external files
+    "https://can01.safelinks.protection.outlook.com", //skipping this commented out link in certain external files
+    "https://www.canada.ca/en/treasury-board-secretariat/site/proudly-serving.html", //skipping this link because it is a broken link that has been commented out in certain external files
+    "https://www.canada.ca/fr/secretariat-conseil-tresor/site/fiers-servir.html", //skipping this link because it is a broken link that has been commented out in certain external files
+    "https://search.ebscohost.com/Community.aspx?custid=hrdcl&amp;groupid=main&amp;authtype=ip&amp;stsug=AjwyRg8WGx2ikCXPV6Uh4HojncCJOM3yTVAkK3eRm1RwUeAuKTJTPbh5Cl2RkHWq9g8UngcFMhh7LHWtDSKd96bFaVC7zNaLJYEXZsn7p2j_hNicPchsw5P_zHIOaOsXGe09-QlKEilFmaIVTMntJLeElb29Iz-7H4ZhTpffA0c&amp;IsAdminMobile=N&amp;encid=22D731263C5635273736354632453C27373379C373C372C373C378C371C376C33013"]; //skipping this link because it returns a 400
 
 const exceptionCDTSHTTPLinks = ["http://www.gcpedia.gc.ca/",
     "http://gcdirectory-gcannuaire.gc.ca/",
