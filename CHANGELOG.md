@@ -1,14 +1,23 @@
 # CDTS Change Log
 
+## v5.0.4
+
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.84.1.
+- Internal changes and optimizations
+- Bug fixes
+
 ## v5.0.3
+
 - Accessibility and responsive design fixes for GCIntranet
 - Internal changes and optimizations
 - Bug fixes
 
 ## v5.0.2
+
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.81.
 
 ## v5.0.1
+
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.79.
 - Internal changes and optimizations
 - Bug fixes
