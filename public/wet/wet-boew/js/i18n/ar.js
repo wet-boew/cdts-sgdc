@@ -248,7 +248,16 @@ wb.i18nDict = {
 
 	/* Filter */
 	"fltr-lbl": "Filter<span class=\"wb-inv\"> content: results appear below as you type.</span>",
-	"fltr-info": "Showing <span data-nbitem></span> filtered from <span data-total></span> total entries"
+	"fltr-info": "Showing <span data-nbitem></span> filtered from <span data-total></span> total entries",
+
+	/* Data scrub */
+	"pii-header": "Remove Personal information",
+	"pii-intro": "Some information in your form is identified as personal information and it will be replaced as follows:",
+	"pii-view-more": "What is considered personal information?",
+	"pii-view-more-info": "<p>The following types of information are considered personal information:</p><ul><li>email address</li><li>telephone number</li><li>postal code</li><li>passport number</li><li>business number</li><li>social insurance number (SIN)</li></ul>",
+	"pii-yes-btn": "Remove personal information and submit",
+	"pii-cancel-btn": "Go back and edit fields",
+	"redacted": "redacted"
 };
 
 } )( wb );
@@ -285,7 +294,36 @@ $.extend( $.validator.messages, {
 	rangelength: $.validator.format( "عدد الحروف يجب أن يكون بين {0} و {1}" ),
 	range: $.validator.format( "رجاء إدخال عدد قيمته بين {0} و {1}" ),
 	max: $.validator.format( "رجاء إدخال عدد أقل من أو يساوي {0}" ),
-	min: $.validator.format( "رجاء إدخال عدد أكبر من أو يساوي {0}" )
+	min: $.validator.format( "رجاء إدخال عدد أكبر من أو يساوي {0}" ),
+	step: $.validator.format( "يرجى تقديم قيمة من مضاعفات {0}" ),
+	maxWords: $.validator.format( "يرجى تقديم ما لا يزيد عن {0} كلمات" ),
+	minWords: $.validator.format( "يرجى تقديم {0} كلمات على الأقل" ),
+	rangeWords: $.validator.format( "يرجى تقديم ما بين {0} و{1} كلمة" ),
+	letterswithbasicpunc: "يرجى تقديم الحروف وعلامات الترقيم فقط",
+	alphanumeric: "يرجى تقديم الحروف والأرقام والمسافات والتسطير فقط",
+	lettersonly: "يرجى تقديم الحروف فقط",
+	nowhitespace: "من فضلك لا تدخل المساحات البيضاء",
+	ziprange: "يرجى تقديم الرمز البريدي بين 902xx-xxxx و905-xx-xxxx",
+	integer: "يرجى تقديم رقم غير عشري موجب أو سالب",
+	vinUS: "يرجى تقديم رقم تعريف المركبة (VIN)",
+	dateITA: "يرجى تقديم تاريخ صالح",
+	time: "يرجى تقديم وقت صالح بين 00:00 و23:59",
+	phoneUS: "الرجاء تقديم رقم هاتف صالح",
+	phoneUK: "الرجاء تقديم رقم هاتف صالح",
+	mobileUK: "يرجى تقديم رقم هاتف محمول صالح",
+	strippedminlength: $.validator.format( "يرجى تقديم {0} حرفًا على الأقل" ),
+	email2: "يرجى تقديم عنوان بريد إلكتروني صالح",
+	url2: "يرجى إدخال عنوان بريد إلكتروني صحيح",
+	creditcardtypes: "يرجى تقديم رقم بطاقة ائتمان صالح",
+	currency: "يرجى تقديم عملة صالحة",
+	ipv4: "يرجى تقديم عنوان IP v4 صالح",
+	ipv6: "يرجى تقديم عنوان IP v6 صالح",
+	require_from_group: $.validator.format( "يرجى تقديم ما لا يقل عن {0} من هذه الحقول" ),
+	nifES: "يرجى تقديم رقم TIN صالح",
+	nieES: "يرجى تقديم رقم NIE صالح",
+	cifES: "يرجى تقديم رقم CIF صالح",
+	postalCodeCA: "يرجى تقديم رمز بريدي صالح",
+	pattern: "التنسيق غير صالح"
 } );
 return $;
 }));
