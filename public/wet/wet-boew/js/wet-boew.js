@@ -1,7 +1,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.84.1 - 2025-01-28
+ * v4.0.85 - 2025-02-04
  *
  *//*! Modernizr (Custom Build) | MIT & BSD */
 /*! @license DOMPurify 3.1.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.1.7/LICENSE */
@@ -13577,6 +13577,8 @@ var $document = wb.doc,
 		scrubChar: "********"
 	},
 	i18n, i18nText,
+	currSubmitter,
+	btnAsInput,
 
 	init = function( event ) {
 		var elm = wb.init( event, componentName, selector ),
@@ -13613,8 +13615,8 @@ var $document = wb.doc,
 			// Block form submission for Postback forms by default
 			elm.setAttribute( attrPIIBlocked, "true" );
 
-			elm.addEventListener( "submit", function( event ) {
-				event.preventDefault(); // This is needed because of the setTimeout
+			elm.addEventListener( "submit", function( e ) {
+				e.preventDefault(); // This is needed because of the setTimeout
 
 				// Go through form values
 				checkFormValues( elm );
@@ -13624,6 +13626,16 @@ var $document = wb.doc,
 					let errorElm = elm.querySelector( ".error .label.label-danger" );
 
 					if ( !errorElm ) {
+						currSubmitter = e.submitter;
+
+						// Add submitter data if it is present (only if not a Postback form as it has its own method)
+						if ( currSubmitter.name && !elm.classList.contains( "wb-postback" ) ) {
+							btnAsInput = document.createElement( "input" );
+							btnAsInput.type = "hidden";
+							btnAsInput.name = currSubmitter.name;
+							btnAsInput.value = currSubmitter.value;
+							elm.appendChild( btnAsInput );
+						}
 
 						// Open modal
 						if ( elm.PIIFields.length > 0 ) {
@@ -13638,7 +13650,7 @@ var $document = wb.doc,
 							] );
 						} else {
 							if ( elm.classList.contains( "wb-postback" ) ) {
-								$( elm ).trigger( "wb-postback.submit", { event } );
+								$( elm ).trigger( "wb-postback.submit", currSubmitter );
 							} else {
 								elm.submit();
 							}
@@ -13767,14 +13779,14 @@ var $document = wb.doc,
 $document.on( "timerpoke.wb " + initEvent, selector, init );
 
 // Scrub the form fields on click of the "Confirm" button
-$document.on( "click", "#" + piiModalID + " [" + attrScrubSubmit + "]", function( event ) {
+$document.on( "click", "#" + piiModalID + " [" + attrScrubSubmit + "]", function( ) {
 	let modal = document.getElementById( piiModalID ),
 		form = document.getElementById( modal.dataset.form );
 
 	scrubFormValues( form );
 
 	if ( form.classList.contains( "wb-postback" ) ) {
-		$( form ).trigger( "wb-postback.submit", { event } );
+		$( form ).trigger( "wb-postback.submit", currSubmitter );
 	} else {
 		form.submit();
 	}
@@ -20145,13 +20157,12 @@ var $document = wb.doc,
 
 				// Submit the form unless it's blocked or currently being sent
 				if ( !$( this ).attr( attrBlocked ) && !$( this ).attr( attrSending ) && !$( this ).attr( attrPIIBlocked ) ) {
-					$elm.trigger( componentName + ".submit", { e } );
+					$elm.trigger( componentName + ".submit", e.submitter );
 				}
 			} );
 
-			$elm.on( componentName + ".submit", function( event, submitEvent ) {
+			$elm.on( componentName + ".submit", function( event, submitter ) {
 				var data = $elm.serializeArray(),
-					btn = submitEvent.e.submitter,
 					$selectorSuccess = $( selectorSuccess ),
 					$selectorFailure = $( selectorFailure );
 
@@ -20160,8 +20171,8 @@ var $document = wb.doc,
 
 				// If the submit button contains a variable, add it to the form's paramaters
 				// Note: Submitting a form via Enter will act as if the FIRST submit button was pressed. Therefore, that button's variable will be added (as opposed to nothing). This is in line with default form submission behaviour.
-				if ( btn && btn.name ) {
-					data.push( { name: btn.name, value: btn.value } );
+				if ( submitter && submitter.name ) {
+					data.push( { name: submitter.name, value: submitter.value } );
 				}
 
 				// Hide feedback messages

@@ -2,7 +2,7 @@
 
 ## v5.0.4
 
-- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.84.1.
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.85.
 - Internal changes and optimizations
 - Bug fixes
 
