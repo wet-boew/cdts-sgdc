@@ -190,7 +190,7 @@
                                                 <input type="hidden" name="<%=input.name%>" value="<%=input.value%>">
                                             <%_ } -%>
                                         <%_ } -%>
-                                        <span class="input-group-btn"><button type="submit" id="app-srch-sub-mb" class="btn btn-primary btn-small" name="app-srch-sub-mb"><span class="glyphicon-search glyphicon"></span><span class="wb-inv"><^- msg('Search') ^>{if isNonnull($item.placeholder)} {$item.placeholder}{/if}</span></button></span>
+                                        <span class="input-group-btn"><button type="submit" id="app-srch-sub-mb" class="btn btn-primary btn-small" name="app-srch-sub-mb"><span class="glyphicon-search glyphicon"></span><span class="wb-inv"><^- msg('Search') ^><%= item.placeholder != null? item.placeholder: '' %></span></button></span>
                                     </div>
                                 </form>
                             </div>
