@@ -25,7 +25,7 @@
     "@wdio/mocha-framework": "^9.12.6",
     "@wdio/spec-reporter": "^9.12.6",
     "axe-core": "^4.10.3",
-    "axios": "^1.8.4",
+    "axios": "^1.9.0",
     "ejs": "^3.1.10",
     "ejs-lint": "^2.0.1",
     "eslint": "^9.25.1",
