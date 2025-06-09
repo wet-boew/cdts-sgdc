@@ -290,9 +290,7 @@ if (pr.subTheme === 'eccc') {
         </nav>
     <%_ } else if (pr.menuPath != null) { -%>
         <nav role="navigation" id="wb-smapp" data-ajax-replace="<%= pr.menuPath %>" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement" aria-label="<^- msg('Application menu') ^>"></nav>
-    <%_ } else { -%>
-        <div id="wb-sm" data-ajax-replace="<%- wet.builder.environment(pr.cdnEnv) %>cdts/ajax/<^- msg('appmenu-eng.html') ^>" data-trgt="mb-pnl" class="wb-menu hidden-sm hidden-xs"></div>
-    <%_ } -%>
+    <%_ } -%><%_ console.log("I am here") -%>
     <%_ if (pr.breadcrumbs != null) { -%>
         <nav role="navigation" id="wb-bc" property="breadcrumb" aria-labelledby="cdts-breadcrumbPosition">
             <h2 id="cdts-breadcrumbPosition"><^- msg('You are here:') ^></h2>
