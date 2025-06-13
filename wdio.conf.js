@@ -11,7 +11,7 @@ if (!process.env.DISABLE_PROXY) { //just a cheap way to disable this proxy setup
 
 // targetBrowser can be 'firefox', 'chrome' or 'MicrosoftEdge'
 // switching to Chrome as default browser due to a broken Firefox update
-const targetBrowser = process.env.TEST_BROWSER_NAME || 'chrome'; //NOTE: we could instead always test with both by adding a second "capabilities" below
+const targetBrowser = process.env.TEST_BROWSER_NAME || 'firefox'; //NOTE: we could instead always test with both by adding a second "capabilities" below
 // const drivers = {
 //     chrome: { version: '119.0.6045.105' }, //https://chromedriver.chromium.org/
 //     firefox: { version: '0.33.0' }, //https://github.com/mozilla/geckodriver/releases
@@ -141,8 +141,8 @@ exports.config = {
     // commands. Instead, they hook themselves up into the test process.
     //services: ['chromedriver'],
     //https://webdriver.io/docs/selenium-standalone-service.html
-    //no longer needed: With WebdriverIO v8.14 and above there is no need to manually 
-    //download and setup any browser drivers anymore as this is handled by WebdriverIO. 
+    //no longer needed: With WebdriverIO v8.14 and above there is no need to manually
+    //download and setup any browser drivers anymore as this is handled by WebdriverIO.
     //All you have to do is specify the browser you want to test and WebdriverIO will do the rest:
     //https://stackoverflow.com/questions/76968105/issue-with-selenium-standalone-service-in-webdriverio
     //services: ['selenium-standalone'],
