@@ -297,6 +297,10 @@
         "source": "Search and menu",
         "target": null
     },
+    "63f3f0da3e2031cedf938ea18363e51a893e095d": {
+        "source": "Name of Web application",
+        "target": null
+    },
     "dc1649a16c1496db3e4073be6a73faf5121aeae7": {
         "source": "Sign out",
         "target": null
