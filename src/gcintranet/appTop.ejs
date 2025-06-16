@@ -216,6 +216,7 @@ if (pr.subTheme === 'eccc') {
                 <%_ for (var appNameIndex=0; appNameIndex<pr.appName.length; appNameIndex++) {
                     const item=pr.appName[appNameIndex]; -%>
                     <div id="wb-sttl" class="col-md-1<%- (pr.signOut || pr.signIn)? '0': '2' %>">
+                        <h2 class="wb-inv"><^- msg('Name of Web application') ^></h2>
                         <%_ if (item.acronym != null) { -%>
                             <%_ -%><abbr title="<%= item.acronym %>"><%_ -%>
                         <%_ } -%>
