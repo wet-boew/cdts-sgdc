@@ -2,7 +2,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.85 - 2025-02-04
+ * v4.0.88.1 - 2025-07-11
  *
  */
 /*
@@ -19,7 +19,7 @@
  * If there is a Bootstrap variable not shown here that you want to override, go to "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables" to view the variables that you can override. Simply copy and paste the variable and its applicable section (if applicable) from the Bootstrap file into this override file and override the variables as applicable.
  */
 .mfp-hide, .wb-overlay {
-	display: block !important;
+  display: block !important;
 }
 
 /*
@@ -33,32 +33,32 @@
  * Mobile-friendly styles
  */
 .wb-tabs > .tabpanels > details, .wb-tabs > details {
-	display: block;
+  display: block;
 }
 .wb-tabs > .tabpanels > details[open] > summary, .wb-tabs > details[open] > summary {
-	display: list-item !important;
+  display: list-item !important;
 }
 
 .wb-tabs {
-	/* Only for backwards compatibility. Should be removed in v4.1. */
+  /* Only for backwards compatibility. Should be removed in v4.1. */
 }
 .wb-tabs.carousel-s2 {
-	background: transparent;
+  background: transparent;
 }
 .wb-tabs .out {
-	visibility: visible;
+  visibility: visible;
 }
 .wb-tabs [role=tablist] {
-	display: none;
+  display: none;
 }
 .wb-tabs [role=tabpanel] {
-	-webkit-animation: none;
-	        animation: none;
-	display: block !important;
-	margin-bottom: 0.5em;
-	opacity: 1;
-	-webkit-transform: none;
-	        transform: none;
+  -webkit-animation: none;
+          animation: none;
+  display: block !important;
+  margin-bottom: 0.5em;
+  opacity: 1;
+  -webkit-transform: none;
+          transform: none;
 }
 
 /*
@@ -69,16 +69,16 @@
  * Menu Sass (noscript)
  */
 #wb-glb-mn {
-	display: none !important;
+  display: none !important;
 }
 
 @media screen {
-	#wb-info, #wb-sec, #wb-sm .nvbar, #wb-sm, #wb-srch {
-		display: block !important;
-	}
-	#wb-sm .menu {
-		background: #0e4164;
-	}
+  #wb-info, #wb-sec, #wb-sm .nvbar, #wb-sm, #wb-srch {
+    display: block !important;
+  }
+  #wb-sm .menu {
+    background: #0e4164;
+  }
 }
 /*
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -102,10 +102,10 @@
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
 details {
-	visibility: visible !important;
+  visibility: visible !important;
 }
 details > *:not(summary) {
-	display: block !important;
+  display: block !important;
 }
 
 /*
@@ -113,17 +113,17 @@ details > *:not(summary) {
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
 .datepicker-format {
-	display: inline;
+  display: inline;
 }
 
 #wb-dtmd {
-	float: none !important;
+  float: none !important;
 }
 
 .nojs-show {
-	display: block !important;
+  display: block !important;
 }
 
 .nojs-hide {
-	display: none !important;
+  display: none !important;
 }
