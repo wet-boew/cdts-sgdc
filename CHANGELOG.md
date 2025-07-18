@@ -2,6 +2,7 @@
 
 ## v5.0.5 - Coming Soon!
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.88.1.
+- Updated page footer with a new link
 - Internal changes and optimizations
 - Bug fixes
 

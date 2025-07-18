@@ -3,6 +3,7 @@
 ## v5.0.5 - À venir !
 
 - Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.88.1.
+- Pied de page mis à jour avec un nouveau lien
 - Modifications et optimisations internes
 - Corrections de bogues
 
