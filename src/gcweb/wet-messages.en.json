@@ -285,8 +285,8 @@
         "source": "https://www.canada.ca/en/services/finance.html",
         "target": null
     },
-    "02ed2f1bc744b9cd753fc65f8e76c34776fe1149": {
-        "source": "Money and finance",
+    "70dc41d7bc7c8ba8712154bf7f41ac51b27e359a": {
+        "source": "Money and finances",
         "target": null
     },
     "dd80e4539ec349b792b85bb8eb77c38e9a83f863": {
@@ -301,8 +301,8 @@
         "source": "https://www.canada.ca/en/services/indigenous-peoples.html",
         "target": null
     },
-    "3f54e823b109fac51fa5d518d2acefa192b39e21": {
-        "source": "Indigenous peoples",
+    "54b31223a17e05e58081138f38789824a1e1fbca": {
+        "source": "Indigenous Peoples",
         "target": null
     },
     "55ae13721742e7c27ac8e8d59ddd1ec212ccfbd6": {
@@ -319,6 +319,14 @@
     },
     "b2370d58ad8583864bee7877ddafbd3995d8415b": {
         "source": "Youth",
+        "target": null
+    },
+    "7fc4a1d0772977cda5b201df0b4513159fcab915": {
+        "source": "https://www.canada.ca/en/services/life-events.html",
+        "target": null
+    },
+    "64c8492f58c7734d7024f5f98663d2661c8ad4cf": {
+        "source": "Manage life events",
         "target": null
     },
     "2df3eb3885cc8d7db17f46df232da00a494dc489": {
@@ -403,10 +411,6 @@
     },
     "325dfa932274455f0e14ed1cacc3481a290653a7": {
         "source": "Business and industry",
-        "target": null
-    },
-    "70dc41d7bc7c8ba8712154bf7f41ac51b27e359a": {
-        "source": "Money and finances",
         "target": null
     }
 }
