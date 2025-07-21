@@ -337,14 +337,6 @@
         "source": "Business",
         "target": "Entreprises"
     },
-    "02ed2f1bc744b9cd753fc65f8e76c34776fe1149": {
-        "source": "Money and finance",
-        "target": "Argent et finance"
-    },
-    "3f54e823b109fac51fa5d518d2acefa192b39e21": {
-        "source": "Indigenous peoples",
-        "target": "Autochtones"
-    },
     "c9578f3916085c75073b2d37ccec5da741eef660": {
         "source": "Veterans and military",
         "target": "Vétérans et militaires"
@@ -408,5 +400,17 @@
     "763a7b2777f9a6e9bc4b33c3a4350867def6f1d3": {
         "source": "Search Criteria",
         "target": "Critères de recherche"
+    },
+    "7fc4a1d0772977cda5b201df0b4513159fcab915": {
+        "source": "https://www.canada.ca/en/services/life-events.html",
+        "target": "https://www.canada.ca/fr/services/evenements-vie.html"
+    },
+    "64c8492f58c7734d7024f5f98663d2661c8ad4cf": {
+        "source": "Manage life events",
+        "target": "Gérer les événements de la vie"
+    },
+    "54b31223a17e05e58081138f38789824a1e1fbca": {
+        "source": "Indigenous Peoples",
+        "target": "Autochtones"
     }
 }
