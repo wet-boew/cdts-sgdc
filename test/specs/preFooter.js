@@ -12,7 +12,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-en.html', 'gcweb', 'gcweb-preFooter-en', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "contributors": [{"text": "[Department or agency]","href": "#"}], "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -20,7 +20,7 @@ describe('Prefooter section tests for GCWeb', () => {
     generateTestFile('./test/html/gcweb/template-gcweb-fr.html', 'gcweb', 'gcweb-preFooter-fr', {
         refTop: '{"cdnEnv": "localhost"}',
         top: '{"cdnEnv": "localhost"}',
-        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "cdnEnv": "localhost"}',
+        preFooter: '{"showShare": false, "showFeedback": {"enabled": true}, "screenIdentifier": "0123456789", "dateModified": "2020-09-11", "versionIdentifier": "0123456789", "contributors": [{"text": "[Department or agency]","href": "#"}], "cdnEnv": "localhost"}',
         footer: '{"cdnEnv": "localhost"}',
         refFooter: '{"cdnEnv": "localhost"}'
     });
@@ -173,6 +173,16 @@ describe('Prefooter section tests for GCWeb', () => {
     it('Test backwards compatibility for the feedback tool when set to true', async () => {
         await feedbackToolBackwardsComp(theme, 'en');
         await feedbackToolBackwardsComp(theme, 'fr');
+    });
+
+    it('Contributors appears', async () => {
+        await contributorsExists(theme, 'en');
+        await contributorsExists(theme, 'fr');
+    });
+
+    it('Contributors does not appear by default', async () => {
+        await contributorsDoesNotExist(theme, 'en');
+        await contributorsDoesNotExist(theme, 'fr');
     });
 
     it('Accessibility', async () => {
@@ -346,6 +356,16 @@ async function showShareTrue(theme, lang) {
 async function feedbackToolBackwardsComp(theme, lang) {
     await preFooterPage.open(theme, lang, 'showShareTrue');
     await expect(preFooterPage.feedbackBtn).toExist();
+}
+
+async function contributorsExists(theme, lang) {
+    await preFooterPage.open(theme, lang);
+    await expect(preFooterPage.contributors).toExist();
+}
+
+async function contributorsDoesNotExist(theme, lang) {
+    await preFooterPage.open(theme, lang, 'modifiedBtn');
+    await expect(preFooterPage.contributors).not.toExist();
 }
 
 async function accessibility(theme, lang) {

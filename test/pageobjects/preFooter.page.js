@@ -27,6 +27,7 @@ class PreFooterPage extends Page {
     get feedbackContactUsLink() { return $('section.pagedetails summary'); }
     get feedbackContactLink() { return $('section.pagedetails details a'); }
     get feedbackBtnLegacy() { return $('section.pagedetails a.btn-center'); }
+    get contributors() { return $('section.gc-contributors'); }
 
     /**
     * Opens a sub page of the page
