@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v17.0.0 - 2025-07-11
+ * v17.1.1 - 2025-07-24
  *
  */
 /*
@@ -5638,6 +5638,14 @@ header .brand img {
   -webkit-box-shadow: none;
           box-shadow: none;
   color: #555;
+  position: relative;
+}
+#wb-srch input:focus, #wb-srch input:active,
+.srchbox input:focus,
+.srchbox input:active {
+  -webkit-box-shadow: inset 0 0 1px rgb(0, 0, 0), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 0 1px rgb(0, 0, 0), 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: #66afe9 solid 1px;
   position: relative;
 }
 #wb-srch .wb-srch-qry,
@@ -12095,24 +12103,67 @@ ol.linenums li {
 * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
 * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
 */
-.provisional.wb-steps {
+.wb-steps {
   counter-reset: fieldset_counter;
 }
-.provisional.wb-steps .wb-tggle-fildst > legend:before {
+.wb-steps .wb-tggle-fildst > legend:before {
   content: counter(fieldset_counter) ". ";
   counter-increment: fieldset_counter;
 }
-.provisional.wb-steps .wb-tggle-fildst > legend.wb-steps-active {
+.wb-steps .wb-tggle-fildst > legend.wb-steps-active {
   color: #1c578a;
 }
-.provisional.wb-steps .wb-tggle-fildst > legend.wb-steps-error {
+.wb-steps .wb-tggle-fildst > legend.wb-steps-error {
   color: #942826;
 }
-.provisional.wb-steps .steps-wrapper {
+.wb-steps .steps-wrapper {
   border-bottom: 1px solid #c0c0c0;
 }
-.provisional.wb-steps .subfields {
+.wb-steps .subfields {
   border: 0;
+}
+.wb-steps.quiz .steps-wrapper {
+  border-bottom: none;
+}
+.wb-steps.quiz .steps-wrapper .buttons .btn {
+  display: inline-block;
+  margin: 10px 1%;
+  width: 48%;
+}
+.wb-steps.quiz fieldset:not(:first-child) legend {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 10px;
+}
+.wb-steps.quiz fieldset:not(:first-child):not(:has(legend)) {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 10px;
+}
+.wb-steps.quiz fieldset legend {
+  float: none;
+}
+.wb-steps.quiz .wb-tggle-fildst > legend:before {
+  content: "";
+  counter-increment: none;
+}
+.wb-steps.quiz .wb-tggle-fildst ul {
+  list-style: none;
+  padding-left: 20px;
+}
+.wb-steps.quiz label {
+  display: block;
+}
+.wb-steps.quiz progress.progressBar {
+  width: 100%;
+}
+.wb-steps.quiz .progressText {
+  text-align: center;
+}
+.wb-steps.quiz p {
+  font-size: 20px;
+}
+
+.cnt-wdth-lmtd main .panel.stepsquiz:has(.wb-steps.quiz) {
+  max-width: 65ch;
 }
 
 /*
@@ -16406,24 +16457,7 @@ table.dataTable.nws-tbl .label.label-success {
 .page-type-theme #wb-bc .breadcrumb {
   margin-bottom: 15px;
 }
-.page-type-theme #gridContainer > nav #menuBtn {
-  border-radius: 0;
-  display: block;
-  margin: 0.25em 0 1em -15px;
-  text-align: left;
-  width: calc(100% + 30px);
-}
-.page-type-theme #gridContainer > nav #menuBtn .glyphicon-chevron-down {
-  margin-left: 10px;
-}
-.page-type-theme #gridContainer > nav #menuBtn.expanded .glyphicon-chevron-down {
-  -webkit-transform: rotate(180deg) translateY(2px);
-          transform: rotate(180deg) translateY(2px);
-}
-.wb-disable .page-type-theme #gridContainer > nav #menuBtn {
-  display: none;
-}
-.page-type-theme #gridContainer > nav li a {
+.page-type-theme #theme-nav li a {
   color: #295376;
   display: block;
   font-size: 16px;
@@ -16431,26 +16465,43 @@ table.dataTable.nws-tbl .label.label-success {
   padding: 10px 14px;
   text-decoration: none;
 }
-.page-type-theme #gridContainer > nav li a:hover {
+.page-type-theme #theme-nav li a:hover {
   background-color: #f5f5f5;
   color: #284162;
   text-decoration: underline;
 }
-.page-type-theme #gridContainer > nav li.active a, .page-type-theme #gridContainer > nav li.active a:hover {
+.page-type-theme #theme-nav li a.wb-navcurr, .page-type-theme #theme-nav li a.wb-navcurr:hover {
   background-color: #26374a;
   color: #fff;
 }
-.page-type-theme #gridContainer > nav li.active a:focus {
+.page-type-theme #theme-nav li a.wb-navcurr:focus {
   outline: 5px auto #fff;
   outline-offset: -5px;
 }
-.page-type-theme #gridContainer > nav + section h1#wb-cont {
+.page-type-theme #menu-btn {
+  border-radius: 0;
+  display: block;
+  margin: 0.25em 0 1em -15px;
+  text-align: left;
+  width: calc(100% + 30px);
+}
+.page-type-theme #menu-btn .glyphicon-chevron-down {
+  margin-left: 10px;
+}
+.page-type-theme #menu-btn.expanded .glyphicon-chevron-down {
+  -webkit-transform: rotate(180deg) translateY(2px);
+          transform: rotate(180deg) translateY(2px);
+}
+.wb-disable .page-type-theme #menu-btn {
+  display: none;
+}
+.page-type-theme h1#wb-cont {
   border: none;
   font-size: 1.2em;
   line-height: 1.1;
   margin: 10px 0 11.5px;
 }
-.page-type-theme #gridContainer > nav + section .gc-most-requested h2 {
+.page-type-theme .gc-most-requested h2 {
   float: none;
   font-size: 1em;
   width: auto;
@@ -18275,24 +18326,17 @@ Miscellaneous Utility CSS
     @title: theme component
     @desc:  Styles specific to the theme component for GCWeb
   */
-  .page-type-theme #gridContainer > nav #theme-sl-start,
-  .page-type-theme #gridContainer > nav #theme-sl-end {
-    display: none !important;
-  }
-  .page-type-theme #gridContainer > nav #menuBtn.expanded + ul {
-    display: block;
-  }
-  .page-type-theme #gridContainer > nav ul {
+  .page-type-theme #theme-nav ul {
     display: none;
   }
-  .wb-disable .page-type-theme #gridContainer > nav ul {
+  .wb-disable .page-type-theme #theme-nav ul {
     display: block;
   }
-  .page-type-theme #gridContainer > nav ul li {
+  .page-type-theme #theme-nav ul li {
     border-bottom: #f5f5f5 solid 1px;
     position: relative;
   }
-  .page-type-theme #gridContainer > nav ul li a::after {
+  .page-type-theme #theme-nav ul li a::after {
     content: "›";
     font-size: 1.5em;
     margin-left: 10px;
@@ -18302,8 +18346,11 @@ Miscellaneous Utility CSS
     -webkit-transform: translateY(-50%);
             transform: translateY(-50%);
   }
-  .page-type-theme #gridContainer > nav ul li.active a::after {
+  .page-type-theme #theme-nav ul li.active a::after {
     display: none;
+  }
+  .page-type-theme #menu-btn.expanded + ul {
+    display: block;
   }
 }
 /* Medium view and under */
@@ -19100,38 +19147,38 @@ Miscellaneous Utility CSS
     padding: 0 15px;
     width: 970px;
   }
-  .page-type-theme #gridContainer > nav {
-    border-right: 5px solid #26374a;
+  .page-type-theme #gridContainer > *:first-child {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 300px;
             flex: 0 0 300px;
   }
-  .page-type-theme #gridContainer > nav .wb-sl {
+  .page-type-theme #gridContainer > *:first-child .container {
+    padding: 0;
+    width: auto;
+  }
+  .page-type-theme #gridContainer > *:last-child {
+    border-left: 5px solid #26374a;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 0%;
+            flex: 1 0 0%;
+  }
+  .page-type-theme #gridContainer > *:last-child .container {
+    padding-left: 35px;
+    width: auto;
+  }
+  .page-type-theme #theme-nav .wb-sl {
     display: block;
     font-size: 0.8em;
     margin: 0 5px 5px;
     text-align: center;
   }
-  .page-type-theme #gridContainer > nav .container {
-    padding: 0;
-    width: auto;
-  }
-  .page-type-theme #gridContainer > nav #menuBtn {
+  .page-type-theme #menu-btn {
     display: none;
   }
-  .page-type-theme #gridContainer > nav + section {
-    -webkit-box-flex: 1;
-        -ms-flex: 1 0 0%;
-            flex: 1 0 0%;
-  }
-  .page-type-theme #gridContainer > nav + section .container {
-    padding-left: 35px;
-    width: auto;
-  }
-  .page-type-theme #gridContainer > nav + section .gc-most-requested {
+  .page-type-theme .gc-most-requested {
     position: relative;
   }
-  .page-type-theme #gridContainer > nav + section .gc-most-requested::after {
+  .page-type-theme .gc-most-requested::after {
     background-color: #f5f5f5;
     bottom: 0;
     content: "";
@@ -19140,7 +19187,7 @@ Miscellaneous Utility CSS
     top: 0;
     width: 9999px;
   }
-  .page-type-theme #gridContainer > nav + section .gc-most-requested ul li::after {
+  .page-type-theme .gc-most-requested ul li::after {
     width: 240px;
   }
   /*
@@ -19514,7 +19561,7 @@ Miscellaneous Utility CSS
   .page-type-theme #gridContainer {
     width: 1170px;
   }
-  .page-type-theme #gridContainer > nav + section .gc-most-requested ul li::after {
+  .page-type-theme .gc-most-requested ul li::after {
     width: 335px;
   }
   /*

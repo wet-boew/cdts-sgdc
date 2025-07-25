@@ -56,6 +56,17 @@
                 <%_ } -%>
             <%_ } -%>
             <div class="<%- (pr.showFeedback.enabled != true && pr.showShare != false)? 'col-sm-6 col-md-5 col-lg-4 col-sm-pull-4 col-md-pull-3' : 'col-xs-12' %>">
+                <%_ if (pr.contributors != null) { -%>
+                    <section class="gc-contributors">
+                        <h2><^- msg('From:') ^>&#32;</h2>
+                        <ul>
+                            <%_ for (var linkIndex=0; linkIndex<pr.contributors.length; linkIndex++) {
+                            const link=pr.contributors[linkIndex];-%>
+                                <li><a href="<%- link.href %>"><%= link.text %></a></li>
+                            <%_ } -%>
+                        </ul>
+                    </section>
+                <%_ } -%>
                 <dl id="wb-dtmd">
                     <%_ if (pr.screenIdentifier != null) { -%>
                         <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
