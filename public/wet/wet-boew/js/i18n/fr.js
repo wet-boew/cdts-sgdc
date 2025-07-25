@@ -257,7 +257,11 @@ wb.i18nDict = {
 	"pii-view-more-info": "<p>Les types d'informations suivants sont considérés comme des informations personnelles&nbsp;:</p><ul><li>adresse courriel</li><li>numéro de téléphone</li><li>code postal</li><li>numéro de passeport</li><li>numéro d'entreprise</li><li>numéro d'assurance sociale (NAS)</li></ul>",
 	"pii-yes-btn": "Supprimer les informations personnelles et soumettre",
 	"pii-cancel-btn": "Retourner et modifier les champs",
-	"redacted": "caviardé"
+	"redacted": "caviardé",
+
+	/* Steps form */
+	"rel-preposition": " de ",
+	"progress-label": "Progression du questionnaire : "
 };
 
 } )( wb );

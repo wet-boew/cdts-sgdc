@@ -2,7 +2,7 @@
 
 ## v5.0.5 - À venir !
 
-- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.88.1.
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.89.
 - Pied de page mis à jour avec un nouveau lien
 - Ajout d'un modèle Contributeurs permettant aux utilisateurs de mettre en avant les services ayant contribué au contenu de la page. Consultez les exemples de pages pour plus de détails.
 - Modifications et optimisations internes
