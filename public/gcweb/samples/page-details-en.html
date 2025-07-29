@@ -108,14 +108,15 @@ defPreFooter.outerHTML = wet.builder.preFooter({
 });
             </pre>
             <h2>Share</h2>
-            <p>The "Share This Page" button is a way for the users to share the URL of the site via Social Media. By default this button is shown with the default selection of social media sites. You can customize this selection or simply hide the button.</p>
+            <p><b>Note: </b>The "Share This Page" button is being decommmisioned and it is not recommended that this component be added to you page.</p>
+            <p>The "Share This Page" button is a way for the users to share the URL of the site via Social Media. You can customize this selection or simply show the button.</p>
             <h3>Implementation</h3>
             <p>This button can be customized in the <code>preFooter</code> section of your page.</p>
-            <p>Hide the button</p>
+            <p>Show the button</p>
             <pre>
 defPreFooter.outerHTML = wet.builder.preFooter({
 ...
-    "showShare": false
+    "showShare": true
 ...
 });
             </pre>
@@ -162,7 +163,7 @@ defPreFooter.outerHTML = wet.builder.preFooter({
                     "contributors": [{
                         "text": "[Department or agency]",
                         "href": "#",
-                    }],
+                    }]
                 });
             </script>
         </main>

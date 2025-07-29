@@ -38,50 +38,50 @@
 <%_ if (pr.pagedetails != false) { -%>
     <section class="pagedetails <%= (pr.isContainer != null)? ' container': '' %>">
         <h2 class="wb-inv">"<^- msg('Page details') ^>"</h2>
-        <div class="row">
-            <%_ if (pr.showFeedback.enabled == true) { -%>
-                <div class="col-sm-8 col-md-9 col-lg-9">
-                    <%_ if (pr.showFeedback.legacyBtnUrl != null) { -%>
-                        <a href="<%- pr.showFeedback.legacyBtnUrl %>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
+        <%_ if (pr.contributors != null) { -%>
+            <section class="gc-contributors">
+                <h2><^- msg('From:') ^>&#32;</h2>
+                <ul>
+                    <%_ for (var linkIndex=0; linkIndex<pr.contributors.length; linkIndex++) {
+                    const link=pr.contributors[linkIndex];-%>
+                        <li><a href="<%- link.href %>"><%= link.text %></a></li>
+                    <%_ } -%>
+                </ul>
+            </section>
+        <%_ } -%>
+        <%_ if (pr.showFeedback.enabled == true || pr.showShare != null) { -%>
+            <div class="row">
+                <%_ if (pr.showFeedback.enabled == true) { -%>
+                    <div class="col-sm-8 col-md-9 col-lg-9 <%_ if (pr.contributors != null) { -%> cdts-feedback-padding-top <%_ } -%>">
+                        <%_ if (pr.showFeedback.legacyBtnUrl != null) { -%>
+                            <a href="<%- pr.showFeedback.legacyBtnUrl %>" class="btn btn-default btn-center"><^- msg('Report a problem on this page') ^></a>
+                        <%_ } else { -%>
+                            <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.href %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>"></div>
+                        <%_ } -%>
+                    </div>
+                <%_ } -%>
+                <%_ if (pr.showShare != null) { -%>
+                    <%_ if (Array.isArray(pr.showShare)) { -%>
+                        <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
                     <%_ } else { -%>
-                        <div data-ajax-replace="<^- msg('https://www.canada.ca/etc/designs/canada/wet-boew/assets/feedback/page-feedback-en.html') ^>" class="wb-disable-allow" data-feedback-link="<%= pr.showFeedback.text %>" data-feedback-url="<%= pr.showFeedback.href %>" data-feedback-section="<%= pr.showFeedback.section %>" data-feedback-theme="<%= pr.showFeedback.theme %>"></div>
+                        <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}' ></div>
                     <%_ } -%>
-                </div>
-            <%_ } -%>
-            <%_ if (pr.showShare != false) { -%>
-                <%_ if (pr.showShare != null && Array.isArray(pr.showShare)) { -%>                    
-                    <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
-                <%_ } else { -%>
-                    <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}' ></div>
                 <%_ } -%>
-            <%_ } -%>
-            <div class="<%- (pr.showFeedback.enabled != true && pr.showShare != false)? 'col-sm-6 col-md-5 col-lg-4 col-sm-pull-4 col-md-pull-3' : 'col-xs-12' %>">
-                <%_ if (pr.contributors != null) { -%>
-                    <section class="gc-contributors">
-                        <h2><^- msg('From:') ^>&#32;</h2>
-                        <ul>
-                            <%_ for (var linkIndex=0; linkIndex<pr.contributors.length; linkIndex++) {
-                            const link=pr.contributors[linkIndex];-%>
-                                <li><a href="<%- link.href %>"><%= link.text %></a></li>
-                            <%_ } -%>
-                        </ul>
-                    </section>
-                <%_ } -%>
-                <dl id="wb-dtmd">
-                    <%_ if (pr.screenIdentifier != null) { -%>
-                        <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
-                        <dd property="identifier"><%= pr.screenIdentifier %></dd>
-                    <%_ } -%>
-                    <%_ if (pr.dateModified != null) { -%>
-                        <dt><^- msg('Date modified:') ^>&#32;</dt>
-                        <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
-                    <%_ } -%>
-                    <%_ if (pr.versionIdentifier != null) { -%>
-                        <dt><^- msg('Version:') ^>&#32;</dt>
-                        <dd property="version"><%= pr.versionIdentifier %></dd>
-                    <%_ } -%>
-                </dl>
             </div>
-        </div>
+        <%_ } -%>
+        <dl id="wb-dtmd">
+            <%_ if (pr.screenIdentifier != null) { -%>
+                <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
+                <dd property="identifier"><%= pr.screenIdentifier %></dd>
+            <%_ } -%>
+            <%_ if (pr.dateModified != null) { -%>
+                <dt><^- msg('Date modified:') ^>&#32;</dt>
+                <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
+            <%_ } -%>
+            <%_ if (pr.versionIdentifier != null) { -%>
+                <dt><^- msg('Version:') ^>&#32;</dt>
+                <dd property="version"><%= pr.versionIdentifier %></dd>
+            <%_ } -%>
+        </dl>
     </section>
 <%_ } -%>

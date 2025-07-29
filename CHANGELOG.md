@@ -3,6 +3,7 @@
 ## v5.0.5 - Coming Soon!
 
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.89.
+- The "Share This Page" button is being decommmisioned. It will no longer show by default. Please visit the sample pages for all the details.
 - Updated page footer with a new link
 - Added a Contributors pattern allowing users to highlight departments that have contributed to the content of the page. Please visit the sample pages for all the details.
 - Internal changes and optimizations
