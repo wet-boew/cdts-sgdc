@@ -39,16 +39,12 @@
 
 /********** AJOUTÉ PAR NICK LE 2017/08/31 **********/
 /********** Date modified/Screen identifier/Version **********/
-#wb-dtmd dt, #wb-dtmd dd {
-	float: left
-}
-
 #wb-dtmd dt {
 	clear: both
 }
 
-#wb-dtmd dd {
-	margin-left: 5px
+.cdts-feedback-padding-top {
+    padding-top: 1.5em;
 }
 
 /********** AJOUTÉ PAR NICK LE 2017/08/25 **********/
