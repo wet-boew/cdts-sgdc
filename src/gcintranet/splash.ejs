@@ -10,6 +10,42 @@
  * @param? cdnEnv Used to switch between qat, nonprod, and prod CDN implementations.
  * @param? sriEnabled boolean - Set to true to enable rendering of SRI hashes for CDTS sub resources.
 -%>
+<%_
+    //Determine whether English or French should take precedence in the bilingual splash page
+    if (pr.languagePrecedence == null || pr.languagePrecedence == "English") {
+        var displayedValues = {
+            textLeft: pr.nameEng,
+            textRight: pr.nameFra,
+            textLeftInv: "Government of Canada",
+            textRightInv: "Gouvernement du Canada",
+            termsLinkLeft: pr.termsEng,
+            termsLinkRight: pr.termsFra,
+            termsTextLeft: "Terms &amp; conditions",
+            termsTextRight: "Avis",
+            btnTextLeft: "English",
+            btnTextRight: "Français",
+            btnLinkLeft: pr.indexEng,
+            btnLinkRight: pr.indexFra,
+            canadaSVG: "sig-blk-en.svg"
+        }
+    } else if (pr.languagePrecedence == "French") {
+        var displayedValues = {
+            textLeft: pr.nameFra,
+            textRight: pr.nameEng,
+            textLeftInv: "Gouvernement du Canada",
+            textRightInv: "Government of Canada",
+            termsTextLeft: "Avis",
+            termsTextRight: "Terms &amp; conditions",
+            termsLinkLeft: pr.termsFra,
+            termsLinkRight: pr.termsEng,
+            btnTextLeft: "Français",
+            btnTextRight: "English",
+            btnLinkLeft: pr.indexFra,
+            btnLinkRight: pr.indexEng,
+            canadaSVG: "sig-blk-fr.svg"
+        }
+    }
+-%>
 <div id="bg">
     <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/img/splash/sp-bg-2.jpg" alt="">
 </div>
@@ -19,7 +55,7 @@
             <h1 property="name" class="wb-inv">GC Intranet / Intranet du GC</h1>
             <div class="row">
                 <div class="col-xs-11 col-md-8">
-                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/sig-spl.svg" width="283" alt="Government of Canada">
+                    <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/<%- displayedValues.canadaSVG %>" alt="Government of Canada" property="logo" width="283">
                     <span class="wb-inv"> / <span lang="fr">Gouvernement du Canada</span></span>
                     <meta property="name" content="Government of Canada">
                     <meta property="name" lang="fr" content="Gouvernement du Canada">
@@ -28,17 +64,17 @@
             </div>
             <div class="row cdts-splash">
                 <section class="col-xs-6 text-right" lang="en">
-                    <%_ if (pr.nameEng != null) { -%>
-                        <h2><%= pr.nameEng %></h2>
+                    <%_ if (displayedValues.textLeft != null) { -%>
+                        <h2><%= displayedValues.textLeft %></h2>
                     <%_ } else { -%>
-                        <h2 class="wb-inv">Government of Canada</h2>
+                        <h2 class="wb-inv"><%= displayedValues.textLeftInv %></h2>
                     <%_ } -%>
                 </section>
                 <section class="col-xs-6" lang="fr">
-                    <%_ if (pr.nameFra != null) { -%>
-                        <h2><%= pr.nameFra %></h2>
+                    <%_ if (displayedValues.textRight != null) { -%>
+                        <h2><%= displayedValues.textRight %></h2>
                     <%_ } else { -%>
-                        <h2 class="wb-inv">Gouvernement du Canada</h2>
+                        <h2 class="wb-inv"><%= displayedValues.textRightInv %></h2>
                     <%_ } -%>
                 </section>
             </div>
@@ -47,16 +83,16 @@
                 <ul class="list-inline lst-spcd">
                     <li>
                         <%_ if (navlang == 'fr-CA') { -%>
-                            <a href="<%- pr.indexEng %>" class="btn btn-default" lang="en">English</a>
+                            <a href="<%- displayedValues.btnLinkLeft %>" class="btn btn-default" lang="en"><%= displayedValues.btnTextLeft %></a>
                         <%_ } else { -%>
-                            <a href="<%- pr.indexEng %>" class="btn btn-primary" lang="en">English</a>
+                            <a href="<%- displayedValues.btnLinkLeft %>" class="btn btn-primary" lang="en"><%= displayedValues.btnTextLeft %></a>
                         <%_ } -%>
                     </li>
                     <li>
                         <%_ if (navlang == 'fr-CA') { -%>
-                            <a href="<%- pr.indexFra %>" class="btn btn-primary" lang="fr">Français</a>
+                            <a href="<%- displayedValues.btnLinkRight %>" class="btn btn-primary" lang="fr"><%= displayedValues.btnTextRight %></a>
                         <%_ } else { -%>
-                            <a href="<%- pr.indexFra %>" class="btn btn-default" lang="fr">Français</a>
+                            <a href="<%- displayedValues.btnLinkRight %>" class="btn btn-default" lang="fr"><%= displayedValues.btnTextRight %></a>
                         <%_ } -%>
                     </li>
                 </ul>
@@ -65,7 +101,7 @@
         <div class="sp-bx-bt col-xs-12">
             <div class="row">
                 <div class="col-xs-7 col-md-8">
-                    <a href="<%- pr.termsEng %>" class="sp-lk">Terms &amp; conditions</a> <span class="glyphicon glyphicon-asterisk"></span> <a href="<%- pr.termsFra %>" class="sp-lk" lang="fr">Avis</a>
+                    <a href="<%- displayedValues.termsLinkLeft %>" class="sp-lk"><%= displayedValues.termsTextLeft %></a> <span class="glyphicon glyphicon-asterisk"></span> <a href="<%- displayedValues.termsLinkRight %>" class="sp-lk" lang="fr"><%= displayedValues.termsTextRight %></a>
                 </div>
                 <div class="col-xs-5 col-md-4 text-right mrgn-bttm-md">
                     <img src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/wmms-spl.svg" width="127" alt="Symbol of the Government of Canada"><span class="wb-inv"> / <span lang="fr">Symbole du gouvernement du Canada</span></span>
