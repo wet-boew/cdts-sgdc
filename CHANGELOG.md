@@ -6,6 +6,7 @@
 - The "Share This Page" button is being decommmisioned. It will no longer show by default. Please visit the sample pages for all the details.
 - Updated page footer with a new link
 - Added a Contributors pattern allowing users to highlight departments that have contributed to the content of the page. Please visit the sample pages for all the details.
+- Added an optional parameter *languagePrecedence* to the splash page allowing users to decide the order of official languages
 - Internal changes and optimizations
 - Bug fixes
 
