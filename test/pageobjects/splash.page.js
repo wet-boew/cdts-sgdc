@@ -11,8 +11,10 @@ class SplashPage extends Page {
     get defaultBtnLink() { return $('a.btn-default'); }
     get primaryTermLink() { return $('div.col-xs-7 a:nth-of-type(1)'); }
     get defaultTermLink() { return $('div.col-xs-7 a:nth-of-type(2)'); }
-    get primaryContent() { return $('div.cdts-splash section:first-child h2'); }
-    get defaultContent() { return $('div.cdts-splash section:last-child h2'); }
+    get primaryContent() { return $('div.cdts-splash section:first-child h3'); }
+    get defaultContent() { return $('div.cdts-splash section:last-child h3'); }
+    get primaryInvContent() { return $('div.cdts-splash section:first-child h2'); }
+    get defaultInvContent() { return $('div.cdts-splash section:last-child h2'); }
     
     /**
     * Opens a sub page of the page
