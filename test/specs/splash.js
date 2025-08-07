@@ -108,10 +108,10 @@ async function bodyContent(theme){
 
 async function noContent(theme){
     await splashPage.open(theme, 'noText');
-    await expect(splashPage.primaryContent).toHaveAttribute('class', expect.stringContaining('wb-inv'));
-    await expect(splashPage.primaryContent).toHaveText(expect.stringContaining('Government of Canada'));
-    await expect(splashPage.defaultContent).toHaveAttribute('class', expect.stringContaining('wb-inv'));
-    await expect(splashPage.defaultContent).toHaveText(expect.stringContaining('Gouvernement du Canada'));
+    await expect(splashPage.primaryInvContent).toHaveAttribute('class', expect.stringContaining('wb-inv'));
+    await expect(splashPage.primaryInvContent).toHaveText(expect.stringContaining('Government of Canada'));
+    await expect(splashPage.defaultInvContent).toHaveAttribute('class', expect.stringContaining('wb-inv'));
+    await expect(splashPage.defaultInvContent).toHaveText(expect.stringContaining('Gouvernement du Canada'));
 }
 
 async function splashFrenchFirst(theme){

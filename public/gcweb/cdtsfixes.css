@@ -19,6 +19,10 @@
 	font-size: .5em;
 }
 
+.cdts-splash h3 {
+	line-height: 1.1;
+}
+
 @media (min-width: 768px) {
 	.cdts-splash {
 		font-size: .6em;

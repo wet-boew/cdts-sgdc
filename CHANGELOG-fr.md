@@ -2,6 +2,7 @@
 
 ## v5.0.5 - À venir !
 
+- **IMPORTANT** La nouvelle version de WET inclut des modifications de la taille de la police. Veuillez vérifier que votre application reste visuellement cohérente et s'affiche correctement.
 - Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.89.
 - Le bouton « Partager cette page » est en cours de désactivation. Il ne s'affichera plus par défaut. Veuillez consulter les exemples de pages pour plus de détails.
 - Pied de page mis à jour avec un nouveau lien
