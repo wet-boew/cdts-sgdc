@@ -73,12 +73,14 @@
             <%_ if (pr.screenIdentifier != null) { -%>
                 <dt><^- msg('Screen Identifier:') ^>&#32;</dt>
                 <dd property="identifier"><%= pr.screenIdentifier %></dd>
+                <br>
             <%_ } -%>
             <%_ if (pr.dateModified != null) { -%>
                 <dt><^- msg('Date modified:') ^>&#32;</dt>
                 <dd><time property="dateModified"><%= pr.dateModified %></time></dd>
             <%_ } -%>
             <%_ if (pr.versionIdentifier != null) { -%>
+                <br>
                 <dt><^- msg('Version:') ^>&#32;</dt>
                 <dd property="version"><%= pr.versionIdentifier %></dd>
             <%_ } -%>
