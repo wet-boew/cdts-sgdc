@@ -60,8 +60,8 @@
                         <%_ } -%>
                     </div>
                 <%_ } -%>
-                <%_ if (pr.showShare != null) { -%>
-                    <%_ if (Array.isArray(pr.showShare)) { -%>
+                <%_ if (pr.showShare != false) { -%>
+                    <%_ if (pr.showShare != null && Array.isArray(pr.showShare)) { -%>
                         <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"filter": [<%- pr.showShare.map(function (i) {return '"' + i + '"';}).join(', ') %>], "lnkClass": "btn btn-default btn-block"}'></div>
                     <%_ } else { -%>
                         <div class="wb-share col-sm-4 col-md-3 <%- (pr.showFeedback.enabled != true)? 'col-sm-push-8 col-md-push-9' : ''%>" data-wb-share='{"lnkClass": "btn btn-default btn-block"}' ></div>

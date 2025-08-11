@@ -47,6 +47,16 @@
 	clear: both
 }
 
+#wb-dtmd dd::after {
+ content: "";
+ display: block;
+ margin-bottom: 15px;
+}
+
+#wb-dtmd dd:last-child::after {
+ margin-bottom: 0px;
+}
+
 .cdts-feedback-padding-top {
     padding-top: 1.5em;
 }
