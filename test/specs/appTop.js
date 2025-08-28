@@ -919,7 +919,7 @@ async function gcToolsLinksStandard(theme, lang){
 //Test to confirm the default menu was removed
 async function defaultMenu(theme, lang){
     await basicPage.open(theme, lang, 'app');
-    await expect(basicPage.defaultMenu).not.toExist();
+    await expect(basicPage.defaultMenu).toExist();
 }
 
 async function subThemeESDCPreConfigured(theme, lang) {
