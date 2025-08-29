@@ -1,6 +1,6 @@
 # SGDC : Journal des modifications
 
-## v5.0.5 - À venir !
+## v5.0.5
 
 - **IMPORTANT** La nouvelle version de WET inclut des modifications de la taille de la police. Veuillez vérifier que votre application reste visuellement cohérente et s'affiche correctement.
 - Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.89.
