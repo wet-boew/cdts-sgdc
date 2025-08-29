@@ -1,6 +1,6 @@
 # CDTS Change Log
 
-## v5.0.5 - Coming Soon!
+## v5.0.5
 
 - **IMPORTANT** The new version of WET includes changes to font size. Please verify your application remains visually consistent and renders correctly.
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.89.
