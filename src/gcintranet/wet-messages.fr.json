@@ -445,10 +445,6 @@
         "source": "https://esdc.prv/en/terms-conditions.shtml",
         "target": "https://edsc.prv/fr/conditions-utilisation.shtml"
     },
-    "63f3f0da3e2031cedf938ea18363e51a893e095d": {
-        "source": "Name of Web application",
-        "target": "Nom de l'application Web"
-    },
     "616127b124840170bb853584ca52fbb610817859": {
         "source": "appmenu-eng.html",
         "target": "appmenu-fra.html"
