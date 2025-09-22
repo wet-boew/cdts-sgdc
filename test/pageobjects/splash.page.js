@@ -13,6 +13,8 @@ class SplashPage extends Page {
     get defaultTermLink() { return $('div.col-xs-7 a:nth-of-type(2)'); }
     get primaryContent() { return $('div.cdts-splash section:first-child h3'); }
     get defaultContent() { return $('div.cdts-splash section:last-child h3'); }
+    get primaryGCIntranetContent() { return $('div.cdts-splash section:first-child h2'); }
+    get defaultGCIntranetContent() { return $('div.cdts-splash section:last-child h2'); }
     get primaryInvContent() { return $('div.cdts-splash section:first-child h2'); }
     get defaultInvContent() { return $('div.cdts-splash section:last-child h2'); }
     

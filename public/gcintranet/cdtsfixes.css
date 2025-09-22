@@ -13,10 +13,6 @@
 	font-size: .5em;
 }
 
-.cdts-splash h3 {
-	line-height: 1.1;
-}
-
 @media (min-width: 768px) {
 	.cdts-splash {
 		font-size: .6em;
@@ -211,23 +207,4 @@ background-color: #335075;
 
 #wb-info {
 	background:#e1e4e7;
-}
-
-#wb-info a {
-	font-size: .875em;
-}
-
-#wb-info nav li {
-	margin-bottom: .75em;
-}
-
-#wb-info h3 {
-  margin-bottom: 1em;
-  margin-top: 0;
-  font-size: 1.2em;
-  line-height: 1.1;
-}
-
-#wb-info .gc-sub-footer {
-  padding: 1.5em 0 2em;
 }
