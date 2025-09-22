@@ -102,8 +102,14 @@ async function termLinks(theme){
 
 async function bodyContent(theme){
     await splashPage.open(theme);
-    await expect(splashPage.primaryContent).toHaveText(expect.stringContaining('Shrink your window'));
-    await expect(splashPage.defaultContent).toHaveText(expect.stringContaining('Rapetisser votre'));
+    if (theme === 'gcweb'){
+        await expect(splashPage.primaryContent).toHaveText(expect.stringContaining('Shrink your window'));
+        await expect(splashPage.defaultContent).toHaveText(expect.stringContaining('Rapetisser votre'));
+    }
+    else{
+        await expect(splashPage.primaryGCIntranetContent).toHaveText(expect.stringContaining('Shrink your window'));
+        await expect(splashPage.defaultGCIntranetContent).toHaveText(expect.stringContaining('Rapetisser votre'));
+    }
 }
 
 async function noContent(theme){
@@ -120,8 +126,14 @@ async function splashFrenchFirst(theme){
     await expect(splashPage.defaultBtnLink).toHaveHref(expect.stringContaining('canada.ca/en'));
     await expect(splashPage.primaryTermLink).toHaveHref(expect.stringContaining('avis.html'));
     await expect(splashPage.defaultTermLink).toHaveHref(expect.stringContaining('terms.html'));
-    await expect(splashPage.primaryContent).toHaveText(expect.stringContaining('Rapetisser votre'));
-    await expect(splashPage.defaultContent).toHaveText(expect.stringContaining('Shrink your window'));
+    if (theme === 'gcweb'){
+        await expect(splashPage.primaryContent).toHaveText(expect.stringContaining('Rapetisser votre'));
+        await expect(splashPage.defaultContent).toHaveText(expect.stringContaining('Shrink your window'));
+    }
+    else{
+        await expect(splashPage.primaryGCIntranetContent).toHaveText(expect.stringContaining('Rapetisser votre'));
+        await expect(splashPage.defaultGCIntranetContent).toHaveText(expect.stringContaining('Shrink your window'));
+    }
 }
 
 async function accessibility(theme) {
