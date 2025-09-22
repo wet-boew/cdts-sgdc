@@ -8,9 +8,14 @@
   "public/gcintranet/eccc_green.css",
   "public/gcintranet/esdc.css",
   "public/gcintranet/gctheme.css",
-  "public/wet/wet-boew/css/theme.min.css",
-  "public/wet/wet-boew/js/jquery/2.2.4/jquery.min.js",
-  "public/wet/wet-boew/js/wet-boew.min.js",
-  "public/wet/wet-boew/js/theme.min.js",
-  "public/wet/wet-boew/css/messages.min.css"
+  "public/wet/gcweb/wet-boew/css/theme.min.css",
+  "public/wet/gcweb/wet-boew/js/jquery/2.2.4/jquery.min.js",
+  "public/wet/gcweb/wet-boew/js/wet-boew.min.js",
+  "public/wet/gcweb/wet-boew/js/theme.min.js",
+  "public/wet/gcweb/wet-boew/css/messages.min.css",
+  "public/wet/gcintranet/wet-boew/css/theme.min.css",
+  "public/wet/gcintranet/wet-boew/js/jquery/2.2.4/jquery.min.js",
+  "public/wet/gcintranet/wet-boew/js/wet-boew.min.js",
+  "public/wet/gcintranet/wet-boew/js/theme.min.js",
+  "public/wet/gcintranet/wet-boew/css/messages.min.css"
 ]

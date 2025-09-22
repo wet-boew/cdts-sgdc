@@ -1,5 +1,10 @@
 # CDTS Change Log
 
+## v5.0.5.1
+
+- Reverting font changes for GCIntranet template
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.87 for GCIntranet
+
 ## v5.0.5
 
 - **IMPORTANT** The new version of WET includes changes to font size. Please verify your application remains visually consistent and renders correctly.

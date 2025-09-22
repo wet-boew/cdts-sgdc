@@ -34,7 +34,7 @@
 <link href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon">
 <%# Only output css links if not directed to ignore -%>
 <% if (!pr.cdtsSetupExcludeCSS) { -%>
-    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/css/theme.min.css') ^>" crossorigin="anonymous"<% } %>>
+    <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/css/theme.min.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/gcweb/wet-boew/css/theme.min.css') ^>" crossorigin="anonymous"<% } %>>
     <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsfixes.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcweb/cdtsfixes.css') ^>" crossorigin="anonymous"<% } %>>
     <%_ if (pr.isApplication == true) { -%>
     <link rel="stylesheet" href="<%- wet.builder.environment(pr.cdnEnv) %>cdts/cdtsapps.css"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/gcweb/cdtsapps.css') ^>" crossorigin="anonymous"<% } %>>

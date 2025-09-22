@@ -1,5 +1,10 @@
 # SGDC : Journal des modifications
 
+## v5.0.5.1
+
+- Annulation des modifications de police pour le modèle GCIntranet
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.87 pour GCIntranet.
+
 ## v5.0.5
 
 - **IMPORTANT** La nouvelle version de WET inclut des modifications de la taille de la police. Veuillez vérifier que votre application reste visuellement cohérente et s'affiche correctement.

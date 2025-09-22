@@ -16,13 +16,13 @@
  * @param? webAnalytics Used to determine inclusion of current analytics code.
 -%>
 <!--[if gte IE 9 | !IE ]><!-->
-<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/jquery/2.2.4/jquery.min.js') ^>" crossorigin="anonymous"<% } %>></script>
-<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/wet-boew.min.js') ^>" crossorigin="anonymous"<% } %>></script>
+<script src="<%- (pr.jqueryEnv=='external')? 'https://ajax.googleapis.com/ajax/libs/': wet.builder.environment(pr.cdnEnv) + 'wet-boew/js/' %>jquery/2.2.4/jquery.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/gcintranet/wet-boew/js/jquery/2.2.4/jquery.min.js') ^>" crossorigin="anonymous"<% } %>></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/wet-boew.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/gcintranet/wet-boew/js/wet-boew.min.js') ^>" crossorigin="anonymous"<% } %>></script>
 <!--<![endif]-->
 <!--[if lt IE 9]>
 <script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/ie8-wet-boew2.min.js"></script>
 <![endif]-->
-<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/wet-boew/js/theme.min.js') ^>" crossorigin="anonymous"<% } %>></script>
+<script src="<%- wet.builder.environment(pr.cdnEnv) %>wet-boew/js/theme.min.js"<% if (pr.sriEnabled) { %> integrity="<^- sriHash('public/wet/gcintranet/wet-boew/js/theme.min.js') ^>" crossorigin="anonymous"<% } %>></script>
 <%_ if (pr.exitSecureSite != null) { -%>
     <%_ if (pr.exitSecureSite.exitScript == true) { -%>
         <%# This is a placeholder link to trigger the WET exitscript intialization in the event the no external link is present on the page -%>
