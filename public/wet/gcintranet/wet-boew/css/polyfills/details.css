@@ -1,0 +1,30 @@
+@charset "UTF-8";
+/*
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ */
+/* Details/summary polyfill */
+.no-details[dir=rtl] details[open] > summary:before, .no-details details[open] > summary:before {
+	content: "▼ ";
+}
+
+.no-details details > summary:before {
+	content: "► ";
+	font-size: 84%;
+}
+
+.no-details {
+	/* Right to left (RTL) CSS */
+}
+.no-details details > summary:before { /* Add the closed pointer */ }
+.no-details details[open] {
+	display: block;
+}
+.no-details details[open] > summary:before { /* Add the opened pointer */ }
+.no-details details summary {
+	display: list-item !important;
+}
+.no-details[dir=rtl] details > summary:before { /* Add the close pointer */
+	content: "◄ ";
+}
+.no-details[dir=rtl] details[open] > summary:before { /* Add the opened pointer */ }
