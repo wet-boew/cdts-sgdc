@@ -1,5 +1,9 @@
 # CDTS Change Log
 
+## v5.0.5.1
+
+- Reverting font changes for GCIntranet template
+
 ## v5.0.5
 
 - **IMPORTANT** The new version of WET includes changes to font size. Please verify your application remains visually consistent and renders correctly.

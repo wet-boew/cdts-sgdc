@@ -310,8 +310,8 @@ module.exports = function run(grunt) {
             },
             wet: {
                 files: [
-                    { cwd: 'public/wet', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>', expand: true },
-                    { cwd: 'public/wet', src: ['**'], dest: '<%= project.target %>/gcintranet/<%= project.versionName %>', expand: true },
+                    { cwd: 'public/wet/gcweb', src: ['**'], dest: '<%= project.target %>/gcweb/<%= project.versionName %>', expand: true },
+                    { cwd: 'public/wet/gcintranet', src: ['**'], dest: '<%= project.target %>/gcintranet/<%= project.versionName %>', expand: true },
                 ],
                 options: {
                     process: cdtsCheckLineEndings,
