@@ -1,7 +1,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v16.5.0 - 2025-03-19
+ * v16.2.0 - 2025-02-04
  *
  */( function( $, document, wb ) {
 "use strict";
@@ -363,7 +363,7 @@ var $document = wb.doc,
 			actions = wb.getData( $elm, componentName );
 
 			if ( actions ) {
-				if ( !Array.isArray( actions ) ) {
+				if ( !$.isArray( actions ) ) {
 					actions = [ actions ];
 				}
 				i_len = actions.length;
@@ -410,7 +410,7 @@ var $document = wb.doc,
 			return;
 		}
 
-		if ( !Array.isArray( ops ) ) {
+		if ( !$.isArray( ops ) ) {
 			ops = [ ops ];
 		}
 
@@ -550,7 +550,7 @@ var $document = wb.doc,
 				var cellCSVText;
 				if ( isDataTable ) {
 
-					// I would like to use ".node()" instead of ".data()" but it is not possible to get the referenced
+					// I would like to use ".node()" instead of ".data()" but it is not possible to get the referencied
 					// node because it don't exist if the table have multiple pages.
 					cellCSVText = $datatable.cell( i, j, { "page": "all" } ).data();
 
@@ -610,7 +610,7 @@ var $document = wb.doc,
 
 	},
 
-	// From a user input or a predefined input, apply some transformation to the command prior to execute it
+	// From a user input or a predefined input, apply some tranformation to the command prior to execute it
 	// This functionality was already in the URL mapping and was moved here to be reused by any user input
 	withInput = function( event, data ) {
 
@@ -636,7 +636,7 @@ var $document = wb.doc,
 			defaultValue;
 
 
-		if ( !Array.isArray( actions ) ) {
+		if ( !$.isArray( actions ) ) {
 			actions = [ actions ];
 		} else {
 			actions = $.extend( [], actions );
@@ -691,7 +691,7 @@ var $document = wb.doc,
 						ops = [ patchDefault ];
 						i_cache.cumulative = true;
 					}
-					if ( !Array.isArray( ops ) ) {
+					if ( !$.isArray( ops ) ) {
 						ops = [ ops ];
 					}
 					ops = patchFixArray( ops, i_cache.qval, basePntr );
@@ -804,7 +804,7 @@ $document.on( "do." + actionEvent, function( event ) {
 	// Filter out any events triggered by descendants
 	if ( ( elm === event.target || event.currentTarget === event.target ) && elm.className.indexOf( componentName ) === -1 ) {
 
-		if ( !Array.isArray( actions ) ) {
+		if ( !$.isArray( actions ) ) {
 			actions = [ actions ];
 		}
 
@@ -1007,7 +1007,7 @@ var componentName = "wb-chtwzrd",
 	},
 
 	/**
-	 * Prepare initiation depending on the input type, whether it's JSON or a form
+	 * Prepare initiation depending on the input type, wether it's JSON or a form
 	 * @method fireChtwzrd
 	 * @param {jQuery DOM element} $selector Element to which the wizard will be appended
 	 */
@@ -1326,7 +1326,7 @@ var componentName = "wb-chtwzrd",
 				}
 			};
 
-			// Correct bubble positioning on load, on resize an on Y scroll if necessary
+			// Correct bubble positionning on load, on resize an on Y scroll if necessary
 			stickyUntilFooter( $selector );
 
 			$( window ).on( "resize scroll", function() {
@@ -1548,7 +1548,7 @@ var componentName = "wb-chtwzrd",
 	 * Toggle between form and wizard
 	 * @method toggleExperience
 	 * @param {jQuery DOM element} $selector Element to which the experience will be active
-	 * @param {String} toggle Give context to the toggle, whether it is form or wizard
+	 * @param {String} toggle Give context to the toggle, wether it is form or wizard
 	 */
 	toggleExperience = function( $selector, toggle ) {
 
@@ -1619,7 +1619,7 @@ var componentName = "wb-chtwzrd",
 
 			if ( first !== "" ) {
 
-				// Show greetings on first occurrence
+				// Show greetings on first occurence
 				$lastQuestion.html( datainput.header.greetings );
 				first = "";
 				appendInteraction( $selector );
@@ -1637,7 +1637,7 @@ var componentName = "wb-chtwzrd",
 				$selector.attr( "action", redirurl );
 			} else {
 
-				// On every other occurrences, append the question and its possible answers
+				// On every other occurences, append the question and its possible answers
 				$lastQuestion.html( current.label );
 				current.input = "radio";
 				inputsTimeout = setTimeout( function() {
@@ -1920,7 +1920,7 @@ var componentName = "wb-fieldflow",
 			}
 			config = $.extend( {}, defaults, wbDataElm );
 
-			if ( config.defaultIfNone && !Array.isArray( config.defaultIfNone ) ) {
+			if ( config.defaultIfNone && !$.isArray( config.defaultIfNone ) ) {
 				config.defaultIfNone = [ config.defaultIfNone ];
 			}
 
@@ -1936,7 +1936,7 @@ var componentName = "wb-fieldflow",
 				};
 			}
 
-			// Transform the list into a select, use the first paragraph content for the label, and extract for i18n the name of the button action.
+			// Transform the list into a select, use the first paragrap content for the label, and extract for i18n the name of the button action.
 			var bodyID = wb.getId(),
 				stdOut,
 				formElm,
@@ -2584,7 +2584,7 @@ var componentName = "wb-fieldflow",
 			j_len = childNodes.length;
 
 			if ( !firstNode ) {
-				throw "You have a markup error, There may be an empty <li> elements in your list.";
+				throw "You have a markup error, There may be an empyt <li> elements in your list.";
 			}
 
 			actions = [];
@@ -2734,7 +2734,7 @@ $document.on( resetActionEvent, selector + ", ." + subComponentName, function( e
 		if ( settings && settings.reset ) {
 			settingsReset = settings.reset;
 
-			if ( Array.isArray( settingsReset ) ) {
+			if ( $.isArray( settingsReset ) ) {
 				resetAction = settingsReset;
 			} else {
 				resetAction.push( settingsReset );
@@ -2756,7 +2756,7 @@ $document.on( resetActionEvent, selector + ", ." + subComponentName, function( e
 	}
 } );
 
-// Load content after the user has chosen an option
+// Load content after the user have choosen an option
 $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event ) {
 
 	var elm = event.currentTarget,
@@ -2818,7 +2818,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 	}
 	if ( $optSel.length && $optSel.val() && settings && settings.default ) {
 		cacheAction = settings.default;
-		if ( Array.isArray( cacheAction ) ) {
+		if ( $.isArray( cacheAction ) ) {
 			actions = cacheAction;
 		} else {
 			actions.push( cacheAction );
@@ -2845,7 +2845,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 
 			if ( bindTo ) {
 
-				// Retrieve action set on the binded element
+				// Retreive action set on the binded element
 				bindToElm = document.getElementById( bindTo );
 				actionAttr = bindToElm.getAttribute( "data-" + componentName );
 				if ( typeof actionAttr === "string" ) {
@@ -2855,7 +2855,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 						} catch ( error ) {
 							$.error( "Bad JSON object " + actionAttr );
 						}
-						if ( !Array.isArray( cacheAction ) ) {
+						if ( !$.isArray( cacheAction ) ) {
 							cacheAction = [ cacheAction ];
 						}
 					} else {
@@ -2910,7 +2910,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 } );
 
 
-// Load content after the user has chosen an option
+// Load content after the user have choosen an option
 $document.on( "submit", selectorForm + " form", function( event ) {
 
 	var elm = event.currentTarget,
@@ -2936,7 +2936,7 @@ $document.on( "submit", selectorForm + " form", function( event ) {
 		$wbFieldFlow.trigger( cleanEvent );
 	}
 
-	// For each wb-fieldflow component, execute submitting task.
+	// For each wb-fieldflow component, execute submiting task.
 	for ( i = 0; i !== i_len; i += 1 ) {
 		$wbFieldFlow = $( "#" + wbFieldFlowRegistered[ i ] );
 		componentRegistered = $wbFieldFlow.data( registerJQData );
@@ -2977,7 +2977,7 @@ $document.on( "submit", selectorForm + " form", function( event ) {
 		}
 	}
 
-	// Before to submit, remove jj-down accessory control
+	// Before to submit, remove jj-down accessesory control
 	if ( !preventSubmit ) {
 		$elm.find( basenameInputSelector ).removeAttr( "name" );
 
@@ -3061,7 +3061,7 @@ $document.on( "keyup", selectorForm + " select", function( Ev ) {
 	// Add the fix for the on change event - https://bugzilla.mozilla.org/show_bug.cgi?id=126379
 	if ( navigator.userAgent.indexOf( "Gecko" ) !== -1 ) {
 
-		// prevent tab, alt, ctrl keys from firing the event
+		// prevent tab, alt, ctrl keys from fireing the event
 		if ( Ev.keyCode && ( Ev.keyCode === 1 || Ev.keyCode === 9 || Ev.keyCode === 16 || Ev.altKey || Ev.ctrlKey ) ) {
 			return true;
 		}
@@ -3207,7 +3207,7 @@ var $document = wb.doc,
 	initEvent = "wb-init." + componentName,
 	jsonFetched = "json-fetched.wb",
 	wait,
-	waitInterval = 250, // In-between typing delay before refreshing the suggested list.
+	waitInterval = 250, // In-bettween typing delay before refreshing the suggested list.
 	maxWaitLoading = 5, // Number of time of waitInterval the plugin are allow wait for getting JSON suggestions
 
 	// Remove accent and normalize the string
@@ -3241,8 +3241,8 @@ var $document = wb.doc,
 	//
 	// this: datalist instance
 	// filter: filter items that match the suggestion
-	// limit: (for override) limit number of result
-	// attSuggestions: (for override) Array of string with suggestion
+	// limti: (for overwride) limit number of result
+	// attSuggestions: (for overwride) Array of string with suggestion
 	//
 	addDataListOptions = function( filter, limit, attrSuggestions ) {
 		var suggestions = attrSuggestions || JSON.parse( this.dataset.wbSuggestions || [] ),
@@ -3316,7 +3316,7 @@ var $document = wb.doc,
 		var template = this.querySelector( "template" );
 
 		// IE11 support
-		// Polyfill the template, like if added after the polyfill or this a sub-template in a template container that wasn't polyfill
+		// Polyfil the template, like if added after the polyfill or this a sub-template in a template container that wasn't polyfill
 		// FYI - The polyfill is loaded from the data-json plugin
 		if ( template && !template.content ) {
 			wb.tmplPolyfill( template );
@@ -3362,7 +3362,7 @@ var $document = wb.doc,
 		// Attach the JSON list to the datalist element
 		this.dataset.wbSuggestions = JSON.stringify( suggestions );
 
-		// Remove the reference as it not needed any more
+		// Remove the reference as it not needed anymore
 		delete this.dataset.wbSuggest;
 
 		// Add the suggested options
@@ -3482,7 +3482,7 @@ var componentName = "wb-urlmapping",
 	initEvent = "wb-init." + componentName,
 	doMappingEvent = "domapping." + componentName,
 	$document = wb.doc,
-	authTrigger, // Flag to prevent initiation of WET no more than twice by page load
+	authTrigger, // Flag to prevent instation of WET no more than twice by page load
 
 	/**
 	 * @method init
@@ -3551,7 +3551,7 @@ $document.on( doMappingEvent, selector, function( event ) {
 
 		if ( typeof settingQuery === "object" ) {
 
-			// Send it to the action manager to get processed with the action "withInput"
+			// Send it to the action manager to get proccessed with the action "withInput"
 			$elm.trigger( {
 				type: "do.wb-actionmng",
 				actions: {
@@ -3763,7 +3763,7 @@ function CloseMenu( elm, force ) {
 		var currentFocusIsOn = elm.nextElementSibling.querySelector( "[role=menuitem]:focus" );
 		var siblingHasFocus = elm.parentElement.parentElement.querySelector( "[role=menuitem]:focus" );
 
-		// Check if we keep the menu open
+		// Check if we keep the menu opon
 		if ( currentFocusIsOn || siblingHasFocus === elm ) {
 			return;
 		}
@@ -4590,13 +4590,13 @@ var wet_boew_geomap = {
 };
 
 /*
- * Les composantes individuelles seront substitués par les composantes globales
+ * Les composantes individuelles seront substituées par les compasantes globales
  *
  * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
  * (c'est à dire la première couche sera ajouté en premier, puis la suivante
  * sur le dessus, et ainsi de suite).
  *
- * Prenez note, la carte de base peut être définie globalement dans le fichier settings.js.
+ * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
  */
 /*jshint unused:false*/
 var wet_boew_geomap = {
@@ -5047,13 +5047,13 @@ var wet_boew_geomap = {
 };
 
 /*
- * Les composantes individuelles seront substitués par les composantes globales
+ * Les composantes individuelles seront substituées par les compasantes globales
  *
  * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
  * (c'est à dire la première couche sera ajouté en premier, puis la suivante
  * sur le dessus, et ainsi de suite).
  *
- * Prenez note, la carte de base peut être définie globalement dans le fichier settings.js.
+ * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
  */
 /*jshint unused:false*/
 var wet_boew_geomap = {
@@ -5482,13 +5482,13 @@ var wet_boew_geomap = {
 };
 
 /*
- * Les composantes individuelles seront substitués par les composantes globales
+ * Les composantes individuelles seront substituées par les compasantes globales
  *
  * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
  * (c'est à dire la première couche sera ajouté en premier, puis la suivante
  * sur le dessus, et ainsi de suite).
  *
- * Prenez note, la carte de base peut être définie globalement dans le fichier settings.js.
+ * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
  */
 /*jshint unused:false*/
 var wet_boew_geomap = {
@@ -5939,13 +5939,13 @@ var wet_boew_geomap = {
 };
 
 /*
- * Les composantes individuelles seront substitués par les composantes globales
+ * Les composantes individuelles seront substituées par les compasantes globales
  *
  * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
  * (c'est à dire la première couche sera ajouté en premier, puis la suivante
  * sur le dessus, et ainsi de suite).
  *
- * Prenez note, la carte de base peut être définie globalement dans le fichier settings.js.
+ * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
  */
 /*jshint unused:false*/
 var wet_boew_geomap = {

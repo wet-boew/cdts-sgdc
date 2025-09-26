@@ -131,7 +131,7 @@ input[type=range], .fd-slider-wrapper, .fd-slider {
 	background-color: transparent;
 	background-image: url("../../assets/fd-slider-sprite.png");
 	background-position: 0 0;
-	cursor: w-resize;
+	cursor: W-resize;
 	font-size: 10px;
 	line-height: 20px;
 	/* Are these needed?
@@ -167,8 +167,8 @@ input[type=range], .fd-slider-wrapper, .fd-slider {
 }
 
 body.fd-slider-drag-horizontal, body.fd-slider-drag-horizontal * {
-	cursor: n-resize !important;
-	cursor: w-resize !important;
+	cursor: N-resize !important;
+	cursor: W-resize !important;
 	-webkit-user-select: none;
 	   -moz-user-select: none;
 	    -ms-user-select: none;
@@ -274,5 +274,5 @@ body.fd-slider-drag-horizontal, body.fd-slider-drag-horizontal * {
 
 .visu {
 	color: #6cc;
-	font: normal 3em impact, helvetica, sans-serif;
+	font: normal 3em impact, helvetica, sans serif;
 }

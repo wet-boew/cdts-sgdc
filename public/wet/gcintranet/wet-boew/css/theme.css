@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v16.5.0 - 2025-03-19
+ * v16.2.0 - 2025-02-04
  *
  */
 /*
@@ -2664,7 +2664,7 @@ a:not([href]):hover, a:not([href]):focus {
 	}
 	.dl-horizontal.dt-max dt {
 		-ms-hyphens: none;
-		    hyphens: none;
+		hyphens: none;
 		min-width: 20ch;
 		white-space: normal;
 		width: auto;
@@ -4455,17 +4455,7 @@ select[multiple].input-lg,
  *  Firefox-safe line height on input[type="reset|button|submit"]
  */
 input[type=reset], input[type=button], input[type=submit] {
-	/*
-	 *  Form control width
-	 *
-	 *  Default should be representative of the expected length of input.
-	*  Full width should be only for cases when the expected length of input is
-	*  greater than the available width.
-	*  height:37px; rule of Bootstrap was overwritten by height: auto; first
-	*  then a min-height specified, in order to address the issue #8492. July 2019.
-	*/
-	height: auto;
-	min-height: 37px;
+	height: 37px;
 }
 input[type=reset].btn-lg, .btn-group-lg > input[type=reset].btn, input[type=reset].input-lg, .input-group-lg > input[type=reset].form-control,
 .input-group-lg > input[type=reset].input-group-addon,
@@ -4489,6 +4479,20 @@ input[type=reset].btn-xs, .btn-group-xs > input[type=reset].btn, input[type=butt
 	height: 25px;
 }
 
+/*
+ *  Form control width
+ *
+ *  Default should be representative of the expected length of input.
+ *  Full width should be only for cases when the expected length of input is
+ *  greater than the available width.
+ *  height:37px; rule of Bootstrap was overwritten by height: auto; first
+ *  then a min-height specified, in order to address the issue #8492. July 2019.
+ */
+input[type=button], input[type=reset], input[type=submit] {
+	height: auto;
+	min-height: 37px;
+}
+
 .form-control {
 	height: auto;
 	max-width: 100%;
@@ -4508,7 +4512,7 @@ input[type=reset].btn-xs, .btn-group-xs > input[type=reset].btn, input[type=butt
 }
 .form-inline .label-inline label {
 	font-weight: 400;
-	margin-bottom: 0;
+	margin-bottom: 0px;
 	padding-left: 2px;
 }
 
@@ -4565,22 +4569,16 @@ fieldset.chkbxrdio-grp legend {
  */
 label.required strong.required,
 legend.required strong.required,
-.checkbox.required strong.required, label.required:not(.required-no-asterisk .required):before,
-legend.required:not(.required-no-asterisk .required):before,
-.checkbox.required:not(.required-no-asterisk .required):before {
+.checkbox.required strong.required, label.required:before,
+legend.required:before,
+.checkbox.required:before {
 	color: #d3080c;
 	font-weight: 700;
 }
 
-label.required,
-legend.required,
-.checkbox.required {
-	/* Set required asterisk styles... unless any parent element uses a disable class */
-	/* Credit: Stack Overflow answer (https://stackoverflow.com/a/73773370) by magda and Zach Jensz (zach-jensz) */
-}
-label.required:not(.required-no-asterisk .required):before,
-legend.required:not(.required-no-asterisk .required):before,
-.checkbox.required:not(.required-no-asterisk .required):before {
+label.required:before,
+legend.required:before,
+.checkbox.required:before {
 	content: "* ";
 	margin-left: -0.87em;
 	vertical-align: top;
@@ -4592,8 +4590,8 @@ legend.required:not(.required-no-asterisk .required):before,
 	font-weight: 700;
 }
 
-[dir=rtl] label.required:not(.required-no-asterisk .required):before,
-[dir=rtl] legend.required:not(.required-no-asterisk .required):before {
+[dir=rtl] label.required:before,
+[dir=rtl] legend.required:before {
 	margin-left: auto;
 	margin-right: -0.87em;
 }
@@ -5081,7 +5079,7 @@ input.btn.btn-call-to-action {
  *
  * This undo the font style introduced with gcweb v5 new look
  *
- * - Rational: This is to help the adoption of the new design by allowing adopter to use
+ * - Rational: This is to help the adoption of the new desing by allowing adopter to use
  * a special CSS class on content like the one optimized for a desktop at 100% view port
  * Example of content: high profile pages, campaign, application, .....
  *
@@ -5914,7 +5912,7 @@ main .pagedetails {
 	/* The rest of items */
 	/* First menu item (represent the home link */
 	/* Undo for lower level */
-	/* SubSubMenu (MostRequested) for more interoperability, use CSS class */
+	/* SubSubMenu (MostRequested) for more iteroperability, use CSS class */
 	/* Grid of the submenu panel */
 }
 .gcweb-menu button[aria-haspopup=true] {
@@ -6427,7 +6425,7 @@ h1#wb-cont[dir=rtl], hgroup#wb-cont[dir=rtl] h1, [dir=rtl] h1#wb-cont, [dir=rtl]
 hgroup#wb-cont {
 	margin-top: 1em;
 }
-hgroup#wb-cont p:first-child {
+hgroup#wb-cont p {
 	color: #555;
 	font-size: 26px;
 	font-weight: 500;
@@ -6435,27 +6433,6 @@ hgroup#wb-cont p:first-child {
 }
 hgroup#wb-cont h1 {
 	margin-top: 0;
-}
-hgroup#wb-cont p.gc-byline {
-	font-weight: 700;
-	margin-bottom: 30px;
-}
-
-/* Contributors */
-.gc-contributors {
-	font-size: 20px;
-	margin-top: 38px;
-}
-.gc-contributors h2, .gc-contributors h3, .gc-contributors ul {
-	font-size: 87%;
-	margin-top: 0;
-}
-.gc-contributors ul {
-	-webkit-padding-start: 20px;
-	        padding-inline-start: 20px;
-}
-.gc-contributors ul li {
-	font-weight: 700;
 }
 
 /*! Components (CSS type only) */
@@ -6512,17 +6489,6 @@ tbody.collapse.in {
 .fade.reverse.in, .fade.out, .pop.out {
 	opacity: 0;
 	visibility: hidden;
-}
-
-@-webkit-keyframes spin {
-	from {
-		-webkit-transform: rotate(0);
-		        transform: rotate(0);
-	}
-	to {
-		-webkit-transform: rotate(360deg);
-		        transform: rotate(360deg);
-	}
 }
 
 @keyframes spin {
@@ -11250,12 +11216,12 @@ body.wb-modal .modal-dialog summary {
 }
 .mfp-arrow-left:before,
 .mfp-arrow-left .mfp-b {
-	border-right: 27px solid #000;
+	border-right: 27px solid #000000;
 }
 
 .mfp-arrow-right:before,
 .mfp-arrow-right .mfp-b {
-	border-left: 27px solid #000;
+	border-left: 27px solid #000000;
 }
 
 /* Should fix upstream in Magnific Popup rather than overriding in WET */
@@ -11633,8 +11599,6 @@ body.wb-modal .modal-dialog summary {
 .wb-mm-ctrls progress {
 	/* Important Thing */
 	-webkit-appearance: none;
-	   -moz-appearance: none;
-	        appearance: none;
 	background: #fff;
 	background-clip: padding-box;
 	border: 7px solid #3e3e3e;
@@ -11668,8 +11632,6 @@ body.wb-modal .modal-dialog summary {
 }
 .wb-mm-ctrls input[type=range] {
 	-webkit-appearance: none;
-	   -moz-appearance: none;
-	        appearance: none;
 	background: transparent;
 	display: inline-block;
 	height: 2.5em;
@@ -11686,7 +11648,6 @@ body.wb-modal .modal-dialog summary {
 }
 .wb-mm-ctrls input[type=range]::-webkit-slider-thumb {
 	-webkit-appearance: none;
-	        appearance: none;
 	background: #fff;
 	border: 1px solid #707070;
 	-webkit-box-sizing: content-box;
@@ -13049,20 +13010,20 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
  * wet-boew.github.io/wet-boew/License-eng.html / wet-boew.github.io/wet-boew/Licence-fra.html
 */
 .ol-overlay-container {
-	will-change: left, right, top, bottom;
 	z-index: 1000;
 }
 
 .ol-popup {
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	-webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
 	background-color: white;
-	border: 1px solid #ccc;
+	border: 1px solid #cccccc;
 	border-radius: 3px;
 	bottom: 12px;
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 	        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 	display: block;
-	-webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
-	        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+	filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
 	font-size: 0.75em;
 	left: -50px;
 	min-width: 250px;
@@ -13088,7 +13049,7 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 }
 
 .ol-popup:before {
-	border-top-color: #ccc;
+	border-top-color: #cccccc;
 	border-width: 11px;
 	left: 48px;
 	margin-left: -11px;
@@ -13118,7 +13079,7 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 	border-bottom: solid 1px #999;
 	color: #999;
 	font-size: 1em;
-	margin: -5px 0 5px;
+	margin: -5px 0px 5px 0px;
 	padding-bottom: 3px;
 }
 
@@ -13148,7 +13109,7 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 }
 .wb-geomap-map.active {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-	        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 	outline-color: #66afe9;
 }
 
@@ -13182,11 +13143,11 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 
 .geomap-lgnd-layer {
 	margin-bottom: 10px;
-	margin-top: 0 !important;
+	margin-top: 0px !important;
 }
 
 .geomap-lgnd > :last-child {
-	margin-bottom: 0;
+	margin-bottom: 0px;
 }
 
 .geomap-geoloc {
@@ -13251,7 +13212,7 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 	font-size: 0.75em;
 	left: 0.6666em;
 	min-width: 100px;
-	padding: 2px 6px;
+	padding: 2px 6px 2px 6px;
 	position: absolute;
 	will-change: contents, width;
 }
@@ -13298,16 +13259,20 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 	will-change: contents, width;
 }
 
+.ol-overlay-container {
+	will-change: left, right, top, bottom;
+}
+
 .ol-unsupported {
 	display: none;
 }
 
 .ol-viewport .ol-unselectable {
+	-moz-user-select: none;
+	-ms-user-select: none;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-user-select: none;
-	   -moz-user-select: none;
-	    -ms-user-select: none;
-	        user-select: none;
+	user-select: none;
 }
 
 .ol-control {
@@ -13511,7 +13476,7 @@ ol-geolocate button {
 }
 
 .ol-dragbox {
-	border: 2px solid #f03;
+	border: 2px solid #ff0033;
 	border-radius: 2px;
 	-webkit-box-sizing: border-box;
 	        box-sizing: border-box;
@@ -13609,7 +13574,7 @@ ol-geolocate button {
 }
 
 .tooltip-txt::after {
-	border-color: rgb(192, 192, 192) transparent transparent;
+	border-color: rgb(192, 192, 192) transparent transparent transparent;
 	border-style: solid;
 	border-width: 5px;
 	content: " ";
@@ -13620,6 +13585,8 @@ ol-geolocate button {
 }
 
 .tooltip-txt {
+	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	-webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
 	background: rgb(192, 192, 192);
 	border: solid 1px rgb(192, 192, 192);
 	border-radius: 5px;
@@ -13628,8 +13595,7 @@ ol-geolocate button {
 	        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 	color: rgb(51, 51, 51);
 	cursor: default;
-	-webkit-filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
-	        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+	filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
 	font-size: 0.8em;
 	left: 50%;
 	margin-left: -60px;
@@ -13669,7 +13635,7 @@ ol-geolocate button {
 .wb-geomap-geoloc-al-cnt .wb-geomap-geoloc-al a {
 	color: #333;
 	display: block;
-	padding: 5px;
+	padding: 5px 5px;
 	text-decoration: none;
 }
 .wb-geomap-geoloc-al-cnt .wb-geomap-geoloc-al a:hover, .wb-geomap-geoloc-al-cnt .wb-geomap-geoloc-al a:focus {
@@ -13683,17 +13649,27 @@ ol-geolocate button {
 
 .glyphicon-spin {
 	-webkit-animation: spin 1000ms infinite linear;
-	        animation: spin 1000ms infinite linear;
+	animation: spin 1000ms infinite linear;
 }
 
-@keyframes spin {
+@-webkit-keyframes spin {
 	0% {
 		-webkit-transform: rotate(0deg);
-		        transform: rotate(0deg);
+		transform: rotate(0deg);
 	}
 	100% {
 		-webkit-transform: rotate(359deg);
-		        transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+@keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
 	}
 }
 .skeleton-lgnd-1 {
@@ -13706,7 +13682,7 @@ ol-geolocate button {
 .skeleton-lgnd-2 {
 	background-color: #f5f5f5;
 	height: 25px;
-	margin: 20px 0;
+	margin: 20px 0 20px 0;
 	width: 100%;
 }
 
@@ -14002,6 +13978,11 @@ html:not(.wb-disable) .wb-pgfltr-out {
 	margin-bottom: 0;
 }
 
+.gc-byline {
+	font-weight: 700;
+	margin-bottom: 30px;
+}
+
 /*
  * Corporate information on Institution and Organization pages
 */
@@ -14126,7 +14107,7 @@ main .gc-rms-lngth img {
 	*
 	*/
 	/* ------------
-	 * Background colour
+	 * Background color
 	 *
 	 */
 	/* ------------
@@ -14347,10 +14328,20 @@ main .gc-rms-lngth img {
 	width: 0;
 }
 
-/* Byline */
-.gc-byline {
+/* Contributors */
+.gc-contributors {
+	margin-top: 38px;
+}
+.gc-contributors h2, .gc-contributors ul {
+	font-size: 87%;
+	margin-top: 0;
+}
+.gc-contributors ul {
+	-webkit-padding-start: 20px;
+	        padding-inline-start: 20px;
+}
+.gc-contributors ul li {
 	font-weight: 700;
-	margin-bottom: 30px;
 }
 
 /*
@@ -14620,7 +14611,7 @@ div:not(.container) .gc-most-requested ul li {
 }
 
 /*
-	GitHub addition Widget Format
+	Github addition Widget Format
 	Use in:
 	+ Event page
 	+ campaign
@@ -15029,7 +15020,7 @@ aside.features .thumbnail img {
 }
 
 /*
- * CSS used for the legacy/obsolete code
+ * CSS used for the legacy/obselete code
  */
 /* Report a problem Thank you message */
 .gc-rprt-prblm-thnk {
@@ -16950,6 +16941,7 @@ table.dataTable.nws-tbl .label.label-success {
 	display: none;
 }
 .tbl-gridify tbody,
+.tbl-gridify td,
 .tbl-gridify td {
 	display: block;
 }
@@ -17005,7 +16997,7 @@ dl.colcount-no-break > div, .colcount-no-break > dd,
 
 /*
   WET-BOEW
-  @title: Bootstrap 4 supplemental style for WET-BOEW
+  @title: Bootstrap 4 suplemental style for WET-BOEW
  */
 /* Spacing */
 .p-0 {
@@ -17161,7 +17153,7 @@ Panels
 }
 
 /*
-Miscellaneous Utility CSS
+Miscellaneous Utiliy CSS
  */
 .max-content {
 	max-width: -webkit-max-content;
@@ -17719,7 +17711,7 @@ Miscellaneous Utility CSS
 	  @title: Extra-small view and under (screen only)
 	  @desc:  Variable $screen-xs-max <= 767px
 	 */
-	/* Make a simple list multi-column and responsive (override _defaults.scss) */
+	/* Make a simple list multi-column and responsive (overide _defaults.scss) */
 	.list-responsive > li {
 		clear: right;
 		width: 100%;
@@ -18435,7 +18427,7 @@ Miscellaneous Utility CSS
 	}
 	/*
 	  WET-BOEW
-	  @title: Bootstrap 4 supplemental style for WET-BOEW - Small view and over (screen only)
+	  @title: Bootstrap 4 suplemental style for WET-BOEW - Small view and over (screen only)
 	 */
 	/* Alignment */
 	.text-sm-left {
@@ -18808,35 +18800,6 @@ Miscellaneous Utility CSS
 		margin-top: 16px;
 	}
 	/*
-	  WET-BOEW
-	  @title: Medium view and over (screen only)
-	  @desc:  Variable $screen-md-min >= 992px
-	*/
-	.gc-contributors {
-		display: -webkit-box;
-		display: -ms-flexbox;
-		display: flex;
-	}
-	.gc-contributors h2, .gc-contributors h3 {
-		line-height: 1.8em;
-		word-break: initial;
-	}
-	.gc-contributors ul {
-		-webkit-padding-start: 5px;
-		        padding-inline-start: 5px;
-	}
-	.gc-contributors ul li {
-		display: inline-block;
-		margin-right: 0.5em;
-	}
-	.gc-contributors ul li::after {
-		content: "•";
-		margin-left: 0.7em;
-	}
-	.gc-contributors ul li:last-child::after {
-		content: none;
-	}
-	/*
 	 * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
 	 * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
 	 */
@@ -18894,6 +18857,34 @@ Miscellaneous Utility CSS
 	}
 	.wb-tabs.carousel-s2.show-thumbs [role=tablist] li.prv, .wb-tabs.carousel-s2.show-thumbs [role=tablist] li.tab-count, .wb-tabs.carousel-s2.show-thumbs [role=tablist] li.nxt {
 		display: none;
+	}
+	/*
+	  WET-BOEW
+	  @title: Medium view and over (screen only)
+	  @desc:  Variable $screen-md-min >= 992px
+	*/
+	.gc-contributors {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	.gc-contributors h2 {
+		line-height: 1.8em;
+	}
+	.gc-contributors ul {
+		-webkit-padding-start: 5px;
+		        padding-inline-start: 5px;
+	}
+	.gc-contributors ul li {
+		display: inline-block;
+		margin-right: 0.5em;
+	}
+	.gc-contributors ul li::after {
+		content: "•";
+		margin-left: 0.7em;
+	}
+	.gc-contributors ul li:last-child::after {
+		content: none;
 	}
 	/*
 	 * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -19305,7 +19296,7 @@ Miscellaneous Utility CSS
 		-ms-flex-preferred-size: 25%;
 		    flex-basis: 25%;
 	}
-	/* Make a simple list multi-column and responsive (override _defaults.scss) */
+	/* Make a simple list multi-column and responsive (overide _defaults.scss) */
 	.list-responsive > li {
 		width: 25%;
 	}
