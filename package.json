@@ -17,7 +17,7 @@
   "author": "ESDC-EDSC",
   "license": "MIT",
   "devDependencies": {
-    "@eslint/js": "^9.37.0",
+    "@eslint/js": "^9.38.0",
     "@wdio/cli": "^9.20.0",
     "@wdio/dot-reporter": "^9.20.0",
     "@wdio/junit-reporter": "^9.20.0",
@@ -28,7 +28,7 @@
     "axios": "^1.12.2",
     "ejs": "^3.1.10",
     "ejs-lint": "^2.0.1",
-    "eslint": "^9.37.0",
+    "eslint": "^9.38.0",
     "global-agent": "^3.0.0",
     "globals": "^16.4.0",
     "grunt": "^1.6.1",
