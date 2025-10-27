@@ -41,7 +41,7 @@
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-eslint": "^26.0.0",
-    "html-validate": "^10.1.2",
+    "html-validate": "^10.2.1",
     "https-proxy-agent": "^7.0.6",
     "isbinaryfile": "^5.0.6"
   }
