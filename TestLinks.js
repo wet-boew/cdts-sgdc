@@ -2,7 +2,7 @@ const fs = require('fs');
 const axios = require('axios');
 //const ProxyAgent = require('https-proxy-agent'); //"require" no longer supported for https-proxy-agent v6.1+, switching to using "dynamic import" below
 const { performance } = require('perf_hooks');
-const { isBinaryFileSync } = require('isbinaryfile');
+//const { isBinaryFileSync } = require('isbinaryfile');
 
 //Exception list (complete skip of validation)
 //Includes links found on legacy templates, links that require credentials and partial URLs
@@ -145,7 +145,9 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0; //eslint-disable-line
 
     //Get all files from a directory
-    function getFiles(dir, inFiles) {
+    async function getFiles(dir, inFiles) {
+        const { isBinaryFileSync } = (await import('isbinaryfile'));
+
         const myFiles = inFiles || [];
         const files = fs.readdirSync(dir);
 
