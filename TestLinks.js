@@ -1,8 +1,9 @@
 const fs = require('fs');
+const afs = require('fs/promises');
 const axios = require('axios');
 //const ProxyAgent = require('https-proxy-agent'); //"require" no longer supported for https-proxy-agent v6.1+, switching to using "dynamic import" below
 const { performance } = require('perf_hooks');
-//const { isBinaryFileSync } = require('isbinaryfile');
+//const { isBinaryFileSync } = require('isbinaryfile'); //"require" no longer supported for isbinaryfile 6.0.0
 
 //Exception list (complete skip of validation)
 //Includes links found on legacy templates, links that require credentials and partial URLs
@@ -146,18 +147,18 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
 
     //Get all files from a directory
     async function getFiles(dir, inFiles) {
-        const { isBinaryFileSync } = (await import('isbinaryfile'));
+        const { isBinaryFile } = (await import('isbinaryfile'));
 
         const myFiles = inFiles || [];
-        const files = fs.readdirSync(dir);
+        const files = await afs.readdir(dir);
 
         for (const i in files) {
             const name = dir + '/' + files[i];
 
-            if (fs.statSync(name).isDirectory()) {
-                getFiles(name, myFiles);
+            if ((await afs.stat(name)).isDirectory()) { //eslint-disable-line
+                await getFiles(name, myFiles); //eslint-disable-line
             }
-            else if (!isBinaryFileSync(name)) {
+            else if (!await isBinaryFile(name)) { //eslint-disable-line
                 myFiles.push(name);
             }
             else {
@@ -257,9 +258,10 @@ module.exports.testFileLinks = async function testFileLinks(directories, excepti
     const startTime = performance.now();
     console.log("***** Scanning directories: " + directories);
     let files = [];
-    directories.forEach((directory) => {
-        files = files.concat(getFiles(directory));
-    });
+    //directories.forEach((directory) => {
+    for (const directory of directories) {
+        files = files.concat(await getFiles(directory)); //eslint-disable-line
+    };
 
     console.log("***** Reading files and scanning for links");
     for (let i = 0; i < files.length; i++) {

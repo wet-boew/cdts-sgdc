@@ -44,8 +44,5 @@
     "html-validate": "^10.4.0",
     "https-proxy-agent": "^7.0.6",
     "isbinaryfile": "^6.0.0"
-  },
-  "dependencies": {
-    "node-fetch": "^2.7.0"
   }
 }
