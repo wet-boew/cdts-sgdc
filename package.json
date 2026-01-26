@@ -25,12 +25,12 @@
     "@wdio/mocha-framework": "^9.23.2",
     "@wdio/spec-reporter": "^9.23.2",
     "axe-core": "^4.11.1",
-    "axios": "^1.13.2",
+    "axios": "^1.13.3",
     "ejs": "^4.0.1",
     "ejs-lint": "^2.0.1",
     "eslint": "^9.39.2",
     "global-agent": "^3.0.0",
-    "globals": "^17.0.0",
+    "globals": "^17.1.0",
     "grunt": "^1.6.1",
     "grunt-cli": "^1.5.0",
     "grunt-contrib-clean": "^2.0.1",
@@ -41,7 +41,7 @@
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-eslint": "^26.0.0",
-    "html-validate": "^10.6.0",
+    "html-validate": "^10.7.0",
     "https-proxy-agent": "^7.0.6",
     "isbinaryfile": "^6.0.0"
   }
