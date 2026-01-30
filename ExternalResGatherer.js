@@ -14,10 +14,10 @@ const { exceptionCDTSHTTPLinks } = require('./TestLinks');
 
 
 const defaultResourceList = [
-    { targetFilePath: ['./public/global/esdcmenu-eng.html', './public/global/esdcmenu1-eng.html'], url: 'https://esdc.prv/_conf/assets/en/mega_menu/esdcmenu-eng.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://esdc.prv/en/index.shtml'] },
-    { targetFilePath: ['./public/global/esdcmenu-fra.html', './public/global/esdcmenu1-fra.html'], url: 'https://esdc.prv/_conf/assets/fr/mega_menu/esdcmenu-fra.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://esdc.prv/fr/index.shtml'] },
-    { targetFilePath: './public/global/esdcfooter-eng.html', url: 'https://esdc.prv/_conf/assets/en/footer/esdcfooter-eng.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://esdc.prv/en/index.shtml'] },
-    { targetFilePath: './public/global/esdcfooter-fra.html', url: 'https://esdc.prv/_conf/assets/fr/footer/esdcfooter-fra.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://esdc.prv/fr/index.shtml'] },
+    { targetFilePath: ['./public/global/esdcmenu-eng.html', './public/global/esdcmenu1-eng.html'], url: 'https://intranet.esdc-edsc.canada.ca/_conf/assets/en/mega_menu/esdcmenu-eng.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template-front-end/chunks/chunk-esdc-prv.config.js', 'https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://intranet.esdc-edsc.canada.ca/en/index.shtml'] },
+    { targetFilePath: ['./public/global/esdcmenu-fra.html', './public/global/esdcmenu1-fra.html'], url: 'https://intranet.esdc-edsc.canada.ca/_conf/assets/fr/mega_menu/esdcmenu-fra.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template-front-end/chunks/chunk-esdc-prv.config.js', 'https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://intranet.esdc-edsc.canada.ca/fr/index.shtml'] },
+    { targetFilePath: './public/global/esdcfooter-eng.html', url: 'https://intranet.esdc-edsc.canada.ca/_conf/assets/en/footer/esdcfooter-eng.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template-front-end/chunks/chunk-esdc-prv.config.js', 'https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://intranet.esdc-edsc.canada.ca/en/index.shtml'] },
+    { targetFilePath: './public/global/esdcfooter-fra.html', url: 'https://intranet.esdc-edsc.canada.ca/_conf/assets/fr/footer/esdcfooter-fra.html', sourcePageUrl: ['https://intranet.esdc-edsc.canada.ca/js/template-front-end/chunks/chunk-esdc-prv.config.js', 'https://intranet.esdc-edsc.canada.ca/js/template.js', 'https://intranet.esdc-edsc.canada.ca/fr/index.shtml'] },
     { targetFilePath: './public/gcintranet/ajax/sitemenu-eng.html', url: 'https://intranet.canada.ca/wet/sitemenu-eng.html', sourcePageUrl: 'https://intranet.canada.ca/index-eng.asp' },
     { targetFilePath: './public/gcintranet/ajax/sitemenu-fra.html', url: 'https://intranet.canada.ca/wet/sitemenu-fra.html', sourcePageUrl: 'https://intranet.canada.ca/index-fra.asp' },
 ];
@@ -56,8 +56,22 @@ async function validateSourceProvenance(resource) {
     if (!response.data.includes(resource.url)) {
         //---[ OK, URL not found, try again without the host in case a relative URL is used
         const tmpURL = new URL(resource.url);
+        console.log(`Trying to see if [${tmpURL.pathname}] is in [${resource.sourcePageUrl}]`);
         if (!response.data.includes(tmpURL.pathname)) {
-            throw new Error(`Reference source page [${resource.sourcePageUrl}] no longer seem to contain a reference to resource URL [${resource.url}]. Is that file still usable?`);
+            //---[ Hum, root-relative is not found, try AGAIN with relative to where the parent is
+
+            const tmpSourceURL = new URL(resource.sourcePageUrl); // e.g. "/js/template.js"
+            const index = tmpSourceURL.pathname.lastIndexOf('/');
+            const tmpSourceDirectory = index >= 0? tmpSourceURL.pathname.substring(0, index + 1): '/'; // e.g. "/js/"
+
+            //(now that we have the source file's parent "directory", we can remove this value from the tmpURL to make it relative
+            let tmpURLPath = tmpURL.pathname; // e.g. "/js/template-front-end/chunks/chunk-esdc-prv.config.js"
+            if (tmpURLPath.startsWith(tmpSourceDirectory)) tmpURLPath = tmpURLPath.replace(tmpSourceDirectory, ''); // e.g. "/template-front-end/chunks/chunk-esdc-prv.config.js"
+
+            console.log(`Trying to see if [${tmpURLPath}] is in [${resource.sourcePageUrl}]`);
+            if (!response.data.includes(tmpURLPath)) {
+                throw new Error(`Reference source page [${resource.sourcePageUrl}] no longer seem to contain a reference to resource URL [${resource.url}]. Is that file still usable?`);
+            }
         }
     }
 }
