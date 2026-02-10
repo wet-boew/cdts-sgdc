@@ -140,7 +140,7 @@ function transformResouceContent(resource, content) {
  * @returns {boolean} Whether or not the resource was changed.
  */
 async function saveFileContent(filePath, content) {
-    let contentChanged; //= false;
+    let contentChanged;
 
     //---[ Check if file exists/changed
     if (await fs.promises.stat(filePath).then(() => true, () => false)) { //check if file exists
