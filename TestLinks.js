@@ -94,7 +94,8 @@ const exceptionCDTSIntranetLinks = ["https://intranet.canada.ca",
     "https://nscc-cnas.pwgsc-tpsgc.gc.ca",
     "https://dialogue.spprod.service.gc.ca",
     "https://oas-sv-prodcc.bdm-mvp.az.esdc-edsc.cloud-nuage.gc.ca/",
-    "https://crt-orc.esdc-edsc.canada.ca/en/crt/home.shtml"]
+    "https://crt-orc.esdc-edsc.canada.ca/en/crt/home.shtml",
+    "https://intranet.esdc-edsc.canada.ca"]
 
 module.exports.exceptionCDTSSyntaxLinks = exceptionCDTSSyntaxLinks;
 module.exports.exceptionCDTSHTTPLinks = exceptionCDTSHTTPLinks;
