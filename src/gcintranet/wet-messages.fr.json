@@ -448,5 +448,9 @@
     "6601bba88650831f843e02740d7c6960ff0945ea": {
         "source": "https://esdc.prv/en/terms-conditions.shtml",
         "target": "https://edsc.prv/fr/conditions-utilisation.shtml"
+    },
+    "9b4e74d690c53894ccd6f569a500db4055994309": {
+        "source": "https://iservice.esdc-edsc.canada.ca/eng/imit/gcxchange/index.shtml",
+        "target": "https://iservice.esdc-edsc.canada.ca/fra/giti/gcechange/index.shtml"
     }
 }
