@@ -415,7 +415,7 @@ async function straightPath(theme){
     const yesBtn = await exitScriptPage.yesBtn;
     await yesBtn.waitForExist({timeout: 3000})
     await yesBtn.click();
-    await expect(browser).toHaveUrl(expect.stringContaining('google.ca'));
+    await expect(browser).toHaveUrl(expect.stringContaining('google.com'));
 }
 async function testCustomLabels(theme){
     await exitScriptPage.open(theme, 'en');
