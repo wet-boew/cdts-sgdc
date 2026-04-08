@@ -12,15 +12,15 @@
 //
 // Configuration updated during the build process with info in package.json
 //
-const gcdsVersion = "0.36.0", // pkg.peerDependencies[ "@cdssnc/gcds-components" ]
-	gcdsSriJs = "sha384-dyE8IpLmFMtdU/ftC4nFeuLMvr2vMI8s1UY2OXl9pbzizebJeCfWp9iLhiVXdXtA", // pkg[ "io.github.wet-boew" ].gcdsSriJs
-	gcdsSriCss = "sha384-0CRuUE9X0B5RfCdDx1BDT6Ru1MajB7Ngy0CmoORlBF+ey/W8T75AKwLehkl+QaGR"; // pkg[ "io.github.wet-boew" ].gcdsSriCss
+const gcdsVersion = "1.0.0", // pkg.peerDependencies[ "@cdssnc/gcds-components" ]
+	gcdsSriJs = "sha384-QHV+zvCrAiITDds95HYvkDrBJOUItYeeo4FNEq/cSxJDIrDbIRnwc3brrTxv8Oi6", // pkg[ "io.github.wet-boew" ].gcdsSriJs
+	gcdsSriCss = "sha384-lRbhe4rCI9asFFK+Bho5e2mck4JXt3I08f6WNGpgZ1mRqT3P11QErcxIeLIRhWOa"; // pkg[ "io.github.wet-boew" ].gcdsSriCss
 
 
 //
 // General configuration used to detect and load GCSD
 //
-const gcdsBasePath = "https://cdn.design-system.alpha.canada.ca/@cdssnc/gcds-components@",
+const gcdsBasePath = "https://cdn.design-system.canada.ca/@gcds-core/components@",
 	gcdsSuffixJs = "/dist/gcds/gcds.esm.js",
 	gcdsSuffixCss = "/dist/gcds/gcds.css",
 	txtScript = "script",

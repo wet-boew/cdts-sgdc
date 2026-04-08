@@ -261,7 +261,14 @@ wb.i18nDict = {
 
 	/* Steps form */
 	"rel-preposition": " of ",
-	"progress-label": "Questionnaire progress:"
+	"progress-label": "Questionnaire progress:",
+
+	/* Pagination */
+	"pagination-label": "Pagination",
+
+	/* Tag filter */
+	"items-found": "items found out of",
+	"no-items-found": "No items found matching this combination of filters"
 };
 
 } )( wb );

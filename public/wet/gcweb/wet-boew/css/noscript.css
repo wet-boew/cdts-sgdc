@@ -2,7 +2,7 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.89 - 2025-07-24
+ * v4.0.96 - 2026-04-01
  *
  */
 /*
@@ -94,6 +94,14 @@
 /*
  * Lightbox Sass (noscript)
  */
+/*
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ */
+.fade {
+  opacity: 1;
+}
+
 /*
  Polyfills
  */

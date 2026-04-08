@@ -261,7 +261,14 @@ wb.i18nDict = {
 
 	/* Steps form */
 	"rel-preposition": " de ",
-	"progress-label": "Progression du questionnaire : "
+	"progress-label": "Progression du questionnaire : ",
+
+	/* Pagination */
+	"pagination-label": "Pagination",
+
+	/* Tag filter */
+	"items-found": "éléments trouvés sur",
+	"no-items-found": "Aucun élément trouvé correspondant à cette combinaison de filtres"
 };
 
 } )( wb );
