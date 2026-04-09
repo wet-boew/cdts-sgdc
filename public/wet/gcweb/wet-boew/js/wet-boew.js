@@ -1,12 +1,12 @@
 /*!
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v4.0.89 - 2025-07-24
+ * v4.0.96 - 2026-04-01
  *
  */
 
 /*! Modernizr (Custom Build) | MIT & BSD */
-/*! @license DOMPurify 3.2.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.6/LICENSE */
+/*! @license DOMPurify 3.3.3 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.3.3/LICENSE */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -41,12 +41,18 @@
     };
   }
   if (!apply) {
-    apply = function apply(fun, thisValue, args) {
-      return fun.apply(thisValue, args);
+    apply = function apply(func, thisArg) {
+      for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+        args[_key - 2] = arguments[_key];
+      }
+      return func.apply(thisArg, args);
     };
   }
   if (!construct) {
-    construct = function construct(Func, args) {
+    construct = function construct(Func) {
+      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
       return new Func(...args);
     };
   }
@@ -75,8 +81,8 @@
       if (thisArg instanceof RegExp) {
         thisArg.lastIndex = 0;
       }
-      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
+      for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+        args[_key3 - 1] = arguments[_key3];
       }
       return apply(func, thisArg, args);
     };
@@ -87,12 +93,12 @@
    * @param func - The constructor function to be wrapped and called.
    * @returns A new function that constructs an instance of the given constructor function with the provided arguments.
    */
-  function unconstruct(func) {
+  function unconstruct(Func) {
     return function () {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
       }
-      return construct(func, args);
+      return construct(Func, args);
     };
   }
   /**
@@ -191,8 +197,8 @@
     return fallbackValue;
   }
 
-  const html$1 = freeze(['a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'content', 'data', 'datalist', 'dd', 'decorator', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'element', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meter', 'nav', 'nobr', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'select', 'shadow', 'small', 'source', 'spacer', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']);
-  const svg$1 = freeze(['svg', 'a', 'altglyph', 'altglyphdef', 'altglyphitem', 'animatecolor', 'animatemotion', 'animatetransform', 'circle', 'clippath', 'defs', 'desc', 'ellipse', 'filter', 'font', 'g', 'glyph', 'glyphref', 'hkern', 'image', 'line', 'lineargradient', 'marker', 'mask', 'metadata', 'mpath', 'path', 'pattern', 'polygon', 'polyline', 'radialgradient', 'rect', 'stop', 'style', 'switch', 'symbol', 'text', 'textpath', 'title', 'tref', 'tspan', 'view', 'vkern']);
+  const html$1 = freeze(['a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'content', 'data', 'datalist', 'dd', 'decorator', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'element', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meter', 'nav', 'nobr', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'search', 'section', 'select', 'shadow', 'slot', 'small', 'source', 'spacer', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']);
+  const svg$1 = freeze(['svg', 'a', 'altglyph', 'altglyphdef', 'altglyphitem', 'animatecolor', 'animatemotion', 'animatetransform', 'circle', 'clippath', 'defs', 'desc', 'ellipse', 'enterkeyhint', 'exportparts', 'filter', 'font', 'g', 'glyph', 'glyphref', 'hkern', 'image', 'inputmode', 'line', 'lineargradient', 'marker', 'mask', 'metadata', 'mpath', 'part', 'path', 'pattern', 'polygon', 'polyline', 'radialgradient', 'rect', 'stop', 'style', 'switch', 'symbol', 'text', 'textpath', 'title', 'tref', 'tspan', 'view', 'vkern']);
   const svgFilters = freeze(['feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feDropShadow', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG', 'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode', 'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting', 'feSpotLight', 'feTile', 'feTurbulence']);
   // List of SVG elements that are disallowed by default.
   // We still need to know them so that we can do namespace
@@ -205,8 +211,8 @@
   const mathMlDisallowed = freeze(['maction', 'maligngroup', 'malignmark', 'mlongdiv', 'mscarries', 'mscarry', 'msgroup', 'mstack', 'msline', 'msrow', 'semantics', 'annotation', 'annotation-xml', 'mprescripts', 'none']);
   const text = freeze(['#text']);
 
-  const html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'pattern', 'placeholder', 'playsinline', 'popover', 'popovertarget', 'popovertargetaction', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'wrap', 'xmlns', 'slot']);
-  const svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'amplitude', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'exponent', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'slope', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'tablevalues', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
+  const html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'exportparts', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inert', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'part', 'pattern', 'placeholder', 'playsinline', 'popover', 'popovertarget', 'popovertargetaction', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'slot', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'wrap', 'xmlns', 'slot']);
+  const svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'amplitude', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'exponent', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'mask-type', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'slope', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'tablevalues', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
   const mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnsalign', 'columnlines', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lspace', 'lquote', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
   const xml = freeze(['xlink:href', 'xml:id', 'xlink:title', 'xml:space', 'xmlns:xlink']);
 
@@ -313,7 +319,7 @@
   function createDOMPurify() {
     let window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getGlobal();
     const DOMPurify = root => createDOMPurify(root);
-    DOMPurify.version = '3.2.6';
+    DOMPurify.version = '3.3.3';
     DOMPurify.removed = [];
     if (!window || !window.document || window.document.nodeType !== NODE_TYPE.document || !window.Element) {
       // Not running in a browser, provide a factory function
@@ -424,6 +430,21 @@
     let FORBID_TAGS = null;
     /* Explicitly forbidden attributes (overrides ALLOWED_ATTR/ADD_ATTR) */
     let FORBID_ATTR = null;
+    /* Config object to store ADD_TAGS/ADD_ATTR functions (when used as functions) */
+    const EXTRA_ELEMENT_HANDLING = Object.seal(create(null, {
+      tagCheck: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: null
+      },
+      attributeCheck: {
+        writable: true,
+        configurable: false,
+        enumerable: true,
+        value: null
+      }
+    }));
     /* Decide if ARIA attributes are okay */
     let ALLOW_ARIA_ATTR = true;
     /* Decide if custom data attributes are okay */
@@ -593,7 +614,7 @@
       /* Parse profile info */
       if (USE_PROFILES) {
         ALLOWED_TAGS = addToSet({}, text);
-        ALLOWED_ATTR = [];
+        ALLOWED_ATTR = create(null);
         if (USE_PROFILES.html === true) {
           addToSet(ALLOWED_TAGS, html$1);
           addToSet(ALLOWED_ATTR, html);
@@ -614,18 +635,33 @@
           addToSet(ALLOWED_ATTR, xml);
         }
       }
+      /* Prevent function-based ADD_ATTR / ADD_TAGS from leaking across calls */
+      if (!objectHasOwnProperty(cfg, 'ADD_TAGS')) {
+        EXTRA_ELEMENT_HANDLING.tagCheck = null;
+      }
+      if (!objectHasOwnProperty(cfg, 'ADD_ATTR')) {
+        EXTRA_ELEMENT_HANDLING.attributeCheck = null;
+      }
       /* Merge configuration parameters */
       if (cfg.ADD_TAGS) {
-        if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
-          ALLOWED_TAGS = clone(ALLOWED_TAGS);
+        if (typeof cfg.ADD_TAGS === 'function') {
+          EXTRA_ELEMENT_HANDLING.tagCheck = cfg.ADD_TAGS;
+        } else {
+          if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
+            ALLOWED_TAGS = clone(ALLOWED_TAGS);
+          }
+          addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);
         }
-        addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);
       }
       if (cfg.ADD_ATTR) {
-        if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
-          ALLOWED_ATTR = clone(ALLOWED_ATTR);
+        if (typeof cfg.ADD_ATTR === 'function') {
+          EXTRA_ELEMENT_HANDLING.attributeCheck = cfg.ADD_ATTR;
+        } else {
+          if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
+            ALLOWED_ATTR = clone(ALLOWED_ATTR);
+          }
+          addToSet(ALLOWED_ATTR, cfg.ADD_ATTR, transformCaseFunc);
         }
-        addToSet(ALLOWED_ATTR, cfg.ADD_ATTR, transformCaseFunc);
       }
       if (cfg.ADD_URI_SAFE_ATTR) {
         addToSet(URI_SAFE_ATTRIBUTES, cfg.ADD_URI_SAFE_ATTR, transformCaseFunc);
@@ -635,6 +671,12 @@
           FORBID_CONTENTS = clone(FORBID_CONTENTS);
         }
         addToSet(FORBID_CONTENTS, cfg.FORBID_CONTENTS, transformCaseFunc);
+      }
+      if (cfg.ADD_FORBID_CONTENTS) {
+        if (FORBID_CONTENTS === DEFAULT_FORBID_CONTENTS) {
+          FORBID_CONTENTS = clone(FORBID_CONTENTS);
+        }
+        addToSet(FORBID_CONTENTS, cfg.ADD_FORBID_CONTENTS, transformCaseFunc);
       }
       /* Add #text in case KEEP_CONTENT is set to true */
       if (KEEP_CONTENT) {
@@ -933,7 +975,7 @@
         return true;
       }
       /* Remove element if anything forbids its presence */
-      if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
+      if (!(EXTRA_ELEMENT_HANDLING.tagCheck instanceof Function && EXTRA_ELEMENT_HANDLING.tagCheck(tagName)) && (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName])) {
         /* Check if we have a custom element to handle */
         if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {
           if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) {
@@ -997,6 +1039,10 @@
      */
     // eslint-disable-next-line complexity
     const _isValidAttribute = function _isValidAttribute(lcTag, lcName, value) {
+      /* FORBID_ATTR must always win, even if ADD_ATTR predicate would allow it */
+      if (FORBID_ATTR[lcName]) {
+        return false;
+      }
       /* Make sure attribute cannot clobber */
       if (SANITIZE_DOM && (lcName === 'id' || lcName === 'name') && (value in document || value in formElement)) {
         return false;
@@ -1005,12 +1051,12 @@
           (https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
           XML-compatible (https://html.spec.whatwg.org/multipage/infrastructure.html#xml-compatible and http://www.w3.org/TR/xml/#d0e804)
           We don't need to check the value; it's always URI safe. */
-      if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR, lcName)) ; else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
+      if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR, lcName)) ; else if (EXTRA_ELEMENT_HANDLING.attributeCheck instanceof Function && EXTRA_ELEMENT_HANDLING.attributeCheck(lcName, lcTag)) ; else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
         if (
         // First condition does a very basic check if a) it's basically a valid custom element tagname AND
         // b) if the tagName passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
         // and c) if the attribute name passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.attributeNameCheck
-        _isBasicCustomElement(lcTag) && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, lcTag) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(lcTag)) && (CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.attributeNameCheck, lcName) || CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.attributeNameCheck(lcName)) ||
+        _isBasicCustomElement(lcTag) && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, lcTag) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(lcTag)) && (CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.attributeNameCheck, lcName) || CUSTOM_ELEMENT_HANDLING.attributeNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.attributeNameCheck(lcName, lcTag)) ||
         // Alternative, second condition checks if it's an `is`-attribute, AND
         // the value passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
         lcName === 'is' && CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements && (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, value) || CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(value))) ; else {
@@ -1089,7 +1135,12 @@
           value = SANITIZE_NAMED_PROPS_PREFIX + value;
         }
         /* Work around a security issue with comments inside attributes */
-        if (SAFE_FOR_XML && regExpTest(/((--!?|])>)|<\/(style|title)/i, value)) {
+        if (SAFE_FOR_XML && regExpTest(/((--!?|])>)|<\/(style|script|title|xmp|textarea|noscript|iframe|noembed|noframes)/i, value)) {
+          _removeAttribute(name, currentNode);
+          continue;
+        }
+        /* Make sure we cannot easily use animated hrefs, even if animations are allowed */
+        if (lcName === 'attributename' && stringMatch(value, 'href')) {
           _removeAttribute(name, currentNode);
           continue;
         }
@@ -1913,12 +1964,13 @@ var getUrlParts = function( url ) {
 			// Filter out any events triggered by descendants and only initializes
 			// the element once (if is an event and document node is not the target)
 			if ( !isEvent || isDocumentNode || ( event.currentTarget === node &&
-				node.className.indexOf( initedClass ) === -1 ) ) {
+				node.classList &&
+				!node.classList.contains( initedClass ) ) ) {
 
 				this.initQueue += 1;
 				this.remove( selector );
 				if ( !isDocumentNode ) {
-					node.className += " " + initedClass;
+					node.classList.add( initedClass );
 
 					if ( !noAutoId && !node.id ) {
 						node.id = wb.getId();
@@ -2215,14 +2267,6 @@ yepnope.addPrefix( "i18n", function( resourceObj ) {
 	return resourceObj;
 } );
 
-/**
- * @prefix: mthjx! - adds the root directory of MathJax resources
- */
-yepnope.addPrefix( "mthjx", function( resourceObj ) {
-	resourceObj.url = paths.js + "/MathJax/" + resourceObj.url;
-	return resourceObj;
-} );
-
 /*-----------------------------
  * Deps loading, call "complete" callback when the deps is ready if a testReady is defined
  *-----------------------------*/
@@ -2285,99 +2329,6 @@ Modernizr.load( [
 			"plyfll!progress.min.js",
 			"plyfll!progress.min.css"
 		]
-	}, {
-		test: Modernizr.mathml,
-
-		// Cleanup Modernizr test and add selector to global timer
-		complete: function() {
-			var	componentName = "wb-math",
-				selector = "math",
-				math = document.getElementsByTagName( selector ),
-				$document = wb.doc;
-
-			// Cleanup elements that Modernizr.mathml test leaves behind.
-			if ( math.length ) {
-				document.body.removeChild( math[ math.length - 1 ].parentNode );
-			}
-
-			// Defer loading the polyfill till an element is detected due to the size
-			if ( !Modernizr.mathml ) {
-				let isTrident = new Boolean( window.navigator.msSaveOrOpenBlob );
-
-				// Bind the init event of the plugin
-				$document.one( "timerpoke.wb wb-init." + componentName, selector, function() {
-
-					// Start initialization
-					wb.init( document, componentName, selector );
-
-					// Disable MathJax's context menu to more closely mimic native MathML implementations
-					window.MathJax = {
-						options: {
-							enableMenu: false
-						}
-					};
-
-					// Extra tasks for IE11
-					if ( isTrident ) {
-
-						// Load an ES6 polyfill
-						Modernizr.load( "timeout=500!https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" );
-
-						// Specify the CDN's font URL
-						// Note: IE11 is unable to resolve this on its own
-						window.MathJax.chtml = {
-							fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2"
-						};
-					}
-
-					// Load the MathML dependency. Since the polyfill is only loaded
-					// when !Modernizr.mathml, we can skip the test here.
-					Modernizr.load( [ {
-
-						// Load latest version of MathJax 3 from a CDN
-						// Also load a CSS workaround for a MathJax 3.2.0 bug (refer to CSS file for details)
-						load: [
-							"timeout=500!https://cdn.jsdelivr.net/npm/mathjax@3/es5/mml-chtml.js",
-							"plyfll!mathml.min.css"
-						],
-						complete: function() {
-
-							// Wait a moment to reduce the risk of a race condition
-							setTimeout( function() {
-
-								// Specify a font URL for a local copy of MathJax 3 for IE11
-								// Note: Useful if IE11 has internet access but fails to reach the CDN
-								if ( isTrident && !window.MathJax.startup ) {
-									window.MathJax.chtml.fontURL = paths.js + "/MathJax/output/chtml/fonts/woff-v2";
-								}
-
-								// Fall back on a local copy of MathJax 3 if the CDN is unreachable
-								// Note: Won't work with IE11 in isolated networks (ES6 polyfill has no local fallback)
-								Modernizr.load( [ {
-									test: window.MathJax.startup,
-									nope: "mthjx!mml-chtml.js",
-									complete: function() {
-
-										// Try loading a local copy of MathJax 2 as a last ditch effort
-										Modernizr.load( [ {
-											test: window.MathJax.startup,
-											nope: "mthjx!MathJax.js?config=Accessible",
-											complete: function() {
-
-												// Identify that initialization has completed
-												wb.ready( $document, componentName );
-											}
-										} ] );
-									}
-								} ] );
-							}, 100 );
-						}
-					} ] );
-				} );
-
-				wb.add( selector );
-			}
-		}
 	}, {
 		test: Modernizr.meter,
 		nope: [
@@ -4493,7 +4444,7 @@ var componentName = "wb-calevt",
 			i, appendData;
 
 		appendData = function( data ) {
-			$ajaxContainer.append( $.trim( data ) );
+			$ajaxContainer.append( String( data ).trim() );
 		};
 
 		for ( i = 0; i < len; i += 1 ) {
@@ -4806,7 +4757,6 @@ var componentName = "wb-calevt",
 $document.on( "timerpoke.wb " + initEvent + " wb-redraw" + selector, selector, function( event ) {
 
 	var eventType = event.type,
-		$elm = $( "#" + event.target.id ),
 		calendarId = event.currentTarget.dataset.calevtSrc;
 
 	switch ( eventType ) {
@@ -4816,6 +4766,7 @@ $document.on( "timerpoke.wb " + initEvent + " wb-redraw" + selector, selector, f
 			break;
 
 		case "wb-redraw":
+			var $elm = $( "#" + event.target.id );
 			$( "#" + calendarId + " .wb-clndr" ).remove();
 			processEvents( $elm );
 			$elm.trigger( "wb-updated" + selector );
@@ -5582,7 +5533,7 @@ var componentName = "wb-charts",
 							"/getcellvalue": function( elem ) {
 
 								// Get the number from the data cell, #3267
-								var cellValue = $.trim( elem.dataset.wbChartsValue || $( elem ).text() );
+								var cellValue = String( elem.dataset.wbChartsValue || $( elem ).text() ).trim();
 								return [
 									parseFloat( cellValue.replace( /(\d{1,3}(?:(?: |,)\d{3})*)(?:(?:.|,)(\d{1,2}))?$/, function( a, b, c ) {
 										return b.replace( / |,/g, "" ) + "." + c || "0";
@@ -7436,13 +7387,12 @@ wb.add( selector );
 * not once per instance of plugin on the page. So, this is a good place to define
 * variables that are common to all instances of the plugin on a page.
 */
-var componentName = "wb-details-close",
-	selector = ".provisional." + componentName,
+const componentName = "wb-details-close",
+	selector = "." + componentName,
 	initEvent = "wb-init" + selector,
 	$document = wb.doc,
 	views = [ "xxs", "xs", "sm", "md", "lg", "xl" ],
-	viewsClass = [ "xxsmallview", "xsmallview", "smallview", "mediumview", "largeview", "xlargeview" ],
-	breakpoint,
+	viewsClasses = [ "xxsmallview", "xsmallview", "smallview", "mediumview", "largeview", "xlargeview" ],
 
 	/**
 	 * @method init
@@ -7453,45 +7403,23 @@ var componentName = "wb-details-close",
 		// Start initialization
 		// returns DOM object = proceed with init
 		// returns undefined = do not proceed with init (e.g., already initialized)
-		var elm = wb.init( event, componentName, selector ),
-			$elm, i;
+		let elm = wb.init( event, componentName, selector );
 
 		if ( elm ) {
-			$elm = $( elm );
+			let $elm = $( elm ),
+				breakpoint = elm.dataset.breakpoint || "sm", // Get the target breakpoint from data attribute or default to "sm"
+				viewBreakpointIndex = views.indexOf( breakpoint ), // Get the index of the target breakpoint
+				viewBreakpoint = viewsClasses.slice( 0, viewBreakpointIndex + 1 ), // Get the target and smaller view classes
+				viewsSelector = "html." + viewBreakpoint.join( ", html." ); // Create a selector for the target and smaller views
 
-			// Get the plugin JSON configuration set on attribute data-wb-details-close
-			// Will define one set settings for all .wb-details-close on the page
-			breakpoint = $elm.data( "breakpoint" ) || "sm";
-
-			// reset breakpoint if config is passed
-			if ( views.length === viewsClass.length ) {
-				i = views.indexOf( breakpoint );
-				viewsClass = viewsClass.slice( 0, i + 1 );
+			// If within the targetted views, keep details closed. If not, keep opened.
+			if ( document.querySelector( viewsSelector ) ) {
+				elm.removeAttribute( "open" );
+			} else {
+				elm.setAttribute( "open", "" );
 			}
 
-			hideOnBreakpoint();
-
-			// Identify that initialization has completed
 			wb.ready( $elm, componentName );
-		}
-	},
-
-	/**
-	 * Toggle details depending on breakpoint
-	 * @method hideOnBreakpoint
-	 * @param {jQuery DOM element | jQuery Event} $elm Element targetted by this plugin, which is the details
-	 */
-	hideOnBreakpoint = function() {
-		var $elm = $( selector ),
-			viewsSelector = "html." + viewsClass.join( ", html." );
-
-		// If within the targetted views, keep details closed
-		if ( $( viewsSelector ).length ) {
-			$elm.removeAttr( "open" );
-		} else {
-
-			// If not, keep opened
-			$elm.attr( "open", "" );
 		}
 	};
 
@@ -8956,7 +8884,7 @@ var componentName = "wb-filter",
 			section: ">tbody"
 		},
 		tblgrp: {
-			selector: " th:not([scope])" + notFilterClassSel,
+			selector: "th:not([scope])",
 			hdnparentuntil: "tbody",
 			section: ">tbody"
 		}
@@ -8999,7 +8927,8 @@ var componentName = "wb-filter",
 				i18n = wb.i18n;
 				i18nText = {
 					filter_label: i18n( "fltr-lbl" ),
-					fltr_info: i18n( "fltr-info" )
+					fltr_info: i18n( "fltr-info" ),
+					itemsFound: i18n( "items-found" )
 				};
 			}
 
@@ -9021,7 +8950,6 @@ var componentName = "wb-filter",
 					if ( uiInfo ) {
 						uiInfoID = uiInfo.id || uiInfoID;
 						uiInfo.id = uiInfoID;
-						uiInfo.setAttribute( "role", "status" );
 					}
 				} else {
 					console.error( componentName + ": " + "an <input type=\"search\"> is required in your UI template." );
@@ -9030,13 +8958,13 @@ var componentName = "wb-filter",
 				if ( settings.source ) {
 					console.warn( componentName + ": " + "the 'source' option is not compatible with the 'uiTemplate' option. If both options are defined, only 'uiTemplate' will be registered." );
 				}
-			} else {
+			} else if ( !document.querySelector( "input#" + elm.id + "-inpt" ) ) {
 				inptId = elm.id + "-inpt";
 				filterUI = $( "<div class=\"input-group\">" +
 					"<label for=\"" + inptId + "\" class=\"input-group-addon\"><span class=\"glyphicon glyphicon-filter\" aria-hidden=\"true\"></span> " + i18nText.filter_label + "</label>" +
 					"<input id=\"" + inptId + "\" class=\"form-control " + inputClass + "\" data-" + dtNameFltrArea + "=\"" + elm.id + "\" aria-controls=\"" + elm.id + "\" type=\"search\">" +
 					"</div>" +
-					"<p role=\"status\" id=\"" + uiInfoID + "\">" + i18nText.fltr_info + "</p>" );
+					"<p id=\"" + uiInfoID + "\">" + i18nText.fltr_info + "</p>" );
 
 				if ( settings.source ) {
 					$( settings.source ).prepend( filterUI );
@@ -9066,6 +8994,18 @@ var componentName = "wb-filter",
 				uiTotal.textContent = totalEntries;
 			}
 
+			var statusMessageId = elm.id + "-status",
+				statusMessage = document.getElementById( statusMessageId );
+
+			// Create a hidden status message for screen readers which is separate from the
+			// visual status element to ensure consistent behaviour from screen readers
+			if ( !statusMessage ) {
+				statusMessage = document.createElement( "p" );
+				statusMessage.id = statusMessageId;
+				statusMessage.className = "wb-inv";
+				statusMessage.setAttribute( "role", "status" );
+				$elm.prepend( statusMessage );
+			}
 			wb.ready( $elm, componentName );
 		}
 	},
@@ -9138,7 +9078,7 @@ var componentName = "wb-filter",
 			filter = unAccent( $field.val().trim() ),
 			fCallBack = settings.filterCallback,
 			secSelector = ( settings.section || "" )  + " ",
-			hndParentSelector = settings.hdnparentuntil,
+			hdnParentSelector = settings.hdnparentuntil,
 			$items = $elm.find( secSelector + settings.selector ),
 			itemsLength = $items.length,
 			i, $item, text, searchFilterRegularExp;
@@ -9149,11 +9089,17 @@ var componentName = "wb-filter",
 
 		for ( i = 0; i < itemsLength; i += 1 ) {
 			$item = $items.eq( i );
-			text = unAccent( $item.text() );
+
+			// Get the text content of the item, either from the shadow DOM or directly
+			if ( $item[ 0 ].shadowRoot ) {
+				text = unAccent( $item[ 0 ].shadowRoot.textContent );
+			} else {
+				text = unAccent( $item.text() );
+			}
 
 			if ( !searchFilterRegularExp.test( text ) ) {
-				if ( hndParentSelector ) {
-					$item = $item.parentsUntil( hndParentSelector );
+				if ( hdnParentSelector ) {
+					$item.parentsUntil( hdnParentSelector ).addClass( filterClass );
 				}
 				$item.addClass( filterClass );
 			}
@@ -9164,12 +9110,13 @@ var componentName = "wb-filter",
 		}
 		fCallBack.apply( this, arguments );
 
-		$elm.trigger( "wb-contentupdated" );
+		$elm.trigger( "wb-filtered" );
 	},
+
 	filterCallback = function( $field, $elm, settings ) {
 		var $sections =	$elm.find( settings.section ),
 			sectionsLength = $sections.length,
-			fndSelector = notFilterClassSel + settings.selector,
+			fndSelector = settings.selector + notFilterClassSel,
 			s, $section;
 
 		for ( s = 0; s < sectionsLength; s += 1 ) {
@@ -9177,6 +9124,20 @@ var componentName = "wb-filter",
 			if ( $section.find( fndSelector ).length === 0 ) {
 				$section.addClass( filterClass );
 			}
+		}
+
+		var sectionSelector = settings.section || "",
+			statusMessage = document.getElementById( $elm.attr( "id" ) + "-status" );
+
+		// Build the status message using a string to avoid inconsistencies across different screen readers when reading content from dynamic markup
+		if ( statusMessage ) {
+			var cleanSelector = settings.selector.replace( notFilterClassSel, "" ),
+				totalItems = $elm.find( sectionSelector + " " + cleanSelector ).length,
+				foundItems = $elm.find( sectionSelector + " " + settings.selector + notFilterClassSel ).length;
+
+			setTimeout( function() {
+				statusMessage.textContent = foundItems + " " + i18nText.itemsFound + " " + totalItems;
+			}, 900 );
 		}
 	};
 
@@ -9188,8 +9149,22 @@ $document.on( "keyup", selectorInput, function( event ) {
 	if ( wait ) {
 		clearTimeout( wait );
 	}
-	wait = setTimeout( filter.bind( this, $input, $elm, $elm.data() ), 250 );
 
+	wait = setTimeout( filter.bind( this, $input, $elm, $elm.data() ), 250 );
+} );
+
+// Reinitialize filter if content on the page has been updated by another plugin
+$document.on( "wb-contentupdated", selector + ", " + selector + " *", function()  {
+	let that = this;
+
+	if ( wait ) {
+		clearTimeout( wait );
+	}
+
+	wait = setTimeout( function() {
+		that.classList.remove( "wb-init", componentName + "-inited" );
+		$( that ).trigger( "wb-init." + componentName );
+	}, 100 );
 } );
 
 $document.on( "timerpoke.wb " + initEvent, selector, init );
@@ -9461,6 +9436,12 @@ var componentName = "wb-frmvld",
 									$requiredText.attr( "aria-hidden", "true" );
 								}
 							} );
+
+							// Override the default jQuery validation method for Canadian postal codes to allow for trailing/leading whitespace
+							$.validator.addMethod( "postalCodeCA", function( value, element ) {
+								var trimmed = value.replace( /\u00a0/g, " " ).trim();
+								return this.optional( element ) || /^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ] *\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i.test( trimmed );
+							}, "Please specify a valid Canadian postal code." );
 
 							// The jQuery validation plug-in in action
 							validator = $form.validate( {
@@ -11381,6 +11362,8 @@ var componentName = "wb-mltmd",
 	templateLoadedEvent = "templateloaded" + selector,
 	cuepointEvent = "cuepoint" + selector,
 	captionClass = "cc_on",
+	firstPlayClass = "played",
+	defaultCaptions = false,
 	multimediaEvents = [
 		"durationchange",
 		"playing",
@@ -11902,19 +11885,23 @@ var componentName = "wb-mltmd",
 			case "setCaptionsVisible":
 				if ( args ) {
 					$( this ).addClass( captionClass );
-					try {
-						this.object.loadModule( "cc" );
+					this.object.loadModule( "cc" );
+					var ccList = this.object.getOption( "cc", "tracklist" );
+					if ( ccList && ccList.length > 0 ) {
 						this.object.setOption( "cc", "track", { languageCode: this.object.getOption( "cc", "tracklist" )[ 0 ].languageCode } );
-					} catch ( e ) {
+					} else {
 						this.object.loadModule( "captions" );
-						this.object.setOption( "captions", "track", { languageCode: this.object.getOption( "captions", "tracklist" )[ 0 ].languageCode } );
+						var captionsList = this.object.getOption( "captions", "tracklist" );
+						if ( captionsList && captionsList.length > 0 ) {
+							this.object.setOption( "captions", "track", { languageCode: this.object.getOption( "captions", "tracklist" )[ 0 ].languageCode } );
+						}
 					}
 				} else {
 					$( this ).removeClass( captionClass );
 					this.object.unloadModule( "cc" );
 					this.object.unloadModule( "captions" );
 				}
-				$media.trigger( "ccvischange" );
+				$( this ).trigger( captionsVisibleChangeEvent );
 		}
 	},
 
@@ -11931,7 +11918,9 @@ var componentName = "wb-mltmd",
 			},
 			$mltmPlayerElm,
 			mltmPlayerElm,
-			isMuted;
+			isMuted,
+			settings,
+			$ccButton;
 
 		switch ( event.data ) {
 			case null: // init
@@ -11941,11 +11930,29 @@ var componentName = "wb-mltmd",
 
 				// Put video on mute if the video is muted on init, run once
 				$mltmPlayerElm = $media.parentsUntil( selector ).parent();
+				mltmPlayerElm = $mltmPlayerElm.get( 0 );
+
 
 				// Mute the player, GUI
 				if ( $mltmPlayerElm.data( "putMutedOnInit" ) ) {
 					youTubeApi.call( $mltmPlayerElm.get( 0 ), "setMuted", true );
 					$mltmPlayerElm.data( "putMutedOnInit", false );
+				}
+
+				// Check if closed captions should be enabled by default
+				settings = wb.getData( mltmPlayerElm, componentName );
+
+				if ( settings !== undef ) {
+					if ( settings.closedCaptions !== null && settings.closedCaptions === true ) {
+						youTubeApi.call( mltmPlayerElm, "setCaptionsVisible", true );
+
+						$ccButton = $( mltmPlayerElm ).find( ".cc" );
+
+						$ccButton.attr( {
+							"title": i18nText.cc_off,
+							"aria-pressed": true
+						} );
+					}
 				}
 				break;
 			case -1:
@@ -12056,6 +12063,10 @@ $document.on( initializedEvent, selector, function( event ) {
 		if ( settings !== undef ) {
 			data.shareUrl = settings.shareUrl;
 			data.fullscreen = settings.fullscreenBtn || false;
+			data.closedCaptions = settings.closedCaptions || false;
+			if ( data.closedCaptions !== undef ) {
+				defaultCaptions = data.closedCaptions;
+			}
 		}
 
 		$this.addClass( type );
@@ -12070,6 +12081,15 @@ $document.on( initializedEvent, selector, function( event ) {
 
 			// Defaults config set on the video element
 			data.isInitMuted = $media.get( 0 ).muted;
+
+			// Set default Youtube video dimensions if none specified
+			if ( $media[ 0 ].width && $media[ 0 ].height ) {
+				data.width = $media[ 0 ].width;
+				data.height = $media[ 0 ].height;
+			} else {
+				data.width = 640;
+				data.height = 360;
+			}
 
 			if ( youTube.ready === false ) {
 				$document.one( youtubeReadyEvent, function() {
@@ -12209,7 +12229,9 @@ $document.on( renderUIEvent, selector, function( event, type, data ) {
 			captionsUrl = wb.getUrlParts( data.captions ),
 			currentUrl = wb.getUrlParts( window.location.href ),
 			$media = data.media,
-			$eventReceiver;
+			$eventReceiver,
+			$button,
+			$buttonSpan;
 
 		$media
 			.after( tmpl( template, data ) )
@@ -12266,6 +12288,31 @@ $document.on( renderUIEvent, selector, function( event, type, data ) {
 		// The fullscreen button is not visible by default because there are no controls when in full screen.
 		if ( data.fullscreen ) {
 			$this.attr( "data-fullscreen-btn", true );
+		}
+
+		// Show captions by default if configured to do so
+		let captionStatus;
+
+		if ( $this.data( "wbMltmd" ) !== undef ) {
+			captionStatus = $this.data( "wbMltmd" ).closedCaptions;
+		}
+
+		if ( captionStatus !== undef && defaultCaptions !== undef  && defaultCaptions === true ) {
+
+			$this.addClass( captionClass );
+
+			// Trigger caption visibility change event only on the first time the video plays
+			defaultCaptions = true;
+
+			$button = $this.find( ".cc" );
+			$button
+				.attr( {
+					"title": i18nText.cc_off,
+					"aria-pressed": true
+				} );
+
+			$buttonSpan = $button.find( ".wb-inv" );
+			$buttonSpan.text( i18nText.cc_off );
 		}
 	}
 } );
@@ -12394,7 +12441,8 @@ $document.on( multimediaEvents, selector, function( event, simulated ) {
 		$this = $( eventTarget ),
 		invStart = "<span class='wb-inv'>",
 		invEnd = "</span>",
-		currentTime, $button, $slider, buttonData, isPlay, isMuted, isCCVisible, skipTo, volume;
+		currentTime, $button, $slider, buttonData, isPlay, isMuted, isCCVisible, skipTo, volume,
+		firstPlay = false;
 	switch ( eventType ) {
 		case "playing":
 		case "pause":
@@ -12405,6 +12453,12 @@ $document.on( multimediaEvents, selector, function( event, simulated ) {
 			if ( isPlay ) {
 				$this.addClass( "playing" );
 				$this.find( ".progress" ).addClass( "active" );
+
+				if ( firstPlay === false ) {
+					$this.addClass( firstPlayClass );
+					firstPlay = true;
+				}
+
 			} else {
 				if ( eventType === "ended" ) {
 					this.loading = clearTimeout( this.loading );
@@ -12811,7 +12865,7 @@ var componentName = "wb-overlay",
 			} else {
 				closeText = i18nText.closeOverlay;
 			}
-			closeText = closeText.replace( "'", "&#39;" );
+			closeText = closeText.replaceAll( "'", "&#39;" );
 			overlayClose = "<button type='button' class='mfp-close " + closeClass +
 				"' title='" + closeText + "'>&#xd7;<span class='wb-inv'> " +
 				closeText + "</span></button>";
@@ -13085,8 +13139,8 @@ wb.add( selector );
 } )( jQuery, window, document, wb );
 
 /**
- * @title WET-BOEW Tag filter
- * @overview Filter based content tagging
+ * @title WET-BOEW Paginate Plugin
+ * @overview This plugin provides pagination functionality for lists, tables, and groups of elements.
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  * @author @duboisp
  */
@@ -13096,7 +13150,7 @@ wb.add( selector );
 let i18n, i18nText;
 
 const componentName = "wb-paginate",
-	selector = ".provisional." + componentName,
+	selector = "." + componentName,
 	initEvent = "wb-init" + selector,
 	$document = wb.doc,
 	filterClass = "wb-fltr-out",
@@ -13133,7 +13187,8 @@ const componentName = "wb-paginate",
 				i18n = wb.i18n;
 				i18nText = {
 					prv: i18n( "prv" ),
-					nxt: i18n( "nxt" )
+					nxt: i18n( "nxt" ),
+					paginationLabel: i18n( "pagination-label" )
 				};
 			}
 
@@ -13157,9 +13212,10 @@ const componentName = "wb-paginate",
 			elm.pgSettings.items = elm.querySelectorAll( ( elm.pgSettings.section || ":scope" ) + " " + elm.pgSettings.selector + notFilterClassSel );
 
 			// Setup pagination container
-			paginationElm = document.createElement( "div" );
+			paginationElm = document.createElement( "nav" );
 			paginationElm.id = componentName + "-" + elm.id;
 			paginationElm.classList.add( pagerClass );
+			paginationElm.setAttribute( "aria-label", i18nText.paginationLabel );
 
 			// Add pagination container
 			if ( elm.pgSettings.uiTarget ) {
@@ -13203,7 +13259,7 @@ const componentName = "wb-paginate",
 			// Add Previous page button
 			var prevLI = "";
 			prevLI += "<li" + ( i === currPage ? " class=\"disabled\"" : "" ) + ">";
-			prevLI += "<button type=\"button\" class=\"paginate-prev\" aria-controls=\"" + elm.id + "\"><span class=\"wb-inv\">Page </span>" + i18nText.prv + "</button>";
+			prevLI += "<button type=\"button\" class=\"paginate-prev\" aria-controls=\"" + elm.id + "\">" + i18nText.prv + "</button>";
 			prevLI += "</li>";
 
 			paginationUI += prevLI;
@@ -13220,7 +13276,7 @@ const componentName = "wb-paginate",
 			// Add Next page button
 			var nextLI = "";
 			nextLI += "<li" + ( i === currPage ? " class=\"disabled\"" : "" ) + ">";
-			nextLI += "<button type=\"button\" class=\"paginate-next\" aria-controls=\"" + elm.id + "\"><span class=\"wb-inv\">Page </span>" + i18nText.nxt + "</button>";
+			nextLI += "<button type=\"button\" class=\"paginate-next\" aria-controls=\"" + elm.id + "\">" + i18nText.nxt + "</button>";
 			nextLI += "</li>";
 			paginationUI += nextLI;
 			paginationUI += "</ol>";
@@ -13260,17 +13316,9 @@ const componentName = "wb-paginate",
 			pageLink = pageItem.querySelector( "button" );
 
 			if ( pageLink.classList.contains( "paginate-prev" ) ) {
-				if ( currPage > 1 ) {
-					pageItem.classList.remove( "disabled" );
-				} else {
-					pageItem.classList.add( "disabled" );
-				}
+				currPage > 1 ? pageItem.classList.remove( "disabled" ) : pageItem.classList.add( "disabled" );
 			} else if ( pageLink.classList.contains( "paginate-next" ) ) {
-				if ( currPage < pagesCount ) {
-					pageItem.classList.remove( "disabled" );
-				} else {
-					pageItem.classList.add( "disabled" );
-				}
+				currPage < pagesCount ? pageItem.classList.remove( "disabled" ) : pageItem.classList.add( "disabled" );
 			} else {
 				pageItem.className = "";
 				pageItem.children[ 0 ].removeAttribute( "aria-current" );
@@ -13342,7 +13390,7 @@ $document.on( "click", "." + pagerClass + " button", function()  {
 		pageDest--;
 	}
 
-	if ( pageDest !== elm.pgSettings.currPage ) {
+	if ( pageDest !== elm.pgSettings.currPage && pageDest > 0 && pageDest <= elm.pgSettings.pagesCount ) {
 		elm.pgSettings.currPage = pageDest;
 
 		updateItems( elm );
@@ -13357,10 +13405,10 @@ $document.on( "click", "." + pagerClass + " button", function()  {
 
 } );
 
-// Resets items and pagination
-$document.on( "wb-contentupdated", selector, function() {
+// Resets items and pagination on filter or if content is updated
+$document.on( "wb-contentupdated wb-filtered", selector, function() {
 	this.pgSettings.currPage = 1;
-	this.pgSettings.items = this.pgSettings.items = this.querySelectorAll( ( this.pgSettings.section || ":scope" ) + " " + this.pgSettings.selector + notFilterClassSel );
+	this.pgSettings.items = this.querySelectorAll( ( this.pgSettings.section || ":scope" ) + " " + this.pgSettings.selector + notFilterClassSel );
 
 	updateItems( this );
 	generateUI( this );
@@ -13577,7 +13625,7 @@ var $document = wb.doc,
 				<div class="modal-footer">
 					<div class="row">
 						<div class="col-xs-12 col-sm-5 mrgn-tp-sm"><button type="button" class="btn btn-link btn-block popup-modal-dismiss">${ i18nText.cancelBtn }</button></div>
-						<div class="col-xs-12 col-sm-7 mrgn-tp-sm"><button type="button" class="btn btn-primary btn-block popup-modal-dismiss" ${ attrScrubSubmit }>${ i18nText.confirmBtn }</button></div>
+						<div class="col-xs-12 col-sm-7 mrgn-tp-sm"><button type="button" class="btn btn-primary btn-block" ${ attrScrubSubmit }>${ i18nText.confirmBtn }</button></div>
 					</div>
 				</div>`;
 		}
@@ -13587,6 +13635,10 @@ var $document = wb.doc,
 
 		// Add PII fields HTML if using a custom UI template
 		if ( modalTemplate ) {
+
+			// Fix for implementers that added the "popup-modal-dismiss" class to the submit button
+			$( ".popup-modal-dismiss[" + attrScrubSubmit + "]" ).removeClass( "popup-modal-dismiss" );
+
 			$( "#" + piiModalID + " [data-scrub-modal-fields]" ).html( piiModalFields );
 		}
 	};
@@ -13606,6 +13658,8 @@ $document.on( "click", "#" + piiModalID + " [" + attrScrubSubmit + "]", function
 	} else {
 		form.submit();
 	}
+
+	$.magnificPopup.close();
 } );
 
 // Add the timer poke to initialize the plugin
@@ -14290,7 +14344,7 @@ var $modal, $modalLink, countdownInterval, i18n, i18nText,
 			return null;
 		}
 
-		result = /^([0-9]+(?:\.[0-9]*)?)\s*(.*s)?$/.exec( $.trim( value.toString() ) );
+		result = /^([0-9]+(?:\.[0-9]*)?)\s*(.*s)?$/.exec( value.toString().trim() );
 		if ( result[ 2 ] ) {
 			num = parseFloat( result[ 1 ] );
 			mult = powers[ result[ 2 ] ] || 1;
@@ -14445,6 +14499,10 @@ var componentName = "wb-share",
 			linkedin: {
 				name: "LinkedIn®",
 				url: "https://www.linkedin.com/shareArticle?mini=true&amp;url={u}&amp;title={t}&amp;ro=false&amp;summary={d}&amp;source="
+			},
+			mastodon: {
+				name: "Mastodon",
+				url: "https://share.joinmastodon.org/#text={t}%20{u}"
 			},
 			myspace: {
 				name: "MySpace",
@@ -14767,7 +14825,7 @@ var componentName = "wb-steps",
 					numQuestion = $( ".steps-wrapper", $elm ).length; // Calculate number of questions
 
 				// Addition to UI (Ex: progress bar)
-				if ( !$.contains( $elm, "progress" ) ) {
+				if ( !elm.querySelector( "progress" ) ) {
 					$( "form", $elm ).prepend( "<label class='full-width'><span class='wb-inv'>" + i18nText.progresslabel + "</span><progress class='progressBar' max='" + numQuestion + "'></progress><p class='progressText' role='status'></p></label>" );
 				}
 
@@ -16374,17 +16432,17 @@ wb.add( selector );
 ( function( $, window, document, wb ) {
 "use strict";
 
-let wait;
+let wait, i18n;
 
 const componentName = "wb-tagfilter",
-	selector = ".provisional." + componentName,
+	selector = "." + componentName,
 	selectorCtrl = "." + componentName + "-ctrl",
 	initEvent = "wb-init" + selector,
 	$document = wb.doc,
-	filterOutClass = "wb-fltr-out",
 	tgFilterOutClass = "wb-tgfltr-out",
-	itemsWrapperClass = "wb-tagfilter-items",
-	noResultWrapperClass = "wb-tagfilter-noresult",
+	itemsWrapperClass = componentName + "-items",
+	noResultWrapperClass =  componentName + "-noresult",
+	statusWrapperClass = componentName + "-status",
 
 	init = function( event ) {
 		const elm = wb.init( event, componentName, selector );
@@ -16401,8 +16459,10 @@ const componentName = "wb-tagfilter",
 
 			if ( taggedItemsWrapper ) {
 				taggedItemsWrapper.id = taggedItemsWrapper.id || wb.getId(); // Ensure the element has an ID
-				taggedItemsWrapper.setAttribute( "aria-live", "polite" );
 			}
+
+			// Initialize i18n
+			i18n = wb.i18n;
 
 			// Handle filters
 			if ( filterControls.length ) {
@@ -16418,9 +16478,20 @@ const componentName = "wb-tagfilter",
 				elm.items = buildTaggedItemsArr( taggedItems );
 			}
 
-			// Add accessibility to no result element
-			if ( noResultWrapper ) {
-				noResultWrapper.setAttribute( "role", "status" );
+			// Build a status element if there's not already one (this element will be used to announce the number of items found)
+			if ( !elm.querySelector( ".wb-fltr-info" ) && !elm.querySelector( "." + statusWrapperClass ) ) {
+
+				// Build the wrapper for the status message
+				const statusWrapper = document.createElement( "div" );
+				statusWrapper.classList.add( statusWrapperClass, "wb-inv" );
+				statusWrapper.setAttribute( "role", "status" );
+
+				// Build the status message element
+				const statusMessage = document.createElement( "p" );
+				statusWrapper.appendChild( statusMessage );
+
+				// Append status element after the no result wrapper if it exists, otherwise after the tagged items wrapper
+				( noResultWrapper || taggedItemsWrapper ).after( statusWrapper );
 			}
 
 			// Update list of visible items (in case of predefined filters)
@@ -16435,7 +16506,9 @@ const componentName = "wb-tagfilter",
 		let taggedItemsArr = [];
 
 		taggedItems.forEach( function( taggedItem ) {
-			let tagsList = taggedItem.dataset.wbTags.split( " " );
+			let tagsList = taggedItem.dataset.wbTags.split( " " ),
+				timeElm = taggedItem.querySelector( "time" ),
+				dateStr = timeElm ? timeElm.getAttribute( "datetime" ) : null;
 
 			if ( !taggedItem.id ) {
 				taggedItem.setAttribute( "id", wb.getId() );
@@ -16445,10 +16518,10 @@ const componentName = "wb-tagfilter",
 				id: taggedItem.id,
 				tags: tagsList,
 				isMatched: true,
-				itemText: taggedItem.innerText.toLowerCase()
+				itemText: taggedItem.innerText.toLowerCase(),
+				date: dateStr
 			} );
 		} );
-
 		return taggedItemsArr;
 	},
 
@@ -16476,6 +16549,7 @@ const componentName = "wb-tagfilter",
 
 					break;
 				case "select-one":
+				case "date":
 					filtersObj[ control.name ] = [ {
 						type: control.type,
 						value: control.value
@@ -16492,101 +16566,146 @@ const componentName = "wb-tagfilter",
 		instance.activeFilters = [ ]; // Clear active filters
 
 		for ( let filterGroupName in instance.filters ) {
-			let filterGroup = instance.filters[ filterGroupName ],
-				filterGroupChkCnt = filterGroup.filter( function( o ) {
-					return o.isChecked === true;
-				} ).length,
-				filterGroupActiveFilters = [ ];
 
-			switch ( filterGroup[ 0 ].type ) {
+			// Skip date filters here
+			if ( filterGroupName === "startDate" || filterGroupName === "endDate" ) {
+				continue;
+			}
+
+			let filterGroup = instance.filters[ filterGroupName ],
+				type = filterGroup[ 0 ].type, // All types in a group should be the same, so we can just check the first one
+				selectedFilters = [ ];
+
+
+			switch ( type ) {
 				case "checkbox":
-					if ( filterGroupChkCnt > 0 ) {
-						filterGroup.forEach( function( filterItem ) {
-							if ( filterItem.isChecked ) {
-								filterGroupActiveFilters.push( filterItem.value );
-							}
-						} );
-					}
+					selectedFilters = filterGroup
+						.filter( item => item.isChecked )
+						.map( item => item.value );
 					break;
 
 				case "radio":
-					if ( filterGroupChkCnt > 0 ) {
-						for ( let filterItem of filterGroup ) {
-							if ( filterItem.isChecked === true ) {
-								if ( filterItem.value !== "" ) {
-									filterGroupActiveFilters.push( filterItem.value );
-								}
-								break;
-							}
-						}
-					} else {
+				{
+					let selectedItem = filterGroup.find( item => item.isChecked );
+
+					if ( !selectedItem ) {
 						console.warn( componentName + ": Radio button groups must have a default selected value. If you want to display all items, add an option called \"All\" with an empty value." );
+						break;
+					} else if ( selectedItem.value === "" ) { // If the "All" option is selected
+						break;
+					} else {
+						selectedFilters.push( selectedItem.value );
+						break;
 					}
-					break;
+				}
 
 				case "select-one":
 					if ( filterGroup[ 0 ].value !== "" ) {
-						filterGroupActiveFilters.push( filterGroup[ 0 ].value );
+						selectedFilters.push( filterGroup[ 0 ].value );
 					}
 					break;
 			}
-
-			instance.activeFilters.push( filterGroupActiveFilters );
+			instance.activeFilters.push( selectedFilters );
 		}
 	},
 
 	// Match tagged items to active filters and only return items that have an active filter in every filter group
 	matchItemsToFilters = function( instance ) {
-		let filtersGroups = instance.activeFilters.length;
 
-		instance.items.forEach( function( item ) {
-			let matchCount = 0;
+		// Count tag filter groups only (ignore dates here)
+		let filtersGroups = instance.activeFilters.length,
+			startDate = ( instance.filters.startDate && instance.filters.startDate[ 0 ] && instance.filters.startDate[ 0 ].value ) || "",
+			endDate   = ( instance.filters.endDate && instance.filters.endDate[ 0 ] && instance.filters.endDate[ 0 ].value ) || "";
 
-			instance.activeFilters.forEach( function( filterGroup ) {
-				if ( filterGroup.length === 0 ) {
-					matchCount++;
-				} else {
-					let itemIncludesFilter = filterGroup.filter( function( f ) {
-						return item.tags.includes( f );
-					} ).length;
+		instance.items.forEach( item => {
+			let matchCount = 0,
+				dateMatch = true; // Default is true unless proven otherwise
 
-					if ( itemIncludesFilter ) {
+			// --- DATE FILTERING ---
+			if ( item.date ) {
+
+				// If only startDate is set, item must be after or on the startDate
+				if ( startDate !== "" && endDate === "" ) {
+					dateMatch = wb.date.compare( item.date, startDate ) >= 0;
+				}
+
+				// If only endDate is set, item must be before or on the endDate
+				if ( endDate !== "" && startDate === "" ) {
+					dateMatch = wb.date.compare( item.date, endDate ) <= 0;
+				}
+
+				// If both startDate and endDate are set, item must be between startDate and endDate (inclusive)
+				if ( startDate !== "" && endDate !== "" ) {
+					dateMatch = (
+						wb.date.compare( item.date, startDate ) >= 0 &&
+						wb.date.compare( item.date, endDate ) <= 0
+					);
+				}
+			}
+
+			// --- TAG FILTERING ---
+			if ( dateMatch ) {
+				instance.activeFilters.forEach( ( filterGroup ) => {
+					if ( filterGroup.length === 0 || filterGroup.some( filter => {
+						return item.tags.includes( filter );
+					} ) ) {
 						matchCount++;
 					}
-				}
-			} );
+				} );
+			}
 
-			matchCount === filtersGroups ? item.isMatched = true : item.isMatched = false;
+			// Show item if it matches any filter and is within date range
+			item.isMatched = ( matchCount === filtersGroups && dateMatch );
 		} );
 	},
 
 	// Update list of visible items according to their "isMatched" property
 	updateDOMItems = function( instance ) {
 		const updatedItemsList = instance.items.forEach( function( item ) {
-			let domItem = instance.querySelector( "#" + item.id ),
-				matched = item.isMatched;
+			let domItem = instance.querySelector( "#" + item.id );
 
-			if ( matched ) {
-				if ( domItem.classList.contains( tgFilterOutClass ) ) {
-					domItem.classList.remove( tgFilterOutClass );
-				}
+			if ( item.isMatched ) {
+				domItem.classList.remove( tgFilterOutClass );
 			} else {
-				if ( !domItem.classList.contains( tgFilterOutClass ) ) {
-					domItem.classList.add( tgFilterOutClass );
-				}
+				domItem.classList.add( tgFilterOutClass );
 			}
 		} );
-
 		return updatedItemsList;
 	},
 
-	// Utility method to update stored active filters, update stored items and update visibility of tagged items
+	// Update the status message element with the number of items found or no items found
+	updateStatusMessage = function( instance ) {
+		const statusWrapper = instance.querySelector( "." + statusWrapperClass ),
+			noResultWrapper = instance.querySelector( "." + noResultWrapperClass ),
+			statusMessageElm = statusWrapper ? statusWrapper.querySelector( "p" ) : null,
+			itemsFoundText = i18n ? i18n( "items-found" ) : "items found out of / éléments trouvés sur";
+
+		if ( statusWrapper && statusMessageElm ) {
+			const matchedCount = instance.items.filter( item => item.isMatched ).length,
+				totalCount = instance.items.length;
+
+			let statusMessageText;
+
+			//  If there are no items and the no result wrapper exists, copy its message to the screen reader status message, otherwise build a new message
+			//  Note: Since the no result wrapper text is not dynamic, it wouldn't get announced by screen readers when the filter changes.
+			//  This is why we copy it to the status message element.
+			if ( matchedCount === 0 ) {
+				statusMessageText = noResultWrapper ? noResultWrapper.textContent : i18n ? i18n( "no-items-found" ) : "No items found / Aucun élément trouvé";
+			} else {
+				statusMessageText = `${ matchedCount } ${ itemsFoundText } ${ totalCount }`;
+			}
+			statusMessageElm.textContent = statusMessageText;
+		}
+	},
+
+	// Utility method to update stored active filters, update stored items, update visibility of tagged items and update status message
 	update = function( instance ) {
 		refineFilters( instance );
 		matchItemsToFilters( instance );
 		updateDOMItems( instance );
+		updateStatusMessage( instance );
 
-		$( instance ).trigger( "wb-contentupdated", [ { source: componentName } ] );
+		$( instance ).trigger( "wb-filtered", [ { source: componentName } ] );
 	};
 
 // When a filter is updated
@@ -16621,6 +16740,7 @@ $document.on( "change", selectorCtrl, function( event )  {
 			break;
 
 		case "select-one":
+		case "date":
 
 			// Update virtual filter to the new value
 			filterGroup[ 0 ].value = filterValue;
@@ -16631,36 +16751,18 @@ $document.on( "change", selectorCtrl, function( event )  {
 	update( elm );
 } );
 
-$document.on( "wb-contentupdated", selector, function( event, data )  {
-	let that = this,
-		supportsHas = window.getComputedStyle( document.documentElement ).getPropertyValue( "--supports-has" ); // Get "--supports-has" CSS property
+// Reinitialize tagfilter if content on the page has been updated by another plugin
+$document.on( "wb-contentupdated", selector + ", " + selector + " *", function()  {
+	let that = this;
 
-	// Reinitialize tagfilter if content on the page has been updated by another plugin
-	if ( data && data.source !== componentName ) {
-		if ( wait ) {
-			clearTimeout( wait );
-		}
-
-		wait = setTimeout( function() {
-			that.classList.remove( "wb-init", componentName + "-inited" );
-			$( that ).trigger( "wb-init." + componentName );
-		}, 100 );
+	if ( wait ) {
+		clearTimeout( wait );
 	}
 
-	// Show no result message if on Firefox -- Remove once Firefox supports ":has()"
-	if ( supportsHas === "false" ) {
-		let noResultItem = this.querySelector( "." + noResultWrapperClass );
-
-		if ( noResultItem && this.items.length > 0 ) {
-			let visibleItems = this.querySelectorAll( "." + itemsWrapperClass + " " + "[data-wb-tags]:not(." + tgFilterOutClass + ", ." + filterOutClass + ")" );
-
-			if ( visibleItems.length < 1 ) {
-				noResultItem.style.display = "block";
-			} else {
-				noResultItem.style.display = "none";
-			}
-		}
-	}
+	wait = setTimeout( function() {
+		that.classList.remove( "wb-init", componentName + "-inited" );
+		$( that ).trigger( "wb-init." + componentName );
+	}, 100 );
 } );
 
 $document.on( "timerpoke.wb " + initEvent, selector, init );
@@ -17326,7 +17428,6 @@ var componentName = "wb-twitter",
 
 			// Process the Twitter link
 			if ( twitterLink ) {
-				const loadingDiv = document.createElement( "div" );
 				let observer;
 
 				// Only initialize the i18nText once
@@ -17371,10 +17472,6 @@ var componentName = "wb-twitter",
 					twitterLink.dataset.dnt = "true";
 				}
 
-				// Add a loading icon below the link
-				loadingDiv.className = "twitter-timeline-loading";
-				twitterLink.after( loadingDiv );
-
 				// Observe DOM mutations
 				observer = new MutationObserver( function( mutations ) {
 					mutations.forEach( function( mutation ) {
@@ -17398,12 +17495,11 @@ var componentName = "wb-twitter",
 							case "childList": {
 								mutation.removedNodes.forEach( function( removedNode ) {
 
-									// If the removed node was a Twitter link, remove its adjacent loading icon, add skip links and stop observing
-									// Note: Twitter's widget script removes "a.twitter-timeline" upon displaying the timeline iframe's content... at which point the loading icon is no longer useful
-									if ( removedNode === twitterLink && mutation.nextSibling === loadingDiv ) {
-										const iframeContainer = loadingDiv.previousElementSibling;
+									// If the removed node was a Twitter link add skip links and stop observing
+									// Note: Twitter's widget script removes "a.twitter-timeline" upon displaying the timeline iframe's content
+									if ( removedNode === twitterLink ) {
+										const iframeContainer = eventTarget.querySelector( "div.twitter-timeline" );
 
-										loadingDiv.remove();
 										addSkipLinks( iframeContainer );
 
 										// The following 2 lines were added as a workaround in Safari where the iFrame is not displayed
@@ -17424,16 +17520,31 @@ var componentName = "wb-twitter",
 					childList: true,
 					subtree: true
 				} );
+
+				// Handle the case where the iframe never loads - wait 5 seconds before displaying a fallback message
+				setTimeout( () => {
+					const iframe = eventTarget.querySelector( "iframe.twitter-timeline" );
+					if ( !iframe ) {
+						const fallbackMessage = "Twitter timeline is currently unavailable.";
+						console.warn( componentName + ": " + fallbackMessage );
+						observer.disconnect();
+					}
+				}, 5000 ); // 5 seconds
+
 			}
 
-			Modernizr.load( {
-				load: ( protocol.indexOf( "http" ) === -1 ? "http:" : protocol ) + "//platform.twitter.com/widgets.js",
-				complete: function() {
+			// If the Twitter script has not been loaded yet
+			if ( !document.querySelector( "script[src*='platform.twitter.com/widgets.js']" ) ) {
 
-					// Identify that initialization has completed
+				// Load the Twitter widget script
+				const script = document.createElement( "script" );
+				script.src = ( protocol.indexOf( "http" ) === -1 ? "http:" : protocol ) + "//platform.twitter.com/widgets.js";
+				script.onload = function() {
 					wb.ready( $( eventTarget ), componentName );
-				}
-			} );
+				};
+				document.head.appendChild( script );
+			}
+
 		}
 	},
 
@@ -20049,13 +20160,25 @@ var $document = wb.doc,
 					url: this.action,
 					data: $.param( data )
 				} )
+
+					// If the successURL is set and the success parameter is not defined, redirect to the successURL
 					.done( function() {
+						if ( settings.successURL && !settings.success ) {
+							window.location.href = settings.successURL;
+						} else {
+							$selectorSuccess.removeClass( classToggle );
+						}
 						$elm.trigger( successEvent );
-						$selectorSuccess.removeClass( classToggle );
 					} )
+
+					// If the failureURL is set and the failure parameter is not defined, redirect to the failureURL
 					.fail( function( response ) {
+						if ( settings.failureURL && !settings.failure ) {
+							window.location.href = settings.failureURL;
+						} else {
+							$selectorFailure.removeClass( classToggle );
+						}
 						$elm.trigger( failEvent, response );
-						$selectorFailure.removeClass( classToggle );
 					} )
 					.always( function() {
 

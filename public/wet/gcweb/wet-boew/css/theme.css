@@ -2,7 +2,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v17.1.1 - 2025-07-24
+ * v19.1.0 - 2026-04-01
  *
  */
 /*
@@ -89,7 +89,7 @@ Left menu variables
   text-decoration: none;
 }
 
-.wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:before, .geomap-progress:before, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:before, .wb-mltmd.video.waiting .display:before, .wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:after, .geomap-progress:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .wb-mltmd.video.waiting .display:after {
+.wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:before, .geomap-progress:before, .wb-mltmd.video.waiting .display:before, .wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:after, .geomap-progress:after, .wb-mltmd.video.waiting .display:after {
   bottom: 0;
   content: " ";
   height: 100px;
@@ -101,16 +101,16 @@ Left menu variables
   width: 100px;
 }
 
-.wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:after, .geomap-progress:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .wb-mltmd.video.waiting .display:after {
+.wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:after, .geomap-progress:after, .wb-mltmd.video.waiting .display:after {
   z-index: 1;
 }
-.wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:before, .geomap-progress:before, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:before, .wb-mltmd.video.waiting .display:before {
+.wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display:before, .geomap-progress:before, .wb-mltmd.video.waiting .display:before {
   background: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
 }
 
 /* TODO: Use bootstrap placeholder when nested extends are supported */
-.geomap-progress:after, .wb-twitter a.twitter-timeline + .twitter-timeline-loading:after, .wb-mltmd.video.waiting .display:after {
+.geomap-progress:after, .wb-mltmd.video.waiting .display:after {
   -webkit-animation-duration: 500ms;
           animation-duration: 500ms;
   -webkit-animation-iteration-count: infinite;
@@ -187,8 +187,7 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 b,
@@ -1678,6 +1677,24 @@ main .glyphicon {
   src: url("https://fonts.gstatic.com/s/notosans/v25/o-0NIpQlx3QUlC5A4PNjXhFVZNyB.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+/* Noto Sans Canadian Aboriginal – Regular */
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans Canadian Aboriginal";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://fonts.gstatic.com/s/notosanscanadianaboriginal/v28/4C_gLjTuEqPj-8J01CwaGkiZ9os0iGVkezM1mUT-j_Lmlx15whAXAg.woff2") format("woff2");
+  unicode-range: U+1400-167F, U+18B0-18FF, U+11AB0-11ABF; /* UCAS Extended A */
+}
+/* Noto Sans Canadian Aboriginal – Bold */
+@font-face {
+  font-display: fallback;
+  font-family: "Noto Sans Canadian Aboriginal";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://fonts.gstatic.com/s/notosanscanadianaboriginal/v28/4C_gLjTuEqPj-8J01CwaGkiZ9os0iGVkezM1mUT-j_Lmlx15whAXAg.woff2") format("woff2");
+  unicode-range: U+1400-167F, U+18B0-18FF, U+11AB0-11ABF;
+}
 /*
  * Font Lato
  *
@@ -1773,7 +1790,7 @@ html {
 }
 
 body {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
   font-size: 16px;
   line-height: 1.4375;
   color: #333333;
@@ -2580,11 +2597,10 @@ abbr[title] {
   text-decoration: none;
 }
 
-@supports ((-webkit-text-decoration: underline dotted) or (text-decoration: underline dotted)) {
+@supports (text-decoration: underline dotted) {
   abbr[title] {
     border-bottom: 0;
-    -webkit-text-decoration: underline dotted;
-            text-decoration: underline dotted;
+    text-decoration: underline dotted;
     -webkit-text-decoration-skip-ink: none;
             text-decoration-skip-ink: none;
   }
@@ -2670,7 +2686,7 @@ details[open] {
  * @title: Scaffolding
  *
  */
-main table caption p, main h1, main h2, main h3, main h4, main h5, main h6, main p {
+#wb-sec, main table caption p, main h1, main h2, main h3, main h4, main h5, main h6, main p {
   word-break: break-word;
 }
 
@@ -2688,6 +2704,9 @@ main {
   font-size: 1.25rem;
   line-height: 1.6;
   position: relative;
+}
+main table caption {
+  text-align: left;
 }
 main table p {
   word-break: initial;
@@ -4484,17 +4503,15 @@ legend {
 fieldset {
   border-top: 1px solid #e5e5e5;
   padding-top: 10px;
+}
+fieldset:first-child {
+  border-top: 0;
+}
+fieldset {
   /*
    *  Allows fieldSet/legend to have a bottom border under legend title
    *  https://github.com/wet-boew/wet-boew/issues/7766
    */
-  /*
-   *  Fieldset/legend as a label for a group of checkboxes or radio buttons
-   *  https://github.com/wet-boew/wet-boew/issues/5797
-   */
-}
-fieldset:first-child {
-  border-top: 0;
 }
 fieldset.legend-brdr-bttm {
   border-top: 0;
@@ -4503,6 +4520,12 @@ fieldset.legend-brdr-bttm legend {
   border-bottom: 1px solid #e5e5e5;
   float: none;
   margin-bottom: 10px;
+}
+fieldset {
+  /*
+   *  Fieldset/legend as a label for a group of checkboxes or radio buttons
+   *  https://github.com/wet-boew/wet-boew/issues/5797
+   */
 }
 fieldset.chkbxrdio-grp {
   border-top: 0;
@@ -4561,6 +4584,15 @@ legend.required:not(.required-no-asterisk .required):before,
  * @title: Forms
  *
  */
+fieldset.chkbxrdio-grp legend {
+  font-size: 20px;
+}
+
+input[type=radio],
+input[type=checkbox] {
+  margin-top: 9px;
+}
+
 .input-group .form-control,
 .input-group .input-group-addon,
 .input-group .input-group-btn input,
@@ -4568,31 +4600,8 @@ legend.required:not(.required-no-asterisk .required):before,
   min-height: 39px;
 }
 
-/* Exclude temporary the form element from the font update, keep same style as before
- * - Rational: More testing and various adjustment need to be completed before to apply it
- * - Fieldflow is brought to speed with the visual update with a clearly defined temporary class .gc-font-2019, but the class can be tried out on other forms
- */
-:not(#wb-srch) form, .checkbox, .checkbox-inline, .radio, .radio-inline, form .btn:not(.btn-call-to-action) {
-  font-size: 1rem;
-  line-height: 1.4375;
-}
-
-form .btn:not(.btn-call-to-action), .form-control {
-  padding: 6px 12px;
-}
-
-.gc-font-2019, .gc-font-2019 label, .gc-font-2019 fieldset legend, .gc-font-2019 input[type=submit], .gc-font-2019 select, .gc-font-2019 .wb-fieldflow-label ~ p, .gc-font-2019 + div, .gc-font-2019 + div label, .gc-font-2019 + div fieldset legend, .gc-font-2019 + div input[type=submit], .gc-font-2019 + div select, .gc-font-2019 + div .wb-fieldflow-label ~ p {
-  font-size: 20px;
-  line-height: 1.65em;
-}
-.gc-font-2019 fieldset legend, .gc-font-2019 + div fieldset legend {
-  margin-bottom: 11.5px;
-}
-.gc-font-2019 input[type=checkbox], .gc-font-2019 input[type=radio], .gc-font-2019 + div input[type=checkbox], .gc-font-2019 + div input[type=radio] {
-  margin-top: 11px;
-}
-.gc-font-2019 [type=submit], .gc-font-2019 select, .gc-font-2019 + div [type=submit], .gc-font-2019 + div select {
-  padding: 0.54em 1em;
+.form-horizontal .control-label {
+  padding-top: 7px;
 }
 
 .btn {
@@ -4970,11 +4979,6 @@ body .btn-primary {
   color: #fff;
   background-color: #318000;
   border-color: #458259;
-  font-size: 1.1em;
-  margin-bottom: 25px;
-  margin-top: 15px;
-  padding: 0.58em 1em;
-  text-shadow: 1px 2px #333;
 }
 .btn-call-to-action:focus, .btn-call-to-action.focus {
   color: #fff;
@@ -5005,6 +5009,13 @@ body .btn-primary {
   color: #318000;
   background-color: #fff;
 }
+.btn-call-to-action {
+  font-size: 1.1em;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  padding: 0.58em 1em;
+  text-shadow: 1px 2px #333;
+}
 
 .btn-call-to-action:visited {
   color: #fff;
@@ -5022,7 +5033,7 @@ input.btn.btn-call-to-action {
  */
 /* Headings */
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-  font-family: Lato, sans-serif;
+  font-family: Lato, "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
   -webkit-font-variant-ligatures: no-common-ligatures;
           font-variant-ligatures: no-common-ligatures;
   font-weight: 700;
@@ -5056,6 +5067,12 @@ h4, .h4, h5, .h5 {
 
 h6, .h6 {
   line-height: 1.45;
+}
+
+/* Remove top margin from main page title when gcds-header is present
+   This will need to be revisted when we integrate the GCDS header fully */
+body:has(gcds-header) h1#wb-cont {
+  margin-top: 0;
 }
 
 /* Forms */
@@ -5215,7 +5232,8 @@ details summary {
   border: 1px solid #ddd;
   border-radius: 4px;
   color: #295376;
-  padding: 5px 15px;
+  padding: 5px 15px 5px 30px;
+  text-indent: -16px;
 }
 details summary:focus, details summary:hover {
   background-color: transparent;
@@ -5257,7 +5275,7 @@ details[open] > summary {
 	@title: Accessibility Additions to WET-BOEW - Site template
  */
 .wb-show-onfocus, .wb-inv, .wb-invisible, .wb-twitter .wb-twitter-notice-start[tabindex], .wb-twitter .wb-twitter-notice-end[tabindex], .wb-twitter .wb-twitter-skip a, #mb-pnl .srch-pnl label, .wb-fnote dt, .wb-calevt-cal .cal-days td ul, #mb-pnl h3, #wb-info h2, #wb-sec h2, #wb-bc h2, #wb-sm h2, #wb-srch label, #wb-srch h2, #wb-glb-mn h2, #wb-lng h2, .wb-sl {
-  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
   height: 1px;
   margin: 0;
   overflow: hidden;
@@ -5266,7 +5284,7 @@ details[open] > summary {
 }
 
 .wb-show-onfocus:focus, .wb-twitter .wb-twitter-notice-end[tabindex]:focus, .wb-twitter .wb-twitter-skip a:focus, .wb-disable .wb-slc .wb-sl, .wb-sl:focus {
-  clip: rect(auto, auto, auto, auto);
+  clip-path: none;
   height: inherit;
   margin: inherit;
   overflow: inherit;
@@ -5398,15 +5416,15 @@ details[open] > summary {
   padding: 1em 0 0;
 }
 
+.gc-archv.modal-content {
+  border: none;
+  border-radius: 0;
+}
 .gc-archv {
   background-color: #ffd700 !important;
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   padding: 25px 0;
-}
-.gc-archv.modal-content {
-  border: none;
-  border-radius: 0;
 }
 .gc-archv h2 {
   margin-top: 0;
@@ -5582,7 +5600,7 @@ header .brand img {
   padding-right: 0;
 }
 #wb-lng abbr {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
   font-size: 1.125rem;
   text-decoration: none;
 }
@@ -5749,15 +5767,15 @@ a.shr-opn:hover, a.shr-opn {
   margin-top: 0.5em;
 }
 
-.pagedetails {
-  padding-bottom: 2em;
-  padding-top: 2em;
-}
 .pagedetails.text-right .shr-pg {
   text-align: left;
 }
 main .pagedetails {
   font-size: 16px;
+}
+.pagedetails {
+  padding-bottom: 2em;
+  padding-top: 2em;
 }
 .pagedetails.row details {
   margin-bottom: 0.25em;
@@ -5767,7 +5785,7 @@ main .pagedetails {
 .pagedetails details {
   margin-bottom: 0;
 }
-.pagedetails details .well {
+.pagedetails details .well, .pagedetails details a.gc-dwnld {
   margin-left: -1.1em;
   margin-right: -1.1em;
 }
@@ -5785,19 +5803,29 @@ main .pagedetails {
 /*
   @title: GC feedback - Base
  */
-#gc-pft {
-  /* In noscript/basic HTML mode... */
-}
 #gc-pft details {
   margin-bottom: 15px;
   margin-top: 0;
 }
+#gc-pft legend {
+  font-size: 1rem;
+}
+#gc-pft .btn {
+  padding: 6px 12px;
+}
 #gc-pft .gc-pft-no {
   font-weight: 700;
 }
+#gc-pft {
+  /* In noscript/basic HTML mode... */
+}
 .no-js #gc-pft, .wb-disable #gc-pft {
   /* Disable row gutters (default selector isn't specific-enough) */
+}
+.no-js #gc-pft, .wb-disable #gc-pft {
   /* Make the legend full width */
+}
+.no-js #gc-pft, .wb-disable #gc-pft {
   /* Left-align the legend and yes/no buttons */
 }
 .no-js #gc-pft .nojs-text-left, .wb-disable #gc-pft .nojs-text-left {
@@ -5845,19 +5873,6 @@ main .pagedetails {
   padding: 0;
 }
 
-.gcweb-menu {
-  /*
-   * Level 1
-   */
-  /*
-   * Level 2
-   */
-  /* The rest of items */
-  /* First menu item (represent the home link */
-  /* Undo for lower level */
-  /* SubSubMenu (MostRequested) for more interoperability, use CSS class */
-  /* Grid of the submenu panel */
-}
 .gcweb-menu button[aria-haspopup=true] {
   background-color: #26374a;
   border: 1px solid #26374a;
@@ -5882,6 +5897,11 @@ main .pagedetails {
 }
 .gcweb-menu button[aria-haspopup=true][aria-expanded=true] + [role=menu] {
   z-index: 9999;
+}
+.gcweb-menu {
+  /*
+   * Level 1
+   */
 }
 .gcweb-menu [role=menu] {
   background-color: #444;
@@ -5923,6 +5943,11 @@ main .pagedetails {
   background-color: #fff;
   color: #333;
 }
+.gcweb-menu {
+  /*
+   * Level 2
+   */
+}
 .gcweb-menu [role=menu] [role=menu] {
   background-color: #fff;
   border-top: #eee solid 1px;
@@ -5953,6 +5978,9 @@ main .pagedetails {
   color: #000;
   width: auto;
 }
+.gcweb-menu {
+  /* The rest of items */
+}
 .gcweb-menu [role=menu] [role=menu] li [role=menuitem] {
   color: #284162;
   padding: 6px 0;
@@ -5961,10 +5989,16 @@ main .pagedetails {
 .gcweb-menu [role=menu] [role=menu] li [role=menuitem]:hover {
   color: #0535d2;
 }
+.gcweb-menu {
+  /* First menu item (represent the home link */
+}
 .gcweb-menu [role=menu] [role=menu] li:first-child [role=menuitem] {
   font-size: 32px;
   font-weight: 700;
   text-decoration: underline;
+}
+.gcweb-menu {
+  /* Undo for lower level */
 }
 .gcweb-menu [role=menu] [role=menu] [role=menu] li:first-child [role=menuitem] {
   font-size: 18px;
@@ -5972,9 +6006,15 @@ main .pagedetails {
   text-decoration: underline;
   width: auto;
 }
+.gcweb-menu {
+  /* SubSubMenu (MostRequested) for more interoperability, use CSS class */
+}
 .gcweb-menu [role=menu] [role=menu] li:last-child [role=menu] {
   list-style: disc;
   padding-top: 0;
+}
+.gcweb-menu {
+  /* Grid of the submenu panel */
 }
 .gcweb-menu [role=menu] [role=menu] li {
   width: 45%;
@@ -6609,6 +6649,10 @@ tbody.collapse.in {
 .fade.reverse.out {
   -webkit-animation-name: fadein;
           animation-name: fadein;
+}
+
+.wb-disable .fade {
+  opacity: 1;
 }
 
 @-webkit-keyframes fadein {
@@ -7642,7 +7686,6 @@ tbody.collapse.in {
   border-top: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  -webkit-overflow-scrolling: touch;
 }
 .navbar-collapse:before, .navbar-collapse:after {
   display: table;
@@ -7650,6 +7693,9 @@ tbody.collapse.in {
 }
 .navbar-collapse:after {
   clear: both;
+}
+.navbar-collapse {
+  -webkit-overflow-scrolling: touch;
 }
 .navbar-collapse.in {
   overflow-y: auto;
@@ -7676,13 +7722,6 @@ tbody.collapse.in {
   }
 }
 
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-  position: fixed;
-  right: 0;
-  left: 0;
-  z-index: 1030;
-}
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse {
   max-height: 340px;
@@ -7692,6 +7731,13 @@ tbody.collapse.in {
   .navbar-fixed-bottom .navbar-collapse {
     max-height: 200px;
   }
+}
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
 }
 @media (min-width: 768px) {
   .navbar-fixed-top,
@@ -7839,8 +7885,6 @@ tbody.collapse.in {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 6.5px;
-  margin-bottom: 6.5px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -7899,6 +7943,10 @@ tbody.collapse.in {
   .navbar-form .form-group:last-child {
     margin-bottom: 0;
   }
+}
+.navbar-form {
+  margin-top: 6.5px;
+  margin-bottom: 6.5px;
 }
 @media (min-width: 768px) {
   .navbar-form {
@@ -9440,7 +9488,7 @@ button.list-group-item-danger.active:focus {
   padding-bottom: 75%;
 }
 
-.well {
+.well, a.gc-dwnld {
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
@@ -9450,7 +9498,7 @@ button.list-group-item-danger.active:focus {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-.well blockquote {
+.well blockquote, a.gc-dwnld blockquote {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
 }
@@ -9804,7 +9852,7 @@ table.dataTable thead .sorting-icons:after, table.dataTable thead .sorting-icons
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.4375;
@@ -9925,7 +9973,7 @@ table.dataTable thead .sorting-icons:after, table.dataTable thead .sorting-icons
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.4375;
@@ -10147,7 +10195,7 @@ table.dataTable thead .sorting-icons:after, table.dataTable thead .sorting-icons
 .carousel-control.left {
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.0001)));
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#80000000", endColorstr="#00000000", GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
   background-repeat: repeat-x;
 }
 .carousel-control.right {
@@ -10155,7 +10203,7 @@ table.dataTable thead .sorting-icons:after, table.dataTable thead .sorting-icons
   left: auto;
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.5)));
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00000000", endColorstr="#80000000", GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
   background-repeat: repeat-x;
 }
 .carousel-control:hover, .carousel-control:focus {
@@ -10282,7 +10330,7 @@ table.dataTable thead .sorting-icons:after, table.dataTable thead .sorting-icons
 .wb-calevt-cal .cal-days td:hover ul, .wb-calevt-cal .cal-days td ul.ev-details {
   background-color: #fff;
   border: 1px solid #333;
-  clip: rect(auto, auto, auto, auto);
+  clip-path: none;
   color: #000;
   height: inherit;
   list-style-type: none;
@@ -10416,7 +10464,7 @@ details.alert:before, details.alert[open]:before {
 details.alert summary, details.alert[open] summary {
   border-width: 0;
   margin-right: 15px;
-  padding-left: 5px;
+  padding-left: 21px;
 }
 details.alert summary:focus, details.alert summary:hover, details.alert[open] summary:focus, details.alert[open] summary:hover {
   text-decoration: none;
@@ -11435,9 +11483,6 @@ body.wb-modal .modal-dialog summary {
 .wb-mltmd {
   display: block;
   position: relative;
-  /*
-    Light Skinning of mediacontrols
-   */
 }
 .wb-mltmd.video:not(.playing):not(.waiting):not(.youtube) .display {
   cursor: pointer;
@@ -11466,7 +11511,7 @@ body.wb-modal .modal-dialog summary {
   height: auto;
   width: 100%;
 }
-.wb-mltmd.cc_on .wb-mm-cc {
+.wb-mltmd.cc_on.played:not(.youtube) .wb-mm-cc {
   display: table;
   height: calc(2.875em + 1em);
   padding: 0.5em;
@@ -11477,6 +11522,11 @@ body.wb-modal .modal-dialog summary {
   display: block;
   margin-left: -2px;
   width: 1.2em;
+}
+.wb-mltmd {
+  /*
+    Light Skinning of mediacontrols
+   */
 }
 .wb-mltmd.skn-lt {
   border-bottom: 1px solid #ddd;
@@ -11526,8 +11576,6 @@ body.wb-modal .modal-dialog summary {
   padding-top: 2em;
   position: relative;
   width: 100%;
-  /* Progress Bar */
-  /* Slider polyfill styles */
 }
 .wb-mm-ctrls .btn {
   background: transparent;
@@ -11574,6 +11622,9 @@ body.wb-modal .modal-dialog summary {
 .wb-mm-ctrls .wb-mm-prgrss {
   display: table-cell;
   vertical-align: middle;
+}
+.wb-mm-ctrls {
+  /* Progress Bar */
 }
 .wb-mm-ctrls progress {
   /* Important Thing */
@@ -11667,6 +11718,9 @@ body.wb-modal .modal-dialog summary {
   border: 1px solid #707070;
   height: 1.3em;
   width: 10px;
+}
+.wb-mm-ctrls {
+  /* Slider polyfill styles */
 }
 .wb-mm-ctrls .fd-slider {
   display: inline-block;
@@ -11933,7 +11987,7 @@ ol.linenums li {
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  */
 #wb-rsz {
-  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
   margin: 0;
   overflow: hidden;
   position: absolute;
@@ -12007,57 +12061,63 @@ ol.linenums li {
   width: 32px;
   height: 32px;
 }
-.shr-pg .myspace:before {
+.shr-pg .mastodon:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -32px -64px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .pinterest:before {
+.shr-pg .myspace:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -64px -64px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .reddit:before {
+.shr-pg .pinterest:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -96px 0px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .tinyurl:before {
+.shr-pg .reddit:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -96px -32px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .tumblr:before {
+.shr-pg .tinyurl:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -96px -64px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .twitter:before {
+.shr-pg .tumblr:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: 0px -96px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .whatsapp:before {
+.shr-pg .twitter:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -32px -96px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .x:before {
+.shr-pg .whatsapp:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -64px -96px;
   width: 32px;
   height: 32px;
 }
-.shr-pg .yahoomail:before {
+.shr-pg .x:before {
   background-image: url(../../wet-boew/assets/sprites_share.png);
   background-position: -96px -96px;
+  width: 32px;
+  height: 32px;
+}
+.shr-pg .yahoomail:before {
+  background-image: url(../../wet-boew/assets/sprites_share.png);
+  background-position: -128px 0px;
   width: 32px;
   height: 32px;
 }
@@ -12130,16 +12190,8 @@ ol.linenums li {
   margin: 10px 1%;
   width: 48%;
 }
-.wb-steps.quiz fieldset:not(:first-child) legend {
-  border-top: 1px solid #e5e5e5;
-  padding-top: 10px;
-}
-.wb-steps.quiz fieldset:not(:first-child):not(:has(legend)) {
-  border-top: 1px solid #e5e5e5;
-  padding-top: 10px;
-}
-.wb-steps.quiz fieldset legend {
-  float: none;
+.wb-steps.quiz fieldset legend + * {
+  clear: left;
 }
 .wb-steps.quiz .wb-tggle-fildst > legend:before {
   content: "";
@@ -12664,11 +12716,6 @@ table.dataTable tbody tr.selected {
           box-shadow: none;
 }
 
-.wb-tabs.carousel-s1 [role=tablist] > li.active a, .wb-tabs.carousel-s1 [role=tablist] > li:focus a, .wb-tabs.carousel-s1 [role=tablist] > li:hover a {
-  border-top: 0;
-  padding-top: 10px;
-}
-
 .wb-tabs.carousel-s2 [role=tablist] > li.control, .wb-tabs.carousel-s1 [role=tablist] > li.control, .wb-tabs [role=tablist] > li a, .wb-tabs [role=tablist] > li {
   display: inline-block;
 }
@@ -12682,7 +12729,6 @@ table.dataTable tbody tr.selected {
 }
 .wb-tabs > .tabpanels > details > summary, .wb-tabs > details > summary {
   margin: -6px -12px;
-  padding: 6px 12px;
 }
 
 .csstransitions .wb-tabs [role=tabpanel].out {
@@ -12697,12 +12743,6 @@ table.dataTable tbody tr.selected {
    * Default, minimal, shared style
    */
   /* For backwards compatibility. Should be removed in v4.1 */
-  /**
-   * Style 1 - Basic carousel style
-   */
-  /**
-   * Style 2 - Slider-like carousel style
-   */
 }
 .wb-tabs details[open] {
   border-top-left-radius: 0;
@@ -12713,18 +12753,22 @@ table.dataTable tbody tr.selected {
 }
 .wb-tabs [role=tablist] {
   border-spacing: 10px 0;
-  display: table;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   list-style: none;
-  margin: 0;
+  margin-bottom: -1px;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 0;
   position: relative;
 }
 .wb-tabs [role=tablist] > li {
   background: #ebf2fc;
   color: #000;
-  cursor: pointer;
-  display: table-cell;
-  left: -10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   position: relative;
   text-align: center;
   border-color: #ccc;
@@ -12736,18 +12780,16 @@ table.dataTable tbody tr.selected {
   padding: 10px;
   text-decoration: none;
 }
-.wb-tabs [role=tablist] > li:focus, .wb-tabs [role=tablist] > li:hover {
+.wb-tabs [role=tablist] > li a:focus, .wb-tabs [role=tablist] > li a:hover {
   background: #ccc;
   background: rgba(204, 204, 204, 0.9);
 }
 .wb-tabs [role=tablist] > li.active {
-  background: #fff;
   border-bottom: 0;
-  cursor: default;
-  padding-bottom: 1px;
   z-index: 2;
 }
 .wb-tabs [role=tablist] > li.active a {
+  background: #fff;
   border-color: #666;
   border-style: solid;
   border-width: 4px 0 0 0;
@@ -12764,9 +12806,8 @@ table.dataTable tbody tr.selected {
 .wb-tabs [role=tablist] > li.tab-count .curr-count {
   font-size: 1.5em;
 }
-.wb-tabs [role=tablist] > li.tab-count:focus, .wb-tabs [role=tablist] > li.tab-count:hover {
-  background: transparent;
-  cursor: default;
+.wb-tabs [role=tablist] > li + li {
+  margin-left: 10px;
 }
 .wb-tabs [role=tablist].generated li {
   border-bottom: 0;
@@ -12785,6 +12826,11 @@ table.dataTable tbody tr.selected {
   position: relative;
   z-index: 1;
 }
+.wb-tabs {
+  /**
+   * Style 1 - Basic carousel style
+   */
+}
 .wb-tabs.carousel-s1 {
   border-top: 0;
 }
@@ -12793,18 +12839,16 @@ table.dataTable tbody tr.selected {
   left: 1em;
   position: static;
 }
-.wb-tabs.carousel-s1 [role=tablist] > li.prv {
-  margin-right: 5px;
-}
 .wb-tabs.carousel-s1 [role=tablist] > li.tab-count {
   background: none;
   border: 0;
   font-size: 0.9em;
   padding: 0 0.1em;
-  top: 0.55em;
 }
-.wb-tabs.carousel-s1 [role=tablist] > li.tab-count.active, .wb-tabs.carousel-s1 [role=tablist] > li.tab-count:focus, .wb-tabs.carousel-s1 [role=tablist] > li.tab-count:hover {
-  cursor: default;
+.wb-tabs {
+  /**
+   * Style 2 - Slider-like carousel style
+   */
 }
 .wb-tabs.carousel-s2 {
   background: #eee;
@@ -12821,12 +12865,18 @@ table.dataTable tbody tr.selected {
 .wb-tabs.carousel-s2 [role=tablist] > li.prv a {
   padding-left: 1em;
 }
+.wb-tabs.carousel-s2 [role=tablist] > li.tab-count {
+  margin: 10px;
+}
 .wb-tabs.carousel-s2 [role=tablist] > li.plypause {
   background: none;
   border: 0;
-  float: right;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   margin-right: 0;
   padding: 2px 0;
+  text-align: right;
 }
 .wb-tabs.carousel-s2 [role=tablist] > li.plypause a {
   font-size: 1.5em;
@@ -12940,49 +12990,23 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
 
 .wb-twitter {
   position: relative;
-  /* Align the loading icon relative to the center of the Twitter link in browsers that support :has() */
-  /* Display the loading icon as normal content */
   /* Prevent the iframe from getting too wide */
   /* When the iframe gets populated, Twitter's third party widget script injects a style attribute with a width in pixels... but it sometimes gets wider than its container (causing skip links to look misaligned). This sets min/max widths to avoid that behaviour and avoid truncating content if the iframe gets too narrow. */
   /* The timeline's minimum widths are documented in https://developer.twitter.com/en/docs/twitter-for-websites/timelines/overview's Dimensions section... went with the narrowest width that works in practice. */
-  /* Make focus outline rings rounded and scroll horizontally if the inner iframe gets too narrow to fit */
-  /* Completely hide the start notice initially... */
-  /* Completely hide the end notice initially... */
-}
-.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) {
-  display: inline-block;
-  /* Counteract the iframe width fix (see below) to prevent the loading icon from shifting sideways when the empty iframe first appears */
-}
-.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::before {
-  left: 0;
-  right: 0;
-}
-.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) a.twitter-timeline + .twitter-timeline-loading::after {
-  margin: auto;
-}
-.wb-twitter:has(a.twitter-timeline + .twitter-timeline-loading) iframe {
-  min-width: 0;
-}
-.wb-twitter a.twitter-timeline + .twitter-timeline-loading {
-  margin-top: 5px;
-  position: relative;
-  min-height: 100px;
-  min-width: 100px;
-  /* Align the loading icon leftwards by default */
-}
-.wb-twitter a.twitter-timeline + .twitter-timeline-loading::before {
-  right: auto;
-}
-.wb-twitter a.twitter-timeline + .twitter-timeline-loading::after {
-  margin-left: calc((100px - 1em) / 2);
 }
 .wb-twitter iframe {
   max-width: 100%;
   min-width: 224px;
 }
+.wb-twitter {
+  /* Make focus outline rings rounded and scroll horizontally if the inner iframe gets too narrow to fit */
+}
 .wb-twitter .twitter-timeline-rendered {
   border-radius: 12px;
   overflow-x: auto;
+}
+.wb-twitter {
+  /* Completely hide the start notice initially... */
 }
 .wb-twitter .wb-twitter-notice-start {
   /* setfocus.wb() automatically adds a tabindex="-1" attribute to the end notice if a skip to start link gets activated */
@@ -13013,6 +13037,9 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
   background-color: #000;
   color: #FFF;
 }
+.wb-twitter {
+  /* Completely hide the end notice initially... */
+}
 .wb-twitter .wb-twitter-notice-end {
   /* setfocus.wb() automatically adds a tabindex="-1" attribute to the end notice if a skip to end link gets activated */
   /* When that happens, the end notice gets unveiled as invisible content to make it focusable (hidden elements can't receive focus programmatically) */
@@ -13026,18 +13053,6 @@ html:not(.wb-disable) .wb-tagfilter-items:not(:has([data-wb-tags])) + .wb-tagfil
   bottom: 0;
   color: #000;
   text-align: center;
-}
-
-[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading {
-  /* Align the loading icon rightwards by default */
-}
-[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading::before {
-  left: auto;
-  right: 0;
-}
-[dir=rtl] .wb-twitter a.twitter-timeline + .twitter-timeline-loading::after {
-  margin-left: auto;
-  margin-right: calc((100px - 1em) / 2);
 }
 
 /*
@@ -13794,16 +13809,26 @@ ol-geolocate button {
   padding: 0;
 }
 
-.wb-paginate-pager {
-  text-align: center;
+.wb-paginate-pager li.active:nth-last-child(2) button, .wb-paginate-pager .paginate-next {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
 }
-.wb-paginate-pager .paginate-prev::before,
-.wb-paginate-pager .paginate-next::after {
+
+.wb-paginate-pager li.active:nth-child(2) button, .wb-paginate-pager .paginate-prev {
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.wb-paginate-pager .paginate-next::after, .wb-paginate-pager .paginate-prev::before {
   font-family: "Glyphicons Halflings";
   font-weight: 400;
   line-height: 1em;
   position: relative;
   top: 0.1em;
+}
+
+.wb-paginate-pager {
+  text-align: center;
 }
 .wb-paginate-pager .paginate-prev::before {
   content: "\e091";
@@ -13813,17 +13838,8 @@ ol-geolocate button {
   content: "\e092";
   margin-left: 0.5em;
 }
-.wb-paginate-pager li.active:nth-last-child(2) a {
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-}
-.wb-paginate-pager li.active:nth-last-child(2) button {
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-}
-.wb-paginate-pager .pagination > li.active > button {
-  cursor: default;
-  outline-offset: -2px;
+.wb-paginate-pager .paginate-prev {
+  margin-left: 0;
 }
 .wb-paginate-pager .pagination > li > button {
   background-color: #eaebed;
@@ -13843,19 +13859,6 @@ ol-geolocate button {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.wb-paginate-pager .pagination > li.disabled + li > button {
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
-}
-.wb-paginate-pager .pagination > li:first-child > button {
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
-  margin-left: 0;
-}
-.wb-paginate-pager .pagination > li:last-child > button {
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-}
 .wb-paginate-pager .pagination > .active > button, .wb-paginate-pager .pagination > .active > button:focus, .wb-paginate-pager .pagination > .active > button:hover {
   background-color: #2572b4;
   border-color: #2572b4;
@@ -13871,6 +13874,31 @@ html:not(.wb-disable) .wb-pgfltr-out {
 /* Feeds plugin GC override */
 .feeds-cont li a {
   font-weight: 700;
+}
+
+/* Geomap plugin GC override */
+.wb-geomap.large-checkboxes .geomap-lgnd-layer.gc-chckbxrdio input[type=checkbox] + label {
+  padding-left: 4px;
+}
+.wb-geomap.large-checkboxes .geomap-lgnd-layer.gc-chckbxrdio input[type=checkbox] + label::before {
+  left: 2px;
+}
+.wb-geomap.large-checkboxes .geomap-lgnd-layer.gc-chckbxrdio input[type=checkbox] + label::after {
+  left: 10px;
+}
+.wb-geomap.large-checkboxes .wb-geomap-layers table td .gc-chckbxrdio {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.wb-geomap.large-checkboxes .wb-geomap-layers table td .gc-chckbxrdio label {
+  margin-left: 28px;
+  padding-left: 0;
+}
+.wb-geomap.large-checkboxes .wb-geomap-layers table td .gc-chckbxrdio label::before {
+  left: 2px;
+}
+.wb-geomap.large-checkboxes .wb-geomap-layers table td .gc-chckbxrdio label::after {
+  left: 10px;
 }
 
 /*
@@ -14107,141 +14135,6 @@ main .gc-rms-lngth img {
   font-size: 20px;
 }
 
-/*
- *
- * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
- * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- *
- */
-/*
-	Global Provisional styling
-	- Provisional  CSSspecific for view port are defined in the "views/[view port]" theme CSS
-*/
-.provisional {
-  /*
-  *
-  *
-  * START: the following code has been deprecated as of version 16.0.0
-  *
-  *
-  */
-  /* ------------
-   * Background colour
-   *
-   */
-  /* ------------
-   * Background image for heading
-   *
-   */
-  /* ------------
-   * Theme color
-   *
-   */
-  /* Pink day - One day event in April
-   * (with a contrast conforming to Level AAA)
-   */
-  /*
-  *
-  *
-  * END: the above code has been deprecated as of version 16.0.0
-  *
-  *
-  */
-  /* Dark theme
-   */
-  /* Theme/topic decorative image */
-}
-.provisional .bg-pnkDy {
-  background-color: #AD005F;
-}
-.provisional .bg-pnkDy.well.header-rwd {
-  background-color: #570030;
-}
-.provisional .bg-img-hdng {
-  background-image: url("https://www.canada.ca/content/dam/servcan/x-blue-line.png");
-  background-position: right bottom;
-  background-repeat: no-repeat;
-  min-height: 60px;
-  padding-bottom: 35px;
-  padding-right: 80px;
-}
-.provisional.pnkDy-theme .gcweb-menu button[aria-haspopup=true],
-.provisional.pnkDy-theme #wb-srch button,
-.provisional.pnkDy-theme .srchbox button {
-  background-color: #AD005F;
-  border-color: #AD005F;
-}
-.provisional.pnkDy-theme .gcweb-menu button[aria-haspopup=true]:focus, .provisional.pnkDy-theme .gcweb-menu button[aria-haspopup=true]:hover,
-.provisional.pnkDy-theme #wb-srch button:focus, .provisional.pnkDy-theme #wb-srch button:hover,
-.provisional.pnkDy-theme .srchbox button:focus, .provisional.pnkDy-theme .srchbox button:hover {
-  background-color: #570030;
-  color: #fff;
-}
-.provisional.pnkDy-theme .gcweb-menu, .provisional.pnkDy-theme #wb-bnr + .gcweb-menu, .provisional.pnkDy-theme.home .gcweb-menu, .provisional.pnkDy-theme #wb-bnr + hr {
-  border-top-color: #AD005F;
-}
-.provisional.pnkDy-theme.home .gcweb-menu button[aria-haspopup=true] {
-  background-color: #fff;
-  border-color: #fff;
-  color: #AD005F;
-}
-.provisional.pnkDy-theme.home .gcweb-menu button[aria-haspopup=true]:focus,
-.provisional.pnkDy-theme.home .gcweb-menu button[aria-haspopup=true]:hover {
-  background-color: #AD005F;
-  border-color: #AD005F;
-  color: #fff;
-}
-.provisional.pnkDy-theme #wb-info .gc-contextual {
-  background-color: #c40b71;
-}
-.provisional.pnkDy-theme #wb-info .landscape {
-  background-color: #AD005F;
-}
-.provisional.icon-warning-light, .provisional .icon-warning-light {
-  color: #DF7200;
-}
-.provisional.dark-theme .gcweb-menu button[aria-haspopup=true],
-.provisional.dark-theme #wb-srch button,
-.provisional.dark-theme .srchbox button {
-  background-color: #000;
-  border-color: #000;
-  color: #fff;
-}
-.provisional.dark-theme .gcweb-menu button[aria-haspopup=true]:focus, .provisional.dark-theme .gcweb-menu button[aria-haspopup=true]:hover,
-.provisional.dark-theme #wb-srch button:focus, .provisional.dark-theme #wb-srch button:hover,
-.provisional.dark-theme .srchbox button:focus, .provisional.dark-theme .srchbox button:hover {
-  background-color: #000;
-  color: #fff;
-}
-.provisional.dark-theme .gcweb-menu, .provisional.dark-theme #wb-bnr + .gcweb-menu, .provisional.dark-theme.home .gcweb-menu, .provisional.dark-theme #wb-bnr + hr {
-  border-top-color: #000;
-}
-.provisional.dark-theme.home .gcweb-menu button[aria-haspopup=true] {
-  background-color: #fff;
-  border-color: #fff;
-  color: #000;
-}
-.provisional.dark-theme.home .gcweb-menu button[aria-haspopup=true]:focus,
-.provisional.dark-theme.home .gcweb-menu button[aria-haspopup=true]:hover {
-  background-color: #000;
-  border-color: #000;
-  color: #fff;
-}
-.provisional.dark-theme #wb-info .gc-contextual {
-  background-color: #0a1015;
-}
-.provisional.dark-theme #wb-info .landscape {
-  background-color: #000;
-  color: #fff;
-}
-.provisional.gc-topic-bg div {
-  background: no-repeat;
-  margin-left: -15px;
-  min-height: 200px;
-  overflow: hidden;
-  width: calc(50vw - 15px);
-}
-
 .gc-dwnld .gc-dwnld-txt {
   text-decoration: underline;
 }
@@ -14256,6 +14149,41 @@ main .gc-rms-lngth img {
 }
 .gc-dwnld p {
   margin-bottom: 0;
+}
+
+a.gc-dwnld {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  gap: 30px;
+}
+a.gc-dwnld > img {
+  -ms-flex-item-align: start;
+      align-self: start;
+  border: 5px solid #eaebed;
+  max-width: 25%;
+}
+a.gc-dwnld > span {
+  display: block;
+}
+a.gc-dwnld.vertical {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 15px;
+}
+a.gc-dwnld.vertical > img {
+  -ms-flex-item-align: center;
+      align-self: center;
+  max-width: 100%;
+}
+a.gc-dwnld:hover {
+  text-decoration: none;
+}
+a.gc-dwnld:hover > img {
+  -webkit-box-shadow: 1px 5px 7px rgba(0, 0, 0, 0.15);
+          box-shadow: 1px 5px 7px rgba(0, 0, 0, 0.15);
 }
 
 /*
@@ -14292,6 +14220,9 @@ main .gc-rms-lngth img {
 .gc-srvinfo p, .gc-drmt p {
   font-size: 18px;
   line-height: 1.5;
+}
+.gc-srvinfo .input-group, .gc-drmt .input-group {
+  max-width: 65ch;
 }
 
 /*
@@ -14658,16 +14589,16 @@ main .gc-rms-lngth img {
   right: 5px;
   top: 5px;
 }
-.fd-wdgt .feeds-date {
-  display: inline-block;
-  float: none !important;
-  padding-top: 10px;
-}
 .fd-wdgt .feeds-date:before {
   content: "";
 }
 .fd-wdgt .feeds-date:after {
   content: "";
+}
+.fd-wdgt .feeds-date {
+  display: inline-block;
+  float: none !important;
+  padding-top: 10px;
 }
 .fd-wdgt .media-body img {
   display: block;
@@ -14743,11 +14674,11 @@ main .gc-rms-lngth img {
 /*
  * Well header responsive
  */
-.bg-gctheme.well.header-rwd {
+.bg-gctheme.well.header-rwd, a.bg-gctheme.header-rwd.gc-dwnld {
   background-color: #26374a;
 }
 
-.well.header-rwd {
+.well.header-rwd, a.header-rwd.gc-dwnld {
   width: 100%;
 }
 
@@ -14941,7 +14872,7 @@ fieldset.gc-chckbxrdio {
 .gc-features img {
   width: 100%;
 }
-.gc-features .well {
+.gc-features .well, .gc-features a.gc-dwnld {
   border-radius: 0;
   position: relative;
 }
@@ -15026,6 +14957,380 @@ aside.features .thumbnail img {
   margin-left: 0;
   margin-right: 0;
   padding-left: 0;
+}
+
+/*
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ *
+ * Conjunction base styles
+*/
+ul[class*=cnjnctn-type-] {
+  list-style-type: "";
+  padding-left: 0;
+}
+
+[class*=cnjnctn-type-] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  margin-bottom: 15px;
+  margin-right: 0;
+  margin-top: 15px;
+  min-height: 3em;
+  position: relative;
+}
+
+[class*=cnjnctn-type-] > [class*=cnjnctn-col]:not(:first-child):after {
+  border-left: 3px solid #6f6f6f;
+  content: " ";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+[class*=cnjnctn-type-] > [class*=cnjnctn-col] {
+  width: 100%;
+}
+
+[class*=cnjnctn-type-]:not(.brdr-0) > [class*=cnjnctn-col] {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+[class*=cnjnctn-type-] > [class*=cnjnctn-col] > :first-child:not([class*=mrgn-tp-]) {
+  margin-top: 15px;
+}
+
+[class*=cnjnctn-type-] > [class*=cnjnctn-col] > :last-child:not([class*=mrgn-bttm-]) {
+  margin-bottom: 0;
+}
+
+[class*=cnjnctn-type-] > [class*=cnjnctn-col]:not(:last-child) {
+  margin-bottom: 1.8em;
+  margin-right: 1.5em;
+}
+
+[class*=cnjnctn-type-] > [class*=cnjnctn-col]:not(:first-child) {
+  margin-top: 1.8em;
+}
+
+[class*=cnjnctn-type-] > [class*=cnjnctn-col]:not(:first-child):before {
+  border-color: #6f6f6f;
+  border-style: solid;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  font-size: 0.8em;
+  font-weight: 600;
+  height: 1.8em;
+  left: auto;
+  line-height: 1.7em;
+  margin-top: -3.8em;
+  padding: 0.3em;
+  position: absolute;
+  text-align: center;
+  width: 1.8em;
+}
+
+.cnjnctn-type-or > [class*=cnjnctn-col]:not(:first-child):before {
+  border-radius: 50%;
+  border-width: 3px;
+}
+
+.cnjnctn-type-and > [class*=cnjnctn-col]:not(:first-child):before {
+  border-width: 3px 0;
+}
+
+html:lang(en) .cnjnctn-type-and > [class*=cnjnctn-col]:not(:first-child):before {
+  content: "and";
+}
+
+html:lang(fr) .cnjnctn-type-and > [class*=cnjnctn-col]:not(:first-child):before {
+  content: "et";
+}
+
+html:lang(en) .cnjnctn-type-or > [class*=cnjnctn-col]:not(:first-child):before {
+  content: "or";
+}
+
+html:lang(fr) .cnjnctn-type-or > [class*=cnjnctn-col]:not(:first-child):before {
+  content: "ou";
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-90 {
+  -ms-flex-preferred-size: 90%;
+      flex-basis: 90%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-80 {
+  -ms-flex-preferred-size: 80%;
+      flex-basis: 80%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-75 {
+  -ms-flex-preferred-size: 75%;
+      flex-basis: 75%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-70 {
+  -ms-flex-preferred-size: 70%;
+      flex-basis: 70%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-60 {
+  -ms-flex-preferred-size: 60%;
+      flex-basis: 60%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-50 {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-40 {
+  -ms-flex-preferred-size: 40%;
+      flex-basis: 40%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-30 {
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-25 {
+  -ms-flex-preferred-size: 25%;
+      flex-basis: 25%;
+}
+
+[class*=cnjnctn-type-] > .cnjnctn-col-20 {
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
+}
+
+[class*=cnjnctn-type-].cnjnctn-xs {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+[class*=cnjnctn-type-].cnjnctn-xs:not(.brdr-0) > [class*=cnjnctn-col] {
+  min-height: 3em;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+[class*=cnjnctn-type-].cnjnctn-xs > [class*=cnjnctn-col]:not(:first-child):after {
+  -o-border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+     border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #6f6f6f), color-stop(0.3em, #6f6f6f), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #6f6f6f), color-stop(2.35em, #6f6f6f)) 1 100%;
+     border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+  border-left: 3px solid #6f6f6f;
+  margin-left: -1.6em;
+}
+
+@media (prefers-contrast: more) {
+  [class*=cnjnctn-type-].cnjnctn-xs > [class*=cnjnctn-col]:not(:first-child):after {
+    -o-border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+       border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #fff), color-stop(0.3em, #fff), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #fff), color-stop(2.35em, #fff)) 1 100%;
+       border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+    border-left: none;
+  }
+}
+[class*=cnjnctn-type-].cnjnctn-xs > [class*=cnjnctn-col]:not(:first-child) {
+  margin-left: 1.4em;
+  margin-top: 0;
+  position: relative;
+}
+
+.cnjnctn-type-or.cnjnctn-xs > [class*=cnjnctn-col]:not(:first-child):before {
+  margin-left: -3.3em;
+}
+
+.cnjnctn-type-and.cnjnctn-xs > [class*=cnjnctn-col]:not(:first-child):before {
+  border-width: 3px 0;
+  margin-left: -3.15em;
+}
+
+[class*=cnjnctn-type-].cnjnctn-xs > [class*=cnjnctn-col]:not(:first-child):before {
+  margin-top: 0.3em;
+}
+
+[class*=cnjnctn-type-].cnjnctn-xs > [class*=cnjnctn-col]:not(:last-child) {
+  margin-bottom: 0;
+}
+
+[class*=cnjnctn-type-].brdr-0 > [class*=cnjnctn-col]:after {
+  border-left: none;
+}
+
+/* CSS Document */
+ol.lst-stps {
+  counter-reset: item;
+  padding-left: 0;
+}
+
+ol.lst-stps,
+ol.lst-stps-sub {
+  list-style-type: none;
+}
+
+ol.lst-stps > li {
+  content: counter(item);
+  counter-increment: item;
+}
+
+ol.lst-stps > li:before {
+  content: counter(item);
+}
+
+ol.lst-stps.ld-zr > li:before {
+  content: counter(item, decimal-leading-zero);
+  font-size: 1.4em;
+  padding-left: 0.5em;
+}
+
+ol.lst-stps > li ol.lst-stps-sub {
+  clear: both;
+  counter-reset: subitem;
+  padding-left: 0;
+}
+
+ol.lst-stps > li ol.lst-stps-sub > li:before {
+  content: counter(item) "" counter(subitem, lower-alpha) "";
+  counter-increment: subitem;
+  margin-left: -3em;
+  margin-top: -6px;
+}
+
+ol.lst-stps:not(.stps-strpd) > li,
+ol.lst-stps-sub:not(.stps-strpd) > li {
+  margin-top: 20px;
+  min-height: 3em;
+  padding-left: 3.2em;
+  padding-right: 15px;
+}
+
+ol.lst-stps-sub:not(.stps-strpd) > li {
+  min-height: 2em;
+  padding-left: 2.6em;
+}
+
+ol.lst-stps > li:before,
+ol.lst-stps > li ol.lst-stps-sub > li:before {
+  border-style: solid;
+  border-width: 3px;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  float: left;
+  font-family: Lato, sans-serif;
+  font-weight: 600;
+  line-height: 2;
+  margin-left: -3.2em;
+  margin-right: 10px;
+  margin-top: -8px;
+  position: relative;
+  text-align: center;
+  width: 2em;
+}
+
+ol.lst-stps:not(.ld-zr) > li:before,
+ol.lst-stps:not(.ld-zr) > li ol.lst-stps-sub > li:before {
+  border-radius: 50%;
+}
+
+ol.lst-stps:not(.ld-zr) ol.lst-stps-sub > li:before {
+  font-size: 0.8em;
+}
+
+ol.lst-stps.ld-zr > li:before,
+ol.lst-stps.ld-zr > li ol.lst-stps-sub > li:before {
+  border-width: 0 3px 0 0;
+  line-height: 1.4;
+  margin-top: 0;
+  padding-bottom: 0.8em;
+}
+
+/* striped design */
+ol.lst-stps.stps-strpd > li :first-child:is(h2, h3, h4, h5, h6, p),
+ol.lst-stps-sub.stps-strpd > li :first-child:is(h2, h3, h4, h5, h6, p) {
+  margin-top: auto;
+}
+
+ol.lst-stps.stps-strpd > li,
+ol.lst-stps-sub.stps-strpd > li {
+  min-height: 4em;
+  padding-left: 3.6em;
+  padding-right: 15px;
+}
+
+ol.lst-stps > li ol.lst-stps-sub.stps-strpd > li {
+  padding-left: 3em;
+}
+
+ol.lst-stps.stps-strpd > li:nth-child(odd),
+ol.lst-stps.stps-strpd > li:nth-child(even) ol.lst-stps-sub.stps-strpd > li:nth-child(odd),
+ol.lst-stps.stps-strpd > li:nth-child(odd) ol.lst-stps-sub.stps-strpd > li:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+ol.lst-stps.stps-strpd > li:nth-child(odd) ol.lst-stps-sub.stps-strpd > li:nth-child(odd) {
+  background-color: #fff !important;
+}
+
+ol.lst-stps.stps-strpd > li,
+ol.lst-stps.stps-strpd > li ol.lst-stps-sub.stps-strpd > li {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+ol.lst-stps.stps-strpd:not(.ld-zr) > li:before,
+ol.lst-stps.stps-strpd:not(.ld-zr) > li ol.lst-stps-sub.stps-strpd > li:before {
+  background-color: #fff;
+}
+
+/* Increment (start) */
+ol.lst-stps[start="2"] {
+  counter-set: item 1;
+}
+
+ol.lst-stps[start="3"] {
+  counter-set: item 2;
+}
+
+ol.lst-stps[start="4"] {
+  counter-set: item 3;
+}
+
+ol.lst-stps[start="5"] {
+  counter-set: item 4;
+}
+
+ol.lst-stps[start="6"] {
+  counter-set: item 5;
+}
+
+ol.lst-stps[start="7"] {
+  counter-set: item 6;
+}
+
+ol.lst-stps[start="8"] {
+  counter-set: item 7;
+}
+
+ol.lst-stps[start="9"] {
+  counter-set: item 8;
+}
+
+/* Full width exception li (for exempt designs, e.g. grids, tables, etc.) */
+.cnt-wdth-lmtd .lst-stps > li:has(div, section, table), .cnt-wdth-lmtd .lst-stps .lst-stps-sub > li:has(div, section, table) {
+  max-width: none;
 }
 
 /*
@@ -15551,35 +15856,35 @@ aside.features .thumbnail img {
  * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
  *
 */
-.gc-subway.provisional:not(.gc-subway-index) {
+.gc-subway:not(.gc-subway-index) {
   border: 4px solid #26374a;
   border-radius: 6px;
   margin: 2em 0 0 0.5em;
   padding-bottom: 1em;
   position: relative;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul {
+.gc-subway:not(.gc-subway-index) ul {
   clear: both;
   list-style: none;
   margin-bottom: 0;
   margin-left: -0.685em;
   padding-left: 0.5em;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li {
+.gc-subway:not(.gc-subway-index) ul li {
   border-left: 4px solid #26374a;
   line-height: 1.25em;
   padding-bottom: 1.25em;
   padding-left: 1em;
   position: relative;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li:last-child {
+.gc-subway:not(.gc-subway-index) ul li:last-child {
   border-left-color: transparent;
   padding-bottom: 0;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li a {
+.gc-subway:not(.gc-subway-index) ul li a {
   display: inline-block;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li a::before {
+.gc-subway:not(.gc-subway-index) ul li a::before {
   background-color: #26374a;
   border: 3px solid #26374a;
   border-radius: 50%;
@@ -15596,36 +15901,36 @@ aside.features .thumbnail img {
   transition: box-shadow 0.25s ease, -webkit-box-shadow 0.25s ease;
   width: 1.2em;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li a.active {
+.gc-subway:not(.gc-subway-index) ul li a.active {
   color: #333;
   cursor: default;
   text-decoration: none;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li a.active::before {
+.gc-subway:not(.gc-subway-index) ul li a.active::before {
   -webkit-box-shadow: 0 0 0 10px #26374a inset;
           box-shadow: 0 0 0 10px #26374a inset;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li a.active:hover, .gc-subway.provisional:not(.gc-subway-index) ul li a.active:focus {
+.gc-subway:not(.gc-subway-index) ul li a.active:hover, .gc-subway:not(.gc-subway-index) ul li a.active:focus {
   color: #333;
   text-decoration: none;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li a:not(.active):hover::before, .gc-subway.provisional:not(.gc-subway-index) ul li a:not(.active):focus::before {
+.gc-subway:not(.gc-subway-index) ul li a:not(.active):hover::before, .gc-subway:not(.gc-subway-index) ul li a:not(.active):focus::before {
   -webkit-box-shadow: 0 0 0 4px #fff inset;
           box-shadow: 0 0 0 4px #fff inset;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li ul {
+.gc-subway:not(.gc-subway-index) ul li ul {
   margin: 1em 0 0;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li ul li:last-child {
+.gc-subway:not(.gc-subway-index) ul li ul li:last-child {
   padding-bottom: 0;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li ul.noline li {
+.gc-subway:not(.gc-subway-index) ul li ul.noline li {
   border-left-color: transparent;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li ul.noline li::before {
+.gc-subway:not(.gc-subway-index) ul li ul.noline li::before {
   display: none;
 }
-.gc-subway.provisional:not(.gc-subway-index) ul li ul.noline li a.active::after {
+.gc-subway:not(.gc-subway-index) ul li ul.noline li a.active::after {
   background-color: #26374a;
   content: "";
   display: block;
@@ -15635,24 +15940,24 @@ aside.features .thumbnail img {
   top: 0.5em;
   width: 1.125em;
 }
-.gc-subway.provisional.gc-subway-index h2 {
+.gc-subway.gc-subway-index h2 {
   position: static;
 }
-.gc-subway.provisional.gc-subway-index dl {
+.gc-subway.gc-subway-index dl {
   margin-left: 0.5em;
 }
-.gc-subway.provisional.gc-subway-index dl dt, .gc-subway.provisional.gc-subway-index dl dd {
+.gc-subway.gc-subway-index dl dt, .gc-subway.gc-subway-index dl dd {
   border-left: 4px solid #26374a;
   font-weight: normal;
   margin: 0;
   padding-left: 1em;
   position: relative;
 }
-.gc-subway.provisional.gc-subway-index dl dt:last-of-type, .gc-subway.provisional.gc-subway-index dl dd:last-of-type {
+.gc-subway.gc-subway-index dl dt:last-of-type, .gc-subway.gc-subway-index dl dd:last-of-type {
   border-left-color: transparent;
   padding-bottom: 0;
 }
-.gc-subway.provisional.gc-subway-index dl dt a::before {
+.gc-subway.gc-subway-index dl dt a::before {
   background-color: #26374a;
   border: 3px solid #26374a;
   border-radius: 50%;
@@ -15669,7 +15974,7 @@ aside.features .thumbnail img {
   transition: box-shadow 0.25s ease, -webkit-box-shadow 0.25s ease;
   width: 1.2em;
 }
-.gc-subway.provisional.gc-subway-index dl dd {
+.gc-subway.gc-subway-index dl dd {
   padding-bottom: 1.25em;
   padding-top: 0.25em;
 }
@@ -15690,9 +15995,6 @@ aside.features .thumbnail img {
  * GC Table provisional style
  * -- Responsive table - part of design, not responsive part --
  */
-.provisional.gc-table caption {
-  text-align: left;
-}
 .provisional.gc-table td ul {
   -webkit-padding-start: 20px;
           padding-inline-start: 20px;
@@ -15707,6 +16009,13 @@ aside.features .thumbnail img {
   padding-bottom: 15px;
   padding-top: 15px;
   position: relative;
+}
+.gc-featured-link .stretched-link {
+  text-decoration-thickness: 1.5px;
+}
+.gc-featured-link .stretched-link:hover {
+  text-decoration-thickness: 2.5px;
+  text-underline-offset: 1px;
 }
 .gc-featured-link p {
   margin-bottom: 0px;
@@ -15724,10 +16033,10 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
 }
 
 /* Bold content */
-.bold-content, .well.well-bold {
+.bold-content, .well.well-bold, a.well-bold.gc-dwnld {
   font-weight: 700;
 }
-.bold-content strong, .well.well-bold strong {
+.bold-content strong, .well.well-bold strong, a.well-bold.gc-dwnld strong {
   font-weight: 400;
 }
 
@@ -15737,69 +16046,56 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
   margin-top: 1.25em;
 }
 
-.page-type-search label {
-  font-weight: normal;
+.page-type-search .alert {
+  margin-top: 30px;
 }
-.page-type-search .current, .page-type-search .current label {
+.page-type-search .current {
   font-weight: 700;
 }
-.page-type-search .location {
-  color: #006621;
+.page-type-search #wb-land h2 {
+  font-size: 1.5rem;
+}
+.page-type-search #wb-land h3 {
+  font-size: 1.375rem;
+}
+.page-type-search #wb-land .location, .page-type-search #wb-land p {
+  font-size: 1.125rem;
+}
+.page-type-search #wb-land .location {
+  color: #1b6c1c;
   padding-left: 0;
 }
-.page-type-search .location li {
+.page-type-search #wb-land .location li {
   display: inline-block;
+  word-break: break-word;
 }
-.page-type-search .location li + li:before {
+.page-type-search #wb-land .location li + li:before {
   content: "> ";
 }
-.page-type-search .location cite {
+.page-type-search #wb-land .location cite {
   font-style: normal;
+  word-break: break-word;
 }
-.page-type-search .context-labels {
-  font-size: 0.8em;
-  list-style: none;
-  padding-left: 0;
-}
-.page-type-search .context-labels li {
-  background-color: #5e738b;
-  color: #fff;
-  display: inline-block;
-  font-weight: 700;
-  margin-bottom: 1px;
-  padding: 0 5px;
+.page-type-search #wb-land .location cite a {
+  color: #1b6c1c;
 }
 .page-type-search .results > section {
   border-bottom: solid 1px #000;
   margin-bottom: 1.5em;
   padding-bottom: 1.5em;
 }
-.page-type-search .label li {
+.page-type-search .results > section .context-labels {
+  font-size: 1rem;
+  list-style: none;
+  padding-left: 0;
+}
+.page-type-search .results > section .context-labels li {
   background-color: #5e738b;
-  color: white;
-  font-size: 0.8em;
-  font-weight: bold;
-  margin-top: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-.page-type-search .expand-collapse-buttons {
-  color: white;
-  font-size: 0.8em;
-  font-weight: bold;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-.page-type-search cite a {
-  color: #006621;
+  color: #fff;
   display: inline-block;
-  font-size: 1em;
-  margin-top: 10px;
-}
-.page-type-search .search-description {
-  line-height: 34px;
-  padding-bottom: 8px;
-  padding-top: 8px;
+  font-weight: 700;
+  margin-bottom: 1px;
+  padding: 0 5px;
 }
 
 /*
@@ -15810,29 +16106,18 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
  * @title: Home page exclusive style
  *
  */
-.home {
-  /*
-   * GCWeb menu
-   */
-  /* Home page banner */
-  /* Home page Most requested section
-   *
-   * Reference in:
-   * - views/_screen-sm-max
-   */
-  /* Home page Services and information */
-  /* Home page your gov
-   *
-   * Reference in:
-   * - views/_screen-sm-max
-   */
-}
 .home h1 {
   font-weight: 500;
   margin-top: 10px;
 }
 .home h2 {
-  font-size: 1.2em;
+  font-size: 29px;
+  margin-top: 1rem;
+}
+.home {
+  /*
+   * GCWeb menu
+   */
 }
 .home #wb-bnr + hr {
   border-top: 1px solid #ddd;
@@ -15850,18 +16135,44 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
 .home #wb-so .btn {
   margin-top: 3px;
 }
+.home {
+  /* Home page banner */
+}
 .home .header-rwd {
   margin: 1em 0;
 }
+.home {
+  /* Home page Most requested section
+   *
+   * Reference in:
+   * - views/_screen-sm-max
+   */
+}
 .home .home-most-requested li {
-  font-family: Lato, sans-serif;
-  font-size: 17px;
+  font-family: Lato, "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
+  font-size: 17.5px;
   font-weight: 700;
   line-height: 26px;
   margin-top: 0;
 }
+.home {
+  /* Home page GC features */
+}
+.home .gc-features {
+  margin-bottom: -1em;
+}
+.home {
+  /* Home page Services and information */
+}
 .home .gc-srvinfo p {
-  font-size: 17px;
+  font-size: 18px;
+}
+.home {
+  /* Home page your gov
+   *
+   * Reference in:
+   * - views/_screen-sm-max
+   */
 }
 .home .home-your-gov {
   background-image: url("https://www.canada.ca/content/dam/canada/carousel/bkg-home-yourgov.jpg"), url("../assets/bkg-home-yourgov.jpg");
@@ -15869,8 +16180,15 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
   background-repeat: no-repeat;
   background-size: 38%;
 }
+.home .home-your-gov ul {
+  margin-bottom: 1rem;
+}
+.home .home-your-gov li {
+  font-size: 18px;
+  line-height: 2.3;
+}
 .home .gc-srvinfo .container > p:last-child {
-  margin-bottom: 20px;
+  margin-bottom: 35px;
   margin-top: 20px;
 }
 .home .gc-srvinfo .container > p:last-child .btn-all-services {
@@ -15935,9 +16253,6 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
   visibility: visible;
 }
 
-.backgroundsize.csstransitions {
-  /* Layout of fields */
-}
 .backgroundsize.csstransitions #social-media-centre tbody {
   padding-top: 2em;
 }
@@ -15969,6 +16284,9 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
 .backgroundsize.csstransitions #social-media-centre tbody tr .product-department {
   height: 3em;
   white-space: normal;
+}
+.backgroundsize.csstransitions {
+  /* Layout of fields */
 }
 .backgroundsize.csstransitions .product-listing {
   border: 0;
@@ -16164,8 +16482,6 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
 
 #mobile-centre_wrapper {
   /* Layout of fields */
-  /* Expand/collapse record functionality */
-  /* Data visibility */
 }
 #mobile-centre_wrapper .product-record {
   display: inline-block;
@@ -16217,6 +16533,9 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
 #mobile-centre_wrapper .product-link:hover, #mobile-centre_wrapper .product-link:focus {
   text-decoration: none;
 }
+#mobile-centre_wrapper {
+  /* Expand/collapse record functionality */
+}
 #mobile-centre_wrapper .record-expand {
   color: inherit;
   text-decoration: none;
@@ -16227,6 +16546,9 @@ html:not(.wb-disable) .gc-featured-link[data-bg-color] a {
 }
 #mobile-centre_wrapper .record-close {
   float: right;
+}
+#mobile-centre_wrapper {
+  /* Data visibility */
 }
 #mobile-centre_wrapper .product-listing {
   border: 1px solid #ddd;
@@ -16435,6 +16757,10 @@ table.dataTable.nws-tbl .label.label-success {
   font-size: 1.8125rem;
   margin-top: 15px;
 }
+.page-type-ilp .gc-most-requested h2 {
+  font-size: 22px;
+  margin-top: 0;
+}
 .page-type-ilp .gc-followus ul li {
   margin-bottom: 21px;
 }
@@ -16507,6 +16833,29 @@ table.dataTable.nws-tbl .label.label-success {
   width: auto;
 }
 
+/*
+ *
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+ *
+ */
+/*
+  @title: All screen views - Splash page
+ */
+#gcwu-sig,
+#wmms {
+  height: 2em;
+  max-width: 100%;
+}
+
+#wmms {
+  float: right;
+}
+
+#wb-bnr:not(:has(#wb-lng)) {
+  margin-top: 1.2em;
+}
+
 /*! Core - Utilities */
 .clearfix:before, .gc-subway-landmark-end:before, .clearfix:after, .gc-subway-landmark-end:after {
   display: table;
@@ -16558,243 +16907,6 @@ table.dataTable.nws-tbl .label.label-success {
   position: fixed;
 }
 
-@-ms-viewport {
-  width: device-width;
-}
-.visible-xs {
-  display: none !important;
-}
-
-.visible-sm {
-  display: none !important;
-}
-
-.visible-md {
-  display: none !important;
-}
-
-.visible-lg {
-  display: none !important;
-}
-
-.visible-xs-block,
-.visible-xs-inline,
-.visible-xs-inline-block,
-.visible-sm-block,
-.visible-sm-inline,
-.visible-sm-inline-block,
-.visible-md-block,
-.visible-md-inline,
-.visible-md-inline-block,
-.visible-lg-block,
-.visible-lg-inline,
-.visible-lg-inline-block {
-  display: none !important;
-}
-
-@media (max-width: 767px) {
-  .visible-xs {
-    display: block !important;
-  }
-  table.visible-xs {
-    display: table !important;
-  }
-  tr.visible-xs {
-    display: table-row !important;
-  }
-  th.visible-xs,
-  td.visible-xs {
-    display: table-cell !important;
-  }
-}
-@media (max-width: 767px) {
-  .visible-xs-block {
-    display: block !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .visible-xs-inline {
-    display: inline !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .visible-xs-inline-block {
-    display: inline-block !important;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm {
-    display: block !important;
-  }
-  table.visible-sm {
-    display: table !important;
-  }
-  tr.visible-sm {
-    display: table-row !important;
-  }
-  th.visible-sm,
-  td.visible-sm {
-    display: table-cell !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm-block {
-    display: block !important;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm-inline {
-    display: inline !important;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .visible-sm-inline-block {
-    display: inline-block !important;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md {
-    display: block !important;
-  }
-  table.visible-md {
-    display: table !important;
-  }
-  tr.visible-md {
-    display: table-row !important;
-  }
-  th.visible-md,
-  td.visible-md {
-    display: table-cell !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md-block {
-    display: block !important;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md-inline {
-    display: inline !important;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .visible-md-inline-block {
-    display: inline-block !important;
-  }
-}
-
-@media (min-width: 1200px) {
-  .visible-lg {
-    display: block !important;
-  }
-  table.visible-lg {
-    display: table !important;
-  }
-  tr.visible-lg {
-    display: table-row !important;
-  }
-  th.visible-lg,
-  td.visible-lg {
-    display: table-cell !important;
-  }
-}
-@media (min-width: 1200px) {
-  .visible-lg-block {
-    display: block !important;
-  }
-}
-
-@media (min-width: 1200px) {
-  .visible-lg-inline {
-    display: inline !important;
-  }
-}
-
-@media (min-width: 1200px) {
-  .visible-lg-inline-block {
-    display: inline-block !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .hidden-xs {
-    display: none !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .hidden-sm {
-    display: none !important;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-  .hidden-md {
-    display: none !important;
-  }
-}
-@media (min-width: 1200px) {
-  .hidden-lg {
-    display: none !important;
-  }
-}
-.visible-print {
-  display: none !important;
-}
-
-@media print {
-  .visible-print {
-    display: block !important;
-  }
-  table.visible-print {
-    display: table !important;
-  }
-  tr.visible-print {
-    display: table-row !important;
-  }
-  th.visible-print,
-  td.visible-print {
-    display: table-cell !important;
-  }
-}
-.visible-print-block {
-  display: none !important;
-}
-@media print {
-  .visible-print-block {
-    display: block !important;
-  }
-}
-
-.visible-print-inline {
-  display: none !important;
-}
-@media print {
-  .visible-print-inline {
-    display: inline !important;
-  }
-}
-
-.visible-print-inline-block {
-  display: none !important;
-}
-@media print {
-  .visible-print-inline-block {
-    display: inline-block !important;
-  }
-}
-
-@media print {
-  .hidden-print {
-    display: none !important;
-  }
-}
 /*
   WET-BOEW
   @title: Accessibility Additions to WET-BOEW - Utilities
@@ -17182,6 +17294,243 @@ a.text-white:hover, a.text-white:focus {
   color: #b3ffff;
 }
 
+@-ms-viewport {
+  width: device-width;
+}
+.visible-xs {
+  display: none !important;
+}
+
+.visible-sm {
+  display: none !important;
+}
+
+.visible-md {
+  display: none !important;
+}
+
+.visible-lg {
+  display: none !important;
+}
+
+.visible-xs-block,
+.visible-xs-inline,
+.visible-xs-inline-block,
+.visible-sm-block,
+.visible-sm-inline,
+.visible-sm-inline-block,
+.visible-md-block,
+.visible-md-inline,
+.visible-md-inline-block,
+.visible-lg-block,
+.visible-lg-inline,
+.visible-lg-inline-block {
+  display: none !important;
+}
+
+@media (max-width: 767px) {
+  .visible-xs {
+    display: block !important;
+  }
+  table.visible-xs {
+    display: table !important;
+  }
+  tr.visible-xs {
+    display: table-row !important;
+  }
+  th.visible-xs,
+  td.visible-xs {
+    display: table-cell !important;
+  }
+}
+@media (max-width: 767px) {
+  .visible-xs-block {
+    display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .visible-xs-inline {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .visible-xs-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm {
+    display: block !important;
+  }
+  table.visible-sm {
+    display: table !important;
+  }
+  tr.visible-sm {
+    display: table-row !important;
+  }
+  th.visible-sm,
+  td.visible-sm {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-block {
+    display: block !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-inline {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md {
+    display: block !important;
+  }
+  table.visible-md {
+    display: table !important;
+  }
+  tr.visible-md {
+    display: table-row !important;
+  }
+  th.visible-md,
+  td.visible-md {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-block {
+    display: block !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-inline {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .visible-lg {
+    display: block !important;
+  }
+  table.visible-lg {
+    display: table !important;
+  }
+  tr.visible-lg {
+    display: table-row !important;
+  }
+  th.visible-lg,
+  td.visible-lg {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg-block {
+    display: block !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .visible-lg-inline {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .visible-lg-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+.visible-print {
+  display: none !important;
+}
+
+@media print {
+  .visible-print {
+    display: block !important;
+  }
+  table.visible-print {
+    display: table !important;
+  }
+  tr.visible-print {
+    display: table-row !important;
+  }
+  th.visible-print,
+  td.visible-print {
+    display: table-cell !important;
+  }
+}
+.visible-print-block {
+  display: none !important;
+}
+@media print {
+  .visible-print-block {
+    display: block !important;
+  }
+}
+
+.visible-print-inline {
+  display: none !important;
+}
+@media print {
+  .visible-print-inline {
+    display: inline !important;
+  }
+}
+
+.visible-print-inline-block {
+  display: none !important;
+}
+@media print {
+  .visible-print-inline-block {
+    display: inline-block !important;
+  }
+}
+
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+}
 /*
  *
  * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
@@ -17189,6 +17538,14 @@ a.text-white:hover, a.text-white:focus {
  *
  * Components and helpers style for WET-BOEW
  */
+.wb-disable .nojs-hide, .wbdisable-show, .nojs-show {
+  display: none !important;
+}
+
+.wb-disable .wbdisable-show, .wb-disable .nojs-show {
+  display: block !important;
+}
+
 /*
  Background Utility CSS
  */
@@ -17222,7 +17579,7 @@ button.bg-dark:hover, button.bg-dark:focus {
 /*
 Panels
  */
-.panel:not(:has(.panel, .well)):has(.stretched-link):hover, .panel:not(:has(.panel, .well)):has(.stretched-link:focus), .well:not(:has(.panel, .well)):has(.stretched-link):hover, .well:not(:has(.panel, .well)):has(.stretched-link:focus) {
+.panel:not(:has(.panel, .well)):has(.stretched-link):hover, .panel:not(:has(.panel, .well)):has(.stretched-link:focus), .well:not(:has(.panel, .well)):has(.stretched-link):hover, a.gc-dwnld:not(:has(.panel, .well)):has(.stretched-link):hover, .well:not(:has(.panel, .well)):has(.stretched-link:focus), a.gc-dwnld:not(:has(.panel, .well)):has(.stretched-link:focus) {
   -webkit-box-shadow: 1px 5px 7px rgba(0, 0, 0, 0.15);
           box-shadow: 1px 5px 7px rgba(0, 0, 0, 0.15);
 }
@@ -17242,7 +17599,7 @@ Miscellaneous Utility CSS
  *
  */
 .fnt-hdng {
-  font-family: Lato, sans-serif;
+  font-family: Lato, "Noto Sans", "Noto Sans Canadian Aboriginal", sans-serif;
 }
 
 .lead {
@@ -17606,7 +17963,7 @@ Miscellaneous Utility CSS
     WET-BOEW
     @title: All screen views
    */
-  .wb-disable .nojs-hide, .nojs-show, .mathml body > div > math,
+  .mathml body > div > math,
   .no-mathml body > div > math {
     display: none !important;
   }
@@ -17622,9 +17979,6 @@ Miscellaneous Utility CSS
   }
   .nowrap {
     white-space: nowrap;
-  }
-  .wb-disable .nojs-show {
-    display: block !important;
   }
   .col-xs-auto, .col-sm-auto, .col-md-auto, .col-lg-auto {
     min-height: 1px;
@@ -17845,7 +18199,7 @@ Miscellaneous Utility CSS
   /*
    * Well header responsive
    */
-  [class*=col-] .well.header-rwd[class*=pstn-] {
+  [class*=col-] .well.header-rwd[class*=pstn-], [class*=col-] a.header-rwd[class*=pstn-].gc-dwnld {
     left: 15px;
     right: 15px;
     width: inherit;
@@ -17872,6 +18226,30 @@ Miscellaneous Utility CSS
   }
   .toc li:last-child .list-group-item {
     border-bottom: 1px solid #ddd;
+  }
+  /*
+   * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+   * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+   *
+   * Large view and over (screen only) - Variable $screen-xs-max <= 767px
+  */
+  ol.lst-stps:not(.stps-strpd) > li,
+  ol.lst-stps-sub:not(.stps-strpd) > li {
+    padding-left: 2.6em;
+  }
+  ol.lst-stps.ld-zr:not(.stps-strpd) > li,
+  ol.lst-stps.ld-zr > li ol.lst-stps-sub:not(.stps-strpd) > li {
+    padding-left: 2.8em;
+  }
+  ol.lst-stps > li:before {
+    font-size: 0.8em;
+  }
+  ol.lst-stps.ld-zr > li:before {
+    font-size: 1.2em;
+  }
+  ol.lst-stps.stps-strpd > li,
+  ol.lst-stps-sub.stps-strpd > li {
+    padding-left: 3em;
   }
   /*
     Campaign
@@ -17968,21 +18346,14 @@ Miscellaneous Utility CSS
   #wb-bnr + .gcweb-menu button[aria-haspopup=true] {
     margin-left: calc(50% - 360px);
   }
+  .gcweb-menu .container {
+    padding: 0;
+    width: 100%;
+  }
   .gcweb-menu {
     /*
      * Mobile - first level
      */
-    /*
-     * Mobile - Second level
-     */
-    /* Reset the style set by the panel */
-    /* Arrow for menu item with submenu */
-    /* Menu text style */
-    /* Mobile - Third level */
-  }
-  .gcweb-menu .container {
-    padding: 0;
-    width: 100%;
   }
   .gcweb-menu [role=menu] {
     position: static;
@@ -17993,6 +18364,12 @@ Miscellaneous Utility CSS
   }
   .gcweb-menu [role=menuitem] {
     width: auto;
+  }
+  .gcweb-menu {
+    /*
+     * Mobile - Second level
+     */
+    /* Reset the style set by the panel */
   }
   .gcweb-menu [role=menu] [role=menu] li:first-child [role=menuitem] {
     font-size: 18px;
@@ -18044,6 +18421,9 @@ Miscellaneous Utility CSS
   .gcweb-menu [aria-expanded=true]:not(button) + [role=menu] li:last-child {
     margin-left: 0;
   }
+  .gcweb-menu {
+    /* Arrow for menu item with submenu */
+  }
   .gcweb-menu [aria-haspopup]:not(button)::before,
   .gcweb-menu [role=treegrid] > [role=row] > [role=rowheader]::before {
     content: "► ";
@@ -18051,6 +18431,9 @@ Miscellaneous Utility CSS
   .gcweb-menu [aria-haspopup][aria-expanded=true]:not(button)::before,
   .gcweb-menu [role=treegrid] > [role=row][aria-expanded=true] > [role=rowheader]::before {
     content: "▼ ";
+  }
+  .gcweb-menu {
+    /* Menu text style */
   }
   .gcweb-menu [role=menu] [role=menu] [role=menuitem],
   .gcweb-menu [role=menu] [role=menu] li:first-child [role=menuitem] {
@@ -18075,6 +18458,9 @@ Miscellaneous Utility CSS
   .gcweb-menu [role=menu] [role=menu] li:first-child [role=menuitem],
   .gcweb-menu [role=menu] [role=menu] li:last-child [role=menuitem] {
     background-color: #e1e1e1;
+  }
+  .gcweb-menu {
+    /* Mobile - Third level */
   }
   .gcweb-menu [role=menu] [role=menu] li:last-child {
     left: auto;
@@ -18150,7 +18536,7 @@ Miscellaneous Utility CSS
    *
    * Small view and under (screen only) - Variable $screen-sm-max <= 991px
   */
-  .gc-subway.provisional:not(.gc-subway-index) h1 {
+  .gc-subway:not(.gc-subway-index) h1 {
     background-color: #fff;
     border-bottom: none;
     color: #555;
@@ -18161,7 +18547,7 @@ Miscellaneous Utility CSS
     margin-top: -0.75em;
     padding: 0 20px 10px 0;
   }
-  .gc-subway.provisional:not(.gc-subway-index) ul {
+  .gc-subway:not(.gc-subway-index) ul {
     padding-top: 0.25em;
   }
   /*
@@ -18305,6 +18691,9 @@ Miscellaneous Utility CSS
     @title: Small view and under (screen only)
     @desc:  Variable $screen-sm-max <= 991 px
    */
+  .home h2 {
+    font-size: 26px;
+  }
   .home .home-most-requested li {
     font-size: 19px;
   }
@@ -18467,7 +18856,7 @@ Miscellaneous Utility CSS
   /*
    * Well header responsive
    */
-  .well.header-rwd {
+  .well.header-rwd, a.header-rwd.gc-dwnld {
     width: 75%;
   }
   /*
@@ -18858,6 +19247,59 @@ Miscellaneous Utility CSS
   .mx-sm-auto {
     margin-left: auto !important;
   }
+  /*
+   * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+   * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+   *
+   * Small view and over (screen only) - Variable $screen-sm-min >= 768px
+  */
+  [class*=cnjnctn-type-].cnjnctn-sm {
+    border-left: 0 solid transparent;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  [class*=cnjnctn-type-].cnjnctn-sm > [class*=cnjnctn-col]:not(:first-child) {
+    margin-left: 1.4em;
+    margin-top: 0;
+    position: relative;
+  }
+  [class*=cnjnctn-type-].cnjnctn-sm > [class*=cnjnctn-col]:not(:first-child):after {
+    -o-border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+       border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #6f6f6f), color-stop(0.3em, #6f6f6f), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #6f6f6f), color-stop(2.35em, #6f6f6f)) 1 100%;
+       border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+    border-left: 3px solid #6f6f6f;
+    margin-left: -1.6em;
+  }
+  .cnjnctn-type-or.cnjnctn-sm > [class*=cnjnctn-col]:not(:first-child):before {
+    margin-left: -3.3em;
+  }
+  .cnjnctn-type-and.cnjnctn-sm > [class*=cnjnctn-col]:not(:first-child):before {
+    border-width: 3px 0;
+    margin-left: -3.15em;
+  }
+  [class*=cnjnctn-type-].cnjnctn-sm > [class*=cnjnctn-col]:not(:first-child):before {
+    margin-top: 0.3em;
+  }
+  [class*=cnjnctn-type-].cnjnctn-sm > [class*=cnjnctn-col]:not(:last-child) {
+    margin-bottom: 0;
+  }
+}
+@media screen and (min-width: 768px) and (prefers-contrast: more) {
+  [class*=cnjnctn-type-].cnjnctn-sm > [class*=cnjnctn-col]:not(:first-child):after {
+    -o-border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+       border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #fff), color-stop(0.3em, #fff), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #fff), color-stop(2.35em, #fff)) 1 100%;
+       border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+    border-left: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  [class*=cnjnctn-type-].cnjnctn-sm:not(.brdr-0) > [class*=cnjnctn-col] {
+    min-height: 3em;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 /* Medium view and over */
 @media screen and (min-width: 992px) {
@@ -18958,11 +19400,11 @@ Miscellaneous Utility CSS
   }
   .gc-contributors ul li {
     display: inline-block;
-    margin-right: 0.5em;
+    margin-right: 0.25rem;
   }
   .gc-contributors ul li::after {
-    content: "•";
-    margin-left: 0.7em;
+    content: "|";
+    margin-left: 0.25rem;
   }
   .gc-contributors ul li:last-child::after {
     content: none;
@@ -19032,21 +19474,21 @@ Miscellaneous Utility CSS
    *
    * Medium view and over (screen only) - Variable $screen-md-min >= 992px
   */
-  /*** GC subway desktop styles ***/
-  .gc-subway.provisional:not(.gc-subway-index) {
+  /*** Subway navigation desktop styles ***/
+  .gc-subway:not(.gc-subway-index).no-blink {
+    display: block;
+  }
+  .gc-subway:not(.gc-subway-index) {
     border-color: transparent;
     display: none;
   }
-  .gc-subway.provisional:not(.gc-subway-index).no-blink {
+  .wb-disable .gc-subway:not(.gc-subway-index), .no-js .gc-subway:not(.gc-subway-index) {
     display: block;
   }
-  .wb-disable .gc-subway.provisional:not(.gc-subway-index), .no-js .gc-subway.provisional:not(.gc-subway-index) {
-    display: block;
-  }
-  .gc-subway.provisional:not(.gc-subway-index) hgroup {
+  .gc-subway:not(.gc-subway-index) hgroup {
     margin-left: -14px;
   }
-  .gc-subway.provisional:not(.gc-subway-index) hgroup h1 {
+  .gc-subway:not(.gc-subway-index) hgroup h1 {
     clip: rect(1px, 1px, 1px, 1px);
     height: 1px;
     margin: 0;
@@ -19054,11 +19496,11 @@ Miscellaneous Utility CSS
     position: absolute;
     width: 1px;
   }
-  .gc-subway.provisional:not(.gc-subway-index) ul li:last-child:has(ul) {
+  .gc-subway:not(.gc-subway-index) ul li:last-child:has(ul) {
     border-left: 4px solid #26374a;
     padding-bottom: 1.25em;
   }
-  .gc-subway.provisional:not(.gc-subway-index) ul li:last-child:has(ul)::after {
+  .gc-subway:not(.gc-subway-index) ul li:last-child:has(ul)::after {
     background-color: #26374a;
     bottom: 0;
     content: "";
@@ -19072,6 +19514,7 @@ Miscellaneous Utility CSS
     width: calc(33.33% - 0.5em - 5px);
   }
   .gc-subway-section {
+    display: flow-root;
     padding-right: 30px;
     width: 66.66%;
   }
@@ -19119,6 +19562,14 @@ Miscellaneous Utility CSS
     content: "";
     display: block;
     width: 335px;
+  }
+  .gc-most-requested ul:has(> li:nth-child(2):last-child) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .gc-most-requested ul:has(> li:nth-child(2):last-child) > li {
+    width: 50%;
   }
   .container .gc-most-requested h2 {
     float: none;
@@ -19482,6 +19933,59 @@ Miscellaneous Utility CSS
   .mx-md-auto {
     margin-left: auto !important;
   }
+  /*
+   * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+   * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+   *
+   * Medium view and over (screen only) - Variable $screen-md-min >= 992px
+  */
+  [class*=cnjnctn-type-].cnjnctn-md {
+    border-left: 0 solid transparent;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  [class*=cnjnctn-type-].cnjnctn-md > [class*=cnjnctn-col]:not(:first-child) {
+    margin-left: 1.4em;
+    margin-top: 0;
+    position: relative;
+  }
+  [class*=cnjnctn-type-].cnjnctn-md > [class*=cnjnctn-col]:not(:first-child):after {
+    -o-border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+       border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #6f6f6f), color-stop(0.3em, #6f6f6f), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #6f6f6f), color-stop(2.35em, #6f6f6f)) 1 100%;
+       border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+    border-left: 3px solid #6f6f6f;
+    margin-left: -1.6em;
+  }
+  .cnjnctn-type-or.cnjnctn-md > [class*=cnjnctn-col]:not(:first-child):before {
+    margin-left: -3.3em;
+  }
+  .cnjnctn-type-and.cnjnctn-md > [class*=cnjnctn-col]:not(:first-child):before {
+    border-width: 3px 0;
+    margin-left: -3.15em;
+  }
+  [class*=cnjnctn-type-].cnjnctn-md > [class*=cnjnctn-col]:not(:first-child):before {
+    margin-top: 0.3em;
+  }
+  [class*=cnjnctn-type-].cnjnctn-md > [class*=cnjnctn-col]:not(:last-child) {
+    margin-bottom: 0;
+  }
+}
+@media screen and (min-width: 992px) and (prefers-contrast: more) {
+  [class*=cnjnctn-type-].cnjnctn-md > [class*=cnjnctn-col]:not(:first-child):after {
+    -o-border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+       border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #fff), color-stop(0.3em, #fff), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #fff), color-stop(2.35em, #fff)) 1 100%;
+       border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+    border-left: none;
+  }
+}
+@media screen and (min-width: 992px) {
+  [class*=cnjnctn-type-].cnjnctn-md:not(.brdr-0) > [class*=cnjnctn-col] {
+    min-height: 3em;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 /* Large view and over */
 @media screen and (min-width: 1200px) {
@@ -19534,7 +20038,7 @@ Miscellaneous Utility CSS
   /*
    * Well header responsive
    */
-  .well.header-rwd {
+  .well.header-rwd, a.header-rwd.gc-dwnld {
     width: 50%;
   }
   /*
@@ -19856,6 +20360,59 @@ Miscellaneous Utility CSS
   .mx-lg-auto {
     margin-left: auto !important;
   }
+  /*
+   * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+   * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+   *
+   * Large view and over (screen only) - Variable $screen-lg-min >= 1200px
+  */
+  [class*=cnjnctn-type-].cnjnctn-lg {
+    border-left: 0 solid transparent;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  [class*=cnjnctn-type-].cnjnctn-lg > [class*=cnjnctn-col]:not(:first-child) {
+    margin-left: 1.4em;
+    margin-top: 0;
+    position: relative;
+  }
+  [class*=cnjnctn-type-].cnjnctn-lg > [class*=cnjnctn-col]:not(:first-child):after {
+    -o-border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+       border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #6f6f6f), color-stop(0.3em, #6f6f6f), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #6f6f6f), color-stop(2.35em, #6f6f6f)) 1 100%;
+       border-image: linear-gradient(to bottom, #6f6f6f 0.3em, #6f6f6f 0.3em, transparent 0.3em, transparent 2.35em, #6f6f6f 2.35em, #6f6f6f 2.35em) 1 100%;
+    border-left: 3px solid #6f6f6f;
+    margin-left: -1.6em;
+  }
+  .cnjnctn-type-or.cnjnctn-lg > [class*=cnjnctn-col]:not(:first-child):before {
+    margin-left: -3.3em;
+  }
+  .cnjnctn-type-and.cnjnctn-lg > [class*=cnjnctn-col]:not(:first-child):before {
+    border-width: 3px 0;
+    margin-left: -3.15em;
+  }
+  [class*=cnjnctn-type-].cnjnctn-lg > [class*=cnjnctn-col]:not(:first-child):before {
+    margin-top: 0.3em;
+  }
+  [class*=cnjnctn-type-].cnjnctn-lg > [class*=cnjnctn-col]:not(:last-child) {
+    margin-bottom: 0;
+  }
+}
+@media screen and (min-width: 1200px) and (prefers-contrast: more) {
+  [class*=cnjnctn-type-].cnjnctn-lg > [class*=cnjnctn-col]:not(:first-child):after {
+    -o-border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+       border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.3em, #fff), color-stop(0.3em, #fff), color-stop(0.3em, transparent), color-stop(2.35em, transparent), color-stop(2.35em, #fff), color-stop(2.35em, #fff)) 1 100%;
+       border-image: linear-gradient(to bottom, #fff 0.3em, #fff 0.3em, transparent 0.3em, transparent 2.35em, #fff 2.35em, #fff 2.35em) 1 100%;
+    border-left: none;
+  }
+}
+@media screen and (min-width: 1200px) {
+  [class*=cnjnctn-type-].cnjnctn-lg:not(.brdr-0) > [class*=cnjnctn-col] {
+    min-height: 3em;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 /* Extra-extra-small view */
 @media screen and (max-width: 479px) {
@@ -19965,16 +20522,22 @@ Miscellaneous Utility CSS
   /*
    Carousel (extra-extra-small view)
    */
-  .prm-flpr .wb-tabs.carousel-s2 [role=tablist] li .plypause a {
+  .prm-flpr .wb-tabs.carousel-s2 [role=tablist] li.plypause {
+    margin-top: 7px;
+  }
+  .prm-flpr .wb-tabs.carousel-s2 [role=tablist] li.plypause a {
     font-size: 1em;
+    padding-bottom: 7.5px;
+    padding-top: 7.5px;
     vertical-align: middle;
   }
-  .prm-flpr .wb-tabs.carousel-s2 [role=tablist] li .tab-count {
+  .prm-flpr .wb-tabs.carousel-s2 [role=tablist] li.tab-count {
     height: 0;
+    margin-right: 0;
     visibility: hidden;
     width: 0;
   }
-  .prm-flpr .wb-tabs.carousel-s2 [role=tablist] li .tab-count .curr-count {
+  .prm-flpr .wb-tabs.carousel-s2 [role=tablist] li.tab-count .curr-count {
     font-size: 1em;
   }
 }
@@ -20134,7 +20697,9 @@ Miscellaneous Utility CSS
     @title: Print view
    */
   .pg-brk-aft {
-    page-break-after: always;
+    -webkit-column-break-after: always;
+       -moz-column-break-after: always;
+            break-after: always;
   }
   a[href]:after {
     content: none;
@@ -20326,7 +20891,9 @@ Miscellaneous Utility CSS
     margin-bottom: 0.5em;
   }
   .wb-tabs.carousel-s2 figure, .wb-tabs.carousel-s1 figure {
-    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+       -moz-column-break-inside: avoid;
+            break-inside: avoid;
   }
   .wb-tabs.carousel-s2 figcaption, .wb-tabs.carousel-s1 figcaption {
     border: 1px solid #000;
@@ -20367,6 +20934,18 @@ Miscellaneous Utility CSS
   */
   .followus {
     display: none !important;
+  }
+  /*
+   * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+   * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
+   *
+   * Print only
+  */
+  ol.lst-stps > li {
+    -webkit-column-break-inside: avoid;
+       -moz-column-break-inside: avoid;
+            break-inside: avoid;
+    padding-top: 1em;
   }
   /*
    * There is no working example, probably not used
