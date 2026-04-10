@@ -14,6 +14,8 @@ const exceptionCDTSSyntaxLinks = ["https://www.canada.ca/etc/designs/canada/cdts
     "https://www.canada.ca/fr/services/entreprises/recherche.html", //skipping this link because it gets rejected
     "https://cdts.service.canada.ca/app/cls/WET",
     "https://cdts.service.canada.ca/rn/cls/WET",
+    "https://cdts-sgdc.service.canada.ca/app/cls/WET",
+    "https://cdts-sgdc.service.canada.ca/rn/cls/WET",
     "https://ajax.googleapis.com/ajax/libs/",
     "https://s2tst-cdn-canada.sade-edap.prv",
     "https://cdn-canada.services.gc.qat/",

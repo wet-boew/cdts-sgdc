@@ -23,6 +23,7 @@ contributeurs
 COPA
 CSS
 cdts.service.canada.ca
+cdts-sgdc.service.canada.ca
 cybersécurité
 Cúram
 developer.mozilla.org
