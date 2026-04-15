@@ -14,12 +14,12 @@
             Remarque : un chemin relatif est utilisé dans cet exemple. Afin d'intégrer les balises de script dans votre code, utilisez le chemin absolu suivant (selon le choix du domaine).
             Ce chemin peut être utilisé pour les trois noms de fichiers suivants : soyutils.js, wet-en.js et wet-fr.js.
 
-            cdts.service.canada.ca : https://cdts.service.canada.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
+            cdts-sgdc.service.canada.ca : https://cdts-sgdc.service.canada.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
             templates.service.gc.ca : https://templates.service.gc.ca/app/cls/WET/gcintranet/v4_0_44/cdts/compiled/[file name]
 
             Pour pointer vers la version d'exécution :
 
-            cdts.service.canada.ca : https://cdts.service.canada.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
+            cdts-sgdc.service.canada.ca : https://cdts-sgdc.service.canada.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
             templates.service.gc.ca : https://templates.service.gc.ca/rn/cls/WET/gcintranet/cdts/compiled/[file name]
         -->
         <link rel="stylesheet" href="../cdts-styles.css">
@@ -56,7 +56,7 @@
                 <li><code>cdnEnv</code> (FACULTATIF, par défaut <code>"prod"</code>) - Chaîne de caractères indiquant l'environnement SGDC à utiliser pour télécharger les ressources. Valeurs possibles:
                     <ul>
                         <li>Environnement hôte: <code>https://www.canada.ca</code><pre>"cdnEnv": "prod"</pre></li>
-                        <li>Environnement hôte: <code>https://cdts.service.canada.ca</code><pre>"cdnEnv": "esdcprod"</pre></li>
+                        <li>Environnement hôte: <code>https://cdts-sgdc.service.canada.ca</code><pre>"cdnEnv": "esdcprod"</pre></li>
                     </ul>
                 </li>
                 <li><code>mode</code> (FACULTATIF, par défaut <code>"common"</code>) - Chaîne de caractères indiquant quel mode de gabarit à utiliser. Valeurs possibles:

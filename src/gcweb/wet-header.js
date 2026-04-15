@@ -8,7 +8,7 @@ if (typeof wet.builder == 'undefined') { wet.builder = {}; } //eslint-disable-li
 wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
     var baseUrl;
     if (cdnEnv === 'esdcprod') {
-        baseUrl = 'https://cdts.service.canada.ca/app/cls/WET';
+        baseUrl = 'https://cdts-sgdc.service.canada.ca/app/cls/WET';
     }
     else if (cdnEnv === 'localhost') {
         baseUrl = '../../../..';

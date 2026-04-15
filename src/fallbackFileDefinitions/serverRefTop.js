@@ -18,7 +18,7 @@ module.exports = () => ({
     gcintranet: {
         filterContent: (grunt, content, definition, language, targetFileName) => { //optional
             const sriHashes = getSRIHashes(['public/wet/wet-boew/css/noscript.min.css']);
-            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://cdts.service.canada.ca/app/cls/WET/gcintranet/${definition.themeVersion}/wet-boew/css/noscript.min.css" integrity="${sriHashes['public/wet/wet-boew/css/noscript.min.css']}" crossorigin="anonymous">`;
+            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://cdts-sgdc.service.canada.ca/app/cls/WET/gcintranet/${definition.themeVersion}/wet-boew/css/noscript.min.css" integrity="${sriHashes['public/wet/wet-boew/css/noscript.min.css']}" crossorigin="anonymous">`;
 
             return content.concat(APPENDED_VALUE);
         },

@@ -16,7 +16,7 @@ wet.builder.environmentHost = function cdtsWetBuilderEnvironmentHost(cdnEnv) {
         return cdnEnv; //if starts with http: return as-is
     }
     //else
-    return 'https://cdts.service.canada.ca/';
+    return 'https://cdts-sgdc.service.canada.ca/';
 }
 
 /**
