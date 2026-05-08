@@ -5,6 +5,7 @@
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.96 (GCWeb v19.1.0).
   - This WET update includes changes to font sizes for forms.
 - GCIntranet Cloud URL https://cdts.service.canada.ca has been replaced by a bilingual URL https://cdts-sgdc.service.canada.ca.
+- GCIntranet URL https://templates.service.gc.ca has been replaced by a bilingual URL https://cdts-sgdc.service.canada.ca.
 - Internal changes and optimizations
 - Bug fixes
 

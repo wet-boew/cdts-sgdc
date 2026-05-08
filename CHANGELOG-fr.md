@@ -5,6 +5,7 @@
 - Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.96 (GCWeb v19.1.0).
   - Cette mise à jour WET inclut des modifications de la taille des polices de caractères dans les formulaires.
 - L’URL du nuage GCIntranet https://cdts.service.canada.ca a été remplacée par une URL bilingue https://cdts-sgdc.service.canada.ca.
+- L’URL GCIntranet https://templates.service.gc.ca a été remplacée par une URL bilingue https://cdts-sgdc.service.canada.ca.
 - Modifications et optimisations internes
 - Corrections de bogues
 
