@@ -7,7 +7,7 @@ if (typeof wet.builder == 'undefined') { wet.builder = {}; } //eslint-disable-li
  */
 wet.builder.environmentHost = function cdtsWetBuilderEnvironmentHost(cdnEnv) {
     if (cdnEnv === 'esdcprod') {
-        return 'https://templates.service.gc.ca/';
+        return 'https://cdts-sgdc.service.canada.ca/';
     }
     else if (cdnEnv === 'localhost') {
         return '/';
@@ -23,6 +23,6 @@ wet.builder.environmentHost = function cdtsWetBuilderEnvironmentHost(cdnEnv) {
  * @param cdnEnv Used to switch between esdc envrionments and Akamai implementations.
  */
 wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
-    return wet.builder.environmentHost(cdnEnv) + ((cdnEnv != null && (cdnEnv.substr(0, 4) === 'http')) ? '' : 'app/cls/WET/gcintranet/v4_1_0/');
+    return wet.builder.environmentHost(cdnEnv) + ((cdnEnv != null && (cdnEnv.substr(0, 4) === 'http')) ? '' : 'app/cls/WET/gcintranet/v5_1_0/');
 }
 

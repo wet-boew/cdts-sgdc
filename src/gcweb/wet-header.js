@@ -19,5 +19,5 @@ wet.builder.environment = function cdtsWetBuilderEnvironment(cdnEnv) {
     else {
         baseUrl = 'https://www.canada.ca/etc/designs/canada/cdts';
     }
-    return baseUrl + '/gcweb/v4_1_0/';
+    return baseUrl + '/gcweb/v5_1_0/';
 }
