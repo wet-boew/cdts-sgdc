@@ -17,14 +17,14 @@ module.exports = () => ({ //can take grunt object as parameter
     gcweb: {
         filterContent: (grunt, content, definition, language, targetFileName) => { //optional
             const sriHashes = getSRIHashes([
-                'public/wet/wet-boew/css/noscript.min.css',
+                'public/wet/gcweb/wet-boew/css/noscript.min.css',
                 'public/gcweb/cdtsnoscript.css',
                 'public/gcweb/cdtsapps.css'
             ]);
 
             const APPENDED_VALUE = `\n<!-- Are you using the application templates? If so add the following CSS file -->
 <!-- <link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/cdts/cdtsapps.css" integrity="${sriHashes['public/gcweb/cdtsapps.css']}" crossorigin="anonymous">-->
-<link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/wet-boew/css/noscript.min.css" integrity="${sriHashes['public/wet/wet-boew/css/noscript.min.css']}" crossorigin="anonymous">
+<link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/wet-boew/css/noscript.min.css" integrity="${sriHashes['public/wet/gcweb/wet-boew/css/noscript.min.css']}" crossorigin="anonymous">
 <link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/${definition.themeVersion}/cdts/cdtsnoscript.css" integrity="${sriHashes['public/gcweb/cdtsnoscript.css']}" crossorigin="anonymous">`;
 
             return content.concat(APPENDED_VALUE);
@@ -32,8 +32,8 @@ module.exports = () => ({ //can take grunt object as parameter
     },
     gcintranet: {
         filterContent: (grunt, content, definition, language, targetFileName) => { //optional
-            const sriHashes = getSRIHashes(['public/wet/wet-boew/css/noscript.min.css']);
-            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://cdts-sgdc.service.canada.ca/app/cls/WET/gcintranet/${definition.themeVersion}/wet-boew/css/noscript.min.css" integrity="${sriHashes['public/wet/wet-boew/css/noscript.min.css']}" crossorigin="anonymous">`;
+            const sriHashes = getSRIHashes(['public/wet/gcintranet/wet-boew/css/noscript.min.css']);
+            const APPENDED_VALUE = `\n<link rel="stylesheet" href="https://cdts-sgdc.service.canada.ca/app/cls/WET/gcintranet/${definition.themeVersion}/wet-boew/css/noscript.min.css" integrity="${sriHashes['public/wet/gcintranet/wet-boew/css/noscript.min.css']}" crossorigin="anonymous">`;
 
             return content.concat(APPENDED_VALUE);
         },
