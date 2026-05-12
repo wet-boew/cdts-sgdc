@@ -3,10 +3,10 @@ const path = require('path');
 const crypto = require('crypto');
 
 //Write the output file with the file names and their hashes
-module.exports.writeFilesSRIHashes = function writeFilesSRIHashes(inputJSONFileName, outputJSONFileName) {
+module.exports.writeFilesSRIHashes = function writeFilesSRIHashes(inputJSONFileName, outputJSONFileName, fileMustExist = true) {
     const sriFileList = fs.readFileSync(inputJSONFileName);
     const files = JSON.parse(sriFileList);
-    const hashes = module.exports.getSRIHashes(files);
+    const hashes = module.exports.getSRIHashes(files, fileMustExist);
 
     //create target directory if it doesn't exist
     const distStaticTargetDirName = path.dirname(outputJSONFileName);
@@ -18,12 +18,15 @@ module.exports.writeFilesSRIHashes = function writeFilesSRIHashes(inputJSONFileN
 }
 
 //Read the JSON file containing list of files that require a hash
-module.exports.getSRIHashes = function getSRIHashes(files) {
+module.exports.getSRIHashes = function getSRIHashes(files, fileMustExist = true) {
     const hashObj = {};
     files.forEach((f) => {
         if (fs.existsSync(f)) {
             const fileContent = fs.readFileSync(f, 'utf8');
             hashObj[f] = module.exports.generateSRIHash(fileContent);
+        }
+        else if (fileMustExist) {
+            throw new Error(`Cannot generete SRI hash, file [${f}] does not exist.`);
         }
     });
     return hashObj;
