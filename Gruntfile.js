@@ -165,18 +165,26 @@ module.exports = function run(grunt) {
                 const pathPrefix = `${grunt.config('project.target')}/${themeName}/${grunt.config('project.versionName')}/cdts/`;
                 const targetFileName = `${pathPrefix}SRI-INFO.md`;
                 const targetJsonFileName = `${pathPrefix}SRI-INFO.json`;
-                const sourceFiles = [
-                    `${pathPrefix}compiled/wet-en.js`,
-                    `${pathPrefix}compiled/wet-fr.js`,
-                    `${pathPrefix}cdts-styles.css`,
-                    `${pathPrefix}cdts-app-styles.css`, //gcweb only
-                    `${pathPrefix}cdts-splash-styles.css`,
-                    `${pathPrefix}cdts-eccc-styles.css`, //gcintranet only
-                    `${pathPrefix}cdts-esdc-styles.css`, //gcintranet only
-                    `${pathPrefix}cdts-labour-styles.css`, //gcintranet only
-                ];
+                const sourceFiles = {
+                    "gcweb": [
+                        `${pathPrefix}compiled/wet-en.js`,
+                        `${pathPrefix}compiled/wet-fr.js`,
+                        `${pathPrefix}cdts-styles.css`,
+                        `${pathPrefix}cdts-app-styles.css`, //gcweb only
+                        `${pathPrefix}cdts-splash-styles.css`,
+                    ],
+                    "gcintranet": [
+                        `${pathPrefix}compiled/wet-en.js`,
+                        `${pathPrefix}compiled/wet-fr.js`,
+                        `${pathPrefix}cdts-styles.css`,
+                        `${pathPrefix}cdts-splash-styles.css`,
+                        `${pathPrefix}cdts-eccc-styles.css`, //gcintranet only
+                        `${pathPrefix}cdts-esdc-styles.css`, //gcintranet only
+                        `${pathPrefix}cdts-labour-styles.css`, //gcintranet only
+                    ]
+                };
 
-                const hashesMap = getSRIHashes(sourceFiles);
+                const hashesMap = getSRIHashes(sourceFiles[themeName]);
                 const outputObject = { cdtsPath: pathPrefix.replace(grunt.config('project.target') + '/', '') };
                 let fileContents = `# Subresource Integrity (SRI)\n\nHash values for ${outputObject.cdtsPath}:\n`;
                 Object.keys(hashesMap).forEach((key) => {
