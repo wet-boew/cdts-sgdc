@@ -1,7 +1,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v19.1.0 - 2026-04-01
+ * v19.1.1 - 2026-05-27
  *
  */( function( $, document, wb ) {
 "use strict";
@@ -474,10 +474,20 @@ var $document = wb.doc,
 			colInt = parseInt( column, 10 ),
 			regex = !!data.regex,
 			smart = ( !data.smart ) ? true : !!data.smart,
-			caseinsen = ( !data.caseinsen ) ? true : !!data.caseinsen;
+			caseinsen = ( !data.caseinsen ) ? true : !!data.caseinsen,
+			sourceElm = $source.get( 0 );
 
 		if ( $source.get( 0 ).nodeName !== "TABLE" ) {
 			throw "Table filtering can only applied on table";
+		}
+
+		// If the DataTables plugin has not been initialized yet, listen for when wb-tables fires wb.ready(), then retry
+		// This ensures DataTables is initialized before attempting to call .api() on it
+		if ( sourceElm.className.indexOf( "wb-tables-inited" ) === -1 || !$.fn.dataTable || !$.fn.dataTable.isDataTable( sourceElm ) ) {
+			$source.one( "wb-ready.wb-tables", function() {
+				tblflrAct( event, data );
+			} );
+			return;
 		}
 
 		$datatable = $source.dataTable( { "retrieve": true } ).api();
@@ -3706,8 +3716,15 @@ var componentName = "gcweb-menu",
 			setMnu3LevelOrientationExpandState( false, isMediumView );
 		}
 
+		const desc = document.createElement( "p" );
+		desc.id = "gcweb-menu-desc";
+		desc.hidden = true;
+		desc.textContent = i18nInstruction;
+
+		subElm.previousElementSibling.insertAdjacentElement( "beforebegin", desc );
+
 		// Add menu navigation instruction
-		subElm.previousElementSibling.setAttribute( "aria-label", i18nInstruction );
+		subElm.previousElementSibling.setAttribute( "aria-describedby", "gcweb-menu-desc" );
 
 		// Identify that initialization has completed
 		wb.ready( $elm, componentName );
