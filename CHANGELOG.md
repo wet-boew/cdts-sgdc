@@ -1,5 +1,9 @@
 # CDTS Change Log
 
+## v5.1.1
+
+- Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.96.1 (GCWeb v19.1.1).
+
 ## v5.1.0
 
 - Updated [WET](https://github.com/wet-boew/wet-boew/releases/) to v4.0.96 (GCWeb v19.1.0).
