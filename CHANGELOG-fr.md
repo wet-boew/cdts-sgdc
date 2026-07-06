@@ -2,7 +2,7 @@
 
 ## v5.1.1
 
-- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.96.1 (GCWeb v19.1.1).
+- Mise à jour [BOEW](https://github.com/wet-boew/wet-boew/releases/) a v4.0.96.3 (GCWeb v19.3.1).
 
 ## v5.1.0
 
