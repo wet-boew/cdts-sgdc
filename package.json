@@ -18,11 +18,11 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@wdio/cli": "^9.31.7",
+    "@wdio/cli": "^9.31.9",
     "@wdio/dot-reporter": "^9.31.2",
     "@wdio/junit-reporter": "^9.31.2",
-    "@wdio/local-runner": "^9.31.7",
-    "@wdio/mocha-framework": "^9.31.7",
+    "@wdio/local-runner": "^9.31.9",
+    "@wdio/mocha-framework": "^9.31.9",
     "@wdio/spec-reporter": "^9.31.2",
     "axe-core": "^4.13.0",
     "axios": "^1.20.0",
@@ -41,7 +41,7 @@
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-eslint": "^27.0.0",
-    "html-validate": "^11.15.0",
+    "html-validate": "^11.16.0",
     "https-proxy-agent": "^9.1.0",
     "isbinaryfile": "^6.0.0"
   }
