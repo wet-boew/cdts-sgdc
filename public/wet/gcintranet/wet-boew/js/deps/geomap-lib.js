@@ -254,7 +254,7 @@ var componentName = "wb-geomap",
 	MapLayer = function( map, options ) {
 
 		var _this = this,
-			visibilytyCallBackArr = [];
+			visibilityCallBackArr = [];
 
 		this.map = map;
 		this.settings = options;
@@ -268,10 +268,10 @@ var componentName = "wb-geomap",
 		if ( this.settings.accessible ) {
 			this.map.layerDiv.append( "<div class='panel panel-default'><div class='panel-heading'><div class='panel-title' role='heading'>" +
 					this.settings.title + "</div></div><div class='panel-body'><div data-layer='" +
-					this.id + "' class='geomap-table-wrapper' style='display:none;'></div></div></div>" );
+					this.id + "' class='geomap-table-wrapper table-responsive' style='display:none;'></div></div></div>" );
 		}
 
-		// Make isVisibile Reactive
+		// Make isVisible Reactive
 		Object.defineProperty( _this, "isVisible", {
 			get: function get() {
 				return _this.visibilityState;
@@ -280,7 +280,7 @@ var componentName = "wb-geomap",
 				_this.visibilityState = newVal;
 
 				// Notify
-				visibilytyCallBackArr.forEach( function( signalHandler ) {
+				visibilityCallBackArr.forEach( function( signalHandler ) {
 
 					return signalHandler( newVal );
 				} );
@@ -294,7 +294,7 @@ var componentName = "wb-geomap",
 
 		// Allow the properties to be observed
 		this.observeVisibility = function( callback ) {
-			visibilytyCallBackArr.push( callback );
+			visibilityCallBackArr.push( callback );
 		};
 
 		this.observeVisibility( function( vis ) {
@@ -336,7 +336,7 @@ var componentName = "wb-geomap",
 		this.target = $( "#" + map.id + ".wb-geomap" ).find( ".wb-geomap-legend" );
 		this.target.attr( "id", "geomap-legend-" + map.id );
 
-		// remove the placehoders
+		// remove the placeholders
 		this.target.empty();
 
 		return this;
@@ -497,12 +497,14 @@ var componentName = "wb-geomap",
 
 				if ( operators[ ruleFilter ]( feature.attributes[ rule.field ], rule.value ) ) {
 					switch ( featureType ) {
-						case "Polygon" || "MultiPolygon":
+						case "Polygon":
+						case "MultiPolygon":
 							return getPolygonStyle( {
 								fill: new ol.style.Fill( { color: fillColor } ),
 								stroke: new ol.style.Stroke( { color: strokeColor, width: strokeWidth, lineDash: strokeDash } )
 							} );
-						case "Point" || "MultiPoint":
+						case "Point":
+						case "MultiPoint":
 							if ( graphicName ) {
 								return getSymbolStyle( {
 									symbol: graphicName,
@@ -523,7 +525,8 @@ var componentName = "wb-geomap",
 									stroke: new ol.style.Stroke( { color: strokeColor, width: strokeWidth, lineDash: strokeDash } )
 								} );
 							}
-						case "LineString" || "MultiLineString":
+						case "LineString":
+						case "MultiLineString":
 							return getLineStyle( {
 								stroke: new ol.style.Stroke( { color: strokeColor, width: strokeWidth, lineDash: strokeDash } )
 							} );
@@ -613,7 +616,8 @@ var componentName = "wb-geomap",
 				graphicWidth = objStyle.graphicWidth ? objStyle.graphicWidth : 25;
 
 				switch ( featureType ) {
-					case "Polygon" || "MultiPolygon":
+					case "Polygon":
+					case "MultiPolygon":
 						if ( feature.attributes && feature.attributes[ field ] === obj ) {
 							return getPolygonStyle( {
 								fill: new ol.style.Fill( { color: fillColor } ),
@@ -621,7 +625,8 @@ var componentName = "wb-geomap",
 							} );
 						}
 						break;
-					case "Point" || "MultiPoint":
+					case "Point":
+					case "MultiPoint":
 						if ( externalGraphic ) {
 							if ( feature.attributes && feature.attributes[ field ] === obj ) {
 								return getIconStyle( {
@@ -640,7 +645,8 @@ var componentName = "wb-geomap",
 							}
 						}
 						break;
-					case "LineString" || "MultiLineString":
+					case "LineString":
+					case "MultiLineString":
 						if ( feature.attributes && feature.attributes[ field ] === obj ) {
 							return getLineStyle( {
 								stroke: new ol.style.Stroke( { color: strokeColor, width: strokeWidth, lineDash: strokeDash } )
@@ -674,12 +680,14 @@ var componentName = "wb-geomap",
 			graphicWidth = style.graphicWidth ? style.graphicWidth : 25;
 
 			switch ( featureType ) {
-				case "Polygon" || "MultiPolygon":
+				case "Polygon":
+				case "MultiPolygon":
 					return getPolygonStyle( {
 						fill: new ol.style.Fill( { color: fillColor } ),
 						stroke: new ol.style.Stroke( { color: strokeColor, width: strokeWidth, lineDash: strokeDash } )
 					} );
-				case "Point" || "MultiPoint":
+				case "Point":
+				case "MultiPoint":
 					if ( externalGraphic ) {
 						return getIconStyle( {
 							src: externalGraphic,
@@ -694,7 +702,8 @@ var componentName = "wb-geomap",
 						} );
 					}
 
-				case "LineString" || "MultiLineString":
+				case "LineString":
+				case "MultiLineString":
 					return getLineStyle( {
 						stroke: new ol.style.Stroke( { color: strokeColor, width: strokeWidth, lineDash: strokeDash } )
 					} );
@@ -826,7 +835,7 @@ var componentName = "wb-geomap",
 		} ) ];
 	},
 
-	// Convert a hexidecimal color string to 0..255 R,G,B for backwards compatibility
+	// Convert a hexadecimal color string to 0..255 R,G,B for backwards compatibility
 	hexToRGB = function( code, alpha ) {
 
 		var hex = ( code + "" ).trim(),
@@ -862,6 +871,15 @@ var componentName = "wb-geomap",
 					feature.getId() + "' />";
 	},
 
+	addLrgChkBox = function( mapLayer, feature ) {
+
+		return "<div class='checkbox gc-chckbxrdio'><input type='checkbox' id='cb_" +
+					feature.getId() + "' class='geomap-cbx' data-map='" + mapLayer.map.id +
+					"' data-layer='" + feature.layerId + "' data-feature='" +
+					feature.getId() + "' /><label for='cb_" + feature.getId() + "'><span class='wb-inv'>" +
+					i18nText.labelSelect + "</span></label></div>";
+	},
+
 	/**
 	 * Add zoom button to table columns
 	 */
@@ -887,7 +905,7 @@ var componentName = "wb-geomap",
 
 		if ( feature && feature.attributes ) {
 			var geometry = feature.getGeometry(),
-				coord = geometry.getType() === "Point" ? geometry.getCoordinates() : event.mapBrowserEvent.coordinate,
+				coord = geometry.getType() === "Point" ? geometry.getCoordinates() : evt.mapBrowserEvent.coordinate,
 				obj = feature.attributes,
 				key, regex;
 
@@ -1012,7 +1030,7 @@ var componentName = "wb-geomap",
 		map.once( "postrender", function() {
 
 			// v4.0.x transition function to support static map.
-			// The following makes assumption the geometry only inlude a point and it is WKT format
+			// The following makes assumption the geometry only include a point and it is WKT format
 			// The following should be removed in WET 5
 			map.getLayer = function( strSelector ) {
 
@@ -1046,7 +1064,7 @@ var componentName = "wb-geomap",
 			wb.ready( $( "#" + geomap.id ), componentName, [ map ] );
 		} );
 
-		// Everytime the map view is changed, fire the updated event
+		// Every time the map view is changed, fire the updated event
 		map.on( "moveend", function() {
 			$( geomap.id ).trigger( "wb-updated" + selector, [ geomap.map ] );
 		} );
@@ -1328,7 +1346,7 @@ var componentName = "wb-geomap",
 	//
 	// Param:
 	// - geomap = geomap Object
-	// - extext = array with 4 point ( West, South, East, North)
+	// - extent = array with 4 point ( West, South, East, North)
 	// - dontAddFeat = boolean (default:false) if true, no delimiter box would be added to the map
 	//
 	drawAOI = function( geomap, extent, dontAddFeat ) {
@@ -1491,7 +1509,7 @@ var componentName = "wb-geomap",
 		$( "#wb-geomap-geocode-search-" + geomap.id ).attr( "aria-haspopup", "true" );
 		$( "#wb-geomap-geocode-search-" + geomap.id ).attr( "aria-autocomplete", "list" );
 		$( "#wb-geomap-geocode-search-" + geomap.id ).attr( "aria-owns", "wb-geomap-geoloc-al-" + geomap.id );
-		$( "#wb-geomap-geocode-search-" + geomap.id ).attr( "aria-activedescendent", "" );
+		$( "#wb-geomap-geocode-search-" + geomap.id ).attr( "aria-activedescendant", "" );
 
 		width = parseFloat( $( ".geomap-geoloc" ).parent().width() );
 		x = width > 768 ? .6 : .8;
@@ -1579,7 +1597,7 @@ var componentName = "wb-geomap",
 			autolist.innerHTML = "";
 			autolist.setAttribute( "aria-hidden", "true" );
 			input.setAttribute( "aria-expanded", "false" );
-			input.setAttribute( "aria-activedescendent", "" );
+			input.setAttribute( "aria-activedescendant", "" );
 		}
 
 		/**
@@ -1715,7 +1733,7 @@ var componentName = "wb-geomap",
 					}
 
 				// Up / down arrow
-				} else if ( ( which === 38 || which === 40 ) && input.getAttribute( "aria-activedescendent" ) === "" ) {
+				} else if ( ( which === 38 || which === 40 ) && input.getAttribute( "aria-activedescendant" ) === "" ) {
 
 					if ( autolistHidden ) {
 						showOptions( input );
@@ -1729,7 +1747,7 @@ var componentName = "wb-geomap",
 
 					dest = options[ ( which === 38 ? options.length - 1 : 0 ) ];
 
-					input.setAttribute( "aria-activedescendent", dest.parentNode.getAttribute( "id" ) );
+					input.setAttribute( "aria-activedescendant", dest.parentNode.getAttribute( "id" ) );
 
 					// Assign focus to dest
 					$( dest ).trigger( setFocusEvent );
@@ -1850,7 +1868,7 @@ var componentName = "wb-geomap",
 					}
 					dest = dest.getElementsByTagName( "a" )[ 0 ];
 
-					input.setAttribute( "aria-activedescendent", dest.parentNode.getAttribute( "id" ) );
+					input.setAttribute( "aria-activedescendant", dest.parentNode.getAttribute( "id" ) );
 					$( dest ).trigger( setFocusEvent );
 
 					return false;
@@ -2160,7 +2178,7 @@ $document.on( "focusin focusout mouseover mouseout", ".wb-geomap-map", function(
 		geomap = getMapById( target.getAttribute( "data-map" ) ),
 		mouseWheelZoom = getMapInteraction( geomap.map, ol.interaction.MouseWheelZoom );
 
-	// disable mouseWheelZoom so that page scrolling isn't interupted
+	// disable mouseWheelZoom so that page scrolling isn't interrupted
 	if ( geomap.settings.useMapControls ) {
 		mouseWheelZoom.setActive( false );
 	}
@@ -2377,7 +2395,7 @@ MapLayer.prototype.addToLegend = function() {
 			i18nText.toggleLayer + "</legend></fieldset>" ).appendTo( legendDiv );
 	}
 
-	checked = this.isVisibile ? "checked='checked'" : "";
+	checked = this.isVisible ? "checked='checked'" : "";
 
 	$ul = legendDiv.find( "ul.geomap-lgnd" );
 	if ( $ul.length === 0 ) {
@@ -2413,10 +2431,18 @@ MapLayer.prototype.addToLegend = function() {
 	$label = $( "<label>", {
 		"for": "cb_" + this.id,
 		text: this.settings.title
-	} ).prepend( $chkBox );
+	} );
 
-	$li = $( "<li class='checkbox geomap-lgnd-layer'>" )
-		.append( $label, "<div id='sb_" + this.id + "'></div>" );
+	// Display large checkboxes if class is present
+	if ( this.map.mapDiv.context.classList.contains( "large-checkboxes" ) ) {
+		$li = $( "<li class='checkbox gc-chckbxrdio geomap-lgnd-layer'>" )
+			.append( $chkBox, $label, "<div id='sb_" + this.id + "'></div>" );
+	} else {
+		$label.prepend( $chkBox );
+
+		$li = $( "<li class='checkbox geomap-lgnd-layer'>" )
+			.append( $label, "<div id='sb_" + this.id + "'></div>" );
+	}
 
 	$ul.append( $li );
 
@@ -2431,7 +2457,7 @@ MapLayer.prototype.addToLegend = function() {
 };
 
 /**
- * Add tabluar data
+ * Add tabular data
  */
 Geomap.prototype.addTabularData = function() {
 
@@ -2457,7 +2483,7 @@ Geomap.prototype.addTabularData = function() {
 			continue;
 		}
 
-		$table = $( table ).wrap( "<div data-layer='" + this.settings.tables[ lenTable ].id + "' class='geomap-table-wrapper'></div>" );
+		$table = $( table ).wrap( "<div data-layer='" + this.settings.tables[ lenTable ].id + "' class='geomap-table-wrapper table-responsive'></div>" );
 
 		featureTable = this.settings.tables[ lenTable ];
 		featureArray = [];
@@ -2570,7 +2596,14 @@ Geomap.prototype.addTabularData = function() {
 
 				// Add the checkboxes and zoom controls
 				tdChkBox = trElmsInd.insertCell( 0 );
-				tdChkBox.innerHTML = addChkBox( this, vectorFeature );
+
+				// Use large checkboxes if the map has the large-checkboxes class
+				if ( this.mapDiv.context.classList.contains( "large-checkboxes" ) ) {
+					tdChkBox.innerHTML = addLrgChkBox( this, vectorFeature );
+				} else {
+					tdChkBox.innerHTML = addChkBox( this, vectorFeature );
+				}
+
 				if ( useMapControls && featureTable.zoom ) {
 					tdZoomTo = trElmsInd.insertCell( -1 );
 					tdZoomTo.classList.add( "text-right" );
@@ -2674,7 +2707,7 @@ MapLayer.prototype.populateDataTable = function() {
 		attributes = _this.settings.attributes,
 		len = attributeLen(),
 		$table,
-		sTable = "<table aria-label='" + _this.settings.title + "' id='" + _this.id + "' " +
+		sTable = "<div class='table-responsive'><table aria-label='" + _this.settings.title + "' id='" + _this.id + "' " +
 			"data-wb-tables='{ \"order\": [], \"columnDefs\": [ { \"targets\": [ 0, " + ( len + 1 ) + " ], \"orderable\": false } ] }'" +
 			"class='table",
 		sCaption = "'><caption>" + _this.settings.caption + "</caption>",
@@ -2702,8 +2735,11 @@ MapLayer.prototype.populateDataTable = function() {
 	// Create the table body rows
 	// for ( var i = 0; i < features.length || ( function() { refreshPlugins( _this.map ); return false; }() ); i += 1 ) {
 	for ( var i = 0; i < features.length; i += 1 ) {
-
-		body += "<tr><td>" + addChkBox( _this, features[ i ] );
+		if ( _this.map.mapDiv.context.classList.contains( "large-checkboxes" ) ) {
+			body += "<tr><td>" + addLrgChkBox( _this, features[ i ] );
+		} else {
+			body += "<tr><td>" + addChkBox( _this, features[ i ] );
+		}
 
 		attributes = features[ i ].attributes;
 
@@ -2717,7 +2753,7 @@ MapLayer.prototype.populateDataTable = function() {
 
 	}
 
-	$table = $( sTable + sCaption + head + "<tbody>" + body + "</tbody>" + "</table>" );
+	$table = $( sTable + sCaption + head + "<tbody>" + body + "</tbody>" + "</table></div>" );
 
 	$( "div[ data-layer='" + _this.id + "'].geomap-table-wrapper" ).append( $table );
 
@@ -3104,6 +3140,16 @@ MapLayer.prototype.createOLLayer = function() {
 				for ( var i = 0, len = features.length; i < len; i += 1 ) {
 
 					var feature = features[ i ];
+
+					if ( _this.settings.style.select ) {
+						_this.settings.style.select.type = "select";
+						var selStyleFactory = new StyleFactory(),
+							selStyle = selStyleFactory.createStyleFunction(
+								_this.settings.style.select,
+								feature.getGeometry().getType()
+							);
+						feature.selectStyle = selStyle;
+					}
 
 					feature.setId( generateGuid() );
 					feature.layerId = olLayer.id;
@@ -3591,7 +3637,8 @@ MapLegend.prototype.getSymbol = function( id, feature, symbolizer ) {
 		pseudoFeature, rendererMap, source, style;
 
 	switch ( featureType ) {
-		case "Polygon" || "MultiPolygon":
+		case "Polygon":
+		case "MultiPolygon":
 			pseudoFeature = new ol.Feature( {
 				geometry: new ol.geom.Polygon( [ [ [ -10, -7 ], [ 10, -7 ],
 					[ 10, 7 ], [ -10, 7 ] ] ] )
@@ -3608,7 +3655,8 @@ MapLegend.prototype.getSymbol = function( id, feature, symbolizer ) {
 			} );
 			pseudoFeature.setStyle( style );
 			break;
-		case "Point" || "MultiPoint":
+		case "Point":
+		case "MultiPoint":
 			pseudoFeature = new ol.Feature( {
 				geometry: new ol.geom.Point( [ 0, 0 ] )
 			} );
@@ -3634,7 +3682,8 @@ MapLegend.prototype.getSymbol = function( id, feature, symbolizer ) {
 			}
 			pseudoFeature.setStyle( style );
 			break;
-		case "LineString" || "MultiLineString":
+		case "LineString":
+		case "MultiLineString":
 			pseudoFeature = new ol.Feature( {
 				geometry: new ol.geom.LineString( [ [ -9, -4 ], [ -4, 4 ], [ 4, -4 ], [ 9, 4 ] ] )
 			} );
