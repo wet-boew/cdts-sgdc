@@ -208,3 +208,166 @@ background-color: #335075;
 #wb-info {
 	background:#e1e4e7;
 }
+
+/*CDTS GCIntranet Fixes for fonts being affected by new WET versions*/
+
+/* Fix headings */
+.h1,
+h1 {
+  font-size:1.9em
+}
+.h2,
+h2 {
+  font-size:1.8em
+}
+.h3,
+h3 {
+  font-size:1.2em
+}
+.h4,
+h4 {
+  font-size:1.1em
+}
+.h5,
+h5 {
+  font-size:1em
+}
+.h6,
+h6 {
+  font-size:.95em
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height:1.1;
+}
+
+h1 {
+  padding-bottom:.2em
+}
+
+/* Update font size for page */
+main {
+  font-size: 20px;
+  line-height: 1.65em;
+}
+
+/* Fix search box and search icon padding */
+.form-control, form .btn:not(.btn-call-to-action) {
+  padding: 6px 12px;
+}
+
+/* Update font size for preformatted text */
+pre {
+  font-size: 15px;
+}
+
+/* Fix padding for the footer links */
+#wb-info nav li {
+  margin-bottom: .75em;
+}
+
+/* Fix the headers in the footer*/
+#wb-info h3 {
+  margin-bottom: 1em;
+  margin-top: 0;
+  font-size: 1.2em;
+}
+
+/* Fix sub-footer spacing and background colour */
+#wb-info .brand {
+  background: #f8f8f8;
+  color: #333;
+  padding: 1.5em 0 2em;
+}
+
+/* sub-footer a and Canada images are too big */
+#wb-info a {
+  text-decoration: none;
+  font-size: .875em;
+}
+
+/* Fix Canada image on the bilingual error page*/
+#wb-info .brand img {
+  height: 40px;
+  width: auto;
+}
+
+/* ESDC - page section custom fonts (used to be in the previous WET versions)*/
+.gc-drmt p,
+.gc-srvinfo p {
+  font-size:17px;
+  line-height:1.5em
+}
+.gc-drmt h3,
+.gc-drmt h4,
+.gc-drmt h5,
+.gc-drmt h6,
+.gc-srvinfo h3,
+.gc-srvinfo h4,
+.gc-srvinfo h5,
+.gc-srvinfo h6 {
+  font-size:1em;
+  margin-bottom:5px;
+  margin-top:23px
+}
+
+/* Fix headers in panels */
+.panel-title {
+    font-size: 1.2em;
+  }
+
+/* Fix arrow spacing in collapse/expand */
+details summary {
+  text-indent: 0px;
+}
+
+/* Checkboxes and radio buttons*/
+.checkbox,
+.checkbox-inline,
+.radio,
+.radio-inline,
+:not(#wb-srch) form,
+form .btn:not(.btn-call-to-action) {
+  font-size:16px;
+  line-height:23px
+}
+
+input[type=checkbox],
+input[type=radio] {
+  margin-top:4px;
+}
+
+/* Mobile screen fixes */
+@media screen and (max-width:991px) {
+  header .brand img {
+    margin-top:10px
+  }
+  .h1,
+  h1 {
+    font-size:1.7em;
+    margin-top:.75em
+  }
+  .h2,
+  h2 {
+    font-size:1.6em
+  }
+}
+
+#wb-info .brand .tofpg a span {
+  margin-left: 25px;
+}
+
+#wb-info .brand .tofpg {
+  line-height: 40px;
+}
