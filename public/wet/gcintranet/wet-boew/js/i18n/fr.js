@@ -3,7 +3,7 @@
 * wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
 */
 /*
------ French dictionary (il8n) ---
+----- French dictionary (i18n) ---
 */
 ( function( wb ) {
 "use strict";
@@ -195,6 +195,7 @@ wb.i18nDict = {
 	"twitter-skip-end": "Passer à la fin du fil X de @%username%",
 	"twitter-skip-start": "Passer au commencement du fil X de @%username%",
 	"twitter-timeline-title": "Fil X",
+	"twitter-unavailable": "Le fil X est indisponible. Utilisez le lien ci-dessous pour le consulter sur X.",
 
 	/* Geomap */
 	"geo-mapctrl": "@geo-mapctrl@",
@@ -257,7 +258,18 @@ wb.i18nDict = {
 	"pii-view-more-info": "<p>Les types d'informations suivants sont considérés comme des informations personnelles&nbsp;:</p><ul><li>adresse courriel</li><li>numéro de téléphone</li><li>code postal</li><li>numéro de passeport</li><li>numéro d'entreprise</li><li>numéro d'assurance sociale (NAS)</li></ul>",
 	"pii-yes-btn": "Supprimer les informations personnelles et soumettre",
 	"pii-cancel-btn": "Retourner et modifier les champs",
-	"redacted": "caviardé"
+	"redacted": "caviardé",
+
+	/* Steps form */
+	"rel-preposition": " de ",
+	"progress-label": "Progression du questionnaire : ",
+
+	/* Pagination */
+	"pagination-label": "Pagination",
+
+	/* Tag filter */
+	"items-found": "éléments trouvés sur",
+	"no-items-found": "Aucun élément trouvé correspondant à cette combinaison de filtres"
 };
 
 } )( wb );

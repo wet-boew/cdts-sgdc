@@ -1,7 +1,7 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v19.3.1 - 2026-06-29
+ * v19.7.1 - 2026-10-08
  *
  */// ============================================
 // Accessible Combo Box Web Component
@@ -19,30 +19,26 @@ class GcComboBoxComponent extends HTMLElement {
 	static defaults = {
 		i18n: {
 			"en": {
-				selectAll: "Select all",
 				itemsSelected: "items selected",
 				selectAllOptions: "Select all options",
-				deselectAllOptions: "Deselect all options",
 				availableOptions: "Available options",
 				selected: "selected",
+				deselected: "deselected",
 				removed: "removed",
 				remove: "Remove",
 				noMatchingOptions: "No matching options",
-				allOptionsSelected: "All options selected",
-				allOptionsDeselected: "All options deselected"
+				allOptions: "All options"
 			},
 			"fr": {
-				selectAll: "Sélectionner tous",
 				itemsSelected: "éléments sélectionnés",
 				selectAllOptions: "Sélectionner toutes les options",
-				deselectAllOptions: "Désélectionner toutes les options",
 				availableOptions: "Options disponibles",
 				selected: "sélectionné",
+				deselected: "désélectionnées",
 				removed: "supprimé",
 				remove: "Supprimer",
 				noMatchingOptions: "Aucune option correspondante",
-				allOptionsSelected: "Toutes les options sélectionnées",
-				allOptionsDeselected: "Toutes les options désélectionnées"
+				allOptions: "Toutes les options"
 			}
 		}
 	};
@@ -67,13 +63,28 @@ class GcComboBoxComponent extends HTMLElement {
 		return this.constructor.defaults.i18n[ this.pageLanguage ] || {};
 	}
 
+	getAllOptionsTag() {
+		return this.getAttribute( "all-options-tag" )?.trim() || this.getLocalizedText().allOptions;
+	}
+
+	getSelectAllOption() {
+		return this.getAttribute( "enable-select-all" )?.trim() || this.getLocalizedText().selectAllOptions;
+	}
+
+	// In the case the customized tag has the word "selected", this method ensures that it is not read twice by screen readers
+	getSanitizedAllOptionsAnnouncement() {
+		const tagText = this.getAllOptionsTag();
+		const selected = this.getLocalizedText().selected;
+		return tagText.toLowerCase().endsWith( selected.toLowerCase() ) ? tagText : `${ tagText } ${ selected }`;
+	}
+
 	connectedCallback() {
 
 		// Set page language from document or fallback to English
 		this.pageLanguage = ( typeof wb !== "undefined" && wb.lang ) ? wb.lang : "en";
 
-		// Check if select-all-options attribute is present
-		this.allowSelectAll = this.hasAttribute( "select-all-options" );
+		// Check if enable-select-all attribute is present
+		this.allowSelectAll = this.hasAttribute( "enable-select-all" );
 
 		this.initializeComponent();
 	}
@@ -133,7 +144,7 @@ class GcComboBoxComponent extends HTMLElement {
 			this.selectAllOptionElement.className = "combo-box-option combo-box-option-select-all";
 			this.selectAllOptionElement.setAttribute( "role", "option" );
 			this.selectAllOptionElement.setAttribute( "data-select-all", "true" );
-			this.selectAllOptionElement.textContent = this.getLocalizedText().selectAllOptions;
+			this.selectAllOptionElement.textContent = this.getSelectAllOption();
 		}
 
 		// Build the empty state element once
@@ -330,8 +341,8 @@ class GcComboBoxComponent extends HTMLElement {
 	&.combo-box-option-select-all {
 		border-bottom: 1px solid #ccc;
 		font-weight: 700;
-		margin-bottom: 4px;
-		padding-bottom: 8px;
+		padding-top: 6px;
+		padding-bottom: 6px;
 	}
 
 	&:focus {
@@ -346,7 +357,7 @@ class GcComboBoxComponent extends HTMLElement {
 }
 
 
-.sr-only {
+.wb-inv {
 	position: absolute;
 	width: 1px;
 	height: 1px;
@@ -427,6 +438,7 @@ class GcComboBoxComponent extends HTMLElement {
 								autocomplete="off"
 								aria-autocomplete="list"
 								aria-controls="combo-box-list"
+								aria-describedby="combo-box-selection-desc"
 								aria-expanded="false"
 								aria-haspopup="listbox"
 							>
@@ -445,7 +457,8 @@ class GcComboBoxComponent extends HTMLElement {
 				</div>
 
 				<!-- Live region for screen reader announcements -->
-				<div id="liveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+				<div id="liveRegion" class="wb-inv" aria-live="polite" aria-atomic="true"></div>
+				<span id="combo-box-selection-desc" class="wb-inv"></span>
 			</div>
 		`;
 	}
@@ -456,10 +469,23 @@ class GcComboBoxComponent extends HTMLElement {
 		this.list = this.shadowRoot.getElementById( "combo-box-list" );
 		this.tagsContainer = this.shadowRoot.getElementById( "tagsContainer" );
 		this.liveRegion = this.shadowRoot.getElementById( "liveRegion" );
+		this.selectionDescription = this.shadowRoot.getElementById( "combo-box-selection-desc" );
 
 		// Store the original placeholder text
 		this.originalPlaceholder = this.input.placeholder;
 	}
+
+	// Updates the description for AT that is announced when the input is focused
+	updateSelectionDescription() {
+		if ( this.allOptionsSelected ) {
+			this.selectionDescription.textContent = this.getSanitizedAllOptionsAnnouncement();
+		} else if ( this.selectedOptions.length > 0 ) {
+			this.selectionDescription.textContent = `${ this.selectedOptions.length } ${ this.getLocalizedText().itemsSelected }`;
+		} else {
+			this.selectionDescription.textContent = "";
+		}
+	}
+
 
 	// Attaches all event listeners
 	attachEventListeners() {
@@ -526,6 +552,10 @@ class GcComboBoxComponent extends HTMLElement {
 
 	// Filters options based on user input
 	handleInput( e ) {
+		if ( this.allOptionsSelected ) {
+			return;
+		}
+
 		const value = e.target.value.trim();
 
 		this.filteredOptions = [ ...this.allOptions ].filter( option => {
@@ -703,8 +733,7 @@ class GcComboBoxComponent extends HTMLElement {
 			}
 
 			// Announce selection to screen readers
-			const count = this.selectedOptions.length;
-			this.announce( `${ option.label } ${ this.getLocalizedText().selected }. ${ count } ${ this.getLocalizedText().itemsSelected }.` );
+			this.announce( `${ option.label } ${ this.getLocalizedText().selected }.` );
 
 			// Dispatch change event
 			this.dispatchChangeEvent();
@@ -763,8 +792,9 @@ class GcComboBoxComponent extends HTMLElement {
 		tag.dataset.tagValue = item.value;
 		tag.tabIndex = -1;
 
-		// tag.setAttribute( "part", "tag" );
-		tag.innerHTML = `<span class="wb-inv" hidden>${ this.getLocalizedText().remove } </span><span class="tag-text">${ this.escapeHtml( item.label ) }</span><span class="tag-dismiss" aria-hidden="true">×</span>`;
+		tag.setAttribute( "part", "tag" );
+		tag.setAttribute( "aria-label", `${ this.getLocalizedText().remove } ${ item.label }` );
+		tag.innerHTML = `<span class="tag-text">${ this.escapeHtml( item.label ) }</span><span class="tag-dismiss" aria-hidden="true">×</span>`;
 		return tag;
 	}
 
@@ -776,8 +806,9 @@ class GcComboBoxComponent extends HTMLElement {
 		tag.dataset.tagValue = "all-options";
 		tag.tabIndex = -1;
 
-		// tag.setAttribute( "part", "tag" );
-		tag.innerHTML = `<span class="wb-inv" hidden>${ this.getLocalizedText().remove } </span><span class="tag-text">${ this.getLocalizedText().allOptionsSelected }</span><span class="tag-dismiss" aria-hidden="true">×</span>`;
+		tag.setAttribute( "part", "tag" );
+		tag.setAttribute( "aria-label", `${ this.getLocalizedText().remove } ${ this.getAllOptionsTag() }` );
+		tag.innerHTML = `<span class="tag-text">${ this.getAllOptionsTag() }</span><span class="tag-dismiss" aria-hidden="true">×</span>`;
 		return tag;
 	}
 
@@ -815,7 +846,6 @@ class GcComboBoxComponent extends HTMLElement {
 		this.input.value = "";
 		if ( allSelected ) {
 			this.input.placeholder = "";
-			this.tagsContainer.setAttribute( "aria-label", this.getLocalizedText().allOptionsSelected );
 			this.tagsContainer.setAttribute( "role", "toolbar" ); // AT Compatibility - See following comment about the role=toolbar used the subsequent instruction
 		} else {
 			this.input.placeholder = this.originalPlaceholder;
@@ -830,6 +860,8 @@ class GcComboBoxComponent extends HTMLElement {
 
 		// Ensure the input is always last
 		this.tagsContainer.appendChild( this.input );
+
+		this.updateSelectionDescription();
 
 		if ( hadFocus ) {
 			this.input.focus();
@@ -848,6 +880,7 @@ class GcComboBoxComponent extends HTMLElement {
 			// Prepend "Select all options" from cache if enabled
 			if ( this.allowSelectAll ) {
 				this.selectAllOptionElement.classList.remove( "active" );
+				this.selectAllOptionElement.setAttribute( "part", "select-all" );
 				this.list.appendChild( this.selectAllOptionElement );
 			}
 
@@ -866,7 +899,7 @@ class GcComboBoxComponent extends HTMLElement {
 
 	// Opens the dropdown list
 	openList() {
-		if ( !this.isOpen ) {
+		if ( !this.isOpen && !this.allOptionsSelected ) {
 			this.isOpen = true;
 			this.list.removeAttribute( "hidden" );
 			this.input.setAttribute( "aria-expanded", "true" );
@@ -971,15 +1004,23 @@ class GcComboBoxComponent extends HTMLElement {
 			return;
 		}
 
-		// Create hidden input for each selected item to be submitted with forms
-		this.selectedOptions.forEach( item => {
+		if ( this.allOptionsSelected ) {
 			const input = document.createElement( "input" );
 			input.type = "hidden";
 			input.name = name;
-			input.value = item.value;
+			input.value = "all";
 			input.dataset.comboValue = "true";
 			this.appendChild( input );
-		} );
+		} else {
+			this.selectedOptions.forEach( item => {
+				const input = document.createElement( "input" );
+				input.type = "hidden";
+				input.name = name;
+				input.value = item.value;
+				input.dataset.comboValue = "true";
+				this.appendChild( input );
+			} );
+		}
 	}
 
 	// Public API: Get selected values as array (useful for form handling)
@@ -1021,8 +1062,7 @@ class GcComboBoxComponent extends HTMLElement {
 
 		this.syncHiddenInputs();
 
-		// Announce action to screen readers
-		this.announce( `${ this.getLocalizedText().allOptionsSelected }` );
+		this.announce( this.getSanitizedAllOptionsAnnouncement() );
 
 		// Dispatch change event
 		this.dispatchChangeEvent();
@@ -1041,7 +1081,7 @@ class GcComboBoxComponent extends HTMLElement {
 		this.syncHiddenInputs();
 
 		// Announce action to screen readers
-		this.announce( `${ this.getLocalizedText().allOptionsDeselected }` );
+		this.announce( `${ this.getAllOptionsTag() } ${ this.getLocalizedText().deselected }` );
 
 		// Dispatch change event
 		this.dispatchChangeEvent();
@@ -3082,6 +3122,20 @@ var componentName = "wb-fieldflow",
 		dtCache.push( data );
 		return $elm.data( prop, dtCache );
 	},
+
+
+	// Bind the clean event, and check if the cleaning should be done on submit or not
+	bindCleanEvent = function( $elm, data, cleanFunction ) {
+		$elm.on( cleanEvent, function cleanHandler( event, cleanData ) {
+			if ( data.keepOnSubmit && cleanData && cleanData.onSubmit ) {
+				return;
+			}
+			cleanFunction.call( this, event, cleanData );
+
+			// Cleaning event is unbinded after it's been executed so that it only runs once
+			$elm.off( cleanEvent, cleanHandler );
+		} );
+	},
 	subRedir = function( event, data ) {
 
 		var form = data.form,
@@ -3138,7 +3192,7 @@ var componentName = "wb-fieldflow",
 		}
 
 		if ( cleanSelector ) {
-			$( data.origin ).one( cleanEvent, function( ) {
+			bindCleanEvent( $( data.origin ), data, function( ) {
 				$( cleanSelector ).empty();
 			} );
 		}
@@ -3184,7 +3238,7 @@ var componentName = "wb-fieldflow",
 
 		// Set the cleaning task
 		toggleOpts.type = "off";
-		$origin.one( cleanEvent, function( ) {
+		bindCleanEvent( $origin, data, function( ) {
 			$origin.addClass( "wb-toggle" );
 			$origin.trigger( "toggle.wb-toggle", toggleOpts );
 			$origin.removeClass( "wb-toggle" );
@@ -3639,7 +3693,6 @@ var componentName = "wb-fieldflow",
 		for ( i = 0; i !== i_len; i += 1 ) {
 			itmCached = arrItems[ i ];
 
-			itmValue = "";
 			grpItem = null;
 			itmLabel = "";
 
@@ -3675,7 +3728,6 @@ var componentName = "wb-fieldflow",
 				if ( $childNode.hasClass( subComponentName ) ) {
 					childNodeID = childNode.id || wb.getId();
 					childNode.id = childNodeID;
-					itmValue = componentName + "-" + childNodeID;
 
 					actions.push( {
 						action: "append",
@@ -3994,11 +4046,12 @@ $document.on( "submit", selectorForm + " form", function( event ) {
 		preventSubmit = false, lastProvEvt;
 
 	// Run the cleaning on the current items
+	// The "onSubmit" property lets an action opt out of it via the "keepOnSubmit" attribute
 	if ( i_len ) {
 		$wbFieldFlow = $( "#" + wbFieldFlowRegistered[ i_len - 1 ] );
 		fieldOrigin = $wbFieldFlow.data( registerJQData );
-		$( "#" + fieldOrigin[ fieldOrigin.length - 1 ] ).trigger( cleanEvent );
-		$wbFieldFlow.trigger( cleanEvent );
+		$( "#" + fieldOrigin[ fieldOrigin.length - 1 ] ).trigger( cleanEvent, { onSubmit: true } );
+		$wbFieldFlow.trigger( cleanEvent, { onSubmit: true } );
 	}
 
 	// For each wb-fieldflow component, execute submitting task.
@@ -4044,7 +4097,10 @@ $document.on( "submit", selectorForm + " form", function( event ) {
 
 	// Before to submit, remove jj-down accessory control
 	if ( !preventSubmit ) {
-		$elm.find( basenameInputSelector ).removeAttr( "name" );
+		$elm.find( basenameInputSelector ).each( function() {
+			this.dataset.wbFieldflowName = this.name;
+			this.removeAttribute( "name" );
+		} );
 
 		// Fix an issue when clicking back with the mouse
 		i_len = wbRegisteredHidden.length;
@@ -4242,6 +4298,23 @@ $document.on( fieldflowActionsEvents, selector, function( event, data ) {
 	}
 } );
 
+// On a page restore from cache, undo the two changes the submit handler made to the page just before navigating away to preserve the original state
+window.addEventListener( "pageshow", function( event ) {
+	if ( !event.persisted ) {
+		return;
+	}
+
+	$( "[data-" + componentName + "-name]" ).each( function() {
+		this.setAttribute( "name", this.dataset.wbFieldflowName );
+	} );
+
+	$( selectorForm + " " + crtlSelectSelector ).each( function() {
+		if ( $( this ).find( ":checked" ).length ) {
+			$( this ).trigger( "change" );
+		}
+	} );
+} );
+
 // Bind the init event of the plugin
 $document.on( "timerpoke.wb " + initEvent, selector, function( event ) {
 	switch ( event.type ) {
@@ -4356,7 +4429,6 @@ var $document = wb.doc,
 
 		if ( !filter || filter.length < 2 ) {
 			emptyExceptTemplate.call( this );
-			currentOptions = [];
 		} else {
 
 			// Remove existing option that don't match
@@ -4726,7 +4798,6 @@ var componentName = "gcweb-menu",
 	$document = wb.doc,
 	selectorAjaxed =  selector + " [data-ajax-replace]," + selector + " [data-ajax-append]," + selector + " [data-ajax-prepend]," + selector + " [data-wb-ajax]",
 	globalTimeoutOn,
-	globalTimeoutOff,
 	hoverDelay = 350,
 	justOpened,
 	isMobileMode, // Mobile vs Desktop
@@ -4872,7 +4943,6 @@ $document.on( "mouseenter", selector + " ul [aria-haspopup]", function( event ) 
 
 	// There is no "mouseenter" in mobile
 	if ( !isMobileMode ) {
-		clearTimeout( globalTimeoutOff );
 		OpenMenuWithDelay( event.currentTarget );
 	}
 } );
@@ -4907,8 +4977,6 @@ $document.on( "mouseenter focusin", selector + " [aria-haspopup] + [role=menu]",
 	if ( isMobileMode || justOpened === event.currentTarget ) {
 		return;
 	}
-
-	clearTimeout( globalTimeoutOff );
 } );
 
 // Ensure the menu don't switch when the user do a quick mouse over on other menu item.
@@ -4959,7 +5027,7 @@ function setMnu3LevelOrientationExpandState( isVertical, isExpanded ) {
 		i, i_len = mnu3Level.length,
 		expandState = ( isExpanded ? "true" : "false" ),
 		orientation = ( isVertical ? "vertical" : "horizontal" ),
-		expandStateItem = expandState;
+		expandStateItem;
 
 	for ( i = 0; i < i_len; i++ ) {
 

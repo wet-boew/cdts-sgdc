@@ -1,9 +1,1109 @@
 /*!
  * @title Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
  * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
- * v16.2.0 - 2025-02-04
+ * v19.7.1 - 2026-10-08
  *
- */( function( $, document, wb ) {
+ */// ============================================
+// Accessible Combo Box Web Component
+// ============================================
+
+class GcComboBoxComponent extends HTMLElement {
+
+	// Static cache for loaded styles
+	static stylesCache = null;
+
+	// Static counter for generating unique instance IDs
+	static instanceCounter = 0;
+
+	// Static i18n defaults
+	static defaults = {
+		i18n: {
+			"en": {
+				itemsSelected: "items selected",
+				selectAllOptions: "Select all options",
+				availableOptions: "Available options",
+				selected: "selected",
+				deselected: "deselected",
+				removed: "removed",
+				remove: "Remove",
+				noMatchingOptions: "No matching options",
+				allOptions: "All options"
+			},
+			"fr": {
+				itemsSelected: "éléments sélectionnés",
+				selectAllOptions: "Sélectionner toutes les options",
+				availableOptions: "Options disponibles",
+				selected: "sélectionné",
+				deselected: "désélectionnées",
+				removed: "supprimé",
+				remove: "Supprimer",
+				noMatchingOptions: "Aucune option correspondante",
+				allOptions: "Toutes les options"
+			}
+		}
+	};
+
+	constructor() {
+		super();
+		this.attachShadow( { mode: "open" } );
+		this.selectedOptions = [];
+		this.filteredOptions = [];
+		this.highlightedIndex = -1;
+		this.isOpen = false;
+		this.allOptions = [];
+		this.allOptionsSelected = false;
+		this.allowSelectAll = false; // Feature flag for select-all option
+		this.pageLanguage = "en"; // Default language
+		this.originalPlaceholder = ""; // Store original placeholder
+		this.instanceId = ++GcComboBoxComponent.instanceCounter;
+		this.optionsCache = new Map(); // Data layer: option value → <li> element
+	}
+
+	getLocalizedText() {
+		return this.constructor.defaults.i18n[ this.pageLanguage ] || {};
+	}
+
+	getAllOptionsTag() {
+		return this.getAttribute( "all-options-tag" )?.trim() || this.getLocalizedText().allOptions;
+	}
+
+	getSelectAllOption() {
+		return this.getAttribute( "enable-select-all" )?.trim() || this.getLocalizedText().selectAllOptions;
+	}
+
+	// In the case the customized tag has the word "selected", this method ensures that it is not read twice by screen readers
+	getSanitizedAllOptionsAnnouncement() {
+		const tagText = this.getAllOptionsTag();
+		const selected = this.getLocalizedText().selected;
+		return tagText.toLowerCase().endsWith( selected.toLowerCase() ) ? tagText : `${ tagText } ${ selected }`;
+	}
+
+	connectedCallback() {
+
+		// Set page language from document or fallback to English
+		this.pageLanguage = ( typeof wb !== "undefined" && wb.lang ) ? wb.lang : "en";
+
+		// Check if enable-select-all attribute is present
+		this.allowSelectAll = this.hasAttribute( "enable-select-all" );
+
+		this.initializeComponent();
+	}
+
+	// Cleanup when component is removed from DOM
+	disconnectedCallback() {
+		if ( this.handleDocumentClick ) {
+			document.removeEventListener( "click", this.handleDocumentClick );
+		}
+	}
+
+	// Initializes the Web Component with styles and markup
+	async initializeComponent() {
+
+		// Validate that a label is provided (via attribute or slot)
+		const label = this.getAttribute( "label" ) || this.querySelector( "[slot='label']" )?.textContent.trim();
+		if ( !label ) {
+			console.error( "gc-combobox: A label is required. Provide a label attribute or a <span slot=\"label\"> element." );
+			return;
+		}
+
+		// Validate that options are provided (via attribute or slot)
+		const hasOptionsAttr = this.hasAttribute( "options" );
+		const hasOptionsSlot = !!this.querySelector( "[slot='options']" );
+		if ( !hasOptionsAttr && !hasOptionsSlot ) {
+			console.error( "gc-combobox: Options are required. Provide an options attribute pointing to a JSON file, or a <select slot=\"options\"> element." );
+			return;
+		}
+
+		this.allOptions = await this.parseOptions();
+		this.filteredOptions = [ ...this.allOptions ];
+		this.buildOptionsCache();
+
+		await this.render();
+		this.cacheElements();
+		this.attachEventListeners();
+	}
+
+	// Builds the data layer: creates all option <li> elements once with stable IDs
+	buildOptionsCache() {
+		this.optionsCache = new Map();
+
+		this.allOptions.forEach( ( option, index ) => {
+			const optionElement = document.createElement( "li" );
+			optionElement.id = `combo-option-${ this.instanceId }-${ index }`;
+			optionElement.className = "combo-box-option";
+			optionElement.setAttribute( "role", "option" );
+			optionElement.setAttribute( "data-option-text", option.value );
+			optionElement.textContent = option.label;
+			this.optionsCache.set( option.value, optionElement );
+		} );
+
+		// Build the "Select all options" element once (if feature is enabled)
+		if ( this.allowSelectAll ) {
+			this.selectAllOptionElement = document.createElement( "li" );
+			this.selectAllOptionElement.id = `combo-option-select-all-${ this.instanceId }`;
+			this.selectAllOptionElement.className = "combo-box-option combo-box-option-select-all";
+			this.selectAllOptionElement.setAttribute( "role", "option" );
+			this.selectAllOptionElement.setAttribute( "data-select-all", "true" );
+			this.selectAllOptionElement.textContent = this.getSelectAllOption();
+		}
+
+		// Build the empty state element once
+		this.emptyStateElement = document.createElement( "li" );
+		this.emptyStateElement.className = "combo-box-option empty-state";
+		this.emptyStateElement.setAttribute( "role", "option" );
+		this.emptyStateElement.setAttribute( "aria-disabled", "true" );
+		this.emptyStateElement.setAttribute( "disabled", "true" );
+		this.emptyStateElement.textContent = this.getLocalizedText().noMatchingOptions;
+	}
+
+	// Parses options from JSON file specified in options attribute
+	async parseOptions() {
+
+		// If options file is specified via attribute, fetch it
+		const optionsFile = this.getAttribute( "options" );
+		if ( optionsFile ) {
+			try {
+				const response = await fetch( optionsFile );
+				if ( !response.ok ) {
+					throw new Error( `Failed to load ${ optionsFile }: ${ response.statusText }` );
+				}
+				const data = await response.json();
+
+				// Convert array of objects into the expected format
+				// Each object has "name" (display label) and "tag" (internal value)
+				const options = data.map( ( item ) => ( {
+					value: item.tag,
+					label: item.name
+				} ) );
+
+				// Sort options alphabetically by label
+				options.sort( ( a, b ) => a.label.localeCompare( b.label ) );
+
+				return options;
+			} catch ( e ) {
+				console.error( `Error loading options from ${ optionsFile }:`, e );
+				return [];
+			}
+		}
+
+		// Fallback to parsing from slot content if no options attribute
+		const slotOptions = this.querySelector( "[slot='options']" );
+		if ( slotOptions ) {
+			return Array.from( slotOptions.querySelectorAll( "option" ) ).map( opt => ( {
+				value: opt.value,
+				label: opt.textContent.trim()
+			} ) );
+		}
+		return [];
+	}
+
+	// Renders the component template and styles into Shadow DOM
+	async render() {
+
+		// Get label from attribute or use slot content
+		const label = this.getAttribute( "label" ) || this.querySelector( "[slot='label']" )?.textContent.trim() || "";
+
+		// Get placeholder from attribute
+		const placeholder = this.getAttribute( "placeholder" ) || "";
+		const styles = `
+			* {
+	box-sizing: border-box;
+}
+
+.combo-box-container {
+	align-items: center;
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+	min-height: 38px;
+	padding: 10px 14px;
+	position: relative;
+	transition:
+		border-color 0.15s ease-in-out,
+		box-shadow 0.15s ease-in-out;
+
+	&:focus-within {
+		border-color: #66afe9;
+		box-shadow:
+			inset 0 1px 1px rgba(0, 0, 0, 0.075),
+			0 0 8px rgba(102, 175, 233, 0.6);
+	}
+}
+
+.combo-box-input {
+	background: none;
+	border: none;
+	font-family: inherit;
+	color: #555;
+	font-size: 16px;
+	flex: 1;
+	min-width: 150px;
+	outline: none;
+	padding: 4px 0;
+
+	&.has-selections::placeholder {
+		color: transparent;
+	}
+}
+
+.combo-box-input-row {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.combo-box-label {
+	color: #333;
+	display: block;
+	font-size: 1.25rem;
+	font-weight: 700;
+	margin-bottom: 8px;
+	max-width: 100%;
+	padding-right: 0;
+}
+
+.combo-box-list {
+	background-color: white;
+	border: 1px solid #ccc;
+	border-top: none;
+	border-radius: 0 0 4px 4px;
+	cursor: pointer;
+	left: 0;
+	right: 0;
+	list-style: none;
+	margin: 0;
+	max-height: 300px;
+	overflow-y: auto;
+	padding: 0;
+	position: absolute;
+	top: 100%;
+	z-index: 1000;
+	margin-top: 1px;
+	font-size: 16px;
+
+	&[hidden] {
+		display: none;
+	}
+
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: #f1f1f1;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #888;
+		border-radius: 3px;
+
+		&:hover {
+			background: #555;
+		}
+	}
+}
+
+.combo-box-option {
+	cursor: pointer;
+	padding: 5px 12px;
+	user-select: none;
+
+	&[aria-disabled="true"] {
+		cursor: default;
+		pointer-events: none;
+
+		&:hover {
+			background-color: transparent;
+		}
+	}
+
+	&:hover,
+	&.active {
+		background-color: #ddd;
+		color: black;
+	}
+
+	&.empty-state {
+		cursor: default;
+		font-style: italic;
+		padding: 20px 12px;
+		text-align: center;
+
+		&:hover {
+			background-color: transparent;
+		}
+	}
+
+	&.combo-box-option-select-all {
+		border-bottom: 1px solid #ccc;
+		font-weight: 700;
+		padding-top: 6px;
+		padding-bottom: 6px;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.combo-box-wrapper {
+	margin-bottom: 30px;
+	position: relative;
+	width: 100%;
+}
+
+
+.wb-inv {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.tag {
+	background: #eee;
+	border-color: #acacac;
+	border-radius: 0;
+	border-style: solid;
+	border-width: 0 0 0 4px;
+	color: #000;
+	cursor: pointer;
+	display: inline;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	padding: .4em .6em .4em;
+	text-align: center;
+	vertical-align: baseline;
+	white-space: nowrap;
+
+&:hover {
+		background-color: rgba(0, 0, 0, 0.15);
+	}
+
+	&.tag-all-options {
+		background-color: #007bff;
+		border-color: #0056b3;
+		color: #fff;
+		font-weight: 600;
+
+		&:hover {
+			background-color: #0056b3;
+		}
+	}
+}
+
+.tag-text {
+	flex-grow: 1;
+	margin-right: 5px;
+}
+
+.tags-container {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px;
+	width: 100%;
+}
+
+		`;
+		this.shadowRoot.innerHTML = `
+			<style>
+				${ styles }
+			</style>
+
+			<div class="combo-box-wrapper">
+				<div class="combo-box-input-row">
+					<label for="combo-box-input" class="combo-box-label">
+						<slot name="label">${ this.escapeHtml( label ) }</slot>
+					</label>
+					<div class="combo-box-container">
+						<div class="tags-container" id="tagsContainer">
+							<!-- Tags will be dynamically inserted here -->
+							<input
+								type="text"
+								role="combobox"
+								id="combo-box-input"
+								class="combo-box-input"
+								placeholder="${ this.escapeHtml( placeholder ) }"
+								autocomplete="off"
+								aria-autocomplete="list"
+								aria-controls="combo-box-list"
+								aria-describedby="combo-box-selection-desc"
+								aria-expanded="false"
+								aria-haspopup="listbox"
+							>
+						</div>
+						<ul
+							id="combo-box-list"
+							class="combo-box-list"
+							role="listbox"
+							aria-label="${ this.escapeHtml( this.getLocalizedText().availableOptions ) }"
+							tabindex="-1"
+							hidden
+						>
+							<!-- Options will be dynamically inserted here -->
+						</ul>
+					</div>
+				</div>
+
+				<!-- Live region for screen reader announcements -->
+				<div id="liveRegion" class="wb-inv" aria-live="polite" aria-atomic="true"></div>
+				<span id="combo-box-selection-desc" class="wb-inv"></span>
+			</div>
+		`;
+	}
+
+	// Caches frequently accessed DOM elements
+	cacheElements() {
+		this.input = this.shadowRoot.getElementById( "combo-box-input" );
+		this.list = this.shadowRoot.getElementById( "combo-box-list" );
+		this.tagsContainer = this.shadowRoot.getElementById( "tagsContainer" );
+		this.liveRegion = this.shadowRoot.getElementById( "liveRegion" );
+		this.selectionDescription = this.shadowRoot.getElementById( "combo-box-selection-desc" );
+
+		// Store the original placeholder text
+		this.originalPlaceholder = this.input.placeholder;
+	}
+
+	// Updates the description for AT that is announced when the input is focused
+	updateSelectionDescription() {
+		if ( this.allOptionsSelected ) {
+			this.selectionDescription.textContent = this.getSanitizedAllOptionsAnnouncement();
+		} else if ( this.selectedOptions.length > 0 ) {
+			this.selectionDescription.textContent = `${ this.selectedOptions.length } ${ this.getLocalizedText().itemsSelected }`;
+		} else {
+			this.selectionDescription.textContent = "";
+		}
+	}
+
+
+	// Attaches all event listeners
+	attachEventListeners() {
+		this.input.addEventListener( "input", ( e ) => this.handleInput( e ) );
+		this.input.addEventListener( "focus", () => {
+			if ( this.input.value.trim() === "" ) {
+				this.updateFilteredOptions();
+			}
+			this.renderOptions();
+			this.openList();
+		} );
+		this.input.addEventListener( "keydown", ( e ) => this.handleKeyDown( e ) );
+
+		// Event delegation for tag removal buttons
+		this.tagsContainer.addEventListener( "click", ( e ) => {
+			const tag = e.target.closest( ".tag" );
+			if ( tag ) {
+				this.removeTag( tag.dataset.tagValue );
+			}
+		} );
+
+		// Event delegation for tag keyboard interactions
+		this.tagsContainer.addEventListener( "keydown", ( e ) => this.handleTagKeyDown( e ) );
+
+		// Event delegation for list options (click and hover)
+		this.list.addEventListener( "click", ( e ) => {
+			const option = e.target.closest( ".combo-box-option" );
+			if ( option && !option.hasAttribute( "disabled" ) ) {
+
+				// Check if this is the "Select all options" special option
+				if ( option.hasAttribute( "data-select-all" ) ) {
+					this.selectAll();
+				} else {
+					const optionText = option.getAttribute( "data-option-text" );
+					if ( optionText ) {
+						this.selectOption( optionText );
+					}
+				}
+			}
+		} );
+
+		this.list.addEventListener( "mouseover", ( e ) => {
+			const option = e.target.closest( ".combo-box-option" );
+			if ( option ) {
+				const options = Array.from( this.list.querySelectorAll( ".combo-box-option" ) );
+				this.highlightedIndex = options.indexOf( option );
+				this.updateHighlight();
+			}
+		}, true );
+
+		// Close list when clicking outside the component
+		this.handleDocumentClick = ( e ) => {
+			if ( !this.contains( e.target ) ) {
+				this.closeList();
+			}
+		};
+		document.addEventListener( "click", this.handleDocumentClick );
+
+		// Make sure every part of the box triggers the input focus on click
+		this.shadowRoot.querySelector( ".combo-box-container" ).addEventListener( "click", (  ) => {
+			this.input.focus();
+		} );
+	}
+
+	// Filters options based on user input
+	handleInput( e ) {
+		if ( this.allOptionsSelected ) {
+			return;
+		}
+
+		const value = e.target.value.trim();
+
+		this.filteredOptions = [ ...this.allOptions ].filter( option => {
+			const selectedValues = this.selectedOptions.map( i => i.value );
+			const matchesSearch = value === "" || option.label.toLowerCase().includes( value.toLowerCase() );
+			const isNotSelected = !selectedValues.includes( option.value );
+			return matchesSearch && isNotSelected;
+		} );
+
+		this.highlightedIndex = -1;
+		this.renderOptions();
+		this.openList();
+
+		if ( this.filteredOptions.length === 0 && !this.allOptionsSelected ) {
+			this.liveRegion.textContent = "";
+			setTimeout( () => {
+				this.announce( this.getLocalizedText().noMatchingOptions );
+			}, 500 );
+		}
+	}
+
+	// Handles keyboard navigation and interactions
+	handleKeyDown( e ) {
+		const key = e.key;
+
+		switch ( key ) {
+
+			case "ArrowLeft":
+				if ( this.input.value === "" && this.selectedOptions.length > 0 ) {
+					e.preventDefault();
+					this.focusLastTag();
+				}
+				break;
+			case "ArrowDown":
+				e.preventDefault();
+				this.highlightNext();
+				break;
+			case "ArrowUp":
+				e.preventDefault();
+				this.highlightPrevious();
+				break;
+			case "Enter":
+				e.preventDefault();
+				if ( this.highlightedIndex >= 0 && this.isOpen ) {
+					const options = Array.from( this.list.querySelectorAll( ".combo-box-option" ) );
+					const selectedOption = options[ this.highlightedIndex ];
+
+					// Check if "Select all options" was selected
+					if ( selectedOption && selectedOption.hasAttribute( "data-select-all" ) ) {
+						this.selectAll();
+					} else if ( selectedOption ) {
+						const optionValue = selectedOption.getAttribute( "data-option-text" );
+						if ( optionValue ) {
+							this.selectOption( optionValue );
+						}
+					}
+				}
+				break;
+			case "Escape":
+				e.preventDefault();
+				if ( this.isOpen ) {
+					this.closeList();
+				} else {
+					this.input.value = "";
+				}
+				break;
+			case "Backspace":
+			case "Delete":
+				if ( this.input.value === "" && this.selectedOptions.length > 0 ) {
+					e.preventDefault();
+					this.focusLastTag();
+				}
+				break;
+			case "Tab":
+
+				// Close dropdown when Tab is pressed to allow natural focus flow
+				this.closeList();
+				break;
+			default:
+				break;
+		}
+	}
+
+	// Moves highlight to the next option
+	highlightNext() {
+		if ( !this.isOpen ) {
+			this.openList();
+			return;
+		}
+
+		const options = this.list.querySelectorAll( ".combo-box-option:not([disabled])" );
+		if ( this.highlightedIndex < options.length - 1 ) {
+			this.highlightedIndex++;
+		} else {
+			this.highlightedIndex = 0;
+		}
+		this.updateHighlight();
+	}
+
+	// Moves highlight to the previous option
+	highlightPrevious() {
+		if ( !this.isOpen ) {
+			this.openList();
+			return;
+		}
+
+		const options = this.list.querySelectorAll( ".combo-box-option:not([disabled])" );
+		if ( this.highlightedIndex > 0 ) {
+			this.highlightedIndex--;
+		} else {
+			this.highlightedIndex = options.length - 1;
+		}
+		this.updateHighlight();
+	}
+
+	// Updates the visual highlight for the current option
+	updateHighlight() {
+		const options = this.list.querySelectorAll( ".combo-box-option:not([disabled])" );
+		options.forEach( ( option, index ) => {
+			if ( index === this.highlightedIndex ) {
+				option.classList.add( "active" );
+				option.scrollIntoView( { block: "nearest" } );
+				if ( option.id ) {
+					this.input.setAttribute( "aria-activedescendant", option.id );
+				}
+			} else {
+				option.classList.remove( "active" );
+			}
+		} );
+	}
+
+	// Announces messages to screen readers via live region
+	announce( message ) {
+		if ( this.liveRegion ) {
+			this.liveRegion.textContent = "";
+			this.liveRegion.textContent = message;
+		}
+	}
+
+	// Dispatches the change event for external listeners
+	dispatchChangeEvent() {
+		this.dispatchEvent( new CustomEvent( "change", {
+			detail: { selectedOptions: [ ...this.selectedOptions ] },
+			bubbles: true,
+			composed: true
+		} ) );
+	}
+
+	// Adds a selected option
+	selectOption( value ) {
+		const option = this.allOptions.find( o => o.value === value );
+
+		if ( !option ) {
+			return;
+		}
+
+		const alreadySelected = this.selectedOptions.some( i => i.value === value );
+		if ( !alreadySelected ) {
+			this.selectedOptions.push( option );
+
+			this.renderTags();
+			this.input.value = "";
+			this.updateFilteredOptions();
+			this.renderOptions();
+			this.highlightedIndex = -1;
+
+			// If all options are selected, hide dropdown
+			if ( this.selectedOptions.length === this.allOptions.length ) {
+				this.allOptionsSelected = true;
+				this.renderOptions();
+				this.closeList();
+			} else {
+				this.openList();
+				this.input.focus();
+			}
+
+			// Announce selection to screen readers
+			this.announce( `${ option.label } ${ this.getLocalizedText().selected }.` );
+
+			// Dispatch change event
+			this.dispatchChangeEvent();
+
+			this.syncHiddenInputs();
+		}
+	}
+
+	// Removes a selected item
+	removeTag( value, focusInput = true ) {
+
+		// Handle removal of "All options" tag
+		if ( value === "all-options" ) {
+			this.unselectAll();
+			return;
+		}
+
+		const option = this.allOptions.find( o => o.value === value );
+
+		if ( !option ) {
+			return;
+		}
+
+		this.selectedOptions = this.selectedOptions.filter( item => item.value !== value );
+		this.allOptionsSelected = false;
+		this.renderTags();
+		this.updateFilteredOptions();
+		this.renderOptions();
+
+		if ( focusInput ) {
+			this.input.focus();
+		}
+
+		// Announce removal to screen readers
+		const count = this.selectedOptions.length;
+		this.announce( `${ option.label }` + ` ${ this.getLocalizedText().removed }. ${ count } ${ this.getLocalizedText().itemsSelected }.` );
+
+		// Dispatch change event
+		this.dispatchChangeEvent();
+
+		this.syncHiddenInputs();
+	}
+
+	// Updates filtered options based on selected items
+	updateFilteredOptions() {
+		this.filteredOptions = [ ...this.allOptions ].filter(
+			item => !this.selectedOptions.map( i => i.value ).includes( item.value )
+		);
+	}
+
+	// Creates a tag element for a selected item
+	createTag( item ) {
+		const tag = document.createElement( "button" );
+		tag.className = "tag";
+		tag.type = "button";
+		tag.dataset.tagValue = item.value;
+		tag.tabIndex = -1;
+
+		tag.setAttribute( "part", "tag" );
+		tag.setAttribute( "aria-label", `${ this.getLocalizedText().remove } ${ item.label }` );
+		tag.innerHTML = `<span class="tag-text">${ this.escapeHtml( item.label ) }</span><span class="tag-dismiss" aria-hidden="true">×</span>`;
+		return tag;
+	}
+
+	// Creates the "All options selected" tag element
+	createAllOptionsTag() {
+		const tag = document.createElement( "button" );
+		tag.className = "tag tag-all-options";
+		tag.type = "button";
+		tag.dataset.tagValue = "all-options";
+		tag.tabIndex = -1;
+
+		tag.setAttribute( "part", "tag" );
+		tag.setAttribute( "aria-label", `${ this.getLocalizedText().remove } ${ this.getAllOptionsTag() }` );
+		tag.innerHTML = `<span class="tag-text">${ this.getAllOptionsTag() }</span><span class="tag-dismiss" aria-hidden="true">×</span>`;
+		return tag;
+	}
+
+	// Diffs the tags container: adds or removes tags as needed without full rebuilds
+	renderTags() {
+		const hadFocus = this.shadowRoot.activeElement === this.input;
+		const allSelected = this.selectedOptions.length === this.allOptions.length && this.allOptions.length > 0;
+		const desiredValues = new Set( allSelected ? [ "all-options" ] : this.selectedOptions.map( i => i.value ) );
+
+		// Remove tags no longer in the desired set
+		this.tagsContainer.querySelectorAll( ".tag[data-tag-value]" ).forEach( tag => {
+			if ( !desiredValues.has( tag.dataset.tagValue ) ) {
+				tag.remove();
+			}
+		} );
+
+		// Build a set of tag values already in the DOM
+		const existingValues = new Set(
+			Array.from( this.tagsContainer.querySelectorAll( ".tag[data-tag-value]" ) )
+				.map( t => t.dataset.tagValue )
+		);
+
+		// Add missing tags in order, just before the input
+		if ( allSelected && !existingValues.has( "all-options" ) ) {
+			this.tagsContainer.insertBefore( this.createAllOptionsTag(), this.input );
+		} else if ( !allSelected ) {
+			this.selectedOptions.forEach( item => {
+				if ( !existingValues.has( item.value ) ) {
+					this.tagsContainer.insertBefore( this.createTag( item ), this.input );
+				}
+			} );
+		}
+
+		// Update input state
+		this.input.value = "";
+		if ( allSelected ) {
+			this.input.placeholder = "";
+			this.tagsContainer.setAttribute( "role", "toolbar" ); // AT Compatibility - See following comment about the role=toolbar used the subsequent instruction
+		} else {
+			this.input.placeholder = this.originalPlaceholder;
+			this.input.classList.toggle( "has-selections", this.selectedOptions.length > 0 );
+			this.tagsContainer.removeAttribute( "aria-label" );
+			if ( this.selectedOptions.length > 0 ) {
+				this.tagsContainer.setAttribute( "role", "toolbar" ); // AT Compatibility - Without role="toolbar", NVDA stays in browse mode when it's inside the tags container and intercepts the arrow key event before they reach our handlers. The "toolbar" role tells NVDA that this is a widget-like element and to allow arrow key events to pass through to our JavaScript. The role is removed when empty to avoid announcing "toolbar" when there are no selected tags
+			} else {
+				this.tagsContainer.removeAttribute( "role" );
+			}
+		}
+
+		// Ensure the input is always last
+		this.tagsContainer.appendChild( this.input );
+
+		this.updateSelectionDescription();
+
+		if ( hadFocus ) {
+			this.input.focus();
+		}
+	}
+
+	// Renders the filtered options in the dropdown using the data layer cache
+	renderOptions() {
+		this.list.innerHTML = "";
+		this.input.removeAttribute( "aria-activedescendant" );
+
+		if ( this.allOptionsSelected || this.filteredOptions.length === 0 ) {
+			this.list.appendChild( this.emptyStateElement );
+		} else {
+
+			// Prepend "Select all options" from cache if enabled
+			if ( this.allowSelectAll ) {
+				this.selectAllOptionElement.classList.remove( "active" );
+				this.selectAllOptionElement.setAttribute( "part", "select-all" );
+				this.list.appendChild( this.selectAllOptionElement );
+			}
+
+			// Append only the filtered options from cache, resetting their highlight state
+			this.filteredOptions.forEach( ( option ) => {
+				const el = this.optionsCache.get( option.value );
+				if ( el ) {
+					el.classList.remove( "active" );
+					this.list.appendChild( el );
+				}
+			} );
+		}
+
+		this.highlightedIndex = -1;
+	}
+
+	// Opens the dropdown list
+	openList() {
+		if ( !this.isOpen && !this.allOptionsSelected ) {
+			this.isOpen = true;
+			this.list.removeAttribute( "hidden" );
+			this.input.setAttribute( "aria-expanded", "true" );
+		}
+	}
+
+	// Focuses the last tag button
+	focusLastTag() {
+		const tags = Array.from( this.tagsContainer.querySelectorAll( ".tag" ) );
+		if ( tags.length > 0 ) {
+			this.closeList();
+			tags[ tags.length - 1 ].focus();
+		}
+	}
+
+	// Handles keyboard events on tag buttons
+	handleTagKeyDown( e ) {
+		const tag = e.target.closest( ".tag" );
+		if ( !tag ) {
+			return;
+		}
+
+		const tags = Array.from( this.tagsContainer.querySelectorAll( ".tag" ) );
+		const index = tags.indexOf( tag );
+
+		switch ( e.key ) {
+			case "Backspace":
+			case "Delete":
+			case "Enter":
+			case " ": {
+				e.preventDefault();
+				const value = tag.dataset.tagValue;
+				const nextFocusIndex = tags[ index + 1 ] ? index : index - 1;
+				this.removeTag( value, false );
+
+				const newTags = Array.from( this.tagsContainer.querySelectorAll( ".tag" ) );
+				if ( nextFocusIndex >= 0 && newTags[ nextFocusIndex ] ) {
+					newTags[ nextFocusIndex ].focus();
+				} else {
+					this.input.focus();
+				}
+				break;
+			}
+
+			case "ArrowLeft":
+				e.preventDefault();
+				if ( tags[ index - 1 ] ) {
+					tags[ index - 1 ].focus();
+				}
+				break;
+			case "ArrowRight":
+				e.preventDefault();
+				if ( tags[ index + 1 ] ) {
+					tags[ index + 1 ].focus();
+				} else {
+					this.input.focus();
+					this.updateFilteredOptions();
+					this.renderOptions();
+					this.openList();
+				}
+				break;
+			case "Escape":
+				e.preventDefault();
+				this.input.focus();
+				break;
+			default:
+				break;
+		}
+	}
+
+	// Closes the dropdown list
+	closeList() {
+		if ( this.isOpen ) {
+			this.isOpen = false;
+			this.list.setAttribute( "hidden", "" );
+			this.input.setAttribute( "aria-expanded", "false" );
+			this.input.removeAttribute( "aria-activedescendant" );
+			this.highlightedIndex = -1;
+		}
+	}
+
+	// Escapes HTML special characters
+	escapeHtml( text ) {
+		if ( !text ) {
+			return "";
+		}
+		const map = {
+			"&": "&amp;",
+			"<": "&lt;",
+			">": "&gt;"
+		};
+		return text.replace( /[&<>']/g, m => map[ m ] );
+	}
+
+	syncHiddenInputs() {
+
+		// Remove any existing hidden inputs created by this component
+		this.querySelectorAll( "input[type=\"hidden\"][data-combo-value]" ).forEach( el => el.remove() );
+
+		const name = this.getAttribute( "name" );
+		if ( !name ) {
+			return;
+		}
+
+		if ( this.allOptionsSelected ) {
+			const input = document.createElement( "input" );
+			input.type = "hidden";
+			input.name = name;
+			input.value = "all";
+			input.dataset.comboValue = "true";
+			this.appendChild( input );
+		} else {
+			this.selectedOptions.forEach( item => {
+				const input = document.createElement( "input" );
+				input.type = "hidden";
+				input.name = name;
+				input.value = item.value;
+				input.dataset.comboValue = "true";
+				this.appendChild( input );
+			} );
+		}
+	}
+
+	// Public API: Get selected values as array (useful for form handling)
+	getSelectedValues() {
+		return this.selectedOptions.map( item => item.value );
+	}
+
+	// Public API: Get selected items
+	getSelectedOptions() {
+		return [ ...this.selectedOptions ];
+	}
+
+	// Public API: Set selected items programmatically
+	setSelectedOptions( items ) {
+		this.selectedOptions = this.allOptions.filter( o =>
+			items.some( i => i.value === o.value )
+		);
+
+		// Check if all options are selected
+		this.allOptionsSelected = this.selectedOptions.length === this.allOptions.length && this.allOptions.length > 0;
+
+		this.updateFilteredOptions();
+		this.renderTags();
+		this.renderOptions();
+
+		// Dispatch change event
+		this.dispatchChangeEvent();
+	}
+
+	// Selects all options
+	selectAll() {
+		this.selectedOptions = [ ...this.allOptions ];
+		this.allOptionsSelected = true;
+		this.updateFilteredOptions();
+		this.renderTags();
+		this.renderOptions();
+		this.closeList();
+		this.input.value = "";
+
+		this.syncHiddenInputs();
+
+		this.announce( this.getSanitizedAllOptionsAnnouncement() );
+
+		// Dispatch change event
+		this.dispatchChangeEvent();
+	}
+
+	// Unselects all options
+	unselectAll() {
+		this.selectedOptions = [];
+		this.allOptionsSelected = false;
+		this.updateFilteredOptions();
+		this.renderTags();
+		this.renderOptions();
+		this.input.value = "";
+		this.input.focus();
+
+		this.syncHiddenInputs();
+
+		// Announce action to screen readers
+		this.announce( `${ this.getAllOptionsTag() } ${ this.getLocalizedText().deselected }` );
+
+		// Dispatch change event
+		this.dispatchChangeEvent();
+	}
+
+	// Public API: Update options
+	setOptions( options ) {
+		this.allOptions = options;
+		this.selectedOptions = this.selectedOptions.filter( item =>
+			this.allOptions.some( o => o.value === item.value )
+		);
+		this.buildOptionsCache();
+		this.updateFilteredOptions();
+		this.renderTags();
+		this.renderOptions();
+	}
+}
+
+// Register the custom element
+customElements.define( "gc-combobox", GcComboBoxComponent );
+
+( function( $, document, wb ) {
 "use strict";
 
 /*
@@ -200,7 +1300,7 @@ wb.add( selector );
 
 var $document = wb.doc,
 	componentName = "gc-subway",
-	selector = ".provisional." + componentName,
+	selector = "." + componentName,
 	initEvent = "wb-init " + selector,
 	mainClass = componentName + "-section",
 	indexClass = componentName + "-index",
@@ -243,7 +1343,7 @@ var $document = wb.doc,
 				}
 
 				// Wrap all content until it hits either: ".pagedetails", or "".gc-subway-support"
-				$elm.nextUntil( ".pagedetails, .gc-subway-support" ).wrapAll( "<section class='" + mainClass + "'>" );
+				$elm.nextUntil( ".pagedetails, ." + supportClass ).wrapAll( "<section class='" + mainClass + "'>" );
 
 				$elm.wrap( "<div class='" + wrapperClass + "'></div>" );
 
@@ -257,9 +1357,6 @@ var $document = wb.doc,
 
 				$elm.find( "a.active" ).attr( { tabindex: "0", "aria-current": "page" } );
 
-				//$subwayLinks = $( selector + " a, ." + mainClass + " .gc-subway-pagination a" ); Put back once correctly implemented
-				$subwayLinks = $( selector + " a, ." + mainClass + " .gc-subway-pagination a, main .pager a" );// Remove once correctly implemented
-
 				// Cloning .gc-subway-support
 				$support = $( "." + supportClass );
 				if ( $support ) {
@@ -267,30 +1364,27 @@ var $document = wb.doc,
 					$support.addClass( "hidden-md hidden-lg" );
 				}
 
-				// Duplicating GC-Subway links for single-page application feel on mobile
-				$subwayLinks.each( function( i, el ) {
-					let $el = $( el ),
-						elHref = $el.attr( "href" ),
+				// Prevent on-load blinking on desktop
+				elm.classList.add( "no-blink" );
+			}
 
-						//cloneHref = elHref.includes( "#" ) ? elHref : elHref += "#wb-cont"; Put back once correctly implemented
-						cloneHref;
+			$subwayLinks = $( selector + " a, ." + mainClass + " .gc-subway-pagination a" );
 
-					// Remove once correctly implemented
-					if ( elHref ) {
-						cloneHref = elHref.includes( "#" ) ? elHref : elHref += "#wb-cont";
-					}
+			// Duplicating GC-Subway links for single-page application feel on mobile
+			$subwayLinks.each( function( i, el ) {
+				let $el = $( el ),
+					elHref = $el.attr( "href" ),
+					cloneHref = elHref.includes( "#" ) ? elHref : elHref + "#wb-cont";
 
+				if ( elHref !== cloneHref ) {
 					$el.clone()
 						.addClass( "hidden-md hidden-lg" )
 						.attr( "href", cloneHref )
 						.insertAfter( el );
 
 					$el.addClass( "hidden-xs hidden-sm" );
-				} );
-
-				// Prevent on-load blinking on desktop
-				elm.classList.add( "no-blink" );
-			}
+				}
+			} );
 
 			// Identify that initialization has completed
 			wb.ready( $elm, componentName );
@@ -363,7 +1457,7 @@ var $document = wb.doc,
 			actions = wb.getData( $elm, componentName );
 
 			if ( actions ) {
-				if ( !$.isArray( actions ) ) {
+				if ( !Array.isArray( actions ) ) {
 					actions = [ actions ];
 				}
 				i_len = actions.length;
@@ -410,7 +1504,7 @@ var $document = wb.doc,
 			return;
 		}
 
-		if ( !$.isArray( ops ) ) {
+		if ( !Array.isArray( ops ) ) {
 			ops = [ ops ];
 		}
 
@@ -480,10 +1574,20 @@ var $document = wb.doc,
 			colInt = parseInt( column, 10 ),
 			regex = !!data.regex,
 			smart = ( !data.smart ) ? true : !!data.smart,
-			caseinsen = ( !data.caseinsen ) ? true : !!data.caseinsen;
+			caseinsen = ( !data.caseinsen ) ? true : !!data.caseinsen,
+			sourceElm = $source.get( 0 );
 
 		if ( $source.get( 0 ).nodeName !== "TABLE" ) {
 			throw "Table filtering can only applied on table";
+		}
+
+		// If the DataTables plugin has not been initialized yet, listen for when wb-tables fires wb.ready(), then retry
+		// This ensures DataTables is initialized before attempting to call .api() on it
+		if ( sourceElm.className.indexOf( "wb-tables-inited" ) === -1 || !$.fn.dataTable || !$.fn.dataTable.isDataTable( sourceElm ) ) {
+			$source.one( "wb-ready.wb-tables", function() {
+				tblflrAct( event, data );
+			} );
+			return;
 		}
 
 		$datatable = $source.dataTable( { "retrieve": true } ).api();
@@ -550,7 +1654,7 @@ var $document = wb.doc,
 				var cellCSVText;
 				if ( isDataTable ) {
 
-					// I would like to use ".node()" instead of ".data()" but it is not possible to get the referencied
+					// I would like to use ".node()" instead of ".data()" but it is not possible to get the referenced
 					// node because it don't exist if the table have multiple pages.
 					cellCSVText = $datatable.cell( i, j, { "page": "all" } ).data();
 
@@ -610,7 +1714,7 @@ var $document = wb.doc,
 
 	},
 
-	// From a user input or a predefined input, apply some tranformation to the command prior to execute it
+	// From a user input or a predefined input, apply some transformation to the command prior to execute it
 	// This functionality was already in the URL mapping and was moved here to be reused by any user input
 	withInput = function( event, data ) {
 
@@ -636,7 +1740,7 @@ var $document = wb.doc,
 			defaultValue;
 
 
-		if ( !$.isArray( actions ) ) {
+		if ( !Array.isArray( actions ) ) {
 			actions = [ actions ];
 		} else {
 			actions = $.extend( [], actions );
@@ -691,7 +1795,7 @@ var $document = wb.doc,
 						ops = [ patchDefault ];
 						i_cache.cumulative = true;
 					}
-					if ( !$.isArray( ops ) ) {
+					if ( !Array.isArray( ops ) ) {
 						ops = [ ops ];
 					}
 					ops = patchFixArray( ops, i_cache.qval, basePntr );
@@ -731,6 +1835,7 @@ var $document = wb.doc,
 				input.setAttribute( "checked", true );
 			}
 		} );
+		$( sourceElm ).trigger( "wb-contentupdated" );
 	},
 	patchFixArray = function( patchArray, val, basePointer ) {
 
@@ -804,7 +1909,7 @@ $document.on( "do." + actionEvent, function( event ) {
 	// Filter out any events triggered by descendants
 	if ( ( elm === event.target || event.currentTarget === event.target ) && elm.className.indexOf( componentName ) === -1 ) {
 
-		if ( !$.isArray( actions ) ) {
+		if ( !Array.isArray( actions ) ) {
 			actions = [ actions ];
 		}
 
@@ -1007,7 +2112,7 @@ var componentName = "wb-chtwzrd",
 	},
 
 	/**
-	 * Prepare initiation depending on the input type, wether it's JSON or a form
+	 * Prepare initiation depending on the input type, whether it's JSON or a form
 	 * @method fireChtwzrd
 	 * @param {jQuery DOM element} $selector Element to which the wizard will be appended
 	 */
@@ -1326,7 +2431,7 @@ var componentName = "wb-chtwzrd",
 				}
 			};
 
-			// Correct bubble positionning on load, on resize an on Y scroll if necessary
+			// Correct bubble positioning on load, on resize an on Y scroll if necessary
 			stickyUntilFooter( $selector );
 
 			$( window ).on( "resize scroll", function() {
@@ -1548,7 +2653,7 @@ var componentName = "wb-chtwzrd",
 	 * Toggle between form and wizard
 	 * @method toggleExperience
 	 * @param {jQuery DOM element} $selector Element to which the experience will be active
-	 * @param {String} toggle Give context to the toggle, wether it is form or wizard
+	 * @param {String} toggle Give context to the toggle, whether it is form or wizard
 	 */
 	toggleExperience = function( $selector, toggle ) {
 
@@ -1619,7 +2724,7 @@ var componentName = "wb-chtwzrd",
 
 			if ( first !== "" ) {
 
-				// Show greetings on first occurence
+				// Show greetings on first occurrence
 				$lastQuestion.html( datainput.header.greetings );
 				first = "";
 				appendInteraction( $selector );
@@ -1637,7 +2742,7 @@ var componentName = "wb-chtwzrd",
 				$selector.attr( "action", redirurl );
 			} else {
 
-				// On every other occurences, append the question and its possible answers
+				// On every other occurrences, append the question and its possible answers
 				$lastQuestion.html( current.label );
 				current.input = "radio";
 				inputsTimeout = setTimeout( function() {
@@ -1920,7 +3025,7 @@ var componentName = "wb-fieldflow",
 			}
 			config = $.extend( {}, defaults, wbDataElm );
 
-			if ( config.defaultIfNone && !$.isArray( config.defaultIfNone ) ) {
+			if ( config.defaultIfNone && !Array.isArray( config.defaultIfNone ) ) {
 				config.defaultIfNone = [ config.defaultIfNone ];
 			}
 
@@ -1936,7 +3041,7 @@ var componentName = "wb-fieldflow",
 				};
 			}
 
-			// Transform the list into a select, use the first paragrap content for the label, and extract for i18n the name of the button action.
+			// Transform the list into a select, use the first paragraph content for the label, and extract for i18n the name of the button action.
 			var bodyID = wb.getId(),
 				stdOut,
 				formElm,
@@ -2017,6 +3122,20 @@ var componentName = "wb-fieldflow",
 		dtCache.push( data );
 		return $elm.data( prop, dtCache );
 	},
+
+
+	// Bind the clean event, and check if the cleaning should be done on submit or not
+	bindCleanEvent = function( $elm, data, cleanFunction ) {
+		$elm.on( cleanEvent, function cleanHandler( event, cleanData ) {
+			if ( data.keepOnSubmit && cleanData && cleanData.onSubmit ) {
+				return;
+			}
+			cleanFunction.call( this, event, cleanData );
+
+			// Cleaning event is unbinded after it's been executed so that it only runs once
+			$elm.off( cleanEvent, cleanHandler );
+		} );
+	},
 	subRedir = function( event, data ) {
 
 		var form = data.form,
@@ -2073,7 +3192,7 @@ var componentName = "wb-fieldflow",
 		}
 
 		if ( cleanSelector ) {
-			$( data.origin ).one( cleanEvent, function( ) {
+			bindCleanEvent( $( data.origin ), data, function( ) {
 				$( cleanSelector ).empty();
 			} );
 		}
@@ -2119,7 +3238,7 @@ var componentName = "wb-fieldflow",
 
 		// Set the cleaning task
 		toggleOpts.type = "off";
-		$origin.one( cleanEvent, function( ) {
+		bindCleanEvent( $origin, data, function( ) {
 			$origin.addClass( "wb-toggle" );
 			$origin.trigger( "toggle.wb-toggle", toggleOpts );
 			$origin.removeClass( "wb-toggle" );
@@ -2574,7 +3693,6 @@ var componentName = "wb-fieldflow",
 		for ( i = 0; i !== i_len; i += 1 ) {
 			itmCached = arrItems[ i ];
 
-			itmValue = "";
 			grpItem = null;
 			itmLabel = "";
 
@@ -2584,7 +3702,7 @@ var componentName = "wb-fieldflow",
 			j_len = childNodes.length;
 
 			if ( !firstNode ) {
-				throw "You have a markup error, There may be an empyt <li> elements in your list.";
+				throw "You have a markup error, There may be an empty <li> elements in your list.";
 			}
 
 			actions = [];
@@ -2610,7 +3728,6 @@ var componentName = "wb-fieldflow",
 				if ( $childNode.hasClass( subComponentName ) ) {
 					childNodeID = childNode.id || wb.getId();
 					childNode.id = childNodeID;
-					itmValue = componentName + "-" + childNodeID;
 
 					actions.push( {
 						action: "append",
@@ -2734,7 +3851,7 @@ $document.on( resetActionEvent, selector + ", ." + subComponentName, function( e
 		if ( settings && settings.reset ) {
 			settingsReset = settings.reset;
 
-			if ( $.isArray( settingsReset ) ) {
+			if ( Array.isArray( settingsReset ) ) {
 				resetAction = settingsReset;
 			} else {
 				resetAction.push( settingsReset );
@@ -2756,7 +3873,7 @@ $document.on( resetActionEvent, selector + ", ." + subComponentName, function( e
 	}
 } );
 
-// Load content after the user have choosen an option
+// Load content after the user has chosen an option
 $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event ) {
 
 	var elm = event.currentTarget,
@@ -2818,7 +3935,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 	}
 	if ( $optSel.length && $optSel.val() && settings && settings.default ) {
 		cacheAction = settings.default;
-		if ( $.isArray( cacheAction ) ) {
+		if ( Array.isArray( cacheAction ) ) {
 			actions = cacheAction;
 		} else {
 			actions.push( cacheAction );
@@ -2845,7 +3962,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 
 			if ( bindTo ) {
 
-				// Retreive action set on the binded element
+				// Retrieve action set on the binded element
 				bindToElm = document.getElementById( bindTo );
 				actionAttr = bindToElm.getAttribute( "data-" + componentName );
 				if ( typeof actionAttr === "string" ) {
@@ -2855,7 +3972,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 						} catch ( error ) {
 							$.error( "Bad JSON object " + actionAttr );
 						}
-						if ( !$.isArray( cacheAction ) ) {
+						if ( !Array.isArray( cacheAction ) ) {
 							cacheAction = [ cacheAction ];
 						}
 					} else {
@@ -2910,7 +4027,7 @@ $document.on( "change", selectorForm + " " + crtlSelectSelector, function( event
 } );
 
 
-// Load content after the user have choosen an option
+// Load content after the user has chosen an option
 $document.on( "submit", selectorForm + " form", function( event ) {
 
 	var elm = event.currentTarget,
@@ -2929,14 +4046,15 @@ $document.on( "submit", selectorForm + " form", function( event ) {
 		preventSubmit = false, lastProvEvt;
 
 	// Run the cleaning on the current items
+	// The "onSubmit" property lets an action opt out of it via the "keepOnSubmit" attribute
 	if ( i_len ) {
 		$wbFieldFlow = $( "#" + wbFieldFlowRegistered[ i_len - 1 ] );
 		fieldOrigin = $wbFieldFlow.data( registerJQData );
-		$( "#" + fieldOrigin[ fieldOrigin.length - 1 ] ).trigger( cleanEvent );
-		$wbFieldFlow.trigger( cleanEvent );
+		$( "#" + fieldOrigin[ fieldOrigin.length - 1 ] ).trigger( cleanEvent, { onSubmit: true } );
+		$wbFieldFlow.trigger( cleanEvent, { onSubmit: true } );
 	}
 
-	// For each wb-fieldflow component, execute submiting task.
+	// For each wb-fieldflow component, execute submitting task.
 	for ( i = 0; i !== i_len; i += 1 ) {
 		$wbFieldFlow = $( "#" + wbFieldFlowRegistered[ i ] );
 		componentRegistered = $wbFieldFlow.data( registerJQData );
@@ -2977,9 +4095,12 @@ $document.on( "submit", selectorForm + " form", function( event ) {
 		}
 	}
 
-	// Before to submit, remove jj-down accessesory control
+	// Before to submit, remove jj-down accessory control
 	if ( !preventSubmit ) {
-		$elm.find( basenameInputSelector ).removeAttr( "name" );
+		$elm.find( basenameInputSelector ).each( function() {
+			this.dataset.wbFieldflowName = this.name;
+			this.removeAttribute( "name" );
+		} );
 
 		// Fix an issue when clicking back with the mouse
 		i_len = wbRegisteredHidden.length;
@@ -3061,7 +4182,7 @@ $document.on( "keyup", selectorForm + " select", function( Ev ) {
 	// Add the fix for the on change event - https://bugzilla.mozilla.org/show_bug.cgi?id=126379
 	if ( navigator.userAgent.indexOf( "Gecko" ) !== -1 ) {
 
-		// prevent tab, alt, ctrl keys from fireing the event
+		// prevent tab, alt, ctrl keys from firing the event
 		if ( Ev.keyCode && ( Ev.keyCode === 1 || Ev.keyCode === 9 || Ev.keyCode === 16 || Ev.altKey || Ev.ctrlKey ) ) {
 			return true;
 		}
@@ -3177,6 +4298,23 @@ $document.on( fieldflowActionsEvents, selector, function( event, data ) {
 	}
 } );
 
+// On a page restore from cache, undo the two changes the submit handler made to the page just before navigating away to preserve the original state
+window.addEventListener( "pageshow", function( event ) {
+	if ( !event.persisted ) {
+		return;
+	}
+
+	$( "[data-" + componentName + "-name]" ).each( function() {
+		this.setAttribute( "name", this.dataset.wbFieldflowName );
+	} );
+
+	$( selectorForm + " " + crtlSelectSelector ).each( function() {
+		if ( $( this ).find( ":checked" ).length ) {
+			$( this ).trigger( "change" );
+		}
+	} );
+} );
+
 // Bind the init event of the plugin
 $document.on( "timerpoke.wb " + initEvent, selector, function( event ) {
 	switch ( event.type ) {
@@ -3207,7 +4345,7 @@ var $document = wb.doc,
 	initEvent = "wb-init." + componentName,
 	jsonFetched = "json-fetched.wb",
 	wait,
-	waitInterval = 250, // In-bettween typing delay before refreshing the suggested list.
+	waitInterval = 250, // In-between typing delay before refreshing the suggested list.
 	maxWaitLoading = 5, // Number of time of waitInterval the plugin are allow wait for getting JSON suggestions
 
 	// Remove accent and normalize the string
@@ -3241,8 +4379,8 @@ var $document = wb.doc,
 	//
 	// this: datalist instance
 	// filter: filter items that match the suggestion
-	// limti: (for overwride) limit number of result
-	// attSuggestions: (for overwride) Array of string with suggestion
+	// limit: (for override) limit number of result
+	// attSuggestions: (for override) Array of string with suggestion
 	//
 	addDataListOptions = function( filter, limit, attrSuggestions ) {
 		var suggestions = attrSuggestions || JSON.parse( this.dataset.wbSuggestions || [] ),
@@ -3291,7 +4429,6 @@ var $document = wb.doc,
 
 		if ( !filter || filter.length < 2 ) {
 			emptyExceptTemplate.call( this );
-			currentOptions = [];
 		} else {
 
 			// Remove existing option that don't match
@@ -3316,7 +4453,7 @@ var $document = wb.doc,
 		var template = this.querySelector( "template" );
 
 		// IE11 support
-		// Polyfil the template, like if added after the polyfill or this a sub-template in a template container that wasn't polyfill
+		// Polyfill the template, like if added after the polyfill or this a sub-template in a template container that wasn't polyfill
 		// FYI - The polyfill is loaded from the data-json plugin
 		if ( template && !template.content ) {
 			wb.tmplPolyfill( template );
@@ -3362,7 +4499,7 @@ var $document = wb.doc,
 		// Attach the JSON list to the datalist element
 		this.dataset.wbSuggestions = JSON.stringify( suggestions );
 
-		// Remove the reference as it not needed anymore
+		// Remove the reference as it not needed any more
 		delete this.dataset.wbSuggest;
 
 		// Add the suggested options
@@ -3482,7 +4619,7 @@ var componentName = "wb-urlmapping",
 	initEvent = "wb-init." + componentName,
 	doMappingEvent = "domapping." + componentName,
 	$document = wb.doc,
-	authTrigger, // Flag to prevent instation of WET no more than twice by page load
+	authTrigger, // Flag to prevent initiation of WET no more than twice by page load
 
 	/**
 	 * @method init
@@ -3551,7 +4688,7 @@ $document.on( doMappingEvent, selector, function( event ) {
 
 		if ( typeof settingQuery === "object" ) {
 
-			// Send it to the action manager to get proccessed with the action "withInput"
+			// Send it to the action manager to get processed with the action "withInput"
 			$elm.trigger( {
 				type: "do.wb-actionmng",
 				actions: {
@@ -3661,7 +4798,6 @@ var componentName = "gcweb-menu",
 	$document = wb.doc,
 	selectorAjaxed =  selector + " [data-ajax-replace]," + selector + " [data-ajax-append]," + selector + " [data-ajax-prepend]," + selector + " [data-wb-ajax]",
 	globalTimeoutOn,
-	globalTimeoutOff,
 	hoverDelay = 350,
 	justOpened,
 	isMobileMode, // Mobile vs Desktop
@@ -3711,8 +4847,21 @@ var componentName = "gcweb-menu",
 			setMnu3LevelOrientationExpandState( false, isMediumView );
 		}
 
+		const nav = document.querySelector( " nav" + selector ),
+			buttonID = "mainMenuBtn",
+			desc = document.createElement( "p" );
+		subElm.previousElementSibling.setAttribute( "id", buttonID );
+		nav.setAttribute( "aria-labelledby", buttonID );
+		subElm.previousElementSibling.lastElementChild.setAttribute( "aria-hidden", "true" );
+
+		desc.id = "gcweb-menu-desc";
+		desc.hidden = true;
+		desc.textContent = i18nInstruction;
+
+		subElm.previousElementSibling.insertAdjacentElement( "beforebegin", desc );
+
 		// Add menu navigation instruction
-		subElm.previousElementSibling.setAttribute( "aria-label", i18nInstruction );
+		subElm.previousElementSibling.setAttribute( "aria-describedby", "gcweb-menu-desc" );
 
 		// Identify that initialization has completed
 		wb.ready( $elm, componentName );
@@ -3763,7 +4912,7 @@ function CloseMenu( elm, force ) {
 		var currentFocusIsOn = elm.nextElementSibling.querySelector( "[role=menuitem]:focus" );
 		var siblingHasFocus = elm.parentElement.parentElement.querySelector( "[role=menuitem]:focus" );
 
-		// Check if we keep the menu opon
+		// Check if we keep the menu open
 		if ( currentFocusIsOn || siblingHasFocus === elm ) {
 			return;
 		}
@@ -3794,7 +4943,6 @@ $document.on( "mouseenter", selector + " ul [aria-haspopup]", function( event ) 
 
 	// There is no "mouseenter" in mobile
 	if ( !isMobileMode ) {
-		clearTimeout( globalTimeoutOff );
 		OpenMenuWithDelay( event.currentTarget );
 	}
 } );
@@ -3829,8 +4977,6 @@ $document.on( "mouseenter focusin", selector + " [aria-haspopup] + [role=menu]",
 	if ( isMobileMode || justOpened === event.currentTarget ) {
 		return;
 	}
-
-	clearTimeout( globalTimeoutOff );
 } );
 
 // Ensure the menu don't switch when the user do a quick mouse over on other menu item.
@@ -3881,7 +5027,7 @@ function setMnu3LevelOrientationExpandState( isVertical, isExpanded ) {
 		i, i_len = mnu3Level.length,
 		expandState = ( isExpanded ? "true" : "false" ),
 		orientation = ( isVertical ? "vertical" : "horizontal" ),
-		expandStateItem = expandState;
+		expandStateItem;
 
 	for ( i = 0; i < i_len; i++ ) {
 
@@ -4181,1792 +5327,89 @@ wb.add( selector );
 
 } )( jQuery, wb );
 
-// If GC-ministers, GC-institution, and Services & information are present and the page doesn't already have "page-type-ilp" class
-if ( document.querySelector( ".gc-minister" ) && !document.body.classList.contains( "page-type-ilp" ) && document.querySelector( ".gc-srvinfo" ) && document.querySelector( ".list-unstyled.bold-content.mrgn-tp-lg.lst-spcd-2.colcount-md-2" ) ) {
-	document.body.classList.add( "page-type-ilp" );
-	console.warn( "It seems that this page is an institutional landing page. However, the <body> element is missing the \"page-type-ilp\" CSS class. It has been added for your convenience, but please make sure you follow the technical guidance: https://wet-boew.github.io/GCWeb/templates/institutional-landing/institutional-landing-doc-en.html" );
+// If in the news page and still in version 4.0, make necessary changes for 4.0.1
+if ( document.querySelector( ".nws-tbl" ) && document.querySelector( "details summary h2.h4" ) ) {
+	let fltrNewsTitle = document.querySelector( "details summary h2.h4" ),
+		newsTable = document.querySelector( ".nws-tbl" ),
+		newsTableConfig = newsTable.getAttribute( "data-wb-tables" );
+
+	fltrNewsTitle.classList.remove( "h4" );
+	fltrNewsTitle.classList.add( "h6" );
+
+	newsTable.setAttribute( "data-wb-tables", newsTableConfig.replace( "nws-tbl-ttl h4", "nws-tbl-ttl h6" ) );
 }
 
-/*global ol: false*/
-( function( $, wb ) {
+( function( $, window, wb ) {
 "use strict";
+
 var $document = wb.doc,
-	mapSample;
-$document.on( "wb-ready.wb-geomap", "#sample_map", function( event, map ) {
+	componentName = "page-type-theme",
+	selector = "." + componentName,
+	initEvent = "wb-init " + selector,
+	themeMenuBtn,
+	themeNav,
+	themeNavUL,
+	elementsToHide = "#theme-content, #theme-features, .pagedetails, .gc-contextual, .gc-main-footer",
 
-	// Get the sample_map to use in zoomFeature function
-	mapSample = map;
-	var $aoiExtent = $( "#geomap-aoi-extent-" + mapSample.id ),
-		$aoiExtentLonLat = $( "#geomap-aoi-extent-lonlat-" + mapSample.id );
+	/**
+	 * @method init
+	 * @param {jQuery Event} event Event that triggered the function call
+	 */
+	init = function( event ) {
 
-	if ( $aoiExtent ) {
+		// Start initialization
+		// returns DOM object = proceed with init
+		// returns undefined = do not proceed with init (e.g., already initialized)
+		var elm = wb.init( event, componentName, selector );
 
-		$aoiExtent.on( "change", function() {
+		if ( elm && event.currentTarget === event.target ) {
+			themeMenuBtn = document.querySelector( "#menu-btn" );
+			themeNav = document.querySelector( "#theme-nav" );
+			themeNavUL = themeNav.querySelector( "ul" );
+			elementsToHide = document.querySelectorAll( elementsToHide );
 
-			//console.log( "BBox: " + $( this ).val() );
+			// Set attributes
+			themeNavUL.id = themeNavUL.id || wb.getId();
+			themeMenuBtn.setAttribute( "aria-controls", themeNavUL.id );
+			themeMenuBtn.setAttribute( "aria-expanded", "false" );
+
+			// Highlight the current page in the menu
+			$( themeNav ).trigger( "navcurr.wb" );
+			themeNavUL.querySelector( ".wb-navcurr" )?.setAttribute( "aria-current", "page" );
+
+			// Identify that initialization has completed
+			wb.ready( $( elm ), componentName );
+		}
+	},
+	toggleMenu = function() {
+		let expanded = themeMenuBtn.getAttribute( "aria-expanded" ) === "true";
+		themeMenuBtn.setAttribute( "aria-expanded", !expanded );
+		themeMenuBtn.classList.toggle( "expanded", !expanded );
+		elementsToHide.forEach( element => {
+			element.classList.toggle( "hidden-xs", !expanded );
+			element.classList.toggle( "hidden-sm", !expanded );
 		} );
+	};
 
-		$aoiExtentLonLat.on( "change", function() {
+// Bind the init event of the plugin
+$document.on( "timerpoke.wb " + initEvent, selector, init );
 
-			//console.log( "BBox LonLat: " + $( this ).val() );
-		} );
+// On click of the menu button
+$document.on( "click", "#menu-btn", function() {
+	toggleMenu();
+} );
+
+// Close menu on Escape key and restore hidden elements
+$document.on( "keydown", function( event ) {
+	var key = event.key || event.keyCode;
+	if ( key === "Escape" || key === "Esc" || key === 27 ) {
+		if ( themeMenuBtn && themeMenuBtn.getAttribute( "aria-expanded" ) === "true" ) {
+			toggleMenu();
+		}
 	}
 } );
 
-$document.on( "wb-ready.wb-geomap", "#location_map", function( event, map ) {
+// Add the timer poke to initialize the plugin
+wb.add( selector );
 
-	// Zoom to location on location_map
-	map.getView().setCenter( ol.proj.transform( [ -75.70535, 45.3995 ], "EPSG:4326", "EPSG:3978" ) );
-	map.getView().setZoom( 5 );
-} );
-
-} )( jQuery, wb );
-
-/*
- * Global overrides for individual components
- *
- * Map Overlays (i.e. layers)
- * Overlays will be added in the order that they are provided
- * (i.e. the first overlay will be added first, then the next
- * on top, and so on).
- *
- * Note that the basemap can be set globally in settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONAL: note that Geomap will provide a default basemap if not specified here.
-	/*basemap: {
-		title:"OSM Map",
-		type:"osm",
-		mapOptions: {
-			center: [ -123, 49 ],
-			zoomLevel: 5
-		}
-	},*/
-	overlays: [
-		{
-			title: "WMS",
-			caption: "This is a sample WMS service loaded by Geomap.",
-			type: "wms",
-			url: "//geo.weather.gc.ca/geomet?lang=en",
-			visible: false,
-			version: "1.3.0",
-			format: "image/png",
-			layers: "GDPS.ETA_PR",
-			transparent: true,
-			options: {
-				opacity: 0.5,
-
-				//legendGraphicUrl: "http://geo.weather.gc.ca/geomet/?Lang=E&LAYERS=GDPS.ETA_PR&VERSION=1.1.1&FORMAT=image%2Fpng&SERVICE=WMS&REQUEST=GetLegendGraphic&STYLE=PRECIPMM"
-				legendHTML: "<small>GeoMet Precipitation (mm)</small>" +
-						"<ul class='list-unstyled'>" +
-						"<li><span style='background-color:#800000;display:inline-block;height:20px;width:20px'/> <small>100.0</small></li>" +
-						"<li><span style='background-color:#FF0000;display:inline-block;height:20px;width:20px'/> <small>50.0</small></li>" +
-						"<li><span style='background-color:#FF4500;display:inline-block;height:20px;width:20px'/> <small>25.0</small></li>" +
-						"<li><span style='background-color:#FFA500;display:inline-block;height:20px;width:20px'/> <small>20.0</small></li>" +
-						"<li><span style='background-color:#FFD700;display:inline-block;height:20px;width:20px'/> <small>15.0</small></li>" +
-						"<li><span style='background-color:#E5E500;display:inline-block;height:20px;width:20px'/> <small>10.0</small></li>" +
-						"<li><span style='background-color:#7FFF00;display:inline-block;height:20px;width:20px'/> <small>7.5</small></li>" +
-						"<li><span style='background-color:#7FFFD4;display:inline-block;height:20px;width:20px'/> <small>5.0</small></li>" +
-						"<li><span style='background-color:#00FFFF;display:inline-block;height:20px;width:20px'/> <small>2.5</small></li>" +
-						"<li><span style='background-color:#87CEFA;display:inline-block;height:20px;width:20px'/> <small>1.0</small></li>" +
-						"<li><span style='background-color:#1E90FF;display:inline-block;height:20px;width:20px'/> <small>0.5</small></li>" +
-						"<li><span style='background-color:#0000CD;display:inline-block;height:20px;width:20px'/> <small>0.25</small></li>" +
-						"<li><span style='background-color:#000080;display:inline-block;height:20px;width:20px'/> <small>0.10</small></li>" +
-						"</ul>"
-			}
-		},
-		{
-			title: "KML",
-			caption: "This data is extracted from the <a href=\"http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/457ede2f-fd65-5936-ab60-3fe71da0e98b\">Principal mineral areas of Canada</a> publication.",
-			type: "kml",
-			url: "demo/producing-mines.kml",
-			visible: false,
-			datatable: true,
-			tooltips: true,
-			tooltipText: "Operation",
-			popups: true,
-			attributes: {
-				Type_: "Type",
-				OwnersE: "Owner",
-				OperationE: "Operation",
-				ComGroupE: "Commodity Group",
-				CommodityE: "Commodity"
-			},
-			style: {
-				type: "unique",
-				field: "Type",
-				init: {
-					"Coal": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+hJREFUSInN1n9MVWUYwPH" +
-						"vOfeC51zvubeQiwtDCS37sZxbP5YaKbVqaw1W/DKCQiaEBfYD19ZabrlaMp0tNREItJBoDabWrC2pK1qbxXRMmoMwDav1R8GFe4DzAvee0x/iTbpwuZRrPf++z/t8znPe57w7dv6jsP8vICH8i0Gqx" +
-						"LIiP5AknVYUbcs/goQYvgHL9AJJIEV0sMgQhn6tomovzgoSYij5MnLU20bzkc+nNeKucfNSaQme+HkvCEOXFVV7PirIMIYWYlleYFHrsTaaDn8asRlPXBzbqqrZtKGEhPj4jcLQJUXVNkaEDENPkrC" +
-						"8QPKXbcf58NAlRJJlLNMMQ2LsdvJzMgkGgjR83ExBThYJ8fHlwvBLiuoqnxIaGfEvkMALpHx14gSNBz8BYMeW13BpGn19Pj472krbt+2hzeOBAFt27OSVslJKCwuo3t/Ak9mZzPd4yiawskmQZf0WM" +
-						"yokL7D42IlvONByOFTMpWnIkownfh4Fa7NJuj5x0vr42BgjQpAQm0B+Thbb99RQsaGY+R7Pc8LQ+xVV2xyCDMM9R5aCN17o7eWDloOTXs/vf/Qx3+MBQJZkfL7B0Fqs3U7FsyW4nE5efv1N0h96gBV" +
-						"3LGdbVQ3bN78KWMumPKOxsfGwczjyRSuFebnIkoxpmYyOjU5C3C4XW3dVMajrNLQcYvU9d6H79bA6M94MX7efIikxEb+uY1om2RnpBIImK+++E7fLReW7exkY/KvLtpPtxNjDy0Z1BV054rIkU5CbR" +
-						"X+/j7d2V9Hf74umxOzuuli7neW334ZvYBBVVViUeN3Vh2ImzsQ5dy5vvL2LZUuXsO6JHKzGj+g423V1IJvNRkXpelxOJ5W79zLg93P8u1OMBYKsy8ul7kATZ7p++HeQzWaj4pn1aJoWmq7LcfJ0B8F" +
-						"AgMK8texrbKKzuycyZJqmKdswFyYtkG9OSabr/E+hhFuXpKCqClt37kEfHg4r0H7me8YDAR59+MEQlJP+yKVFSQp9L3YAp9M5IoRepCpqfVlxkby7tj6EdXb30Nn9TsSuO852hc4pPzOD+1NTAesCy" +
-						"JsmQQCKor0vhC45VEddWXGRvKu2nu4rOosmnsp8jDWpqwDOW8hpquK8GAZNYPsvY+XFRdJssKezHmf1vSsBfrQgTVWdP1+5HjYMiqLtE4YuO1RHbbRYYXYm961aAXDuEqL98vecKadOUbU6Yfglh+q" +
-						"oKS8uknovhu0LxRwllpRFyQDnTMta43C4fp0qb9rxVlTXexNY9S1Lb5rhp4Ee07LSpkMiQhNYrRCDzZJks0XKEyI45Ha7RaScGT9YRXFHd5nNEH8C+eGD9m6tNTgAAAAASUVORK5CYII=",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Coal mines"
-					},
-					"Metal mines and mills": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9FJREFUSInN1ltoHFUYwPH" +
-						"/mdndzKwzs6l7Iy1N25S+FCLaF69gg5cHq6S2FUSaS5OqD6YxASklgUpTCgqCIki1uTRF0QcDIlJpaWpES4UgrljBh7RRqsVmN5fNbpo52ezO+JBkcZtkk2gRv9fznfObc77vHMbDfxSe/wUkZWori" +
-						"Ddx3eIfJMQPmmZ2/CNIyltbcJ0BYCOIog4u1dJOr9N0s3VNkJRTmxeQcxPf8vFU/7JGSLE4Eq4n4gu2SDutaLr56qog254qx3UHgE3nJy5xJn2+6Gai6jpOJHpojzQQ8QabpZ0Wmm42F4VsO71R4A4" +
-						"Amy8kL9GbPgeAgoKDswjxCpUDwWqybo7TY59RH9xN1Bs6JO2U0HTr0JLQ9HRqg4ABoKI/eZme1Bxycv1hLI/JaGacLya/pt+O5SfPujnab77P65EGmiIv8F78E+ruribqCzXNY00FkOv+6Z2RYgDYe" +
-						"jH5Hd2pL/OLWR4DBUHEF+RAeA+bkmUF4zNkmHYkURGmLljNG/FejoTrifpCr0g7Pa7p5tE8ZNuBEkXktg3L63SlzhYcTyIzTtQXmj9CwUR2Mj9WIry0hWqxVIPmG2+xz3iUR7RKTiR6eHfDYcC9Z8k" +
-						"aZZzZRXX4PPkVByPPoSBwcLDdmQKk1GPRMdJN0pmiK3WWJ/T7SDq3Fq2z4sswIH+ifKKMdG6KHA7Ph3bhjDo8bOyg1GNyPN7NmJPK51+wY3iFunYIKGhxBUFd+FnGZpN0xDtJ5FJFZq4RWogS4WWHs" +
-						"Z2J7CR+tYQtnrI7D3mFSluoFkO5i6M3T3Gvr4IXQ3sg0cdgZujOQB6h0h6qw1INjsd7GHfSXJQ/MjuWozG8FyfxKd9nrv07yCNU2oI1WKrBsfhcdy3EN/IK2dEsjeG95BJ9xDLDxSHHcRxFxSnX1iu" +
-						"V3nKuzF7PJ1R6N+FXdY6NdDPpLm7byzO/kE1k2R2oIpaYg2rNJ+cGhcjfFw+AYRjTUqYb/Ire0xLdr7wz8lEei2WGiY2cLLrrwcwQg4m5OjVaT/F46UOA+ysorxVAAJpmnpEyLfyKv7slul95e+RDf" +
-						"p79vShwexy0dvFY6YMAwy5Kla4Z+aMpqJGmmb0LWGu0RqwFe8l6mqrSBwCuuVCl60bBxEXNoGnmaWmnFb/i71wt9nLgGXYG7ge4OoeYf9yes2TXabrZLe2U8Cv+U63RGvGbvLEsoiklVGjlAFcd193" +
-						"p91tLJi/b3ppudc1jH2z3b1vhp4Ehx3WrlkOKQvNYp5STfUKoi1/Jv4WUualAICCL5ax4YTUtMLFSzmriL1z5gWQ67XYNAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Metal mines"
-					},
-					"Industrial minerals": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA79JREFUSInN1ktMXFUYwPH" +
-						"/uVxmzoV5tBUGDe+SGmnwFWVBqQHUhYmJxo1xKZg2Pmh91IVJFWx140JXTapC62NtoombYmgHmoZQSUxUKDVWpuVheQ2tzAz3zMDc42KmIAwMUBvjtz3f/X7nnu87N9fkPwrzfwEpNV8F4iO0zr4hI" +
-						"X6S0nv8tiClYpVoJwiUgsjqoHlW2ZGd0vK+uS1IqWjFLWRy8Azhy19vaOS4A1Q0HEX6Ct9QdsSQlvf1LUG2HS1D6yBQPjnURXi4M+vLmHn3EOo5TmXje0hf4LCyI0Ja3sNZIduOlAp0EKiYvNRF+FJ" +
-						"HakEYoJ1MRbgoqW1GJ5cYHzhNSW0L0hc4pOx5IS3foXWhhYX5YgFBYPfUcDfhoRSy5+lOci0f8UiYqcHviE50rTytE4ycfYeKhmNU7G/l2oUTFD/ajPQXtaax1lWQ1tdz40oEgaqp4bPMDn66XCvX8" +
-						"iGEgfQVUlb3EtOXK1et66QiuWhjmHdTXNtCqOdDKhuOIv1Fryk7Mictb9syZNt+tyGSe6LTI8wOnlx1OvH5GaS/KHVSwmApNrdycoakpL4N0+3lt+9b2XXv8/hKGgj1fkD1MycA/cC6PUomExltmPz" +
-						"1W8rrDyKEgdYOySW1jJTubyPX2kEo+D7OYpjZoZN4ip/CScxl1Nn0yxC73s3UUAVJNY/WSUpqX2DMWWJX1WMppOcYTmJ6OT86cQaEa/sQsGbEDcr3NROPzjFyrh0nPrmVEtv71glD4i9/hHjsBjkui" +
-						"du3G3vmTkPCleqJ28NI97vkFTxEad0BRvsc1Gz/HYKESWl9O6bbm278LNE/f2DixyXK6g4y2qdR4Yv/EhImJfvayZVervakputWxCbPMX5xidK6A4z1Oai5geyQ4ziOkYOTf1eZ4drxIImbPy8nyJ0" +
-						"PY7osQr3t6MUbGQUWps8z1p8gUPMco+dTUMHeF9ObFIurII/Hs6BUpMV05Z2ubHjLCPV+soypuQGuBjfeKYCa7Wf0fKpPBTUvU1T9JKBDYLy9CgKQ0vuVUhFhuvJPpbCPSdz8JSuwNgpqXqGo+gmAE" +
-						"Y3RZEnPaAaUxr5cwY6I7WCFNa8SqH4c4A8NTZblGfvnesYwSOn9QtkRw3Tld2wVK7y/lcB9jQBXUoh3fG3OulMnLe8pZc8L05X/eWXDERGbubYhkpPrxhOoArjiaN2Yl+ebWC9vw/GWlq8zjX3mL96" +
-						"7yU8DvztaN22EZIXSWIdSf30jRE5OtjylklG/36+y5Wx6YaX0Z16e24i/AWg1hRJKTWppAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Nonmetal Mines"
-					},
-					"Oil Sands": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9VJREFUSInN1l9QVFUcwPH" +
-						"vucDuucveXZqCHXOkZakexFkcmHypRon+PFYPNT1UY0zAiEBKJmjiKDqF04zUWA+IWk0PvTiNNtWI5hDj+CCwFskb/8JyKvk37gL3uLD39sC2hguLmNN0Xn+/+/ucP79z5qbzH430/wWkVDgfxCFsO" +
-						"/WEhLgspdF0V5BS03nYVgewBkRKB5vnlRm5T+rG9hVBSk35/0b6v23natsXSxoZq7Ip2r8bd072NmVGNKkbb90RZJpTudh2B/BQ/3ftjHx8POVinA+u4vKeAxQd3IM7J6dWmREhdaM2JWSakTUCuwP" +
-						"wD5xpZ+RIHNE0sKwkRDgdFFRuJjY3R1/rCdZVlOH25dQoMyyk7qlZFJqZCa8W0AEEBs9+zy8fzSOPf3kU6fUwPTrOwFenGTt9NvGxfTNKV+0uij7YR1FdNT+2fMLa8s0YPl91HKteANn27xk3legA8" +
-						"ofOnWe45WiimPR6EELDnZNNYWUZQwH/gritbjJrKtKdTgrK3+By43sUHdiF2+fbqszIhNSNvQnINL1OTcQeGR8cYuhw64Ltmb4+itvnm98qoaHGJ25tnS4Jvr8H6THoLKsh99WXeKD0SULvHmTjsSO" +
-						"AHVz0jGLRaNI59J88xfqqcoTQsG2LmKluIc2N6FleeuqbiI1OMNzSSvYLzzE3NplUZ9mXYfyb8wz4/UTDN8CyKXjtFey5GKs3PYHMyiK0u4m5P64n8kdPtSOcjpVDwMIWFxCs2Iw5NkF3wz5mr/15J" +
-						"yVW9tYJXeJ7rBhzYpJ0l8T1aIAb9xoSTgfB5kachpuut/eStaGQYNWb9FoW4c5L9wjKSCfY3Ij0GITqm5i7PsbY1+foi85SWFXOT5ZF5EL3v4TiiNNj0LNzH7HRW+09eeYH+mIxglXl/GzZRC72pIY" +
-						"sy7K0NKwsf66WuaGQ6a7eRIKxYT0ZLp3Qzv3ExpPbdvLcBa5EowRefpHeOOTf8vp8UIjZBZDb7Z5RKlLm0F0niuu3aaFDHyawyMUeQilmChDuvERv/JzytleQ/+zTgD0M2o4FEICUxudKRYTDlXm8u" +
-						"H6bFmo+zHT3lZTA7SNQV0ngmVKAIRutRJfuq0lQHPssgTXUiZVggR1bCJSWAAzaUKLr7l//GU9qBimNT5UZ0RyuzLY7xfLf2UreUxsBBuYR47fbcxbtOqkbx5UZFg5X5tHihjoxOTSyJJIundz/cD7" +
-						"AgGXbm1wuz7VF85YqIHXPsTjW6lu3dpmfBvot2y5ZCkkJxbE2pW6cFCItLVWeUrEpr9erUuUse2Gl9CZfnrsYfwFqWYQCxROHDQAAAABJRU5ErkJggg==",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Oil sands mines"
-					}
-				},
-				select: {
-					externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAACKElEQVR42uWWMU/bQBTHWVBR1aUSG7Sl4oMBoiwd+gEYGBgqWIoCLDDCBEUIqUJqB6TOEe1" +
-					"QCQGOEyeRHBTHl/OLfTkvcNwz2NDkzrGTpVItPeXknPy7/3t/vXdjY//V43nNWR/gyHGcEwzSbJ6QRuMp5DtXvuMcVkaAeO8BoM59X4QyuCZC/hDdrreRG0IpneEereKHXkyxgWH9KUcw33ULmSHtdvutT" +
-					"JeVFRLHr5+lGLY5EEIIecMpLeeBXBZNcfbNSNZRGhlsaSGu604Frmv2Qki1KjiAMH6bWtiPY0NAoxGtLxIY3e6DnJ/vjAcAhkoJQpLiy7UKtLFuCN9xxFXRfFLW9QVjsPoXSFr3FTrrYO9amZrnLlNBLov" +
-					"9akPmC7S/ErS2WlKeOFHVo6ggIVdFdUpxvxKEf3zWgJ6H32olkFalot0XpoEwDVmchspa0iRpexDk6EBfMoBQCToRbm7SDzOKot7Cx5bWgRzZB3PXqKBxF9Tr+RSFKYrQjd8P9WqJol48UIBs237JO3BLb" +
-					"Fv5odPDwbXrPeRDR4evfd0h6HTmpJtuaUreswZCeNeryAb9TtnvOpTOI4yMAIsgAGWcAqkdHChdkBvvhoFxhs3UM3EKZJpJjNLFvDAsPg+gJCHTuaasTOMHhFFpELT9yrIZ/a49rj99LEfr/V1DhI8QHDV" +
-					"D3RsY85YQ1ndPiNcIwHEQgDE0JH5qtdpraf/JtLAsa+KfubrdA6qupf9mD9mBAAAAAElFTkSuQmCC",
-					graphicOpacity: "1"
-				}
-			}
-		},
-		{
-			title: "TopoJSON (World 110m)",
-			caption: "This is a sample dataset loaded from a remote TopoJSON resource.",
-			type: "topojson",
-			url: "demo/topojson.json",
-			accessible: false,
-			visible: false,
-			style: {
-				strokeColor: "#3399ff",
-				strokeWidth: 2.0
-			}
-		},
-		{
-			title: "Esri REST Tile Layer",
-			caption: "This is a sample dataset loaded from a remote Esri REST tile service.",
-			type: "esritile",
-			url: "//maps-cartes.services.geo.ca/server_serveur/rest/services/NRCan/Carte_climatique_HOT2000_Climate_Map_EN/MapServer/",
-			params: {
-				LAYERS: "show:0"
-			},
-			visible: false,
-			datatable: false,
-			options: {
-				legendHTML: "<ul class='list-unstyled'>" +
-					"<li><small>Weather Station</small><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFZJREFUOI3t0TEKwDAMQ1F9yIFzlN5YHUqgpOA2TZaANdnLQ9hFi1MSTPCKbbcZYAq0bWq3B2gI9pgkUWN086cAPG54xI95bdjQ+/674VdkGBxJgvM5AZAOH6jK5pnSAAAAAElFTkSuQmCC'></li>" +
-					"</ul>"
-			}
-		},
-		{
-			title: "EsriJSON",
-			caption: "This is a sample dataset loaded from a remote Esri JSON resource.",
-			type: "esrijson",
-			url: "https://geoappext.nrcan.gc.ca/arcgis/rest/services/FGP/TMX_EN/MapServer/2/query?where=OBJECTID>0&f=pjson",
-			attributes: {
-				Type: "Type"
-			},
-			visible: false,
-			zoom: true,
-			style: {
-				strokeColor: "#FF0000",
-				strokeWidth: 2.0,
-				strokeDash: [ 6, 6 ]
-			}
-		},
-		{
-			title: "JSON (Earthquakes)",
-			caption: "This is a sample dataset loaded from a remote JSON resource, in this case the USGS Earthquakes API.",
-			type: "json",
-			url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
-			visible: false,
-			popups: true,
-			datatable: true,
-			zoom: true,
-			root: "features",
-			attributes: {
-				title: { path: "properties", alias: "Title" },
-				mag: { path: "properties", alias: "Magnitude" },
-				time: { path: "properties", alias: "Time" }
-			},
-			style: {
-				type: "rule",
-				rule: [
-					{
-						field: "Magnitude",
-						value: [ 2 ],
-						filter: "LESS_THAN",
-						name: "M < 2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#000066",
-							pointRadius: 2.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 2, 2.9 ],
-						filter: "BETWEEN",
-						name: "M-2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#6600cc",
-							pointRadius: 4.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 3, 3.9 ],
-						filter: "BETWEEN",
-						name: "M-3",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#990099",
-							pointRadius: 6.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 4, 4.9 ],
-						filter: "BETWEEN",
-						name: "M-4",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#ff0000",
-							pointRadius: 8,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5, 5.9 ],
-						filter: "BETWEEN",
-						name: "M-5",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff6600",
-							pointRadius: 14,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5.9 ],
-						filter: "GREATER_THAN",
-						name: "M-6+",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff9933",
-							pointRadius: 18,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					}
-				] }
-		},
-		{
-			title: "GeoJSON (CartoDB)",
-			caption: "This is a sample dataset loaded from a remote GeoJSON resource, in this case traffic cameras in the city of Ottawa from the CartoDB API.",
-			type: "geojson",
-			url: "//stephenott.cartodb.com/api/v2/sql",
-			params: {
-				format: "GeoJSON",
-				q: "SELECT * FROM traffic_cameras LIMIT 25"
-			},
-			attributes: {
-				location_desc: "Location",
-				longitude: "Latitude",
-				latitude: "Longitude",
-				updated_at: "Last updated"
-			},
-			visible: false,
-			zoom: true,
-			datatable: true,
-			style: {
-				type: "symbol",
-				init: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera.png",
-					graphicOpacity: 1.0
-				},
-				select: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera_active.png",
-					graphicOpacity: 1.0
-				}
-			}
-		}
-	]
-};
-
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Basic Map",
-		type: "esri",
-		url: "//geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/provinces1c/MapServer/export",
-		options: { singleTile: false, ratio: 1.0, projection: "EPSG:3978", fractionalZoom: true },
-		mapOptions: {
-			maxExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			restrictedExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			numZoomLevels: 2
-		}
-	}
-};
-
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Basic Map",
-		type: "esri",
-		url: "//geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/provinces1c/MapServer/export",
-		options: { singleTile: false, ratio: 1.0, projection: "EPSG:3978", fractionalZoom: true },
-		mapOptions: {
-			maxExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			restrictedExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			numZoomLevels: 2
-		}
-	}
-};
-
-/*
- * Les composantes individuelles seront substituées par les compasantes globales
- *
- * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
- * (c'est à dire la première couche sera ajouté en premier, puis la suivante
- * sur le dessus, et ainsi de suite).
- *
- * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONNEL: Géomap va fournir une carte de base par défaut si aucune carte de base n"est spécifié ici.
-	/*basemap: {
-		title: "WMS-Toporama",
-		type: "wms",
-		url: "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
-		version: "1.1.1",
-		format: "image/jpeg",
-		layers: "WMS-Toporama",
-		mapOptions: {
-			maxExtent: "-2650000.0, -900000.0, 3600000.0, 4630000.0",
-			restrictedExtent: "-2750000.0, -1000000.0, 3700000.0, 4730000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			aspectRatio: 0.8
-		}
-	},*/
-	overlays: [
-		{
-			title: "WMS",
-			caption: "Ceci est un exemple de service WMS chargé par Geomap.",
-			type: "wms",
-			url: "//geo.weather.gc.ca/geomet?lang=en",
-			visible: false,
-			version: "1.3.0",
-			format: "image/png",
-			layers: "GDPS.ETA_PR",
-			transparent: true,
-			options: {
-				opacity: 0.5,
-
-				//legendGraphicUrl: "http://geo.weather.gc.ca/geomet/?Lang=E&LAYERS=GDPS.ETA_PR&VERSION=1.1.1&FORMAT=image%2Fpng&SERVICE=WMS&REQUEST=GetLegendGraphic&STYLE=PRECIPMM"
-				legendHTML: "<small>GeoMet Precipitation (mm)</small>" +
-						"<ul class='list-unstyled'>" +
-						"<li><span style='background-color:#800000;display:inline-block;height:20px;width:20px'/> <small>100.0</small></li>" +
-						"<li><span style='background-color:#FF0000;display:inline-block;height:20px;width:20px'/> <small>50.0</small></li>" +
-						"<li><span style='background-color:#FF4500;display:inline-block;height:20px;width:20px'/> <small>25.0</small></li>" +
-						"<li><span style='background-color:#FFA500;display:inline-block;height:20px;width:20px'/> <small>20.0</small></li>" +
-						"<li><span style='background-color:#FFD700;display:inline-block;height:20px;width:20px'/> <small>15.0</small></li>" +
-						"<li><span style='background-color:#E5E500;display:inline-block;height:20px;width:20px'/> <small>10.0</small></li>" +
-						"<li><span style='background-color:#7FFF00;display:inline-block;height:20px;width:20px'/> <small>7.5</small></li>" +
-						"<li><span style='background-color:#7FFFD4;display:inline-block;height:20px;width:20px'/> <small>5.0</small></li>" +
-						"<li><span style='background-color:#00FFFF;display:inline-block;height:20px;width:20px'/> <small>2.5</small></li>" +
-						"<li><span style='background-color:#87CEFA;display:inline-block;height:20px;width:20px'/> <small>1.0</small></li>" +
-						"<li><span style='background-color:#1E90FF;display:inline-block;height:20px;width:20px'/> <small>0.5</small></li>" +
-						"<li><span style='background-color:#0000CD;display:inline-block;height:20px;width:20px'/> <small>0.25</small></li>" +
-						"<li><span style='background-color:#000080;display:inline-block;height:20px;width:20px'/> <small>0.10</small></li>" +
-						"</ul>"
-			}
-		},
-		{
-			title: "KML",
-			caption: "Ces données sont extraites de la publication <a href=\"http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/457ede2f-fd65-5936-ab60-3fe71da0e98b\">Principales régions minérales du Canada</a>.",
-			type: "kml",
-			url: "demo/producing-mines.kml",
-			visible: false,
-			datatable: true,
-			tooltips: true,
-			tooltipText: "Opération",
-			popups: true,
-			attributes: {
-				Type_: "Type",
-				OwnersF: "Opérateur / propriétaire",
-				OperationF: "Opération",
-				ComGroupF: "Groupe de produits minéraux",
-				CommodityF: "Produit minérale"
-			},
-			style: {
-				type: "unique",
-				field: "Type",
-				init: {
-					"Coal": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+hJREFUSInN1n9MVWUYwPH" +
-						"vOfeC51zvubeQiwtDCS37sZxbP5YaKbVqaw1W/DKCQiaEBfYD19ZabrlaMp0tNREItJBoDabWrC2pK1qbxXRMmoMwDav1R8GFe4DzAvee0x/iTbpwuZRrPf++z/t8znPe57w7dv6jsP8vICH8i0Gqx" +
-						"LIiP5AknVYUbcs/goQYvgHL9AJJIEV0sMgQhn6tomovzgoSYij5MnLU20bzkc+nNeKucfNSaQme+HkvCEOXFVV7PirIMIYWYlleYFHrsTaaDn8asRlPXBzbqqrZtKGEhPj4jcLQJUXVNkaEDENPkrC" +
-						"8QPKXbcf58NAlRJJlLNMMQ2LsdvJzMgkGgjR83ExBThYJ8fHlwvBLiuoqnxIaGfEvkMALpHx14gSNBz8BYMeW13BpGn19Pj472krbt+2hzeOBAFt27OSVslJKCwuo3t/Ak9mZzPd4yiawskmQZf0WM" +
-						"yokL7D42IlvONByOFTMpWnIkownfh4Fa7NJuj5x0vr42BgjQpAQm0B+Thbb99RQsaGY+R7Pc8LQ+xVV2xyCDMM9R5aCN17o7eWDloOTXs/vf/Qx3+MBQJZkfL7B0Fqs3U7FsyW4nE5efv1N0h96gBV" +
-						"3LGdbVQ3bN78KWMumPKOxsfGwczjyRSuFebnIkoxpmYyOjU5C3C4XW3dVMajrNLQcYvU9d6H79bA6M94MX7efIikxEb+uY1om2RnpBIImK+++E7fLReW7exkY/KvLtpPtxNjDy0Z1BV054rIkU5CbR" +
-						"X+/j7d2V9Hf74umxOzuuli7neW334ZvYBBVVViUeN3Vh2ImzsQ5dy5vvL2LZUuXsO6JHKzGj+g423V1IJvNRkXpelxOJ5W79zLg93P8u1OMBYKsy8ul7kATZ7p++HeQzWaj4pn1aJoWmq7LcfJ0B8F" +
-						"AgMK8texrbKKzuycyZJqmKdswFyYtkG9OSabr/E+hhFuXpKCqClt37kEfHg4r0H7me8YDAR59+MEQlJP+yKVFSQp9L3YAp9M5IoRepCpqfVlxkby7tj6EdXb30Nn9TsSuO852hc4pPzOD+1NTAesCy" +
-						"JsmQQCKor0vhC45VEddWXGRvKu2nu4rOosmnsp8jDWpqwDOW8hpquK8GAZNYPsvY+XFRdJssKezHmf1vSsBfrQgTVWdP1+5HjYMiqLtE4YuO1RHbbRYYXYm961aAXDuEqL98vecKadOUbU6Yfglh+q" +
-						"oKS8uknovhu0LxRwllpRFyQDnTMta43C4fp0qb9rxVlTXexNY9S1Lb5rhp4Ee07LSpkMiQhNYrRCDzZJks0XKEyI45Ha7RaScGT9YRXFHd5nNEH8C+eGD9m6tNTgAAAAASUVORK5CYII=",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de charbon"
-					},
-					"Metal mines and mills": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9FJREFUSInN1ltoHFUYwPH" +
-						"/mdndzKwzs6l7Iy1N25S+FCLaF69gg5cHq6S2FUSaS5OqD6YxASklgUpTCgqCIki1uTRF0QcDIlJpaWpES4UgrljBh7RRqsVmN5fNbpo52ezO+JBkcZtkk2gRv9fznfObc77vHMbDfxSe/wUkZWori" +
-						"Ddx3eIfJMQPmmZ2/CNIyltbcJ0BYCOIog4u1dJOr9N0s3VNkJRTmxeQcxPf8vFU/7JGSLE4Eq4n4gu2SDutaLr56qog254qx3UHgE3nJy5xJn2+6Gai6jpOJHpojzQQ8QabpZ0Wmm42F4VsO71R4A4" +
-						"Amy8kL9GbPgeAgoKDswjxCpUDwWqybo7TY59RH9xN1Bs6JO2U0HTr0JLQ9HRqg4ABoKI/eZme1Bxycv1hLI/JaGacLya/pt+O5SfPujnab77P65EGmiIv8F78E+ruribqCzXNY00FkOv+6Z2RYgDYe" +
-						"jH5Hd2pL/OLWR4DBUHEF+RAeA+bkmUF4zNkmHYkURGmLljNG/FejoTrifpCr0g7Pa7p5tE8ZNuBEkXktg3L63SlzhYcTyIzTtQXmj9CwUR2Mj9WIry0hWqxVIPmG2+xz3iUR7RKTiR6eHfDYcC9Z8k" +
-						"aZZzZRXX4PPkVByPPoSBwcLDdmQKk1GPRMdJN0pmiK3WWJ/T7SDq3Fq2z4sswIH+ifKKMdG6KHA7Ph3bhjDo8bOyg1GNyPN7NmJPK51+wY3iFunYIKGhxBUFd+FnGZpN0xDtJ5FJFZq4RWogS4WWHs" +
-						"Z2J7CR+tYQtnrI7D3mFSluoFkO5i6M3T3Gvr4IXQ3sg0cdgZujOQB6h0h6qw1INjsd7GHfSXJQ/MjuWozG8FyfxKd9nrv07yCNU2oI1WKrBsfhcdy3EN/IK2dEsjeG95BJ9xDLDxSHHcRxFxSnX1iu" +
-						"V3nKuzF7PJ1R6N+FXdY6NdDPpLm7byzO/kE1k2R2oIpaYg2rNJ+cGhcjfFw+AYRjTUqYb/Ire0xLdr7wz8lEei2WGiY2cLLrrwcwQg4m5OjVaT/F46UOA+ysorxVAAJpmnpEyLfyKv7slul95e+RDf" +
-						"p79vShwexy0dvFY6YMAwy5Kla4Z+aMpqJGmmb0LWGu0RqwFe8l6mqrSBwCuuVCl60bBxEXNoGnmaWmnFb/i71wt9nLgGXYG7ge4OoeYf9yes2TXabrZLe2U8Cv+U63RGvGbvLEsoiklVGjlAFcd193" +
-						"p91tLJi/b3ppudc1jH2z3b1vhp4Ehx3WrlkOKQvNYp5STfUKoi1/Jv4WUualAICCL5ax4YTUtMLFSzmriL1z5gWQ67XYNAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de métaux"
-					},
-					"Industrial minerals": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA79JREFUSInN1ktMXFUYwPH" +
-						"/uVxmzoV5tBUGDe+SGmnwFWVBqQHUhYmJxo1xKZg2Pmh91IVJFWx140JXTapC62NtoombYmgHmoZQSUxUKDVWpuVheQ2tzAz3zMDc42KmIAwMUBvjtz3f/X7nnu87N9fkPwrzfwEpNV8F4iO0zr4hI" +
-						"X6S0nv8tiClYpVoJwiUgsjqoHlW2ZGd0vK+uS1IqWjFLWRy8Azhy19vaOS4A1Q0HEX6Ct9QdsSQlvf1LUG2HS1D6yBQPjnURXi4M+vLmHn3EOo5TmXje0hf4LCyI0Ja3sNZIduOlAp0EKiYvNRF+FJ" +
-						"HakEYoJ1MRbgoqW1GJ5cYHzhNSW0L0hc4pOx5IS3foXWhhYX5YgFBYPfUcDfhoRSy5+lOci0f8UiYqcHviE50rTytE4ycfYeKhmNU7G/l2oUTFD/ajPQXtaax1lWQ1tdz40oEgaqp4bPMDn66XCvX8" +
-						"iGEgfQVUlb3EtOXK1et66QiuWhjmHdTXNtCqOdDKhuOIv1Fryk7Mictb9syZNt+tyGSe6LTI8wOnlx1OvH5GaS/KHVSwmApNrdycoakpL4N0+3lt+9b2XXv8/hKGgj1fkD1MycA/cC6PUomExltmPz" +
-						"1W8rrDyKEgdYOySW1jJTubyPX2kEo+D7OYpjZoZN4ip/CScxl1Nn0yxC73s3UUAVJNY/WSUpqX2DMWWJX1WMppOcYTmJ6OT86cQaEa/sQsGbEDcr3NROPzjFyrh0nPrmVEtv71glD4i9/hHjsBjkui" +
-						"du3G3vmTkPCleqJ28NI97vkFTxEad0BRvsc1Gz/HYKESWl9O6bbm278LNE/f2DixyXK6g4y2qdR4Yv/EhImJfvayZVervakputWxCbPMX5xidK6A4z1Oai5geyQ4ziOkYOTf1eZ4drxIImbPy8nyJ0" +
-						"PY7osQr3t6MUbGQUWps8z1p8gUPMco+dTUMHeF9ObFIurII/Hs6BUpMV05Z2ubHjLCPV+soypuQGuBjfeKYCa7Wf0fKpPBTUvU1T9JKBDYLy9CgKQ0vuVUhFhuvJPpbCPSdz8JSuwNgpqXqGo+gmAE" +
-						"Y3RZEnPaAaUxr5cwY6I7WCFNa8SqH4c4A8NTZblGfvnesYwSOn9QtkRw3Tld2wVK7y/lcB9jQBXUoh3fG3OulMnLe8pZc8L05X/eWXDERGbubYhkpPrxhOoArjiaN2Yl+ebWC9vw/GWlq8zjX3mL96" +
-						"7yU8DvztaN22EZIXSWIdSf30jRE5OtjylklG/36+y5Wx6YaX0Z16e24i/AWg1hRJKTWppAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de non-métaux"
-					},
-					"Oil Sands": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9VJREFUSInN1l9QVFUcwPH" +
-						"vucDuucveXZqCHXOkZakexFkcmHypRon+PFYPNT1UY0zAiEBKJmjiKDqF04zUWA+IWk0PvTiNNtWI5hDj+CCwFskb/8JyKvk37gL3uLD39sC2hguLmNN0Xn+/+/ucP79z5qbzH430/wWkVDgfxCFsO" +
-						"/WEhLgspdF0V5BS03nYVgewBkRKB5vnlRm5T+rG9hVBSk35/0b6v23natsXSxoZq7Ip2r8bd072NmVGNKkbb90RZJpTudh2B/BQ/3ftjHx8POVinA+u4vKeAxQd3IM7J6dWmREhdaM2JWSakTUCuwP" +
-						"wD5xpZ+RIHNE0sKwkRDgdFFRuJjY3R1/rCdZVlOH25dQoMyyk7qlZFJqZCa8W0AEEBs9+zy8fzSOPf3kU6fUwPTrOwFenGTt9NvGxfTNKV+0uij7YR1FdNT+2fMLa8s0YPl91HKteANn27xk3legA8" +
-						"ofOnWe45WiimPR6EELDnZNNYWUZQwH/gritbjJrKtKdTgrK3+By43sUHdiF2+fbqszIhNSNvQnINL1OTcQeGR8cYuhw64Ltmb4+itvnm98qoaHGJ25tnS4Jvr8H6THoLKsh99WXeKD0SULvHmTjsSO" +
-						"AHVz0jGLRaNI59J88xfqqcoTQsG2LmKluIc2N6FleeuqbiI1OMNzSSvYLzzE3NplUZ9mXYfyb8wz4/UTDN8CyKXjtFey5GKs3PYHMyiK0u4m5P64n8kdPtSOcjpVDwMIWFxCs2Iw5NkF3wz5mr/15J" +
-						"yVW9tYJXeJ7rBhzYpJ0l8T1aIAb9xoSTgfB5kachpuut/eStaGQYNWb9FoW4c5L9wjKSCfY3Ij0GITqm5i7PsbY1+foi85SWFXOT5ZF5EL3v4TiiNNj0LNzH7HRW+09eeYH+mIxglXl/GzZRC72pIY" +
-						"sy7K0NKwsf66WuaGQ6a7eRIKxYT0ZLp3Qzv3ExpPbdvLcBa5EowRefpHeOOTf8vp8UIjZBZDb7Z5RKlLm0F0niuu3aaFDHyawyMUeQilmChDuvERv/JzytleQ/+zTgD0M2o4FEICUxudKRYTDlXm8u" +
-						"H6bFmo+zHT3lZTA7SNQV0ngmVKAIRutRJfuq0lQHPssgTXUiZVggR1bCJSWAAzaUKLr7l//GU9qBimNT5UZ0RyuzLY7xfLf2UreUxsBBuYR47fbcxbtOqkbx5UZFg5X5tHihjoxOTSyJJIundz/cD7" +
-						"AgGXbm1wuz7VF85YqIHXPsTjW6lu3dpmfBvot2y5ZCkkJxbE2pW6cFCItLVWeUrEpr9erUuUse2Gl9CZfnrsYfwFqWYQCxROHDQAAAABJRU5ErkJggg==",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de sables bitumineux"
-					}
-				},
-				select: {
-					externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAACKElEQVR42uWWMU/bQBTHWVBR1aUSG7Sl4oMBoiwd+gEYGBgqWIoCLDDCBEUIqUJqB6TOEe1" +
-					"QCQGOEyeRHBTHl/OLfTkvcNwz2NDkzrGTpVItPeXknPy7/3t/vXdjY//V43nNWR/gyHGcEwzSbJ6QRuMp5DtXvuMcVkaAeO8BoM59X4QyuCZC/hDdrreRG0IpneEereKHXkyxgWH9KUcw33ULmSHtdvutT" +
-					"JeVFRLHr5+lGLY5EEIIecMpLeeBXBZNcfbNSNZRGhlsaSGu604Frmv2Qki1KjiAMH6bWtiPY0NAoxGtLxIY3e6DnJ/vjAcAhkoJQpLiy7UKtLFuCN9xxFXRfFLW9QVjsPoXSFr3FTrrYO9amZrnLlNBLov" +
-					"9akPmC7S/ErS2WlKeOFHVo6ggIVdFdUpxvxKEf3zWgJ6H32olkFalot0XpoEwDVmchspa0iRpexDk6EBfMoBQCToRbm7SDzOKot7Cx5bWgRzZB3PXqKBxF9Tr+RSFKYrQjd8P9WqJol48UIBs237JO3BLb" +
-					"Fv5odPDwbXrPeRDR4evfd0h6HTmpJtuaUreswZCeNeryAb9TtnvOpTOI4yMAIsgAGWcAqkdHChdkBvvhoFxhs3UM3EKZJpJjNLFvDAsPg+gJCHTuaasTOMHhFFpELT9yrIZ/a49rj99LEfr/V1DhI8QHDV" +
-					"D3RsY85YQ1ndPiNcIwHEQgDE0JH5qtdpraf/JtLAsa+KfubrdA6qupf9mD9mBAAAAAElFTkSuQmCC",
-					graphicOpacity: "1"
-				}
-			}
-		},
-		{
-			title: "TopoJSON (World 110m)",
-			caption: "Voici un exemple de jeu de données chargé à partir d'une ressource TopoJSON distante.",
-			type: "topojson",
-			url: "demo/topojson.json",
-			accessible: false,
-			visible: false,
-			style: {
-				strokeColor: "#3399ff",
-				strokeWidth: 2.0
-			}
-		},
-		{
-			title: "Esri REST Tile Layer",
-			caption: "Il s'agit d'un exemple de jeu de données chargé à partir d'un service de tuiles REST Esri distant.",
-			type: "esritile",
-			url: "//maps-cartes.services.geo.ca/server_serveur/rest/services/NRCan/Carte_climatique_HOT2000_Climate_Map_EN/MapServer/",
-			params: {
-				LAYERS: "show:0"
-			},
-			visible: false,
-			datatable: false,
-			options: {
-				legendHTML: "<ul class='list-unstyled'>" +
-					"<li><small>Weather Station</small><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFZJREFUOI3t0TEKwDAMQ1F9yIFzlN5YHUqgpOA2TZaANdnLQ9hFi1MSTPCKbbcZYAq0bWq3B2gI9pgkUWN086cAPG54xI95bdjQ+/674VdkGBxJgvM5AZAOH6jK5pnSAAAAAElFTkSuQmCC'></li>" +
-					"</ul>"
-			}
-		},
-		{
-			title: "EsriJSON",
-			caption: "Ceci est un exemple de jeu de données chargé à partir d'une ressource Esri JSON distante.",
-			type: "esrijson",
-			url: "https://geoappext.nrcan.gc.ca/arcgis/rest/services/FGP/TMX_EN/MapServer/2/query?where=OBJECTID>0&f=pjson",
-			attributes: {
-				Type: "Type"
-			},
-			visible: false,
-			zoom: true,
-			style: {
-				strokeColor: "#FF0000",
-				strokeWidth: 2.0,
-				strokeDash: [ 6, 6 ]
-			}
-		},
-		{
-			title: "JSON (Earthquakes)",
-			caption: "Il s'agit d'un exemple de jeu de données chargé à partir d'une ressource JSON distante, dans ce cas l'API USGS Earthquakes.",
-			type: "json",
-			url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
-			visible: false,
-			popups: true,
-			datatable: true,
-			zoom: true,
-			root: "features",
-			attributes: {
-				title: { path: "properties", alias: "Titre" },
-				mag: { path: "properties", alias: "Magnitude" },
-				time: { path: "properties", alias: "Temps" }
-			},
-			style: {
-				type: "rule",
-				rule: [
-					{
-						field: "Magnitude",
-						value: [ 2 ],
-						filter: "LESS_THAN",
-						name: "M < 2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#000066",
-							pointRadius: 2.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 2, 2.9 ],
-						filter: "BETWEEN",
-						name: "M-2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#6600cc",
-							pointRadius: 4.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 3, 3.9 ],
-						filter: "BETWEEN",
-						name: "M-3",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#990099",
-							pointRadius: 6.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 4, 4.9 ],
-						filter: "BETWEEN",
-						name: "M-4",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#ff0000",
-							pointRadius: 8,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5, 5.9 ],
-						filter: "BETWEEN",
-						name: "M-5",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff6600",
-							pointRadius: 14,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5.9 ],
-						filter: "GREATER_THAN",
-						name: "M-6+",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff9933",
-							pointRadius: 18,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					}
-				] }
-		},
-		{
-			title: "GeoJSON (CartoDB)",
-			caption: "Ceci est un exemple de jeu de données chargé à partir d'une ressource GeoJSON distante, dans ce cas les caméras de circulation dans la ville d'Ottawa à partir de l'API CartoDB",
-			type: "geojson",
-			url: "//stephenott.cartodb.com/api/v2/sql",
-			params: {
-				format: "GeoJSON",
-				q: "SELECT * FROM traffic_cameras LIMIT 25"
-			},
-			attributes: {
-				location_desc: "Emplacement",
-				longitude: "Latitude",
-				latitude: "Longitude",
-				updated_at: "Dernière mise à jour"
-			},
-			visible: false,
-			zoom: true,
-			datatable: true,
-			style: {
-				type: "symbol",
-				init: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera.png",
-					graphicOpacity: 1.0
-				},
-				select: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera_active.png",
-					graphicOpacity: 1.0
-				}
-			}
-		}
-	]
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with OSM basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "OSM Map",
-		type: "osm",
-		mapOptions: {
-			center: [ -52.7222765, 47.5410882 ],
-			zoomLevel: 11
-		}
-	}
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with OSM basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "OSM Map",
-		type: "osm",
-		mapOptions: {
-			center: [ -52.7222765, 47.5410882 ],
-			zoomLevel: 11
-		}
-	}
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with Tile basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Tile (XYZ) Source Map",
-		type: "osm",
-		url: [
-			"//otile1.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile2.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile3.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile4.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png"
-		],
-		mapOptions: {
-			projection: "EPSG:900913",
-			center: [ -123, 49 ],
-			zoomLevel: 5
-		}
-	}
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with Tile basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Tile (XYZ) Source Map",
-		type: "osm",
-		url: [
-			"//otile1.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile2.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile3.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile4.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png"
-		],
-		mapOptions: {
-			projection: "EPSG:900913",
-			center: [ -123, 49 ],
-			zoomLevel: 5
-		}
-	}
-};
-
-/*
- * Global overrides for individual components
- *
- * Map Overlays (i.e. layers)
- * Overlays will be added in the order that they are provided
- * (i.e. the first overlay will be added first, then the next
- * on top, and so on).
- *
- * Note that the basemap can be set globally in settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONAL: note that Geomap will provide a default basemap if not specified here.
-	basemap: {
-		title: "WMS-Toporama",
-		type: "wms",
-		url: "//maps.geogratis.gc.ca/wms/toporama_en",
-		version: "1.3.0",
-		format: "image/png",
-		layers: "limits",
-		mapOptions: {
-			maxExtent: "-2650000.0, -900000.0, 3600000.0, 4630000.0",
-			restrictedExtent: "-2750000.0, -1000000.0, 3700000.0, 4730000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			aspectRatio: 0.8
-		}
-	},
-	overlays: []
-};
-
-/*
- * Les composantes individuelles seront substituées par les compasantes globales
- *
- * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
- * (c'est à dire la première couche sera ajouté en premier, puis la suivante
- * sur le dessus, et ainsi de suite).
- *
- * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONNEL: Géomap va fournir une carte de base par défaut si aucune carte de base n"est spécifié ici.
-	basemap: {
-		title: "WMS-Toporama",
-		type: "wms",
-		url: "//maps.geogratis.gc.ca/wms/toporama_fr",
-		version: "1.3.0",
-		format: "image/png",
-		layers: "WMS-Toporama",
-		mapOptions: {
-			maxExtent: "-2650000.0, -900000.0, 3600000.0, 4630000.0",
-			restrictedExtent: "-2750000.0, -1000000.0, 3700000.0, 4730000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			aspectRatio: 0.8
-		}
-	},
-	overlays: []
-};
-
-/*global ol: false*/
-( function( $, wb ) {
-"use strict";
-var $document = wb.doc,
-	mapSample;
-$document.on( "wb-ready.wb-geomap", "#sample_map", function( event, map ) {
-
-	// Get the sample_map to use in zoomFeature function
-	mapSample = map;
-	var $aoiExtent = $( "#geomap-aoi-extent-" + mapSample.id ),
-		$aoiExtentLonLat = $( "#geomap-aoi-extent-lonlat-" + mapSample.id );
-
-	if ( $aoiExtent ) {
-
-		$aoiExtent.on( "change", function() {
-
-			//console.log( "BBox: " + $( this ).val() );
-		} );
-
-		$aoiExtentLonLat.on( "change", function() {
-
-			//console.log( "BBox LonLat: " + $( this ).val() );
-		} );
-	}
-} );
-
-$document.on( "wb-ready.wb-geomap", "#location_map", function( event, map ) {
-
-	// Zoom to location on location_map
-	map.getView().setCenter( ol.proj.transform( [ -75.70535, 45.3995 ], "EPSG:4326", "EPSG:3978" ) );
-	map.getView().setZoom( 5 );
-} );
-
-} )( jQuery, wb );
-
-/*
- * Global overrides for individual components
- *
- * Map Overlays (i.e. layers)
- * Overlays will be added in the order that they are provided
- * (i.e. the first overlay will be added first, then the next
- * on top, and so on).
- *
- * Note that the basemap can be set globally in settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONAL: note that Geomap will provide a default basemap if not specified here.
-	/*basemap: {
-		title:"OSM Map",
-		type:"osm",
-		mapOptions: {
-			center: [ -123, 49 ],
-			zoomLevel: 5
-		}
-	},*/
-	overlays: [
-		{
-			title: "WMS",
-			caption: "This is a sample WMS service loaded by Geomap.",
-			type: "wms",
-			url: "//geo.weather.gc.ca/geomet?lang=en",
-			visible: false,
-			version: "1.3.0",
-			format: "image/png",
-			layers: "GDPS.ETA_PR",
-			transparent: true,
-			options: {
-				opacity: 0.5,
-
-				//legendGraphicUrl: "http://geo.weather.gc.ca/geomet/?Lang=E&LAYERS=GDPS.ETA_PR&VERSION=1.1.1&FORMAT=image%2Fpng&SERVICE=WMS&REQUEST=GetLegendGraphic&STYLE=PRECIPMM"
-				legendHTML: "<small>GeoMet Precipitation (mm)</small>" +
-						"<ul class='list-unstyled'>" +
-						"<li><span style='background-color:#800000;display:inline-block;height:20px;width:20px'/> <small>100.0</small></li>" +
-						"<li><span style='background-color:#FF0000;display:inline-block;height:20px;width:20px'/> <small>50.0</small></li>" +
-						"<li><span style='background-color:#FF4500;display:inline-block;height:20px;width:20px'/> <small>25.0</small></li>" +
-						"<li><span style='background-color:#FFA500;display:inline-block;height:20px;width:20px'/> <small>20.0</small></li>" +
-						"<li><span style='background-color:#FFD700;display:inline-block;height:20px;width:20px'/> <small>15.0</small></li>" +
-						"<li><span style='background-color:#E5E500;display:inline-block;height:20px;width:20px'/> <small>10.0</small></li>" +
-						"<li><span style='background-color:#7FFF00;display:inline-block;height:20px;width:20px'/> <small>7.5</small></li>" +
-						"<li><span style='background-color:#7FFFD4;display:inline-block;height:20px;width:20px'/> <small>5.0</small></li>" +
-						"<li><span style='background-color:#00FFFF;display:inline-block;height:20px;width:20px'/> <small>2.5</small></li>" +
-						"<li><span style='background-color:#87CEFA;display:inline-block;height:20px;width:20px'/> <small>1.0</small></li>" +
-						"<li><span style='background-color:#1E90FF;display:inline-block;height:20px;width:20px'/> <small>0.5</small></li>" +
-						"<li><span style='background-color:#0000CD;display:inline-block;height:20px;width:20px'/> <small>0.25</small></li>" +
-						"<li><span style='background-color:#000080;display:inline-block;height:20px;width:20px'/> <small>0.10</small></li>" +
-						"</ul>"
-			}
-		},
-		{
-			title: "KML",
-			caption: "This data is extracted from the <a href=\"http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/457ede2f-fd65-5936-ab60-3fe71da0e98b\">Principal mineral areas of Canada</a> publication.",
-			type: "kml",
-			url: "demo/producing-mines.kml",
-			visible: false,
-			datatable: true,
-			tooltips: true,
-			tooltipText: "Operation",
-			popups: true,
-			attributes: {
-				Type_: "Type",
-				OwnersE: "Owner",
-				OperationE: "Operation",
-				ComGroupE: "Commodity Group",
-				CommodityE: "Commodity"
-			},
-			style: {
-				type: "unique",
-				field: "Type",
-				init: {
-					"Coal": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+hJREFUSInN1n9MVWUYwPH" +
-						"vOfeC51zvubeQiwtDCS37sZxbP5YaKbVqaw1W/DKCQiaEBfYD19ZabrlaMp0tNREItJBoDabWrC2pK1qbxXRMmoMwDav1R8GFe4DzAvee0x/iTbpwuZRrPf++z/t8znPe57w7dv6jsP8vICH8i0Gqx" +
-						"LIiP5AknVYUbcs/goQYvgHL9AJJIEV0sMgQhn6tomovzgoSYij5MnLU20bzkc+nNeKucfNSaQme+HkvCEOXFVV7PirIMIYWYlleYFHrsTaaDn8asRlPXBzbqqrZtKGEhPj4jcLQJUXVNkaEDENPkrC" +
-						"8QPKXbcf58NAlRJJlLNMMQ2LsdvJzMgkGgjR83ExBThYJ8fHlwvBLiuoqnxIaGfEvkMALpHx14gSNBz8BYMeW13BpGn19Pj472krbt+2hzeOBAFt27OSVslJKCwuo3t/Ak9mZzPd4yiawskmQZf0WM" +
-						"yokL7D42IlvONByOFTMpWnIkownfh4Fa7NJuj5x0vr42BgjQpAQm0B+Thbb99RQsaGY+R7Pc8LQ+xVV2xyCDMM9R5aCN17o7eWDloOTXs/vf/Qx3+MBQJZkfL7B0Fqs3U7FsyW4nE5efv1N0h96gBV" +
-						"3LGdbVQ3bN78KWMumPKOxsfGwczjyRSuFebnIkoxpmYyOjU5C3C4XW3dVMajrNLQcYvU9d6H79bA6M94MX7efIikxEb+uY1om2RnpBIImK+++E7fLReW7exkY/KvLtpPtxNjDy0Z1BV054rIkU5CbR" +
-						"X+/j7d2V9Hf74umxOzuuli7neW334ZvYBBVVViUeN3Vh2ImzsQ5dy5vvL2LZUuXsO6JHKzGj+g423V1IJvNRkXpelxOJ5W79zLg93P8u1OMBYKsy8ul7kATZ7p++HeQzWaj4pn1aJoWmq7LcfJ0B8F" +
-						"AgMK8texrbKKzuycyZJqmKdswFyYtkG9OSabr/E+hhFuXpKCqClt37kEfHg4r0H7me8YDAR59+MEQlJP+yKVFSQp9L3YAp9M5IoRepCpqfVlxkby7tj6EdXb30Nn9TsSuO852hc4pPzOD+1NTAesCy" +
-						"JsmQQCKor0vhC45VEddWXGRvKu2nu4rOosmnsp8jDWpqwDOW8hpquK8GAZNYPsvY+XFRdJssKezHmf1vSsBfrQgTVWdP1+5HjYMiqLtE4YuO1RHbbRYYXYm961aAXDuEqL98vecKadOUbU6Yfglh+q" +
-						"oKS8uknovhu0LxRwllpRFyQDnTMta43C4fp0qb9rxVlTXexNY9S1Lb5rhp4Ee07LSpkMiQhNYrRCDzZJks0XKEyI45Ha7RaScGT9YRXFHd5nNEH8C+eGD9m6tNTgAAAAASUVORK5CYII=",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Coal mines"
-					},
-					"Metal mines and mills": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9FJREFUSInN1ltoHFUYwPH" +
-						"/mdndzKwzs6l7Iy1N25S+FCLaF69gg5cHq6S2FUSaS5OqD6YxASklgUpTCgqCIki1uTRF0QcDIlJpaWpES4UgrljBh7RRqsVmN5fNbpo52ezO+JBkcZtkk2gRv9fznfObc77vHMbDfxSe/wUkZWori" +
-						"Ddx3eIfJMQPmmZ2/CNIyltbcJ0BYCOIog4u1dJOr9N0s3VNkJRTmxeQcxPf8vFU/7JGSLE4Eq4n4gu2SDutaLr56qog254qx3UHgE3nJy5xJn2+6Gai6jpOJHpojzQQ8QabpZ0Wmm42F4VsO71R4A4" +
-						"Amy8kL9GbPgeAgoKDswjxCpUDwWqybo7TY59RH9xN1Bs6JO2U0HTr0JLQ9HRqg4ABoKI/eZme1Bxycv1hLI/JaGacLya/pt+O5SfPujnab77P65EGmiIv8F78E+ruribqCzXNY00FkOv+6Z2RYgDYe" +
-						"jH5Hd2pL/OLWR4DBUHEF+RAeA+bkmUF4zNkmHYkURGmLljNG/FejoTrifpCr0g7Pa7p5tE8ZNuBEkXktg3L63SlzhYcTyIzTtQXmj9CwUR2Mj9WIry0hWqxVIPmG2+xz3iUR7RKTiR6eHfDYcC9Z8k" +
-						"aZZzZRXX4PPkVByPPoSBwcLDdmQKk1GPRMdJN0pmiK3WWJ/T7SDq3Fq2z4sswIH+ifKKMdG6KHA7Ph3bhjDo8bOyg1GNyPN7NmJPK51+wY3iFunYIKGhxBUFd+FnGZpN0xDtJ5FJFZq4RWogS4WWHs" +
-						"Z2J7CR+tYQtnrI7D3mFSluoFkO5i6M3T3Gvr4IXQ3sg0cdgZujOQB6h0h6qw1INjsd7GHfSXJQ/MjuWozG8FyfxKd9nrv07yCNU2oI1WKrBsfhcdy3EN/IK2dEsjeG95BJ9xDLDxSHHcRxFxSnX1iu" +
-						"V3nKuzF7PJ1R6N+FXdY6NdDPpLm7byzO/kE1k2R2oIpaYg2rNJ+cGhcjfFw+AYRjTUqYb/Ire0xLdr7wz8lEei2WGiY2cLLrrwcwQg4m5OjVaT/F46UOA+ysorxVAAJpmnpEyLfyKv7slul95e+RDf" +
-						"p79vShwexy0dvFY6YMAwy5Kla4Z+aMpqJGmmb0LWGu0RqwFe8l6mqrSBwCuuVCl60bBxEXNoGnmaWmnFb/i71wt9nLgGXYG7ge4OoeYf9yes2TXabrZLe2U8Cv+U63RGvGbvLEsoiklVGjlAFcd193" +
-						"p91tLJi/b3ppudc1jH2z3b1vhp4Ehx3WrlkOKQvNYp5STfUKoi1/Jv4WUualAICCL5ax4YTUtMLFSzmriL1z5gWQ67XYNAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Metal mines"
-					},
-					"Industrial minerals": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA79JREFUSInN1ktMXFUYwPH" +
-						"/uVxmzoV5tBUGDe+SGmnwFWVBqQHUhYmJxo1xKZg2Pmh91IVJFWx140JXTapC62NtoombYmgHmoZQSUxUKDVWpuVheQ2tzAz3zMDc42KmIAwMUBvjtz3f/X7nnu87N9fkPwrzfwEpNV8F4iO0zr4hI" +
-						"X6S0nv8tiClYpVoJwiUgsjqoHlW2ZGd0vK+uS1IqWjFLWRy8Azhy19vaOS4A1Q0HEX6Ct9QdsSQlvf1LUG2HS1D6yBQPjnURXi4M+vLmHn3EOo5TmXje0hf4LCyI0Ja3sNZIduOlAp0EKiYvNRF+FJ" +
-						"HakEYoJ1MRbgoqW1GJ5cYHzhNSW0L0hc4pOx5IS3foXWhhYX5YgFBYPfUcDfhoRSy5+lOci0f8UiYqcHviE50rTytE4ycfYeKhmNU7G/l2oUTFD/ajPQXtaax1lWQ1tdz40oEgaqp4bPMDn66XCvX8" +
-						"iGEgfQVUlb3EtOXK1et66QiuWhjmHdTXNtCqOdDKhuOIv1Fryk7Mictb9syZNt+tyGSe6LTI8wOnlx1OvH5GaS/KHVSwmApNrdycoakpL4N0+3lt+9b2XXv8/hKGgj1fkD1MycA/cC6PUomExltmPz" +
-						"1W8rrDyKEgdYOySW1jJTubyPX2kEo+D7OYpjZoZN4ip/CScxl1Nn0yxC73s3UUAVJNY/WSUpqX2DMWWJX1WMppOcYTmJ6OT86cQaEa/sQsGbEDcr3NROPzjFyrh0nPrmVEtv71glD4i9/hHjsBjkui" +
-						"du3G3vmTkPCleqJ28NI97vkFTxEad0BRvsc1Gz/HYKESWl9O6bbm278LNE/f2DixyXK6g4y2qdR4Yv/EhImJfvayZVervakputWxCbPMX5xidK6A4z1Oai5geyQ4ziOkYOTf1eZ4drxIImbPy8nyJ0" +
-						"PY7osQr3t6MUbGQUWps8z1p8gUPMco+dTUMHeF9ObFIurII/Hs6BUpMV05Z2ubHjLCPV+soypuQGuBjfeKYCa7Wf0fKpPBTUvU1T9JKBDYLy9CgKQ0vuVUhFhuvJPpbCPSdz8JSuwNgpqXqGo+gmAE" +
-						"Y3RZEnPaAaUxr5cwY6I7WCFNa8SqH4c4A8NTZblGfvnesYwSOn9QtkRw3Tld2wVK7y/lcB9jQBXUoh3fG3OulMnLe8pZc8L05X/eWXDERGbubYhkpPrxhOoArjiaN2Yl+ebWC9vw/GWlq8zjX3mL96" +
-						"7yU8DvztaN22EZIXSWIdSf30jRE5OtjylklG/36+y5Wx6YaX0Z16e24i/AWg1hRJKTWppAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Nonmetal Mines"
-					},
-					"Oil Sands": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9VJREFUSInN1l9QVFUcwPH" +
-						"vucDuucveXZqCHXOkZakexFkcmHypRon+PFYPNT1UY0zAiEBKJmjiKDqF04zUWA+IWk0PvTiNNtWI5hDj+CCwFskb/8JyKvk37gL3uLD39sC2hguLmNN0Xn+/+/ucP79z5qbzH430/wWkVDgfxCFsO" +
-						"/WEhLgspdF0V5BS03nYVgewBkRKB5vnlRm5T+rG9hVBSk35/0b6v23natsXSxoZq7Ip2r8bd072NmVGNKkbb90RZJpTudh2B/BQ/3ftjHx8POVinA+u4vKeAxQd3IM7J6dWmREhdaM2JWSakTUCuwP" +
-						"wD5xpZ+RIHNE0sKwkRDgdFFRuJjY3R1/rCdZVlOH25dQoMyyk7qlZFJqZCa8W0AEEBs9+zy8fzSOPf3kU6fUwPTrOwFenGTt9NvGxfTNKV+0uij7YR1FdNT+2fMLa8s0YPl91HKteANn27xk3legA8" +
-						"ofOnWe45WiimPR6EELDnZNNYWUZQwH/gritbjJrKtKdTgrK3+By43sUHdiF2+fbqszIhNSNvQnINL1OTcQeGR8cYuhw64Ltmb4+itvnm98qoaHGJ25tnS4Jvr8H6THoLKsh99WXeKD0SULvHmTjsSO" +
-						"AHVz0jGLRaNI59J88xfqqcoTQsG2LmKluIc2N6FleeuqbiI1OMNzSSvYLzzE3NplUZ9mXYfyb8wz4/UTDN8CyKXjtFey5GKs3PYHMyiK0u4m5P64n8kdPtSOcjpVDwMIWFxCs2Iw5NkF3wz5mr/15J" +
-						"yVW9tYJXeJ7rBhzYpJ0l8T1aIAb9xoSTgfB5kachpuut/eStaGQYNWb9FoW4c5L9wjKSCfY3Ij0GITqm5i7PsbY1+foi85SWFXOT5ZF5EL3v4TiiNNj0LNzH7HRW+09eeYH+mIxglXl/GzZRC72pIY" +
-						"sy7K0NKwsf66WuaGQ6a7eRIKxYT0ZLp3Qzv3ExpPbdvLcBa5EowRefpHeOOTf8vp8UIjZBZDb7Z5RKlLm0F0niuu3aaFDHyawyMUeQilmChDuvERv/JzytleQ/+zTgD0M2o4FEICUxudKRYTDlXm8u" +
-						"H6bFmo+zHT3lZTA7SNQV0ngmVKAIRutRJfuq0lQHPssgTXUiZVggR1bCJSWAAzaUKLr7l//GU9qBimNT5UZ0RyuzLY7xfLf2UreUxsBBuYR47fbcxbtOqkbx5UZFg5X5tHihjoxOTSyJJIundz/cD7" +
-						"AgGXbm1wuz7VF85YqIHXPsTjW6lu3dpmfBvot2y5ZCkkJxbE2pW6cFCItLVWeUrEpr9erUuUse2Gl9CZfnrsYfwFqWYQCxROHDQAAAABJRU5ErkJggg==",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Oil sands mines"
-					}
-				},
-				select: {
-					externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAACKElEQVR42uWWMU/bQBTHWVBR1aUSG7Sl4oMBoiwd+gEYGBgqWIoCLDDCBEUIqUJqB6TOEe1" +
-					"QCQGOEyeRHBTHl/OLfTkvcNwz2NDkzrGTpVItPeXknPy7/3t/vXdjY//V43nNWR/gyHGcEwzSbJ6QRuMp5DtXvuMcVkaAeO8BoM59X4QyuCZC/hDdrreRG0IpneEereKHXkyxgWH9KUcw33ULmSHtdvutT" +
-					"JeVFRLHr5+lGLY5EEIIecMpLeeBXBZNcfbNSNZRGhlsaSGu604Frmv2Qki1KjiAMH6bWtiPY0NAoxGtLxIY3e6DnJ/vjAcAhkoJQpLiy7UKtLFuCN9xxFXRfFLW9QVjsPoXSFr3FTrrYO9amZrnLlNBLov" +
-					"9akPmC7S/ErS2WlKeOFHVo6ggIVdFdUpxvxKEf3zWgJ6H32olkFalot0XpoEwDVmchspa0iRpexDk6EBfMoBQCToRbm7SDzOKot7Cx5bWgRzZB3PXqKBxF9Tr+RSFKYrQjd8P9WqJol48UIBs237JO3BLb" +
-					"Fv5odPDwbXrPeRDR4evfd0h6HTmpJtuaUreswZCeNeryAb9TtnvOpTOI4yMAIsgAGWcAqkdHChdkBvvhoFxhs3UM3EKZJpJjNLFvDAsPg+gJCHTuaasTOMHhFFpELT9yrIZ/a49rj99LEfr/V1DhI8QHDV" +
-					"D3RsY85YQ1ndPiNcIwHEQgDE0JH5qtdpraf/JtLAsa+KfubrdA6qupf9mD9mBAAAAAElFTkSuQmCC",
-					graphicOpacity: "1"
-				}
-			}
-		},
-		{
-			title: "TopoJSON (World 110m)",
-			caption: "This is a sample dataset loaded from a remote TopoJSON resource.",
-			type: "topojson",
-			url: "demo/topojson.json",
-			accessible: false,
-			visible: false,
-			style: {
-				strokeColor: "#3399ff",
-				strokeWidth: 2.0
-			}
-		},
-		{
-			title: "Esri REST Tile Layer",
-			caption: "This is a sample dataset loaded from a remote Esri REST tile service.",
-			type: "esritile",
-			url: "//maps-cartes.services.geo.ca/server_serveur/rest/services/NRCan/Carte_climatique_HOT2000_Climate_Map_EN/MapServer/",
-			params: {
-				LAYERS: "show:0"
-			},
-			visible: false,
-			datatable: false,
-			options: {
-				legendHTML: "<ul class='list-unstyled'>" +
-					"<li><small>Weather Station</small><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFZJREFUOI3t0TEKwDAMQ1F9yIFzlN5YHUqgpOA2TZaANdnLQ9hFi1MSTPCKbbcZYAq0bWq3B2gI9pgkUWN086cAPG54xI95bdjQ+/674VdkGBxJgvM5AZAOH6jK5pnSAAAAAElFTkSuQmCC'></li>" +
-					"</ul>"
-			}
-		},
-		{
-			title: "EsriJSON",
-			caption: "This is a sample dataset loaded from a remote Esri JSON resource.",
-			type: "esrijson",
-			url: "https://geoappext.nrcan.gc.ca/arcgis/rest/services/FGP/TMX_EN/MapServer/2/query?where=OBJECTID>0&f=pjson",
-			attributes: {
-				Type: "Type"
-			},
-			visible: false,
-			zoom: true,
-			style: {
-				strokeColor: "#FF0000",
-				strokeWidth: 2.0,
-				strokeDash: [ 6, 6 ]
-			}
-		},
-		{
-			title: "JSON (Earthquakes)",
-			caption: "This is a sample dataset loaded from a remote JSON resource, in this case the USGS Earthquakes API.",
-			type: "json",
-			url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
-			visible: false,
-			popups: true,
-			datatable: true,
-			zoom: true,
-			root: "features",
-			attributes: {
-				title: { path: "properties", alias: "Title" },
-				mag: { path: "properties", alias: "Magnitude" },
-				time: { path: "properties", alias: "Time" }
-			},
-			style: {
-				type: "rule",
-				rule: [
-					{
-						field: "Magnitude",
-						value: [ 2 ],
-						filter: "LESS_THAN",
-						name: "M < 2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#000066",
-							pointRadius: 2.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 2, 2.9 ],
-						filter: "BETWEEN",
-						name: "M-2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#6600cc",
-							pointRadius: 4.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 3, 3.9 ],
-						filter: "BETWEEN",
-						name: "M-3",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#990099",
-							pointRadius: 6.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 4, 4.9 ],
-						filter: "BETWEEN",
-						name: "M-4",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#ff0000",
-							pointRadius: 8,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5, 5.9 ],
-						filter: "BETWEEN",
-						name: "M-5",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff6600",
-							pointRadius: 14,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5.9 ],
-						filter: "GREATER_THAN",
-						name: "M-6+",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff9933",
-							pointRadius: 18,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					}
-				] }
-		},
-		{
-			title: "GeoJSON (CartoDB)",
-			caption: "This is a sample dataset loaded from a remote GeoJSON resource, in this case traffic cameras in the city of Ottawa from the CartoDB API.",
-			type: "geojson",
-			url: "//stephenott.cartodb.com/api/v2/sql",
-			params: {
-				format: "GeoJSON",
-				q: "SELECT * FROM traffic_cameras LIMIT 25"
-			},
-			attributes: {
-				location_desc: "Location",
-				longitude: "Latitude",
-				latitude: "Longitude",
-				updated_at: "Last updated"
-			},
-			visible: false,
-			zoom: true,
-			datatable: true,
-			style: {
-				type: "symbol",
-				init: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera.png",
-					graphicOpacity: 1.0
-				},
-				select: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera_active.png",
-					graphicOpacity: 1.0
-				}
-			}
-		}
-	]
-};
-
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Basic Map",
-		type: "esri",
-		url: "//geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/provinces1c/MapServer/export",
-		options: { singleTile: false, ratio: 1.0, projection: "EPSG:3978", fractionalZoom: true },
-		mapOptions: {
-			maxExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			restrictedExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			numZoomLevels: 2
-		}
-	}
-};
-
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Basic Map",
-		type: "esri",
-		url: "//geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/provinces1c/MapServer/export",
-		options: { singleTile: false, ratio: 1.0, projection: "EPSG:3978", fractionalZoom: true },
-		mapOptions: {
-			maxExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			restrictedExtent: "-3000000.0, -800000.0, 4000000.0, 3900000.0",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			numZoomLevels: 2
-		}
-	}
-};
-
-/*
- * Les composantes individuelles seront substituées par les compasantes globales
- *
- * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
- * (c'est à dire la première couche sera ajouté en premier, puis la suivante
- * sur le dessus, et ainsi de suite).
- *
- * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONNEL: Géomap va fournir une carte de base par défaut si aucune carte de base n"est spécifié ici.
-	/*basemap: {
-		title: "WMS-Toporama",
-		type: "wms",
-		url: "http://wms.ess-ws.nrcan.gc.ca/wms/toporama_en",
-		version: "1.1.1",
-		format: "image/jpeg",
-		layers: "WMS-Toporama",
-		mapOptions: {
-			maxExtent: "-2650000.0, -900000.0, 3600000.0, 4630000.0",
-			restrictedExtent: "-2750000.0, -1000000.0, 3700000.0, 4730000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			aspectRatio: 0.8
-		}
-	},*/
-	overlays: [
-		{
-			title: "WMS",
-			caption: "Ceci est un exemple de service WMS chargé par Geomap.",
-			type: "wms",
-			url: "//geo.weather.gc.ca/geomet?lang=en",
-			visible: false,
-			version: "1.3.0",
-			format: "image/png",
-			layers: "GDPS.ETA_PR",
-			transparent: true,
-			options: {
-				opacity: 0.5,
-
-				//legendGraphicUrl: "http://geo.weather.gc.ca/geomet/?Lang=E&LAYERS=GDPS.ETA_PR&VERSION=1.1.1&FORMAT=image%2Fpng&SERVICE=WMS&REQUEST=GetLegendGraphic&STYLE=PRECIPMM"
-				legendHTML: "<small>GeoMet Precipitation (mm)</small>" +
-						"<ul class='list-unstyled'>" +
-						"<li><span style='background-color:#800000;display:inline-block;height:20px;width:20px'/> <small>100.0</small></li>" +
-						"<li><span style='background-color:#FF0000;display:inline-block;height:20px;width:20px'/> <small>50.0</small></li>" +
-						"<li><span style='background-color:#FF4500;display:inline-block;height:20px;width:20px'/> <small>25.0</small></li>" +
-						"<li><span style='background-color:#FFA500;display:inline-block;height:20px;width:20px'/> <small>20.0</small></li>" +
-						"<li><span style='background-color:#FFD700;display:inline-block;height:20px;width:20px'/> <small>15.0</small></li>" +
-						"<li><span style='background-color:#E5E500;display:inline-block;height:20px;width:20px'/> <small>10.0</small></li>" +
-						"<li><span style='background-color:#7FFF00;display:inline-block;height:20px;width:20px'/> <small>7.5</small></li>" +
-						"<li><span style='background-color:#7FFFD4;display:inline-block;height:20px;width:20px'/> <small>5.0</small></li>" +
-						"<li><span style='background-color:#00FFFF;display:inline-block;height:20px;width:20px'/> <small>2.5</small></li>" +
-						"<li><span style='background-color:#87CEFA;display:inline-block;height:20px;width:20px'/> <small>1.0</small></li>" +
-						"<li><span style='background-color:#1E90FF;display:inline-block;height:20px;width:20px'/> <small>0.5</small></li>" +
-						"<li><span style='background-color:#0000CD;display:inline-block;height:20px;width:20px'/> <small>0.25</small></li>" +
-						"<li><span style='background-color:#000080;display:inline-block;height:20px;width:20px'/> <small>0.10</small></li>" +
-						"</ul>"
-			}
-		},
-		{
-			title: "KML",
-			caption: "Ces données sont extraites de la publication <a href=\"http://geogratis.gc.ca/api/en/nrcan-rncan/ess-sst/457ede2f-fd65-5936-ab60-3fe71da0e98b\">Principales régions minérales du Canada</a>.",
-			type: "kml",
-			url: "demo/producing-mines.kml",
-			visible: false,
-			datatable: true,
-			tooltips: true,
-			tooltipText: "Opération",
-			popups: true,
-			attributes: {
-				Type_: "Type",
-				OwnersF: "Opérateur / propriétaire",
-				OperationF: "Opération",
-				ComGroupF: "Groupe de produits minéraux",
-				CommodityF: "Produit minérale"
-			},
-			style: {
-				type: "unique",
-				field: "Type",
-				init: {
-					"Coal": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA+hJREFUSInN1n9MVWUYwPH" +
-						"vOfeC51zvubeQiwtDCS37sZxbP5YaKbVqaw1W/DKCQiaEBfYD19ZabrlaMp0tNREItJBoDabWrC2pK1qbxXRMmoMwDav1R8GFe4DzAvee0x/iTbpwuZRrPf++z/t8znPe57w7dv6jsP8vICH8i0Gqx" +
-						"LIiP5AknVYUbcs/goQYvgHL9AJJIEV0sMgQhn6tomovzgoSYij5MnLU20bzkc+nNeKucfNSaQme+HkvCEOXFVV7PirIMIYWYlleYFHrsTaaDn8asRlPXBzbqqrZtKGEhPj4jcLQJUXVNkaEDENPkrC" +
-						"8QPKXbcf58NAlRJJlLNMMQ2LsdvJzMgkGgjR83ExBThYJ8fHlwvBLiuoqnxIaGfEvkMALpHx14gSNBz8BYMeW13BpGn19Pj472krbt+2hzeOBAFt27OSVslJKCwuo3t/Ak9mZzPd4yiawskmQZf0WM" +
-						"yokL7D42IlvONByOFTMpWnIkownfh4Fa7NJuj5x0vr42BgjQpAQm0B+Thbb99RQsaGY+R7Pc8LQ+xVV2xyCDMM9R5aCN17o7eWDloOTXs/vf/Qx3+MBQJZkfL7B0Fqs3U7FsyW4nE5efv1N0h96gBV" +
-						"3LGdbVQ3bN78KWMumPKOxsfGwczjyRSuFebnIkoxpmYyOjU5C3C4XW3dVMajrNLQcYvU9d6H79bA6M94MX7efIikxEb+uY1om2RnpBIImK+++E7fLReW7exkY/KvLtpPtxNjDy0Z1BV054rIkU5CbR" +
-						"X+/j7d2V9Hf74umxOzuuli7neW334ZvYBBVVViUeN3Vh2ImzsQ5dy5vvL2LZUuXsO6JHKzGj+g423V1IJvNRkXpelxOJ5W79zLg93P8u1OMBYKsy8ul7kATZ7p++HeQzWaj4pn1aJoWmq7LcfJ0B8F" +
-						"AgMK8texrbKKzuycyZJqmKdswFyYtkG9OSabr/E+hhFuXpKCqClt37kEfHg4r0H7me8YDAR59+MEQlJP+yKVFSQp9L3YAp9M5IoRepCpqfVlxkby7tj6EdXb30Nn9TsSuO852hc4pPzOD+1NTAesCy" +
-						"JsmQQCKor0vhC45VEddWXGRvKu2nu4rOosmnsp8jDWpqwDOW8hpquK8GAZNYPsvY+XFRdJssKezHmf1vSsBfrQgTVWdP1+5HjYMiqLtE4YuO1RHbbRYYXYm961aAXDuEqL98vecKadOUbU6Yfglh+q" +
-						"oKS8uknovhu0LxRwllpRFyQDnTMta43C4fp0qb9rxVlTXexNY9S1Lb5rhp4Ee07LSpkMiQhNYrRCDzZJks0XKEyI45Ha7RaScGT9YRXFHd5nNEH8C+eGD9m6tNTgAAAAASUVORK5CYII=",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de charbon"
-					},
-					"Metal mines and mills": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9FJREFUSInN1ltoHFUYwPH" +
-						"/mdndzKwzs6l7Iy1N25S+FCLaF69gg5cHq6S2FUSaS5OqD6YxASklgUpTCgqCIki1uTRF0QcDIlJpaWpES4UgrljBh7RRqsVmN5fNbpo52ezO+JBkcZtkk2gRv9fznfObc77vHMbDfxSe/wUkZWori" +
-						"Ddx3eIfJMQPmmZ2/CNIyltbcJ0BYCOIog4u1dJOr9N0s3VNkJRTmxeQcxPf8vFU/7JGSLE4Eq4n4gu2SDutaLr56qog254qx3UHgE3nJy5xJn2+6Gai6jpOJHpojzQQ8QabpZ0Wmm42F4VsO71R4A4" +
-						"Amy8kL9GbPgeAgoKDswjxCpUDwWqybo7TY59RH9xN1Bs6JO2U0HTr0JLQ9HRqg4ABoKI/eZme1Bxycv1hLI/JaGacLya/pt+O5SfPujnab77P65EGmiIv8F78E+ruribqCzXNY00FkOv+6Z2RYgDYe" +
-						"jH5Hd2pL/OLWR4DBUHEF+RAeA+bkmUF4zNkmHYkURGmLljNG/FejoTrifpCr0g7Pa7p5tE8ZNuBEkXktg3L63SlzhYcTyIzTtQXmj9CwUR2Mj9WIry0hWqxVIPmG2+xz3iUR7RKTiR6eHfDYcC9Z8k" +
-						"aZZzZRXX4PPkVByPPoSBwcLDdmQKk1GPRMdJN0pmiK3WWJ/T7SDq3Fq2z4sswIH+ifKKMdG6KHA7Ph3bhjDo8bOyg1GNyPN7NmJPK51+wY3iFunYIKGhxBUFd+FnGZpN0xDtJ5FJFZq4RWogS4WWHs" +
-						"Z2J7CR+tYQtnrI7D3mFSluoFkO5i6M3T3Gvr4IXQ3sg0cdgZujOQB6h0h6qw1INjsd7GHfSXJQ/MjuWozG8FyfxKd9nrv07yCNU2oI1WKrBsfhcdy3EN/IK2dEsjeG95BJ9xDLDxSHHcRxFxSnX1iu" +
-						"V3nKuzF7PJ1R6N+FXdY6NdDPpLm7byzO/kE1k2R2oIpaYg2rNJ+cGhcjfFw+AYRjTUqYb/Ire0xLdr7wz8lEei2WGiY2cLLrrwcwQg4m5OjVaT/F46UOA+ysorxVAAJpmnpEyLfyKv7slul95e+RDf" +
-						"p79vShwexy0dvFY6YMAwy5Kla4Z+aMpqJGmmb0LWGu0RqwFe8l6mqrSBwCuuVCl60bBxEXNoGnmaWmnFb/i71wt9nLgGXYG7ge4OoeYf9yes2TXabrZLe2U8Cv+U63RGvGbvLEsoiklVGjlAFcd193" +
-						"p91tLJi/b3ppudc1jH2z3b1vhp4Ehx3WrlkOKQvNYp5STfUKoi1/Jv4WUualAICCL5ax4YTUtMLFSzmriL1z5gWQ67XYNAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de métaux"
-					},
-					"Industrial minerals": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA79JREFUSInN1ktMXFUYwPH" +
-						"/uVxmzoV5tBUGDe+SGmnwFWVBqQHUhYmJxo1xKZg2Pmh91IVJFWx140JXTapC62NtoombYmgHmoZQSUxUKDVWpuVheQ2tzAz3zMDc42KmIAwMUBvjtz3f/X7nnu87N9fkPwrzfwEpNV8F4iO0zr4hI" +
-						"X6S0nv8tiClYpVoJwiUgsjqoHlW2ZGd0vK+uS1IqWjFLWRy8Azhy19vaOS4A1Q0HEX6Ct9QdsSQlvf1LUG2HS1D6yBQPjnURXi4M+vLmHn3EOo5TmXje0hf4LCyI0Ja3sNZIduOlAp0EKiYvNRF+FJ" +
-						"HakEYoJ1MRbgoqW1GJ5cYHzhNSW0L0hc4pOx5IS3foXWhhYX5YgFBYPfUcDfhoRSy5+lOci0f8UiYqcHviE50rTytE4ycfYeKhmNU7G/l2oUTFD/ajPQXtaax1lWQ1tdz40oEgaqp4bPMDn66XCvX8" +
-						"iGEgfQVUlb3EtOXK1et66QiuWhjmHdTXNtCqOdDKhuOIv1Fryk7Mictb9syZNt+tyGSe6LTI8wOnlx1OvH5GaS/KHVSwmApNrdycoakpL4N0+3lt+9b2XXv8/hKGgj1fkD1MycA/cC6PUomExltmPz" +
-						"1W8rrDyKEgdYOySW1jJTubyPX2kEo+D7OYpjZoZN4ip/CScxl1Nn0yxC73s3UUAVJNY/WSUpqX2DMWWJX1WMppOcYTmJ6OT86cQaEa/sQsGbEDcr3NROPzjFyrh0nPrmVEtv71glD4i9/hHjsBjkui" +
-						"du3G3vmTkPCleqJ28NI97vkFTxEad0BRvsc1Gz/HYKESWl9O6bbm278LNE/f2DixyXK6g4y2qdR4Yv/EhImJfvayZVervakputWxCbPMX5xidK6A4z1Oai5geyQ4ziOkYOTf1eZ4drxIImbPy8nyJ0" +
-						"PY7osQr3t6MUbGQUWps8z1p8gUPMco+dTUMHeF9ObFIurII/Hs6BUpMV05Z2ubHjLCPV+soypuQGuBjfeKYCa7Wf0fKpPBTUvU1T9JKBDYLy9CgKQ0vuVUhFhuvJPpbCPSdz8JSuwNgpqXqGo+gmAE" +
-						"Y3RZEnPaAaUxr5cwY6I7WCFNa8SqH4c4A8NTZblGfvnesYwSOn9QtkRw3Tld2wVK7y/lcB9jQBXUoh3fG3OulMnLe8pZc8L05X/eWXDERGbubYhkpPrxhOoArjiaN2Yl+ebWC9vw/GWlq8zjX3mL96" +
-						"7yU8DvztaN22EZIXSWIdSf30jRE5OtjylklG/36+y5Wx6YaX0Z16e24i/AWg1hRJKTWppAAAAAElFTkSuQmCC",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de non-métaux"
-					},
-					"Oil Sands": {
-						externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAA9VJREFUSInN1l9QVFUcwPH" +
-						"vucDuucveXZqCHXOkZakexFkcmHypRon+PFYPNT1UY0zAiEBKJmjiKDqF04zUWA+IWk0PvTiNNtWI5hDj+CCwFskb/8JyKvk37gL3uLD39sC2hguLmNN0Xn+/+/ucP79z5qbzH430/wWkVDgfxCFsO" +
-						"/WEhLgspdF0V5BS03nYVgewBkRKB5vnlRm5T+rG9hVBSk35/0b6v23natsXSxoZq7Ip2r8bd072NmVGNKkbb90RZJpTudh2B/BQ/3ftjHx8POVinA+u4vKeAxQd3IM7J6dWmREhdaM2JWSakTUCuwP" +
-						"wD5xpZ+RIHNE0sKwkRDgdFFRuJjY3R1/rCdZVlOH25dQoMyyk7qlZFJqZCa8W0AEEBs9+zy8fzSOPf3kU6fUwPTrOwFenGTt9NvGxfTNKV+0uij7YR1FdNT+2fMLa8s0YPl91HKteANn27xk3legA8" +
-						"ofOnWe45WiimPR6EELDnZNNYWUZQwH/gritbjJrKtKdTgrK3+By43sUHdiF2+fbqszIhNSNvQnINL1OTcQeGR8cYuhw64Ltmb4+itvnm98qoaHGJ25tnS4Jvr8H6THoLKsh99WXeKD0SULvHmTjsSO" +
-						"AHVz0jGLRaNI59J88xfqqcoTQsG2LmKluIc2N6FleeuqbiI1OMNzSSvYLzzE3NplUZ9mXYfyb8wz4/UTDN8CyKXjtFey5GKs3PYHMyiK0u4m5P64n8kdPtSOcjpVDwMIWFxCs2Iw5NkF3wz5mr/15J" +
-						"yVW9tYJXeJ7rBhzYpJ0l8T1aIAb9xoSTgfB5kachpuut/eStaGQYNWb9FoW4c5L9wjKSCfY3Ij0GITqm5i7PsbY1+foi85SWFXOT5ZF5EL3v4TiiNNj0LNzH7HRW+09eeYH+mIxglXl/GzZRC72pIY" +
-						"sy7K0NKwsf66WuaGQ6a7eRIKxYT0ZLp3Qzv3ExpPbdvLcBa5EowRefpHeOOTf8vp8UIjZBZDb7Z5RKlLm0F0niuu3aaFDHyawyMUeQilmChDuvERv/JzytleQ/+zTgD0M2o4FEICUxudKRYTDlXm8u" +
-						"H6bFmo+zHT3lZTA7SNQV0ngmVKAIRutRJfuq0lQHPssgTXUiZVggR1bCJSWAAzaUKLr7l//GU9qBimNT5UZ0RyuzLY7xfLf2UreUxsBBuYR47fbcxbtOqkbx5UZFg5X5tHihjoxOTSyJJIundz/cD7" +
-						"AgGXbm1wuz7VF85YqIHXPsTjW6lu3dpmfBvot2y5ZCkkJxbE2pW6cFCItLVWeUrEpr9erUuUse2Gl9CZfnrsYfwFqWYQCxROHDQAAAABJRU5ErkJggg==",
-						fillOpacity: "1",
-						graphicWidth: "25",
-						name: "Mines de sables bitumineux"
-					}
-				},
-				select: {
-					externalGraphic: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAACKElEQVR42uWWMU/bQBTHWVBR1aUSG7Sl4oMBoiwd+gEYGBgqWIoCLDDCBEUIqUJqB6TOEe1" +
-					"QCQGOEyeRHBTHl/OLfTkvcNwz2NDkzrGTpVItPeXknPy7/3t/vXdjY//V43nNWR/gyHGcEwzSbJ6QRuMp5DtXvuMcVkaAeO8BoM59X4QyuCZC/hDdrreRG0IpneEereKHXkyxgWH9KUcw33ULmSHtdvutT" +
-					"JeVFRLHr5+lGLY5EEIIecMpLeeBXBZNcfbNSNZRGhlsaSGu604Frmv2Qki1KjiAMH6bWtiPY0NAoxGtLxIY3e6DnJ/vjAcAhkoJQpLiy7UKtLFuCN9xxFXRfFLW9QVjsPoXSFr3FTrrYO9amZrnLlNBLov" +
-					"9akPmC7S/ErS2WlKeOFHVo6ggIVdFdUpxvxKEf3zWgJ6H32olkFalot0XpoEwDVmchspa0iRpexDk6EBfMoBQCToRbm7SDzOKot7Cx5bWgRzZB3PXqKBxF9Tr+RSFKYrQjd8P9WqJol48UIBs237JO3BLb" +
-					"Fv5odPDwbXrPeRDR4evfd0h6HTmpJtuaUreswZCeNeryAb9TtnvOpTOI4yMAIsgAGWcAqkdHChdkBvvhoFxhs3UM3EKZJpJjNLFvDAsPg+gJCHTuaasTOMHhFFpELT9yrIZ/a49rj99LEfr/V1DhI8QHDV" +
-					"D3RsY85YQ1ndPiNcIwHEQgDE0JH5qtdpraf/JtLAsa+KfubrdA6qupf9mD9mBAAAAAElFTkSuQmCC",
-					graphicOpacity: "1"
-				}
-			}
-		},
-		{
-			title: "TopoJSON (World 110m)",
-			caption: "Voici un exemple de jeu de données chargé à partir d'une ressource TopoJSON distante.",
-			type: "topojson",
-			url: "demo/topojson.json",
-			accessible: false,
-			visible: false,
-			style: {
-				strokeColor: "#3399ff",
-				strokeWidth: 2.0
-			}
-		},
-		{
-			title: "Esri REST Tile Layer",
-			caption: "Il s'agit d'un exemple de jeu de données chargé à partir d'un service de tuiles REST Esri distant.",
-			type: "esritile",
-			url: "//maps-cartes.services.geo.ca/server_serveur/rest/services/NRCan/Carte_climatique_HOT2000_Climate_Map_EN/MapServer/",
-			params: {
-				LAYERS: "show:0"
-			},
-			visible: false,
-			datatable: false,
-			options: {
-				legendHTML: "<ul class='list-unstyled'>" +
-					"<li><small>Weather Station</small><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAFZJREFUOI3t0TEKwDAMQ1F9yIFzlN5YHUqgpOA2TZaANdnLQ9hFi1MSTPCKbbcZYAq0bWq3B2gI9pgkUWN086cAPG54xI95bdjQ+/674VdkGBxJgvM5AZAOH6jK5pnSAAAAAElFTkSuQmCC'></li>" +
-					"</ul>"
-			}
-		},
-		{
-			title: "EsriJSON",
-			caption: "Ceci est un exemple de jeu de données chargé à partir d'une ressource Esri JSON distante.",
-			type: "esrijson",
-			url: "https://geoappext.nrcan.gc.ca/arcgis/rest/services/FGP/TMX_EN/MapServer/2/query?where=OBJECTID>0&f=pjson",
-			attributes: {
-				Type: "Type"
-			},
-			visible: false,
-			zoom: true,
-			style: {
-				strokeColor: "#FF0000",
-				strokeWidth: 2.0,
-				strokeDash: [ 6, 6 ]
-			}
-		},
-		{
-			title: "JSON (Earthquakes)",
-			caption: "Il s'agit d'un exemple de jeu de données chargé à partir d'une ressource JSON distante, dans ce cas l'API USGS Earthquakes.",
-			type: "json",
-			url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
-			visible: false,
-			popups: true,
-			datatable: true,
-			zoom: true,
-			root: "features",
-			attributes: {
-				title: { path: "properties", alias: "Titre" },
-				mag: { path: "properties", alias: "Magnitude" },
-				time: { path: "properties", alias: "Temps" }
-			},
-			style: {
-				type: "rule",
-				rule: [
-					{
-						field: "Magnitude",
-						value: [ 2 ],
-						filter: "LESS_THAN",
-						name: "M < 2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#000066",
-							pointRadius: 2.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 2, 2.9 ],
-						filter: "BETWEEN",
-						name: "M-2",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#6600cc",
-							pointRadius: 4.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 3, 3.9 ],
-						filter: "BETWEEN",
-						name: "M-3",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#990099",
-							pointRadius: 6.5,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 4, 4.9 ],
-						filter: "BETWEEN",
-						name: "M-4",
-						init: {
-							strokeColor: "#333333",
-							fillColor: "#ff0000",
-							pointRadius: 8,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5, 5.9 ],
-						filter: "BETWEEN",
-						name: "M-5",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff6600",
-							pointRadius: 14,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					},
-					{
-						field: "Magnitude",
-						value: [ 5.9 ],
-						filter: "GREATER_THAN",
-						name: "M-6+",
-						init: {
-							graphicName: "star",
-							strokeColor: "#333333",
-							fillColor: "#ff9933",
-							pointRadius: 18,
-							fillOpacity: 0.8,
-							strokeWidth: 1.0
-						}
-					}
-				] }
-		},
-		{
-			title: "GeoJSON (CartoDB)",
-			caption: "Ceci est un exemple de jeu de données chargé à partir d'une ressource GeoJSON distante, dans ce cas les caméras de circulation dans la ville d'Ottawa à partir de l'API CartoDB",
-			type: "geojson",
-			url: "//stephenott.cartodb.com/api/v2/sql",
-			params: {
-				format: "GeoJSON",
-				q: "SELECT * FROM traffic_cameras LIMIT 25"
-			},
-			attributes: {
-				location_desc: "Emplacement",
-				longitude: "Latitude",
-				latitude: "Longitude",
-				updated_at: "Dernière mise à jour"
-			},
-			visible: false,
-			zoom: true,
-			datatable: true,
-			style: {
-				type: "symbol",
-				init: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera.png",
-					graphicOpacity: 1.0
-				},
-				select: {
-					graphicWidth: 32,
-					graphicHeight: 37,
-					externalGraphic: "demo/trafficcamera_active.png",
-					graphicOpacity: 1.0
-				}
-			}
-		}
-	]
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with OSM basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "OSM Map",
-		type: "osm",
-		mapOptions: {
-			center: [ -52.7222765, 47.5410882 ],
-			zoomLevel: 11
-		}
-	}
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with OSM basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "OSM Map",
-		type: "osm",
-		mapOptions: {
-			center: [ -52.7222765, 47.5410882 ],
-			zoomLevel: 11
-		}
-	}
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with Tile basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Tile (XYZ) Source Map",
-		type: "osm",
-		url: [
-			"//otile1.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile2.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile3.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile4.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png"
-		],
-		mapOptions: {
-			projection: "EPSG:900913",
-			center: [ -123, 49 ],
-			zoomLevel: 5
-		}
-	}
-};
-
-///*
-// * @title WET-BOEW Geomap English config file
-// * @overview Example English configuration file for Geomap with Tile basemap
-// * @license wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html
-// * @author @jvanulde
-// */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-	basemap: {
-		title: "Tile (XYZ) Source Map",
-		type: "osm",
-		url: [
-			"//otile1.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile2.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile3.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-			"//otile4.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png"
-		],
-		mapOptions: {
-			projection: "EPSG:900913",
-			center: [ -123, 49 ],
-			zoomLevel: 5
-		}
-	}
-};
-
-/*
- * Global overrides for individual components
- *
- * Map Overlays (i.e. layers)
- * Overlays will be added in the order that they are provided
- * (i.e. the first overlay will be added first, then the next
- * on top, and so on).
- *
- * Note that the basemap can be set globally in settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONAL: note that Geomap will provide a default basemap if not specified here.
-	basemap: {
-		title: "WMS-Toporama",
-		type: "wms",
-		url: "//maps.geogratis.gc.ca/wms/toporama_en",
-		version: "1.3.0",
-		format: "image/png",
-		layers: "limits",
-		mapOptions: {
-			maxExtent: "-2650000.0, -900000.0, 3600000.0, 4630000.0",
-			restrictedExtent: "-2750000.0, -1000000.0, 3700000.0, 4730000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			aspectRatio: 0.8
-		}
-	},
-	overlays: []
-};
-
-/*
- * Les composantes individuelles seront substituées par les compasantes globales
- *
- * Les couche de superpositions seront ajoutés dans l'ordre où ils sont fournis
- * (c'est à dire la première couche sera ajouté en premier, puis la suivante
- * sur le dessus, et ainsi de suite).
- *
- * Prennez note, la carte de base peut être définie globalement dans le fichier settings.js.
- */
-/*jshint unused:false*/
-var wet_boew_geomap = {
-
-	// OPTIONNEL: Géomap va fournir une carte de base par défaut si aucune carte de base n"est spécifié ici.
-	basemap: {
-		title: "WMS-Toporama",
-		type: "wms",
-		url: "//maps.geogratis.gc.ca/wms/toporama_fr",
-		version: "1.3.0",
-		format: "image/png",
-		layers: "WMS-Toporama",
-		mapOptions: {
-			maxExtent: "-2650000.0, -900000.0, 3600000.0, 4630000.0",
-			restrictedExtent: "-2750000.0, -1000000.0, 3700000.0, 4730000.0",
-			maxResolution: "auto",
-			projection: "EPSG:3978",
-			units: "m",
-			displayProjection: "EPSG:4269",
-			aspectRatio: 0.8
-		}
-	},
-	overlays: []
-};
+} )( jQuery, window, wb );
